@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="PictioTheme · Draw it. Guess it. Theme it.">
+  <main class="mx-auto flex min-h-dvh max-w-3xl flex-col items-center justify-center gap-8 px-4 py-16 text-center">
+    <h1 class="font-display text-5xl font-bold tracking-tight sm:text-6xl">
+      Draw it. Guess it. <span class="text-brand-600">Theme it.</span>
+    </h1>
+    <p class="max-w-xl text-lg text-zinc-600 dark:text-zinc-400">
+      A multiplayer drawing game where every match has a theme, with endless decks and a Silly
+      Mode that makes everyone laugh.
+    </p>
+    <a
+      href="/play"
+      class="rounded-full bg-brand-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+    >
+      Play now — no sign-up
+    </a>
+  </main>
+</BaseLayout>

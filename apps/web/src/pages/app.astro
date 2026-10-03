@@ -1,0 +1,9 @@
+---
+import { App } from '../app/main';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<!-- The single shell for the React app. Every app route is rewritten here (see src/app-routes.ts). -->
+<BaseLayout>
+  <App client:only="react" />
+</BaseLayout>

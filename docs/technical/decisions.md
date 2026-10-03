@@ -1,0 +1,108 @@
+# Technical Decisions
+
+A log of locked technical decisions. Each entry says what was chosen, why, what was rejected, and when to revisit. To change a decision, add a new entry that supersedes the old one instead of editing it.
+
+Overall constraint behind all of them: **hosting cost as close to zero as possible.** An existing VM and a domain are already paid for.
+
+---
+
+## D1 — Self-hosted PostgreSQL on the VM
+
+**Date:** 2026-10-03 · **Status:** accepted
+
+**Decision:** PostgreSQL 18 in Docker on the VM, with nightly `pg_dump` to Cloudflare R2. Drizzle ORM for schema and migrations.
+
+**Why:** Free, with no size caps, pausing or cold starts. Every extension is available (`pg_trgm`, full-text search), and Postgres 18 has native `uuidv7()`. It runs next to the game server, so latency is lowest. The data (users, decks, credit ledger) is relational and small.
+
+**Alternatives considered (rating /10):**
+
+| Option | Rating | Why not |
+|---|---|---|
+| **Self-hosted Postgres** | **9** | Chosen. Cost: backups and upgrades are our job |
+| Supabase free | 7.5 | Free projects pause after about a week of inactivity, no point-in-time recovery on free, and its Realtime doesn't help an authoritative game server. Main benefit (Auth) is covered by Better Auth |
+| SQLite + Litestream | 7.5 | Simplest to run, but no `pg_trgm`, and moving to multiple servers later means migrating |
+| Neon free | 7 | Cold starts after idle, monthly compute cap |
+| Cloudflare D1 | 5 | Only makes sense with an all-Cloudflare backend |
+| Firebase / MongoDB | 3 | Poor fit for a credit ledger and relational decks |
+
+**Revisit when:** the VM becomes a reliability problem, or we need high availability. Drizzle on `pg` makes moving to a managed Postgres a connection-string change.
+
+---
+
+## D2 — Fastify (TypeScript) modular monolith, one process
+
+**Date:** 2026-10-03 · **Status:** accepted
+
+**Decision:** Fastify 5 on Node 24 LTS, with `@fastify/websocket` (`ws`) for rooms and pg-boss for jobs, all **in one process** on the VM. No Redis for now. Code organization is defined in [backend-guidelines.md](backend-guidelines.md).
+
+**Why Fastify over Hono:** on Node, Fastify is the faster of the two, because Hono's Node adapter converts every request to Web-standard objects. Its plugin **encapsulation**, hooks, built-in pino logging and schema-based validation and serialization give a structure that can be enforced, which matters for keeping a solo codebase tidy. Hono's main advantage, running on edge runtimes, doesn't matter on a VM.
+
+**Why one process:** one VM, minimal operations. In-memory maps replace Redis (room registry, rate limits, event bus), each behind an interface so Redis can be added when there's a second instance.
+
+**Alternatives considered (rating /10):**
+
+| Option | Rating | Why not |
+|---|---|---|
+| **Fastify + ws** | **9** | Chosen |
+| Hono + ws | 8.5 | Fine, but slower on Node and less built-in structure |
+| Colyseus | 7.5 | Its automatic state sync fits poorly with "different data per recipient" (secret word, redacted guesses) |
+| Cloudflare Durable Objects | 7 | Lock-in and a different runtime. Unnecessary with a VM. Remains the global-scale escape hatch (`game-core` stays runtime-agnostic) |
+| Socket.IO | 7 | Protocol overhead, and its rooms are only broadcast groups |
+| NestJS | 6 | Heavy decorator and DI boilerplate for a solo developer. The core logic is a pure state machine that gains nothing from it |
+| Phoenix / Go | 5–6 | We'd lose shared TypeScript types for the protocol and deck schema |
+
+**Revisit when:** one process can't hold the concurrent rooms (see the [scaling path](architecture.md#scaling-path)).
+
+---
+
+## D3 — Astro (static) + React SPA, served from the VM
+
+**Date:** 2026-10-03 · **Status:** accepted
+
+**Decision:** Astro with static output for landing, legal and marketing pages. React (Vite, via Astro's integration) for the app, mounted on a single shell page with React Router. Caddy serves everything from the same origin as the API, and Cloudflare caches static assets. Rules are in [frontend-guidelines.md](frontend-guidelines.md).
+
+**Why:** Static pages are fast and good for SEO with no JS. The game is a client-side canvas app where SSR adds nothing. Static output means no frontend server and no hosting bill. Same origin means no CORS and simple cookies. React has the largest ecosystem (shadcn/ui, `perfect-freehand`, TanStack Query).
+
+**Alternatives considered (rating /10):**
+
+| Option | Rating | Why not |
+|---|---|---|
+| **Astro + React** | **8.5** | Chosen |
+| Vite + React SPA only | 9 | Simplest option, but no good static/SEO pages for landing |
+| SvelteKit | 8 | Smaller ecosystem |
+| Next.js | 6 | Vercel Hobby forbids commercial use. Self-hosting adds a Node process. SSR adds little to a canvas game |
+| Vue / Solid | 6.5–7 | No advantage for this app |
+
+**Revisit when:** deck pages need to be indexed by search engines. Then add the Astro Node adapter for those routes only.
+
+---
+
+## D4 — OpenRouter for model inference
+
+**Date:** 2026-10-03 · **Status:** accepted (revisit after the model eval)
+
+**Decision:** Call models through OpenRouter's OpenAI-compatible API, behind an `LlmClient` interface in the `generation` module. Model slugs come from config. Details are in [ai-deck-pipeline.md](ai-deck-pipeline.md).
+
+**Why:** We need to **test several models** (Anthropic, OpenAI, Google, open-weight) on deck quality, especially how funny the silly prompts are, using one key, one API and one bill. OpenRouter also offers fallback routing across models and providers.
+
+**Known trade-offs:**
+- A fee on credit purchases (around 5%, check current terms).
+- Support for structured outputs and prompt caching varies by model and provider. We require providers that support our parameters, and validate output with zod anyway.
+- An extra network hop.
+- `:free` model variants are rate-limited, unreliable and may log prompts. They are **only for local experiments, never production**.
+
+**Alternatives considered (rating /10):** Anthropic direct 9 (best for one vendor, no markup), **OpenRouter 7 → chosen because multi-model testing is a requirement**, OpenAI direct 7, Gemini 6.5, cheap open-weight hosts 5, self-hosted on the VM 2 (too slow on CPU, too weak at humour).
+
+**Revisit when:** the eval picks a winner. If one vendor clearly wins and volume grows, compare the OpenRouter fee and feature gaps with going direct. Because of the `LlmClient` interface, that's a change of one adapter.
+
+---
+
+## D5 — Hosting topology
+
+**Date:** 2026-10-03 · **Status:** accepted
+
+**Decision:** Cloudflare free plan (DNS + proxy) → VM running Docker Compose: Caddy, the server, Postgres. Deploys run from GitHub Actions to the VM over SSH. Backups go to Cloudflare R2.
+
+**Why:** €0 beyond the existing VM and domain. Cloudflare hides the VM IP, absorbs attacks and caches static files.
+
+**Accepted risk:** the VM is a single point of failure, and a deploy ends live games (v1).

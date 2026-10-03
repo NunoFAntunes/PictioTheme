@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+
+/* Design tokens (rule W13). Extend here, not with one-off CSS classes. */
+@theme {
+  --color-brand-50: oklch(0.97 0.03 300);
+  --color-brand-500: oklch(0.6 0.2 300);
+  --color-brand-600: oklch(0.52 0.21 300);
+  --color-brand-700: oklch(0.45 0.19 300);
+  --color-close: oklch(0.6 0.22 25);
+  --color-solved: oklch(0.7 0.17 150);
+  --font-display: ui-rounded, system-ui, sans-serif;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  @apply min-h-dvh bg-white text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+}

@@ -1,0 +1,5 @@
+pnpm-lock.yaml
+dist/
+.astro/
+apps/server/src/db/migrations/
+docs/

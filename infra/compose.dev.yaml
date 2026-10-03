@@ -1,0 +1,24 @@
+# Local development database. Start with `pnpm db:up`.
+name: pictiotheme-dev
+
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: pictio
+      POSTGRES_PASSWORD: pictio
+      POSTGRES_DB: pictiotheme
+    ports:
+      - '5433:5432'
+    volumes:
+      # Postgres 18 images keep data under /var/lib/postgresql/<major>/, so mount the parent.
+      - pgdata:/var/lib/postgresql
+      - ./postgres/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U pictio -d pictiotheme']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  pgdata:
