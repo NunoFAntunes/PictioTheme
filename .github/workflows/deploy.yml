@@ -100,4 +100,4 @@ jobs:
           printf '%s' "$GHCR_TOKEN" | ssh "$TARGET" "docker login ghcr.io -u '${{ github.actor }}' --password-stdin > /dev/null && /opt/pictiotheme/deploy.sh '${{ github.sha }}'; status=\$?; docker logout ghcr.io > /dev/null; exit \$status"
       - name: Smoke test
         if: vars.PUBLIC_URL != ''
-        run: curl -fsS --retry 10 --retry-delay 3 --retry-all-errors "${{ vars.PUBLIC_URL }}/api/ready"
+        run: curl -fsS --max-time 10 --retry 10 --retry-delay 3 --retry-all-errors "${{ vars.PUBLIC_URL }}/api/ready"
