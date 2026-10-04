@@ -2,8 +2,9 @@
 # One-time setup of a fresh Ubuntu VM (tested on Oracle Cloud). Safe to re-run.
 #   scp infra/deploy/bootstrap.sh ubuntu@<ip>:
 #   ssh ubuntu@<ip> 'sudo bash bootstrap.sh <site-address>'    # e.g. 152-70-12-114.sslip.io
-# Installs Docker, opens ports 80/443, adds swap on small VMs, creates /opt/pictiotheme with a .env
-# of freshly generated secrets, and schedules the nightly backup. See docs/technical/deployment.md.
+# Installs Docker, opens ports 80/443 (to Cloudflare only, once cloudflare-only.sh is deployed), adds
+# swap on small VMs, creates /opt/pictiotheme with a .env of freshly generated secrets, and schedules
+# the nightly backup. See docs/technical/deployment.md.
 set -euo pipefail
 
 site="${1:?usage: bootstrap.sh <site-address>}"
@@ -83,5 +84,39 @@ fi
 echo "==> Backup schedule"
 echo "30 3 * * * $app_user $app_dir/backup.sh >> $app_dir/backups/backup.log 2>&1" > /etc/cron.d/pictiotheme-backup
 chmod 644 /etc/cron.d/pictiotheme-backup
+
+echo "==> Cloudflare-only web ports"
+# Runs /opt/pictiotheme/cloudflare-only.sh (copied by each deploy) at boot, whenever Docker starts,
+# and weekly to pick up changes to Cloudflare's ranges.
+cat > /etc/systemd/system/pictiotheme-cloudflare-only.service << EOF
+[Unit]
+Description=Allow only Cloudflare to reach ports 80/443
+After=docker.service network-online.target
+Wants=network-online.target
+Requires=docker.service
+ConditionPathExists=${app_dir}/cloudflare-only.sh
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash ${app_dir}/cloudflare-only.sh
+
+[Install]
+WantedBy=multi-user.target docker.service
+EOF
+cat > /etc/systemd/system/pictiotheme-cloudflare-only.timer << EOF
+[Unit]
+Description=Refresh the Cloudflare-only rules weekly
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+systemctl daemon-reload
+systemctl enable pictiotheme-cloudflare-only.service pictiotheme-cloudflare-only.timer
+systemctl start pictiotheme-cloudflare-only.timer
+if [[ -f "$app_dir/cloudflare-only.sh" ]]; then systemctl start pictiotheme-cloudflare-only.service; fi
 
 echo "==> Done. Docker $(docker --version | cut -d' ' -f3 | tr -d ,), $(dpkg --print-architecture), ${mem_mb} MB RAM"

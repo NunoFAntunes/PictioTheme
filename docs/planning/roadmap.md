@@ -2,14 +2,14 @@
 
 Each phase ends with something playable. Sizes are rough for one developer working part-time.
 
-## Phase 0: Foundations (≈ 1 week) — ✅ done, except VM deployment
+## Phase 0: Foundations (≈ 1 week) — ✅ done (deployed 2026-10-04)
 
 - pnpm monorepo (`apps/server`, `apps/web`, `packages/game-core`, `packages/protocol`), set up per [architecture.md](../technical/architecture.md#repository-layout).
 - Server skeleton following [backend-guidelines.md](../technical/backend-guidelines.md): `config.ts`, `app.ts` composition root, error handler, health endpoints, Drizzle + first migration.
 - Astro site + React app shell following [frontend-guidelines.md](../technical/frontend-guidelines.md).
 - CI: typecheck, lint, dependency-cruiser layering rules, unit tests.
 - Postgres 18 locally via Docker Compose (the same compose file as production, minus Caddy).
-- VM: Docker Compose with Caddy + Postgres, Cloudflare DNS/proxy, nightly backups to R2, a first deploy of a "hello" page.
+- VM: Docker Compose with Caddy + Postgres, Cloudflare DNS/proxy, nightly backups to R2, a first deploy of a "hello" page. ✅ Live at https://pictio.tierney.one on an Oracle Always Free VM, deployed by merging into `production` ([deployment.md](../technical/deployment.md)). Backups run nightly on the VM; the R2 upload waits for credentials.
 - OpenRouter account with a spending limit. Start the model eval script early ([ai-deck-pipeline.md](../technical/ai-deck-pipeline.md#evaluation)), because it decides the production model before Phase 3.
 
 ## Phase 1: Playable core with friends (≈ 3–4 weeks) — **the first milestone**

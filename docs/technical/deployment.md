@@ -22,7 +22,7 @@ Everything lives in `/opt/pictiotheme`:
 |---|---|
 | `compose.yaml` | Copied on every deploy. Don't edit it on the VM |
 | `.env` | Secrets and settings, created once by `bootstrap.sh`. **Only copy: back it up.** Any server setting from `apps/server/src/config.ts` can go here |
-| `deploy.sh`, `backup.sh` | Copied on every deploy |
+| `deploy.sh`, `backup.sh`, `cloudflare-only.sh` | Copied on every deploy |
 | `backups/` | Nightly `pg_dump` files (14 days) and `backup.log` |
 | `certs/` | Optional Cloudflare Origin certificate |
 
@@ -54,10 +54,20 @@ After changing them: `docker compose up -d web server`, and update the `PUBLIC_U
 
 Caddy trusts Cloudflare's IP ranges for the client IP and sends it on to the server, which trusts only the private Docker network (`TRUST_PROXY=uniquelocal`). So IP rate limits see real clients (rule F10).
 
+## Only Cloudflare reaches the web ports
+
+So nobody can skip Cloudflare by using the VM's IP, [cloudflare-only.sh](../../infra/deploy/cloudflare-only.sh) lets only [Cloudflare's IPv4 ranges](https://www.cloudflare.com/ips-v4) open connections to ports 80 and 443. The rules live in Docker's `DOCKER-USER` chain, because published container ports never pass through `INPUT`. SSH is unaffected, and so is the containers' outbound traffic.
+
+The `pictiotheme-cloudflare-only` systemd service applies the rules at boot and whenever Docker starts, and a weekly timer refreshes the ranges. There's a built-in fallback list if the fetch fails.
+
+- Check: `sudo iptables -L PICTIO-CF -v -n` (the DROP counter shows blocked attempts).
+- Reapply now: `sudo systemctl start pictiotheme-cloudflare-only`.
+- To serve without Cloudflare (e.g. back to sslip.io), turn it off first: `sudo systemctl disable --now pictiotheme-cloudflare-only.timer pictiotheme-cloudflare-only.service`, then `sudo iptables -D DOCKER-USER -j PICTIO-CF-GATE`.
+
 ## Setting up a new VM
 
 1. In the cloud console, allow inbound TCP 80 and 443 and UDP 443 (Oracle: the subnet's security list or an NSG).
-2. Run the bootstrap. It installs Docker, opens the same ports in the VM's iptables, adds swap on small VMs, creates `/opt/pictiotheme/.env` with generated secrets, and schedules the 03:30 UTC backup:
+2. Run the bootstrap. It installs Docker, opens the same ports in the VM's iptables, adds swap on small VMs, creates `/opt/pictiotheme/.env` with generated secrets, schedules the 03:30 UTC backup, and installs the Cloudflare-only service (active after the first deploy copies its script):
    ```sh
    scp infra/deploy/bootstrap.sh ubuntu@<ip>:
    ssh ubuntu@<ip> 'sudo bash bootstrap.sh <site-address>'

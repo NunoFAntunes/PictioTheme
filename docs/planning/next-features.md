@@ -15,7 +15,7 @@ The game itself is in good shape: rooms, matches, a solid canvas, guess matching
 | Devices | **Desktop and tablets only.** Phones are too small to draw on, so they get a friendly "open this on a tablet or computer" screen instead of a squeezed layout |
 | Guest generation | Guests can generate **1 deck per day** |
 | Deck back covers | Every deck has a **drawn back cover**. While a deck generates, its creator is asked to draw the cover |
-| Hosting | Decided later. The options are reviewed in [Hosting options](#hosting-options) below |
+| Hosting | **Oracle Cloud Always Free** (decided 2026-10-04, deployed at https://pictio.tierney.one). See [Hosting options](#hosting-options) |
 | Playtest | A quick first playtest went well. A bigger one (~6 people, tablets included) happens on the deployed build before launch |
 
 ## Three observations that set the order
@@ -54,7 +54,7 @@ The goal is to be good enough to post on r/WebGames and in Discord communities i
 | 1.7 | ✅ **Generation moderation** (built: blocklist on theme, notes, cards, title and tags; reports. Not built: the optional LLM theme check): theme pre-check (a blocklist first, an LLM check if needed), card profanity blocklist (`TODO(moderation)` in `generation/`), and a "report deck" button that hides a deck after N reports. Reports cover the cover drawing too. **Report button built** (3 unique reports hide the cover or the deck); the pre-check and blocklist aren't | M | Required before 1.6 goes public. Generated decks are public by default (open question 3) |
 | 1.8 | ✅ **Chat and name profanity masking** (built: chat and guesses masked, names refused) (`TODO(moderation)` in `game-core/src/room/messages.ts`) | S | Public rooms + strangers + launch traffic |
 | 1.9 | ✅ **Deck picker v1** (built: cover grid in sections, featured row, title/tag search with `pg_trgm`): a grid of **deck covers** with title, tags, card counts and 🤪, a featured/seasonal row at the top, and a simple title/tag search (`pg_trgm` is enough for now) | M | Once guests generate decks, the picker needs to handle more than two. Covers make it browsable |
-| 1.10 | **Deploy** to the chosen host (see [Hosting options](#hosting-options)): `infra/compose.prod.yaml`, Caddyfile, nightly `pg_dump` to R2, a GitHub Actions deploy job, and error monitoring (e.g. GlitchTip or the Sentry free tier) | M | Must land by ~Oct 19 to leave time for the full playtest. The hosting decision can wait until then, but not longer |
+| 1.10 | 🚧 **Deploy** (built 2026-10-04: live at https://pictio.tierney.one on Oracle, auto-deploy on merge to `production`, Cloudflare-only web ports, nightly local backups; see [deployment.md](../technical/deployment.md). Left: R2 credentials for off-site backups and error monitoring) to the chosen host (see [Hosting options](#hosting-options)): `infra/compose.prod.yaml`, Caddyfile, nightly `pg_dump` to R2, a GitHub Actions deploy job, and error monitoring (e.g. GlitchTip or the Sentry free tier) | M | Must land by ~Oct 19 to leave time for the full playtest. The hosting decision can wait until then, but not longer |
 | 1.11 | ✅ **Basic product events** (built: `product_events` + card stats, `metrics:report`; see data-model.md#metrics): match started/completed, turns where ≥ 1 player guessed, time from landing to first turn, generations, and covers drawn vs skipped. Stored in a Postgres table, with no third-party analytics | S | The [key metrics](roadmap.md#key-metrics-to-watch) need data from launch day |
 | 1.12 | **Full playtest** on the deployed build: ~6 people, laptops and tablets, 3 rounds, one generated deck. Fix what it finds | S + fixes | The Phase 1 exit criterion, now on real hosting and real devices |
 
@@ -185,7 +185,7 @@ Revisit once there's data from M1–M2.
 
 ## Hosting options
 
-To be decided later. Both options can run the planned Docker Compose stack (Caddy + server + Postgres). This answers open question 18.
+**Decided 2026-10-04: Oracle Cloud Always Free** (arm64, 2 cores, 12 GB, Ubuntu 26.04), as recommended below. The comparison is kept for reference. Both options can run the planned Docker Compose stack (Caddy + server + Postgres). This answers open question 18.
 
 | | **Oracle Cloud Always Free** (Ampere A1) | **Home Proxmox box** (i7-4790K, 16 GB) |
 |---|---|---|
@@ -199,7 +199,7 @@ To be decided later. Both options can run the planned Docker Compose stack (Cadd
 
 ## Decisions still needed
 
-1. **Hosting** (above), by ~Oct 15 to keep 1.10 on track.
+1. ~~**Hosting**~~ Oracle, deployed 2026-10-04. Still worth doing: upgrade the Oracle account to Pay As You Go so the instance isn't reclaimed as idle.
 2. ~~**Per-IP generation limit and global daily spend cap.**~~ Built with the proposed 3 per IP per day and $5/day; change them in config (`GENERATION_PER_IP_PER_DAY`, `GENERATION_DAILY_BUDGET_USD`).
 3. **Launch dates.** Proposed: soft launch to friends Oct 20, public posts Oct 27.
 4. **Decks public by default?** (open question 3). This plan assumes yes, covers included, with report-to-hide.

@@ -91,7 +91,7 @@ jobs:
       - name: Copy the stack definition
         run: |
           scp infra/compose.prod.yaml "$TARGET:/opt/pictiotheme/compose.yaml"
-          scp infra/deploy/deploy.sh infra/deploy/backup.sh "$TARGET:/opt/pictiotheme/"
+          scp infra/deploy/deploy.sh infra/deploy/backup.sh infra/deploy/cloudflare-only.sh "$TARGET:/opt/pictiotheme/"
       - name: Deploy
         env:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
