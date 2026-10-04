@@ -67,6 +67,8 @@ jobs:
       CI: true
       DATABASE_URL: postgres://pictio:pictio@localhost:5432/pictiotheme
       SESSION_SECRET: ci-only-secret-ci-only-secret-ci-only-secret
+      # Every spec creates rooms from localhost, which trips the per-IP limits.
+      RATE_LIMITS: 'off'
     steps:
       - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
