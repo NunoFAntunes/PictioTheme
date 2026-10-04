@@ -42,6 +42,8 @@ docker compose restart server     # after editing .env
 
 ## TLS and domain
 
+**Production today:** `https://pictio.tierney.one`, proxied by Cloudflare (SSL Full (strict)) with a Cloudflare Origin certificate for `*.tierney.one` that expires in 2041. The VM is `152.70.12.114` (Oracle, arm64).
+
 Caddy serves `SITE_ADDRESS` from `.env`:
 
 - **No domain yet:** `152-70-12-114.sslip.io`. sslip.io resolves to the IP inside the name, and Caddy gets a Let's Encrypt certificate automatically.
