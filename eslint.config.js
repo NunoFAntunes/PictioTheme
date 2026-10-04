@@ -28,7 +28,10 @@ export default tseslint.config(
       'no-console': 'error', // B23: use the injected logger
       '@typescript-eslint/no-explicit-any': 'error', // B26
       '@typescript-eslint/no-non-null-assertion': 'error', // B26
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', ignoreRestSiblings: true },
+      ],
       // Fastify plugins and handlers are async by convention even without an await (rule F3).
       '@typescript-eslint/require-await': 'off',
       'no-restricted-exports': ['error', { restrictDefaultExports: { direct: true } }], // B27

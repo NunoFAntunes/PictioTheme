@@ -1,0 +1,1059 @@
+{
+  "slug": "day-of-the-dead",
+  "featuredRank": 4,
+  "title": "Marigolds and Memories",
+  "description": "Draw colourful foods, decorations, family scenes, and playful characters inspired by Day of the Dead traditions.",
+  "tags": [
+    "day of the dead",
+    "dia de los muertos",
+    "traditions",
+    "marigolds",
+    "family",
+    "celebration"
+  ],
+  "cards": [
+    {
+      "text": "Marigold",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["marigold"]
+    },
+    {
+      "text": "Sugar skull",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sugar", "skull"]
+    },
+    {
+      "text": "Candle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["candle"]
+    },
+    {
+      "text": "Skeleton",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeleton"]
+    },
+    {
+      "text": "Calavera mask",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["calavera", "mask"]
+    },
+    {
+      "text": "Pan de muerto",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pan", "muerto"]
+    },
+    {
+      "text": "Papel picado",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["papel", "picado"]
+    },
+    {
+      "text": "Flower crown",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["flower", "crown"]
+    },
+    {
+      "text": "Photo frame",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["photo", "frame"]
+    },
+    {
+      "text": "Incense stick",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["incense", "stick"]
+    },
+    {
+      "text": "Clay pot",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["clay", "pot"]
+    },
+    {
+      "text": "Glass of water",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["glass", "water"]
+    },
+    {
+      "text": "Salt bowl",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["salt", "bowl"]
+    },
+    {
+      "text": "Fruit basket",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fruit", "basket"]
+    },
+    {
+      "text": "Tamale",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tamale"]
+    },
+    {
+      "text": "Orange",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["orange"]
+    },
+    {
+      "text": "Apple",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["apple"]
+    },
+    {
+      "text": "Banana",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["banana"]
+    },
+    {
+      "text": "Chocolate",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["chocolate"]
+    },
+    {
+      "text": "Guitar",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["guitar"]
+    },
+    {
+      "text": "Rose",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rose"]
+    },
+    {
+      "text": "Bouquet",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bouquet"]
+    },
+    {
+      "text": "Flower vase",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["flower", "vase"]
+    },
+    {
+      "text": "Lantern",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lantern"]
+    },
+    {
+      "text": "Bell",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bell"]
+    },
+    {
+      "text": "Ribbon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ribbon"]
+    },
+    {
+      "text": "Decorative fan",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["decorative", "fan"]
+    },
+    {
+      "text": "Ceramic plate",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ceramic", "plate"]
+    },
+    {
+      "text": "Paper flower",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["paper", "flower"]
+    },
+    {
+      "text": "String lights",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["string", "lights"]
+    },
+    {
+      "text": "Tablecloth",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tablecloth"]
+    },
+    {
+      "text": "Cemetery cross",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cemetery", "cross"]
+    },
+    {
+      "text": "Gravestone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gravestone"]
+    },
+    {
+      "text": "Catrina",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["La Catrina"],
+      "keywords": ["catrina"]
+    },
+    {
+      "text": "Toy drum",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["toy", "drum"]
+    },
+    {
+      "text": "Toy horse",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["toy", "horse"]
+    },
+    {
+      "text": "Embroidered blouse",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["embroidered", "blouse"]
+    },
+    {
+      "text": "Corn",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["corn"]
+    },
+    {
+      "text": "Tissue paper",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tissue", "paper"]
+    },
+    {
+      "text": "Cemetery bench",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cemetery", "bench"]
+    },
+    {
+      "text": "Ofrenda table",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ofrenda", "table"]
+    },
+    {
+      "text": "Marigold arch",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["marigold", "arch"]
+    },
+    {
+      "text": "Catrina makeup",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["catrina", "makeup"]
+    },
+    {
+      "text": "Cemetery visit",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cemetery", "visit"]
+    },
+    {
+      "text": "Decorated grave",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["decorated", "grave"]
+    },
+    {
+      "text": "Candlelit cemetery",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["candlelit", "cemetery"]
+    },
+    {
+      "text": "Skeleton mariachi",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeleton", "mariachi"]
+    },
+    {
+      "text": "Dancing skeleton",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dancing", "skeleton"]
+    },
+    {
+      "text": "Sugar skull necklace",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sugar", "skull", "necklace"]
+    },
+    {
+      "text": "Marigold garland",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["marigold", "garland"]
+    },
+    {
+      "text": "Flower path",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["flower", "path"]
+    },
+    {
+      "text": "Family meal",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["family", "meal"]
+    },
+    {
+      "text": "Food offering",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["food", "offering"]
+    },
+    {
+      "text": "Fancy skeleton",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fancy", "skeleton"]
+    },
+    {
+      "text": "Catrina gown",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["catrina", "gown"]
+    },
+    {
+      "text": "Skeleton cyclist",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeleton", "cyclist"]
+    },
+    {
+      "text": "Embroidered skirt",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["embroidered", "skirt"]
+    },
+    {
+      "text": "Cemetery gate",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cemetery", "gate"]
+    },
+    {
+      "text": "Flower procession",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["flower", "procession"]
+    },
+    {
+      "text": "Candle table",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["candle", "table"]
+    },
+    {
+      "text": "Skull painting",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skull", "painting"]
+    },
+    {
+      "text": "Papel picado workshop",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["papel", "picado", "workshop"]
+    },
+    {
+      "text": "Marigold wreath",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["marigold", "wreath"]
+    },
+    {
+      "text": "Bread baking",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bread", "baking"]
+    },
+    {
+      "text": "Mariachi band",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mariachi", "band"]
+    },
+    {
+      "text": "Ofrenda photo",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ofrenda", "photo"]
+    },
+    {
+      "text": "Charro suit",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["charro", "suit"]
+    },
+    {
+      "text": "Rebozo shawl",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rebozo", "shawl"]
+    },
+    {
+      "text": "Flower seller",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["flower", "seller"]
+    },
+    {
+      "text": "Street parade",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["street", "parade"]
+    },
+    {
+      "text": "Grave sweeping",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["grave", "sweeping"]
+    },
+    {
+      "text": "Tamale preparation",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tamale", "preparation"]
+    },
+    {
+      "text": "Hot chocolate",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hot", "chocolate"]
+    },
+    {
+      "text": "Tortilla stack",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tortilla", "stack"]
+    },
+    {
+      "text": "Doorway petals",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["doorway", "petals"]
+    },
+    {
+      "text": "Lantern carrier",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lantern", "carrier"]
+    },
+    {
+      "text": "Ofrenda decorating",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ofrenda", "decorating"]
+    },
+    {
+      "text": "Skeleton violinist",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeleton", "violinist"]
+    },
+    {
+      "text": "Calavera earrings",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["calavera", "earrings"]
+    },
+    {
+      "text": "Marigold trail to cemetery",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["marigold", "cemetery"]
+    },
+    {
+      "text": "Skeleton band parade",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeleton", "parade"]
+    },
+    {
+      "text": "Family meal beside ofrenda",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["family", "ofrenda"]
+    },
+    {
+      "text": "Children making paper banners",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["children", "banners"]
+    },
+    {
+      "text": "Catrina dancing with skeleton",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["catrina", "skeleton"]
+    },
+    {
+      "text": "Photo among candles",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["photo", "candles"]
+    },
+    {
+      "text": "Carrying wreath to cemetery",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wreath", "cemetery"]
+    },
+    {
+      "text": "Baking bone shaped bread",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["baking", "bread"]
+    },
+    {
+      "text": "Skeletons playing parade soccer",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeletons", "soccer"]
+    },
+    {
+      "text": "Painting giant sugar skull",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["painting", "skull"]
+    },
+    {
+      "text": "Following petals to cemetery",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["petals", "cemetery"]
+    },
+    {
+      "text": "Decorating grave with marigolds",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["grave", "marigolds"]
+    },
+    {
+      "text": "Family walking with candles",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["family", "candles"]
+    },
+    {
+      "text": "Food on ofrenda table",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["food", "ofrenda"]
+    },
+    {
+      "text": "Child dressed as skeleton",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["child", "skeleton"]
+    },
+    {
+      "text": "Sweeping petals from path",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["petals", "path"]
+    },
+    {
+      "text": "Mariachi beside an ofrenda",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mariachi", "ofrenda"]
+    },
+    {
+      "text": "Catrina holding flower umbrella",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["catrina", "umbrella"]
+    },
+    {
+      "text": "Skeleton riding parade float",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeleton", "float"]
+    },
+    {
+      "text": "Flowers over cemetery gate",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["flowers", "cemetery"]
+    },
+    {
+      "text": "Family feast preparation",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["family", "feast"]
+    },
+    {
+      "text": "Lighting candles at grave",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lighting", "grave"]
+    },
+    {
+      "text": "Bread and flowers on altar",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bread", "flowers"]
+    },
+    {
+      "text": "Dancing in embroidered dresses",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dancing", "dresses"]
+    },
+    {
+      "text": "Making sugar skulls",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sugar", "skulls"]
+    },
+    {
+      "text": "Children carrying flower lanterns",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["children", "lanterns"]
+    },
+    {
+      "text": "Cat under offering table",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cat", "table"]
+    },
+    {
+      "text": "Toys on an ofrenda",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["toys", "ofrenda"]
+    },
+    {
+      "text": "Skeleton juggling marigolds",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeleton", "marigolds"]
+    },
+    {
+      "text": "Candlelit walk through cemetery",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["candlelit", "cemetery"]
+    },
+    {
+      "text": "Skeleton doing yoga",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "yoga"]
+    },
+    {
+      "text": "Sugar skull playing tennis",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sugar", "tennis"]
+    },
+    {
+      "text": "Marigold riding a skateboard",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["marigold", "skateboard"]
+    },
+    {
+      "text": "Catrina baking cookies",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["catrina", "cookies"]
+    },
+    {
+      "text": "Calavera mask reading a book",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["calavera", "book"]
+    },
+    {
+      "text": "Pan de muerto driving a toy car",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pan", "car"]
+    },
+    {
+      "text": "Papel picado flying a kite",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["papel", "kite"]
+    },
+    {
+      "text": "Candle wearing roller skates",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["candle", "skates"]
+    },
+    {
+      "text": "Ofrenda table hosting a tea party",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ofrenda", "tea"]
+    },
+    {
+      "text": "Marigold bouquet walking a dog",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["marigold", "dog"]
+    },
+    {
+      "text": "Skeleton washing dishes",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "dishes"]
+    },
+    {
+      "text": "Catrina playing basketball",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["catrina", "basketball"]
+    },
+    {
+      "text": "Sugar skull gardening",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sugar", "gardening"]
+    },
+    {
+      "text": "Skeleton at a lemonade stand",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "lemonade"]
+    },
+    {
+      "text": "Calavera mask doing ballet",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["calavera", "ballet"]
+    },
+    {
+      "text": "Marigold lifting weights",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["marigold", "weights"]
+    },
+    {
+      "text": "Mariachi skeleton knitting",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mariachi", "knitting"]
+    },
+    {
+      "text": "Flower crown riding a scooter",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["flower", "scooter"]
+    },
+    {
+      "text": "Toy horse delivering pizza",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["horse", "pizza"]
+    },
+    {
+      "text": "Gravestone playing chess",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["gravestone", "chess"]
+    },
+    {
+      "text": "Skeleton taking a selfie",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "selfie"]
+    },
+    {
+      "text": "Catrina walking a poodle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["catrina", "poodle"]
+    },
+    {
+      "text": "Sugar skull surfing",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sugar", "surfing"]
+    },
+    {
+      "text": "Papel picado in a hot air balloon",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["papel", "balloon"]
+    },
+    {
+      "text": "Pan de muerto wearing a party hat",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pan", "hat"]
+    },
+    {
+      "text": "Marigold doing homework",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["marigold", "homework"]
+    },
+    {
+      "text": "Skeleton mowing the lawn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "lawn"]
+    },
+    {
+      "text": "Candle painting a fence",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["candle", "fence"]
+    },
+    {
+      "text": "Ofrenda table playing piano",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ofrenda", "piano"]
+    },
+    {
+      "text": "Calavera mask on a skateboard",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["calavera", "skateboard"]
+    },
+    {
+      "text": "Flower vase at a car wash",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["vase", "car"]
+    },
+    {
+      "text": "Catrina planting vegetables",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["catrina", "vegetables"]
+    },
+    {
+      "text": "Skeleton juggling oranges",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "oranges"]
+    },
+    {
+      "text": "Sugar skull riding a bicycle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sugar", "bicycle"]
+    },
+    {
+      "text": "Mariachi skeleton at a laundromat",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mariachi", "laundromat"]
+    },
+    {
+      "text": "Toy drum making pancakes",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["drum", "pancakes"]
+    },
+    {
+      "text": "Embroidered blouse flying a kite",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["blouse", "kite"]
+    },
+    {
+      "text": "Marigold working as a lifeguard",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["marigold", "lifeguard"]
+    },
+    {
+      "text": "Skeleton walking a cat",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "cat"]
+    },
+    {
+      "text": "Paper flower getting a haircut",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["paper", "haircut"]
+    }
+  ]
+}

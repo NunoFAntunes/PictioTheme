@@ -20,3 +20,5 @@ await build({
   logLevel: 'info',
 });
 await cp('src/db/migrations', 'dist/migrations', { recursive: true });
+// Curated decks are seeded by migrate.js (src/modules/decks/curated-decks.ts).
+await cp('src/modules/decks/curated', 'dist/curated', { recursive: true });

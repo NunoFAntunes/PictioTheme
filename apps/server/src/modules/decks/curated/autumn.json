@@ -1,0 +1,1031 @@
+{
+  "slug": "autumn",
+  "featuredRank": 5,
+  "title": "Autumn All Around",
+  "description": "Draw colorful fall leaves, harvest treasures, cozy comforts, and playful autumn scenes.",
+  "tags": ["autumn", "fall", "harvest", "cozy", "leaves", "family"],
+  "cards": [
+    {
+      "text": "Maple leaf",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["maple", "leaf"]
+    },
+    {
+      "text": "Pumpkin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pumpkin"]
+    },
+    {
+      "text": "Apple",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["apple"]
+    },
+    {
+      "text": "Acorn",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["acorn"]
+    },
+    {
+      "text": "Scarecrow",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scarecrow"]
+    },
+    {
+      "text": "Corn",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["corn"]
+    },
+    {
+      "text": "Rake",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rake"]
+    },
+    {
+      "text": "Sweater",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sweater"]
+    },
+    {
+      "text": "Scarf",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scarf"]
+    },
+    {
+      "text": "Umbrella",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["umbrella"]
+    },
+    {
+      "text": "Mushroom",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mushroom"]
+    },
+    {
+      "text": "Squirrel",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["squirrel"]
+    },
+    {
+      "text": "Fox",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fox"]
+    },
+    {
+      "text": "Hedgehog",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hedgehog"]
+    },
+    {
+      "text": "Deer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["deer"]
+    },
+    {
+      "text": "Owl",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["owl"]
+    },
+    {
+      "text": "Chestnut",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["chestnut"]
+    },
+    {
+      "text": "Hay bale",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hay", "bale"]
+    },
+    {
+      "text": "Wagon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wagon"]
+    },
+    {
+      "text": "Basket",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["basket"]
+    },
+    {
+      "text": "Candle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["candle"]
+    },
+    {
+      "text": "Mug",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mug"]
+    },
+    {
+      "text": "Blanket",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["blanket"]
+    },
+    {
+      "text": "Bonfire",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bonfire"]
+    },
+    {
+      "text": "Pinecone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pinecone"]
+    },
+    {
+      "text": "Raincoat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["raincoat"]
+    },
+    {
+      "text": "Boots",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["boots"]
+    },
+    {
+      "text": "Apple cider",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["apple", "cider"]
+    },
+    {
+      "text": "Cornucopia",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cornucopia"]
+    },
+    {
+      "text": "Turkey",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["turkey"]
+    },
+    {
+      "text": "Pear",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pear"]
+    },
+    {
+      "text": "Gourd",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gourd"]
+    },
+    {
+      "text": "Mittens",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mittens"]
+    },
+    {
+      "text": "Fireplace",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fireplace"]
+    },
+    {
+      "text": "Apple tree",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["apple", "tree"]
+    },
+    {
+      "text": "Grapes",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["grapes"]
+    },
+    {
+      "text": "Wheelbarrow",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wheelbarrow"]
+    },
+    {
+      "text": "Crow",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crow"]
+    },
+    {
+      "text": "Sunflower",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sunflower"]
+    },
+    {
+      "text": "Lantern",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lantern"]
+    },
+    {
+      "text": "Pumpkin patch",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pumpkin", "patch"]
+    },
+    {
+      "text": "Apple orchard",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["apple", "orchard"]
+    },
+    {
+      "text": "Corn maze",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["corn", "maze"]
+    },
+    {
+      "text": "Hayride",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hayride"]
+    },
+    {
+      "text": "Leaf pile",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["leaf", "pile"]
+    },
+    {
+      "text": "Apple pie",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["apple", "pie"]
+    },
+    {
+      "text": "Pumpkin pie",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pumpkin", "pie"]
+    },
+    {
+      "text": "Cider donut",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cider", "donut"]
+    },
+    {
+      "text": "Garden gloves",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["garden", "gloves"]
+    },
+    {
+      "text": "Wool hat",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wool", "hat"]
+    },
+    {
+      "text": "Knitted socks",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["knitted", "socks"]
+    },
+    {
+      "text": "Flannel shirt",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["flannel", "shirt"]
+    },
+    {
+      "text": "Thermos",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["thermos"]
+    },
+    {
+      "text": "Corn stalks",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["corn", "stalks"]
+    },
+    {
+      "text": "Dried leaves",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dried", "leaves"]
+    },
+    {
+      "text": "Harvest table",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["harvest", "table"]
+    },
+    {
+      "text": "Squirrel nest",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["squirrel", "nest"]
+    },
+    {
+      "text": "Migrating geese",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["migrating", "geese"]
+    },
+    {
+      "text": "Frosty grass",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["frosty", "grass"]
+    },
+    {
+      "text": "Foggy field",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["foggy", "field"]
+    },
+    {
+      "text": "Rainy window",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rainy", "window"]
+    },
+    {
+      "text": "Cabin porch",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cabin", "porch"]
+    },
+    {
+      "text": "Rocking chair",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rocking", "chair"]
+    },
+    {
+      "text": "Leaf wreath",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["leaf", "wreath"]
+    },
+    {
+      "text": "Dried flower bouquet",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dried", "flower", "bouquet"]
+    },
+    {
+      "text": "Squash soup",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["squash", "soup"]
+    },
+    {
+      "text": "Roasted chestnuts",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["roasted", "chestnuts"]
+    },
+    {
+      "text": "Orchard ladder",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["orchard", "ladder"]
+    },
+    {
+      "text": "Jack o lantern",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jack", "lantern"]
+    },
+    {
+      "text": "Apple cider press",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["apple", "cider", "press"]
+    },
+    {
+      "text": "Pumpkin seeds",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pumpkin", "seeds"]
+    },
+    {
+      "text": "Apple bobbing tub",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["apple", "bobbing", "tub"]
+    },
+    {
+      "text": "Corn husk doll",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["corn", "husk", "doll"]
+    },
+    {
+      "text": "Orchard fence",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["orchard", "fence"]
+    },
+    {
+      "text": "Farm stand",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["farm", "stand"]
+    },
+    {
+      "text": "Vineyard rows",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["vineyard", "rows"]
+    },
+    {
+      "text": "Pumpkin spice latte",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pumpkin", "spice", "latte"]
+    },
+    {
+      "text": "Golden wheat field",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["golden", "wheat", "field"]
+    },
+    {
+      "text": "Acorn necklace",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["acorn", "necklace"]
+    },
+    {
+      "text": "Raking fallen leaves",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["raking", "leaves"]
+    },
+    {
+      "text": "Jumping in leaves",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jumping", "leaves"]
+    },
+    {
+      "text": "Picking apples",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["picking", "apples"]
+    },
+    {
+      "text": "Building a scarecrow",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["building", "scarecrow"]
+    },
+    {
+      "text": "Gathering acorns",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gathering", "acorns"]
+    },
+    {
+      "text": "Squirrels burying acorns",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["squirrels", "burying", "acorns"]
+    },
+    {
+      "text": "Geese in a V formation",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["geese", "formation"]
+    },
+    {
+      "text": "Deer in autumn woods",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["deer", "woods"]
+    },
+    {
+      "text": "Fox among fallen leaves",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fox", "leaves"]
+    },
+    {
+      "text": "Owl in a hollow tree",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["owl", "tree"]
+    },
+    {
+      "text": "Pumpkin rolling downhill",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pumpkin", "rolling"]
+    },
+    {
+      "text": "Getting caught in rain",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["caught", "rain"]
+    },
+    {
+      "text": "Walking through fog",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["walking", "fog"]
+    },
+    {
+      "text": "Kicking leaves in boots",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["kicking", "leaves", "boots"]
+    },
+    {
+      "text": "Roasting marshmallows",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["roasting", "marshmallows"]
+    },
+    {
+      "text": "Sipping cider by fire",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sipping", "cider", "fire"]
+    },
+    {
+      "text": "Carrying a cornucopia",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["carrying", "cornucopia"]
+    },
+    {
+      "text": "Washing muddy boots",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["washing", "boots"]
+    },
+    {
+      "text": "Gathering mushrooms in woods",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gathering", "mushrooms", "woods"]
+    },
+    {
+      "text": "Picking grapes at harvest",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["picking", "grapes", "harvest"]
+    },
+    {
+      "text": "Stacking firewood",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["stacking", "firewood"]
+    },
+    {
+      "text": "Chasing a runaway hat",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["chasing", "hat"]
+    },
+    {
+      "text": "Wind blowing leaves",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wind", "leaves"]
+    },
+    {
+      "text": "A crow steals an apple",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crow", "apple"]
+    },
+    {
+      "text": "A squirrel raids a bird feeder",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["squirrel", "bird", "feeder"]
+    },
+    {
+      "text": "A scarecrow guarding corn",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scarecrow", "corn"]
+    },
+    {
+      "text": "Autumn leaves across a pond",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["leaves", "pond"]
+    },
+    {
+      "text": "Children carrying pumpkins",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["children", "pumpkins"]
+    },
+    {
+      "text": "Pumpkin doing yoga",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pumpkin", "yoga"]
+    },
+    {
+      "text": "Scarecrow baking cookies",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["scarecrow", "cookies"]
+    },
+    {
+      "text": "Squirrel riding a scooter",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["squirrel", "scooter"]
+    },
+    {
+      "text": "Apple wearing roller skates",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["apple", "skates"]
+    },
+    {
+      "text": "Turkey painting a fence",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["turkey", "fence"]
+    },
+    {
+      "text": "Leaf riding a bicycle",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["leaf", "bicycle"]
+    },
+    {
+      "text": "Acorn playing piano",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["acorn", "piano"]
+    },
+    {
+      "text": "Hay bale at the dentist",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["hay", "dentist"]
+    },
+    {
+      "text": "Owl washing dishes",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["owl", "dishes"]
+    },
+    {
+      "text": "Mushroom delivering mail",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mushroom", "mail"]
+    },
+    {
+      "text": "Rake taking a nap",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rake", "nap"]
+    },
+    {
+      "text": "Corn stalk doing ballet",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["corn", "ballet"]
+    },
+    {
+      "text": "Fox at a car wash",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["fox", "car", "wash"]
+    },
+    {
+      "text": "Deer making a sandwich",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["deer", "sandwich"]
+    },
+    {
+      "text": "Wagon in a swimming pool",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["wagon", "pool"]
+    },
+    {
+      "text": "Mug riding a skateboard",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mug", "skateboard"]
+    },
+    {
+      "text": "Boots on a tightrope",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["boots", "tightrope"]
+    },
+    {
+      "text": "Pumpkin astronaut",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pumpkin", "astronaut"]
+    },
+    {
+      "text": "Scarecrow taking a selfie",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["scarecrow", "selfie"]
+    },
+    {
+      "text": "Squirrel lifeguard",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["squirrel", "lifeguard"]
+    },
+    {
+      "text": "Apple at a barber shop",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["apple", "barber"]
+    },
+    {
+      "text": "Turkey riding a skateboard",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["turkey", "skateboard"]
+    },
+    {
+      "text": "Maple leaf flying a kite",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["maple", "kite"]
+    },
+    {
+      "text": "Acorn in a sleeping bag",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["acorn", "sleeping", "bag"]
+    },
+    {
+      "text": "Hay bale doing laundry",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["hay", "laundry"]
+    },
+    {
+      "text": "Owl riding a unicycle",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["owl", "unicycle"]
+    },
+    {
+      "text": "Mushroom on a skateboard",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mushroom", "skateboard"]
+    },
+    {
+      "text": "Corn cob at a pet salon",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["corn", "salon"]
+    },
+    {
+      "text": "Fox driving a tractor",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["fox", "tractor"]
+    },
+    {
+      "text": "Deer behind a cash register",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["deer", "cash", "register"]
+    },
+    {
+      "text": "Pumpkin juggling oranges",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pumpkin", "juggling", "oranges"]
+    },
+    {
+      "text": "Scarecrow in a bathtub",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["scarecrow", "bathtub"]
+    },
+    {
+      "text": "Squirrel making a snow angel",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["squirrel", "snow", "angel"]
+    },
+    {
+      "text": "Apple running a lemonade stand",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["apple", "lemonade", "stand"]
+    },
+    {
+      "text": "Turkey walking a dog",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["turkey", "dog"]
+    },
+    {
+      "text": "Leaf in a shopping cart",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["leaf", "shopping", "cart"]
+    },
+    {
+      "text": "Acorn wearing a backpack",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["acorn", "backpack"]
+    },
+    {
+      "text": "Gourd doing karate",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["gourd", "karate"]
+    },
+    {
+      "text": "Cider mug on a swing",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cider", "mug", "swing"]
+    }
+  ]
+}

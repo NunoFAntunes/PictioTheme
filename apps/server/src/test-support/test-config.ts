@@ -9,6 +9,9 @@ export function testConfig(overrides: Record<string, string> = {}): Config {
     NODE_ENV: 'test',
     LOG_LEVEL: 'silent',
     DATABASE_URL: TEST_DATABASE_URL,
+    SESSION_SECRET: 'test-secret-test-secret-test-secret-00',
+    RATE_LIMITS: 'off',
+    GENERATION_LIMITS: 'off',
     ...overrides,
   });
 }

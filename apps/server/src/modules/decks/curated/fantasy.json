@@ -1,0 +1,1059 @@
+{
+  "slug": "fantasy",
+  "featuredRank": null,
+  "title": "Once Upon a Draw",
+  "description": "Draw your way through a kingdom of fairy tale characters, magical objects, and wonderfully silly scenes.",
+  "tags": ["fantasy", "fairy tales", "magic", "mythical creatures", "storybook", "family"],
+  "cards": [
+    {
+      "text": "Dragon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dragon"]
+    },
+    {
+      "text": "Castle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["castle"]
+    },
+    {
+      "text": "Wizard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wizard"]
+    },
+    {
+      "text": "Fairy",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fairy"]
+    },
+    {
+      "text": "Unicorn",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["unicorn"]
+    },
+    {
+      "text": "Mermaid",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mermaid"]
+    },
+    {
+      "text": "Knight",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["knight"]
+    },
+    {
+      "text": "Princess",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["princess"]
+    },
+    {
+      "text": "Prince",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["prince"]
+    },
+    {
+      "text": "King",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["king"]
+    },
+    {
+      "text": "Queen",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["queen"]
+    },
+    {
+      "text": "Witch",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["witch"]
+    },
+    {
+      "text": "Giant",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["giant"]
+    },
+    {
+      "text": "Troll",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["troll"]
+    },
+    {
+      "text": "Elf",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["elf"]
+    },
+    {
+      "text": "Goblin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["goblin"]
+    },
+    {
+      "text": "Ogre",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ogre"]
+    },
+    {
+      "text": "Phoenix",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["phoenix"]
+    },
+    {
+      "text": "Pegasus",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pegasus"]
+    },
+    {
+      "text": "Genie",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["genie"]
+    },
+    {
+      "text": "Centaur",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["centaur"]
+    },
+    {
+      "text": "Griffin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["griffin"]
+    },
+    {
+      "text": "Dwarf",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dwarf"]
+    },
+    {
+      "text": "Magic wand",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["magic", "wand"]
+    },
+    {
+      "text": "Crown",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crown"]
+    },
+    {
+      "text": "Cauldron",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cauldron"]
+    },
+    {
+      "text": "Potion",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["potion"]
+    },
+    {
+      "text": "Crystal ball",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crystal", "ball"]
+    },
+    {
+      "text": "Throne",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["throne"]
+    },
+    {
+      "text": "Tower",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tower"]
+    },
+    {
+      "text": "Moat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["moat"]
+    },
+    {
+      "text": "Drawbridge",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["drawbridge"]
+    },
+    {
+      "text": "Treasure chest",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["treasure", "chest"]
+    },
+    {
+      "text": "Magic carpet",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["magic", "carpet"]
+    },
+    {
+      "text": "Glass slipper",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["glass", "slipper"]
+    },
+    {
+      "text": "Golden egg",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["golden", "egg"]
+    },
+    {
+      "text": "Spinning wheel",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spinning", "wheel"]
+    },
+    {
+      "text": "Enchanted mirror",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["enchanted", "mirror"]
+    },
+    {
+      "text": "Harp",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["harp"]
+    },
+    {
+      "text": "Enchanted rose",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["enchanted", "rose"]
+    },
+    {
+      "text": "Red Riding Hood",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["red", "riding", "hood"]
+    },
+    {
+      "text": "Big Bad Wolf",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["big", "bad", "wolf"]
+    },
+    {
+      "text": "Three little pigs",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["three", "little", "pigs"]
+    },
+    {
+      "text": "Gingerbread man",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gingerbread", "man"]
+    },
+    {
+      "text": "Pinocchio",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pinocchio"]
+    },
+    {
+      "text": "Snow Queen",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["snow", "queen"]
+    },
+    {
+      "text": "Snow White",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["snow", "white"]
+    },
+    {
+      "text": "Rumpelstiltskin",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rumpelstiltskin"]
+    },
+    {
+      "text": "Jack and the beanstalk",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jack", "beanstalk"]
+    },
+    {
+      "text": "Hansel and Gretel",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hansel", "gretel"]
+    },
+    {
+      "text": "Puss in Boots",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["puss", "boots"]
+    },
+    {
+      "text": "Frog prince",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["frog", "prince"]
+    },
+    {
+      "text": "Nutcracker soldier",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["nutcracker", "soldier"]
+    },
+    {
+      "text": "Mad Hatter",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mad", "hatter"]
+    },
+    {
+      "text": "Tooth fairy",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tooth", "fairy"]
+    },
+    {
+      "text": "Sandman",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sandman"]
+    },
+    {
+      "text": "Headless horseman",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["headless", "horseman"]
+    },
+    {
+      "text": "Golden goose",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["golden", "goose"]
+    },
+    {
+      "text": "Pumpkin carriage",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pumpkin", "carriage"]
+    },
+    {
+      "text": "Gingerbread house",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gingerbread", "house"]
+    },
+    {
+      "text": "Beanstalk",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["beanstalk"]
+    },
+    {
+      "text": "Magic lamp",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["magic", "lamp"]
+    },
+    {
+      "text": "Poison apple",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["poison", "apple"]
+    },
+    {
+      "text": "Royal ball",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["royal", "ball"]
+    },
+    {
+      "text": "Wishing well",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wishing", "well"]
+    },
+    {
+      "text": "Forest cottage",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["forest", "cottage"]
+    },
+    {
+      "text": "Dragon egg",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dragon", "egg"]
+    },
+    {
+      "text": "Knight armor",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["knight", "armor"]
+    },
+    {
+      "text": "Wizard hat",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wizard", "hat"]
+    },
+    {
+      "text": "Witch broom",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["witch", "broom"]
+    },
+    {
+      "text": "Enchanted forest",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["enchanted", "forest"]
+    },
+    {
+      "text": "Stone bridge",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["stone", "bridge"]
+    },
+    {
+      "text": "Royal banquet",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["royal", "banquet"]
+    },
+    {
+      "text": "Secret cave",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["secret", "cave"]
+    },
+    {
+      "text": "Moonlit tower",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["moonlit", "tower"]
+    },
+    {
+      "text": "Underwater palace",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["underwater", "palace"]
+    },
+    {
+      "text": "Mermaid lagoon",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mermaid", "lagoon"]
+    },
+    {
+      "text": "Fairy garden",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fairy", "garden"]
+    },
+    {
+      "text": "Ogre bridge",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ogre", "bridge"]
+    },
+    {
+      "text": "Seven league boots",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["seven", "boots"]
+    },
+    {
+      "text": "Climbing a beanstalk",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["climbing", "beanstalk"]
+    },
+    {
+      "text": "Dragon guarding treasure",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dragon", "treasure"]
+    },
+    {
+      "text": "Knight rescuing a princess",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["knight", "princess"]
+    },
+    {
+      "text": "Wolf at grandmother's door",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wolf", "grandmother's", "door"]
+    },
+    {
+      "text": "Three pigs building a house",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pigs", "building", "house"]
+    },
+    {
+      "text": "Cinderella fleeing the ball",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cinderella", "ball"]
+    },
+    {
+      "text": "Searching for the slipper",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["searching", "slipper"]
+    },
+    {
+      "text": "Fairy waving a wand",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fairy", "wand"]
+    },
+    {
+      "text": "Wizard brewing a potion",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wizard", "potion"]
+    },
+    {
+      "text": "Genie emerging from a lamp",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["genie", "lamp"]
+    },
+    {
+      "text": "Phoenix rising from ashes",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["phoenix", "ashes"]
+    },
+    {
+      "text": "Giant reaching into a village",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["giant", "village"]
+    },
+    {
+      "text": "Troll waiting under a bridge",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["troll", "bridge"]
+    },
+    {
+      "text": "Unicorn drinking from a stream",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["unicorn", "stream"]
+    },
+    {
+      "text": "Princess kissing a frog",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["princess", "frog"]
+    },
+    {
+      "text": "Breadcrumb trail in forest",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["breadcrumb", "forest"]
+    },
+    {
+      "text": "Wolf dressed as grandmother",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wolf", "grandmother"]
+    },
+    {
+      "text": "Sleeping princess among roses",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sleeping", "princess", "roses"]
+    },
+    {
+      "text": "Queen offering an apple",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["queen", "apple"]
+    },
+    {
+      "text": "Dragon flying over a castle",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dragon", "castle"]
+    },
+    {
+      "text": "Fairy riding a butterfly",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fairy", "butterfly"]
+    },
+    {
+      "text": "Knight crossing a drawbridge",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["knight", "drawbridge"]
+    },
+    {
+      "text": "Witch stirring a cauldron",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["witch", "cauldron"]
+    },
+    {
+      "text": "Carriage turning into pumpkin",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["carriage", "pumpkin"]
+    },
+    {
+      "text": "Cinderella trying the slipper",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cinderella", "slipper"]
+    },
+    {
+      "text": "Gingerbread man running away",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gingerbread", "running"]
+    },
+    {
+      "text": "Magic carpet over rooftops",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["magic", "carpet"]
+    },
+    {
+      "text": "King hiding in wardrobe",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["king", "wardrobe"]
+    },
+    {
+      "text": "Mermaid waving from a rock",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mermaid", "rock"]
+    },
+    {
+      "text": "Ogre chasing a runaway cart",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ogre", "cart"]
+    },
+    {
+      "text": "Dragon doing laundry",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dragon", "laundry"]
+    },
+    {
+      "text": "Dragon at a tea party",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dragon", "tea"]
+    },
+    {
+      "text": "Fairy mowing the lawn",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["fairy", "lawn"]
+    },
+    {
+      "text": "Fairy driving a bus",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["fairy", "bus"]
+    },
+    {
+      "text": "Unicorn at the dentist",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["unicorn", "dentist"]
+    },
+    {
+      "text": "Unicorn baking a pizza",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["unicorn", "pizza"]
+    },
+    {
+      "text": "Mermaid riding a bicycle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mermaid", "bicycle"]
+    },
+    {
+      "text": "Mermaid walking a dog",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mermaid", "dog"]
+    },
+    {
+      "text": "Knight at a car wash",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["knight", "car"]
+    },
+    {
+      "text": "Knight knitting a sweater",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["knight", "sweater"]
+    },
+    {
+      "text": "Wizard juggling oranges",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["wizard", "oranges"]
+    },
+    {
+      "text": "Wizard walking a tightrope",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["wizard", "tightrope"]
+    },
+    {
+      "text": "Princess changing a tire",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["princess", "tire"]
+    },
+    {
+      "text": "Princess playing basketball",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["princess", "basketball"]
+    },
+    {
+      "text": "Giant using a tiny umbrella",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["giant", "umbrella"]
+    },
+    {
+      "text": "Giant sleeping in a hammock",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["giant", "hammock"]
+    },
+    {
+      "text": "Goblin planting tulips",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["goblin", "tulips"]
+    },
+    {
+      "text": "Goblin washing windows",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["goblin", "windows"]
+    },
+    {
+      "text": "Troll at ballet class",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["troll", "ballet"]
+    },
+    {
+      "text": "Troll building a sandcastle",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["troll", "sandcastle"]
+    },
+    {
+      "text": "Phoenix delivering mail",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["phoenix", "mail"]
+    },
+    {
+      "text": "Phoenix painting a fence",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["phoenix", "fence"]
+    },
+    {
+      "text": "Genie vacuuming a carpet",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["genie", "carpet"]
+    },
+    {
+      "text": "Genie at a grocery store",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["genie", "grocery"]
+    },
+    {
+      "text": "Gnome surfing a wave",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["gnome", "wave"]
+    },
+    {
+      "text": "Gnome walking a poodle",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["gnome", "poodle"]
+    },
+    {
+      "text": "Witch at yoga class",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["witch", "yoga"]
+    },
+    {
+      "text": "Witch baking cupcakes",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["witch", "cupcakes"]
+    },
+    {
+      "text": "Griffin riding a scooter",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["griffin", "scooter"]
+    },
+    {
+      "text": "Griffin folding laundry",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["griffin", "laundry"]
+    },
+    {
+      "text": "Ogre playing tennis",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ogre", "tennis"]
+    },
+    {
+      "text": "Ogre at a picnic",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ogre", "picnic"]
+    },
+    {
+      "text": "Elf riding a skateboard",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["elf", "skateboard"]
+    },
+    {
+      "text": "Elf teaching a parrot to dance",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["elf", "parrot", "dance"]
+    },
+    {
+      "text": "Pegasus pulling a shopping cart",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pegasus", "shopping", "cart"]
+    },
+    {
+      "text": "Pegasus at a hair salon",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pegasus", "hair", "salon"]
+    },
+    {
+      "text": "Centaur doing yoga",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["centaur", "yoga"]
+    },
+    {
+      "text": "Centaur pushing a baby stroller",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["centaur", "stroller"]
+    },
+    {
+      "text": "Frog prince doing homework",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["frog", "homework"]
+    },
+    {
+      "text": "Frog prince washing a car",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["frog", "car"]
+    }
+  ]
+}

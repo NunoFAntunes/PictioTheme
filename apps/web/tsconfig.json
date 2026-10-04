@@ -5,6 +5,13 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   },
-  "include": [".astro/types.d.ts", "src", "astro.config.mjs"],
+  "include": [
+    ".astro/types.d.ts",
+    "src",
+    "e2e",
+    "astro.config.mjs",
+    "playwright.config.ts",
+    "vitest.config.ts"
+  ],
   "exclude": ["dist"]
 }

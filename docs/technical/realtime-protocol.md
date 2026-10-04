@@ -4,6 +4,8 @@ WebSocket at `wss://<domain>/ws?token=<joinToken>` (same origin as the site, see
 
 Envelope: `{ "t": "<type>", ...payload }`.
 
+The join token lives 60 seconds, so **every connection, including a reconnect, first calls `POST /api/rooms/:code/join`** for a fresh token. The server's side of the protocol is the state machine in `packages/game-core/src/room/` (`step(state, event) → effects`).
+
 ## Client → Server
 
 | Type | Payload | Who | Notes |
@@ -15,33 +17,52 @@ Envelope: `{ "t": "<type>", ...payload }`.
 | `room:pause` / `room:resume` / `room:skipTurn` / `room:end` | — | host | |
 | `vote:kick` | `playerId` | any | |
 | `turn:choose` | `index` (0–2) | drawer | Choosing phase |
+| `turn:vote` | `index` (0–2), `vote` (`up`, `down` or `null` to take it back) | drawer | Choosing phase. Rates an option without picking it (card quality metrics) |
 | `draw:begin` | `id, tool, color, size, opacity, x, y` | drawer | Starts a stroke |
 | `draw:pts` | `id, pts: [x,y,(p)]…` | drawer | Batched every ~33ms |
 | `draw:end` | `id` | drawer | |
 | `draw:fill` | `x, y, color, tolerance` | drawer | |
 | `draw:undo` / `draw:redo` / `draw:clear` | — | drawer | |
-| `guess` | `text` (≤ 60 chars) | guessers | Rate-limited |
-| `chat` | `text` | anyone, not drawing | Waiting/reveal/results phases |
+| `guess` | `text` (≤ 60 chars) | guessers | 3/s. From a player who already solved, it becomes a solvers-only `chat` |
+| `chat` | `text` (≤ 200 chars) | anyone, not drawing | Not during drawing, except solvers (solvers-only channel) |
 | `ping` | `ts` | any | Latency display |
 
 ## Server → Client
 
 | Type | Payload | Notes |
 |---|---|---|
-| `room:snapshot` | full sanitized room state + current strokes | On connect/reconnect |
+| `room:snapshot` | full sanitized room state, current strokes, `deck`, `paused`, and `secret` (options/word only for those allowed) | On connect/reconnect |
 | `room:players` | player list | On join/leave/score change |
-| `room:settings` | settings | |
-| `phase:choosing` | `drawerId, endsAt` (+ `options` **only to drawer**) | |
-| `phase:drawing` | `drawerId, endsAt, mask` (+ `word` **only to drawer**) | `mask` e.g. `"_____ __ _ ________"` |
+| `room:settings` | `settings, deck` | `deck` (`{ id, title, coverId }`, `coverId` null for the default cover) is `null` while a newly picked deck loads |
+| `room:paused` | `paused: 'host' \| 'players' \| null` | `players`: auto-pause when only one player is left |
+| `room:notice` | `code, playerId?, count?, needed?` | `pool_reshuffled`, `player_kicked`, `vote_kick` (progress), `host_changed`, `deck_unavailable` |
+| `phase:choosing` | `drawerId, round, endsAt` (+ `options` **only to drawer**) | |
+| `phase:drawing` | `drawerId, round, endsAt, mask` (+ `word` **only to the drawer and solvers**) | `mask` e.g. `"_____ __ _ ________"`. Re-sent with a new `endsAt` after a pause |
 | `hint` | `mask` | Letter revealed |
 | `draw:*` | same as client draw messages | Forwarded to all except drawer |
 | `guess:feed` | `playerId, kind: 'wrong'|'close'|'correct', text?` | See visibility rules below |
-| `guess:self` | `kind, text` | Echo to the guesser with classification |
+| `guess:self` | `kind, text, word?` | Echo to the guesser. `word` is included once they are correct |
+| `chat` | `playerId, text, solvedChannel?` | `solvedChannel`: from a solver, only sent to the drawer and other solvers |
 | `turn:solved` | `playerId, order` | "Ana guessed it!" |
 | `phase:reveal` | `word, deltas, endsAt` | |
 | `phase:results` | `ranking, awards` | |
 | `error` | `code, message` | e.g. `ROOM_FULL`, `NOT_HOST`, `RATE_LIMITED`. Codes are the shared `ErrorCode` union in `packages/protocol` |
 | `server:restarting` | — | Sent before a deploy or shutdown. The client shows a notice, then reconnects with backoff |
+| `pong` | `ts, serverTime` | Reply to `ping`. Used for latency and the clock offset |
+
+### Close codes
+
+| Code | Meaning | Client should |
+|---|---|---|
+| 4001 | Same player connected from another tab | Show "Opened in another tab", don't reconnect |
+| 4003 | Kicked | Show a message, don't reconnect |
+| 4004 | Room closed | Go back to the lobby |
+| 4005 | Room full | Show "Room full" |
+| 4006 | Banned from this room | Show a message, don't reconnect |
+| 1008 | Too many invalid messages | Don't reconnect |
+| 1012 | Server restarting | Reconnect with backoff (the room is gone in v1) |
+
+An upgrade with a bad or expired token is refused with HTTP 401 before a socket opens.
 
 ### Guess feed: who gets what
 
@@ -66,6 +87,7 @@ Messages from players who have already solved are sent only to the drawer and to
 type Stroke =
   | { id; tool: 'brush' | 'eraser'; color; size; opacity; pts: number[] }   // flat [x,y,p, x,y,p, …]
   | { id; tool: 'fill'; x; y; color; tolerance }
+  | { id; tool: 'clear' }                                                 // draw:clear, stored so it can be undone
   | { id; tool: 'shape'; kind: 'line'|'rect'|'ellipse'; from; to; color; size; opacity; filled }
 ```
 

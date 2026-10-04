@@ -1,0 +1,1031 @@
+{
+  "slug": "music",
+  "featuredRank": null,
+  "title": "All Together Now",
+  "description": "Draw instruments, performers, concert scenes, and musical mishaps.",
+  "tags": ["music", "instruments", "concerts", "performers", "silly"],
+  "cards": [
+    {
+      "text": "Guitar",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["guitar"]
+    },
+    {
+      "text": "Piano",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["piano"]
+    },
+    {
+      "text": "Drum",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["drum"]
+    },
+    {
+      "text": "Trumpet",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["trumpet"]
+    },
+    {
+      "text": "Violin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["violin"]
+    },
+    {
+      "text": "Flute",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["flute"]
+    },
+    {
+      "text": "Saxophone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["saxophone"]
+    },
+    {
+      "text": "Harp",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["harp"]
+    },
+    {
+      "text": "Tambourine",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tambourine"]
+    },
+    {
+      "text": "Microphone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["microphone"]
+    },
+    {
+      "text": "Headphones",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["headphones"]
+    },
+    {
+      "text": "Record player",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["record", "player"]
+    },
+    {
+      "text": "Vinyl record",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["record"],
+      "keywords": ["vinyl"]
+    },
+    {
+      "text": "Music box",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["music", "box"]
+    },
+    {
+      "text": "Accordion",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["accordion"]
+    },
+    {
+      "text": "Banjo",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["banjo"]
+    },
+    {
+      "text": "Cello",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cello"]
+    },
+    {
+      "text": "Clarinet",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["clarinet"]
+    },
+    {
+      "text": "Trombone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["trombone"]
+    },
+    {
+      "text": "Xylophone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["xylophone"]
+    },
+    {
+      "text": "Maracas",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["maracas"]
+    },
+    {
+      "text": "Cymbals",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cymbals"]
+    },
+    {
+      "text": "Ukulele",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ukulele"]
+    },
+    {
+      "text": "Bagpipes",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bagpipes"]
+    },
+    {
+      "text": "Keyboard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["keyboard"]
+    },
+    {
+      "text": "Speaker",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["speaker"]
+    },
+    {
+      "text": "Radio",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["radio"]
+    },
+    {
+      "text": "Metronome",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["metronome"]
+    },
+    {
+      "text": "Music stand",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["music", "stand"]
+    },
+    {
+      "text": "Drumsticks",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["drumsticks"]
+    },
+    {
+      "text": "Harmonica",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["harmonica"]
+    },
+    {
+      "text": "Bass guitar",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bass", "guitar"]
+    },
+    {
+      "text": "Singer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["singer"]
+    },
+    {
+      "text": "Drummer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["drummer"]
+    },
+    {
+      "text": "Conductor",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["conductor"]
+    },
+    {
+      "text": "Choir",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["choir"]
+    },
+    {
+      "text": "Jukebox",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jukebox"]
+    },
+    {
+      "text": "Kazoo",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["kazoo"]
+    },
+    {
+      "text": "Oboe",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["oboe"]
+    },
+    {
+      "text": "Gong",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gong"]
+    },
+    {
+      "text": "Concert stage",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["concert", "stage"]
+    },
+    {
+      "text": "Recording studio",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["recording", "studio"]
+    },
+    {
+      "text": "Orchestra",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["orchestra"]
+    },
+    {
+      "text": "Marching band",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["marching", "band"]
+    },
+    {
+      "text": "Guitar pick",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["guitar", "pick"]
+    },
+    {
+      "text": "Violin bow",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["violin", "bow"]
+    },
+    {
+      "text": "Piano bench",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["piano", "bench"]
+    },
+    {
+      "text": "Microphone stand",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["microphone", "stand"]
+    },
+    {
+      "text": "Guitar amplifier",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["guitar", "amplifier"]
+    },
+    {
+      "text": "Trumpet mute",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["trumpet", "mute"]
+    },
+    {
+      "text": "Street musician",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["street", "musician"]
+    },
+    {
+      "text": "Singer on stage",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["singer", "stage"]
+    },
+    {
+      "text": "Opera singer",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["opera", "singer"]
+    },
+    {
+      "text": "Jazz band",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jazz", "band"]
+    },
+    {
+      "text": "Rock band",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rock", "band"]
+    },
+    {
+      "text": "Music festival",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["music", "festival"]
+    },
+    {
+      "text": "DJ booth",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dj", "booth"]
+    },
+    {
+      "text": "Conductor baton",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["conductor", "baton"]
+    },
+    {
+      "text": "Instrument case",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["instrument", "case"]
+    },
+    {
+      "text": "Saxophone player",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["saxophone", "player"]
+    },
+    {
+      "text": "Choir robe",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["choir", "robe"]
+    },
+    {
+      "text": "Stage lights",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["stage", "lights"]
+    },
+    {
+      "text": "Record sleeve",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["record", "sleeve"]
+    },
+    {
+      "text": "Mixing board",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mixing", "board"]
+    },
+    {
+      "text": "Music classroom",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["music", "classroom"]
+    },
+    {
+      "text": "Piano lesson",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["piano", "lesson"]
+    },
+    {
+      "text": "Guitar lesson",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["guitar", "lesson"]
+    },
+    {
+      "text": "Drum major",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["drum", "major"]
+    },
+    {
+      "text": "Record store",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["record", "store"]
+    },
+    {
+      "text": "Rehearsal room",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rehearsal", "room"]
+    },
+    {
+      "text": "Concert crowd",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["concert", "crowd"]
+    },
+    {
+      "text": "Music teacher",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["music", "teacher"]
+    },
+    {
+      "text": "Harpist",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["harpist"]
+    },
+    {
+      "text": "Bagpiper",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bagpiper"]
+    },
+    {
+      "text": "Cellist",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cellist"]
+    },
+    {
+      "text": "Trumpet player",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["trumpet", "player"]
+    },
+    {
+      "text": "Playing a solo",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["playing", "solo"]
+    },
+    {
+      "text": "Tuning a guitar",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tuning", "guitar"]
+    },
+    {
+      "text": "Drumming on buckets",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["drumming", "buckets"]
+    },
+    {
+      "text": "Dancing at a concert",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dancing", "concert"]
+    },
+    {
+      "text": "Singing in a choir",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["singing", "choir"]
+    },
+    {
+      "text": "Conducting an orchestra",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["conducting", "orchestra"]
+    },
+    {
+      "text": "Playing a tambourine",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["playing", "tambourine"]
+    },
+    {
+      "text": "Blowing a trumpet",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["blowing", "trumpet"]
+    },
+    {
+      "text": "Playing air guitar",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["playing", "air", "guitar"]
+    },
+    {
+      "text": "Piano duet",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["piano", "duet"]
+    },
+    {
+      "text": "Guitarist on a rooftop",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["guitarist", "rooftop"]
+    },
+    {
+      "text": "Singer in a recording booth",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["singer", "recording", "booth"]
+    },
+    {
+      "text": "Crowd surfing",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crowd", "surfing"]
+    },
+    {
+      "text": "Band on a bus",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["band", "bus"]
+    },
+    {
+      "text": "Busker playing in rain",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["busker", "rain"]
+    },
+    {
+      "text": "Child learning violin",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["child", "violin"]
+    },
+    {
+      "text": "Audience clapping along",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["audience", "clapping"]
+    },
+    {
+      "text": "DJ mixing records",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dj", "mixing", "records"]
+    },
+    {
+      "text": "Orchestra warming up",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["orchestra", "warming"]
+    },
+    {
+      "text": "Marching band parade",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["marching", "band", "parade"]
+    },
+    {
+      "text": "Street band in subway",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["street", "band", "subway"]
+    },
+    {
+      "text": "Violinist on a bridge",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["violinist", "bridge"]
+    },
+    {
+      "text": "Drumming on a table",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["drumming", "table"]
+    },
+    {
+      "text": "Musician tuning strings",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["musician", "tuning", "strings"]
+    },
+    {
+      "text": "Family karaoke",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["family", "karaoke"]
+    },
+    {
+      "text": "Mother singing baby to sleep",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mother", "singing", "baby"]
+    },
+    {
+      "text": "Band carrying instruments",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["band", "carrying", "instruments"]
+    },
+    {
+      "text": "Singer bowing to crowd",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["singer", "bowing", "crowd"]
+    },
+    {
+      "text": "Piano played with feet",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["piano", "feet"]
+    },
+    {
+      "text": "Saxophone on a beach",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["saxophone", "beach"]
+    },
+    {
+      "text": "Guitarist serenading a cat",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["guitarist", "serenading", "cat"]
+    },
+    {
+      "text": "Musician on a tightrope",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["musician", "tightrope"]
+    },
+    {
+      "text": "Guitar baking a cake",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["guitar", "cake"]
+    },
+    {
+      "text": "Drum riding a bicycle",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["drum", "bicycle"]
+    },
+    {
+      "text": "Trumpet doing laundry",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["trumpet", "laundry"]
+    },
+    {
+      "text": "Violin walking a dog",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["violin", "dog"]
+    },
+    {
+      "text": "Piano taking a bath",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["piano", "bath"]
+    },
+    {
+      "text": "Saxophone planting flowers",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["saxophone", "flowers"]
+    },
+    {
+      "text": "Microphone making pancakes",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["microphone", "pancakes"]
+    },
+    {
+      "text": "Accordion riding a skateboard",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["accordion", "skateboard"]
+    },
+    {
+      "text": "Harp playing basketball",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["harp", "basketball"]
+    },
+    {
+      "text": "Flute brushing its teeth",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["flute", "teeth"]
+    },
+    {
+      "text": "Banjo at the hairdresser",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["banjo", "hairdresser"]
+    },
+    {
+      "text": "Cello delivering pizza",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cello", "pizza"]
+    },
+    {
+      "text": "Tambourine flying a kite",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["tambourine", "kite"]
+    },
+    {
+      "text": "Clarinet washing a car",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["clarinet", "car"]
+    },
+    {
+      "text": "Xylophone at the dentist",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["xylophone", "dentist"]
+    },
+    {
+      "text": "Maracas baking cookies",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["maracas", "cookies"]
+    },
+    {
+      "text": "Ukulele driving a bus",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ukulele", "bus"]
+    },
+    {
+      "text": "Bagpipes painting a fence",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["bagpipes", "fence"]
+    },
+    {
+      "text": "Kazoo doing yoga",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["kazoo", "yoga"]
+    },
+    {
+      "text": "Conductor mowing the lawn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["conductor", "lawn"]
+    },
+    {
+      "text": "Singer washing dishes",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["singer", "dishes"]
+    },
+    {
+      "text": "Drummer knitting a scarf",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["drummer", "scarf"]
+    },
+    {
+      "text": "Choir riding a roller coaster",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["choir", "roller", "coaster"]
+    },
+    {
+      "text": "Jukebox walking a cat",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["jukebox", "cat"]
+    },
+    {
+      "text": "Headphones at a picnic",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["headphones", "picnic"]
+    },
+    {
+      "text": "Gong playing tennis",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["gong", "tennis"]
+    },
+    {
+      "text": "Oboe feeding ducks",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["oboe", "ducks"]
+    },
+    {
+      "text": "Harmonica riding a camel",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["harmonica", "camel"]
+    },
+    {
+      "text": "Metronome making a snowman",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["metronome", "snowman"]
+    },
+    {
+      "text": "Radio taking a selfie",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["radio", "selfie"]
+    },
+    {
+      "text": "Speaker pushing a stroller",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["speaker", "stroller"]
+    },
+    {
+      "text": "Cymbals at a tea party",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cymbals", "tea", "party"]
+    },
+    {
+      "text": "Music box playing soccer",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["music", "box", "soccer"]
+    },
+    {
+      "text": "Bass guitar riding a horse",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["bass", "guitar", "horse"]
+    },
+    {
+      "text": "Trombone building a sandcastle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["trombone", "sandcastle"]
+    },
+    {
+      "text": "DJ walking on stilts",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dj", "stilts"]
+    },
+    {
+      "text": "Orchestra at a car wash",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["orchestra", "car", "wash"]
+    },
+    {
+      "text": "Piano at the grocery store",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["piano", "grocery", "store"]
+    }
+  ]
+}

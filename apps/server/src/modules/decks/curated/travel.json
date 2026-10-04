@@ -1,0 +1,1045 @@
+{
+  "slug": "travel",
+  "featuredRank": null,
+  "title": "Around the World",
+  "description": "Draw famous landmarks, travel scenes, and globe-trotting surprises from around the world.",
+  "tags": ["travel", "landmarks", "world", "tourism", "places"],
+  "cards": [
+    {
+      "text": "Eiffel Tower",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Eiffel"],
+      "keywords": ["eiffel", "tower"]
+    },
+    {
+      "text": "Great Wall of China",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Great Wall"],
+      "keywords": ["great", "wall"]
+    },
+    {
+      "text": "Taj Mahal",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["taj", "mahal"]
+    },
+    {
+      "text": "Statue of Liberty",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Liberty statue"],
+      "keywords": ["statue", "liberty"]
+    },
+    {
+      "text": "Big Ben",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Elizabeth Tower"],
+      "keywords": ["big", "ben"]
+    },
+    {
+      "text": "Leaning Tower of Pisa",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Leaning Tower"],
+      "keywords": ["leaning", "tower"]
+    },
+    {
+      "text": "Colosseum",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Roman Colosseum"],
+      "keywords": ["colosseum"]
+    },
+    {
+      "text": "Pyramids of Giza",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Egyptian pyramids"],
+      "keywords": ["pyramids", "giza"]
+    },
+    {
+      "text": "Mount Fuji",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Fuji"],
+      "keywords": ["mount", "fuji"]
+    },
+    {
+      "text": "Sydney Opera House",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Opera House"],
+      "keywords": ["sydney", "opera"]
+    },
+    {
+      "text": "Golden Gate Bridge",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Golden Gate"],
+      "keywords": ["golden", "gate"]
+    },
+    {
+      "text": "Christ the Redeemer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Christ statue"],
+      "keywords": ["christ", "redeemer"]
+    },
+    {
+      "text": "Stonehenge",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["stonehenge"]
+    },
+    {
+      "text": "Great Sphinx",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Sphinx of Giza"],
+      "keywords": ["great", "sphinx"]
+    },
+    {
+      "text": "Niagara Falls",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Niagara"],
+      "keywords": ["niagara", "falls"]
+    },
+    {
+      "text": "Grand Canyon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["grand", "canyon"]
+    },
+    {
+      "text": "Machu Picchu",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["machu", "picchu"]
+    },
+    {
+      "text": "Burj Khalifa",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["burj", "khalifa"]
+    },
+    {
+      "text": "Notre Dame Cathedral",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Notre Dame"],
+      "keywords": ["notre", "dame"]
+    },
+    {
+      "text": "Mount Everest",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Everest"],
+      "keywords": ["mount", "everest"]
+    },
+    {
+      "text": "Venice Canal",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Canal in Venice"],
+      "keywords": ["venice", "canal"]
+    },
+    {
+      "text": "Gondola",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Venetian boat"],
+      "keywords": ["gondola"]
+    },
+    {
+      "text": "Tuk tuk",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Auto rickshaw"],
+      "keywords": ["tuk"]
+    },
+    {
+      "text": "Hot air balloon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Balloon"],
+      "keywords": ["hot", "balloon"]
+    },
+    {
+      "text": "Passport",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["passport"]
+    },
+    {
+      "text": "Suitcase",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Luggage"],
+      "keywords": ["suitcase"]
+    },
+    {
+      "text": "Globe",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["World globe"],
+      "keywords": ["globe"]
+    },
+    {
+      "text": "World map",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Map of the world"],
+      "keywords": ["world", "map"]
+    },
+    {
+      "text": "Airplane",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Plane"],
+      "keywords": ["airplane"]
+    },
+    {
+      "text": "Cruise ship",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Cruiser"],
+      "keywords": ["cruise", "ship"]
+    },
+    {
+      "text": "Camera",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Travel camera"],
+      "keywords": ["camera"]
+    },
+    {
+      "text": "Backpack",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Rucksack"],
+      "keywords": ["backpack"]
+    },
+    {
+      "text": "Compass",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Travel compass"],
+      "keywords": ["compass"]
+    },
+    {
+      "text": "Lighthouse",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lighthouse"]
+    },
+    {
+      "text": "Pagoda",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Asian temple"],
+      "keywords": ["pagoda"]
+    },
+    {
+      "text": "Dutch windmill",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Windmill"],
+      "keywords": ["dutch", "windmill"]
+    },
+    {
+      "text": "Red double decker bus",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["London bus"],
+      "keywords": ["double", "decker", "bus"]
+    },
+    {
+      "text": "Train",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Railway train"],
+      "keywords": ["train"]
+    },
+    {
+      "text": "Beach",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Tropical beach"],
+      "keywords": ["beach"]
+    },
+    {
+      "text": "Palm tree",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["Palm"],
+      "keywords": ["palm", "tree"]
+    },
+    {
+      "text": "Angkor Wat",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Angkor temple"],
+      "keywords": ["angkor", "wat"]
+    },
+    {
+      "text": "Petra Treasury",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Treasury at Petra"],
+      "keywords": ["petra", "treasury"]
+    },
+    {
+      "text": "Moai statues",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Easter Island statues"],
+      "keywords": ["moai", "statues"]
+    },
+    {
+      "text": "Louvre Pyramid",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Pyramid at the Louvre"],
+      "keywords": ["louvre", "pyramid"]
+    },
+    {
+      "text": "Tower Bridge",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["London Tower Bridge"],
+      "keywords": ["tower", "bridge"]
+    },
+    {
+      "text": "Hagia Sophia",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hagia", "sophia"]
+    },
+    {
+      "text": "Blue Mosque",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Sultan Ahmed Mosque"],
+      "keywords": ["blue", "mosque"]
+    },
+    {
+      "text": "Forbidden City",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Imperial Palace"],
+      "keywords": ["forbidden", "city"]
+    },
+    {
+      "text": "Chichen Itza",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["El Castillo"],
+      "keywords": ["chichen", "itza"]
+    },
+    {
+      "text": "Sagrada Familia",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Sagrada Familia church"],
+      "keywords": ["sagrada", "familia"]
+    },
+    {
+      "text": "Neuschwanstein Castle",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Neuschwanstein"],
+      "keywords": ["neuschwanstein", "castle"]
+    },
+    {
+      "text": "Prague Astronomical Clock",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Prague clock"],
+      "keywords": ["prague", "clock"]
+    },
+    {
+      "text": "Brandenburg Gate",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Berlin Gate"],
+      "keywords": ["brandenburg", "gate"]
+    },
+    {
+      "text": "Arc de Triomphe",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Triumphal Arch"],
+      "keywords": ["arc", "triomphe"]
+    },
+    {
+      "text": "Mount Rushmore",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Rushmore"],
+      "keywords": ["mount", "rushmore"]
+    },
+    {
+      "text": "Yellowstone geyser",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Old Faithful"],
+      "keywords": ["yellowstone", "geyser"]
+    },
+    {
+      "text": "Iguazu Falls",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Iguassu Falls"],
+      "keywords": ["iguazu", "falls"]
+    },
+    {
+      "text": "Table Mountain",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["table", "mountain"]
+    },
+    {
+      "text": "Uluru",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Ayers Rock"],
+      "keywords": ["uluru"]
+    },
+    {
+      "text": "Saint Basils Cathedral",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["St Basils Cathedral"],
+      "keywords": ["saint", "basils"]
+    },
+    {
+      "text": "Potala Palace",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Potala"],
+      "keywords": ["potala", "palace"]
+    },
+    {
+      "text": "Santorini village",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Santorini"],
+      "keywords": ["santorini", "village"]
+    },
+    {
+      "text": "Swiss Alps cable car",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Alpine cable car"],
+      "keywords": ["swiss", "alps", "cable"]
+    },
+    {
+      "text": "Marrakech market",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Moroccan market"],
+      "keywords": ["marrakech", "market"]
+    },
+    {
+      "text": "Amazon riverboat",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Boat on the Amazon"],
+      "keywords": ["amazon", "riverboat"]
+    },
+    {
+      "text": "African safari jeep",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Safari vehicle"],
+      "keywords": ["african", "safari", "jeep"]
+    },
+    {
+      "text": "Camel caravan",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Caravan of camels"],
+      "keywords": ["camel", "caravan"]
+    },
+    {
+      "text": "Japanese torii gate",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Torii gate"],
+      "keywords": ["japanese", "torii"]
+    },
+    {
+      "text": "Airport baggage carousel",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Luggage carousel"],
+      "keywords": ["airport", "baggage", "carousel"]
+    },
+    {
+      "text": "Passport control booth",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Border control booth"],
+      "keywords": ["passport", "control", "booth"]
+    },
+    {
+      "text": "Air traffic control tower",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Airport control tower"],
+      "keywords": ["air", "traffic", "tower"]
+    },
+    {
+      "text": "Train station platform",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Railway platform"],
+      "keywords": ["train", "station", "platform"]
+    },
+    {
+      "text": "Roadside motel",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Motel"],
+      "keywords": ["roadside", "motel"]
+    },
+    {
+      "text": "Ferry boat",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Ferry"],
+      "keywords": ["ferry", "boat"]
+    },
+    {
+      "text": "Canal lock",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Water lock"],
+      "keywords": ["canal", "lock"]
+    },
+    {
+      "text": "Desert oasis",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Oasis"],
+      "keywords": ["desert", "oasis"]
+    },
+    {
+      "text": "Tropical bungalow",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Overwater bungalow"],
+      "keywords": ["tropical", "bungalow"]
+    },
+    {
+      "text": "Northern lights over mountains",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Aurora over mountains"],
+      "keywords": ["northern", "lights", "mountains"]
+    },
+    {
+      "text": "Rice terraces",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["Terraced rice fields"],
+      "keywords": ["rice", "terraces"]
+    },
+    {
+      "text": "Himeji Castle",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["White Heron Castle"],
+      "keywords": ["himeji", "castle"]
+    },
+    {
+      "text": "Camels crossing the Sahara",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Camel caravan in the Sahara"],
+      "keywords": ["camels", "sahara"]
+    },
+    {
+      "text": "Travelers camping beside a volcano",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Camping by a volcano"],
+      "keywords": ["camping", "volcano"]
+    },
+    {
+      "text": "Kayaking between icebergs",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Kayak among icebergs"],
+      "keywords": ["kayaking", "icebergs"]
+    },
+    {
+      "text": "Dog sled racing across snow",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Dog sledding"],
+      "keywords": ["dog", "sled", "snow"]
+    },
+    {
+      "text": "Tourist riding a rickshaw",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Riding in a rickshaw"],
+      "keywords": ["tourist", "rickshaw"]
+    },
+    {
+      "text": "Crossing a rope bridge in jungle",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Jungle rope bridge"],
+      "keywords": ["rope", "bridge", "jungle"]
+    },
+    {
+      "text": "Train crossing a mountain viaduct",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Train on a high bridge"],
+      "keywords": ["train", "mountain", "viaduct"]
+    },
+    {
+      "text": "Floating village on a river",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["River village"],
+      "keywords": ["floating", "village", "river"]
+    },
+    {
+      "text": "Cyclist touring Amsterdam canals",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Bicycling in Amsterdam"],
+      "keywords": ["cyclist", "amsterdam", "canals"]
+    },
+    {
+      "text": "Redwood forest boardwalk",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Walkway through redwoods"],
+      "keywords": ["redwood", "forest", "boardwalk"]
+    },
+    {
+      "text": "Climbing a glacier with a guide",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Glacier climbing"],
+      "keywords": ["climbing", "glacier", "guide"]
+    },
+    {
+      "text": "Watching sunrise from a summit",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Sunrise on a mountain peak"],
+      "keywords": ["sunrise", "summit"]
+    },
+    {
+      "text": "Elephants crossing a safari road",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Elephants on the road"],
+      "keywords": ["elephants", "safari", "road"]
+    },
+    {
+      "text": "Walking through a bamboo forest",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Bamboo forest walk"],
+      "keywords": ["walking", "bamboo", "forest"]
+    },
+    {
+      "text": "Night train through the Alps",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Alpine night train"],
+      "keywords": ["night", "train", "alps"]
+    },
+    {
+      "text": "Paraglider over coastal cliffs",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Paragliding over cliffs"],
+      "keywords": ["paraglider", "coastal", "cliffs"]
+    },
+    {
+      "text": "Boat through a mangrove swamp",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Mangrove boat ride"],
+      "keywords": ["boat", "mangrove", "swamp"]
+    },
+    {
+      "text": "Children feeding pigeons in a plaza",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Feeding pigeons in a square"],
+      "keywords": ["children", "pigeons", "plaza"]
+    },
+    {
+      "text": "Visitors climbing a hillside monastery",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Climbing to a monastery"],
+      "keywords": ["visitors", "climbing", "monastery"]
+    },
+    {
+      "text": "Sailboat rounding a sea arch",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Sailing past a sea arch"],
+      "keywords": ["sailboat", "sea", "arch"]
+    },
+    {
+      "text": "Travelers crossing a desert dune",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Crossing a sand dune"],
+      "keywords": ["travelers", "desert", "dune"]
+    },
+    {
+      "text": "Tourists on a suspension bridge",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Crossing a suspension bridge"],
+      "keywords": ["tourists", "suspension", "bridge"]
+    },
+    {
+      "text": "Bus driving through a mountain pass",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Bus in a mountain pass"],
+      "keywords": ["bus", "mountain", "pass"]
+    },
+    {
+      "text": "Tiny village perched on a cliff",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Cliffside village"],
+      "keywords": ["village", "cliff"]
+    },
+    {
+      "text": "Castle reflected in a lake",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Castle by a lake"],
+      "keywords": ["castle", "reflected", "lake"]
+    },
+    {
+      "text": "Train emerging from a tunnel",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Train coming out of a tunnel"],
+      "keywords": ["train", "tunnel"]
+    },
+    {
+      "text": "Fishing boats returning to harbor",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Boats coming into harbor"],
+      "keywords": ["fishing", "boats", "harbor"]
+    },
+    {
+      "text": "Market street beneath hanging lanterns",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["Lanterns over a market street"],
+      "keywords": ["market", "street", "lanterns"]
+    },
+    {
+      "text": "Eiffel Tower doing yoga",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Eiffel Tower in a yoga pose"],
+      "keywords": ["eiffel", "yoga"]
+    },
+    {
+      "text": "Pyramid on a skateboard",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["Skateboarding pyramid"],
+      "keywords": ["pyramid", "skateboard"]
+    },
+    {
+      "text": "Statue of Liberty knitting socks",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Liberty knitting"],
+      "keywords": ["liberty", "knitting"]
+    },
+    {
+      "text": "Big Ben brushing teeth",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Big Ben brushing its teeth"],
+      "keywords": ["big", "ben", "teeth"]
+    },
+    {
+      "text": "Gondola mowing the lawn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Venetian gondola mowing"],
+      "keywords": ["gondola", "mowing"]
+    },
+    {
+      "text": "Suitcase walking a dog",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["Luggage walking a dog"],
+      "keywords": ["suitcase", "dog"]
+    },
+    {
+      "text": "Globe flipping pancakes",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["World globe making pancakes"],
+      "keywords": ["globe", "pancakes"]
+    },
+    {
+      "text": "Airplane at a hair salon",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Plane getting a haircut"],
+      "keywords": ["airplane", "salon"]
+    },
+    {
+      "text": "Tuk tuk playing piano",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Auto rickshaw playing piano"],
+      "keywords": ["tuk", "piano"]
+    },
+    {
+      "text": "Hot air balloon doing laundry",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Balloon hanging laundry"],
+      "keywords": ["balloon", "laundry"]
+    },
+    {
+      "text": "Compass planting flowers",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["Compass gardening"],
+      "keywords": ["compass", "flowers"]
+    },
+    {
+      "text": "World map baking cookies",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Map baking cookies"],
+      "keywords": ["world", "map", "cookies"]
+    },
+    {
+      "text": "Train taking ballet lessons",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Train dancing ballet"],
+      "keywords": ["train", "ballet"]
+    },
+    {
+      "text": "Cruise ship in a bathtub",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["Ship in a bathtub"],
+      "keywords": ["cruise", "bathtub"]
+    },
+    {
+      "text": "Golden Gate Bridge jumping rope",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["Bridge skipping rope"],
+      "keywords": ["golden", "gate", "rope"]
+    },
+    {
+      "text": "Taj Mahal at a car wash",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Taj Mahal getting washed"],
+      "keywords": ["taj", "car", "wash"]
+    },
+    {
+      "text": "Colosseum growing daisies",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Flowers growing in the Colosseum"],
+      "keywords": ["colosseum", "daisies"]
+    },
+    {
+      "text": "Mount Fuji on roller skates",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["Fuji wearing roller skates"],
+      "keywords": ["fuji", "roller", "skates"]
+    },
+    {
+      "text": "Machu Picchu hosting a tea party",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["Tea party at Machu Picchu"],
+      "keywords": ["machu", "picchu", "tea"]
+    },
+    {
+      "text": "Burj Khalifa flying a kite",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Kite flying from Burj Khalifa"],
+      "keywords": ["burj", "kite"]
+    },
+    {
+      "text": "Camel at the dentist",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Camel getting a checkup"],
+      "keywords": ["camel", "dentist"]
+    },
+    {
+      "text": "Moai statue folding laundry",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Easter Island statue doing laundry"],
+      "keywords": ["moai", "laundry"]
+    },
+    {
+      "text": "Louvre Pyramid on a skateboard",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["Skateboarding at the Louvre"],
+      "keywords": ["louvre", "pyramid", "skateboard"]
+    },
+    {
+      "text": "Tower Bridge walking a cat",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["Bridge walking a cat"],
+      "keywords": ["tower", "bridge", "cat"]
+    },
+    {
+      "text": "Safari jeep in ballet class",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Jeep doing ballet"],
+      "keywords": ["safari", "jeep", "ballet"]
+    },
+    {
+      "text": "Passport as a pizza chef",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Passport making pizza"],
+      "keywords": ["passport", "pizza"]
+    },
+    {
+      "text": "Windmill brushing a horse",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["Windmill grooming a horse"],
+      "keywords": ["windmill", "horse"]
+    },
+    {
+      "text": "Pagoda at a bake sale",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Pagoda selling cakes"],
+      "keywords": ["pagoda", "bake"]
+    },
+    {
+      "text": "Red bus at a swimming pool",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["London bus swimming"],
+      "keywords": ["bus", "pool"]
+    },
+    {
+      "text": "Lighthouse making a sandwich",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Lighthouse chef"],
+      "keywords": ["lighthouse", "sandwich"]
+    },
+    {
+      "text": "Backpack riding a tricycle",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["Rucksack on a tricycle"],
+      "keywords": ["backpack", "tricycle"]
+    },
+    {
+      "text": "Geyser making popcorn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Popcorn erupting from a geyser"],
+      "keywords": ["geyser", "popcorn"]
+    },
+    {
+      "text": "Airport tower planting a garden",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["Control tower gardening"],
+      "keywords": ["airport", "tower", "garden"]
+    },
+    {
+      "text": "Rice terrace playing chess",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["Terraced fields playing chess"],
+      "keywords": ["rice", "terrace", "chess"]
+    },
+    {
+      "text": "Santorini dome in a bubble bath",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Blue dome taking a bath"],
+      "keywords": ["santorini", "dome", "bath"]
+    },
+    {
+      "text": "Neuschwanstein Castle vacuuming a rug",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["Castle vacuuming"],
+      "keywords": ["neuschwanstein", "castle", "vacuuming"]
+    },
+    {
+      "text": "Hagia Sophia at a dog park",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["Hagia Sophia walking a dog"],
+      "keywords": ["hagia", "sophia", "dog"]
+    },
+    {
+      "text": "Uluru wearing a chef hat",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["Ayers Rock as a chef"],
+      "keywords": ["uluru", "chef"]
+    },
+    {
+      "text": "Marrakech market selling snow cones",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["Market stall selling snow cones"],
+      "keywords": ["marrakech", "market", "snow"]
+    },
+    {
+      "text": "Niagara Falls filling a teacup",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["Waterfall pouring into a teacup"],
+      "keywords": ["niagara", "falls", "teacup"]
+    }
+  ]
+}

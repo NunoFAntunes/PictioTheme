@@ -1,0 +1,13 @@
+[
+  { "id": "stealth/space-bunny-alpha", "requireParameters": false },
+  { "id": "qwen/qwen3.8-27b:free", "requireParameters": true },
+  { "id": "dots-studio/dots-3-note-preview:free", "requireParameters": true },
+  { "id": "openai/gpt-6-luna", "requireParameters": true },
+  { "id": "openai/gpt-6-luna-pro", "requireParameters": true },
+  { "id": "z-ai/glm-5.3-flash", "requireParameters": true },
+  { "id": "deepseek/deepseek-v4-flash", "requireParameters": true },
+  { "id": "xiaomi/mimo-v2.6-flash", "requireParameters": true },
+  { "id": "qwen/qwen3.8-flash", "requireParameters": true },
+  { "id": "google/gemini-3.1-flash-lite", "requireParameters": true },
+  { "id": "inception/mercury-2.5", "requireParameters": true }
+]

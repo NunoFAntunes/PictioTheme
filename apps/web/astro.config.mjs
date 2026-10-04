@@ -9,6 +9,22 @@ export default defineConfig({
   integrations: [react()],
   vite: {
     plugins: [tailwindcss()],
+    // Pre-bundle the app's dependencies at startup. Otherwise Vite discovers them on the first
+    // page load, re-optimizes, and the island import fails once ("504 Outdated Optimize Dep").
+    // Add new runtime dependencies of src/app here.
+    optimizeDeps: {
+      include: [
+        'react',
+        'react-dom/client',
+        'react/jsx-dev-runtime',
+        'react-router',
+        '@tanstack/react-query',
+        'zustand',
+        'zod',
+        'perfect-freehand',
+        'pluralize',
+      ],
+    },
     server: {
       proxy: {
         '/api': 'http://localhost:3000',

@@ -25,14 +25,19 @@ User submits theme ─► API: auth check, rate limit, theme pre-check, reserve 
                       Any failure ─► refund credit, status = failed
 ```
 
+### What's built (2026-10)
+
+The pipeline steps above run in `generation.service.ts`. Around them, `generation-jobs.service.ts` runs each generation **in-process** as a row in `generation_jobs`: `POST /api/decks/generations` inserts the job and starts it without waiting, the client polls `GET /api/decks/generations/:id`, and the finished deck is saved through the decks service (`decks`/`cards` tables) with no review step. A restart fails any running job at boot. While a job runs (or after it's published), its creator can attach the drawn [back cover](../product/decks.md#back-cover) with `PUT /api/decks/generations/:id/cover`; the job holds it and it's copied onto the deck whichever of the two finishes last. Later, `PUT /api/decks/:id/cover` redraws it: the published job with that `deck_id` and the caller as `created_by` is the ownership check. Generation is on for everyone, guests included, within daily limits checked before a job starts: 1 deck per player and 3 per IP in any 24 hours (failed jobs don't count), and a global daily budget (running jobs count at an estimated $0.02). `DECK_GENERATION=off` is the kill switch, and the feature reports itself off when there's no API key. The theme pre-check (blocklist on theme and notes) runs before the job is created, and the blocklist runs again on the cards, alternates, title and tags (`content-check.ts`). Still to come from the flow above: auth and credits, pg-boss, streaming progress, the review step, and the optional LLM theme check.
+
 ## Model access: OpenRouter
 
-Models are called through **OpenRouter** so several can be compared with one API and one key ([decisions.md](decisions.md#d4--openrouter-for-model-inference)). Production uses **one model chosen by the [eval](#evaluation)**. Until the eval runs, the default is Claude Sonnet 5.5.
+Models are called through **OpenRouter** so several can be compared with one API and one key ([decisions.md](decisions.md#d4--openrouter-for-model-inference)). Production uses **one model chosen by the [eval](#evaluation)**: `openai/gpt-6-luna` with `openai/gpt-6-luna-pro` as the fallback, ~$0.004 per deck ([model-eval-2026-10.md](model-eval-2026-10.md), [decisions.md](decisions.md) D6).
 
 ### Client
 
-- The `generation` module defines an `LlmClient` interface (`generateDeck(input, { onProgress }) → { deck, usage, model, provider }`). The only production implementation is `OpenRouterClient`, which uses the `openai` npm SDK pointed at `https://openrouter.ai/api/v1`. Tests use a fake client ([backend-guidelines.md](backend-guidelines.md#testing)).
-- Models come from **config, not code**: `DECK_MODEL` (primary) and `DECK_FALLBACK_MODELS` (comma-separated). They are passed as OpenRouter's `models` list, so if the primary is down or rejects the request, the next one is tried. Use the exact slugs listed on openrouter.ai/models.
+- The `generation` module defines an `LlmClient` interface (`completeJson({ system, user, schema, maxTokens }) → { content, finishReason, refusal, model, provider, usage }`, in `generation/llm/llm-client.ts`). It's generic rather than deck-specific so the top-up call and the theme classifier can use it too. The only production implementation is `createOpenRouterClient`, which calls `https://openrouter.ai/api/v1/chat/completions` with plain `fetch` and validates the reply with zod. No SDK: OpenRouter's extra fields (`models`, `provider`, `reasoning`) aren't in the `openai` SDK's types anyway. Tests use a fake client (`test-support/llm.ts`, [backend-guidelines.md](backend-guidelines.md#testing)).
+- Not built yet: streaming and progress events. Calls are non-streaming for now.
+- Models come from **config, not code**: `DECK_MODEL` (primary) and `DECK_FALLBACK_MODELS` (comma-separated). `DECK_REQUIRE_PARAMETERS=off` lets a model without strict structured-output support be used (local development currently uses the free `stealth/space-bunny-alpha` this way). The prompt then carries the JSON shape, and the reply is parsed leniently (a ```` ```json ```` fence is stripped) and validated with zod as always. They are passed as OpenRouter's `models` list, so if the primary is down or rejects the request, the next one is tried. Use the exact slugs listed on openrouter.ai/models.
 - Send `HTTP-Referer` and `X-Title` headers so usage is attributed to the app on OpenRouter.
 
 ### Request settings
@@ -44,12 +49,12 @@ Models are called through **OpenRouter** so several can be compared with one API
 | `provider.data_collection` | `"deny"` | Never route user themes to providers that may train on them. Also set the account-level privacy setting |
 | `reasoning` | `{ effort: "medium" }` to start, test `"high"` for the silly pool | OpenRouter's unified reasoning setting. Models without reasoning ignore it |
 | `stream` | `true` | Output is several thousand tokens. Progress events are emitted as cards are parsed from the stream |
-| `max_tokens` | ~16k | Room for 150 cards plus reasoning. A cut-off response fails validation and is retried once |
+| `max_tokens` | 32k (top-up 12k) | Room for 150 cards plus reasoning. At 16k, reasoning models ran out before writing any JSON ([eval](model-eval-2026-10.md)). A cut-off response fails the job: retrying with the same limit gets cut off again |
 | Usage accounting | enabled | The response reports tokens **and cost**, which are logged on every job |
 
 ### Failures and refusals
 
-There is no single refusal signal across providers. Treat any of these as a failed generation: `finish_reason` of `content_filter` or `length`, a refusal message instead of content, JSON that fails the zod deck schema, or too few cards after cleanup and one top-up. The job is marked `failed` with a friendly message ("We couldn't make a deck for that theme"), and the credit is refunded (idempotently, see [backend-guidelines.md](backend-guidelines.md#services-and-business-logic) B16). Transport errors (429/5xx) are retried with backoff by pg-boss, at most 2 retries.
+There is no single refusal signal across providers. Treat any of these as a failed generation: `finish_reason` of `content_filter` or `length`, a refusal message instead of content, an empty `cards` list (the prompt tells the model to return one for a theme that can't be made family friendly; no top-up is attempted), JSON that fails the zod deck schema, or too few cards after cleanup and one top-up. The job is marked `failed` with a friendly message ("We couldn't make a deck for that theme"), and the credit is refunded (idempotently, see [backend-guidelines.md](backend-guidelines.md#services-and-business-logic) B16). Transport errors (429/5xx) are retried with backoff by pg-boss, at most 2 retries. Until the job queue exists, the service turns them into `SERVICE_UNAVAILABLE`. A malformed reply gets one immediate retry. A refusal or a reply cut off at the token limit doesn't (asking again rarely helps and costs money). Calls abandoned at the 180 s timeout **are still billed** by OpenRouter, so keep slow models out of the routing list.
 
 ### Prompt caching
 
@@ -122,6 +127,8 @@ family_friendly: true
 Counts: easy 40, medium 40, hard 30, silly 40
 ```
 
+The creator picks which difficulties the deck has and whether it gets a silly pool (`DeckGenerationRequest` in `protocol`). Only those counts are requested, and silly cards are told to use one of the chosen difficulties, because the card pool only draws cards whose difficulty the room selected.
+
 The theme and notes are user input. Put them in clearly labelled fields and tell the model to treat them only as a theme description, never as instructions. This blocks attempts like "ignore the rules and…".
 
 ## Validation and cleanup (deterministic, after the model call)
@@ -131,9 +138,10 @@ The theme and notes are user input. Put them in clearly labelled fields and tell
 | JSON schema | Requested through `response_format`, but support varies by model, so **always validate with zod**. Invalid → one retry, then fail |
 | Length | `text` 2–40 chars. Drop violators |
 | Characters | Letters, spaces, hyphens, apostrophes only. Drop digits, emoji |
-| Duplicates | Normalize (same as guess matching) and drop duplicates. Also drop cards that are **substrings** of another card in the same deck |
+| Duplicates | Normalize (same as guess matching) and drop duplicates, counting the same meaningful words in any order as one card ("Vampire on a unicycle" / "Unicycle vampire"). Cards that contain another card are **kept**: dropping them would remove "Witch" because of "Witch hat", and most silly cards contain a theme noun. The prompt asks for no near-duplicates instead |
+| Pools | Cards with a difficulty the creator didn't pick, or silly cards when the silly pool is off, are dropped |
 | Blocklist | Profanity and slur list on text, alternates, title, and tags. Drop the card. If the title or tags match, fail the whole job |
-| Keywords | Must be non-empty, each keyword must appear in text or alternates (after normalization) |
+| Keywords | Each keyword must appear in text or alternates (after normalization), otherwise it's dropped. If none survive, the text's meaningful words are used, like the built-in decks |
 | Counts | If any level has < 70% of the target count after cleanup → one top-up call ("Give 12 more medium cards, not in this list: …") |
 | Cross-deck similarity | Compute overlap with existing decks with the same tags. If > 80% of cards duplicate an existing deck, warn the creator ("Very similar to *Spooky Halloween*") |
 
@@ -169,7 +177,7 @@ Log input tokens, output tokens, the model and provider OpenRouter actually used
 
 The eval does two jobs: it **picks the production model**, and it guards quality whenever the prompt or model changes.
 
-**Set-up** (in `apps/server/scripts/eval-decks.ts`, run by hand, never in CI):
+**Set-up** (`pnpm --filter @pictiotheme/server deck:eval`, in `apps/server/scripts/eval-decks.ts`, run by hand, never in CI). It caps spend against the key's real usage (`--cap`, USD), counting failed calls at their worst case. Results so far: [model-eval-2026-10.md](model-eval-2026-10.md).
 - `evals/themes.json`: ~20 themes. Broad ("animals"), niche ("pirate cooking"), tricky ("the 1990s"), and adversarial (borderline content, prompt-injection attempts in the notes field).
 - `evals/models.json`: the candidates. Start with Claude Opus 5.5, Claude Sonnet 5.5 and Claude Haiku 4.5, a current OpenAI flagship and its mini model, a Gemini Pro and Flash model, and one strong open-weight model (e.g. DeepSeek or Qwen).
 - The script runs every theme × model through the **real production pipeline** (same prompt, same validation). It saves each deck to `evals/results/<date>/<model>/<theme>.json` and writes a summary CSV.

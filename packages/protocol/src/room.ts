@@ -10,7 +10,21 @@ export const PlayerId = z.string().min(1).max(64);
 export type PlayerId = z.infer<typeof PlayerId>;
 
 export const DisplayName = z.string().trim().min(2).max(20);
-export const AvatarId = z.string().min(1).max(40);
+/**
+ * Avatars are drawn by the players. The client sends the image as a PNG data URL; the server
+ * stores it content-addressed and everyone else refers to it by id (`GET /api/avatars/:id`).
+ */
+export const AVATAR_SIZE_PX = 128;
+export const AVATAR_MAX_BYTES = 40_000;
+const AVATAR_DATA_URL_PREFIX = 'data:image/png;base64,';
+export const AvatarImage = z
+  .string()
+  .startsWith(AVATAR_DATA_URL_PREFIX)
+  .max(AVATAR_DATA_URL_PREFIX.length + Math.ceil(AVATAR_MAX_BYTES / 3) * 4);
+export type AvatarImage = z.infer<typeof AvatarImage>;
+/** The first 32 hex characters of the image's SHA-256. */
+export const AvatarId = z.string().regex(/^[0-9a-f]{32}$/);
+export type AvatarId = z.infer<typeof AvatarId>;
 
 export const GuessVisibility = z.enum(['show', 'hide']);
 export type GuessVisibility = z.infer<typeof GuessVisibility>;

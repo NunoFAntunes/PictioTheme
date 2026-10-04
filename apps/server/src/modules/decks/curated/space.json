@@ -1,0 +1,1059 @@
+{
+  "slug": "space",
+  "featuredRank": null,
+  "title": "Out of This World",
+  "description": "Draw your way through planets, astronauts, alien encounters, and ridiculous space adventures.",
+  "tags": ["space", "astronauts", "planets", "aliens", "science fiction"],
+  "cards": [
+    {
+      "text": "Rocket",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rocket"]
+    },
+    {
+      "text": "Astronaut",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut"]
+    },
+    {
+      "text": "Moon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["moon"]
+    },
+    {
+      "text": "Star",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["star"]
+    },
+    {
+      "text": "Sun",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sun"]
+    },
+    {
+      "text": "Alien",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["alien"]
+    },
+    {
+      "text": "Planet",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["planet"]
+    },
+    {
+      "text": "Spaceship",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spaceship"]
+    },
+    {
+      "text": "Satellite",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["satellite"]
+    },
+    {
+      "text": "Telescope",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["telescope"]
+    },
+    {
+      "text": "Spacesuit",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spacesuit"]
+    },
+    {
+      "text": "Comet",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["comet"]
+    },
+    {
+      "text": "Asteroid",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["asteroid"]
+    },
+    {
+      "text": "UFO",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["flying saucer"],
+      "keywords": ["ufo"]
+    },
+    {
+      "text": "Earth",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["earth"]
+    },
+    {
+      "text": "Saturn",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["saturn"]
+    },
+    {
+      "text": "Jupiter",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jupiter"]
+    },
+    {
+      "text": "Galaxy",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["galaxy"]
+    },
+    {
+      "text": "Meteor",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["meteor"]
+    },
+    {
+      "text": "Crater",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crater"]
+    },
+    {
+      "text": "Rover",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rover"]
+    },
+    {
+      "text": "Space station",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["space station"]
+    },
+    {
+      "text": "Space shuttle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["space shuttle"]
+    },
+    {
+      "text": "Moon rock",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["moon rock"]
+    },
+    {
+      "text": "Solar system",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["solar system"]
+    },
+    {
+      "text": "Observatory",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["observatory"]
+    },
+    {
+      "text": "Launchpad",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["launchpad"]
+    },
+    {
+      "text": "Space probe",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["space probe"]
+    },
+    {
+      "text": "Rocket engine",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rocket engine"]
+    },
+    {
+      "text": "Solar panel",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["solar panel"]
+    },
+    {
+      "text": "Oxygen tank",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["oxygen tank"]
+    },
+    {
+      "text": "Lunar module",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lunar module"]
+    },
+    {
+      "text": "Nebula",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["nebula"]
+    },
+    {
+      "text": "Star cluster",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["star cluster"]
+    },
+    {
+      "text": "Astronaut helmet",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut helmet"]
+    },
+    {
+      "text": "Space capsule",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["space capsule"]
+    },
+    {
+      "text": "Rocket booster",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rocket booster"]
+    },
+    {
+      "text": "Mission control console",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mission control console"]
+    },
+    {
+      "text": "Alien egg",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["alien egg"]
+    },
+    {
+      "text": "Eclipse glasses",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["eclipse glasses"]
+    },
+    {
+      "text": "Astronaut on moon",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "moon"]
+    },
+    {
+      "text": "Astronaut planting flag",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "flag"]
+    },
+    {
+      "text": "Astronaut repairing satellite",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "satellite"]
+    },
+    {
+      "text": "Rocket blasting off",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rocket", "blasting off"]
+    },
+    {
+      "text": "Alien spaceship landing",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["alien", "spaceship"]
+    },
+    {
+      "text": "Spacewalk outside spacecraft",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spacewalk", "spacecraft"]
+    },
+    {
+      "text": "Earth from space",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["earth", "space"]
+    },
+    {
+      "text": "Telescope under stars",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["telescope", "stars"]
+    },
+    {
+      "text": "Mission control room",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mission control"]
+    },
+    {
+      "text": "Moon base",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["moon base"]
+    },
+    {
+      "text": "Astronaut in space capsule",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "space capsule"]
+    },
+    {
+      "text": "Asteroid belt",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["asteroid belt"]
+    },
+    {
+      "text": "Meteor shower",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["meteor shower"]
+    },
+    {
+      "text": "Black hole",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["black hole"]
+    },
+    {
+      "text": "Alien with three eyes",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["alien", "three eyes"]
+    },
+    {
+      "text": "Alien family",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["alien family"]
+    },
+    {
+      "text": "Robot in space",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["robot", "space"]
+    },
+    {
+      "text": "Spaceport",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spaceport"]
+    },
+    {
+      "text": "Astronaut floating in zero gravity",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "zero gravity"]
+    },
+    {
+      "text": "Astronaut eating space food",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "space food"]
+    },
+    {
+      "text": "Astronaut sleeping in a pod",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "pod"]
+    },
+    {
+      "text": "Satellite unfolding panels",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["satellite", "panels"]
+    },
+    {
+      "text": "Telescope dome",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["telescope dome"]
+    },
+    {
+      "text": "Mars landscape",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mars", "landscape"]
+    },
+    {
+      "text": "Planetarium",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["planetarium"]
+    },
+    {
+      "text": "Spaceship window",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spaceship window"]
+    },
+    {
+      "text": "Astronaut in a moon buggy",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "moon buggy"]
+    },
+    {
+      "text": "Ice moon",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ice moon"]
+    },
+    {
+      "text": "Red giant star",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["red giant star"]
+    },
+    {
+      "text": "Alien planet",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["alien planet"]
+    },
+    {
+      "text": "Space colony",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["space colony"]
+    },
+    {
+      "text": "Rocket stage separation",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rocket", "stage separation"]
+    },
+    {
+      "text": "Moon footprints",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["moon footprints"]
+    },
+    {
+      "text": "Planet with two moons",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["planet", "two moons"]
+    },
+    {
+      "text": "Space junk around Earth",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["space junk", "earth"]
+    },
+    {
+      "text": "Astronaut training in a pool",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "pool"]
+    },
+    {
+      "text": "Astronaut in a centrifuge",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "centrifuge"]
+    },
+    {
+      "text": "Space capsule parachute",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["space capsule", "parachute"]
+    },
+    {
+      "text": "Alien spaceship in a hangar",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["alien spaceship", "hangar"]
+    },
+    {
+      "text": "Astronaut riding a comet",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "comet"]
+    },
+    {
+      "text": "Astronaut rescuing a satellite",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "satellite"]
+    },
+    {
+      "text": "Alien waving through spaceship window",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["alien", "spaceship window"]
+    },
+    {
+      "text": "Astronaut tethered to drifting toolbox",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "toolbox"]
+    },
+    {
+      "text": "Spacecraft docking with station",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spacecraft", "station"]
+    },
+    {
+      "text": "Astronaut collecting moon rocks",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "moon rocks"]
+    },
+    {
+      "text": "Rover climbing crater wall",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rover", "crater wall"]
+    },
+    {
+      "text": "Robot exploring Mars",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["robot", "mars"]
+    },
+    {
+      "text": "Solar eclipse seen from space",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["solar eclipse", "space"]
+    },
+    {
+      "text": "Astronaut upside down in cabin",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "cabin"]
+    },
+    {
+      "text": "Alien and astronaut shaking hands",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["alien", "astronaut"]
+    },
+    {
+      "text": "Spaceship entering a wormhole",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spaceship", "wormhole"]
+    },
+    {
+      "text": "Astronaut repairing a solar panel",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "solar panel"]
+    },
+    {
+      "text": "Comet passing Earth",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["comet", "earth"]
+    },
+    {
+      "text": "Astronaut planting a garden on Mars",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "garden"]
+    },
+    {
+      "text": "Alien driving a rover",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["alien", "rover"]
+    },
+    {
+      "text": "Spaceship landing on an asteroid",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spaceship", "asteroid"]
+    },
+    {
+      "text": "Two astronauts playing catch",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronauts", "playing catch"]
+    },
+    {
+      "text": "Capsule splashing into ocean",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["capsule", "ocean"]
+    },
+    {
+      "text": "Rover leaving tracks on moon",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rover", "tracks"]
+    },
+    {
+      "text": "Astronaut watching Earthrise",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "earthrise"]
+    },
+    {
+      "text": "Astronaut pulling a stuck rover",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "stuck rover"]
+    },
+    {
+      "text": "Spacecraft weaving through asteroids",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spacecraft", "asteroids"]
+    },
+    {
+      "text": "Astronaut chasing a floating wrench",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "wrench"]
+    },
+    {
+      "text": "Robot waving at Earth",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["robot", "earth"]
+    },
+    {
+      "text": "Planet rings viewed from spaceship",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["planet rings", "spaceship"]
+    },
+    {
+      "text": "Astronaut rescuing a stranded alien",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "stranded alien"]
+    },
+    {
+      "text": "Solar flare behind a spaceship",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["solar flare", "spaceship"]
+    },
+    {
+      "text": "Astronaut examining alien footprints",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["astronaut", "alien footprints"]
+    },
+    {
+      "text": "Two spaceships racing around a moon",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spaceships", "racing"]
+    },
+    {
+      "text": "Astronaut baking a cake",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["astronaut", "cake"]
+    },
+    {
+      "text": "Astronaut walking a dog",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["astronaut", "dog"]
+    },
+    {
+      "text": "Astronaut riding a bicycle",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["astronaut", "bicycle"]
+    },
+    {
+      "text": "Astronaut mowing the lawn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["astronaut", "lawn"]
+    },
+    {
+      "text": "Astronaut juggling oranges",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["astronaut", "oranges"]
+    },
+    {
+      "text": "Alien brushing its teeth",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["alien", "teeth"]
+    },
+    {
+      "text": "Alien knitting a sweater",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["alien", "sweater"]
+    },
+    {
+      "text": "Alien at a lemonade stand",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["alien", "lemonade stand"]
+    },
+    {
+      "text": "Alien playing tennis",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["alien", "tennis"]
+    },
+    {
+      "text": "Alien washing dishes",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["alien", "dishes"]
+    },
+    {
+      "text": "Rocket delivering pizza",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rocket", "pizza"]
+    },
+    {
+      "text": "Rocket at a car wash",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rocket", "car wash"]
+    },
+    {
+      "text": "Rocket wearing roller skates",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rocket", "roller skates"]
+    },
+    {
+      "text": "Moon eating spaghetti",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["moon", "spaghetti"]
+    },
+    {
+      "text": "Moon wearing sunglasses",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["moon", "sunglasses"]
+    },
+    {
+      "text": "Moon playing basketball",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["moon", "basketball"]
+    },
+    {
+      "text": "Robot making pancakes",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["robot", "pancakes"]
+    },
+    {
+      "text": "Robot walking a cat",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["robot", "cat"]
+    },
+    {
+      "text": "Robot painting a fence",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["robot", "fence"]
+    },
+    {
+      "text": "Robot playing guitar",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["robot", "guitar"]
+    },
+    {
+      "text": "Comet pulling a wagon",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["comet", "wagon"]
+    },
+    {
+      "text": "Comet waiting at a bus stop",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["comet", "bus stop"]
+    },
+    {
+      "text": "Satellite flying a kite",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["satellite", "kite"]
+    },
+    {
+      "text": "Satellite at a hair salon",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["satellite", "hair salon"]
+    },
+    {
+      "text": "UFO at a drive through",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ufo", "drive through"]
+    },
+    {
+      "text": "UFO delivering mail",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ufo", "mail"]
+    },
+    {
+      "text": "Spaceship stuck in traffic",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["spaceship", "traffic"]
+    },
+    {
+      "text": "Spaceship as a school bus",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["spaceship", "school bus"]
+    },
+    {
+      "text": "Rover swimming in a pool",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rover", "pool"]
+    },
+    {
+      "text": "Rover delivering groceries",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rover", "groceries"]
+    },
+    {
+      "text": "Star riding a horse",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["star", "horse"]
+    },
+    {
+      "text": "Star getting a haircut",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["star", "haircut"]
+    },
+    {
+      "text": "Saturn doing laundry",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["saturn", "laundry"]
+    },
+    {
+      "text": "Saturn skateboarding",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["saturn", "skateboarding"]
+    },
+    {
+      "text": "Planet playing soccer",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["planet", "soccer"]
+    },
+    {
+      "text": "Asteroid wearing a backpack",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["asteroid", "backpack"]
+    },
+    {
+      "text": "Asteroid in a bathtub",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["asteroid", "bathtub"]
+    },
+    {
+      "text": "Space station running a bakery",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["space station", "bakery"]
+    },
+    {
+      "text": "Spacesuit doing laundry",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["spacesuit", "laundry"]
+    },
+    {
+      "text": "Black hole vacuuming a rug",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["black hole", "rug"]
+    },
+    {
+      "text": "Alien astronaut barber",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["alien", "barber"]
+    }
+  ]
+}

@@ -26,6 +26,17 @@ Each card has:
 | `keywords` | `["witch", "hat"]` | Used by close-guess detection and silly-card matching |
 | `silly` | `false` | Whether the card belongs to the silly pool |
 
+## Back cover
+
+Every deck has a back cover, like the back of a real deck of cards: a 3:4 drawing shown wherever the deck appears.
+
+- **Drawn by the creator while the deck generates.** Generation takes about a minute, so the progress view asks "Draw the back cover of your deck" with a drawing pad. Drawing is optional (**Skip** is always there) and never races the model: if the deck finishes first, the creator is told it's ready and can finish the cover or skip. If generation fails, the drawing stays on the pad for the retry.
+- **Default cover.** A deck without a drawing (curated decks until their covers are drawn, skipped covers) shows its title on a striped background, coloured from a hash of the title.
+- **Shown** in the deck pickers, beside the room code in the waiting room, on the results screen, and as the back of the cards on the card-choice screen (the draw pile and the dealt cards, face down, then flipped for the drawer). A deck without a drawing shows its default cover there too, title included. Planned: the library and the preview image of a shared deck link.
+- **Redrawing.** The creator can redraw their deck's cover any time from the ✏️ button on their decks in the create-room picker. The new cover replaces the old one everywhere; rooms already playing the deck pick it up the next time they load it.
+- **Drawing tools.** The cover pad has the game's full drawing toolbar (sizes, opacity, fill tolerance, the whole palette, eyedropper, undo/redo and the shortcuts), with bigger buttons and a bigger pad on touch screens.
+- **Reporting.** Covers are shown to strangers, so any player can report one with 🚩 on the deck (waiting room, results). Once 3 different players report the cover shown right now, it's hidden and the default cover shows instead; the deck stays playable. A redrawn cover starts with no reports. See [Quality control](#quality-control) for reporting a deck's cards.
+
 ## Difficulty, defined
 
 The AI and reviewers need a shared definition of each level:
@@ -54,6 +65,13 @@ You could build silly prompts from templates (`{monster} + {job}`), but most com
 - Results card: title, tags, flag/language, card counts per level, 🤪 if a silly pool exists, 👍 %, plays, creator name.
 - "Similar decks" are shown before generation so people don't generate 40 Halloween decks: *"There are 12 Halloween decks already. Generate anyway?"*
 - Featured / staff-picked decks appear on the deck picker's empty state, along with seasonal suggestions (e.g. Halloween in October).
+- **Built so far:** the create-room picker searches titles and tags (typo-tolerant), and shows featured curated decks first. No card-text search, quality ranking or library page yet.
+
+## Curated decks
+
+Hand-checked decks that ship with the game, so a new player always has good decks to pick from. They live in the repo as JSON files, one per deck (`apps/server/src/modules/decks/curated/<slug>.json`), and `db:migrate` seeds them into the database: a new file adds a deck, an edited file updates it in place (same id, same cover). `featuredRank` puts a deck in the featured row (lowest first; seasonal ones lead). The first featured deck is what a new room starts with.
+
+The first 20 (2026-10-04) are the two original hand-written decks plus 18 generated with the production model (~$0.07 in all) and checked by the same tests as any curated deck: no duplicates, every alternate guessable, enough cards per pool. They still need a human pass. They have no drawn covers: like any deck without one, they show the default title tile, decided on 2026-10-04. Curated decks can be reported, but reports never hide them automatically.
 
 ## Quality and lifecycle
 
@@ -61,9 +79,9 @@ You could build silly prompts from templates (`{monster} + {job}`), but most com
 |---|---|
 | Automatic validation | Schema check, duplicate removal, length limits, profanity/safety filter (see pipeline doc) |
 | Creator review | After generation, the creator can remove cards before publishing |
-| Player feedback | 👍/👎 per deck after a match. Each card can be flagged as "unfair/undrawable" from the reveal screen |
-| Card stats | Track how often each card is guessed correctly. Cards with ~0% success get demoted or moved up a difficulty |
-| Reports | Inappropriate content → hidden pending review once N reports arrive |
+| Player feedback | **Built:** while choosing, the drawer can rate each of the three face-up cards 👍/👎 (it doesn't pick the card; pressing again takes the vote back). Planned: 👍/👎 per deck after a match, and flagging a card as "unfair/undrawable" from the reveal screen |
+| Card stats | **Built:** per card, how often it was offered, picked by the drawer (a card nobody picks is weak; ~1 in 3 is fair), drawn, and guessed by at least one player. `metrics:report` lists the least picked, most 👎 and hardest-to-guess cards. Planned: demote or move cards automatically; for now someone reads the report and edits or removes them |
+| Reports | 🚩 on the deck in the waiting room and on results: "the cover drawing is offensive" or "the cards or title are offensive". 3 reports from different players hide the cover (the default one shows) or the whole deck (it can't be picked or loaded any more) until a moderator reviews them. Curated decks are never hidden automatically: their reports wait for a moderator |
 | Forking | Later: "Remix this deck" lets someone generate more cards on top of an existing deck |
 
 ## Language

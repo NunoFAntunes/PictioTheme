@@ -2,7 +2,7 @@
 
 Each phase ends with something playable. Sizes are rough for one developer working part-time.
 
-## Phase 0: Foundations (≈ 1 week)
+## Phase 0: Foundations (≈ 1 week) — ✅ done, except VM deployment
 
 - pnpm monorepo (`apps/server`, `apps/web`, `packages/game-core`, `packages/protocol`), set up per [architecture.md](../technical/architecture.md#repository-layout).
 - Server skeleton following [backend-guidelines.md](../technical/backend-guidelines.md): `config.ts`, `app.ts` composition root, error handler, health endpoints, Drizzle + first migration.
@@ -13,6 +13,8 @@ Each phase ends with something playable. Sizes are rough for one developer worki
 - OpenRouter account with a spending limit. Start the model eval script early ([ai-deck-pipeline.md](../technical/ai-deck-pipeline.md#evaluation)), because it decides the production model before Phase 3.
 
 ## Phase 1: Playable core with friends (≈ 3–4 weeks) — **the first milestone**
+
+Status: ✅ built, server and web, tested end to end including a two-browser Playwright test. **Remaining: the playtest exit criterion below, and the polish backlog in [status.md](status.md).**
 
 Goal: you and friends can play a full match in a private room with a hard-coded deck.
 
@@ -40,6 +42,7 @@ Goal: you and friends can play a full match in a private room with a hard-coded 
 ## Phase 3: Accounts and AI generation (≈ 2–3 weeks)
 
 - Sign up / sign in (magic link, Google, Discord). Guest → account upgrade.
+- Saved avatars: registered users keep the avatars they draw (`user_avatars`, see [data-model.md](../technical/data-model.md)) and pick one instead of redrawing.
 - Generation flow: form → job → streamed progress → review → publish, using the model the eval picked.
 - Credit ledger with a free grant of 3.
 - Deck ratings, card flags, card stats.
@@ -55,7 +58,7 @@ Goal: you and friends can play a full match in a private room with a hard-coded 
 ## Phase 5: Delight and growth (ongoing)
 
 - Drawing gallery / replay at the end of a match, shareable GIF of a drawing.
-- Shapes, eyedropper, pressure, brush types.
+- Shapes, pressure, brush types. (Eyedropper done.)
 - Deck remix ("add more cards"), favourite decks, profile stats.
 - More languages (PT, ES, FR…) with language-aware guess matching.
 - Semantic close-guess detection.

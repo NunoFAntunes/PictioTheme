@@ -62,7 +62,7 @@ Everything runs on the existing VM with Docker Compose. Hosting costs nothing be
 │  │ server (one Node process, Fastify)                │   │ PostgreSQL 18 │  │
 │  │  modules: auth, decks, generation, credits,       │◄─►│ (volume)      │  │
 │  │           billing, rooms, realtime, moderation    │   └───────┬───────┘  │
-│  │  realtime: Map<roomCode, RoomRuntime> + game-core │           │ nightly  │
+│  │  rooms: Map<roomCode, RoomRuntime> + game-core    │           │ nightly  │
 │  │  worker:   pg-boss consumers (deck generation)    │           ▼ pg_dump  │
 │  └───────┬──────────────────────────┬────────────────┘     Cloudflare R2    │
 └──────────┼──────────────────────────┼──────────────────────────────────────┘
@@ -72,7 +72,7 @@ Everything runs on the existing VM with Docker Compose. Hosting costs nothing be
 
 Why **same origin** (site, API and WebSocket all on `https://<domain>`): no CORS, cookies can stay `HttpOnly; SameSite=Lax`, and one TLS certificate covers everything.
 
-Release flow: GitHub Actions runs typecheck, lint, dependency-cruiser and tests, builds `apps/web` to static files and the server to a Docker image (pushed to GHCR), then deploys over SSH with `docker compose pull && docker compose up -d`. Migrations run as a one-off step (`node dist/migrate.js`, using Drizzle's runtime migrator, so production needs no dev tools) before the new server starts.
+Release flow: merging into the `production` branch runs CI, builds two images to GHCR (the server, and Caddy with `apps/web/dist` baked in), then deploys over SSH. Migrations run as a one-off step (`node dist/migrate.js`, using Drizzle's runtime migrator, so production needs no dev tools) before the new server starts. Details, setup and rollbacks: [deployment.md](deployment.md).
 
 A deploy restarts the only server process, which **ends live games**. For v1: deploy at quiet hours and send a "server restarting" notice to rooms on `SIGTERM` (see [graceful shutdown](backend-guidelines.md#lifecycle-and-graceful-shutdown)). Later: snapshot rooms to Postgres on shutdown and restore them on boot.
 
@@ -87,20 +87,29 @@ All components below are **modules inside the one server process**. Their bounda
   - `/api/auth/*` → Better Auth (magic link, OAuth callbacks, session)
   - `GET /api/rooms/public` → lobby list (from the in-memory room registry)
   - `POST /api/rooms` → creates a room, returns `{code, joinToken}`
-  - `POST /api/rooms/:code/join` → validates, returns `{joinToken}`
-  - `GET /api/decks?q=halloween` → search
-  - `POST /api/decks/generate` → reserves a credit, enqueues a job, returns `jobId`
-  - `GET /api/decks/jobs/:id/stream` → SSE progress
+  - `POST /api/rooms/:code/join` → validates, returns `{joinToken}`. Create and join both carry the drawn avatar as a PNG data URL; the server stores it and puts only its id in the token
+  - `GET /api/avatars/:id` → the avatar PNG (`immutable` cache: ids are content hashes)
+  - `GET /api/decks` → the curated decks, featured first; `?q=halloween` searches titles and tags of all public decks (`pg_trgm`, typo-tolerant, 30 results)
+  - `GET /api/decks/generations/config` → `{enabled, daily}`: whether this server lets players generate decks (`DECK_GENERATION`, the kill switch), and the player's daily allowance (`{limit, remaining, nextAt}`, null without limits or a session)
+  - `POST /api/decks/generations` → starts a generation job (202 + the job). Later it also reserves a credit
+  - `GET /api/decks/generations/:id` → the job, polled every 2s until `published` or `failed` (SSE progress replaces polling once calls stream)
+  - `PUT /api/decks/generations/:id/cover` → the creator's drawn back cover for a running or published job (PNG data URL); returns the job
+  - `PUT /api/decks/:id/cover` → redraws the cover of a deck this player generated (404 for anyone else); returns the deck summary
+  - `GET /api/decks/covers/:id` → the cover PNG (`immutable` cache: ids are content hashes)
+  - `POST /api/events` → a browser-side product event (`first_turn`, `phone_gate`, `room_joined`); a session is optional. See [data-model.md](data-model.md#metrics)
+  - `POST /api/decks/:id/reports` → `{reason: 'cover' | 'content'}`; reports a saved deck (needs a session). 3 unique reports hide the cover or the deck
+  - `GET /api/decks/mine` → decks this player generated
   - `POST /api/billing/checkout`, `POST /api/billing/webhook`
 - The `joinToken` is a short-lived (60s) signed JWT `{roomCode, playerId, displayName, avatar, isRegistered}`. The WebSocket upgrade checks it, so the realtime module never reads sessions itself.
 
-### Realtime (WebSocket rooms)
+### Rooms and realtime
 
 - One WebSocket endpoint: `wss://<domain>/ws?token=<joinToken>`.
-- A `RoomManager` holds `Map<roomCode, RoomRuntime>`. Each `RoomRuntime` wraps the **pure** `game-core` state machine (`waiting → choosing → drawing → reveal → (next turn | results) → waiting`) and runs its effects: sending messages, scheduling timers, persisting results. This is the *functional core, imperative shell* pattern described in [backend-guidelines.md](backend-guidelines.md#realtime-rules).
+- The `rooms` module holds `Map<roomCode, RoomRuntime>`. Each `RoomRuntime` wraps the **pure** `game-core` state machine (`waiting → choosing → drawing → reveal → (next turn | results) → waiting`) and runs its effects: sending messages, scheduling timers, persisting results. This is the *functional core, imperative shell* pattern described in [backend-guidelines.md](backend-guidelines.md#realtime-rules).
 - All timers run on the server. Clients render countdowns from `endsAt` timestamps.
 - On game start the room loads the deck's cards from Postgres into memory (a few KB). At the end of a match it writes results to Postgres. These writes are best-effort and never block the game.
-- The room registry is the source for the public lobby list. It lives in memory.
+- The room map is the source for the public lobby list. It lives in memory.
+- The `realtime` module is only the transport: it authenticates the upgrade, validates and rate-limits messages, runs the heartbeat, and maps sockets to players. It implements the `RoomTransport` interface that rooms send through.
 
 ### Room code generation
 
@@ -139,7 +148,7 @@ packages/
   game-core/      Pure room state machine, scoring, guess matcher, card pool (no I/O, unit-tested)
   protocol/       zod schemas + types: WebSocket messages, REST DTOs, deck schema, error codes
 infra/
-  docker-compose.yml, Caddyfile, backup scripts
+  compose.prod.yaml, Caddyfile, Dockerfiles, deploy/ (VM bootstrap, deploy, backup scripts)
 docs/
 ```
 

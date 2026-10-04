@@ -1,0 +1,1052 @@
+{
+  "slug": "dinosaurs",
+  "featuredRank": null,
+  "title": "Dinosaurs and Deep Time",
+  "description": "Draw iconic dinosaurs, prehistoric creatures, ancient landscapes, and silly time-travel mashups.",
+  "tags": ["dinosaurs", "prehistoric", "fossils", "animals", "ice-age", "family"],
+  "cards": [
+    {
+      "text": "Dinosaur",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["dino"],
+      "keywords": ["dinosaur"]
+    },
+    {
+      "text": "T rex",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["tyrannosaurus rex"],
+      "keywords": ["rex"]
+    },
+    {
+      "text": "Triceratops",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["triceratops"]
+    },
+    {
+      "text": "Stegosaurus",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["stegosaurus"]
+    },
+    {
+      "text": "Brontosaurus",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["brontosaurus"]
+    },
+    {
+      "text": "Brachiosaurus",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["brachiosaurus"]
+    },
+    {
+      "text": "Velociraptor",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["velociraptor"]
+    },
+    {
+      "text": "Ankylosaurus",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ankylosaurus"]
+    },
+    {
+      "text": "Spinosaurus",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spinosaurus"]
+    },
+    {
+      "text": "Pterodactyl",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["pterosaur"],
+      "keywords": ["pterodactyl"]
+    },
+    {
+      "text": "Mammoth",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["woolly mammoth"],
+      "keywords": ["mammoth"]
+    },
+    {
+      "text": "Saber toothed tiger",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["saber tooth tiger"],
+      "keywords": ["saber", "tiger"]
+    },
+    {
+      "text": "Woolly rhino",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["woolly rhinoceros"],
+      "keywords": ["woolly", "rhino"]
+    },
+    {
+      "text": "Caveman",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["cave person"],
+      "keywords": ["caveman"]
+    },
+    {
+      "text": "Fossil",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fossil"]
+    },
+    {
+      "text": "Dinosaur egg",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "egg"]
+    },
+    {
+      "text": "Dinosaur bone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "bone"]
+    },
+    {
+      "text": "Volcano",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["volcano"]
+    },
+    {
+      "text": "Cave",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cave"]
+    },
+    {
+      "text": "Fern",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fern"]
+    },
+    {
+      "text": "Ammonite",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ammonite"]
+    },
+    {
+      "text": "Trilobite",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["trilobite"]
+    },
+    {
+      "text": "Prehistoric fish",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["prehistoric", "fish"]
+    },
+    {
+      "text": "Giant sloth",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["ground sloth"],
+      "keywords": ["giant", "sloth"]
+    },
+    {
+      "text": "Dire wolf",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dire", "wolf"]
+    },
+    {
+      "text": "Glyptodon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["glyptodon"]
+    },
+    {
+      "text": "Dimetrodon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dimetrodon"]
+    },
+    {
+      "text": "Iguanodon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["iguanodon"]
+    },
+    {
+      "text": "Plesiosaur",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["plesiosaur"]
+    },
+    {
+      "text": "Mosasaur",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mosasaur"]
+    },
+    {
+      "text": "Dinosaur claw",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "claw"]
+    },
+    {
+      "text": "Dinosaur tooth",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "tooth"]
+    },
+    {
+      "text": "Dinosaur nest",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "nest"]
+    },
+    {
+      "text": "Stone tool",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["stone hand tool"],
+      "keywords": ["stone", "tool"]
+    },
+    {
+      "text": "Campfire",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["fire"],
+      "keywords": ["campfire"]
+    },
+    {
+      "text": "Iceberg",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["iceberg"]
+    },
+    {
+      "text": "Glacier",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["glacier"]
+    },
+    {
+      "text": "Dinosaur skeleton",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "skeleton"]
+    },
+    {
+      "text": "Palm tree",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["palm", "tree"]
+    },
+    {
+      "text": "Cave painting",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["cave art"],
+      "keywords": ["cave", "painting"]
+    },
+    {
+      "text": "Allosaurus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["allosaurus"]
+    },
+    {
+      "text": "Carnotaurus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["carnotaurus"]
+    },
+    {
+      "text": "Compsognathus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["compsognathus"]
+    },
+    {
+      "text": "Gallimimus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gallimimus"]
+    },
+    {
+      "text": "Oviraptor",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["oviraptor"]
+    },
+    {
+      "text": "Deinonychus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["deinonychus"]
+    },
+    {
+      "text": "Utahraptor",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["utahraptor"]
+    },
+    {
+      "text": "Therizinosaurus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["therizinosaurus"]
+    },
+    {
+      "text": "Parasaurolophus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["parasaurolophus"]
+    },
+    {
+      "text": "Pachycephalosaurus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pachycephalosaurus"]
+    },
+    {
+      "text": "Styracosaurus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["styracosaurus"]
+    },
+    {
+      "text": "Protoceratops",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["protoceratops"]
+    },
+    {
+      "text": "Corythosaurus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["corythosaurus"]
+    },
+    {
+      "text": "Edmontosaurus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["edmontosaurus"]
+    },
+    {
+      "text": "Maiasaura",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["maiasaura"]
+    },
+    {
+      "text": "Archaeopteryx",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["archaeopteryx"]
+    },
+    {
+      "text": "Ichthyosaur",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ichthyosaur"]
+    },
+    {
+      "text": "Quetzalcoatlus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["quetzalcoatlus"]
+    },
+    {
+      "text": "Megalodon",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["giant prehistoric shark"],
+      "keywords": ["megalodon"]
+    },
+    {
+      "text": "Cave lion",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cave", "lion"]
+    },
+    {
+      "text": "Cave bear",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cave", "bear"]
+    },
+    {
+      "text": "Terror bird",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["terror", "bird"]
+    },
+    {
+      "text": "Irish elk",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["giant deer"],
+      "keywords": ["irish", "elk"]
+    },
+    {
+      "text": "Short faced bear",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["short", "bear"]
+    },
+    {
+      "text": "Amber insect",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["insect in amber"],
+      "keywords": ["amber", "insect"]
+    },
+    {
+      "text": "Fossil excavation",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["digging for fossils"],
+      "keywords": ["fossil", "excavation"]
+    },
+    {
+      "text": "Dinosaur museum",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "museum"]
+    },
+    {
+      "text": "Ice age camp",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ice", "camp"]
+    },
+    {
+      "text": "Dinosaur herd",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "herd"]
+    },
+    {
+      "text": "Dinosaur in a swamp",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["swamp dinosaur"],
+      "keywords": ["dinosaur", "swamp"]
+    },
+    {
+      "text": "Dinosaur eating leaves",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["dinosaur eating plants"],
+      "keywords": ["dinosaur", "leaves"]
+    },
+    {
+      "text": "Dinosaur drinking water",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["dinosaur at a river"],
+      "keywords": ["dinosaur", "water"]
+    },
+    {
+      "text": "Dinosaur guarding nest",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["dinosaur protecting eggs"],
+      "keywords": ["dinosaur", "nest"]
+    },
+    {
+      "text": "Dinosaur crossing river",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "river"]
+    },
+    {
+      "text": "Mammoth herd",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mammoth", "herd"]
+    },
+    {
+      "text": "Caveman fishing",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["cave person fishing"],
+      "keywords": ["caveman", "fishing"]
+    },
+    {
+      "text": "Caveman making fire",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["cave person making a fire"],
+      "keywords": ["caveman", "fire"]
+    },
+    {
+      "text": "Flint hand axe",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["stone hand axe"],
+      "keywords": ["flint", "axe"]
+    },
+    {
+      "text": "Prehistoric beach",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["ancient beach"],
+      "keywords": ["prehistoric", "beach"]
+    },
+    {
+      "text": "Meteor crater",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["impact crater"],
+      "keywords": ["meteor", "crater"]
+    },
+    {
+      "text": "Dinosaur hatching from egg",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["hatching dinosaur"],
+      "keywords": ["dinosaur", "egg"]
+    },
+    {
+      "text": "Triceratops charging",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["charging triceratops"],
+      "keywords": ["triceratops", "charging"]
+    },
+    {
+      "text": "Stegosaurus swatting flies",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["stegosaurus", "flies"]
+    },
+    {
+      "text": "Raptor stealing a nest",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["raptor taking eggs"],
+      "keywords": ["raptor", "nest"]
+    },
+    {
+      "text": "Long neck eating treetop",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["long neck dinosaur eating leaves"],
+      "keywords": ["long", "treetop"]
+    },
+    {
+      "text": "Dinosaur skeleton being assembled",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["assembling a dinosaur skeleton"],
+      "keywords": ["skeleton", "assembled"]
+    },
+    {
+      "text": "Caveman painting a dinosaur",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["cave person painting a dinosaur"],
+      "keywords": ["caveman", "dinosaur"]
+    },
+    {
+      "text": "Caveman riding a mammoth",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["cave person on a mammoth"],
+      "keywords": ["caveman", "mammoth"]
+    },
+    {
+      "text": "Mammoth crossing frozen river",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mammoth", "river"]
+    },
+    {
+      "text": "Pterosaur catching fish",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["flying reptile catching a fish"],
+      "keywords": ["pterosaur", "fish"]
+    },
+    {
+      "text": "Dinosaur stuck in tar pit",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["dinosaur trapped in tar"],
+      "keywords": ["dinosaur", "tar"]
+    },
+    {
+      "text": "Volcano erupting over dinosaurs",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["volcano", "dinosaurs"]
+    },
+    {
+      "text": "Meteor falling toward dinosaurs",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["meteor over dinosaurs"],
+      "keywords": ["meteor", "dinosaurs"]
+    },
+    {
+      "text": "Dinosaur family at nest",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["dinosaur parents with eggs"],
+      "keywords": ["dinosaur", "nest"]
+    },
+    {
+      "text": "Giant sloth climbing tree",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sloth", "tree"]
+    },
+    {
+      "text": "Archaeopteryx in flight",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["flying archaeopteryx"],
+      "keywords": ["archaeopteryx", "flight"]
+    },
+    {
+      "text": "T rex peeking through jungle",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["tyrannosaurus peeking through trees"],
+      "keywords": ["rex", "jungle"]
+    },
+    {
+      "text": "Dinosaur swimming across lake",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "lake"]
+    },
+    {
+      "text": "Dinosaur caught in vines",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["dinosaur tangled in vines"],
+      "keywords": ["dinosaur", "vines"]
+    },
+    {
+      "text": "Mammoth pulling a sled",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mammoth", "sled"]
+    },
+    {
+      "text": "Pterodactyl soaring over cliffs",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["flying pterodactyl"],
+      "keywords": ["pterodactyl", "cliffs"]
+    },
+    {
+      "text": "Dinosaur looking into a pond",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "pond"]
+    },
+    {
+      "text": "Caveman carrying a giant fern",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["caveman", "fern"]
+    },
+    {
+      "text": "Dinosaur sheltering from rain",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "rain"]
+    },
+    {
+      "text": "Mammoth shaking off snow",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mammoth", "snow"]
+    },
+    {
+      "text": "Dinosaur hiding behind a rock",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "rock"]
+    },
+    {
+      "text": "Fossil buried in a cliff",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["fossil in a rock face"],
+      "keywords": ["fossil", "cliff"]
+    },
+    {
+      "text": "Dinosaur beside a lava flow",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dinosaur", "lava"]
+    },
+    {
+      "text": "Cave family around a fire",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["caveman family at a campfire"],
+      "keywords": ["cave", "fire"]
+    },
+    {
+      "text": "Dinosaur peeking from an egg",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["hatchling peeking from its shell"],
+      "keywords": ["dinosaur", "egg"]
+    },
+    {
+      "text": "T rex on a tricycle",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["tyrannosaurus on a tricycle"],
+      "keywords": ["rex", "tricycle"]
+    },
+    {
+      "text": "Triceratops at a car wash",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["triceratops", "car"]
+    },
+    {
+      "text": "Stegosaurus baking cupcakes",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["stegosaurus", "cupcakes"]
+    },
+    {
+      "text": "Brachiosaurus as a barber",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["brachiosaurus cutting hair"],
+      "keywords": ["brachiosaurus", "barber"]
+    },
+    {
+      "text": "Velociraptor playing tennis",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["velociraptor", "tennis"]
+    },
+    {
+      "text": "Mammoth at a lemonade stand",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mammoth", "lemonade"]
+    },
+    {
+      "text": "Caveman walking a poodle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["cave person walking a dog"],
+      "keywords": ["caveman", "poodle"]
+    },
+    {
+      "text": "Pterodactyl delivering pizza",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pterodactyl", "pizza"]
+    },
+    {
+      "text": "Ankylosaurus doing yoga",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ankylosaurus", "yoga"]
+    },
+    {
+      "text": "Spinosaurus on a skateboard",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["spinosaurus", "skateboard"]
+    },
+    {
+      "text": "Brontosaurus taking a selfie",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["brontosaurus", "selfie"]
+    },
+    {
+      "text": "Dinosaur in a bathtub",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["dino taking a bath"],
+      "keywords": ["dinosaur", "bathtub"]
+    },
+    {
+      "text": "Mosasaur at a flower shop",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mosasaur", "flower"]
+    },
+    {
+      "text": "Dimetrodon as a mail carrier",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dimetrodon", "mail"]
+    },
+    {
+      "text": "Glyptodon wearing roller skates",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["glyptodon", "skates"]
+    },
+    {
+      "text": "Dire wolf playing piano",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["wolf", "piano"]
+    },
+    {
+      "text": "Cave bear as a dentist",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["bear", "dentist"]
+    },
+    {
+      "text": "Giant sloth doing laundry",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sloth", "laundry"]
+    },
+    {
+      "text": "Megalodon at a flower shop",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["megalodon", "flower"]
+    },
+    {
+      "text": "Archaeopteryx riding a scooter",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["archaeopteryx", "scooter"]
+    },
+    {
+      "text": "T rex knitting a sweater",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rex", "sweater"]
+    },
+    {
+      "text": "Triceratops in a hot air balloon",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["triceratops", "balloon"]
+    },
+    {
+      "text": "Stegosaurus pushing a shopping cart",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["stegosaurus", "cart"]
+    },
+    {
+      "text": "Plesiosaur waiting for a bus",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["plesiosaur", "bus"]
+    },
+    {
+      "text": "Caveman as a chef",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["cave person cooking"],
+      "keywords": ["caveman", "chef"]
+    },
+    {
+      "text": "Mammoth at a hair salon",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mammoth", "salon"]
+    },
+    {
+      "text": "Dinosaur playing the drums",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dinosaur", "drums"]
+    },
+    {
+      "text": "Pterodactyl as a lifeguard",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pterodactyl", "lifeguard"]
+    },
+    {
+      "text": "T rex in a tiny car",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["tyrannosaurus in a small car"],
+      "keywords": ["rex", "car"]
+    },
+    {
+      "text": "Velociraptor planting flowers",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["velociraptor", "flowers"]
+    },
+    {
+      "text": "Ankylosaurus in a bathtub",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ankylosaurus", "bathtub"]
+    },
+    {
+      "text": "Spinosaurus at a picnic",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["spinosaurus", "picnic"]
+    },
+    {
+      "text": "Terror bird at a bakery",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["terror", "bakery"]
+    },
+    {
+      "text": "Irish elk at a bowling alley",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["elk", "bowling"]
+    },
+    {
+      "text": "Cave lion riding a bicycle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["lion", "bicycle"]
+    },
+    {
+      "text": "Short faced bear vacuuming",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["bear", "vacuuming"]
+    },
+    {
+      "text": "Compsognathus playing basketball",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["compsognathus", "basketball"]
+    },
+    {
+      "text": "Quetzalcoatlus folding laundry",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["quetzalcoatlus", "laundry"]
+    },
+    {
+      "text": "Parasaurolophus at a barber shop",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["parasaurolophus", "barber"]
+    }
+  ]
+}

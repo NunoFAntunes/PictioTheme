@@ -1,0 +1,1059 @@
+{
+  "slug": "jobs",
+  "featuredRank": null,
+  "title": "On the Job",
+  "description": "Draw familiar professionals, their tools, busy workplaces, and some wonderfully unexpected workday mashups.",
+  "tags": ["jobs", "professions", "work", "tools", "careers", "silly"],
+  "cards": [
+    {
+      "text": "Chef",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["chef"]
+    },
+    {
+      "text": "Doctor",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["doctor"]
+    },
+    {
+      "text": "Nurse",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["nurse"]
+    },
+    {
+      "text": "Firefighter",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["firefighter"]
+    },
+    {
+      "text": "Police officer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["cop"],
+      "keywords": ["police", "officer"]
+    },
+    {
+      "text": "Teacher",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["teacher"]
+    },
+    {
+      "text": "Farmer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["farmer"]
+    },
+    {
+      "text": "Pilot",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pilot"]
+    },
+    {
+      "text": "Dentist",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dentist"]
+    },
+    {
+      "text": "Mail carrier",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["mailman"],
+      "keywords": ["mail", "carrier"]
+    },
+    {
+      "text": "Builder",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["builder"]
+    },
+    {
+      "text": "Paramedic",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["paramedic"]
+    },
+    {
+      "text": "Plumber",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["plumber"]
+    },
+    {
+      "text": "Electrician",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["electrician"]
+    },
+    {
+      "text": "Mechanic",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mechanic"]
+    },
+    {
+      "text": "Baker",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["baker"]
+    },
+    {
+      "text": "Barber",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["barber"]
+    },
+    {
+      "text": "Photographer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["photographer"]
+    },
+    {
+      "text": "Singer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["singer"]
+    },
+    {
+      "text": "Dancer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dancer"]
+    },
+    {
+      "text": "Musician",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["musician"]
+    },
+    {
+      "text": "Scientist",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scientist"]
+    },
+    {
+      "text": "Judge",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["judge"]
+    },
+    {
+      "text": "Lifeguard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lifeguard"]
+    },
+    {
+      "text": "Sailor",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sailor"]
+    },
+    {
+      "text": "Bus driver",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bus", "driver"]
+    },
+    {
+      "text": "Taxi driver",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["taxi", "driver"]
+    },
+    {
+      "text": "Train conductor",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["train", "conductor"]
+    },
+    {
+      "text": "Garbage collector",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["trash collector"],
+      "keywords": ["garbage", "collector"]
+    },
+    {
+      "text": "Delivery driver",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["delivery", "driver"]
+    },
+    {
+      "text": "Veterinarian",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["vet"],
+      "keywords": ["veterinarian"]
+    },
+    {
+      "text": "Cashier",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cashier"]
+    },
+    {
+      "text": "Waiter",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["server"],
+      "keywords": ["waiter"]
+    },
+    {
+      "text": "Librarian",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["librarian"]
+    },
+    {
+      "text": "Artist",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["artist"]
+    },
+    {
+      "text": "Gardener",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gardener"]
+    },
+    {
+      "text": "Fisherman",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["fisher"],
+      "keywords": ["fisherman"]
+    },
+    {
+      "text": "Tailor",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tailor"]
+    },
+    {
+      "text": "Blacksmith",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["blacksmith"]
+    },
+    {
+      "text": "Coach",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["coach"]
+    },
+    {
+      "text": "Stethoscope",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["stethoscope"]
+    },
+    {
+      "text": "Fire hose",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fire", "hose"]
+    },
+    {
+      "text": "Police badge",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["police", "badge"]
+    },
+    {
+      "text": "Chalkboard",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["blackboard"],
+      "keywords": ["chalkboard"]
+    },
+    {
+      "text": "Tractor",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tractor"]
+    },
+    {
+      "text": "Pilot goggles",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pilot", "goggles"]
+    },
+    {
+      "text": "Dental chair",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dental", "chair"]
+    },
+    {
+      "text": "Mailbag",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["postbag"],
+      "keywords": ["mailbag"]
+    },
+    {
+      "text": "Hard hat",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["hardhat"],
+      "keywords": ["hard", "hat"]
+    },
+    {
+      "text": "Paint roller",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["paint", "roller"]
+    },
+    {
+      "text": "Pipe wrench",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pipe", "wrench"]
+    },
+    {
+      "text": "Wire cutters",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wire", "cutters"]
+    },
+    {
+      "text": "Car lift",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["car", "lift"]
+    },
+    {
+      "text": "Rolling pin",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rolling", "pin"]
+    },
+    {
+      "text": "Barber pole",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["barber", "pole"]
+    },
+    {
+      "text": "Camera tripod",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["camera", "tripod"]
+    },
+    {
+      "text": "Microphone stand",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["microphone", "stand"]
+    },
+    {
+      "text": "Ballet shoes",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["ballet slippers"],
+      "keywords": ["ballet", "shoes"]
+    },
+    {
+      "text": "Violin",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["violin"]
+    },
+    {
+      "text": "Test tube rack",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["test", "tube"]
+    },
+    {
+      "text": "Judge's gavel",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["gavel"],
+      "keywords": ["gavel"]
+    },
+    {
+      "text": "Lifeguard chair",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lifeguard", "chair"]
+    },
+    {
+      "text": "Ship's wheel",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ship", "wheel"]
+    },
+    {
+      "text": "Bus driver's seat",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["bus seat"],
+      "keywords": ["bus", "seat"]
+    },
+    {
+      "text": "Taxi roof light",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["taxi light"],
+      "keywords": ["taxi", "light"]
+    },
+    {
+      "text": "Train ticket punch",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["ticket punch"],
+      "keywords": ["train", "punch"]
+    },
+    {
+      "text": "Garbage truck",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["trash truck"],
+      "keywords": ["garbage", "truck"]
+    },
+    {
+      "text": "Delivery box",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["parcel"],
+      "keywords": ["delivery", "box"]
+    },
+    {
+      "text": "Pet carrier",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pet", "carrier"]
+    },
+    {
+      "text": "Cash register",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cash", "register"]
+    },
+    {
+      "text": "Serving tray",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["serving", "tray"]
+    },
+    {
+      "text": "Book cart",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["library cart"],
+      "keywords": ["book", "cart"]
+    },
+    {
+      "text": "Easel",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["easel"]
+    },
+    {
+      "text": "Watering can",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["watering", "can"]
+    },
+    {
+      "text": "Fishing net",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fishing", "net"]
+    },
+    {
+      "text": "Sewing machine",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sewing", "machine"]
+    },
+    {
+      "text": "Anvil",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["anvil"]
+    },
+    {
+      "text": "Referee whistle",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["sports whistle"],
+      "keywords": ["referee", "whistle"]
+    },
+    {
+      "text": "Bulldozer",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bulldozer"]
+    },
+    {
+      "text": "Ambulance",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ambulance"]
+    },
+    {
+      "text": "Doctor examining a patient",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["doctor", "patient"]
+    },
+    {
+      "text": "Nurse taking a temperature",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["nurse", "temperature"]
+    },
+    {
+      "text": "Firefighter climbing a ladder",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["firefighter", "ladder"]
+    },
+    {
+      "text": "Police officer directing traffic",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["police", "traffic"]
+    },
+    {
+      "text": "Teacher helping a student",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["teacher", "student"]
+    },
+    {
+      "text": "Farmer planting seeds",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["farmer", "seeds"]
+    },
+    {
+      "text": "Pilot landing a plane",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pilot", "plane"]
+    },
+    {
+      "text": "Dentist checking teeth",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dentist", "teeth"]
+    },
+    {
+      "text": "Mail carrier filling a mailbox",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mail", "mailbox"]
+    },
+    {
+      "text": "Builder laying bricks",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["builder", "bricks"]
+    },
+    {
+      "text": "Painter painting a wall",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["painter", "wall"]
+    },
+    {
+      "text": "Plumber fixing a sink",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["plumber", "sink"]
+    },
+    {
+      "text": "Electrician changing a lightbulb",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["electrician", "lightbulb"]
+    },
+    {
+      "text": "Mechanic changing a tire",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mechanic", "tire"]
+    },
+    {
+      "text": "Baker icing a cake",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["baker", "cake"]
+    },
+    {
+      "text": "Barber trimming hair",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["barber", "hair"]
+    },
+    {
+      "text": "Photographer taking a portrait",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["photographer", "portrait"]
+    },
+    {
+      "text": "Singer performing on stage",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["singer", "stage"]
+    },
+    {
+      "text": "Dancer leaping on stage",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dancer", "stage"]
+    },
+    {
+      "text": "Scientist looking through a microscope",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scientist", "microscope"]
+    },
+    {
+      "text": "Judge banging a gavel",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["judge", "gavel"]
+    },
+    {
+      "text": "Lifeguard rescuing a swimmer",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lifeguard", "swimmer"]
+    },
+    {
+      "text": "Sailor steering a ship",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sailor", "ship"]
+    },
+    {
+      "text": "Waiter balancing a tray",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["waiter", "tray"]
+    },
+    {
+      "text": "Librarian shelving books",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["librarian", "books"]
+    },
+    {
+      "text": "Artist sculpting clay",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["artist", "clay"]
+    },
+    {
+      "text": "Gardener pruning a hedge",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gardener", "hedge"]
+    },
+    {
+      "text": "Fisherman casting a net",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fisherman", "net"]
+    },
+    {
+      "text": "Tailor sewing a coat",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tailor", "coat"]
+    },
+    {
+      "text": "Blacksmith hammering a horseshoe",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["blacksmith", "horseshoe"]
+    },
+    {
+      "text": "Chef riding a skateboard",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["chef", "skateboard"]
+    },
+    {
+      "text": "Doctor walking a dog",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["doctor", "dog"]
+    },
+    {
+      "text": "Nurse juggling oranges",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["nurse", "oranges"]
+    },
+    {
+      "text": "Firefighter knitting a scarf",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["firefighter", "scarf"]
+    },
+    {
+      "text": "Police officer baking cookies",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["police", "cookies"]
+    },
+    {
+      "text": "Teacher riding a unicycle",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["teacher", "unicycle"]
+    },
+    {
+      "text": "Farmer playing chess",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["farmer", "chess"]
+    },
+    {
+      "text": "Pilot mowing a lawn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pilot", "lawn"]
+    },
+    {
+      "text": "Dentist fishing in a pond",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dentist", "pond"]
+    },
+    {
+      "text": "Mail carrier roller skating",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mail", "skating"]
+    },
+    {
+      "text": "Builder walking on stilts",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["builder", "stilts"]
+    },
+    {
+      "text": "Painter building a snowman",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["painter", "snowman"]
+    },
+    {
+      "text": "Plumber playing a trumpet",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["plumber", "trumpet"]
+    },
+    {
+      "text": "Electrician stacking pancakes",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["electrician", "pancakes"]
+    },
+    {
+      "text": "Mechanic making a sandwich",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mechanic", "sandwich"]
+    },
+    {
+      "text": "Baker playing basketball",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["baker", "basketball"]
+    },
+    {
+      "text": "Barber riding a bicycle",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["barber", "bicycle"]
+    },
+    {
+      "text": "Photographer riding a camel",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["photographer", "camel"]
+    },
+    {
+      "text": "Singer doing laundry",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["singer", "laundry"]
+    },
+    {
+      "text": "Dancer pushing a shopping cart",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dancer", "cart"]
+    },
+    {
+      "text": "Scientist blowing bubbles",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["scientist", "bubbles"]
+    },
+    {
+      "text": "Judge walking a cat",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["judge", "cat"]
+    },
+    {
+      "text": "Lifeguard playing the tuba",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["lifeguard", "tuba"]
+    },
+    {
+      "text": "Sailor planting a vegetable garden",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sailor", "garden"]
+    },
+    {
+      "text": "Bus driver juggling beach balls",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["bus", "balls"]
+    },
+    {
+      "text": "Taxi driver building a sandcastle",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["taxi", "sandcastle"]
+    },
+    {
+      "text": "Train conductor building a sandcastle",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["train", "sandcastle"]
+    },
+    {
+      "text": "Garbage collector playing piano",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["garbage", "piano"]
+    },
+    {
+      "text": "Delivery driver flying a kite",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["delivery", "kite"]
+    },
+    {
+      "text": "Veterinarian reading to a puppy",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["veterinarian", "puppy"]
+    },
+    {
+      "text": "Cashier juggling apples",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cashier", "apples"]
+    },
+    {
+      "text": "Waiter riding a tricycle",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["waiter", "tricycle"]
+    },
+    {
+      "text": "Librarian making pancakes",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["librarian", "pancakes"]
+    },
+    {
+      "text": "Artist washing a car",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["artist", "car"]
+    },
+    {
+      "text": "Gardener playing video games",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["gardener", "games"]
+    },
+    {
+      "text": "Fisherman knitting a sweater",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["fisherman", "sweater"]
+    },
+    {
+      "text": "Tailor riding a horse",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["tailor", "horse"]
+    },
+    {
+      "text": "Blacksmith blowing bubbles",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["blacksmith", "bubbles"]
+    },
+    {
+      "text": "Coach baking bread",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["coach", "bread"]
+    },
+    {
+      "text": "Referee walking a tightrope",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["referee", "tightrope"]
+    }
+  ]
+}

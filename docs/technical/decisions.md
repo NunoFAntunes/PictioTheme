@@ -79,7 +79,7 @@ Overall constraint behind all of them: **hosting cost as close to zero as possib
 
 ## D4 — OpenRouter for model inference
 
-**Date:** 2026-10-03 · **Status:** accepted (revisit after the model eval)
+**Date:** 2026-10-03 · **Status:** accepted (the first eval picked a model: D6)
 
 **Decision:** Call models through OpenRouter's OpenAI-compatible API, behind an `LlmClient` interface in the `generation` module. Model slugs come from config. Details are in [ai-deck-pipeline.md](ai-deck-pipeline.md).
 
@@ -106,3 +106,48 @@ Overall constraint behind all of them: **hosting cost as close to zero as possib
 **Why:** €0 beyond the existing VM and domain. Cloudflare hides the VM IP, absorbs attacks and caches static files.
 
 **Accepted risk:** the VM is a single point of failure, and a deploy ends live games (v1).
+
+---
+
+## D6 — Deck model and prompt: gpt-6-luna with the examples prompt
+
+**Date:** 2026-10-03 · **Status:** accepted
+
+**Decision:** Generate decks with `openai/gpt-6-luna`, falling back to `openai/gpt-6-luna-pro`, using the `v3-examples` system prompt (rules plus good/bad examples and a method for silly cards). Both are config defaults (`DECK_MODEL`, `DECK_FALLBACK_MODELS`).
+
+**Why:** In a blind-graded eval of 11 models and 3 prompts on 5 themes ([model-eval-2026-10.md](model-eval-2026-10.md)), gpt-6-luna tied for the best decks (7.2–7.4/10), produced all 15 decks, ignored a prompt injection, and cost ~$0.004 per deck in ~1 minute. luna-pro is marginally better at 3× the price and ~2× the time, so it's the fallback. The examples prompt scored best on average and helps the weaker models most.
+
+**Accepted risk:** the primary and the fallback are the same vendor, so an OpenAI outage stops generation. No other vendor in the eval came close on safety and quality at this price.
+
+**Revisit when:** the eval is re-run (new models, prompt changes), or an untested stronger model (e.g. Claude Sonnet 5.5, not in the eval because of its $1 cap) is worth its cost.
+
+## D7 — Deck covers in their own content-addressed table
+
+**Date:** 2026-10-04 · **Status:** accepted
+
+**Decision:** Drawn deck covers are stored in a `deck_covers` table owned by the `decks` module (id = hash of the PNG, `bytea`), referenced by `decks.cover_id` and `generation_jobs.cover_id`. PNG checks and content ids are shared with avatars through `lib/png.ts`. Covers are uploaded to the **generation job**, not the deck, because the creator draws while the deck doesn't exist yet.
+
+**Alternatives:** generalizing `avatars` into an `images` module with a `kind` column (fewer tables, but avatars and covers have different owners, sizes, lifecycles and moderation); object storage such as R2 (not worth the moving part at this size: a cover is ~10–50 KB).
+
+**Revisit when:** images move to object storage or a CDN, or a third kind of drawn image appears.
+
+## D8 — Curated decks as JSON in the repo, seeded by the migrate step
+
+**Date:** 2026-10-04 · **Status:** accepted
+
+**Decision:** The decks that ship with the game (the former built-in decks plus generated-and-checked ones) are JSON files in `apps/server/src/modules/decks/curated/`, one per deck, named by slug. `db:migrate` seeds them into `decks`/`cards` after the migrations, upserting by slug so a deck keeps its id and cover. Rooms load every deck from the database; there are no decks in code any more.
+
+**Alternatives:** keeping decks in TypeScript (no covers, reports or search, since those need a database row); an admin UI to manage them (not worth it before there's a moderator page); seeding at server boot (runs on every restart, and races if there are ever two instances).
+
+**Revisit when:** curated decks get card stats (re-seeding replaces their cards, so stats need a merge by text), or editing them moves into an admin page.
+
+## D9 — `obscenity` for profanity detection
+
+**Date:** 2026-10-04 · **Status:** accepted
+
+**Decision:** Chat, guesses, names and generated decks are checked with the `obscenity` npm package (English dataset and recommended transformers: leetspeak, repeated letters, spacing), wrapped in `game-core/src/moderation/profanity.ts` with our own list of allowed phrases ("Moby Dick", "Cockpit", "Shiitake"). Masking covers the whole word. Generation adds a short list of themes unsuitable for a party game (`generation/content-check.ts`).
+
+**Alternatives:** our own word list (easy to start, but leetspeak and false positives like "Scunthorpe" are the hard part); an LLM moderation call (costs a call per message; kept as an option for themes only).
+
+**Revisit when:** other languages arrive (the dataset is English only), or false positives show up in real chat.
+

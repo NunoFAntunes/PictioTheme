@@ -9,10 +9,62 @@
   --color-close: oklch(0.6 0.22 25);
   --color-solved: oklch(0.7 0.17 150);
   --font-display: ui-rounded, system-ui, sans-serif;
+
+  /* Card deck: shuffle, deal, flip, pick (features/turn-overlays). Delays are set inline. */
+  --animate-deck-riffle-left: deck-riffle-left 300ms ease-in-out 2;
+  --animate-deck-riffle-right: deck-riffle-right 300ms ease-in-out 2;
+  --animate-card-deal: card-deal 450ms cubic-bezier(0.34, 1.4, 0.64, 1) backwards;
+  --animate-card-flip: card-flip 400ms ease-in-out backwards;
+  --animate-card-pick: card-pick 300ms ease-out forwards;
+  --animate-card-discard: card-discard 300ms ease-in forwards;
+
+  @keyframes deck-riffle-left {
+    40%,
+    60% {
+      translate: -70% -6%;
+      rotate: -10deg;
+    }
+  }
+  @keyframes deck-riffle-right {
+    40%,
+    60% {
+      translate: 70% -6%;
+      rotate: 10deg;
+    }
+  }
+  /* Starts on the deck (--from-x/y, measured in JS) and settles on the card's own position. */
+  @keyframes card-deal {
+    from {
+      translate: var(--from-x) var(--from-y);
+      rotate: -30deg;
+      scale: 0.4;
+    }
+  }
+  @keyframes card-flip {
+    from {
+      transform: rotateY(180deg);
+    }
+  }
+  @keyframes card-pick {
+    to {
+      translate: 0 -8%;
+      rotate: 0deg;
+      scale: 1.12;
+    }
+  }
+  @keyframes card-discard {
+    to {
+      translate: 0 40%;
+      scale: 0.8;
+      opacity: 0;
+    }
+  }
 }
 
 html {
   color-scheme: light dark;
+  /* No double-tap zoom on tablets (it would fire mid-drawing); pinch zoom still works outside the canvas. */
+  touch-action: manipulation;
 }
 
 body {

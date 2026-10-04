@@ -4,7 +4,7 @@ A browser-based, real-time drawing-and-guessing game built around AI-generated t
 Product and technical docs live in [docs/](docs/README.md). Start with
 [architecture.md](docs/technical/architecture.md) and the
 [backend](docs/technical/backend-guidelines.md) / [frontend](docs/technical/frontend-guidelines.md)
-guidelines before writing code.
+guidelines before writing code. Current state and next tasks: [docs/planning/status.md](docs/planning/status.md).
 
 ## Repository
 
@@ -42,5 +42,6 @@ same-origin like in production.
 | `pnpm deps:check`                               | Enforce the module boundaries from the guidelines             |
 | `pnpm format`                                   | Format with Prettier                                          |
 | `pnpm build`                                    | Build the server bundle and the static site                   |
+| `pnpm --filter @pictiotheme/web test:e2e`       | Browser test: two Chrome windows play a turn (needs `db:up`)  |
 | `pnpm --filter @pictiotheme/server db:generate` | Generate a migration after changing `src/db/schema/`          |
 | `pnpm --filter @pictiotheme/server db:migrate`  | Apply migrations                                              |

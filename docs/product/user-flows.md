@@ -25,7 +25,7 @@ Landing
  └─ Opened via invite link /r/ABC-DEF ──► Name & avatar (if needed) ──► Room
 ```
 
-- The name & avatar step is one small card: a text field (2–20 chars, profanity-filtered) and an avatar picker (a preset set, plus a "randomize" button). Registered users skip it after the first time.
+- The name & avatar step is one small card: a text field (2–20 chars, profanity-filtered) and a small square pad where players **draw their own avatar** (brush, eraser, fill, three sizes, a short palette, undo, start over). Leaving it blank keeps the current avatar, or makes a coloured tile with their initial. Registered users skip it after the first time. Later, registered users can save avatars they've drawn and pick from them (Phase 3).
 - Invite links (`/r/ABC-DEF`) go straight to the room once the user has a name.
 
 ## 3. Lobby
@@ -54,7 +54,7 @@ When the room is created, the server generates a unique code and the host lands 
 ## 5. Waiting room
 
 - Player list on the left (avatar, name, crown for host, ready state).
-- Center: room code (large, click to copy), share link, deck summary, settings (editable by host only, read-only for others).
+- Center: room code (large, click to copy), share link, the deck's back cover beside the code (with 🚩 to report the deck), settings (editable by host only, read-only for others).
 - Chat is active.
 - Host actions: **Start game** (needs ≥ 2 players), kick player, transfer host, change settings.
 - If the host leaves, host passes to the longest-present player.
@@ -81,12 +81,14 @@ Search "pirate cooking" → no good match
    → [Generate deck]  (shows "2 of 3 free generations left" or credit balance)
    → Form: theme (prefilled), optional description/notes, language,
            include silly pool? (default yes), family-friendly (default on)
-   → Generating… (streamed progress, ~20–60s)
+   → Generating… (streamed progress, ~20–60s), while the creator draws the deck's back cover (or skips)
    → Review screen: cards by difficulty; user can remove cards or regenerate once for free
    → Publish → deck appears in library and is selected for the room
 ```
 
 If the user has no free generations or credits left, the generate button opens the credit purchase sheet (see [monetization.md](monetization.md)).
+
+**Built so far** (open to guests: 1 deck per player per day, 3 per network, a global daily budget): "✨ Generate a deck" in the create-room deck picker → form (theme, notes, difficulties, silly on/off) → progress (polled, ~1 min) with a pad to draw the deck's [back cover](decks.md#back-cover) (or skip) → once the deck is ready and the cover is saved or skipped, the deck is selected, and listed as "yours" in the deck pickers, where ✏️ redraws its cover. No review step, language choice or credits yet. Blocked themes are refused before anything starts ("We can't make a deck about that").
 
 ## 9. Edge cases
 

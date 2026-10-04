@@ -10,9 +10,15 @@
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "tsx --env-file-if-exists=.env src/migrate.ts"
+    "db:migrate": "tsx --env-file-if-exists=.env src/migrate.ts",
+    "deck:generate": "tsx --env-file-if-exists=.env scripts/generate-deck.ts",
+    "deck:eval": "tsx --env-file-if-exists=.env scripts/eval-decks.ts",
+    "metrics:report": "tsx --env-file-if-exists=.env scripts/metrics-report.ts"
   },
   "dependencies": {
+    "@fastify/cookie": "^11.1.2",
+    "@fastify/rate-limit": "^11.2.0",
+    "@fastify/websocket": "~11.3.1",
     "@pictiotheme/game-core": "workspace:*",
     "@pictiotheme/protocol": "workspace:*",
     "close-with-grace": "^2.5.0",
@@ -20,12 +26,15 @@
     "fastify": "^5.12.5",
     "fastify-plugin": "^6.0.0",
     "fastify-type-provider-zod": "^7.0.0",
+    "jose": "^6.2.12",
     "pg": "^8.23.1",
+    "ws": "^8.22.0",
     "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/node": "^24.19.1",
     "@types/pg": "^8.23.1",
+    "@types/ws": "^8.18.2",
     "drizzle-kit": "^0.31.11",
     "esbuild": "^0.28.2",
     "pino-pretty": "^13.1.3",

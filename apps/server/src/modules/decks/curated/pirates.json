@@ -1,0 +1,1059 @@
+{
+  "slug": "pirates",
+  "featuredRank": null,
+  "title": "Pirate Plunder",
+  "description": "Draw ships, sea creatures, treasure, and the amusing antics of pirate life.",
+  "tags": ["pirates", "ships", "treasure", "ocean", "adventure"],
+  "cards": [
+    {
+      "text": "Pirate ship",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pirate", "ship"]
+    },
+    {
+      "text": "Treasure chest",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["treasure", "chest"]
+    },
+    {
+      "text": "Gold coin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gold", "coin"]
+    },
+    {
+      "text": "Parrot",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["parrot"]
+    },
+    {
+      "text": "Treasure map",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["treasure", "map"]
+    },
+    {
+      "text": "Eye patch",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["eyepatch"],
+      "keywords": ["eye", "patch"]
+    },
+    {
+      "text": "Hook hand",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["hook"],
+      "keywords": ["hook", "hand"]
+    },
+    {
+      "text": "Skull",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skull"]
+    },
+    {
+      "text": "Pirate flag",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pirate", "flag"]
+    },
+    {
+      "text": "Anchor",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["anchor"]
+    },
+    {
+      "text": "Rope",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rope"]
+    },
+    {
+      "text": "Compass",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["compass"]
+    },
+    {
+      "text": "Tricorn hat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["three cornered hat"],
+      "keywords": ["tricorn", "hat"]
+    },
+    {
+      "text": "Wooden leg",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["peg leg"],
+      "keywords": ["wooden", "leg"]
+    },
+    {
+      "text": "Barrel",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["barrel"]
+    },
+    {
+      "text": "Desert island",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["tropical island"],
+      "keywords": ["island"]
+    },
+    {
+      "text": "Rowboat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["rowing boat"],
+      "keywords": ["rowboat"]
+    },
+    {
+      "text": "Sail",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sail"]
+    },
+    {
+      "text": "Ship wheel",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["steering wheel"],
+      "keywords": ["ship", "wheel"]
+    },
+    {
+      "text": "Mast",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mast"]
+    },
+    {
+      "text": "Plank",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["wooden plank"],
+      "keywords": ["plank"]
+    },
+    {
+      "text": "Cannon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cannon"]
+    },
+    {
+      "text": "Cannonball",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cannonball"]
+    },
+    {
+      "text": "Gold necklace",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gold", "necklace"]
+    },
+    {
+      "text": "Ruby",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ruby"]
+    },
+    {
+      "text": "Pearl",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pearl"]
+    },
+    {
+      "text": "Key",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["key"]
+    },
+    {
+      "text": "Bottle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bottle"]
+    },
+    {
+      "text": "Seagull",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["sea gull"],
+      "keywords": ["seagull"]
+    },
+    {
+      "text": "Shark",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["shark"]
+    },
+    {
+      "text": "Palm tree",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["palm", "tree"]
+    },
+    {
+      "text": "Cave",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cave"]
+    },
+    {
+      "text": "Boot",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["boot"]
+    },
+    {
+      "text": "Bandana",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["headscarf"],
+      "keywords": ["bandana"]
+    },
+    {
+      "text": "Cutlass",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["curved sword"],
+      "keywords": ["cutlass"]
+    },
+    {
+      "text": "Gold bar",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["gold ingot"],
+      "keywords": ["gold", "bar"]
+    },
+    {
+      "text": "Hammock",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hammock"]
+    },
+    {
+      "text": "Seashell",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["sea shell"],
+      "keywords": ["seashell"]
+    },
+    {
+      "text": "Crab",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crab"]
+    },
+    {
+      "text": "Pile of gold",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["gold treasure"],
+      "keywords": ["gold"]
+    },
+    {
+      "text": "Pirate captain",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["captain"],
+      "keywords": ["pirate", "captain"]
+    },
+    {
+      "text": "Mermaid",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mermaid"]
+    },
+    {
+      "text": "Kraken",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["giant squid"],
+      "keywords": ["kraken"]
+    },
+    {
+      "text": "Octopus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["octopus"]
+    },
+    {
+      "text": "Dolphin",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dolphin"]
+    },
+    {
+      "text": "Sea turtle",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["turtle"],
+      "keywords": ["sea", "turtle"]
+    },
+    {
+      "text": "Lighthouse",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lighthouse"]
+    },
+    {
+      "text": "Shipwreck",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["wrecked ship"],
+      "keywords": ["shipwreck"]
+    },
+    {
+      "text": "Ship in a bottle",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["bottle ship"],
+      "keywords": ["ship", "bottle"]
+    },
+    {
+      "text": "Captain's cabin",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["captain", "cabin"]
+    },
+    {
+      "text": "Crow's nest",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crow", "nest"]
+    },
+    {
+      "text": "Fishing net",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fishing", "net"]
+    },
+    {
+      "text": "Oar",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["oar"]
+    },
+    {
+      "text": "Lifebuoy",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["life buoy"],
+      "keywords": ["lifebuoy"]
+    },
+    {
+      "text": "Ship's bell",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ship", "bell"]
+    },
+    {
+      "text": "Figurehead",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["ship figurehead"],
+      "keywords": ["figurehead"]
+    },
+    {
+      "text": "Sextant",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sextant"]
+    },
+    {
+      "text": "Coin pouch",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["coin bag"],
+      "keywords": ["coin", "pouch"]
+    },
+    {
+      "text": "Gold earring",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gold", "earring"]
+    },
+    {
+      "text": "Gemstone ring",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["jewel ring"],
+      "keywords": ["gemstone", "ring"]
+    },
+    {
+      "text": "Leather map case",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["map case"],
+      "keywords": ["map", "case"]
+    },
+    {
+      "text": "Pirate coat",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["captain's coat"],
+      "keywords": ["pirate", "coat"]
+    },
+    {
+      "text": "Striped shirt",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["stripy shirt"],
+      "keywords": ["striped", "shirt"]
+    },
+    {
+      "text": "Tropical lagoon",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["lagoon"],
+      "keywords": ["tropical", "lagoon"]
+    },
+    {
+      "text": "Rocky cove",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["cove"],
+      "keywords": ["rocky", "cove"]
+    },
+    {
+      "text": "Harbor",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["port"],
+      "keywords": ["harbor"]
+    },
+    {
+      "text": "Ghost ship",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["haunted ship"],
+      "keywords": ["ghost", "ship"]
+    },
+    {
+      "text": "Skeleton captain",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["skeleton pirate"],
+      "keywords": ["skeleton", "captain"]
+    },
+    {
+      "text": "Sea star",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["starfish"],
+      "keywords": ["sea", "star"]
+    },
+    {
+      "text": "Lobster",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lobster"]
+    },
+    {
+      "text": "Flying fish",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["flying", "fish"]
+    },
+    {
+      "text": "Sea serpent",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["sea snake"],
+      "keywords": ["sea", "serpent"]
+    },
+    {
+      "text": "Whale",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["whale"]
+    },
+    {
+      "text": "Seahorse",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["sea horse"],
+      "keywords": ["seahorse"]
+    },
+    {
+      "text": "Ship's lantern",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ship", "lantern"]
+    },
+    {
+      "text": "Mooring post",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["dock post"],
+      "keywords": ["mooring", "post"]
+    },
+    {
+      "text": "Spyglass",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["telescope"],
+      "keywords": ["spyglass"]
+    },
+    {
+      "text": "Diving helmet",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["deep sea helmet"],
+      "keywords": ["diving", "helmet"]
+    },
+    {
+      "text": "Pirate crew",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["crew"],
+      "keywords": ["pirate", "crew"]
+    },
+    {
+      "text": "Sailmaker",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["sail maker"],
+      "keywords": ["sailmaker"]
+    },
+    {
+      "text": "Walking the plank",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["walk the plank"],
+      "keywords": ["plank"]
+    },
+    {
+      "text": "Burying a treasure chest",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["burying treasure"],
+      "keywords": ["burying", "chest"]
+    },
+    {
+      "text": "Digging for buried gold",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["digging for treasure"],
+      "keywords": ["digging", "gold"]
+    },
+    {
+      "text": "Following a treasure map",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["reading a treasure map"],
+      "keywords": ["treasure", "map"]
+    },
+    {
+      "text": "Climbing the mast",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["climbing a mast"],
+      "keywords": ["climbing", "mast"]
+    },
+    {
+      "text": "Sailing through a storm",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["ship in a storm"],
+      "keywords": ["sailing", "storm"]
+    },
+    {
+      "text": "Escaping a sinking ship",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["escaping shipwreck"],
+      "keywords": ["escaping", "ship"]
+    },
+    {
+      "text": "Captain steering the ship",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["captain at the wheel"],
+      "keywords": ["captain", "steering"]
+    },
+    {
+      "text": "Parrot stealing a coin",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["parrot taking a coin"],
+      "keywords": ["parrot", "coin"]
+    },
+    {
+      "text": "Trading gold at market",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["selling gold"],
+      "keywords": ["trading", "gold"]
+    },
+    {
+      "text": "Finding treasure in a cave",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["discovering treasure"],
+      "keywords": ["treasure", "cave"]
+    },
+    {
+      "text": "Pirates rowing ashore",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["rowing to shore"],
+      "keywords": ["pirates", "rowing"]
+    },
+    {
+      "text": "Raising a sail",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["hoisting a sail"],
+      "keywords": ["raising", "sail"]
+    },
+    {
+      "text": "Hiding behind a barrel",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["hiding behind barrels"],
+      "keywords": ["hiding", "barrel"]
+    },
+    {
+      "text": "Looking through a spyglass",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["using a spyglass"],
+      "keywords": ["looking", "spyglass"]
+    },
+    {
+      "text": "Catching fish from ship",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["fishing from a ship"],
+      "keywords": ["catching", "fish"]
+    },
+    {
+      "text": "Rescuing a sailor from water",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["saving a sailor"],
+      "keywords": ["rescuing", "sailor"]
+    },
+    {
+      "text": "Pirates sharing a feast",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["pirates eating together"],
+      "keywords": ["pirates", "feast"]
+    },
+    {
+      "text": "Pirate asleep in hammock",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["sleeping pirate"],
+      "keywords": ["pirate", "hammock"]
+    },
+    {
+      "text": "Chasing a runaway parrot",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["chasing a parrot"],
+      "keywords": ["chasing", "parrot"]
+    },
+    {
+      "text": "Ship stuck on sandbar",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["ship on a sandbar"],
+      "keywords": ["ship", "sandbar"]
+    },
+    {
+      "text": "Washing the ship deck",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["scrubbing the deck"],
+      "keywords": ["washing", "deck"]
+    },
+    {
+      "text": "Captain reading a map",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["captain studying a map"],
+      "keywords": ["captain", "map"]
+    },
+    {
+      "text": "Pirates counting coins",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["counting gold coins"],
+      "keywords": ["pirates", "coins"]
+    },
+    {
+      "text": "Climbing aboard by rope",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["boarding by rope"],
+      "keywords": ["climbing", "rope"]
+    },
+    {
+      "text": "Finding a message in a bottle",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["message in a bottle"],
+      "keywords": ["message", "bottle"]
+    },
+    {
+      "text": "Carrying a chest ashore",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["carrying treasure to shore"],
+      "keywords": ["carrying", "chest"]
+    },
+    {
+      "text": "Sailing past a lighthouse",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["ship passing a lighthouse"],
+      "keywords": ["sailing", "lighthouse"]
+    },
+    {
+      "text": "Steering through sea ice",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["ship in sea ice"],
+      "keywords": ["steering", "ice"]
+    },
+    {
+      "text": "Hoisting a flag",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["raising a flag"],
+      "keywords": ["hoisting", "flag"]
+    },
+    {
+      "text": "Pirate baking a cake",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pirate", "cake"]
+    },
+    {
+      "text": "Pirate doing yoga",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pirate", "yoga"]
+    },
+    {
+      "text": "Pirate riding a bicycle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["pirate on a bicycle"],
+      "keywords": ["pirate", "bicycle"]
+    },
+    {
+      "text": "Pirate walking a dog",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pirate", "dog"]
+    },
+    {
+      "text": "Pirate brushing teeth",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pirate", "teeth"]
+    },
+    {
+      "text": "Pirate playing soccer",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["pirate kicking a ball"],
+      "keywords": ["pirate", "soccer"]
+    },
+    {
+      "text": "Pirate knitting a scarf",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pirate", "scarf"]
+    },
+    {
+      "text": "Pirate juggling apples",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pirate", "apples"]
+    },
+    {
+      "text": "Pirate taking a bath",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["pirate in a bathtub"],
+      "keywords": ["pirate", "bath"]
+    },
+    {
+      "text": "Pirate mowing the lawn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pirate", "lawn"]
+    },
+    {
+      "text": "Parrot delivering mail",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["parrot as a mail carrier"],
+      "keywords": ["parrot", "mail"]
+    },
+    {
+      "text": "Parrot riding a skateboard",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["parrot", "skateboard"]
+    },
+    {
+      "text": "Parrot vacuuming a rug",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["parrot", "vacuuming"]
+    },
+    {
+      "text": "Parrot painting a fence",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["parrot", "painting"]
+    },
+    {
+      "text": "Parrot making a sandwich",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["parrot", "sandwich"]
+    },
+    {
+      "text": "Mermaid driving a tractor",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mermaid", "tractor"]
+    },
+    {
+      "text": "Mermaid eating spaghetti",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mermaid", "spaghetti"]
+    },
+    {
+      "text": "Mermaid gardening",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["mermaid tending a garden"],
+      "keywords": ["mermaid", "gardening"]
+    },
+    {
+      "text": "Mermaid doing laundry",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mermaid", "laundry"]
+    },
+    {
+      "text": "Mermaid playing tennis",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mermaid", "tennis"]
+    },
+    {
+      "text": "Skeleton making pizza",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "pizza"]
+    },
+    {
+      "text": "Skeleton riding a scooter",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "scooter"]
+    },
+    {
+      "text": "Skeleton walking a cat",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "cat"]
+    },
+    {
+      "text": "Skeleton doing homework",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "homework"]
+    },
+    {
+      "text": "Skeleton pushing a stroller",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "stroller"]
+    },
+    {
+      "text": "Ship in a swimming pool",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ship", "pool"]
+    },
+    {
+      "text": "Ship at a drive through",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["ship at a drive thru"],
+      "keywords": ["ship", "drive"]
+    },
+    {
+      "text": "Ship riding a roller coaster",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ship", "roller coaster"]
+    },
+    {
+      "text": "Ship parked in a garage",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ship", "garage"]
+    },
+    {
+      "text": "Ship at a car wash",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ship", "car wash"]
+    },
+    {
+      "text": "Shark wearing pajamas",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["shark in pajamas"],
+      "keywords": ["shark", "pajamas"]
+    },
+    {
+      "text": "Shark at a tea party",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["shark", "tea party"]
+    },
+    {
+      "text": "Shark riding a scooter",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["shark", "scooter"]
+    },
+    {
+      "text": "Shark playing hopscotch",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["shark", "hopscotch"]
+    },
+    {
+      "text": "Kraken knitting a scarf",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["kraken", "scarf"]
+    },
+    {
+      "text": "Kraken playing piano",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["kraken", "piano"]
+    },
+    {
+      "text": "Kraken mowing the lawn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["kraken", "lawn"]
+    },
+    {
+      "text": "Treasure chest in a shopping cart",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["treasure", "shopping cart"]
+    },
+    {
+      "text": "Anchor doing ballet",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["dancing anchor"],
+      "keywords": ["anchor", "ballet"]
+    },
+    {
+      "text": "Cannon doing push ups",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["cannon exercising"],
+      "keywords": ["cannon", "push ups"]
+    }
+  ]
+}

@@ -1,0 +1,1038 @@
+{
+  "slug": "sports",
+  "featuredRank": null,
+  "title": "Sports Day",
+  "description": "Draw your favorite sports, athletes, equipment, and surprising sports-themed scenes.",
+  "tags": ["sports", "athletics", "games", "equipment", "family", "silly"],
+  "cards": [
+    {
+      "text": "Soccer ball",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["soccer ball"]
+    },
+    {
+      "text": "Basketball",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["basketball"]
+    },
+    {
+      "text": "Tennis racket",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tennis racket"]
+    },
+    {
+      "text": "Baseball bat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["baseball bat"]
+    },
+    {
+      "text": "Baseball glove",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["baseball glove"]
+    },
+    {
+      "text": "Football helmet",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["football helmet"]
+    },
+    {
+      "text": "Hockey stick",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hockey stick"]
+    },
+    {
+      "text": "Hockey puck",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hockey puck"]
+    },
+    {
+      "text": "Golf club",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["golf club"]
+    },
+    {
+      "text": "Golf ball",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["golf ball"]
+    },
+    {
+      "text": "Volleyball",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["volleyball"]
+    },
+    {
+      "text": "Badminton racket",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["badminton racket"]
+    },
+    {
+      "text": "Shuttlecock",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["shuttlecock"]
+    },
+    {
+      "text": "Skateboard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skateboard"]
+    },
+    {
+      "text": "Surfboard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["surfboard"]
+    },
+    {
+      "text": "Ski",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ski"]
+    },
+    {
+      "text": "Snowboard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["snowboard"]
+    },
+    {
+      "text": "Bicycle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bicycle"]
+    },
+    {
+      "text": "Whistle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["whistle"]
+    },
+    {
+      "text": "Trophy",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["trophy"]
+    },
+    {
+      "text": "Medal",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["medal"]
+    },
+    {
+      "text": "Jersey",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jersey"]
+    },
+    {
+      "text": "Sneaker",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sneaker"]
+    },
+    {
+      "text": "Ping pong paddle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ping pong paddle"]
+    },
+    {
+      "text": "Bobsled",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bobsled"]
+    },
+    {
+      "text": "Dumbbell",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dumbbell"]
+    },
+    {
+      "text": "Barbell",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["barbell"]
+    },
+    {
+      "text": "Jump rope",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jump rope"]
+    },
+    {
+      "text": "Kettlebell",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["kettlebell"]
+    },
+    {
+      "text": "Treadmill",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["treadmill"]
+    },
+    {
+      "text": "Boxing glove",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["boxing glove"]
+    },
+    {
+      "text": "Yoga mat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["yoga mat"]
+    },
+    {
+      "text": "Swimming goggles",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["swimming goggles"]
+    },
+    {
+      "text": "Swim cap",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["swim cap"]
+    },
+    {
+      "text": "Bowling pin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bowling pin"]
+    },
+    {
+      "text": "Bowling ball",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bowling ball"]
+    },
+    {
+      "text": "Relay baton",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["relay baton"]
+    },
+    {
+      "text": "Pom pom",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pom pom"]
+    },
+    {
+      "text": "Cricket bat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cricket bat"]
+    },
+    {
+      "text": "Cricket wicket",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cricket wicket"]
+    },
+    {
+      "text": "Referee",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["referee"]
+    },
+    {
+      "text": "Soccer goalie",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["soccer goalie"]
+    },
+    {
+      "text": "Baseball pitcher",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["baseball pitcher"]
+    },
+    {
+      "text": "Baseball catcher",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["baseball catcher"]
+    },
+    {
+      "text": "Basketball hoop",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["basketball hoop"]
+    },
+    {
+      "text": "Tennis court",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tennis court"]
+    },
+    {
+      "text": "Soccer goal",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["soccer goal"]
+    },
+    {
+      "text": "Starting blocks",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["starting blocks"]
+    },
+    {
+      "text": "Scoreboard",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scoreboard"]
+    },
+    {
+      "text": "Wrestling mat",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wrestling mat"]
+    },
+    {
+      "text": "Boxing ring",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["boxing ring"]
+    },
+    {
+      "text": "Balance beam",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["balance beam"]
+    },
+    {
+      "text": "Parallel bars",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["parallel bars"]
+    },
+    {
+      "text": "Vaulting horse",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["vaulting horse"]
+    },
+    {
+      "text": "Climbing wall",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["climbing wall"]
+    },
+    {
+      "text": "Ice skates",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ice skates"]
+    },
+    {
+      "text": "Figure skater",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["figure skater"]
+    },
+    {
+      "text": "Hockey goalie",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hockey goalie"]
+    },
+    {
+      "text": "Racing car",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["racing car"]
+    },
+    {
+      "text": "Checkered flag",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["checkered flag"]
+    },
+    {
+      "text": "Ski lift",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ski lift"]
+    },
+    {
+      "text": "Skateboard ramp",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skateboard ramp"]
+    },
+    {
+      "text": "Diving board",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["diving board"]
+    },
+    {
+      "text": "Swimming lane",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["swimming lane"]
+    },
+    {
+      "text": "Water polo ball",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["water polo ball"]
+    },
+    {
+      "text": "Rowing shell",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rowing shell"]
+    },
+    {
+      "text": "Golf cart",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["golf cart"]
+    },
+    {
+      "text": "Caddie",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["caddie"]
+    },
+    {
+      "text": "Archery target",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["archery target"]
+    },
+    {
+      "text": "Fencing mask",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fencing mask"]
+    },
+    {
+      "text": "Racehorse",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["racehorse"]
+    },
+    {
+      "text": "Jockey",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jockey"]
+    },
+    {
+      "text": "Cricket bowler",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cricket bowler"]
+    },
+    {
+      "text": "Rugby scrum",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rugby scrum"]
+    },
+    {
+      "text": "Cheerleader",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cheerleader"]
+    },
+    {
+      "text": "Sports mascot",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sports mascot"]
+    },
+    {
+      "text": "Weightlifter",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["weightlifter"]
+    },
+    {
+      "text": "Ping pong table",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ping pong table"]
+    },
+    {
+      "text": "Badminton net",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["badminton net"]
+    },
+    {
+      "text": "Handball goal",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["handball goal"]
+    },
+    {
+      "text": "Bicycle race finish",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bicycle race"]
+    },
+    {
+      "text": "Runner crossing finish line",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["runner", "finish line"]
+    },
+    {
+      "text": "Soccer goalie blocking a shot",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["goalie", "shot"]
+    },
+    {
+      "text": "Basketball player shooting a hoop",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["basketball player", "hoop"]
+    },
+    {
+      "text": "Tennis player serving",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tennis player", "serving"]
+    },
+    {
+      "text": "Baseball player sliding home",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["baseball player", "sliding home"]
+    },
+    {
+      "text": "Catcher catching a fly ball",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["catcher", "fly ball"]
+    },
+    {
+      "text": "Golfer sinking a putt",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["golfer", "putt"]
+    },
+    {
+      "text": "Volleyball players blocking a spike",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["volleyball players", "spike"]
+    },
+    {
+      "text": "Hockey player scoring a goal",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hockey player", "goal"]
+    },
+    {
+      "text": "Figure skater spinning on ice",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["figure skater", "spinning"]
+    },
+    {
+      "text": "Diver doing a flip",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["diver", "flip"]
+    },
+    {
+      "text": "Swimmer racing freestyle",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["swimmer", "freestyle"]
+    },
+    {
+      "text": "Relay runners passing baton",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["runners", "baton"]
+    },
+    {
+      "text": "Gymnast on balance beam",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gymnast", "balance beam"]
+    },
+    {
+      "text": "Weightlifter lifting barbell",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["weightlifter", "barbell"]
+    },
+    {
+      "text": "Rock climber reaching summit",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rock climber", "summit"]
+    },
+    {
+      "text": "Surfer riding a wave",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["surfer", "wave"]
+    },
+    {
+      "text": "Skateboarder doing a kickflip",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skateboarder", "kickflip"]
+    },
+    {
+      "text": "Bowler knocking down pins",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bowler", "pins"]
+    },
+    {
+      "text": "Archer hitting a target",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["archer", "target"]
+    },
+    {
+      "text": "Horse jumping a hurdle",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["horse", "hurdle"]
+    },
+    {
+      "text": "Kayaker paddling through rapids",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["kayaker", "rapids"]
+    },
+    {
+      "text": "Rowers racing in a shell",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rowers", "shell"]
+    },
+    {
+      "text": "Rugby player carrying a ball",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rugby player", "ball"]
+    },
+    {
+      "text": "Cricketer hitting a boundary",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cricketer", "boundary"]
+    },
+    {
+      "text": "Cheerleaders forming a pyramid",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cheerleaders", "pyramid"]
+    },
+    {
+      "text": "Ski jumper soaring downhill",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ski jumper", "downhill"]
+    },
+    {
+      "text": "Race car taking a turn",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["race car", "turn"]
+    },
+    {
+      "text": "Synchronized swimmers making a pose",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["synchronized swimmers", "pose"]
+    },
+    {
+      "text": "Soccer goalie gardening",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["soccer goalie", "gardening"]
+    },
+    {
+      "text": "Referee walking a dog",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["referee", "dog"]
+    },
+    {
+      "text": "Golfer baking a cake",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["golfer", "cake"]
+    },
+    {
+      "text": "Swimmer riding a bus",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["swimmer", "bus"]
+    },
+    {
+      "text": "Skateboarder knitting a scarf",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skateboarder", "scarf"]
+    },
+    {
+      "text": "Baseball catcher painting a fence",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["baseball catcher", "fence"]
+    },
+    {
+      "text": "Hockey player making cupcakes",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["hockey player", "cupcakes"]
+    },
+    {
+      "text": "Gymnast walking on stilts",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["gymnast", "stilts"]
+    },
+    {
+      "text": "Surfer doing laundry",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["surfer", "laundry"]
+    },
+    {
+      "text": "Bowler brushing a giant tooth",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["bowler", "tooth"]
+    },
+    {
+      "text": "Cyclist carrying a birthday cake",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cyclist", "birthday cake"]
+    },
+    {
+      "text": "Jockey pushing a stroller",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["jockey", "stroller"]
+    },
+    {
+      "text": "Cheerleader at a picnic",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cheerleader", "picnic"]
+    },
+    {
+      "text": "Mascot mowing the lawn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mascot", "lawn"]
+    },
+    {
+      "text": "Diver feeding ducks",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["diver", "ducks"]
+    },
+    {
+      "text": "Weightlifter holding a kitten",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["weightlifter", "kitten"]
+    },
+    {
+      "text": "Tennis player building a sandcastle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["tennis player", "sandcastle"]
+    },
+    {
+      "text": "Cricket batter flying a kite",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cricket batter", "kite"]
+    },
+    {
+      "text": "Archer juggling apples",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["archer", "apples"]
+    },
+    {
+      "text": "Race car driver walking a dog",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["race car driver", "dog"]
+    },
+    {
+      "text": "Rowers eating spaghetti",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rowers", "spaghetti"]
+    },
+    {
+      "text": "Volleyball player vacuuming",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["volleyball player", "vacuuming"]
+    },
+    {
+      "text": "Runner washing a car",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["runner", "car"]
+    },
+    {
+      "text": "Ski jumper delivering pizza",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ski jumper", "pizza"]
+    },
+    {
+      "text": "Kayaker walking a penguin",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["kayaker", "penguin"]
+    },
+    {
+      "text": "Baseball pitcher watering flowers",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["baseball pitcher", "flowers"]
+    },
+    {
+      "text": "Basketball player playing chess",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["basketball player", "chess"]
+    },
+    {
+      "text": "Soccer referee riding a unicycle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["soccer referee", "unicycle"]
+    },
+    {
+      "text": "Figure skater carrying groceries",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["figure skater", "groceries"]
+    },
+    {
+      "text": "Boxer cooking soup",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["boxer", "soup"]
+    },
+    {
+      "text": "Rock climber walking a goat",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rock climber", "goat"]
+    },
+    {
+      "text": "Football player crocheting a blanket",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["football player", "blanket"]
+    },
+    {
+      "text": "Badminton player pushing a shopping cart",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["badminton player", "shopping cart"]
+    },
+    {
+      "text": "Jockey painting a portrait",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["jockey", "portrait"]
+    },
+    {
+      "text": "Coach teaching a parrot to dance",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["coach", "parrot"]
+    },
+    {
+      "text": "Ping pong player walking a tightrope",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ping pong player", "tightrope"]
+    },
+    {
+      "text": "Hockey goalie planting a tree",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["hockey goalie", "tree"]
+    }
+  ]
+}

@@ -1,0 +1,1059 @@
+{
+  "slug": "ocean",
+  "featuredRank": null,
+  "title": "Ocean Life",
+  "description": "Draw sea creatures, underwater wonders, beach treasures, and silly seaside scenes.",
+  "tags": ["ocean", "sea life", "beach", "underwater", "animals"],
+  "cards": [
+    {
+      "text": "Dolphin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dolphin"]
+    },
+    {
+      "text": "Shark",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["shark"]
+    },
+    {
+      "text": "Octopus",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["octopus"]
+    },
+    {
+      "text": "Sea turtle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sea turtle"]
+    },
+    {
+      "text": "Starfish",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["sea star"],
+      "keywords": ["starfish"]
+    },
+    {
+      "text": "Seahorse",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["seahorse"]
+    },
+    {
+      "text": "Jellyfish",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jellyfish"]
+    },
+    {
+      "text": "Whale",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["whale"]
+    },
+    {
+      "text": "Crab",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crab"]
+    },
+    {
+      "text": "Lobster",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lobster"]
+    },
+    {
+      "text": "Seal",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["seal"]
+    },
+    {
+      "text": "Penguin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["penguin"]
+    },
+    {
+      "text": "Clownfish",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["clown fish"],
+      "keywords": ["clownfish"]
+    },
+    {
+      "text": "Shrimp",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["shrimp"]
+    },
+    {
+      "text": "Coral",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["coral"]
+    },
+    {
+      "text": "Seashell",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["sea shell"],
+      "keywords": ["seashell"]
+    },
+    {
+      "text": "Sand dollar",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sand dollar"]
+    },
+    {
+      "text": "Clam",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["clam"]
+    },
+    {
+      "text": "Oyster",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["oyster"]
+    },
+    {
+      "text": "Seaweed",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["seaweed"]
+    },
+    {
+      "text": "Pelican",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pelican"]
+    },
+    {
+      "text": "Seagull",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["gull"],
+      "keywords": ["seagull"]
+    },
+    {
+      "text": "Lighthouse",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lighthouse"]
+    },
+    {
+      "text": "Bucket",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bucket"]
+    },
+    {
+      "text": "Spade",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["beach shovel"],
+      "keywords": ["spade"]
+    },
+    {
+      "text": "Beach ball",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["beach ball"]
+    },
+    {
+      "text": "Surfboard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["surfboard"]
+    },
+    {
+      "text": "Snorkel",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["snorkel"]
+    },
+    {
+      "text": "Flippers",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["swim fins"],
+      "keywords": ["flippers"]
+    },
+    {
+      "text": "Sailboat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["sailing boat"],
+      "keywords": ["sailboat"]
+    },
+    {
+      "text": "Anchor",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["anchor"]
+    },
+    {
+      "text": "Lifebuoy",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["life ring"],
+      "keywords": ["lifebuoy"]
+    },
+    {
+      "text": "Sandcastle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["sand castle"],
+      "keywords": ["sandcastle"]
+    },
+    {
+      "text": "Beach umbrella",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["beach umbrella"]
+    },
+    {
+      "text": "Beach towel",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["beach towel"]
+    },
+    {
+      "text": "Sunglasses",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sunglasses"]
+    },
+    {
+      "text": "Wave",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wave"]
+    },
+    {
+      "text": "Palm tree",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["palm tree"]
+    },
+    {
+      "text": "Eel",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["eel"]
+    },
+    {
+      "text": "Swordfish",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["swordfish"]
+    },
+    {
+      "text": "Manta ray",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["manta ray"]
+    },
+    {
+      "text": "Hammerhead shark",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hammerhead shark"]
+    },
+    {
+      "text": "Pufferfish",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["puffer fish"],
+      "keywords": ["pufferfish"]
+    },
+    {
+      "text": "Anglerfish",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["angler fish"],
+      "keywords": ["anglerfish"]
+    },
+    {
+      "text": "Moray eel",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["moray eel"]
+    },
+    {
+      "text": "Horseshoe crab",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["horseshoe crab"]
+    },
+    {
+      "text": "Hermit crab",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hermit crab"]
+    },
+    {
+      "text": "Sea urchin",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sea urchin"]
+    },
+    {
+      "text": "Sea anemone",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sea anemone"]
+    },
+    {
+      "text": "Nautilus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["nautilus"]
+    },
+    {
+      "text": "Barnacle",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["barnacle"]
+    },
+    {
+      "text": "Sea cucumber",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sea cucumber"]
+    },
+    {
+      "text": "Flying fish",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["flying fish"]
+    },
+    {
+      "text": "Orca",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["killer whale"],
+      "keywords": ["orca"]
+    },
+    {
+      "text": "Walrus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["walrus"]
+    },
+    {
+      "text": "Sea lion",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sea lion"]
+    },
+    {
+      "text": "Manatee",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["manatee"]
+    },
+    {
+      "text": "Narwhal",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["narwhal"]
+    },
+    {
+      "text": "Coral reef",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["coral reef"]
+    },
+    {
+      "text": "Tide pool",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tide pool"]
+    },
+    {
+      "text": "Kelp forest",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["kelp forest"]
+    },
+    {
+      "text": "Underwater cave",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["underwater cave"]
+    },
+    {
+      "text": "Glass bottom boat",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["glass bottom boat"]
+    },
+    {
+      "text": "Pearl",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pearl"]
+    },
+    {
+      "text": "Pearl necklace",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pearl necklace"]
+    },
+    {
+      "text": "Scuba mask",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scuba mask"]
+    },
+    {
+      "text": "Oxygen tank",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["scuba tank"],
+      "keywords": ["oxygen tank"]
+    },
+    {
+      "text": "Fishing net",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fishing net"]
+    },
+    {
+      "text": "Fishing rod",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fishing rod"]
+    },
+    {
+      "text": "Kayak",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["kayak"]
+    },
+    {
+      "text": "Canoe",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["canoe"]
+    },
+    {
+      "text": "Pier",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pier"]
+    },
+    {
+      "text": "Boardwalk",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["boardwalk"]
+    },
+    {
+      "text": "Beach hut",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["beach hut"]
+    },
+    {
+      "text": "Sand dune",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sand dune"]
+    },
+    {
+      "text": "Message in a bottle",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["bottle with a message"],
+      "keywords": ["message", "bottle"]
+    },
+    {
+      "text": "Submarine",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["submarine"]
+    },
+    {
+      "text": "Shipwreck",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["shipwreck"]
+    },
+    {
+      "text": "Mermaid",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mermaid"]
+    },
+    {
+      "text": "Beach chair",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["beach chair"]
+    },
+    {
+      "text": "Dolphin leaping over waves",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dolphin", "waves"]
+    },
+    {
+      "text": "Whale spraying water",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["whale spouting water"],
+      "keywords": ["whale", "water"]
+    },
+    {
+      "text": "Octopus opening a jar",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["octopus", "jar"]
+    },
+    {
+      "text": "Crab climbing a rock",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crab", "rock"]
+    },
+    {
+      "text": "Sea turtle laying eggs",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sea turtle", "eggs"]
+    },
+    {
+      "text": "Shark fin beside a surfboard",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["shark fin", "surfboard"]
+    },
+    {
+      "text": "Seal balancing a ball",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["seal", "ball"]
+    },
+    {
+      "text": "Penguin diving underwater",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["penguin", "underwater"]
+    },
+    {
+      "text": "Clownfish hiding in anemone",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["clownfish", "anemone"]
+    },
+    {
+      "text": "Manta ray gliding over reef",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["manta ray", "reef"]
+    },
+    {
+      "text": "Humpback whale breaching",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["humpback whale", "breaching"]
+    },
+    {
+      "text": "Sea lion leaping for a ball",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sea lion", "ball"]
+    },
+    {
+      "text": "Diver exploring a wreck",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["diver", "wreck"]
+    },
+    {
+      "text": "Snorkeler spotting a turtle",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["snorkeler", "turtle"]
+    },
+    {
+      "text": "Surfer riding a wave",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["surfer", "wave"]
+    },
+    {
+      "text": "Child digging for clams",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["child", "clams"]
+    },
+    {
+      "text": "Person collecting seashells",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["person", "seashells"]
+    },
+    {
+      "text": "Seagull stealing a sandwich",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["seagull", "sandwich"]
+    },
+    {
+      "text": "Lighthouse above crashing waves",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lighthouse", "waves"]
+    },
+    {
+      "text": "Sailboat passing an island",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sailboat", "island"]
+    },
+    {
+      "text": "Crab racing across wet sand",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crab", "wet sand"]
+    },
+    {
+      "text": "Tide pool at low tide",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tide pool", "low tide"]
+    },
+    {
+      "text": "Kelp swaying underwater",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["kelp", "underwater"]
+    },
+    {
+      "text": "School of fish circling a diver",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fish", "diver"]
+    },
+    {
+      "text": "Wave washing away sandcastle",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wave", "sandcastle"]
+    },
+    {
+      "text": "Casting a fishing line",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fishing line"]
+    },
+    {
+      "text": "Building a sandcastle",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["building", "sandcastle"]
+    },
+    {
+      "text": "Diver taking an underwater photo",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["diver", "underwater photo"]
+    },
+    {
+      "text": "Bottle washing ashore",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bottle", "ashore"]
+    },
+    {
+      "text": "Fish jumping from water",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fish", "water"]
+    },
+    {
+      "text": "Octopus knitting a sweater",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["octopus", "sweater"]
+    },
+    {
+      "text": "Shark riding a bicycle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["shark", "bicycle"]
+    },
+    {
+      "text": "Dolphin at a lemonade stand",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dolphin", "lemonade stand"]
+    },
+    {
+      "text": "Crab playing piano",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["crab", "piano"]
+    },
+    {
+      "text": "Sea turtle delivering mail",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sea turtle", "mail"]
+    },
+    {
+      "text": "Jellyfish holding an umbrella",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["jellyfish", "umbrella"]
+    },
+    {
+      "text": "Seahorse pulling a wagon",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["seahorse", "wagon"]
+    },
+    {
+      "text": "Lobster doing yoga",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["lobster", "yoga"]
+    },
+    {
+      "text": "Penguin mowing the lawn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["penguin", "lawn"]
+    },
+    {
+      "text": "Seal washing dishes",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["seal", "dishes"]
+    },
+    {
+      "text": "Whale in a bathtub",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["whale", "bathtub"]
+    },
+    {
+      "text": "Starfish wearing roller skates",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["starfish", "roller skates"]
+    },
+    {
+      "text": "Mermaid walking a dog",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mermaid", "dog"]
+    },
+    {
+      "text": "Pelican using a vacuum",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pelican", "vacuum"]
+    },
+    {
+      "text": "Clownfish painting a fence",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["clownfish", "fence"]
+    },
+    {
+      "text": "Hermit crab carrying a suitcase",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["hermit crab", "suitcase"]
+    },
+    {
+      "text": "Manta ray flying a kite",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["manta ray", "kite"]
+    },
+    {
+      "text": "Walrus baking a cake",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["walrus", "cake"]
+    },
+    {
+      "text": "Shrimp driving a bus",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["shrimp", "bus"]
+    },
+    {
+      "text": "Pufferfish playing basketball",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pufferfish", "basketball"]
+    },
+    {
+      "text": "Anchor riding a skateboard",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["anchor", "skateboard"]
+    },
+    {
+      "text": "Seashell going to school",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["seashell", "school"]
+    },
+    {
+      "text": "Submarine delivering pizza",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["submarine", "pizza"]
+    },
+    {
+      "text": "Scuba diver on a tightrope",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["scuba diver", "tightrope"]
+    },
+    {
+      "text": "Seaweed doing laundry",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["seaweed", "laundry"]
+    },
+    {
+      "text": "Sailboat at a car wash",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sailboat", "car wash"]
+    },
+    {
+      "text": "Sandcastle playing chess",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sandcastle", "chess"]
+    },
+    {
+      "text": "Beach ball at a bowling alley",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["beach ball", "bowling alley"]
+    },
+    {
+      "text": "Lighthouse walking a dog",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["lighthouse", "dog"]
+    },
+    {
+      "text": "Eel riding a scooter",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["eel", "scooter"]
+    },
+    {
+      "text": "Oyster on a swing",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["oyster", "swing"]
+    },
+    {
+      "text": "Nautilus carrying groceries",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["nautilus", "groceries"]
+    },
+    {
+      "text": "Seagull brushing its teeth",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["seagull", "teeth"]
+    },
+    {
+      "text": "Canoe playing the drums",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["canoe", "drums"]
+    },
+    {
+      "text": "Surfboard in a shopping cart",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["surfboard", "shopping cart"]
+    },
+    {
+      "text": "Lifebuoy at a picnic",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["lifebuoy", "picnic"]
+    },
+    {
+      "text": "Barnacle wearing a backpack",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["barnacle", "backpack"]
+    },
+    {
+      "text": "Sea urchin riding a unicycle",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sea urchin", "unicycle"]
+    },
+    {
+      "text": "Anglerfish reading a book",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["anglerfish", "book"]
+    },
+    {
+      "text": "Sea anemone getting a haircut",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sea anemone", "haircut"]
+    }
+  ]
+}

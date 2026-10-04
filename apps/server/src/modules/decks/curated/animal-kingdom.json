@@ -1,0 +1,373 @@
+{
+  "slug": "animal-kingdom",
+  "featuredRank": null,
+  "title": "Animal Kingdom",
+  "description": "Easy-going animals for all ages, with a few curveballs.",
+  "tags": ["animals", "family", "kids", "nature"],
+  "cards": [
+    {
+      "text": "Dog",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["puppy"],
+      "keywords": ["dog"]
+    },
+    {
+      "text": "Cat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["kitten"],
+      "keywords": ["cat"]
+    },
+    {
+      "text": "Fish",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fish"]
+    },
+    {
+      "text": "Bird",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bird"]
+    },
+    {
+      "text": "Snake",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["snake"]
+    },
+    {
+      "text": "Pig",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pig"]
+    },
+    {
+      "text": "Cow",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cow"]
+    },
+    {
+      "text": "Duck",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["duck"]
+    },
+    {
+      "text": "Frog",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["frog"]
+    },
+    {
+      "text": "Turtle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["tortoise"],
+      "keywords": ["turtle"]
+    },
+    {
+      "text": "Snail",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["snail"]
+    },
+    {
+      "text": "Bee",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bee"]
+    },
+    {
+      "text": "Mouse",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mouse"]
+    },
+    {
+      "text": "Horse",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["horse"]
+    },
+    {
+      "text": "Elephant",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["elephant"]
+    },
+    {
+      "text": "Giraffe",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["giraffe"]
+    },
+    {
+      "text": "Penguin",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["penguin"]
+    },
+    {
+      "text": "Octopus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["octopus"]
+    },
+    {
+      "text": "Kangaroo",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["kangaroo"]
+    },
+    {
+      "text": "Butterfly",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["butterfly"]
+    },
+    {
+      "text": "Crocodile",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["alligator"],
+      "keywords": ["crocodile"]
+    },
+    {
+      "text": "Shark",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["shark"]
+    },
+    {
+      "text": "Peacock",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["peacock"]
+    },
+    {
+      "text": "Hedgehog",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hedgehog"]
+    },
+    {
+      "text": "Flamingo",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["flamingo"]
+    },
+    {
+      "text": "Jellyfish",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jellyfish"]
+    },
+    {
+      "text": "Camel",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["camel"]
+    },
+    {
+      "text": "Zebra",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["zebra"]
+    },
+    {
+      "text": "Owl",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["owl"]
+    },
+    {
+      "text": "Squirrel",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["squirrel"]
+    },
+    {
+      "text": "Chameleon",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["chameleon"]
+    },
+    {
+      "text": "Platypus",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["platypus"]
+    },
+    {
+      "text": "Sloth",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sloth"]
+    },
+    {
+      "text": "Narwhal",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["narwhal"]
+    },
+    {
+      "text": "Hummingbird",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hummingbird"]
+    },
+    {
+      "text": "Seahorse",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["seahorse"]
+    },
+    {
+      "text": "Bat colony",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bat", "colony"]
+    },
+    {
+      "text": "Ant farm",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ant", "farm"]
+    },
+    {
+      "text": "Migrating birds",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["bird migration"],
+      "keywords": ["migrating", "bird"]
+    },
+    {
+      "text": "Lion pride",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lion", "pride"]
+    },
+    {
+      "text": "Cat doing taxes",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["cat taxes"],
+      "keywords": ["cat", "tax"]
+    },
+    {
+      "text": "Penguin on a skateboard",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["penguin", "skateboard"]
+    },
+    {
+      "text": "Giraffe in a tiny car",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["giraffe", "tiny", "car"]
+    },
+    {
+      "text": "Octopus juggling",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["octopus", "juggling"]
+    },
+    {
+      "text": "Cow on a trampoline",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cow", "trampoline"]
+    },
+    {
+      "text": "Snail racing car",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["racing snail"],
+      "keywords": ["snail", "racing", "car"]
+    },
+    {
+      "text": "Shark at the dentist",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["shark", "dentist"]
+    },
+    {
+      "text": "Elephant ballerina",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["ballet elephant"],
+      "keywords": ["elephant", "ballerina"]
+    },
+    {
+      "text": "Dog walking a human",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dog", "walking", "human"]
+    },
+    {
+      "text": "Frog king",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["frog wearing a crown"],
+      "keywords": ["frog", "king"]
+    },
+    {
+      "text": "Sloth winning a race",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sloth", "winning", "race"]
+    },
+    {
+      "text": "Hedgehog hugging a balloon",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["hedgehog", "hugging", "balloon"]
+    }
+  ]
+}

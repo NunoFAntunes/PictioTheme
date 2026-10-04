@@ -1,0 +1,373 @@
+{
+  "slug": "spooky-halloween",
+  "featuredRank": 1,
+  "title": "Spooky Halloween",
+  "description": "Ghosts, ghouls and pumpkins for your October party.",
+  "tags": ["halloween", "spooky", "monsters", "october"],
+  "cards": [
+    {
+      "text": "Pumpkin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pumpkin"]
+    },
+    {
+      "text": "Ghost",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ghost"]
+    },
+    {
+      "text": "Bat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bat"]
+    },
+    {
+      "text": "Candy",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["candy"]
+    },
+    {
+      "text": "Moon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["moon"]
+    },
+    {
+      "text": "Spider",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["spider"]
+    },
+    {
+      "text": "Witch",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["witch"]
+    },
+    {
+      "text": "Skull",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skull"]
+    },
+    {
+      "text": "Candle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["candle"]
+    },
+    {
+      "text": "Broom",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["broom"]
+    },
+    {
+      "text": "Owl",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["owl"]
+    },
+    {
+      "text": "Bone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bone"]
+    },
+    {
+      "text": "Mask",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mask"]
+    },
+    {
+      "text": "Coffin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["coffin"]
+    },
+    {
+      "text": "Web",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["spider web", "cobweb"],
+      "keywords": ["web"]
+    },
+    {
+      "text": "Haunted house",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["haunted mansion"],
+      "keywords": ["haunted", "house"]
+    },
+    {
+      "text": "Black cat",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["black", "cat"]
+    },
+    {
+      "text": "Witch hat",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["witches hat"],
+      "keywords": ["witch", "hat"]
+    },
+    {
+      "text": "Scarecrow",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scarecrow"]
+    },
+    {
+      "text": "Cauldron",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cauldron"]
+    },
+    {
+      "text": "Skeleton",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeleton"]
+    },
+    {
+      "text": "Vampire",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["dracula"],
+      "keywords": ["vampire"]
+    },
+    {
+      "text": "Mummy",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mummy"]
+    },
+    {
+      "text": "Zombie",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["zombie"]
+    },
+    {
+      "text": "Werewolf",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["werewolf"]
+    },
+    {
+      "text": "Graveyard",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["cemetery"],
+      "keywords": ["graveyard"]
+    },
+    {
+      "text": "Jack-o-lantern",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["jack o lantern", "carved pumpkin"],
+      "keywords": ["jack", "o", "lantern"]
+    },
+    {
+      "text": "Candy corn",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["candy", "corn"]
+    },
+    {
+      "text": "Tombstone",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["gravestone"],
+      "keywords": ["tombstone"]
+    },
+    {
+      "text": "Frankenstein",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["frankenstein"]
+    },
+    {
+      "text": "Trick or treat",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["trick", "or", "treat"]
+    },
+    {
+      "text": "Headless horseman",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["headless", "horseman"]
+    },
+    {
+      "text": "Full moon rising",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["full", "moon", "rising"]
+    },
+    {
+      "text": "Seance",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["seance"]
+    },
+    {
+      "text": "Haunted hayride",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["haunted", "hayride"]
+    },
+    {
+      "text": "Costume party",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["costume", "party"]
+    },
+    {
+      "text": "Bobbing for apples",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bobbing", "for", "apple"]
+    },
+    {
+      "text": "Witch on a broom",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["witch flying"],
+      "keywords": ["witch", "broom"]
+    },
+    {
+      "text": "Werewolf howling",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["werewolf", "howling"]
+    },
+    {
+      "text": "Zombie hand from grave",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["zombie hand"],
+      "keywords": ["zombie", "hand", "from", "grave"]
+    },
+    {
+      "text": "Vampire on a unicycle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["vampire riding a unicycle"],
+      "keywords": ["vampire", "unicycle"]
+    },
+    {
+      "text": "Realtor skeleton",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["skeleton realtor", "real estate agent skeleton"],
+      "keywords": ["realtor", "skeleton"]
+    },
+    {
+      "text": "Ghost plowing a field",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["ghost plowing"],
+      "keywords": ["ghost", "plowing", "field"]
+    },
+    {
+      "text": "Mummy doing yoga",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["mummy yoga"],
+      "keywords": ["mummy", "yoga"]
+    },
+    {
+      "text": "Werewolf at the dentist",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["werewolf", "dentist"]
+    },
+    {
+      "text": "Witch driving a bus",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["witch bus driver"],
+      "keywords": ["witch", "driving", "bus"]
+    },
+    {
+      "text": "Zombie chef",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["zombie cook"],
+      "keywords": ["zombie", "chef"]
+    },
+    {
+      "text": "Pumpkin lifting weights",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pumpkin", "lifting", "weight"]
+    },
+    {
+      "text": "Skeleton playing drums",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["skeleton drummer"],
+      "keywords": ["skeleton", "playing", "drum"]
+    },
+    {
+      "text": "Bat with sunglasses",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["bat wearing sunglasses"],
+      "keywords": ["bat", "sunglass"]
+    },
+    {
+      "text": "Frankenstein on a skateboard",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["frankenstein", "skateboard"]
+    },
+    {
+      "text": "Dracula brushing his teeth",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["vampire brushing teeth"],
+      "keywords": ["dracula", "brushing", "his", "tooth"]
+    }
+  ]
+}

@@ -1,0 +1,1052 @@
+{
+  "slug": "nineties",
+  "featuredRank": null,
+  "title": "Totally Nineties",
+  "description": "Draw iconic gadgets, fashion, toys, places, and everyday scenes inspired by the nineties.",
+  "tags": ["nineties", "pop culture", "gadgets", "fashion", "toys", "retro"],
+  "cards": [
+    {
+      "text": "Cassette tape",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cassette", "tape"]
+    },
+    {
+      "text": "VHS tape",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["vhs", "tape"]
+    },
+    {
+      "text": "Compact disc",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["CD"],
+      "keywords": ["compact", "disc"]
+    },
+    {
+      "text": "Floppy disk",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["floppy", "disk"]
+    },
+    {
+      "text": "Pager",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["beeper"],
+      "keywords": ["pager"]
+    },
+    {
+      "text": "Portable cassette player",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cassette", "player"]
+    },
+    {
+      "text": "Corded telephone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["landline phone"],
+      "keywords": ["corded", "telephone"]
+    },
+    {
+      "text": "Handheld game console",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["handheld", "console"]
+    },
+    {
+      "text": "Game cartridge",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["game", "cartridge"]
+    },
+    {
+      "text": "Joystick",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["joystick"]
+    },
+    {
+      "text": "Computer mouse",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["computer", "mouse"]
+    },
+    {
+      "text": "CRT monitor",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["computer monitor"],
+      "keywords": ["crt", "monitor"]
+    },
+    {
+      "text": "Desktop computer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["personal computer"],
+      "keywords": ["desktop", "computer"]
+    },
+    {
+      "text": "Dial up modem",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["dial", "modem"]
+    },
+    {
+      "text": "Computer keyboard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["computer", "keyboard"]
+    },
+    {
+      "text": "Printer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["printer"]
+    },
+    {
+      "text": "Camcorder",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["video camera"],
+      "keywords": ["camcorder"]
+    },
+    {
+      "text": "Boombox",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["stereo"],
+      "keywords": ["boombox"]
+    },
+    {
+      "text": "Headphones",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["headphones"]
+    },
+    {
+      "text": "Rollerblades",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["inline skates"],
+      "keywords": ["rollerblades"]
+    },
+    {
+      "text": "Skateboard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skateboard"]
+    },
+    {
+      "text": "Yo yo",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["yoyo"],
+      "keywords": ["yo"]
+    },
+    {
+      "text": "Hula hoop",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hula", "hoop"]
+    },
+    {
+      "text": "Slap bracelet",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["slap", "bracelet"]
+    },
+    {
+      "text": "Scrunchie",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["hair scrunchie"],
+      "keywords": ["scrunchie"]
+    },
+    {
+      "text": "Butterfly clips",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["butterfly hair clips"],
+      "keywords": ["butterfly", "clips"]
+    },
+    {
+      "text": "Bucket hat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bucket", "hat"]
+    },
+    {
+      "text": "Flannel shirt",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["flannel", "shirt"]
+    },
+    {
+      "text": "Overalls",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["overalls"]
+    },
+    {
+      "text": "Windbreaker",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["windbreaker jacket"],
+      "keywords": ["windbreaker"]
+    },
+    {
+      "text": "Denim jacket",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["denim", "jacket"]
+    },
+    {
+      "text": "Platform shoes",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["platform", "shoes"]
+    },
+    {
+      "text": "Fanny pack",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["belt bag"],
+      "keywords": ["fanny", "pack"]
+    },
+    {
+      "text": "Choker necklace",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["choker"],
+      "keywords": ["choker", "necklace"]
+    },
+    {
+      "text": "Cargo pants",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cargo", "pants"]
+    },
+    {
+      "text": "Inflatable chair",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["inflatable", "chair"]
+    },
+    {
+      "text": "Roller skate",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["roller", "skate"]
+    },
+    {
+      "text": "Portable CD player",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["portable", "player"]
+    },
+    {
+      "text": "Television",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["TV"],
+      "keywords": ["television"]
+    },
+    {
+      "text": "Disposable camera",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["disposable", "camera"]
+    },
+    {
+      "text": "Virtual pet",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["digital pet"],
+      "keywords": ["virtual", "pet"]
+    },
+    {
+      "text": "Transparent telephone",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["clear phone"],
+      "keywords": ["transparent", "telephone"]
+    },
+    {
+      "text": "Cordless telephone",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["cordless phone"],
+      "keywords": ["cordless", "telephone"]
+    },
+    {
+      "text": "CD tower",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["compact disc rack"],
+      "keywords": ["cd", "tower"]
+    },
+    {
+      "text": "Cassette case",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["tape case"],
+      "keywords": ["cassette", "case"]
+    },
+    {
+      "text": "VHS rewinder",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["tape rewinder"],
+      "keywords": ["vhs", "rewinder"]
+    },
+    {
+      "text": "Arcade cabinet",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["arcade machine"],
+      "keywords": ["arcade", "cabinet"]
+    },
+    {
+      "text": "Arcade token",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["arcade", "token"]
+    },
+    {
+      "text": "Skate park",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["skatepark"],
+      "keywords": ["skate", "park"]
+    },
+    {
+      "text": "Video rental store",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["movie rental store"],
+      "keywords": ["video", "store"]
+    },
+    {
+      "text": "Mall food court",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["food court"],
+      "keywords": ["mall", "court"]
+    },
+    {
+      "text": "Computer lab",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["computer", "lab"]
+    },
+    {
+      "text": "Computer desk",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["computer", "desk"]
+    },
+    {
+      "text": "Rabbit ear antenna",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["TV antenna"],
+      "keywords": ["rabbit", "antenna"]
+    },
+    {
+      "text": "TV remote control",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["remote"],
+      "keywords": ["tv", "remote"]
+    },
+    {
+      "text": "School locker",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["locker"],
+      "keywords": ["school", "locker"]
+    },
+    {
+      "text": "Sticker album",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["sticker book"],
+      "keywords": ["sticker", "album"]
+    },
+    {
+      "text": "Trading card binder",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["card binder"],
+      "keywords": ["trading", "binder"]
+    },
+    {
+      "text": "Game magazine",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["video game magazine"],
+      "keywords": ["game", "magazine"]
+    },
+    {
+      "text": "Comic book",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["comic"],
+      "keywords": ["comic", "book"]
+    },
+    {
+      "text": "Collectible figurine",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["toy figurine"],
+      "keywords": ["collectible", "figurine"]
+    },
+    {
+      "text": "Robot toy",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["toy robot"],
+      "keywords": ["robot", "toy"]
+    },
+    {
+      "text": "Alien action figure",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["alien toy"],
+      "keywords": ["alien", "figure"]
+    },
+    {
+      "text": "Dinosaur costume",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["dino costume"],
+      "keywords": ["dinosaur", "costume"]
+    },
+    {
+      "text": "Translucent controller",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["clear game controller"],
+      "keywords": ["translucent", "controller"]
+    },
+    {
+      "text": "Light up sneakers",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["light up shoes"],
+      "keywords": ["light", "sneakers"]
+    },
+    {
+      "text": "Zipper wallet",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["zipper", "wallet"]
+    },
+    {
+      "text": "Frosted tips",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["frosted tip hairstyle"],
+      "keywords": ["frosted", "tips"]
+    },
+    {
+      "text": "Plastic bead necklace",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["beaded necklace"],
+      "keywords": ["plastic", "necklace"]
+    },
+    {
+      "text": "Friendship bracelet",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["friendship", "bracelet"]
+    },
+    {
+      "text": "Cassette adapter",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["tape adapter"],
+      "keywords": ["cassette", "adapter"]
+    },
+    {
+      "text": "Inflatable sofa",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["blow up couch"],
+      "keywords": ["inflatable", "sofa"]
+    },
+    {
+      "text": "Lava lamp",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lava", "lamp"]
+    },
+    {
+      "text": "Mood ring",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mood", "ring"]
+    },
+    {
+      "text": "Glow stars",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["glow in the dark stars"],
+      "keywords": ["glow", "stars"]
+    },
+    {
+      "text": "Portable karaoke machine",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["karaoke machine"],
+      "keywords": ["portable", "karaoke"]
+    },
+    {
+      "text": "Mini disc player",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["minidisc player"],
+      "keywords": ["mini", "player"]
+    },
+    {
+      "text": "Video camera tripod",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["camcorder tripod"],
+      "keywords": ["video", "tripod"]
+    },
+    {
+      "text": "Cartoon lunchbox",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["lunch box"],
+      "keywords": ["cartoon", "lunchbox"]
+    },
+    {
+      "text": "Rewinding VHS with pencil",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["vhs", "pencil"]
+    },
+    {
+      "text": "Blowing into game cartridge",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["game", "cartridge"]
+    },
+    {
+      "text": "Waiting for dial up",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["waiting for internet"],
+      "keywords": ["waiting", "dial"]
+    },
+    {
+      "text": "Recording radio onto cassette",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["taping a song from the radio"],
+      "keywords": ["radio", "cassette"]
+    },
+    {
+      "text": "Renting a movie",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["borrowing a video"],
+      "keywords": ["renting", "movie"]
+    },
+    {
+      "text": "Using disposable camera",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["taking a photo with a disposable camera"],
+      "keywords": ["disposable", "camera"]
+    },
+    {
+      "text": "Changing TV channel",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["changing the channel"],
+      "keywords": ["changing", "channel"]
+    },
+    {
+      "text": "Searching CD binder",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["looking through a CD binder"],
+      "keywords": ["searching", "binder"]
+    },
+    {
+      "text": "Trading cards at school",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["swapping cards at school"],
+      "keywords": ["trading", "school"]
+    },
+    {
+      "text": "Watching cartoons in pajamas",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cartoons", "pajamas"]
+    },
+    {
+      "text": "Dancing beside boombox",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["dancing to a boombox"],
+      "keywords": ["dancing", "boombox"]
+    },
+    {
+      "text": "Sharing headphones on bus",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["sharing headphones on the bus"],
+      "keywords": ["headphones", "bus"]
+    },
+    {
+      "text": "Loading floppy disk",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["inserting a floppy disk"],
+      "keywords": ["loading", "floppy"]
+    },
+    {
+      "text": "Connecting computer to modem",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["plugging in a modem"],
+      "keywords": ["computer", "modem"]
+    },
+    {
+      "text": "Typing on beige computer",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["using an old computer"],
+      "keywords": ["typing", "computer"]
+    },
+    {
+      "text": "Calling on cordless phone",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["talking on a cordless phone"],
+      "keywords": ["calling", "phone"]
+    },
+    {
+      "text": "Making a mixtape",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["recording a mixtape"],
+      "keywords": ["making", "mixtape"]
+    },
+    {
+      "text": "Trying on oversized flannel",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["wearing a big flannel shirt"],
+      "keywords": ["oversized", "flannel"]
+    },
+    {
+      "text": "Shopping at the mall",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["mall shopping"],
+      "keywords": ["shopping", "mall"]
+    },
+    {
+      "text": "Playing arcade game",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["playing an arcade machine"],
+      "keywords": ["playing", "arcade"]
+    },
+    {
+      "text": "Setting up computer desk",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["setting up a home computer"],
+      "keywords": ["computer", "desk"]
+    },
+    {
+      "text": "Operating a camcorder",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["filming with a camcorder"],
+      "keywords": ["operating", "camcorder"]
+    },
+    {
+      "text": "Playing virtual pet game",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["taking care of a virtual pet"],
+      "keywords": ["virtual", "pet"]
+    },
+    {
+      "text": "Taking pictures in photo booth",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["posing in a photo booth"],
+      "keywords": ["pictures", "booth"]
+    },
+    {
+      "text": "Tying a friendship bracelet",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["making a friendship bracelet"],
+      "keywords": ["friendship", "bracelet"]
+    },
+    {
+      "text": "Watching movie on CRT",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["watching TV on an old television"],
+      "keywords": ["movie", "crt"]
+    },
+    {
+      "text": "Cleaning a compact disc",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["wiping a CD"],
+      "keywords": ["cleaning", "disc"]
+    },
+    {
+      "text": "Unplugging modem at bedtime",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["disconnecting the modem"],
+      "keywords": ["unplugging", "modem"]
+    },
+    {
+      "text": "Trying rollerblades indoors",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["rollerblading inside"],
+      "keywords": ["rollerblades", "indoors"]
+    },
+    {
+      "text": "Styling tall spiky hair",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["making spiky hair"],
+      "keywords": ["spiky", "hair"]
+    },
+    {
+      "text": "Cassette tape baking cookies",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cassette", "cookies"]
+    },
+    {
+      "text": "Cassette tape walking a dog",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cassette", "dog"]
+    },
+    {
+      "text": "Cassette tape at the dentist",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cassette", "dentist"]
+    },
+    {
+      "text": "Cassette tape mowing the lawn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cassette", "lawn"]
+    },
+    {
+      "text": "Floppy disk doing yoga",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["floppy", "yoga"]
+    },
+    {
+      "text": "Floppy disk at a car wash",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["floppy", "wash"]
+    },
+    {
+      "text": "Floppy disk juggling oranges",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["floppy", "oranges"]
+    },
+    {
+      "text": "Floppy disk as a chef",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["floppy", "chef"]
+    },
+    {
+      "text": "Pager walking a cat",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pager", "cat"]
+    },
+    {
+      "text": "Pager at the hair salon",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pager", "salon"]
+    },
+    {
+      "text": "Pager painting a fence",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pager", "fence"]
+    },
+    {
+      "text": "Pager riding a scooter",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pager", "scooter"]
+    },
+    {
+      "text": "VHS tape knitting a scarf",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["vhs", "scarf"]
+    },
+    {
+      "text": "VHS tape as a lifeguard",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["vhs", "lifeguard"]
+    },
+    {
+      "text": "VHS tape planting flowers",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["vhs", "flowers"]
+    },
+    {
+      "text": "VHS tape on a skateboard",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["vhs", "skateboard"]
+    },
+    {
+      "text": "Boombox making a sandwich",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["boombox", "sandwich"]
+    },
+    {
+      "text": "Boombox as a mail carrier",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["boombox", "carrier"]
+    },
+    {
+      "text": "Boombox washing a window",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["boombox", "window"]
+    },
+    {
+      "text": "Boombox riding a tricycle",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["boombox", "tricycle"]
+    },
+    {
+      "text": "Rollerblade serving pancakes",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rollerblade", "pancakes"]
+    },
+    {
+      "text": "Rollerblade as a firefighter",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rollerblade", "firefighter"]
+    },
+    {
+      "text": "Rollerblade walking a dog",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rollerblade", "dog"]
+    },
+    {
+      "text": "Rollerblade playing chess",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["rollerblade", "chess"]
+    },
+    {
+      "text": "Virtual pet baking pizza",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["virtual", "pizza"]
+    },
+    {
+      "text": "Virtual pet as a gardener",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["virtual", "gardener"]
+    },
+    {
+      "text": "Virtual pet on a fishing trip",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["virtual", "fishing"]
+    },
+    {
+      "text": "Virtual pet washing dishes",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["virtual", "dishes"]
+    },
+    {
+      "text": "Alien at a lemonade stand",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["alien", "lemonade"]
+    },
+    {
+      "text": "Alien doing laundry",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["alien", "laundry"]
+    },
+    {
+      "text": "Alien as a bus driver",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["alien", "driver"]
+    },
+    {
+      "text": "Alien at a picnic",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["alien", "picnic"]
+    },
+    {
+      "text": "Dinosaur as a librarian",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dinosaur", "librarian"]
+    },
+    {
+      "text": "Dinosaur riding a vacuum cleaner",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dinosaur", "vacuum"]
+    },
+    {
+      "text": "Dinosaur knitting mittens",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dinosaur", "mittens"]
+    },
+    {
+      "text": "Dinosaur at a hair salon",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["dinosaur", "salon"]
+    },
+    {
+      "text": "Robot planting a garden",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["robot", "garden"]
+    },
+    {
+      "text": "Robot taking ballet class",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["robot", "ballet"]
+    },
+    {
+      "text": "Robot walking a dog",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["robot", "dog"]
+    },
+    {
+      "text": "Robot making a birthday cake",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["robot", "cake"]
+    }
+  ]
+}

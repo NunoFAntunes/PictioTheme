@@ -120,9 +120,17 @@ module.exports = {
     },
     {
       name: 'web-ui-and-lib-are-leaves',
-      comment: 'W1: ui/ and lib/ import nothing from features or routes.',
+      comment: 'W1: ui/ and lib/ import nothing from features, routes or realtime.',
       severity: 'error',
       from: { path: `${WEB_APP}/(ui|lib)/` },
+      to: { path: `${WEB_APP}/(features|routes|realtime)/` },
+    },
+    {
+      name: 'web-realtime-is-below-features',
+      comment:
+        'W5: realtime/ is the socket layer; features and routes build on it, not the reverse.',
+      severity: 'error',
+      from: { path: `${WEB_APP}/realtime/` },
       to: { path: `${WEB_APP}/(features|routes)/` },
     },
   ],

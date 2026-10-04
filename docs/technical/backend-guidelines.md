@@ -59,13 +59,15 @@ Services receive a `Logger` (from `lib/logger.ts`), not Fastify's logger type, s
 | `auth` | Better Auth wiring, guest sessions, join tokens (JWT) | `users` |
 | `credits` | `credit_ledger`, balance, reserve/commit/refund | `users` |
 | `decks` | decks, cards, votes, search, card stats | `users` |
-| `generation` | `generation_jobs`, prompt building, OpenRouter client, validation pipeline, pg-boss handlers | `decks`, `credits` |
+| `generation` | `generation_jobs`, prompt building, OpenRouter client, validation pipeline, the job runner (in-process now, pg-boss later) | `decks`, `credits` |
 | `billing` | purchases, checkout, payment webhooks | `credits` |
-| `rooms` | room creation/join over HTTP, room codes, lobby list, match history | `decks`, `auth` |
-| `realtime` | WebSocket gateway, `RoomManager`, `RoomRuntime` | `rooms`, `decks`, `auth` |
+| `rooms` | live rooms: `RoomRuntime` per room (the shell around game-core), creation/join over HTTP, room codes, lobby list, match history | `decks`, `auth` |
+| `realtime` | WebSocket transport only: upgrade auth, decoding and validation, rate limits, heartbeat, the connection registry | `rooms`, `auth` |
 | `moderation` | reports, auto-hide, admin endpoints | `decks`, `users` |
 
 The dependency graph must stay acyclic. If two modules seem to need each other, one of them is doing the other's job: move the code, or publish an event on the `EventBus`.
+
+Example: rooms must send messages to sockets, but `rooms` may not import `realtime`. So `rooms` defines a `RoomTransport` interface, `realtime`'s connection registry implements it, and `app.ts` passes it in (dependency inversion).
 
 ### Files inside a module
 
@@ -124,7 +126,7 @@ When a service grows past ~300 lines, split it by use case into `services/<use-c
   const generation = createGenerationService({ db, log, decks, credits, llm, queue, bus });
 
   await app.register(decksRoutes, { prefix: '/api/decks', decks });
-  await app.register(generationRoutes, { prefix: '/api/decks', generation });
+  await app.register(generationRoutes, { prefix: '/api/decks', jobs: generationJobs });
   ```
 
 - **B12** Don't decorate the Fastify instance with services (`app.decks`). Pass them explicitly as plugin options so each module's dependencies stay visible. Decorators are only for request-scoped context (`request.actor`).
@@ -156,7 +158,7 @@ When a service grows past ~300 lines, split it by use case into `services/<use-c
 - **B26 🔒** `strict`, `noUncheckedIndexedAccess`, `verbatimModuleSyntax`. No `any` (use `unknown` and narrow). No non-null `!` outside tests.
 - **B27 🔒** Named exports only. No TS `enum`s (use `as const` objects or string unions). No barrel files except each module's `index.ts` and each package's entry.
 - **B28** Files are `kebab-case.ts`. Module files are `<module>.<role>.ts`. Types and Zod schemas are `PascalCase` (`DeckSearchQuery`), and the inferred type has the same name as its schema.
-- **B29** Prefer plain functions and object literals. Use a class only for long-lived stateful things (`RoomRuntime`, `RoomManager`).
+- **B29** Prefer plain functions and object literals. Use a class only for long-lived stateful things (`RoomRuntime`).
 
 ## Fastify practices
 
@@ -189,18 +191,18 @@ The game is the one place where performance and correctness both matter a lot. I
                                                                      │
                                        game-core: step(state, event, ctx) → effects[]
                                                                      │
-                       RoomRuntime executes effects: send / broadcast / schedule / cancel / persist
+                       RoomRuntime executes effects: send / schedule / cancel / loadDeck / disconnect / matchEnded / close
 ```
 
 - **R1** `game-core` exposes `step(state, event, ctx): Effect[]`. `ctx` carries `now` and `rng`. `step` may mutate the `state` it's given, because each room exclusively owns its state and copying stroke lists 30×/s would be wasteful. It returns effects instead of doing I/O.
 - **R2** **Who sees what is decided in `game-core`**, as `send` effects addressed to specific players. The secret-word and redacted-guess rules ([realtime-protocol.md](realtime-protocol.md#guess-feed-who-gets-what)) are therefore unit-tested without sockets.
-- **R3** `RoomRuntime.handle` is **synchronous**. It never `await`s between reading and writing state, so events can't interleave. `persist` effects run asynchronously after the state update, as fire-and-forget calls with `.catch(log)`.
+- **R3** `RoomRuntime.handle` is **synchronous**. It never `await`s between reading and writing state, so events can't interleave. Async effects (`loadDeck`, `matchEnded`) run after the state update and report back as new events (`deckLoaded`) or are fire-and-forget with errors logged. If an effect triggers another event synchronously, the runtime queues it until the current one finishes.
 - **R4** Every inbound message is parsed with the `protocol` discriminated union on `t`. If parsing fails, send `error` and increment a strike counter. After 10 strikes in a minute, close the socket with code 1008.
 - **R5** `ws` runs with `maxPayload: 16 KiB`. Each connection has a token-bucket limit, plus the per-type limits (guesses 3/s, points per turn capped).
 - **R6** A broadcast payload is serialized **once** and the same string is sent to each recipient.
 - **R7** Backpressure: if a socket's `bufferedAmount` exceeds 1 MB, close it. The client reconnects and gets a fresh `room:snapshot`.
 - **R8** Heartbeat: ping every 20s. Two missed pongs mark the player disconnected (grace period per [user-flows.md](../product/user-flows.md)).
-- **R9** A `RoomRuntime` owns all of its timers and clears them in `dispose()`. `RoomManager` disposes empty rooms after the grace period. No timer is ever created outside a runtime.
+- **R9** A `RoomRuntime` owns all of its timers and clears them in `dispose()`. The state machine emits `close` when a room is empty, idle or abandoned, and the runtime disposes itself. No timer is ever created outside a runtime.
 - **R10** The WebSocket upgrade is authenticated with the `joinToken` in a `preValidation` hook on the `/ws` route. An invalid token is rejected before the socket opens.
 
 ## Lifecycle and graceful shutdown

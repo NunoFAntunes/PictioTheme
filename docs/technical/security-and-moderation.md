@@ -17,12 +17,12 @@
 
 | Threat | Mitigation |
 |---|---|
-| Offensive display names / room names | Profanity filter (with leetspeak normalization) on create. Report option |
+| Offensive display names / room names | Profanity filter (with leetspeak normalization) on create. Report option. **Built:** offensive names are refused at room create and join (`hasProfanity` in game-core, on the `obscenity` English list); no report option yet |
 | Offensive drawings in public rooms | Vote kick, report drawing (stores a snapshot of the stroke list for review), host kick |
-| Offensive chat | Filter (mask words), mute player (per-viewer), report |
+| Offensive chat | Filter (mask words), mute player (per-viewer), report. **Built:** chat, solvers' chat and guesses are masked for other players (the whole word becomes asterisks); the guesser sees what they typed. Not yet: mute, report |
 | Spam rooms | Max 1 active room per session as host. Rate limit room creation |
-| Offensive generated decks | Prompt rules + blocklist + family-friendly default + report → auto-hide at N reports → moderator queue |
-| Credit farming via throwaway accounts | Free generations require a verified email/OAuth account. Device/IP heuristics. Disposable-email blocklist |
+| Offensive generated decks | Prompt rules + blocklist (**built**: theme and notes before the job, then cards, alternates, title and tags, `generation/content-check.ts`) + family-friendly default + report → auto-hide at 3 unique reports → moderator queue. **Built:** `POST /api/decks/:id/reports` with reason `cover` or `content`; one report per player, reason and cover (`deck_reports`). Cover reports hide the cover (`decks.cover_hidden`, the default cover shows); content reports hide the deck (`visibility = 'hidden'`). Not yet: the moderator queue, per-IP limits on reports (throwaway guest sessions could hide a deck) |
+| Credit farming via throwaway accounts | Free generations require a verified email/OAuth account. Device/IP heuristics. Disposable-email blocklist. **Now (guests generate):** 1 deck per player and 3 per IP in any 24 h, and a global daily budget (`GENERATION_*` config); IPs are stored only as an HMAC |
 | Prompt injection via theme/notes | User input goes in clearly delimited fields, the output schema is enforced, and output is validated deterministically. The model has no tools, so an injection can only affect the deck content, which is filtered anyway |
 | WebSocket flooding / huge stroke payloads | Message size cap (e.g. 16 KB), per-connection message rate cap, points-per-turn cap, schema validation |
 
@@ -50,4 +50,4 @@
 ## Moderation tooling (minimum)
 
 - Admin page: list reports (decks, cards, drawings, users), with actions hide / restore / ban / delete.
-- Auto-hide thresholds: deck hidden at ≥ 3 unique reports (or ≥ 20% of plays), and cards removed at ≥ 5 "unfair/inappropriate" flags. Reviewed later.
+- Auto-hide thresholds: deck hidden at ≥ 3 unique reports (or ≥ 20% of plays), and cards removed at ≥ 5 "unfair/inappropriate" flags. Reviewed later. **Built:** the 3-report rule for a deck's content and for its cover (`REPORTS_TO_HIDE` in `decks.service.ts`). Rooms already playing a deck keep it, and its cover, until they load it again.

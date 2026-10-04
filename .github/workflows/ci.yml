@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   pull_request:
+  # The Deploy workflow runs it before deploying.
+  workflow_call:
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -42,3 +44,42 @@ jobs:
       - run: pnpm format:check
       - run: pnpm test
       - run: pnpm build
+
+  e2e:
+    # Two browsers play a turn through the real UI (apps/web/e2e). Uses the runner's Google Chrome;
+    # input specs also run in Playwright's Firefox and WebKit.
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: pictio
+          POSTGRES_PASSWORD: pictio
+          POSTGRES_DB: pictiotheme
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U pictio -d pictiotheme"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 30
+    env:
+      CI: true
+      DATABASE_URL: postgres://pictio:pictio@localhost:5432/pictiotheme
+      SESSION_SECRET: ci-only-secret-ci-only-secret-ci-only-secret
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @pictiotheme/server db:migrate
+      - run: pnpm --filter @pictiotheme/web exec playwright install --with-deps firefox webkit
+      - run: pnpm --filter @pictiotheme/web test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-traces
+          path: apps/web/test-results/

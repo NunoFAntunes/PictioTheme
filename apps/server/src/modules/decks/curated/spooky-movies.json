@@ -1,0 +1,1045 @@
+{
+  "slug": "spooky-movies",
+  "featuredRank": 2,
+  "title": "Monsters After Midnight",
+  "description": "Draw classic spooky movie monsters, eerie scenes, and silly monster mashups for all ages.",
+  "tags": ["spooky", "monsters", "movies", "halloween", "family", "drawing"],
+  "cards": [
+    {
+      "text": "Ghost",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ghost"]
+    },
+    {
+      "text": "Vampire",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["vampire"]
+    },
+    {
+      "text": "Werewolf",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["werewolf"]
+    },
+    {
+      "text": "Mummy",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mummy"]
+    },
+    {
+      "text": "Zombie",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["zombie"]
+    },
+    {
+      "text": "Witch",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["witch"]
+    },
+    {
+      "text": "Skeleton",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeleton"]
+    },
+    {
+      "text": "Frankenstein monster",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["frankenstein", "monster"]
+    },
+    {
+      "text": "Swamp monster",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["swamp", "monster"]
+    },
+    {
+      "text": "Sea monster",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sea", "monster"]
+    },
+    {
+      "text": "Black cat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["black", "cat"]
+    },
+    {
+      "text": "Bat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bat"]
+    },
+    {
+      "text": "Ogre",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ogre"]
+    },
+    {
+      "text": "Raven",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["raven"]
+    },
+    {
+      "text": "Owl",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["owl"]
+    },
+    {
+      "text": "Rat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rat"]
+    },
+    {
+      "text": "Toad",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["toad"]
+    },
+    {
+      "text": "Gargoyle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["gargoyle"]
+    },
+    {
+      "text": "Scarecrow",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scarecrow"]
+    },
+    {
+      "text": "Creepy doll",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["creepy", "doll"]
+    },
+    {
+      "text": "Haunted house",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["haunted", "house"]
+    },
+    {
+      "text": "Coffin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["coffin"]
+    },
+    {
+      "text": "Tombstone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tombstone"]
+    },
+    {
+      "text": "Skull",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skull"]
+    },
+    {
+      "text": "Full moon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["full", "moon"]
+    },
+    {
+      "text": "Jack o lantern",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jack", "lantern"]
+    },
+    {
+      "text": "Spiderweb",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["spider web"],
+      "keywords": ["spiderweb"]
+    },
+    {
+      "text": "Cauldron",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cauldron"]
+    },
+    {
+      "text": "Broomstick",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["broom"],
+      "keywords": ["broomstick"]
+    },
+    {
+      "text": "Crystal ball",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crystal", "ball"]
+    },
+    {
+      "text": "Potion bottle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["potion", "bottle"]
+    },
+    {
+      "text": "Vampire cape",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["vampire", "cape"]
+    },
+    {
+      "text": "Monster mask",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["monster", "mask"]
+    },
+    {
+      "text": "Candelabra",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["candelabra"]
+    },
+    {
+      "text": "Crypt",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["crypt"]
+    },
+    {
+      "text": "Graveyard gate",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["graveyard", "gate"]
+    },
+    {
+      "text": "Fog",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fog"]
+    },
+    {
+      "text": "Lightning bolt",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lightning", "bolt"]
+    },
+    {
+      "text": "Old tree",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["old", "tree"]
+    },
+    {
+      "text": "Goblin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["goblin"]
+    },
+    {
+      "text": "Headless horseman",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["headless", "horseman"]
+    },
+    {
+      "text": "Haunted mirror",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["haunted", "mirror"]
+    },
+    {
+      "text": "Creaky staircase",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["creaky", "staircase"]
+    },
+    {
+      "text": "Cursed portrait",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cursed", "portrait"]
+    },
+    {
+      "text": "Foggy graveyard",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["foggy", "graveyard"]
+    },
+    {
+      "text": "Monster laboratory",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["monster", "laboratory"]
+    },
+    {
+      "text": "Mad scientist",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mad", "scientist"]
+    },
+    {
+      "text": "Cobwebbed attic",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cobwebbed", "attic"]
+    },
+    {
+      "text": "Monster under bed",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["monster", "bed"]
+    },
+    {
+      "text": "Ghost in hallway",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ghost", "hallway"]
+    },
+    {
+      "text": "Vampire at window",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["vampire", "window"]
+    },
+    {
+      "text": "Werewolf footprints",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["werewolf", "footprints"]
+    },
+    {
+      "text": "Zombie hand",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["zombie", "hand"]
+    },
+    {
+      "text": "Vampire fangs",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["vampire", "fangs"]
+    },
+    {
+      "text": "Mummy bandages",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mummy", "bandages"]
+    },
+    {
+      "text": "Moonlit castle",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["moonlit", "castle"]
+    },
+    {
+      "text": "Graveyard fence",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["graveyard", "fence"]
+    },
+    {
+      "text": "Cursed book",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cursed", "book"]
+    },
+    {
+      "text": "Creepy puppet",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["creepy", "puppet"]
+    },
+    {
+      "text": "Haunted lighthouse",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["haunted", "lighthouse"]
+    },
+    {
+      "text": "Ghost train",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ghost", "train"]
+    },
+    {
+      "text": "Phantom carriage",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["phantom", "carriage"]
+    },
+    {
+      "text": "Monster in closet",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["monster", "closet"]
+    },
+    {
+      "text": "Witch on broom",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["witch", "broom"]
+    },
+    {
+      "text": "Skeleton orchestra",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeleton", "orchestra"]
+    },
+    {
+      "text": "Zombie in a maze",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["zombie", "maze"]
+    },
+    {
+      "text": "Haunted carousel",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["haunted", "carousel"]
+    },
+    {
+      "text": "Swamp creature lair",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["swamp", "lair"]
+    },
+    {
+      "text": "Sea monster tentacle",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sea", "tentacle"]
+    },
+    {
+      "text": "Mummy sarcophagus",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mummy", "sarcophagus"]
+    },
+    {
+      "text": "Haunted ship",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["haunted", "ship"]
+    },
+    {
+      "text": "Mirror ghost",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mirror", "ghost"]
+    },
+    {
+      "text": "Portrait with moving eyes",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["portrait", "eyes"]
+    },
+    {
+      "text": "Skull chandelier",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skull", "chandelier"]
+    },
+    {
+      "text": "Graveyard angel statue",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["graveyard", "angel", "statue"]
+    },
+    {
+      "text": "Creepy grandfather clock",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["grandfather", "clock"]
+    },
+    {
+      "text": "Foggy forest",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["foggy", "forest"]
+    },
+    {
+      "text": "Abandoned funhouse",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["abandoned", "funhouse"]
+    },
+    {
+      "text": "Ghost floating through wall",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ghost", "wall"]
+    },
+    {
+      "text": "Vampire turning into bat",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["vampire", "bat"]
+    },
+    {
+      "text": "Werewolf beneath full moon",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["werewolf", "moon"]
+    },
+    {
+      "text": "Mummy escaping tomb",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mummy", "tomb"]
+    },
+    {
+      "text": "Zombie rising from grave",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["zombie", "grave"]
+    },
+    {
+      "text": "Skeleton dancing at midnight",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeleton", "dancing"]
+    },
+    {
+      "text": "Witch stirring a potion",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["witch", "potion"]
+    },
+    {
+      "text": "Monster breaking through door",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["monster", "door"]
+    },
+    {
+      "text": "Creature rising from lake",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["creature", "lake"]
+    },
+    {
+      "text": "Ghost appearing in mirror",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ghost", "mirror"]
+    },
+    {
+      "text": "Shadow creeping up stairs",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["shadow", "stairs"]
+    },
+    {
+      "text": "Door opening by itself",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["door", "opening"]
+    },
+    {
+      "text": "Candle going out in hallway",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["candle", "hallway"]
+    },
+    {
+      "text": "Footprints appearing in snow",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["footprints", "snow"]
+    },
+    {
+      "text": "Coffin opening at midnight",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["coffin", "opening"]
+    },
+    {
+      "text": "Portrait eyes following viewer",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["portrait", "eyes"]
+    },
+    {
+      "text": "Bat swarm leaving cave",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bat", "cave"]
+    },
+    {
+      "text": "Hand reaching from coffin",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hand", "coffin"]
+    },
+    {
+      "text": "Fog rolling through graveyard",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fog", "graveyard"]
+    },
+    {
+      "text": "Villagers fleeing a monster",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["villagers", "monster"]
+    },
+    {
+      "text": "Lightning striking a castle",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lightning", "castle"]
+    },
+    {
+      "text": "Witch flying past the moon",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["witch", "moon"]
+    },
+    {
+      "text": "Vampire sleeping upside down",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["vampire", "upside"]
+    },
+    {
+      "text": "Werewolf howling at moon",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["werewolf", "moon"]
+    },
+    {
+      "text": "Skeleton rattling chains",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skeleton", "chains"]
+    },
+    {
+      "text": "Ghost carrying a lantern",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["ghost", "lantern"]
+    },
+    {
+      "text": "Monster peeking through window",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["monster", "window"]
+    },
+    {
+      "text": "Zombie reaching through fence",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["zombie", "fence"]
+    },
+    {
+      "text": "Haunted house in a storm",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["haunted", "storm"]
+    },
+    {
+      "text": "Mad scientist creating monster",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scientist", "monster"]
+    },
+    {
+      "text": "Ghost mowing the lawn",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ghost", "lawn"]
+    },
+    {
+      "text": "Vampire making pancakes",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["vampire", "pancakes"]
+    },
+    {
+      "text": "Werewolf doing ballet",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["werewolf", "ballet"]
+    },
+    {
+      "text": "Mummy roller skating",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mummy", "skating"]
+    },
+    {
+      "text": "Zombie taking a selfie",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["zombie", "selfie"]
+    },
+    {
+      "text": "Witch baking cupcakes",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["witch", "cupcakes"]
+    },
+    {
+      "text": "Skeleton playing tennis",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "tennis"]
+    },
+    {
+      "text": "Frankenstein monster walking a dog",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["frankenstein", "dog"]
+    },
+    {
+      "text": "Swamp monster on a treadmill",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["swamp", "treadmill"]
+    },
+    {
+      "text": "Sea monster delivering pizza",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sea", "pizza"]
+    },
+    {
+      "text": "Scarecrow doing homework",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["scarecrow", "homework"]
+    },
+    {
+      "text": "Gargoyle washing dishes",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["gargoyle", "dishes"]
+    },
+    {
+      "text": "Creepy doll driving a bus",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["doll", "bus"]
+    },
+    {
+      "text": "Raven selling ice cream",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["raven", "ice cream"]
+    },
+    {
+      "text": "Giant spider knitting a scarf",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["spider", "scarf"]
+    },
+    {
+      "text": "Owl at the hair salon",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["owl", "salon"]
+    },
+    {
+      "text": "Goblin carrying groceries",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["goblin", "groceries"]
+    },
+    {
+      "text": "Bat playing piano",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["bat", "piano"]
+    },
+    {
+      "text": "Toad as a crossing guard",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["toad", "crossing"]
+    },
+    {
+      "text": "Headless horseman at a picnic",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["headless", "picnic"]
+    },
+    {
+      "text": "Black cat painting a fence",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cat", "fence"]
+    },
+    {
+      "text": "Mad scientist doing laundry",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["scientist", "laundry"]
+    },
+    {
+      "text": "Phantom riding a scooter",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["phantom", "scooter"]
+    },
+    {
+      "text": "Jack o lantern playing basketball",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["lantern", "basketball"]
+    },
+    {
+      "text": "Ghost as a lifeguard",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ghost", "lifeguard"]
+    },
+    {
+      "text": "Vampire gardening",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["vampire", "gardening"]
+    },
+    {
+      "text": "Werewolf at a car wash",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["werewolf", "car wash"]
+    },
+    {
+      "text": "Mummy taking a yoga class",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mummy", "yoga"]
+    },
+    {
+      "text": "Zombie at a flower shop",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["zombie", "flower"]
+    },
+    {
+      "text": "Witch riding an exercise bike",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["witch", "bike"]
+    },
+    {
+      "text": "Skeleton building a sandcastle",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skeleton", "sandcastle"]
+    },
+    {
+      "text": "Frankenstein monster getting a haircut",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["frankenstein", "haircut"]
+    },
+    {
+      "text": "Swamp monster making a sandwich",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["swamp", "sandwich"]
+    },
+    {
+      "text": "Sea monster in a bathtub",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sea", "bathtub"]
+    },
+    {
+      "text": "Scarecrow doing a magic trick",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["scarecrow", "magic"]
+    },
+    {
+      "text": "Gargoyle flying a kite",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["gargoyle", "kite"]
+    },
+    {
+      "text": "Giant spider playing soccer",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["spider", "soccer"]
+    },
+    {
+      "text": "Black cat as a mail carrier",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cat", "mail"]
+    },
+    {
+      "text": "Goblin painting a bedroom",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["goblin", "bedroom"]
+    },
+    {
+      "text": "Bat taking a bubble bath",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["bat", "bath"]
+    }
+  ]
+}

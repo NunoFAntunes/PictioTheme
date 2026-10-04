@@ -35,15 +35,35 @@ export async function apiGet<S extends z.ZodType>(path: string, schema: S): Prom
   return parse(res, schema);
 }
 
-export async function apiPost<S extends z.ZodType>(
+async function send<S extends z.ZodType>(
+  method: 'POST' | 'PUT',
   path: string,
   body: unknown,
   schema: S,
 ): Promise<z.infer<S>> {
   const res = await fetch(path, {
-    method: 'POST',
-    headers: { accept: 'application/json', 'content-type': 'application/json' },
-    body: JSON.stringify(body),
+    method,
+    headers: {
+      accept: 'application/json',
+      ...(body !== undefined && { 'content-type': 'application/json' }),
+    },
+    body: body === undefined ? undefined : JSON.stringify(body),
   });
   return parse(res, schema);
+}
+
+export async function apiPost<S extends z.ZodType>(
+  path: string,
+  body: unknown,
+  schema: S,
+): Promise<z.infer<S>> {
+  return send('POST', path, body, schema);
+}
+
+export async function apiPut<S extends z.ZodType>(
+  path: string,
+  body: unknown,
+  schema: S,
+): Promise<z.infer<S>> {
+  return send('PUT', path, body, schema);
 }

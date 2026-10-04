@@ -1,0 +1,1031 @@
+{
+  "slug": "video-games",
+  "featuredRank": null,
+  "title": "Pixel Play",
+  "description": "Draw classic video game gear, characters, levels, action scenes, and ridiculous gaming mashups.",
+  "tags": ["video games", "classic games", "arcade", "gaming", "pixel art"],
+  "cards": [
+    {
+      "text": "Gamepad",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game controller"],
+      "keywords": ["gamepad"]
+    },
+    {
+      "text": "Arcade cabinet",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["arcade machine"],
+      "keywords": ["arcade", "cabinet"]
+    },
+    {
+      "text": "Game console",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["console"],
+      "keywords": ["console"]
+    },
+    {
+      "text": "Handheld console",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["handheld", "console"]
+    },
+    {
+      "text": "Joystick",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["joystick"]
+    },
+    {
+      "text": "Game cartridge",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["video game cartridge"],
+      "keywords": ["cartridge"]
+    },
+    {
+      "text": "Game disc",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["video game disc"],
+      "keywords": ["disc"]
+    },
+    {
+      "text": "Gaming headset",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["headset"],
+      "keywords": ["headset"]
+    },
+    {
+      "text": "VR goggles",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["virtual reality goggles"],
+      "keywords": ["goggles"]
+    },
+    {
+      "text": "Keyboard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["computer keyboard"],
+      "keywords": ["keyboard"]
+    },
+    {
+      "text": "Computer mouse",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["mouse"],
+      "keywords": ["mouse"]
+    },
+    {
+      "text": "Racing wheel",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["steering wheel controller"],
+      "keywords": ["racing", "wheel"]
+    },
+    {
+      "text": "Dance mat",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["dance pad"],
+      "keywords": ["dance", "mat"]
+    },
+    {
+      "text": "Arcade token",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game token"],
+      "keywords": ["token"]
+    },
+    {
+      "text": "Pixel heart",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["health heart"],
+      "keywords": ["heart"]
+    },
+    {
+      "text": "Gold coin",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game coin"],
+      "keywords": ["coin"]
+    },
+    {
+      "text": "Power star",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["star power up"],
+      "keywords": ["star"]
+    },
+    {
+      "text": "Mushroom power up",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["power up mushroom"],
+      "keywords": ["mushroom"]
+    },
+    {
+      "text": "Health potion",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["healing potion"],
+      "keywords": ["potion"]
+    },
+    {
+      "text": "Magic key",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["golden key"],
+      "keywords": ["key"]
+    },
+    {
+      "text": "Treasure chest",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["chest"],
+      "keywords": ["chest"]
+    },
+    {
+      "text": "Pixel sword",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game sword"],
+      "keywords": ["sword"]
+    },
+    {
+      "text": "Shield",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game shield"],
+      "keywords": ["shield"]
+    },
+    {
+      "text": "Game map",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["level map"],
+      "keywords": ["map"]
+    },
+    {
+      "text": "Robot",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game robot"],
+      "keywords": ["robot"]
+    },
+    {
+      "text": "Alien",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game alien"],
+      "keywords": ["alien"]
+    },
+    {
+      "text": "Dragon",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game dragon"],
+      "keywords": ["dragon"]
+    },
+    {
+      "text": "Ghost",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game ghost"],
+      "keywords": ["ghost"]
+    },
+    {
+      "text": "Zombie",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game zombie"],
+      "keywords": ["zombie"]
+    },
+    {
+      "text": "Knight",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game knight"],
+      "keywords": ["knight"]
+    },
+    {
+      "text": "Wizard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game wizard"],
+      "keywords": ["wizard"]
+    },
+    {
+      "text": "Ninja",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game ninja"],
+      "keywords": ["ninja"]
+    },
+    {
+      "text": "Princess",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game princess"],
+      "keywords": ["princess"]
+    },
+    {
+      "text": "Race car",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["racing car"],
+      "keywords": ["race", "car"]
+    },
+    {
+      "text": "Go kart",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["kart"]
+    },
+    {
+      "text": "Spaceship",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["game spaceship"],
+      "keywords": ["spaceship"]
+    },
+    {
+      "text": "Monster truck",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["monster", "truck"]
+    },
+    {
+      "text": "Portal",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["magic portal"],
+      "keywords": ["portal"]
+    },
+    {
+      "text": "Flagpole",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["goal flagpole"],
+      "keywords": ["flagpole"]
+    },
+    {
+      "text": "Lava pit",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["pool of lava"],
+      "keywords": ["lava"]
+    },
+    {
+      "text": "Arcade claw machine",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["claw machine"],
+      "keywords": ["arcade", "claw"]
+    },
+    {
+      "text": "Wireless controller",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["wireless gamepad"],
+      "keywords": ["wireless", "controller"]
+    },
+    {
+      "text": "VR controller",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["virtual reality controller"],
+      "keywords": ["vr", "controller"]
+    },
+    {
+      "text": "Gaming chair",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["video game chair"],
+      "keywords": ["gaming", "chair"]
+    },
+    {
+      "text": "Gaming laptop",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["game laptop"],
+      "keywords": ["gaming", "laptop"]
+    },
+    {
+      "text": "Game cartridge slot",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["cartridge slot"],
+      "keywords": ["cartridge", "slot"]
+    },
+    {
+      "text": "Joystick button",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["arcade button"],
+      "keywords": ["joystick", "button"]
+    },
+    {
+      "text": "Arcade token machine",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["token machine"],
+      "keywords": ["token", "machine"]
+    },
+    {
+      "text": "Coin block",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["coin box"],
+      "keywords": ["coin", "block"]
+    },
+    {
+      "text": "Warp pipe",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["teleport pipe"],
+      "keywords": ["warp", "pipe"]
+    },
+    {
+      "text": "Spring platform",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["bouncy platform"],
+      "keywords": ["spring", "platform"]
+    },
+    {
+      "text": "Moving platform",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["traveling platform"],
+      "keywords": ["moving", "platform"]
+    },
+    {
+      "text": "Checkpoint flag",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["save point flag"],
+      "keywords": ["checkpoint", "flag"]
+    },
+    {
+      "text": "Speed boost pad",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["boost pad"],
+      "keywords": ["speed", "pad"]
+    },
+    {
+      "text": "Launch ramp",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["game ramp"],
+      "keywords": ["launch", "ramp"]
+    },
+    {
+      "text": "Racing track",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["race track"],
+      "keywords": ["racing", "track"]
+    },
+    {
+      "text": "Obstacle course",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["game course"],
+      "keywords": ["obstacle", "course"]
+    },
+    {
+      "text": "Maze level",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["game maze"],
+      "keywords": ["maze", "level"]
+    },
+    {
+      "text": "Underwater level",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["underwater stage"],
+      "keywords": ["underwater", "level"]
+    },
+    {
+      "text": "Ice level",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["icy stage"],
+      "keywords": ["ice", "level"]
+    },
+    {
+      "text": "Desert level",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["desert stage"],
+      "keywords": ["desert", "level"]
+    },
+    {
+      "text": "Jungle level",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["jungle stage"],
+      "keywords": ["jungle", "level"]
+    },
+    {
+      "text": "Haunted mansion",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["haunted house"],
+      "keywords": ["haunted", "mansion"]
+    },
+    {
+      "text": "Castle level",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["castle stage"],
+      "keywords": ["castle", "level"]
+    },
+    {
+      "text": "Space station",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["game space station"],
+      "keywords": ["space", "station"]
+    },
+    {
+      "text": "Robot factory",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["robot workshop"],
+      "keywords": ["robot", "factory"]
+    },
+    {
+      "text": "Treasure cave",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["cave of treasure"],
+      "keywords": ["treasure", "cave"]
+    },
+    {
+      "text": "Volcano level",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["volcano stage"],
+      "keywords": ["volcano", "level"]
+    },
+    {
+      "text": "Snowy mountain",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["snow mountain"],
+      "keywords": ["snowy", "mountain"]
+    },
+    {
+      "text": "Boss arena",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["boss room"],
+      "keywords": ["boss", "arena"]
+    },
+    {
+      "text": "Giant slime",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["slime monster"],
+      "keywords": ["giant", "slime"]
+    },
+    {
+      "text": "Game avatar",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["player avatar"],
+      "keywords": ["game", "avatar"]
+    },
+    {
+      "text": "Character select screen",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["character selection screen"],
+      "keywords": ["character", "screen"]
+    },
+    {
+      "text": "Split screen",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["split screen game"],
+      "keywords": ["split", "screen"]
+    },
+    {
+      "text": "Secret doorway",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["hidden doorway"],
+      "keywords": ["secret", "doorway"]
+    },
+    {
+      "text": "Crumbling bridge",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["collapsing bridge"],
+      "keywords": ["crumbling", "bridge"]
+    },
+    {
+      "text": "Spiked pit",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["pit of spikes"],
+      "keywords": ["spiked", "pit"]
+    },
+    {
+      "text": "Laser grid",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["laser maze"],
+      "keywords": ["laser", "grid"]
+    },
+    {
+      "text": "Power up box",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["item box"],
+      "keywords": ["power", "box"]
+    },
+    {
+      "text": "Goal gate",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["finish gate"],
+      "keywords": ["goal", "gate"]
+    },
+    {
+      "text": "Player dodging fireballs",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["dodging fireballs"],
+      "keywords": ["player", "fireballs"]
+    },
+    {
+      "text": "Hero climbing a ladder",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["climbing a ladder"],
+      "keywords": ["hero", "ladder"]
+    },
+    {
+      "text": "Racing through a loop",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["car racing through a loop"],
+      "keywords": ["racing", "loop"]
+    },
+    {
+      "text": "Jumping over lava",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["leaping over lava"],
+      "keywords": ["jumping", "lava"]
+    },
+    {
+      "text": "Collecting floating coins",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["gathering coins"],
+      "keywords": ["collecting", "coins"]
+    },
+    {
+      "text": "Opening a treasure chest",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["opening a chest"],
+      "keywords": ["opening", "chest"]
+    },
+    {
+      "text": "Escaping a maze",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["finding the exit"],
+      "keywords": ["escaping", "maze"]
+    },
+    {
+      "text": "Riding a mine cart",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["mine cart ride"],
+      "keywords": ["riding", "cart"]
+    },
+    {
+      "text": "Crossing a collapsing bridge",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["crossing a crumbling bridge"],
+      "keywords": ["crossing", "bridge"]
+    },
+    {
+      "text": "Rescuing a trapped princess",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["saving a princess"],
+      "keywords": ["rescuing", "princess"]
+    },
+    {
+      "text": "Robot guarding a doorway",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["robot at a doorway"],
+      "keywords": ["robot", "doorway"]
+    },
+    {
+      "text": "Dragon guarding treasure",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["dragon by a treasure chest"],
+      "keywords": ["dragon", "treasure"]
+    },
+    {
+      "text": "Riding a go kart",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["driving a go-kart"],
+      "keywords": ["riding", "kart"]
+    },
+    {
+      "text": "Entering a portal",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["walking through a portal"],
+      "keywords": ["entering", "portal"]
+    },
+    {
+      "text": "Hero on a moving platform",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["standing on a moving platform"],
+      "keywords": ["hero", "platform"]
+    },
+    {
+      "text": "Spaceship dodging asteroids",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["flying through asteroids"],
+      "keywords": ["spaceship", "asteroids"]
+    },
+    {
+      "text": "Submarine exploring ruins",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["underwater ruins exploration"],
+      "keywords": ["submarine", "ruins"]
+    },
+    {
+      "text": "Racer passing the finish line",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["car crossing the finish line"],
+      "keywords": ["racer", "finish"]
+    },
+    {
+      "text": "Grabbing a power up",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["collecting a power up"],
+      "keywords": ["grabbing", "power"]
+    },
+    {
+      "text": "Climbing a giant beanstalk",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["hero climbing a beanstalk"],
+      "keywords": ["climbing", "beanstalk"]
+    },
+    {
+      "text": "Knight jumping over spikes",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["leaping over spikes"],
+      "keywords": ["knight", "spikes"]
+    },
+    {
+      "text": "Wizard summoning lightning",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["wizard casting lightning"],
+      "keywords": ["wizard", "lightning"]
+    },
+    {
+      "text": "Pixel hero swimming underwater",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["hero swimming underwater"],
+      "keywords": ["hero", "underwater"]
+    },
+    {
+      "text": "Sliding down a slope",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["character sliding downhill"],
+      "keywords": ["sliding", "slope"]
+    },
+    {
+      "text": "Dodging a rolling boulder",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["escaping a rolling boulder"],
+      "keywords": ["dodging", "boulder"]
+    },
+    {
+      "text": "Secret room behind a wall",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["hidden room behind a wall"],
+      "keywords": ["secret", "room"]
+    },
+    {
+      "text": "Boss rising from lava",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["monster emerging from lava"],
+      "keywords": ["boss", "lava"]
+    },
+    {
+      "text": "Character riding a dragon",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["hero on a dragon"],
+      "keywords": ["character", "dragon"]
+    },
+    {
+      "text": "Game character trapped in ice",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["hero frozen in ice"],
+      "keywords": ["character", "ice"]
+    },
+    {
+      "text": "Controller walking a dog",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["gamepad walking a dog"],
+      "keywords": ["controller", "dog"]
+    },
+    {
+      "text": "Pixel hero baking bread",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["game hero baking bread"],
+      "keywords": ["hero", "bread"]
+    },
+    {
+      "text": "Robot doing laundry",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["robot washing clothes"],
+      "keywords": ["robot", "laundry"]
+    },
+    {
+      "text": "Alien gardening",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": ["alien planting flowers"],
+      "keywords": ["alien", "gardening"]
+    },
+    {
+      "text": "Dragon at a car wash",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["dragon washing a car"],
+      "keywords": ["dragon", "car"]
+    },
+    {
+      "text": "Ghost riding a bicycle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["ghost on a bike"],
+      "keywords": ["ghost", "bicycle"]
+    },
+    {
+      "text": "Knight painting a fence",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["knight with a paintbrush"],
+      "keywords": ["knight", "fence"]
+    },
+    {
+      "text": "Wizard mowing a lawn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["wizard with a lawn mower"],
+      "keywords": ["wizard", "lawn"]
+    },
+    {
+      "text": "Princess fixing a sink",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["princess with a wrench"],
+      "keywords": ["princess", "sink"]
+    },
+    {
+      "text": "Ninja delivering pizza",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["ninja with a pizza"],
+      "keywords": ["ninja", "pizza"]
+    },
+    {
+      "text": "Zombie knitting a scarf",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["zombie with knitting needles"],
+      "keywords": ["zombie", "scarf"]
+    },
+    {
+      "text": "Spaceship at a laundromat",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["spaceship doing laundry"],
+      "keywords": ["spaceship", "laundromat"]
+    },
+    {
+      "text": "Arcade cabinet making pancakes",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["arcade machine cooking pancakes"],
+      "keywords": ["arcade", "pancakes"]
+    },
+    {
+      "text": "Game avatar walking a poodle",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["video game character walking a dog"],
+      "keywords": ["avatar", "poodle"]
+    },
+    {
+      "text": "Treasure chest doing yoga",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["chest doing yoga"],
+      "keywords": ["chest", "yoga"]
+    },
+    {
+      "text": "Joystick playing piano",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["joystick at a piano"],
+      "keywords": ["joystick", "piano"]
+    },
+    {
+      "text": "Pixel monster taking a bath",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["game monster in a bathtub"],
+      "keywords": ["monster", "bath"]
+    },
+    {
+      "text": "Boss monster folding laundry",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["monster folding clothes"],
+      "keywords": ["boss", "laundry"]
+    },
+    {
+      "text": "Go kart at a grocery store",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["go-kart shopping for groceries"],
+      "keywords": ["kart", "grocery"]
+    },
+    {
+      "text": "Alien teaching a class",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["alien teacher at a blackboard"],
+      "keywords": ["alien", "class"]
+    },
+    {
+      "text": "Dragon washing dishes",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["dragon at the kitchen sink"],
+      "keywords": ["dragon", "dishes"]
+    },
+    {
+      "text": "Ghost planting a garden",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["ghost digging in a garden"],
+      "keywords": ["ghost", "garden"]
+    },
+    {
+      "text": "Knight riding a scooter",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["knight on a scooter"],
+      "keywords": ["knight", "scooter"]
+    },
+    {
+      "text": "Wizard baking cookies",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["wizard with a tray of cookies"],
+      "keywords": ["wizard", "cookies"]
+    },
+    {
+      "text": "Princess playing basketball",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["princess shooting a basketball"],
+      "keywords": ["princess", "basketball"]
+    },
+    {
+      "text": "Ninja at a bus stop",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["ninja waiting for a bus"],
+      "keywords": ["ninja", "bus"]
+    },
+    {
+      "text": "Zombie at a hair salon",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["zombie getting a haircut"],
+      "keywords": ["zombie", "salon"]
+    },
+    {
+      "text": "Pixel mermaid changing a tire",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["game mermaid fixing a tire"],
+      "keywords": ["mermaid", "tire"]
+    },
+    {
+      "text": "Space pilot knitting",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["astronaut knitting a scarf"],
+      "keywords": ["pilot", "knitting"]
+    },
+    {
+      "text": "Game dinosaur playing chess",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["dinosaur at a chessboard"],
+      "keywords": ["dinosaur", "chess"]
+    },
+    {
+      "text": "Giant slime at a picnic",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["slime monster having a picnic"],
+      "keywords": ["slime", "picnic"]
+    },
+    {
+      "text": "Game console wearing a scarf",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["console with a winter scarf"],
+      "keywords": ["console", "scarf"]
+    },
+    {
+      "text": "Pixel hero pushing a stroller",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["game character pushing a stroller"],
+      "keywords": ["hero", "stroller"]
+    },
+    {
+      "text": "Arcade token making a snowman",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": ["game token building a snowman"],
+      "keywords": ["token", "snowman"]
+    },
+    {
+      "text": "Alien painting a mailbox",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["alien with a paintbrush"],
+      "keywords": ["alien", "mailbox"]
+    },
+    {
+      "text": "Robot at a lemonade stand",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["robot selling lemonade"],
+      "keywords": ["robot", "lemonade"]
+    },
+    {
+      "text": "Ghost taking a selfie",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": ["ghost with a phone"],
+      "keywords": ["ghost", "selfie"]
+    }
+  ]
+}

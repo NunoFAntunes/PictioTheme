@@ -1,0 +1,1059 @@
+{
+  "slug": "eighties",
+  "featuredRank": null,
+  "title": "Totally Eighties",
+  "description": "Draw your way through the gadgets, fashion, music and pop culture of the eighties, with a few silly surprises.",
+  "tags": ["eighties", "retro", "pop culture", "gadgets", "fashion", "music"],
+  "cards": [
+    {
+      "text": "Boombox",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["boom box"],
+      "keywords": ["boombox"]
+    },
+    {
+      "text": "Cassette tape",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["tape cassette"],
+      "keywords": ["cassette"]
+    },
+    {
+      "text": "VHS tape",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["video cassette"],
+      "keywords": ["vhs"]
+    },
+    {
+      "text": "Floppy disk",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["diskette"],
+      "keywords": ["floppy"]
+    },
+    {
+      "text": "Rubik cube",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["twisty puzzle"],
+      "keywords": ["cube"]
+    },
+    {
+      "text": "Roller skate",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["quad skate"],
+      "keywords": ["skate"]
+    },
+    {
+      "text": "Skateboard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["skateboard"]
+    },
+    {
+      "text": "BMX bicycle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["BMX bike"],
+      "keywords": ["bmx"]
+    },
+    {
+      "text": "Arcade joystick",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["joystick"],
+      "keywords": ["joystick"]
+    },
+    {
+      "text": "CRT television",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["tube television"],
+      "keywords": ["television"]
+    },
+    {
+      "text": "Computer mouse",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["mouse"],
+      "keywords": ["mouse"]
+    },
+    {
+      "text": "Corded telephone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["telephone with a cord"],
+      "keywords": ["telephone"]
+    },
+    {
+      "text": "Pager",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["beeper"],
+      "keywords": ["pager"]
+    },
+    {
+      "text": "Camcorder",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["video camera"],
+      "keywords": ["camcorder"]
+    },
+    {
+      "text": "Dot matrix printer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["computer printer"],
+      "keywords": ["printer"]
+    },
+    {
+      "text": "Game controller",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["video game controller"],
+      "keywords": ["controller"]
+    },
+    {
+      "text": "Handheld game console",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["portable game console"],
+      "keywords": ["handheld", "console"]
+    },
+    {
+      "text": "Digital watch",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["electronic watch"],
+      "keywords": ["watch"]
+    },
+    {
+      "text": "Calculator",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["calculator"]
+    },
+    {
+      "text": "Headphones",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["earphones"],
+      "keywords": ["headphones"]
+    },
+    {
+      "text": "Record player",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["turntable"],
+      "keywords": ["record player"]
+    },
+    {
+      "text": "Vinyl record",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["record"],
+      "keywords": ["record"]
+    },
+    {
+      "text": "Microphone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["mic"],
+      "keywords": ["microphone"]
+    },
+    {
+      "text": "Electric guitar",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["guitar"],
+      "keywords": ["guitar"]
+    },
+    {
+      "text": "Drum machine",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["electronic drum machine"],
+      "keywords": ["drum machine"]
+    },
+    {
+      "text": "Synthesizer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["synth"],
+      "keywords": ["synthesizer"]
+    },
+    {
+      "text": "Leg warmers",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["leg warmers"]
+    },
+    {
+      "text": "Fingerless gloves",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["fingerless mittens"],
+      "keywords": ["gloves"]
+    },
+    {
+      "text": "Scrunchie",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["hair scrunchie"],
+      "keywords": ["scrunchie"]
+    },
+    {
+      "text": "Headband",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["hairband"],
+      "keywords": ["headband"]
+    },
+    {
+      "text": "Sweatband",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["wristband"],
+      "keywords": ["sweatband"]
+    },
+    {
+      "text": "High top sneakers",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["high tops"],
+      "keywords": ["sneakers"]
+    },
+    {
+      "text": "Parachute pants",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["baggy parachute pants"],
+      "keywords": ["pants"]
+    },
+    {
+      "text": "Denim jacket",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["jean jacket"],
+      "keywords": ["jacket"]
+    },
+    {
+      "text": "Puffy jacket",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["padded jacket"],
+      "keywords": ["jacket"]
+    },
+    {
+      "text": "Fanny pack",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["waist pack"],
+      "keywords": ["fanny pack"]
+    },
+    {
+      "text": "Sunglasses",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["shades"],
+      "keywords": ["sunglasses"]
+    },
+    {
+      "text": "Shoulder pads",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["padded shoulders"],
+      "keywords": ["shoulder pads"]
+    },
+    {
+      "text": "Hairspray can",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["spray can"],
+      "keywords": ["hairspray"]
+    },
+    {
+      "text": "Mullet hairstyle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": ["mullet"],
+      "keywords": ["mullet"]
+    },
+    {
+      "text": "VCR",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["video cassette recorder"],
+      "keywords": ["vcr"]
+    },
+    {
+      "text": "Answering machine",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["telephone answering machine"],
+      "keywords": ["answering machine"]
+    },
+    {
+      "text": "Cordless telephone",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["cordless phone"],
+      "keywords": ["cordless"]
+    },
+    {
+      "text": "Portable cassette player",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["portable tape player"],
+      "keywords": ["cassette player"]
+    },
+    {
+      "text": "Video rental shop",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["video store"],
+      "keywords": ["video", "shop"]
+    },
+    {
+      "text": "Roller rink",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["skating rink"],
+      "keywords": ["roller rink"]
+    },
+    {
+      "text": "Breakdancer",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["break dancer"],
+      "keywords": ["breakdancer"]
+    },
+    {
+      "text": "Punk rocker",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["punk musician"],
+      "keywords": ["punk"]
+    },
+    {
+      "text": "New wave singer",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["new wave musician"],
+      "keywords": ["singer"]
+    },
+    {
+      "text": "Aerobics instructor",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["fitness instructor"],
+      "keywords": ["aerobics"]
+    },
+    {
+      "text": "Pinball machine",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["pinball game"],
+      "keywords": ["pinball"]
+    },
+    {
+      "text": "Laser disc player",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["laserdisc player"],
+      "keywords": ["laser disc"]
+    },
+    {
+      "text": "Home computer",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["personal computer"],
+      "keywords": ["computer"]
+    },
+    {
+      "text": "Floppy disk drive",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["disk drive"],
+      "keywords": ["floppy disk"]
+    },
+    {
+      "text": "Computer keyboard",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["keyboard"],
+      "keywords": ["keyboard"]
+    },
+    {
+      "text": "Computer monitor",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["computer screen"],
+      "keywords": ["monitor"]
+    },
+    {
+      "text": "Cassette stereo",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["stereo cassette player"],
+      "keywords": ["stereo"]
+    },
+    {
+      "text": "Cassette case",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["tape case"],
+      "keywords": ["cassette case"]
+    },
+    {
+      "text": "VHS rewinder",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["video tape rewinder"],
+      "keywords": ["rewinder"]
+    },
+    {
+      "text": "Arcade token",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["game token"],
+      "keywords": ["token"]
+    },
+    {
+      "text": "Neon windbreaker",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["bright windbreaker"],
+      "keywords": ["windbreaker"]
+    },
+    {
+      "text": "Acid wash jeans",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["washed denim jeans"],
+      "keywords": ["jeans"]
+    },
+    {
+      "text": "Jelly bracelets",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["plastic bracelets"],
+      "keywords": ["bracelets"]
+    },
+    {
+      "text": "Side ponytail",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["side pony"],
+      "keywords": ["ponytail"]
+    },
+    {
+      "text": "Big hair",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["teased hair"],
+      "keywords": ["hair"]
+    },
+    {
+      "text": "Spiked hair",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["spiky hair"],
+      "keywords": ["spiked hair"]
+    },
+    {
+      "text": "Oversized blazer",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["baggy blazer"],
+      "keywords": ["blazer"]
+    },
+    {
+      "text": "Slouch socks",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["scrunched socks"],
+      "keywords": ["socks"]
+    },
+    {
+      "text": "Mesh shirt",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["net shirt"],
+      "keywords": ["shirt"]
+    },
+    {
+      "text": "Sequined jacket",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["sparkly jacket"],
+      "keywords": ["jacket"]
+    },
+    {
+      "text": "Leather jacket",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["leather coat"],
+      "keywords": ["leather jacket"]
+    },
+    {
+      "text": "Roller skater",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["person on roller skates"],
+      "keywords": ["skater"]
+    },
+    {
+      "text": "Skateboard ramp",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["skate ramp"],
+      "keywords": ["ramp"]
+    },
+    {
+      "text": "BMX helmet",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["bike helmet"],
+      "keywords": ["helmet"]
+    },
+    {
+      "text": "Teen bedroom",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["teenager's room"],
+      "keywords": ["bedroom"]
+    },
+    {
+      "text": "Mall food court",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["shopping mall food court"],
+      "keywords": ["food court"]
+    },
+    {
+      "text": "Video game cartridge",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["game cartridge"],
+      "keywords": ["cartridge"]
+    },
+    {
+      "text": "Stereo speakers",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["loudspeakers"],
+      "keywords": ["speakers"]
+    },
+    {
+      "text": "Aerobics leotard",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["dance leotard"],
+      "keywords": ["leotard"]
+    },
+    {
+      "text": "Toy robot",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": ["robot toy"],
+      "keywords": ["robot"]
+    },
+    {
+      "text": "Breakdancer spinning on head",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["headspin"],
+      "keywords": ["breakdancer", "head"]
+    },
+    {
+      "text": "Teen making a mixtape",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["recording a mixtape"],
+      "keywords": ["teen", "mixtape"]
+    },
+    {
+      "text": "Family rewinding a VHS tape",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["family rewinding a video"],
+      "keywords": ["family", "vhs"]
+    },
+    {
+      "text": "Friends sharing headphones",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["two friends sharing earphones"],
+      "keywords": ["friends", "headphones"]
+    },
+    {
+      "text": "Skateboarder jumping a ramp",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["skateboarder doing a jump"],
+      "keywords": ["skateboarder", "ramp"]
+    },
+    {
+      "text": "BMX rider airborne",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["bike rider jumping"],
+      "keywords": ["bmx", "airborne"]
+    },
+    {
+      "text": "Roller skaters under disco ball",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["skaters dancing under a disco ball"],
+      "keywords": ["skaters", "disco ball"]
+    },
+    {
+      "text": "Kid playing an arcade game",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["child at an arcade machine"],
+      "keywords": ["kid", "arcade"]
+    },
+    {
+      "text": "Person recording with a camcorder",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["filming with a camcorder"],
+      "keywords": ["recording", "camcorder"]
+    },
+    {
+      "text": "Family watching a tiny television",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["family watching TV"],
+      "keywords": ["family", "television"]
+    },
+    {
+      "text": "Teen dancing to a boombox",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["dancing beside a boombox"],
+      "keywords": ["teen", "boombox"]
+    },
+    {
+      "text": "Band playing synth rock",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["synth rock band"],
+      "keywords": ["band", "synth"]
+    },
+    {
+      "text": "Aerobics class in leg warmers",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["group exercise in leg warmers"],
+      "keywords": ["aerobics", "leg warmers"]
+    },
+    {
+      "text": "Punk rocker sewing a patch",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["punk musician sewing"],
+      "keywords": ["punk", "patch"]
+    },
+    {
+      "text": "Teen with big hair at salon",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["stylist teasing a teen's hair"],
+      "keywords": ["hair", "salon"]
+    },
+    {
+      "text": "Person loading floppy disk into computer",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["inserting a disk into a computer"],
+      "keywords": ["floppy disk", "computer"]
+    },
+    {
+      "text": "Shopper browsing VHS tapes",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["customer choosing a video"],
+      "keywords": ["shopper", "vhs"]
+    },
+    {
+      "text": "Arcade player winning a plush toy",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["gamer winning a stuffed animal"],
+      "keywords": ["arcade", "plush toy"]
+    },
+    {
+      "text": "Friends playing pinball",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["two people at a pinball machine"],
+      "keywords": ["friends", "pinball"]
+    },
+    {
+      "text": "Person tangled in telephone cord",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["tangled in a phone cord"],
+      "keywords": ["telephone", "cord"]
+    },
+    {
+      "text": "Teen rewinding cassette with pencil",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["rewinding a tape using a pencil"],
+      "keywords": ["cassette", "pencil"]
+    },
+    {
+      "text": "Person decorating denim jacket",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["adding patches to a jean jacket"],
+      "keywords": ["denim", "jacket"]
+    },
+    {
+      "text": "Crowd doing the wave at concert",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["concert crowd making a wave"],
+      "keywords": ["crowd", "concert"]
+    },
+    {
+      "text": "Person using a phone booth",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["making a call from a phone booth"],
+      "keywords": ["phone booth"]
+    },
+    {
+      "text": "VCR connected to television",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["video recorder hooked to a TV"],
+      "keywords": ["vcr", "television"]
+    },
+    {
+      "text": "Printer spitting out paper",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["printer feeding out a page"],
+      "keywords": ["printer", "paper"]
+    },
+    {
+      "text": "DJ mixing records",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["disc jockey mixing vinyl"],
+      "keywords": ["dj", "records"]
+    },
+    {
+      "text": "Someone filming a birthday party",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["recording a birthday celebration"],
+      "keywords": ["filming", "birthday"]
+    },
+    {
+      "text": "Skater at a halfpipe",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["skateboarder riding a halfpipe"],
+      "keywords": ["skater", "halfpipe"]
+    },
+    {
+      "text": "Teen solving a cube as phone rings",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": ["solving a puzzle while the phone rings"],
+      "keywords": ["cube", "phone"]
+    },
+    {
+      "text": "Boombox baking cupcakes",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["boombox", "cupcakes"]
+    },
+    {
+      "text": "Cassette tape walking a dog",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cassette", "dog"]
+    },
+    {
+      "text": "Rubik cube getting a haircut",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cube", "haircut"]
+    },
+    {
+      "text": "VHS tape planting flowers",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["vhs", "flowers"]
+    },
+    {
+      "text": "Floppy disk carrying groceries",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["floppy disk", "groceries"]
+    },
+    {
+      "text": "Arcade cabinet washing dishes",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["arcade", "dishes"]
+    },
+    {
+      "text": "Pager serving pancakes",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pager", "pancakes"]
+    },
+    {
+      "text": "CRT television wearing a party hat",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["television", "party hat"]
+    },
+    {
+      "text": "BMX bicycle delivering mail",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["bmx", "mail"]
+    },
+    {
+      "text": "Roller skate walking a tightrope",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skate", "tightrope"]
+    },
+    {
+      "text": "Punk rocker knitting a scarf",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["punk rocker", "scarf"]
+    },
+    {
+      "text": "Breakdancer brushing a horse",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["breakdancer", "horse"]
+    },
+    {
+      "text": "Aerobics instructor feeding ducks",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["aerobics", "ducks"]
+    },
+    {
+      "text": "Robot folding laundry",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["robot", "laundry"]
+    },
+    {
+      "text": "Alien mowing the lawn",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["alien", "lawn"]
+    },
+    {
+      "text": "Skateboarder ironing a shirt",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skateboarder", "shirt"]
+    },
+    {
+      "text": "Camcorder walking a dog",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["camcorder", "dog"]
+    },
+    {
+      "text": "Answering machine teaching class",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["answering machine", "class"]
+    },
+    {
+      "text": "New wave singer walking a sheep",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["singer", "sheep"]
+    },
+    {
+      "text": "Leg warmers climbing a tree",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["leg warmers", "tree"]
+    },
+    {
+      "text": "Fanny pack at the dentist",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["fanny pack", "dentist"]
+    },
+    {
+      "text": "Action figure making soup",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["action figure", "soup"]
+    },
+    {
+      "text": "Pinball machine taking a nap",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["pinball", "nap"]
+    },
+    {
+      "text": "Video clerk juggling oranges",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["clerk", "oranges"]
+    },
+    {
+      "text": "Synthesizer playing fetch",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["synthesizer", "fetch"]
+    },
+    {
+      "text": "Laser disc player washing dishes",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["laser disc", "dishes"]
+    },
+    {
+      "text": "Jelly bracelets building a sandcastle",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["bracelets", "sandcastle"]
+    },
+    {
+      "text": "Mullet painting a fence",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mullet", "fence"]
+    },
+    {
+      "text": "Arcade token baking bread",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["token", "bread"]
+    },
+    {
+      "text": "High top sneaker driving a tractor",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sneaker", "tractor"]
+    },
+    {
+      "text": "Cassette player walking a tightrope",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["cassette player", "tightrope"]
+    },
+    {
+      "text": "Puffy jacket swimming laps",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["jacket", "swimming"]
+    },
+    {
+      "text": "Computer keyboard planting a garden",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["keyboard", "garden"]
+    },
+    {
+      "text": "Phone booth having a picnic",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["phone booth", "picnic"]
+    },
+    {
+      "text": "Roller rink serving spaghetti",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["roller rink", "spaghetti"]
+    },
+    {
+      "text": "Skateboard doing ballet",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["skateboard", "ballet"]
+    },
+    {
+      "text": "Camera wearing glasses",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["camera", "glasses"]
+    },
+    {
+      "text": "Space robot at grocery checkout",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["robot", "checkout"]
+    },
+    {
+      "text": "Vampire changing a tire",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["vampire", "tire"]
+    },
+    {
+      "text": "Ghost doing aerobics",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["ghost", "aerobics"]
+    }
+  ]
+}

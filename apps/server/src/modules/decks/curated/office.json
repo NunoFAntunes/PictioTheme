@@ -1,0 +1,1059 @@
+{
+  "slug": "office",
+  "featuredRank": null,
+  "title": "Office Life",
+  "description": "Draw everyday office objects, workplace moments, and a few wonderfully odd office mashups.",
+  "tags": ["office", "work", "workplace", "desk", "business"],
+  "cards": [
+    {
+      "text": "Desk",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["desk"]
+    },
+    {
+      "text": "Office chair",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["chair"]
+    },
+    {
+      "text": "Computer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["computer"]
+    },
+    {
+      "text": "Laptop",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["laptop"]
+    },
+    {
+      "text": "Monitor",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["monitor"]
+    },
+    {
+      "text": "Keyboard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["keyboard"]
+    },
+    {
+      "text": "Computer mouse",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mouse"]
+    },
+    {
+      "text": "Printer",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["printer"]
+    },
+    {
+      "text": "Paper",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["paper"]
+    },
+    {
+      "text": "Pen",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pen"]
+    },
+    {
+      "text": "Pencil",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pencil"]
+    },
+    {
+      "text": "Notebook",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["notebook"]
+    },
+    {
+      "text": "Stapler",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["stapler"]
+    },
+    {
+      "text": "Paper clip",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["paper clip"]
+    },
+    {
+      "text": "Scissors",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scissors"]
+    },
+    {
+      "text": "Tape",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["tape"]
+    },
+    {
+      "text": "Folder",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["folder"]
+    },
+    {
+      "text": "File cabinet",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["file cabinet"]
+    },
+    {
+      "text": "Coffee mug",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mug"]
+    },
+    {
+      "text": "Telephone",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["telephone"]
+    },
+    {
+      "text": "Headphones",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["headphones"]
+    },
+    {
+      "text": "Briefcase",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["briefcase"]
+    },
+    {
+      "text": "Clock",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["clock"]
+    },
+    {
+      "text": "Wastebasket",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["wastebasket"]
+    },
+    {
+      "text": "Bookshelf",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["bookshelf"]
+    },
+    {
+      "text": "Desk lamp",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["lamp"]
+    },
+    {
+      "text": "Envelope",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["envelope"]
+    },
+    {
+      "text": "Calculator",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["calculator"]
+    },
+    {
+      "text": "Marker",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["marker"]
+    },
+    {
+      "text": "Rubber band",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rubber band"]
+    },
+    {
+      "text": "Binder",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["binder"]
+    },
+    {
+      "text": "Clipboard",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["clipboard"]
+    },
+    {
+      "text": "Sticky note",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sticky note"]
+    },
+    {
+      "text": "Water bottle",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["water bottle"]
+    },
+    {
+      "text": "Plant",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["plant"]
+    },
+    {
+      "text": "Door",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["door"]
+    },
+    {
+      "text": "Window",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["window"]
+    },
+    {
+      "text": "Key",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["key"]
+    },
+    {
+      "text": "Glasses",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["glasses"]
+    },
+    {
+      "text": "Badge",
+      "difficulty": "easy",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["badge"]
+    },
+    {
+      "text": "Cubicle",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cubicle"]
+    },
+    {
+      "text": "Conference table",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["conference table"]
+    },
+    {
+      "text": "Desk drawer",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["drawer"]
+    },
+    {
+      "text": "Paper shredder",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["shredder"]
+    },
+    {
+      "text": "Photocopier",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["photocopier"]
+    },
+    {
+      "text": "Fax machine",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fax machine"]
+    },
+    {
+      "text": "Projector",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["projector"]
+    },
+    {
+      "text": "Projection screen",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["screen"]
+    },
+    {
+      "text": "Webcam",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["webcam"]
+    },
+    {
+      "text": "Coffee machine",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["coffee machine"]
+    },
+    {
+      "text": "Vending machine",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["vending machine"]
+    },
+    {
+      "text": "Reception desk",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["reception desk"]
+    },
+    {
+      "text": "Receptionist",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["receptionist"]
+    },
+    {
+      "text": "Meeting room",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["meeting room"]
+    },
+    {
+      "text": "Break room",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["break room"]
+    },
+    {
+      "text": "Elevator",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["elevator"]
+    },
+    {
+      "text": "Coat rack",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["coat rack"]
+    },
+    {
+      "text": "Filing box",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["filing box"]
+    },
+    {
+      "text": "Inbox tray",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["inbox tray"]
+    },
+    {
+      "text": "Hole punch",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["hole punch"]
+    },
+    {
+      "text": "Pushpin",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["pushpin"]
+    },
+    {
+      "text": "Desk fan",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["fan"]
+    },
+    {
+      "text": "Standing desk",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["standing desk"]
+    },
+    {
+      "text": "Footrest",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["footrest"]
+    },
+    {
+      "text": "Laptop bag",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["laptop bag"]
+    },
+    {
+      "text": "Desk organizer",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["desk organizer"]
+    },
+    {
+      "text": "Business card holder",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["card holder"]
+    },
+    {
+      "text": "Paper tray",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["paper tray"]
+    },
+    {
+      "text": "Badge reader",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["badge reader"]
+    },
+    {
+      "text": "Conference phone",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["conference phone"]
+    },
+    {
+      "text": "Extension cord",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["extension cord"]
+    },
+    {
+      "text": "Power strip",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["power strip"]
+    },
+    {
+      "text": "USB drive",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["usb drive"]
+    },
+    {
+      "text": "Charging cable",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["charging cable"]
+    },
+    {
+      "text": "Document scanner",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scanner"]
+    },
+    {
+      "text": "Laminator",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["laminator"]
+    },
+    {
+      "text": "Mail cart",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["mail cart"]
+    },
+    {
+      "text": "Break room refrigerator",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["refrigerator"]
+    },
+    {
+      "text": "Microwave",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["microwave"]
+    },
+    {
+      "text": "Desk bell",
+      "difficulty": "medium",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["desk bell"]
+    },
+    {
+      "text": "Typing at a desk",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["typing", "desk"]
+    },
+    {
+      "text": "Answering a phone",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["answering", "phone"]
+    },
+    {
+      "text": "Filing a folder",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["filing", "folder"]
+    },
+    {
+      "text": "Making photocopies",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["photocopies"]
+    },
+    {
+      "text": "Shredding old papers",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["shredding", "papers"]
+    },
+    {
+      "text": "Presenting a chart",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["presenting", "chart"]
+    },
+    {
+      "text": "Leading a meeting",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["leading", "meeting"]
+    },
+    {
+      "text": "Taking meeting notes",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["meeting", "notes"]
+    },
+    {
+      "text": "Coworkers sharing a table",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["coworkers", "table"]
+    },
+    {
+      "text": "Searching a messy desk",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["searching", "desk"]
+    },
+    {
+      "text": "Waiting for the elevator",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["waiting", "elevator"]
+    },
+    {
+      "text": "Rushing to a meeting",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["rushing", "meeting"]
+    },
+    {
+      "text": "Refilling the coffee pot",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["refilling", "coffee"]
+    },
+    {
+      "text": "Watering an office plant",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["watering", "plant"]
+    },
+    {
+      "text": "Scanning a stack of papers",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["scanning", "papers"]
+    },
+    {
+      "text": "Stapling a thick report",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["stapling", "report"]
+    },
+    {
+      "text": "Opening a jammed printer",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["jammed", "printer"]
+    },
+    {
+      "text": "Replacing printer paper",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["printer", "paper"]
+    },
+    {
+      "text": "Carrying folders to work",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["carrying", "folders"]
+    },
+    {
+      "text": "Sorting incoming mail",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["sorting", "mail"]
+    },
+    {
+      "text": "Delivering a package",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["delivering", "package"]
+    },
+    {
+      "text": "Working at a standing desk",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["working", "standing desk"]
+    },
+    {
+      "text": "Talking through a headset",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["talking", "headset"]
+    },
+    {
+      "text": "Cleaning a whiteboard",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["cleaning", "whiteboard"]
+    },
+    {
+      "text": "Plugging in a laptop",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["plugging", "laptop"]
+    },
+    {
+      "text": "Making coffee in break room",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["coffee", "break room"]
+    },
+    {
+      "text": "Coworkers on a video call",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["coworkers", "video call"]
+    },
+    {
+      "text": "Moving a filing cabinet",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["moving", "filing cabinet"]
+    },
+    {
+      "text": "Reaching for a high shelf",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["reaching", "shelf"]
+    },
+    {
+      "text": "Handing in a report",
+      "difficulty": "hard",
+      "silly": false,
+      "alternates": [],
+      "keywords": ["handing", "report"]
+    },
+    {
+      "text": "Office worker riding a camel",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["office worker", "camel"]
+    },
+    {
+      "text": "Printer baking a cake",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["printer", "cake"]
+    },
+    {
+      "text": "Stapler playing tennis",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["stapler", "tennis"]
+    },
+    {
+      "text": "Office chair surfing a wave",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["office chair", "wave"]
+    },
+    {
+      "text": "Laptop fishing from a boat",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["laptop", "fishing"]
+    },
+    {
+      "text": "Paper clip lifting weights",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["paper clip", "weights"]
+    },
+    {
+      "text": "Coffee mug on roller skates",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["coffee mug", "roller skates"]
+    },
+    {
+      "text": "Photocopier walking a dog",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["photocopier", "dog"]
+    },
+    {
+      "text": "Filing cabinet climbing a tree",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["filing cabinet", "tree"]
+    },
+    {
+      "text": "Desk lamp conducting an orchestra",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["desk lamp", "orchestra"]
+    },
+    {
+      "text": "Computer mouse riding a scooter",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["computer mouse", "scooter"]
+    },
+    {
+      "text": "Keyboard playing piano",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["keyboard", "piano"]
+    },
+    {
+      "text": "Briefcase planting flowers",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["briefcase", "flowers"]
+    },
+    {
+      "text": "Water cooler surfing",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["water cooler", "surfing"]
+    },
+    {
+      "text": "Fax machine doing ballet",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["fax machine", "ballet"]
+    },
+    {
+      "text": "Shredder knitting a scarf",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["shredder", "scarf"]
+    },
+    {
+      "text": "Whiteboard flying a kite",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["whiteboard", "kite"]
+    },
+    {
+      "text": "Projector roasting marshmallows",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["projector", "marshmallows"]
+    },
+    {
+      "text": "Office clock riding a unicycle",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["office clock", "unicycle"]
+    },
+    {
+      "text": "Telephone juggling oranges",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["telephone", "oranges"]
+    },
+    {
+      "text": "Scissors skateboarding",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["scissors", "skateboarding"]
+    },
+    {
+      "text": "Binder walking a tightrope",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["binder", "tightrope"]
+    },
+    {
+      "text": "Sticky note sailing a boat",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["sticky note", "boat"]
+    },
+    {
+      "text": "Elevator playing soccer",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["elevator", "soccer"]
+    },
+    {
+      "text": "Receptionist riding a horse",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["receptionist", "horse"]
+    },
+    {
+      "text": "Desk riding a bicycle",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["desk", "bicycle"]
+    },
+    {
+      "text": "Folder taking a bubble bath",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["folder", "bubble bath"]
+    },
+    {
+      "text": "Vending machine gardening",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["vending machine", "gardening"]
+    },
+    {
+      "text": "Mail cart pulling a wagon",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["mail cart", "wagon"]
+    },
+    {
+      "text": "Coffee machine doing yoga",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["coffee machine", "yoga"]
+    },
+    {
+      "text": "Webcam wearing a cowboy hat",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["webcam", "cowboy hat"]
+    },
+    {
+      "text": "Coat rack ice skating",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["coat rack", "ice skating"]
+    },
+    {
+      "text": "Hole punch making a sandcastle",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["hole punch", "sandcastle"]
+    },
+    {
+      "text": "Conference table playing hide and seek",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["conference table", "hide and seek"]
+    },
+    {
+      "text": "Badge reader walking a cat",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["badge reader", "cat"]
+    },
+    {
+      "text": "Microwave at a dance party",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["microwave", "dance party"]
+    },
+    {
+      "text": "Office plant driving a bus",
+      "difficulty": "medium",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["office plant", "bus"]
+    },
+    {
+      "text": "Paper tray catching butterflies",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["paper tray", "butterflies"]
+    },
+    {
+      "text": "Desk bell fishing",
+      "difficulty": "easy",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["desk bell", "fishing"]
+    },
+    {
+      "text": "Laminator painting a fence",
+      "difficulty": "hard",
+      "silly": true,
+      "alternates": [],
+      "keywords": ["laminator", "fence"]
+    }
+  ]
+}

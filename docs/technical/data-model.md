@@ -15,7 +15,7 @@ users (
   id              uuid pk,
   email           citext unique null,
   display_name    text not null,
-  avatar          text not null,            -- preset id, e.g. 'vampire-03'
+  avatar_id       text null fk avatars,     -- the avatar they last played with
   email_verified  bool default false,
   role            text default 'user',      -- 'user' | 'moderator' | 'admin'
   created_at      timestamptz,
@@ -23,7 +23,23 @@ users (
 )
 auth_accounts (user_id fk, provider text, provider_account_id text, pk(provider, provider_account_id))
 
+-- Avatars (drawn by players; built) -------------------------------------------
+avatars (
+  id              text pk,                  -- first 32 hex chars of sha256(png): content-addressed
+  png             bytea not null,           -- 128×128 PNG, ≤ 40 KB, checked by signature + IHDR
+  created_at      timestamptz,
+  last_used_at    timestamptz               -- bumped on every create/join; for cleaning up guests' avatars
+)
+-- Planned (Phase 3): registered users keep a gallery of their own drawn avatars.
+user_avatars (user_id fk, avatar_id fk avatars, created_at, pk(user_id, avatar_id))
+
 -- Decks ---------------------------------------------------------------------
+deck_covers (                               -- built (migration 0003)
+  id              text pk,                  -- first 32 hex chars of sha256(png): content-addressed
+  png             bytea not null,           -- 300×400 PNG, ≤ 150 KB, checked by signature + IHDR
+  created_at      timestamptz
+)
+
 decks (
   id              uuid pk,
   slug            text unique,              -- 'spooky-halloween-x7f2'
@@ -37,14 +53,18 @@ decks (
   created_by      uuid fk users null,
   source          text not null,            -- 'ai' | 'curated' | 'remix'
   model           text null,                -- OpenRouter model slug that generated it
+  cover_id        text null fk deck_covers on delete set null,   -- null → default cover from the title
+  cover_hidden    bool not null default false,   -- hidden by reports (migration 0004): shown as no cover; a new cover clears it
+  featured_rank   smallint null,            -- curated decks in the featured row, lowest first (migration 0006)
   play_count      int default 0,
   upvotes         int default 0,
   downvotes       int default 0,
   report_count    int default 0,
-  search_vector   tsvector,                 -- title + tags + card texts
+  search_vector   tsvector,                 -- title + tags + card texts (planned)
   created_at      timestamptz
 )
--- index: GIN(search_vector), GIN(tags), GIN(title gin_trgm_ops)
+-- index: GIN(tags), GIN(title gin_trgm_ops) (built, migration 0007); GIN(search_vector) planned
+-- curated decks are seeded from JSON by db:migrate (source 'curated', upsert by slug)
 
 cards (
   id            uuid pk,
@@ -54,23 +74,44 @@ cards (
   is_silly      bool not null default false,
   alternates    text[] not null default '{}',
   keywords      text[] not null default '{}',
-  times_drawn   int default 0,
+  times_offered int default 0,              -- shown as one of the drawer's options (only when there's a choice; migration 0008)
+  times_picked  int default 0,              -- chosen by the drawer (not picked at random when time ran out)
+  times_drawn   int default 0,              -- drawn in a turn (picked or not)
   times_guessed int default 0,              -- turns where ≥1 guesser got it
   flags         int default 0,              -- "unfair card" reports
   unique(deck_id, lower(text))
 )
 
-deck_votes (user_id, deck_id, value smallint, pk(user_id, deck_id))
-deck_reports (id, deck_id, card_id null, reporter_id null, reason, created_at, resolved_at)
+deck_votes (user_id, deck_id, value smallint, pk(user_id, deck_id))   -- planned: 👍/👎 per deck
+card_votes (                                -- built (migration 0008): the drawer's 👍/👎 on the options
+  card_id    uuid fk cards on delete cascade,
+  player_id  text not null,                 -- 'g_<guestId>' / 'u_<userId>'
+  vote       smallint not null,             -- 1 = 👍, -1 = 👎; taking it back deletes the row
+  voted_at   timestamptz,
+  pk(card_id, player_id)
+)
+deck_reports (                              -- built (migration 0004); card reports ("unfair card") come later
+  id           uuid pk,
+  deck_id      uuid fk decks on delete cascade,
+  reporter_id  text not null,               -- player id: 'g_<guestId>' / 'u_<userId>'
+  reason       text not null,               -- 'cover' | 'content'
+  cover_id     text null fk deck_covers,    -- the cover a 'cover' report is about (kept for review)
+  created_at   timestamptz,
+  resolved_at  timestamptz null,            -- set by the moderator queue (later)
+  unique(deck_id, reporter_id, reason, coalesce(cover_id, ''))   -- one report per player, reason and cover
+)
 
 -- Generation & credits ------------------------------------------------------
-generation_jobs (
+generation_jobs (                           -- built (migration 0002); not yet: queued/review states, credits
   id           uuid pk,
-  user_id      uuid fk,
-  theme        text, notes text, language text, family_friendly bool, include_silly bool,
-  status       text,                        -- 'queued' | 'running' | 'review' | 'published' | 'failed'
+  created_by   text,                        -- player id: 'g_<guestId>' now, 'u_<userId>' with accounts
+  client_ip_hash text null,                 -- HMAC of the requester's IP, for the per-IP daily limit (migration 0005)
+  theme        text, notes text, difficulties text[], include_silly bool, language text,
+  status       text,                        -- built: 'running' | 'published' | 'failed'; later 'queued' | 'review'
+                                            -- unique(created_by) where status = 'running': one job at a time
   deck_id      uuid null,
   error        text null,
+  cover_id     text null fk deck_covers,    -- the drawn cover; may arrive before deck_id, copied onto the deck
   model        text, provider text,         -- OpenRouter slug + the provider it routed to
   input_tokens int, output_tokens int, cost_usd numeric(10,4),   -- cost as reported by OpenRouter
   created_at, finished_at
@@ -91,13 +132,46 @@ purchases (id, user_id, stripe_session_id unique, pack, amount_cents, currency, 
 -- History (optional for v1) -------------------------------------------------
 matches (id, room_code, deck_id, settings jsonb, started_at, ended_at)
 match_players (match_id, user_id null, guest_id null, display_name, score, rank)
+
+-- Metrics --------------------------------------------------------------------
+product_events (                            -- built (migration 0008), owned by the metrics module
+  id         uuid pk,
+  name       text not null,                 -- see "Metrics" below
+  at         timestamptz,
+  player_id  text null,                     -- random guest/user id, never a name or IP
+  room_code  text null,
+  deck_id    uuid null,
+  props      jsonb not null default '{}'
+)
+-- index: (name, at)
 ```
 
 Notes:
 - **Credit reservation**: on job start, insert `-1 'generation' ref=jobId`. On failure, insert `+1 'refund' ref=jobId`. The balance check and insert happen in one transaction (`SELECT … FOR UPDATE` on the user row) so concurrent requests can't double-spend.
 - Free generations are simply a `+3 signup_grant` ledger row, so "free" and "paid" credits work the same way. To show "2 free left" separately, add a `kind` column.
 
+## Metrics
+
+The launch metrics ([next-features.md](../planning/next-features.md#what-to-measure-at-launch)) come from three places, all in our own database. `pnpm --filter @pictiotheme/server metrics:report [--days N]` prints them, with the card quality lists.
+
+| Event (`product_events.name`) | From | `props` |
+|---|---|---|
+| `room_created` | server | `isPublic` |
+| `match_started` | game-core effect | `players` |
+| `match_ended` | game-core effect | `reason` (`completed`, `host_ended`, `abandoned`), `turns`, `durationMs`, `players` (ids) |
+| `turn_ended` | game-core effect | `reason`, `guessers`, `solved` |
+| `first_turn` | browser | `msSinceLanding`, `viaLink` (arrived on an invite link) |
+| `phone_gate` | browser | `action`: `shown` or `bypassed` |
+| `room_joined` | browser | `device`: `desktop`, `tablet` or `phone` |
+
+- **Card stats** are counters on `cards`, updated from game-core's `cardsDealt` and `turnEnded` effects: every option counts as offered (when there's a choice), the drawer's choice as picked, the drawn card as drawn, and a turn with ≥ 1 correct guess as guessed. A fair pick rate is about 1 in 3; a card nobody picks, or that's rarely guessed, is a candidate to fix or remove.
+- **Card votes**: while choosing, the drawer can rate each face-up option 👍/👎 (`turn:vote`), stored in `card_votes`. Writes per player and card run in order, so a changed mind is stored correctly.
+- **Generations** (per day, cost, covers drawn) come from `generation_jobs`.
+- All of it is best-effort: a failed write is logged and the game goes on. Curated decks keep their card ids, stats and votes when re-seeded (cards are matched by text).
+
 ## Ephemeral room state (realtime server)
+
+The implemented type is `RoomState` in [`packages/game-core/src/room/types.ts`](../../packages/game-core/src/room/types.ts), which is the source of truth. The sketch below shows the shape.
 
 ```ts
 type Room = {
@@ -145,7 +219,7 @@ There is no Redis in v1 ([decisions.md](decisions.md#d2--fastify-typescript-modu
 
 | Structure | Interface | Holds | Redis equivalent later |
 |---|---|---|---|
-| `RoomManager` | `RoomRegistry` | `Map<code, RoomRuntime>`: code uniqueness, lobby summaries (name, isPublic, deckTitle, players, max, status) | `room:{code}` hash + `rooms:public` sorted set |
+| Room map (`rooms` module) | `RoomRegistry` (when scaling out) | `Map<code, RoomRuntime>`: code uniqueness, lobby summaries (name, isPublic, deckTitle, players, max, status) | `room:{code}` hash + `rooms:public` sorted set |
 | Rate limiter | `RateLimiter` | Token buckets per player (guesses, messages) and per IP (joins, room creation) | `rl:*` counters with TTL |
 | Event bus | `EventBus` | Generation job progress → SSE subscribers | pub/sub `job:{id}:events` |
 
