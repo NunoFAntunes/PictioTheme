@@ -1,0 +1,81 @@
+# Production stack. Deploys copy this file to /opt/pictiotheme/compose.yaml on the VM, next to the
+# .env that holds the secrets (created by infra/deploy/bootstrap.sh). See docs/technical/deployment.md.
+name: pictiotheme
+
+x-server: &server
+  image: ghcr.io/nunofantunes/pictiotheme-server:${IMAGE_TAG:?set by deploy.sh}
+  # Any server setting (apps/server/src/config.ts) can be added to .env, e.g. OPENROUTER_API_KEY.
+  env_file: .env
+  environment:
+    NODE_ENV: production
+    DATABASE_URL: postgres://pictio:${POSTGRES_PASSWORD:?}@postgres:5432/pictiotheme
+    PUBLIC_ORIGIN: https://${SITE_ADDRESS:?}
+    # Only Caddy can reach the server, over the private Docker network.
+    TRUST_PROXY: uniquelocal
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  postgres:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pictio
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+      POSTGRES_DB: pictiotheme
+    volumes:
+      # Postgres 18 images keep data under /var/lib/postgresql/<major>/, so mount the parent.
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U pictio -d pictiotheme']
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  # One-off: applies migrations and seeds curated decks before the new server starts.
+  migrate:
+    <<: *server
+    profiles: [tools]
+    command: ['node', '--enable-source-maps', 'dist/migrate.js']
+
+  server:
+    <<: *server
+    restart: unless-stopped
+    # close-with-grace waits up to 10s for rooms to get the "server restarting" notice.
+    stop_grace_period: 20s
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://localhost:3000/api/ready').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 6
+
+  web:
+    image: ghcr.io/nunofantunes/pictiotheme-web:${IMAGE_TAG:?set by deploy.sh}
+    restart: unless-stopped
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:?}
+      TLS_DIRECTIVE: ${TLS_DIRECTIVE:-}
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      # Optional Cloudflare Origin certificate (see TLS_DIRECTIVE in infra/Caddyfile).
+      - ./certs:/certs:ro
+    depends_on:
+      - server
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:

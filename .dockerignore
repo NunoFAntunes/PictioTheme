@@ -1,0 +1,7 @@
+# Images are assembled from files CI has already built (infra/*.Dockerfile). Send only those.
+*
+!.deploy/server/package.json
+!.deploy/server/node_modules
+!.deploy/server/dist
+!apps/web/dist
+!infra/Caddyfile
