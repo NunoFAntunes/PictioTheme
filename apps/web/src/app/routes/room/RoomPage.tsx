@@ -1,6 +1,7 @@
 import { normalizeRoomCode } from '@pictiotheme/game-core';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useParams } from 'react-router';
+import { CrumpleStage, useCrumple } from '../../features/close-room';
 import { GuessFeed, GuessInput } from '../../features/guess-feed';
 import { useEnsureIdentity } from '../../features/identity';
 import { PlayerList } from '../../features/player-list';
@@ -43,10 +44,12 @@ function roomIdentity(): PlayerIdentity {
 function RoomSession({ code }: { code: string }) {
   const view = useRoomStore((s) => s.view);
   const connection = useRoomStore((s) => s.connection);
+  // Closing the room yourself crumples it up and goes home, instead of saying it's closed.
+  const crumpling = useCrumple((s) => s.crumpling);
 
   useEffect(() => connectRoom(code, roomIdentity), [code]);
 
-  if (connection.kind === 'closed' && connection.reason !== 'left') {
+  if (connection.kind === 'closed' && connection.reason !== 'left' && !crumpling) {
     return (
       <CenteredMessage title={connection.message}>
         {connection.reason === 'lost' && (
@@ -65,13 +68,13 @@ function RoomSession({ code }: { code: string }) {
 
   return (
     // The page itself never scrolls (no rubber-banding mid-drawing): each area scrolls inside.
-    <div className="flex h-dvh flex-col overflow-hidden overscroll-none">
+    <CrumpleStage className="flex h-dvh flex-col overflow-hidden overscroll-none">
       <RoomSounds />
       <CoverUploader />
       <RoomMetrics />
       <RoomHeader />
       <RoomLayout phase={view.phase.kind} />
-    </div>
+    </CrumpleStage>
   );
 }
 

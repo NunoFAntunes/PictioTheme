@@ -50,6 +50,9 @@ export const SOUNDS = {
   chat: { files: ['chat.mp3'], group: 'room', volume: 0.4, minGapMs: 120 },
   playerJoin: { files: ['player-join.mp3'], group: 'room', volume: 0.5, minGapMs: 200 },
   playerLeave: { files: ['player-leave.mp3'], group: 'room', volume: 0.5, minGapMs: 200 },
+  // The host closing the room: it's crumpled into a ball and kicked away (features/close-room).
+  paperCrumple: { files: ['paper-crumple.mp3'], group: 'room', volume: 0.6 },
+  paperKick: { files: ['paper-kick.mp3'], group: 'room', volume: 0.6 },
 } as const satisfies Record<string, SoundDef>;
 
 export type SoundId = keyof typeof SOUNDS;

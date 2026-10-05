@@ -93,6 +93,19 @@ describe('quick play and the lobby list, end to end', () => {
     expect((await cy.quickPlay('Cy')).code).toBe(match.code);
   });
 
+  it('looks up a room by code, and says when there is none', async () => {
+    const [ana, bo] = await Promise.all([player(), player()]);
+    const room = await ana.createRoom('Ana');
+
+    const found = await bo.request('GET', `/api/rooms/${room.code.toLowerCase()}`);
+    expect(found).toEqual({ status: 200, body: { code: room.code } });
+    const missing = await bo.request('GET', '/api/rooms/ZZZ-ZZZ');
+    expect(missing).toMatchObject({
+      status: 404,
+      body: { error: { code: 'ROOM_NOT_FOUND' } },
+    });
+  });
+
   it('a player in the room changes name and avatar, and everyone sees it', async () => {
     const [ana, bo] = await Promise.all([player(), player()]);
     const room = await ana.createRoom('Ana');

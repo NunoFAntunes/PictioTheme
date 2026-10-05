@@ -19,6 +19,7 @@ export function DeskProps() {
         color="#4cc9c0"
         shade="#2fa79e"
         className="-right-24 top-[42%]"
+        transitionName="desk-crayon-teal"
         rotate={-8}
         side={-1}
       />
@@ -26,6 +27,7 @@ export function DeskProps() {
         color="#7ed957"
         shade="#58b532"
         className="-right-20 top-[57%]"
+        transitionName="desk-crayon-green"
         rotate={12}
         side={1}
       />
@@ -43,9 +45,11 @@ type ViewBox = [number, number, number, number];
 /**
  * Places a drawing by one point of it (the mug's centre, the brush's tip): `className` positions
  * that point against the paper, `unit` is rem per viewBox unit, and it rotates around that point.
+ * `transitionName` lets it slide off its side of the desk when a room opens (global.css).
  */
 function Prop(props: {
   className: string;
+  transitionName: string;
   viewBox: ViewBox;
   anchor: [number, number];
   unit: number;
@@ -66,6 +70,7 @@ function Prop(props: {
           height: `${h * props.unit}rem`,
           transformOrigin: `${ax}rem ${ay}rem`,
           rotate: `${props.rotate}deg`,
+          viewTransitionName: props.transitionName,
         }}
       >
         {props.children}
@@ -188,6 +193,7 @@ function Mug() {
   return (
     <Prop
       className="left-6 -bottom-28"
+      transitionName="desk-mug"
       viewBox={MUG_BOX}
       anchor={[70, 70]}
       unit={0.075}
@@ -374,6 +380,7 @@ function Eraser() {
   return (
     <Prop
       className="left-8 -top-14"
+      transitionName="desk-eraser"
       viewBox={ERASER_BOX}
       anchor={[79, 38]}
       unit={0.065}
@@ -482,6 +489,7 @@ function Paintbrush() {
   return (
     <Prop
       className="-right-6 -bottom-36"
+      transitionName="desk-brush"
       viewBox={BRUSH_BOX}
       anchor={[356, 30]}
       unit={0.07}
@@ -566,6 +574,7 @@ function Crayon(props: {
   rotate: number;
   /** Which side of the crayon it doodles on: -1 above, 1 below (the crayons lie close together). */
   side: -1 | 1;
+  transitionName: string;
 }) {
   const [scribbles, setScribbles] = useState<Scribble[]>([]);
   const body = useRef<SVGGElement>(null);
@@ -597,6 +606,7 @@ function Crayon(props: {
   return (
     <Prop
       className={props.className}
+      transitionName={props.transitionName}
       viewBox={CRAYON_BOX}
       anchor={[197, 20]}
       unit={0.07}

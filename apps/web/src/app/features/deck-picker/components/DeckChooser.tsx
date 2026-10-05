@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { GenerateDeckPanel, useGenerationConfig, useMyDecks } from '../../generate-deck';
+import { PANEL, PANEL_HEADING } from '../../../ui/room-frame';
 import { useDecks } from '../api';
 import { DeckPicker } from './DeckPicker';
 
@@ -27,10 +28,10 @@ export function DeckChooser({
   return (
     <section
       aria-labelledby="deck-heading"
-      className={`flex min-h-0 flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950 ${generating ? '' : className}`}
+      className={`flex min-h-0 flex-col gap-3 ${PANEL} ${generating ? '' : className}`}
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 id="deck-heading" className="text-lg font-semibold">
+        <h2 id="deck-heading" className={PANEL_HEADING}>
           🎴 Pick a deck
         </h2>
         {generationEnabled && !generating && (

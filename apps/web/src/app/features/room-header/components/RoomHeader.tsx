@@ -6,10 +6,12 @@ import {
   useRoomStore,
   useSecondsLeft,
 } from '../../../realtime';
+import { CloseRoomButton } from '../../close-room';
 import { RoomIdentityChip } from '../../identity';
 import { nameFont } from '../../player-list';
 import { SoundSettingsButton } from '../../sound';
-import { HEADER } from '../../../ui/room-frame';
+import { ConfirmNote } from '../../../ui/ConfirmNote';
+import { HEADER, STICKER_BUTTON } from '../../../ui/room-frame';
 import { StickerLogo } from '../../../ui/StickerLogo';
 
 /** `"_____ ___"` → spaced blanks plus word lengths "(5, 3)". Revealed hint letters show. */
@@ -92,14 +94,14 @@ export function RoomHeader() {
       )}
 
       {host && (
-        <div className="flex gap-1 text-sm">
+        <div className="flex flex-wrap items-center gap-2">
           {inMatch && (
             <>
               {view.paused === 'host' ? (
                 <button
                   type="button"
                   onClick={() => sendToRoom({ t: 'room:resume' })}
-                  className="rounded-md px-2 py-1 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                  className={STICKER_BUTTON}
                 >
                   ▶ Resume
                 </button>
@@ -108,7 +110,7 @@ export function RoomHeader() {
                   type="button"
                   disabled={view.paused !== null}
                   onClick={() => sendToRoom({ t: 'room:pause' })}
-                  className="rounded-md px-2 py-1 hover:bg-zinc-100 disabled:opacity-40 dark:hover:bg-zinc-800"
+                  className={STICKER_BUTTON}
                 >
                   ⏸ Pause
                 </button>
@@ -117,32 +119,22 @@ export function RoomHeader() {
                 type="button"
                 disabled={phase.kind === 'reveal'}
                 onClick={() => sendToRoom({ t: 'room:skipTurn' })}
-                className="rounded-md px-2 py-1 hover:bg-zinc-100 disabled:opacity-40 dark:hover:bg-zinc-800"
+                className={STICKER_BUTTON}
               >
                 ⏭ Skip
               </button>
-              <button
-                type="button"
-                onClick={() => {
-                  if (window.confirm('End the match now and show the results?'))
-                    sendToRoom({ t: 'room:end' });
-                }}
-                className="rounded-md px-2 py-1 text-close hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              <ConfirmNote
+                label="⏹ End"
+                className={STICKER_BUTTON}
+                title="End the match?"
+                confirmLabel="Show the results"
+                onConfirm={() => sendToRoom({ t: 'room:end' })}
               >
-                ⏹ End
-              </button>
+                The scores so far are the final scores.
+              </ConfirmNote>
             </>
           )}
-          <button
-            type="button"
-            onClick={() => {
-              if (window.confirm('Close the room for everyone? Nobody can come back to it.'))
-                sendToRoom({ t: 'room:close' });
-            }}
-            className="rounded-md px-2 py-1 text-close hover:bg-zinc-100 dark:hover:bg-zinc-800"
-          >
-            🚪 Close room
-          </button>
+          <CloseRoomButton />
         </div>
       )}
       <RoomIdentityChip

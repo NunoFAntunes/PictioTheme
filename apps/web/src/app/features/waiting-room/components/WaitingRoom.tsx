@@ -4,6 +4,8 @@ import { DeckCover } from '../../deck-cover';
 import { DeckChooser } from '../../deck-picker';
 import { DrawYourself } from '../../identity';
 import { ReportDeckButton } from '../../report-deck';
+import { WaitingRoomMusic } from '../../sound';
+import { PANEL, PANEL_HEADING } from '../../../ui/room-frame';
 import { maxMatchMinutes } from '../match-length';
 import { RoomSettingsForm } from './RoomSettingsForm';
 import { RoomTitle } from './RoomTitle';
@@ -20,6 +22,7 @@ export function WaitingRoom() {
 
   return (
     <div className="@container mx-auto flex w-full max-w-6xl flex-col gap-5">
+      <WaitingRoomMusic />
       <RoomTitle name={view.name} editable={host} />
       <ReadyCard view={view} host={host} />
       <DrawYourself roomCode={view.code} startFolded={host} />
@@ -44,13 +47,10 @@ export function WaitingRoom() {
 
 function RulesPanel({ view, editable }: { view: RoomView; editable: boolean }) {
   return (
-    <section
-      aria-labelledby="rules-heading"
-      className="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950"
-    >
-      <h2 id="rules-heading" className="mb-3 text-lg font-semibold">
+    <section aria-labelledby="rules-heading" className={PANEL}>
+      <h2 id="rules-heading" className={`mb-3 ${PANEL_HEADING}`}>
         📜 House rules{' '}
-        {!editable && <span className="text-sm font-normal text-zinc-500">(the host decides)</span>}
+        {!editable && <span className="font-sans text-sm text-zinc-500">(the host decides)</span>}
       </h2>
       <RoomSettingsForm view={view} editable={editable} />
     </section>

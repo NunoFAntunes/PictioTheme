@@ -5,6 +5,8 @@ import { JoinRoomForm } from '../../app/features/join-room';
 import { RoomNotes, useCreateRoom, useQuickPlay } from '../../app/features/lobby';
 import { isThisDeviceAPhone } from '../../app/lib/device';
 import type { Identity } from '../../app/lib/identity';
+import { DOODLE_BUTTON, WOBBLE } from '../../app/ui/hand-drawn';
+import { BoltIcon, LockIcon } from '../../app/ui/ScribbleIcons';
 
 const queryClient = new QueryClient();
 
@@ -56,9 +58,6 @@ function Lobby() {
   );
 }
 
-const STICKER =
-  'rounded-full border-[3px] border-ink font-bold shadow-[4px_4px_0_var(--color-ink)] transition hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--color-ink)] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-ink active:translate-y-0.5 active:shadow-[1px_1px_0_var(--color-ink)] disabled:translate-y-0 disabled:opacity-60 disabled:shadow-none';
-
 function Actions({ identity }: { identity: Identity | null }) {
   const quickPlay = useQuickPlay();
   const createRoom = useCreateRoom();
@@ -88,19 +87,19 @@ function Actions({ identity }: { identity: Identity | null }) {
           type="button"
           onClick={onQuickPlay}
           disabled={!identity || busy}
-          className={`${STICKER} bg-pop-purple px-8 py-4 text-2xl text-white`}
+          className={`${DOODLE_BUTTON} ${WOBBLE[0]} -rotate-2 bg-pop-purple py-3 pr-8 pl-5 text-3xl text-white`}
         >
-          {quickPlay.isPending || quickPlay.isSuccess ? 'Finding a room…' : '⚡ Quick play'}
+          <BoltIcon className="size-10 shrink-0 text-ink" />
+          {quickPlay.isPending || quickPlay.isSuccess ? 'Finding a room…' : 'Quick play'}
         </button>
         <button
           type="button"
           onClick={onNewRoom}
           disabled={!identity || busy}
-          className={`${STICKER} bg-pop-sun px-6 py-3 text-lg text-ink`}
+          className={`${DOODLE_BUTTON} ${WOBBLE[1]} rotate-1 bg-pop-sun py-2.5 pr-6 pl-4 text-xl text-ink`}
         >
-          {createRoom.isPending || createRoom.isSuccess
-            ? 'Making your room…'
-            : '🔒 New private room'}
+          <LockIcon className="size-8 shrink-0" />
+          {createRoom.isPending || createRoom.isSuccess ? 'Making your room…' : 'New private room'}
         </button>
         <JoinRoomForm onJoin={enterRoom} onPaper />
       </div>

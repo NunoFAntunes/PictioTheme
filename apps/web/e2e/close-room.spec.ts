@@ -10,10 +10,16 @@ test('the host closes the room for everyone', async ({ browser }) => {
 
   // Only the host has the button.
   await expect(guest.getByRole('button', { name: /close room/i })).toHaveCount(0);
-  host.once('dialog', (dialog) => void dialog.accept());
+  // It asks first, on a note; "Keep it open" puts the note away.
   await host.getByRole('button', { name: /close room/i }).click();
+  const note = host.getByRole('alertdialog', { name: 'Close the room?' });
+  await note.getByRole('button', { name: 'Keep it open' }).click();
+  await expect(note).toHaveCount(0);
+  await host.getByRole('button', { name: /close room/i }).click();
+  await note.getByRole('button', { name: /crumple it up/i }).click();
 
-  await expect(host.getByRole('heading', { name: 'You closed the room.' })).toBeVisible();
+  // The room is crumpled into a ball and kicked away, and the host is back home.
+  await expect(host).toHaveURL(/\/$/);
   await expect(guest.getByRole('heading', { name: 'The host closed this room.' })).toBeVisible();
   // The room is gone: following the invite again doesn't get back in.
   await guest.goto(`/r/${code}`);

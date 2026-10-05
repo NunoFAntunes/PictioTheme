@@ -68,6 +68,10 @@ export const JoinRoomResponse = z.object({
 });
 export type JoinRoomResponse = z.infer<typeof JoinRoomResponse>;
 
+/** `GET /api/rooms/:code`: the room exists (404 `ROOM_NOT_FOUND` otherwise). Checked before entering one. */
+export const RoomLookupResponse = z.object({ code: RoomCode });
+export type RoomLookupResponse = z.infer<typeof RoomLookupResponse>;
+
 export const PublicRoomSummary = z.object({
   code: RoomCode,
   name: z.string(),

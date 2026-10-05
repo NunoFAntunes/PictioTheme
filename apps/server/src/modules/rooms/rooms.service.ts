@@ -166,6 +166,11 @@ export function createRoomsService(deps: {
       };
     },
 
+    /** Whether a code names a live room, so the home page can say so before leaving the page. */
+    lookup(rawCode: string): { code: string } {
+      return { code: roomByCode(rawCode).code };
+    },
+
     async joinRoom(
       actor: Actor,
       rawCode: string,

@@ -4,6 +4,7 @@ import {
   JoinRoomResponse,
   PublicRoomsResponse,
   QuickPlayRequest,
+  RoomLookupResponse,
   RoomCoverUpload,
   RoomCoverUploadResponse,
   UpdateIdentityRequest,
@@ -27,6 +28,19 @@ export const roomsRoutes: FastifyPluginAsyncZod<{ rooms: RoomsService }> = async
       schema: { body: CreateRoomRequest, response: { 200: JoinRoomResponse } },
     },
     async (request) => rooms.createRoom(actorOf(request), request.body),
+  );
+
+  // Rate-limited against guessing private codes (security-and-moderation.md), like join.
+  app.get(
+    '/:code',
+    {
+      config: { rateLimit: { max: 10, timeWindow: '1 minute' } },
+      schema: {
+        params: z.object({ code: z.string().max(20) }),
+        response: { 200: RoomLookupResponse },
+      },
+    },
+    async (request) => rooms.lookup(request.params.code),
   );
 
   // Rate-limited against guessing private codes (security-and-moderation.md).

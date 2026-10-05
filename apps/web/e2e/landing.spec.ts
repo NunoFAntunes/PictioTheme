@@ -76,6 +76,15 @@ test('a new private room takes one click, and a friend joins by pasting the link
   await expect(host.getByRole('list', { name: 'Players' }).getByText(friendName)).toBeVisible();
 });
 
+test('a code with no room says so on the home page instead of leaving it', async ({ browser }) => {
+  const page = await newPlayerPage(browser);
+  await page.goto('/');
+  await page.getByLabel('Join with a code').fill('ZZZ-ZZZ');
+  await page.getByRole('button', { name: 'Join' }).click();
+  await expect(page.getByRole('alert')).toHaveText(/no room with that code/i);
+  await expect(page).toHaveURL(/\/$/);
+});
+
 test('the host renames a private room and makes it public, and it shows on the home page', async ({
   browser,
 }) => {

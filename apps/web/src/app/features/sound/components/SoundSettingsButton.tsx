@@ -1,11 +1,13 @@
 import { useEffect, useId, useRef, useState } from 'react';
+import { WOBBLE } from '../../../ui/hand-drawn';
+import { SpeakerIcon } from '../../../ui/ScribbleIcons';
 import { GROUP_PREVIEW, SOUND_GROUPS, type SoundGroup } from '../sound-catalog';
 import { playSound } from '../sound-engine';
 import { useSoundSettings } from '../sound-settings';
 
-function speakerIcon(muted: boolean, volume: number): string {
-  if (muted || volume === 0) return '🔇';
-  return volume < 0.5 ? '🔉' : '🔊';
+function speakerWaves(muted: boolean, volume: number): 0 | 1 | 2 {
+  if (muted || volume === 0) return 0;
+  return volume < 0.5 ? 1 : 2;
 }
 
 function VolumeSlider({
@@ -93,8 +95,11 @@ function GroupRow({
   );
 }
 
-/** 🔊 in a header: mute everything, or set the main volume and each group of sounds. */
-export function SoundSettingsButton() {
+/**
+ * A speaker in a header: mute everything, or set the main volume and each group of sounds.
+ * `onDesk` is the home page's look: a big scrap of paper with the speaker drawn on it.
+ */
+export function SoundSettingsButton({ onDesk = false }: { onDesk?: boolean }) {
   const [open, setOpen] = useState(false);
   const muted = useSoundSettings((s) => s.muted);
   const master = useSoundSettings((s) => s.master);
@@ -127,9 +132,16 @@ export function SoundSettingsButton() {
         aria-controls={panelId}
         aria-label={muted ? 'Sound settings (muted)' : 'Sound settings'}
         onClick={() => setOpen((o) => !o)}
-        className="rounded-md px-2 py-1 text-lg leading-none hover:bg-zinc-100 pointer-coarse:min-h-11 pointer-coarse:min-w-11 dark:hover:bg-zinc-800"
+        className={
+          onDesk
+            ? `grid size-16 rotate-6 place-items-center border-[2.5px_3px_3.5px_2.5px] border-ink bg-paper text-ink shadow-[2px_4px_0_var(--color-ink),0_10px_16px_-8px_rgb(0_0_0/0.4)] transition hover:-translate-y-0.5 hover:rotate-2 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-dashed focus-visible:outline-ink active:translate-y-0.5 aria-expanded:rotate-0 ${WOBBLE[2]}`
+            : 'rounded-md px-1.5 py-1 leading-none hover:bg-zinc-100 pointer-coarse:min-h-11 pointer-coarse:min-w-11 dark:hover:bg-zinc-800'
+        }
       >
-        <span aria-hidden="true">{speakerIcon(muted, master)}</span>
+        <SpeakerIcon
+          waves={speakerWaves(muted, master)}
+          className={onDesk ? 'size-12' : 'size-6'}
+        />
       </button>
       {open && (
         <div

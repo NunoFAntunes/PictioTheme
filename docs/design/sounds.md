@@ -22,6 +22,7 @@ Sound makes the game feel like a table, not a web page. Every sound tells the pl
 | Clock tick | Each of the last 10 seconds of drawing (not while paused) | Everyone | Clock ticking | `clock-tick` (Interface Sounds `tick_004`), alternating pitch for tick/tock, quiet and getting a little louder |
 | Message | Someone else chats or guesses wrong | Everyone else | Chat & players | `chat` (Interface Sounds `pluck_001`) |
 | Player joined / left | The player list gains or loses someone | Everyone | Chat & players | `player-join` (`drop_002`), `player-leave` (`back_002`) |
+| Paper crumple / kick | The host closes the room: it's scrunched into a ball, then the ball is kicked away | The host | Chat & players | `paper-crumple`, `paper-kick` (synthesised for the game: crackle bursts through resonant filters over a rustle; a thump, a papery tap and a whoosh. Not auditioned yet) |
 
 Rules:
 
@@ -43,11 +44,11 @@ To swap a clip, put the MP3 in `public/sounds/` and change the file name in `sou
 
 ## Home page music
 
-"Flowerbed Fields" by Zane Little (`public/sounds/flowerbed-fields.ogg`, plus a 128 kbps `.mp3` for browsers without Ogg). It's an `<audio>` element (`home-music.ts`, mounted by `HomeMusic.tsx` on `/` only), started on the first click or key press, looping, paused while the tab is hidden, and controlled by the Music group in a 🔊 button in the page's top corner. **Check the license** (credited in `CREDITS.txt`; not CC0 as far as we know).
+"Flowerbed Fields" by Zane Little (`public/sounds/flowerbed-fields.ogg`, plus a 128 kbps `.mp3` for browsers without Ogg). It's an `<audio>` element (`home-music.ts`, mounted by `HomeMusic.tsx` on `/`), started on the first click or key press, looping, paused while the tab is hidden, and controlled by the Music group in a 🔊 button in the page's top corner. It **carries on into the waiting room** (and back home): leaving a page while it plays leaves its position in sessionStorage, and the next page picks it up there (`WaitingRoomMusic`, only if it was playing). If the browser won't start it without a click on the new page, it waits for one. It fades out when the match starts. **Check the license** (credited in `CREDITS.txt`; not CC0 as far as we know).
 
 ## Sources and licenses
 
-Everything shipped today is **CC0**: three [Kenney](https://kenney.nl) packs ([Casino Audio](https://kenney.nl/assets/casino-audio), [Interface Sounds](https://kenney.nl/assets/interface-sounds), [Music Jingles](https://kenney.nl/assets/music-jingles)) and two Freesound recordings (the pencil and the glug, above). No credit is required, but it is given in `public/sounds/CREDITS.txt`. One-shots are mono 96 kbps MP3. The pencil loop is a 22 kHz mono WAV (132 KB), because MP3 adds silence at the start that would click on every loop. About 280 KB in total.
+Everything shipped today is **CC0**: the two paper sounds we made ourselves, three [Kenney](https://kenney.nl) packs ([Casino Audio](https://kenney.nl/assets/casino-audio), [Interface Sounds](https://kenney.nl/assets/interface-sounds), [Music Jingles](https://kenney.nl/assets/music-jingles)) and two Freesound recordings (the pencil and the glug, above). No credit is required, but it is given in `public/sounds/CREDITS.txt`. One-shots are mono 96 kbps MP3. The pencil loop is a 22 kHz mono WAV (132 KB), because MP3 adds silence at the start that would click on every loop. About 280 KB in total.
 
 ### Alternatives (researched 2026-10-04, not auditioned)
 
