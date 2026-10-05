@@ -1,11 +1,10 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
-import { useEnsureIdentity } from '../../app/features/identity';
+import { IdentityChip, useEnsureIdentity } from '../../app/features/identity';
 import { JoinRoomForm } from '../../app/features/join-room';
 import { RoomNotes, useCreateRoom, useQuickPlay } from '../../app/features/lobby';
 import { isThisDeviceAPhone } from '../../app/lib/device';
 import type { Identity } from '../../app/lib/identity';
-import { IdentityChip } from './IdentityChip';
 
 const queryClient = new QueryClient();
 

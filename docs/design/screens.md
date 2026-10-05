@@ -81,6 +81,8 @@ Player details (`features/player-list`):
 - The host gets a ⋯ menu on each player (kick, make host); others get vote to kick.
 - **In a match the list is a leaderboard**: sorted by score (ties share a rank and keep join order). When the order changes the characters slide to their new places, and whoever overtook someone grows, wiggles and glows as they pass. No motion with `prefers-reduced-motion` (no boil, sway, hop, float or slide either). The sort is display only: the drawing order is still the server's join-order rotation.
 
+The header's right end has your avatar chip (✏️: change your name or drawing, any time) and the sound settings.
+
 Drawer's view: the header shows the **full word** (e.g. "VAMPIRE ON A UNICYCLE" with a 🤪 tag) instead of blanks. The guess input is disabled and reads "You're drawing!".
 
 **Tablets in portrait** (built; any screen under 1024 px wide, while tablets in landscape and laptops get the sheet and the guess column): the canvas takes the top of the screen, at most ~56% of its height. The drawer's toolbar sits right under it. Below that, tabs switch between [Guesses] (the default, with a count of new lines while you're on Players) and [Players] (the same characters in a wrapping grid on a strip of paper), and the guess input is pinned at the bottom. Mid-match the page doesn't scroll, only the tab content. The lobby also stacks below 1024 px, "Join with a code" first.

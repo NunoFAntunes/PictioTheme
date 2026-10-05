@@ -6,6 +6,7 @@ import {
   useRoomStore,
   useSecondsLeft,
 } from '../../../realtime';
+import { RoomIdentityChip } from '../../identity';
 import { SoundSettingsButton } from '../../sound';
 
 /** `"_____ ___"` → spaced blanks plus word lengths "(5, 3)". Revealed hint letters show. */
@@ -128,6 +129,7 @@ export function RoomHeader() {
           </button>
         </div>
       )}
+      <RoomIdentityChip roomCode={view.code} />
       <SoundSettingsButton />
     </header>
   );

@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { followInvite, nameOnHome, newPlayerPage } from './support';
+import { followInvite, nameOnHome, newPlayerPage, startTurn } from './support';
 
 /** Drawn avatars: draw on the pad, and everyone in the room sees the image. */
 
@@ -67,6 +67,19 @@ test('a player who never drew draws themselves in the waiting room, and the room
   // The host sees the new name and drawing, without the guest reconnecting.
   const after = await loadedAvatar(host, 'Bo');
   expect(await after.getAttribute('src')).not.toBe(beforeSrc);
+});
+
+test('mid-match, a player renames themselves from the room header', async ({ browser }) => {
+  const { host, guest } = await startTurn(browser); // Ana draws, Bo guesses
+  await guest.getByRole('button', { name: /^Playing as Bo: change name or drawing/ }).click();
+  await guest.getByRole('textbox', { name: 'Your name', exact: true }).fill('Bobby');
+  await guest.getByRole('button', { name: 'Save' }).click();
+  // Mid-match the list is the leaderboard, inside the Players margin.
+  await expect(
+    host.getByRole('complementary', { name: 'Players' }).getByText('Bobby'),
+  ).toBeVisible();
+  // The turn carries on: nobody reconnected.
+  await expect(host.getByTestId('current-word')).toBeVisible();
 });
 
 /** Names in the player list, read from the avatars' alt text ("Bo's avatar"). */

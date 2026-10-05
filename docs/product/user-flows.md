@@ -78,6 +78,7 @@ When the room is created, the server generates a unique code and the host lands 
 - Player list on the left (avatar, name, crown for host, ready state).
 - Center: room code (large, click to copy), share link, the deck's back cover beside the code (with 🚩 to report the deck), then for the host the **deck picker** (open to start with, see §4), then the settings (editable by host only, read-only for others).
 - **"Draw yourself!"**: players still on their generated initial (§2) get the name field and avatar pad here, open to start with ("Not now" folds it to a "✏️ Change your name or drawing" link). Saving updates their entry in everyone's player list at once, without leaving the room.
+- Any time, even mid-match, everyone can change their name or drawing with their avatar chip (✏️) in the room header.
 - Chat is active.
 - Host actions: **Start game** (needs ≥ 2 players), kick player, transfer host, change settings, **rename the room and switch public/private** (any time; a public room shows up on the home page's room notes).
 - If the host leaves, host passes to the longest-present player.
