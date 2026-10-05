@@ -1,9 +1,27 @@
 ---
+import { Font } from 'astro:assets';
 import { App } from '../app/main';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// The logo font and the handwriting fonts for players' names (astro.config.mjs). None is preloaded:
+// they swap in when ready, and only once a room shows a name written in them.
+const FONTS = [
+  '--font-cherry-bomb',
+  '--font-rock-salt',
+  '--font-gloria-hallelujah',
+  '--font-gochi-hand',
+  '--font-schoolbell',
+  '--font-kranky',
+  '--font-sedgwick-ave',
+  '--font-walter-turncoat',
+  '--font-covered-by-your-grace',
+  '--font-just-me-again-down-here',
+  '--font-fuzzy-bubbles',
+] as const;
 ---
 
 <!-- The single shell for the React app. Every app route is rewritten here (see src/app-routes.ts). -->
 <BaseLayout>
+  {FONTS.map((cssVariable) => <Font slot="head" cssVariable={cssVariable} />)}
   <App client:only="react" />
 </BaseLayout>

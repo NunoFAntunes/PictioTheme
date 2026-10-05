@@ -23,6 +23,8 @@ type Props = {
   onCloseColorPopover: () => void;
   /** Overlays (choosing, reveal, paused) shown on top of the canvas. */
   children?: ReactNode;
+  /** On the room's sheet of paper: no frame of its own, so it blends into the players' margin. */
+  bare?: boolean;
   /**
    * Drawing somewhere other than the room (a deck cover): its own stroke model and logical
    * size, local `emit`, frame size and canvas label. Defaults are the room's 4:3 board.
@@ -49,6 +51,7 @@ export function DrawingBoard({
   children,
   pad,
   picking = false,
+  bare = false,
 }: Props) {
   const ownCanvasRef = useRef<HTMLCanvasElement>(null);
   const canvasRef = pad?.canvasRef ?? ownCanvasRef;
@@ -110,7 +113,7 @@ export function DrawingBoard({
 
   return (
     <div
-      className={`relative ${pad?.frameClassName ?? 'aspect-[4/3] w-full'} overflow-hidden rounded-xl border border-zinc-300 bg-white shadow-sm select-none [-webkit-touch-callout:none] dark:border-zinc-700`}
+      className={`relative ${pad?.frameClassName ?? 'aspect-[4/3] w-full'} overflow-hidden bg-white select-none [-webkit-touch-callout:none] ${bare ? '' : 'rounded-xl border border-zinc-300 shadow-sm dark:border-zinc-700'}`}
     >
       <canvas
         ref={canvasRef}

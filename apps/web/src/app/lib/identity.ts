@@ -6,7 +6,11 @@ import { create } from 'zustand';
  * Storage can be unavailable (private mode, blocked site data), so every access is guarded.
  */
 
-export type Identity = { displayName: string; avatar: AvatarImage };
+/**
+ * `cutout` marks an avatar saved as a transparent doodle. Older ones were drawn on a white square;
+ * features/identity re-cuts those once (AvatarUpgrade).
+ */
+export type Identity = { displayName: string; avatar: AvatarImage; cutout?: true };
 
 const STORAGE_KEY = 'pictiotheme.identity';
 
@@ -14,10 +18,13 @@ function load(): Identity | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as { displayName?: unknown; avatar?: unknown };
+    const parsed = JSON.parse(raw) as { displayName?: unknown; avatar?: unknown; cutout?: unknown };
     const name = DisplayName.safeParse(parsed.displayName);
     const avatar = AvatarImage.safeParse(parsed.avatar);
-    return name.success && avatar.success ? { displayName: name.data, avatar: avatar.data } : null;
+    if (!name.success || !avatar.success) return null;
+    return parsed.cutout === true
+      ? { displayName: name.data, avatar: avatar.data, cutout: true }
+      : { displayName: name.data, avatar: avatar.data };
   } catch {
     return null;
   }

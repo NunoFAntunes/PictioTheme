@@ -3,8 +3,11 @@ import { DEFAULT_TOOL, DrawingBoard, Toolbar, withColor } from '../../features/c
 import { TurnOverlay } from '../../features/turn-overlays';
 import { drawerIdOf, useRoomStore } from '../../realtime';
 
-/** The canvas during a match, with turn overlays and the drawer's toolbar. */
-export function GameBoard() {
+/**
+ * The canvas during a match, with turn overlays and the drawer's toolbar. `bare` when it sits on
+ * the room's sheet of paper next to the players (wide screens).
+ */
+export function GameBoard({ bare = false }: { bare?: boolean }) {
   const view = useRoomStore((s) => s.view);
   const [tool, setTool] = useState(DEFAULT_TOOL);
   const [colorPopoverOpen, setColorPopoverOpen] = useState(false);
@@ -28,8 +31,9 @@ export function GameBoard() {
   if (!view) return null;
 
   return (
-    <div className="flex w-full flex-col gap-2">
+    <div className={`flex w-full flex-col gap-2 ${bare ? 'pb-2' : ''}`}>
       <DrawingBoard
+        bare={bare}
         canDraw={canDraw}
         tool={tool}
         onToolChange={(patch) => setTool((t) => ({ ...t, ...patch }))}

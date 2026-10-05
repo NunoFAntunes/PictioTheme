@@ -42,7 +42,7 @@ Rules:
 
 ### Guess visibility (host setting)
 
-- **Show guesses** (default): wrong guesses appear as speech bubbles next to the player's avatar in the left list and in the feed. It's funnier and more social.
+- **Show guesses** (default): wrong guesses appear as speech bubbles above the player's character in the board's margin and in the feed. It's funnier and more social.
 - **Hide guesses**: players only see their own guesses and "X guessed it!" events. Use this for competitive play or streams.
 
 The host can change this between turns.

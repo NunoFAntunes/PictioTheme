@@ -9,9 +9,10 @@ import {
   type Bubble,
   type RoomView,
 } from '../../../realtime';
-import { Avatar } from '../../avatar';
 import { rankByScore } from '../leaderboard';
 import { useLeaderboardMotion } from '../use-leaderboard-motion';
+import { BoilFilters } from './BoilFilters';
+import { PlayerCharacter, type CharacterSize } from './PlayerCharacter';
 
 const BUBBLE_MS = 3_000;
 const REDACTED = '██████';
@@ -27,7 +28,7 @@ function GuessBubble({ bubble, own }: { bubble: Bubble; own: boolean }) {
       </span>
     );
   }
-  return <span className="text-zinc-500">{bubble.text}</span>;
+  return <span>{bubble.text}</span>;
 }
 
 function PlayerActions({ player, view }: { player: PublicPlayer; view: RoomView }) {
@@ -36,7 +37,7 @@ function PlayerActions({ player, view }: { player: PublicPlayer; view: RoomView 
   return (
     <details className="relative">
       <summary
-        className="cursor-pointer list-none rounded px-1 text-zinc-400 hover:text-zinc-700"
+        className="cursor-pointer list-none rounded px-1 text-zinc-400 hover:text-zinc-700 pointer-coarse:px-2"
         aria-label={`Actions for ${player.name}`}
       >
         ⋯
@@ -73,11 +74,17 @@ function PlayerActions({ player, view }: { player: PublicPlayer; view: RoomView 
   );
 }
 
+/** Characters shrink as the room fills up, so more fit in the margin before it scrolls. */
+function sizeFor(count: number): CharacterSize {
+  return count <= 6 ? 'lg' : count <= 10 ? 'md' : 'sm';
+}
+
 /**
- * Players on the left: big drawn avatar, then name, status, latest guess and score (screens.md §4).
- * In a match it is a leaderboard: sorted by score, rows slide when someone overtakes.
+ * The players, each drawn as their own doodle (screens.md §4): a column in the sheet's left margin,
+ * or a wrapping grid in the tablet's Players tab. In a match it is a leaderboard: sorted by score,
+ * with characters sliding past each other when someone overtakes.
  */
-export function PlayerList() {
+export function PlayerList({ layout = 'column' }: { layout?: 'column' | 'grid' }) {
   const view = useRoomStore((s) => s.view);
   const now = useNow(500);
   const list = useRef<HTMLUListElement>(null);
@@ -91,74 +98,53 @@ export function PlayerList() {
   useLeaderboardMotion(list, ranked);
   if (!view) return null;
   const drawerId = drawerIdOf(view.phase);
+  const size = sizeFor(view.players.length);
+  const reveal = view.phase.kind === 'reveal' ? view.phase : null;
 
   return (
-    <ul ref={list} className="flex flex-col gap-1" aria-label={inGame ? 'Leaderboard' : 'Players'}>
-      {ranked.map(({ player: p, rank }) => {
-        const bubble = view.bubbles[p.id];
-        const showBubble =
-          bubble &&
-          now - bubble.at < BUBBLE_MS &&
-          (view.settings.guessVisibility === 'show' ||
-            p.id === view.you ||
-            bubble.kind === 'correct');
-        return (
-          <li
-            key={p.id}
-            data-player-id={p.id}
-            className={`relative flex items-center gap-2.5 rounded-xl p-1.5 ${p.connected ? '' : 'opacity-50'} ${p.guessedThisTurn ? 'bg-solved/15' : ''}`}
-          >
-            <div className="relative shrink-0">
-              <Avatar id={p.avatar} size="lg" alt={`${p.name}'s avatar`} />
-              {p.isHost && (
-                <span
-                  className="absolute -top-2 -left-1.5 text-base drop-shadow"
-                  title="Host"
-                  aria-label="Host"
-                >
-                  👑
-                </span>
-              )}
-              {p.id === drawerId && (
-                <span
-                  className="absolute -right-1.5 -bottom-1.5 rounded-full bg-white px-0.5 text-sm shadow dark:bg-zinc-900"
-                  aria-hidden="true"
-                >
-                  ✏️
-                </span>
-              )}
-            </div>
-            <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-              <div className="flex items-baseline gap-1 truncate text-xs text-zinc-600 dark:text-zinc-300">
-                <span className="truncate font-medium">{p.name}</span>
-                {p.id === view.you && <span className="text-zinc-400">(you)</span>}
-              </div>
-              <div className="truncate text-xs">
-                {p.id === drawerId ? (
-                  <span>drawing</span>
-                ) : !p.connected ? (
-                  <span>💤 away</span>
-                ) : showBubble ? (
-                  <span className="inline-block max-w-full truncate rounded-lg rounded-tl-none bg-zinc-100 px-1.5 py-0.5 dark:bg-zinc-800">
-                    <GuessBubble bubble={bubble} own={p.id === view.you} />
-                  </span>
-                ) : p.guessedThisTurn ? (
-                  <span className="text-solved">✅ guessed!</span>
-                ) : null}
-              </div>
-              {inGame && (
-                <span className="flex items-baseline gap-1.5 tabular-nums">
-                  <span className="text-xs text-zinc-400" aria-label={`Rank ${rank}`}>
-                    #{rank}
-                  </span>
-                  <span className="text-sm font-semibold">{p.score}</span>
-                </span>
-              )}
-            </div>
-            <PlayerActions player={p} view={view} />
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <BoilFilters />
+      <ul
+        ref={list}
+        className={
+          layout === 'column'
+            ? 'flex flex-col items-center gap-8 pt-9'
+            : 'flex flex-wrap justify-center gap-x-8 gap-y-6 pt-9'
+        }
+        aria-label={inGame ? 'Leaderboard' : 'Players'}
+      >
+        {ranked.map(({ player: p, rank }) => {
+          const bubble = view.bubbles[p.id];
+          const showBubble =
+            bubble &&
+            now - bubble.at < BUBBLE_MS &&
+            (view.settings.guessVisibility === 'show' ||
+              p.id === view.you ||
+              bubble.kind === 'correct');
+          return (
+            <li key={p.id} data-player-id={p.id} className="w-full max-w-36 px-6">
+              <PlayerCharacter
+                player={p}
+                roomCode={view.code}
+                size={size}
+                you={p.id === view.you}
+                drawing={p.id === drawerId}
+                bubble={showBubble ? <GuessBubble bubble={bubble} own={p.id === view.you} /> : null}
+                score={
+                  inGame
+                    ? {
+                        rank,
+                        gained: reveal?.deltas[p.id] ?? 0,
+                        turnKey: reveal ? String(reveal.endsAt) : '',
+                      }
+                    : null
+                }
+                actions={<PlayerActions player={p} view={view} />}
+              />
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 }
