@@ -10,9 +10,9 @@ import { ScoreSticker, type StickerSize } from './ScoreSticker';
  */
 
 const SIZES = {
-  lg: { figure: 'size-22', name: 1.05 },
-  md: { figure: 'size-16', name: 0.9 },
-  sm: { figure: 'size-12', name: 0.78 },
+  lg: { figure: 'size-30', name: 1.3 },
+  md: { figure: 'size-22', name: 1.1 },
+  sm: { figure: 'size-16', name: 0.9 },
 } as const satisfies Record<StickerSize, { figure: string; name: number }>;
 
 export type CharacterSize = StickerSize;
@@ -113,11 +113,16 @@ export function PlayerCharacter({
         )}
       </div>
       <p
-        className="line-clamp-2 max-w-full text-center leading-tight break-words text-ink"
+        className="line-clamp-2 max-w-full text-center leading-tight break-words text-ink [-webkit-text-stroke:0.035em_currentColor]"
         style={{ fontFamily: font.family, fontSize: `${SIZES[size].name * font.scale}rem` }}
       >
         {p.name}
-        {you && <span className="font-sans text-[0.65rem] text-zinc-400"> (you)</span>}
+        {you && (
+          <span className="font-sans text-[0.65rem] text-zinc-400 [-webkit-text-stroke:0]">
+            {' '}
+            (you)
+          </span>
+        )}
         {status && <span className="sr-only">, {status}</span>}
       </p>
       <div className="absolute -top-1 -right-1">{actions}</div>

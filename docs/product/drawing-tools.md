@@ -22,7 +22,7 @@ The canvas is half the game, so it needs to feel responsive and capable without 
 | **Colour picker** | Full HSV picker with hex input. The last 8 picked colours are kept as "recent" swatches (in the [`C` popover](#picking-and-sampling-colours)) |
 | **Eyedropper** | Pick up a colour from the canvas: `Alt`+click or a right-click. See [below](#picking-and-sampling-colours) |
 | **Eraser** | Same size control. Erases to transparent/background |
-| **Fill bucket** | Flood fill with tolerance. Runs on the rasterized canvas (see technical notes) |
+| **Fill bucket** | Flood fill with tolerance, grown 1 px so it tucks under a stroke's soft edge. Runs on the rasterized canvas (see technical notes) |
 | **Undo / Redo** | At least 50 steps. Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z |
 | **Clear canvas** | Asks for confirmation. Can be undone |
 | **Cursor preview** | A ring at the pointer, the exact size a stroke will be on screen. See [below](#cursor-preview) |

@@ -76,9 +76,9 @@ When the room is created, the server generates a unique code and the host lands 
 ## 5. Waiting room
 
 - Player list on the left (avatar, name, crown for host, ready state).
-- Center: room code (large, click to copy), share link, the deck's back cover beside the code (with 🚩 to report the deck), then for the host the **deck picker** (open to start with, see §4), then the settings (editable by host only, read-only for others).
-- **"Draw yourself!"**: players still on their generated initial (§2) get the name field and avatar pad here, open to start with ("Not now" folds it to a "✏️ Change your name or drawing" link). Saving updates their entry in everyone's player list at once, without leaving the room.
-- Any time, even mid-match, everyone can change their name or drawing with their avatar chip (✏️) in the room header.
+- Center ([screens.md](../design/screens.md#3-the-waiting-room-choosing-the-deck-house-rules) §3): the room's name as the title (the host renames it in place), then one card with the deck (its back cover, with 🚩 to report it, and the rules at a glance), the room code (click to copy) and share link, and Start game. Then for the host the **deck library** (see §4) beside the **house rules** (editable by host only, read-only for others).
+- **"Draw yourself!"**: players still on their generated initial (§2) get the name field and avatar pad here, open to start with ("Not now" folds it to a one-line "Draw yourself" prompt). The host gets the prompt from the start, so the deck and rules stay in view. Saving updates their entry in everyone's player list at once, without leaving the room. Once they've drawn, the prompt is gone: the header's "you" sticker is where to change it.
+- Any time, even mid-match, everyone can change their name or drawing with their "you" sticker (avatar, name, ✏️) in the room header.
 - Chat is active.
 - Host actions: **Start game** (needs ≥ 2 players), kick player, transfer host, change settings, **rename the room and switch public/private** (any time; a public room shows up on the home page's room notes).
 - If the host leaves, host passes to the longest-present player.

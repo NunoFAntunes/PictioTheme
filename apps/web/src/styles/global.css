@@ -66,6 +66,19 @@
     }
   }
 
+  /* The waiting room's name (features/waiting-room RoomTitle): sticker letters pop on, one by one. */
+  --animate-sticker-pop: sticker-pop 500ms cubic-bezier(0.34, 1.6, 0.64, 1) backwards;
+  --animate-squiggle-draw: swirl-draw 600ms ease-out backwards;
+
+  @keyframes sticker-pop {
+    from {
+      translate: 0 -0.6em;
+      rotate: var(--drop-spin, 0deg);
+      scale: 0.2;
+      opacity: 0;
+    }
+  }
+
   /* Card deck: shuffle, deal, flip, pick (features/turn-overlays). Delays are set inline. */
   --animate-deck-riffle-left: deck-riffle-left 300ms ease-in-out 2;
   --animate-deck-riffle-right: deck-riffle-right 300ms ease-in-out 2;

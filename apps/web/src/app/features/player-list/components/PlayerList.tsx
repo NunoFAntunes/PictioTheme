@@ -108,7 +108,7 @@ export function PlayerList({ layout = 'column' }: { layout?: 'column' | 'grid' }
         ref={list}
         className={
           layout === 'column'
-            ? 'flex flex-col items-center gap-8 pt-9'
+            ? 'flex min-h-full flex-col items-center justify-center gap-5 py-8'
             : 'flex flex-wrap justify-center gap-x-8 gap-y-6 pt-9'
         }
         aria-label={inGame ? 'Leaderboard' : 'Players'}
@@ -122,7 +122,7 @@ export function PlayerList({ layout = 'column' }: { layout?: 'column' | 'grid' }
               p.id === view.you ||
               bubble.kind === 'correct');
           return (
-            <li key={p.id} data-player-id={p.id} className="w-full max-w-36 px-6">
+            <li key={p.id} data-player-id={p.id} className="w-full max-w-44 px-2">
               <PlayerCharacter
                 player={p}
                 roomCode={view.code}

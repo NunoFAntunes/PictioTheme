@@ -7,6 +7,7 @@ import {
   useSecondsLeft,
 } from '../../../realtime';
 import { RoomIdentityChip } from '../../identity';
+import { nameFont } from '../../player-list';
 import { SoundSettingsButton } from '../../sound';
 
 /** `"_____ ___"` → spaced blanks plus word lengths "(5, 3)". Revealed hint letters show. */
@@ -52,6 +53,8 @@ export function RoomHeader() {
   const endsAt = 'endsAt' in phase ? phase.endsAt : null;
   const word = view.secret.word;
   const isDrawer = drawerIdOf(phase) === view.you;
+  // Your name in the header, in the same hand the player list writes it.
+  const font = nameFont(view.you, view.code);
 
   return (
     <header className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-zinc-200 px-4 py-2 dark:border-zinc-800">
@@ -75,7 +78,6 @@ export function RoomHeader() {
           ) : (
             <MaskedWord mask={phase.mask} />
           ))}
-        {phase.kind === 'waiting' && <span className="text-zinc-500">{view.name}</span>}
       </div>
 
       {connection.kind === 'reconnecting' && (
@@ -129,7 +131,10 @@ export function RoomHeader() {
           </button>
         </div>
       )}
-      <RoomIdentityChip roomCode={view.code} />
+      <RoomIdentityChip
+        roomCode={view.code}
+        nameStyle={{ fontFamily: font.family, fontSize: `${font.scale}rem` }}
+      />
       <SoundSettingsButton />
     </header>
   );

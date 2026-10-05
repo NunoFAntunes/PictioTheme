@@ -18,8 +18,20 @@ describe('floodFill', () => {
     const data = imageWithWall();
     floodFill(data, 5, 5, 0, 0, [255, 0, 0, 255], 0);
     expect(pixel(data, 1, 4)).toEqual([255, 0, 0, 255]);
-    expect(pixel(data, 2, 2)).toEqual([0, 0, 0, 255]); // the wall
     expect(pixel(data, 3, 0)).toEqual([0, 0, 0, 0]); // the other side
+  });
+
+  it('grows 1 px into the edge so no ring is left', () => {
+    // A 2-px wall at x = 2..3: an anti-aliased edge pixel at x = 2, solid ink at x = 3.
+    const data = new Uint8ClampedArray(5 * 5 * 4);
+    for (let y = 0; y < 5; y++) {
+      data.set([0, 0, 0, 128], (y * 5 + 2) * 4);
+      data.set([0, 0, 0, 255], (y * 5 + 3) * 4);
+    }
+    floodFill(data, 5, 5, 0, 0, [255, 0, 0, 255], 0);
+    expect(pixel(data, 2, 2)).toEqual([255, 0, 0, 255]); // the edge pixel is covered
+    expect(pixel(data, 3, 2)).toEqual([0, 0, 0, 255]); // but only 1 px of it
+    expect(pixel(data, 4, 2)).toEqual([0, 0, 0, 0]); // and the fill doesn't leak past
   });
 
   it('is deterministic', () => {
@@ -31,11 +43,17 @@ describe('floodFill', () => {
   });
 
   it('respects tolerance', () => {
+    // Transparent left half; a 2-px opaque dark wall at x = 2..3 (2 px, so the 1-px grow can't hide it).
     const data = new Uint8ClampedArray(5 * 5 * 4).fill(0);
-    data.set([20, 20, 20, 255], (0 * 5 + 1) * 4); // opaque dark pixel next to transparent ones
+    for (let y = 0; y < 5; y++) {
+      data.set([10, 10, 10, 10], (y * 5 + 1) * 4); // within tolerance of transparent
+      data.set([20, 20, 20, 255], (y * 5 + 2) * 4);
+      data.set([20, 20, 20, 255], (y * 5 + 3) * 4);
+    }
     floodFill(data, 5, 5, 0, 0, [255, 255, 255, 255], 30);
-    expect(pixel(data, 1, 0)).toEqual([20, 20, 20, 255]); // alpha 255 vs 0 is outside tolerance
-    expect(pixel(data, 4, 4)).toEqual([255, 255, 255, 255]);
+    expect(pixel(data, 1, 4)).toEqual([255, 255, 255, 255]); // inside tolerance: filled
+    expect(pixel(data, 3, 2)).toEqual([20, 20, 20, 255]); // alpha 255 vs 0 is outside tolerance
+    expect(pixel(data, 4, 2)).toEqual([0, 0, 0, 0]);
   });
 
   it('parses hex colours', () => {

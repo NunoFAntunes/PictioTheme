@@ -23,9 +23,9 @@ const COLOURS = [
 ] as const;
 
 const SIZES = {
-  lg: { box: 'size-11', number: 'text-sm' },
-  md: { box: 'size-9', number: 'text-xs' },
-  sm: { box: 'size-8', number: 'text-[0.65rem]' },
+  lg: { box: 'size-14', number: 'text-base' },
+  md: { box: 'size-11', number: 'text-sm' },
+  sm: { box: 'size-9', number: 'text-xs' },
 } as const;
 
 export type StickerSize = keyof typeof SIZES;

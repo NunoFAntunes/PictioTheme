@@ -11,7 +11,9 @@ const SIZES = {
   md: 'w-24 rounded-lg text-sm',
   lg: 'w-40 rounded-xl text-lg',
   /** Beside the waiting room's code: about as tall as it, so the page doesn't grow. */
-  compact: 'w-20 rounded-lg text-xs',
+  compact: 'w-20 rounded-lg text-[0.625rem]',
+  /** As wide as its container: the deck picker's tiles. */
+  fill: 'w-full rounded-lg text-xs',
 } as const;
 
 export function coverUrl(id: DeckCoverId): string {
@@ -33,6 +35,7 @@ export function DeckCover({ deck, size = 'md', src }: Props) {
       <img
         src={image}
         alt={`Cover of ${deck.title}`}
+        loading="lazy"
         draggable={false}
         className={`${frame} bg-white object-cover`}
       />
@@ -47,7 +50,7 @@ export function DeckCover({ deck, size = 'md', src }: Props) {
     >
       <span
         aria-hidden
-        className="line-clamp-4 rounded bg-black/20 px-1 py-0.5 [overflow-wrap:anywhere]"
+        className="line-clamp-4 rounded bg-black/20 px-1 py-0.5 hyphens-auto break-words"
       >
         {size === 'sm' ? ([...deck.title.trim()][0]?.toUpperCase() ?? '?') : deck.title}
       </span>

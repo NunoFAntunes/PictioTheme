@@ -67,10 +67,12 @@ test('the host renames a private room and makes it public, and it shows on the h
   await host.getByRole('button', { name: /new private room/i }).click();
   await expect(host.getByTestId('room-code')).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/);
 
+  await host.getByRole('button', { name: 'Rename the room' }).click();
   await host.getByLabel('Room name').fill('Spooky Scribblers');
   await host.getByLabel('Room name').press('Enter');
   await host.getByRole('switch', { name: 'Public room' }).click();
   await expect(host.getByText(/public room · share this code/i)).toBeVisible();
+  await expect(host.getByRole('heading', { name: 'Spooky Scribblers' })).toBeVisible();
 
   const visitor = await newPlayerPage(browser);
   await visitor.goto('/');

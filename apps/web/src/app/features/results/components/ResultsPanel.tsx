@@ -4,7 +4,7 @@ import { amHost, playerById, sendToRoom, useRoomStore } from '../../../realtime'
 import { Avatar } from '../../avatar';
 import { DeckCover } from '../../deck-cover';
 import { ReportDeckButton } from '../../report-deck';
-import { RoomSettingsForm } from '../../waiting-room';
+import { RoomSettingsForm, RoomTitle } from '../../waiting-room';
 
 const AWARD_LABEL: Record<Award['id'], string> = {
   fastest_guesser: '⚡ Fastest guesser',
@@ -61,7 +61,8 @@ export function ResultsPanel() {
         </ul>
       )}
       {editing && host && (
-        <div className="w-full rounded-2xl border border-zinc-200 p-4 dark:border-zinc-800">
+        <div className="flex w-full flex-col gap-4 rounded-2xl border border-zinc-200 p-4 dark:border-zinc-800">
+          <RoomTitle name={view.name} editable />
           <RoomSettingsForm view={view} editable />
         </div>
       )}

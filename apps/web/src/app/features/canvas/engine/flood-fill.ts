@@ -11,7 +11,11 @@ export function hexToRgba(hex: string): Rgba {
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255, 255];
 }
 
-/** Fills the region connected to (x, y) whose colour is within `tolerance` (0–255 per channel). */
+/**
+ * Fills the region connected to (x, y) whose colour is within `tolerance` (0–255 per channel),
+ * then grows it by 1 px (8-neighbourhood) so no unfilled ring is left at a stroke's anti-aliased
+ * edge.
+ */
 export function floodFill(
   data: Uint8ClampedArray,
   width: number,
@@ -42,13 +46,26 @@ export function floodFill(
     );
   };
   const visited = new Uint8Array(width * height);
-  const paint = (pixel: number) => {
+  let minX = x0;
+  let maxX = x0;
+  let minY = y0;
+  let maxY = y0;
+  const setFill = (pixel: number) => {
     const i = pixel * 4;
     data[i] = fill[0];
     data[i + 1] = fill[1];
     data[i + 2] = fill[2];
     data[i + 3] = fill[3];
+  };
+  const paint = (pixel: number) => {
+    setFill(pixel);
     visited[pixel] = 1;
+    const x = pixel % width;
+    const y = (pixel - x) / width;
+    if (x < minX) minX = x;
+    if (x > maxX) maxX = x;
+    if (y < minY) minY = y;
+    if (y > maxY) maxY = y;
   };
 
   const stack: number[] = [x0, y0];
@@ -77,4 +94,26 @@ export function floodFill(
       }
     }
   }
+
+  // Grow by 1 px: collect first, so grown pixels don't grow further.
+  const edge: number[] = [];
+  for (let y = Math.max(0, minY - 1); y <= Math.min(height - 1, maxY + 1); y++) {
+    for (let x = Math.max(0, minX - 1); x <= Math.min(width - 1, maxX + 1); x++) {
+      if (visited[y * width + x]) continue;
+      let touches = false;
+      for (let dy = -1; dy <= 1 && !touches; dy++) {
+        const ny = y + dy;
+        if (ny < 0 || ny >= height) continue;
+        for (let dx = -1; dx <= 1; dx++) {
+          const nx = x + dx;
+          if (nx >= 0 && nx < width && visited[ny * width + nx]) {
+            touches = true;
+            break;
+          }
+        }
+      }
+      if (touches) edge.push(y * width + x);
+    }
+  }
+  for (const pixel of edge) setFill(pixel);
 }
