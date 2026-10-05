@@ -21,8 +21,20 @@ export default defineConfig({
   },
   projects: [
     { name: 'chrome', use: { ...devices['Desktop Chrome'], channel: 'chrome' } },
-    { name: 'firefox', use: devices['Desktop Firefox'], testMatch: CROSS_BROWSER },
-    { name: 'webkit', use: devices['Desktop Safari'], testMatch: CROSS_BROWSER },
+    // Each new context loads every unbundled dev module from cold, and these engines are much
+    // slower at it on CI: in WebKit, `startTurn` alone has taken 57s of a 60s budget.
+    {
+      name: 'firefox',
+      use: devices['Desktop Firefox'],
+      testMatch: CROSS_BROWSER,
+      timeout: 120_000,
+    },
+    {
+      name: 'webkit',
+      use: devices['Desktop Safari'],
+      testMatch: CROSS_BROWSER,
+      timeout: 120_000,
+    },
   ],
   webServer: [
     {
