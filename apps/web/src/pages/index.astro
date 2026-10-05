@@ -12,6 +12,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="DoodleWhirl! · Draw it. Guess it. Theme it." fluidRoot>
   <!-- Preload only Latin: the font's ~50 Japanese chunks download only if such text appears. -->
   <Font slot="head" cssVariable="--font-cherry-bomb" preload={[{ subset: 'latin' }]} />
+  <!-- Back from a room, the logo and paper morph into place: skip the intro (global.css, intro:). -->
+  <script slot="head" is:inline>
+    addEventListener('pagereveal', (event) => {
+      if (event.viewTransition) document.documentElement.dataset.arrived = '';
+    });
+  </script>
   <main
     class="relative flex min-h-dvh items-center justify-center overflow-clip bg-desk px-4 py-10 sm:px-8 dark:bg-desk-dark"
   >
@@ -23,7 +29,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <!-- A sheet of ruled paper dropped on the desk: the stage for the logo and the lobby, the same in both themes. -->
       <div
         data-paper
-        class="relative w-full -rotate-1 rounded-sm bg-paper bg-[repeating-linear-gradient(to_bottom,transparent_0_2.25rem,var(--color-paper-line)_2.25rem_calc(2.25rem+1px))] px-6 pt-20 pb-12 text-center text-ink shadow-[0_2px_0_rgb(0_0_0/0.06),0_30px_60px_-24px_rgb(0_0_0/0.45)] motion-safe:animate-paper-drop sm:px-12 sm:pt-20"
+        class="relative w-full -rotate-1 rounded-sm bg-paper bg-[repeating-linear-gradient(to_bottom,transparent_0_2.25rem,var(--color-paper-line)_2.25rem_calc(2.25rem+1px))] px-6 pt-20 pb-12 text-center text-ink shadow-[0_2px_0_rgb(0_0_0/0.06),0_30px_60px_-24px_rgb(0_0_0/0.45)] motion-safe:intro:animate-paper-drop [view-transition-name:sheet] sm:px-12 sm:pt-20"
       >
         <div
           aria-hidden="true"

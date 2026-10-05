@@ -34,6 +34,10 @@ desk ─────────────────────────
 
 Retired: the home page is the lobby (§1). `/play` redirects to `/`. Filters for the room notes ("waiting", "has space", theme search) are still to come.
 
+## Home → room (built)
+
+The room is the home page's desk with the game on it, so entering one doesn't feel like a different site. The same desk and drifting doodles lie behind the room. They carry on from where they were, then stop and fade while a match is on. The room's sheet and the guess column (taped down) are paper, and the header has the logo in its coloured sticker letters. With a view transition (Chrome, Edge, Safari 18.2+, not with reduced motion), the hero logo shrinks into the header's top-left and the home page's paper straightens into the room's sheet. The way back reverses it and skips the home intro. The room's empty frame (logo, sheet, guess column) is the first thing the room page shows, also while joining.
+
 ## 3. The waiting room (choosing the deck, house rules)
 
 There's no create-room form: rooms are made in one click (user-flows.md §3). The waiting room fills the sheet beside the players' margin (up to `max-w-6xl`) and lays itself out by its own width (a CSS size container), so it works the same beside the guess column, on a 1024 px laptop and on a tablet in portrait:

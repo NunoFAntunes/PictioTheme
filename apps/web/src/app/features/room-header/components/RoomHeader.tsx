@@ -9,6 +9,8 @@ import {
 import { RoomIdentityChip } from '../../identity';
 import { nameFont } from '../../player-list';
 import { SoundSettingsButton } from '../../sound';
+import { HEADER } from '../../../ui/room-frame';
+import { StickerLogo } from '../../../ui/StickerLogo';
 
 /** `"_____ ___"` → spaced blanks plus word lengths "(5, 3)". Revealed hint letters show. */
 function MaskedWord({ mask }: { mask: string }) {
@@ -57,10 +59,8 @@ export function RoomHeader() {
   const font = nameFont(view.you, view.code);
 
   return (
-    <header className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-zinc-200 px-4 py-2 dark:border-zinc-800">
-      <a href="/" className="font-logo text-xl text-ink dark:text-zinc-100">
-        DoodleWhirl!
-      </a>
+    <header className={HEADER}>
+      <StickerLogo />
       {inMatch && (
         <span className="text-sm">
           Round {view.round}/{view.settings.rounds}

@@ -12,6 +12,12 @@
   }
 }
 
+/*
+ * The home page's intro (paper drop, letters rain, pencil, swirl) plays only on a fresh visit,
+ * not when coming back from a room through a view transition (index.astro sets data-arrived).
+ */
+@custom-variant intro (html:not([data-arrived]) &);
+
 /* Design tokens (rule W13). Extend here, not with one-off CSS classes. */
 @theme {
   --color-brand-50: oklch(0.97 0.03 300);
@@ -230,4 +236,33 @@ html.fluid-root {
 
 body {
   @apply min-h-dvh bg-white text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+}
+
+/*
+ * Page to page (home ⇄ room) is a cross-document view transition, not a swap: the logo shrinks
+ * into the room's header (StickerLogo) and the home page's sheet of paper becomes the room's
+ * (`logo` and `sheet`), while the desk under them stays put. Browsers without it just navigate.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+::view-transition-group(logo),
+::view-transition-group(sheet) {
+  animation-duration: 600ms;
+  animation-timing-function: cubic-bezier(0.34, 1.25, 0.64, 1);
+}
+
+::view-transition-old(logo),
+::view-transition-new(logo) {
+  /* Big two-line hero ⇄ small one-line logo: keep the letters' shape, let the group resize. */
+  height: 100%;
+  object-fit: contain;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 350ms;
 }

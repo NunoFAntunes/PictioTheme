@@ -1,10 +1,12 @@
 ---
 import { Font } from 'astro:assets';
 import { App } from '../app/main';
+import { RoomShell } from '../app/routes/room/RoomShell';
+import DoodleDesk from '../components/home/DoodleDesk.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// The logo font and the handwriting fonts for players' names (astro.config.mjs). None is preloaded:
-// they swap in when ready, and only once a room shows a name written in them.
+// The logo font and the handwriting fonts for players' names (astro.config.mjs). Only the logo's
+// Latin file is preloaded (it's in the first frame); the names swap in once a room shows them.
 const FONTS = [
   '--font-cherry-bomb',
   '--font-rock-salt',
@@ -23,6 +25,25 @@ const FONTS = [
 <!-- The single shell for the React app. Every app route is rewritten here (see src/app-routes.ts).
      fluidRoot: like the home page, the room grows with 1440p and 4K screens. -->
 <BaseLayout fluidRoot>
-  {FONTS.map((cssVariable) => <Font slot="head" cssVariable={cssVariable} />)}
-  <App client:only="react" />
+  {
+    FONTS.map((cssVariable) => (
+      <Font
+        slot="head"
+        cssVariable={cssVariable}
+        preload={cssVariable === '--font-cherry-bomb' ? [{ subset: 'latin' }] : false}
+      />
+    ))
+  }
+  <!-- The home page's desk carries on behind the room, and calms down during a match (RoomPage). -->
+  <div
+    aria-hidden="true"
+    class="fixed inset-0 -z-10 bg-desk transition-opacity duration-700 dark:bg-desk-dark [[data-calm-desk]_&]:opacity-40 [[data-calm-desk]_&_*]:[animation-play-state:paused]"
+  >
+    <DoodleDesk />
+  </div>
+  <!-- The first frame is the room's empty frame (logo, sheet, guess column), server-rendered, so
+       the home page's logo and paper have somewhere to land (view transitions, global.css). -->
+  <App client:only="react">
+    <RoomShell slot="fallback" title="Opening the room…" />
+  </App>
 </BaseLayout>

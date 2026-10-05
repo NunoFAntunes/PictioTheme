@@ -6,6 +6,8 @@ import { DOODLES } from './doodles';
  * The desk behind the home page's paper: lanes of faded silly doodles drifting left and right,
  * slipping under the sheet and out the other side (screens.md §1). Server-rendered, CSS only:
  * each lane is two copies of the same strip sliding by one copy. Reduced motion keeps them still.
+ * The room (app.astro) has the same desk: the lanes run on the wall clock (--desk-clock, set
+ * before they render), so going from one page to the other they carry on from where they were.
  */
 const lanes = layOutLanes();
 const symbols = Object.values(DOODLES).flat();
@@ -23,6 +25,9 @@ const TONE: Record<LaneTone, string> = {
   aria-hidden="true"
   class="pointer-events-none absolute inset-0 flex flex-col justify-evenly overflow-hidden fill-none stroke-current stroke-3 [stroke-linecap:round] [stroke-linejoin:round]"
 >
+  <script is:inline>
+    document.documentElement.style.setProperty('--desk-clock', `${-((Date.now() / 1000) % 86400)}s`);
+  </script>
   <svg class="absolute size-0">
     {
       symbols.map((doodle) => (
@@ -39,7 +44,7 @@ const TONE: Record<LaneTone, string> = {
       <div class:list={['flex shrink-0 items-center', TONE[lane.tone]]} style={`height: ${lane.height}rem`}>
         <div
           class="flex w-max items-center motion-safe:animate-doodle-lane"
-          style={`--lane-duration: ${lane.duration}s; animation-delay: ${lane.delay}s; animation-direction: ${lane.reverse ? 'reverse' : 'normal'}`}
+          style={`--lane-duration: ${lane.duration}s; animation-delay: calc(${lane.delay}s + var(--desk-clock, 0s)); animation-direction: ${lane.reverse ? 'reverse' : 'normal'}`}
         >
           {[...lane.doodles, ...lane.doodles].map((d) => (
             <svg

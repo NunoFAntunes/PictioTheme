@@ -14,17 +14,18 @@ import type { PlayerIdentity } from '@pictiotheme/protocol';
 import { useIdentity } from '../../lib/identity';
 import { useMediaQuery } from '../../lib/use-media-query';
 import { connectRoom, useRoomStore, type RoomView } from '../../realtime';
+import { NOTE, SHEET } from '../../ui/room-frame';
 import { GameBoard } from './GameBoard';
+import { MarginLine, RoomShell, Tape, WIDE } from './RoomShell';
 
 function CenteredMessage({ title, children }: { title: string; children?: ReactNode }) {
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col items-center justify-center gap-4 px-4 text-center">
-      <h1 className="text-2xl font-semibold">{title}</h1>
+    <RoomShell title={title}>
       {children}
       <a href="/" className="text-brand-600 underline">
         Back to the lobby
       </a>
-    </main>
+    </RoomShell>
   );
 }
 
@@ -74,9 +75,6 @@ function RoomSession({ code }: { code: string }) {
   );
 }
 
-/** Wide screens (laptops, tablets in landscape): the sheet (players' margin + board) · guesses. */
-const WIDE = '(min-width: 1024px)';
-
 /**
  * One sheet of paper: the players stand in its left margin, right next to the canvas, with nothing
  * but a faint margin line between them. Always light, like the paper on the landing page.
@@ -84,15 +82,12 @@ const WIDE = '(min-width: 1024px)';
 function RoomSheet({ phase, children }: { phase: RoomView['phase']['kind']; children: ReactNode }) {
   const inMatch = phase !== 'waiting' && phase !== 'results';
   return (
-    <div
-      data-paper
-      className="flex min-h-0 overflow-hidden rounded-xl border border-zinc-300 bg-white text-zinc-900 shadow-sm scheme-light dark:border-zinc-700"
-    >
+    <div data-paper className={`flex min-h-0 overflow-hidden ${SHEET}`}>
       <aside className="relative w-44 shrink-0" aria-label="Players">
         <div className="absolute inset-0 overflow-x-hidden overflow-y-auto pb-4">
           <PlayerList />
         </div>
-        <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-pop-tomato/30" />
+        <MarginLine className="right-0" />
       </aside>
       <main
         className={`flex min-h-0 min-w-0 flex-1 justify-center overflow-y-auto ${inMatch ? '' : 'p-4'}`}
@@ -103,8 +98,20 @@ function RoomSheet({ phase, children }: { phase: RoomView['phase']['kind']; chil
   );
 }
 
+/**
+ * The desk behind the room (app.astro) calms down while a match is on: its doodles stop drifting
+ * and fade, so nothing moves beside the board. They wake up again for the results.
+ */
+function useCalmDesk(calm: boolean) {
+  useEffect(() => {
+    document.documentElement.toggleAttribute('data-calm-desk', calm);
+    return () => document.documentElement.removeAttribute('data-calm-desk');
+  }, [calm]);
+}
+
 function RoomLayout({ phase }: { phase: RoomView['phase']['kind'] }) {
   const wide = useMediaQuery(WIDE);
+  useCalmDesk(phase !== 'waiting' && phase !== 'results');
   const centre =
     phase === 'waiting' ? (
       <WaitingRoom />
@@ -115,9 +122,10 @@ function RoomLayout({ phase }: { phase: RoomView['phase']['kind'] }) {
     );
   if (wide) {
     return (
-      <div className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_18rem] gap-3 p-3">
+      <div className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_18rem] gap-3 px-3 pb-3">
         <RoomSheet phase={phase}>{centre}</RoomSheet>
-        <aside className="flex min-h-64 flex-col gap-2 rounded-xl border border-zinc-200 p-2 dark:border-zinc-800">
+        <aside data-paper className={`flex min-h-64 flex-col gap-2 p-2 pt-4 ${NOTE}`}>
+          <Tape />
           <GuessFeed />
           <GuessInput />
         </aside>
@@ -153,13 +161,12 @@ function RoomTabs({ grow }: { grow: boolean }) {
   const unread = Math.max(0, feedCount - seen);
   const tabClass = (active: boolean) =>
     `flex-1 rounded-lg px-3 py-2 text-sm font-medium pointer-coarse:py-3 ${
-      active ? 'bg-brand-600 text-white' : 'bg-zinc-100 dark:bg-zinc-800'
+      active ? 'bg-brand-600 text-white' : 'bg-zinc-100'
     }`;
   return (
     <section
-      className={`flex flex-col gap-2 rounded-xl border border-zinc-200 p-2 dark:border-zinc-800 ${
-        grow ? 'min-h-40 flex-1' : 'h-96 shrink-0'
-      }`}
+      data-paper
+      className={`flex flex-col gap-2 p-2 ${NOTE} ${grow ? 'min-h-40 flex-1' : 'h-96 shrink-0'}`}
     >
       <div role="tablist" aria-label="Players and guesses" className="flex gap-1">
         <button

@@ -26,12 +26,13 @@ const LETTERS = WORDS.map((word, w) =>
 );
 
 const PENCIL_LAYER =
-  'pointer-events-none absolute bottom-[45%] left-[calc(100%-0.32em)] h-[0.22em] w-[2.2em] origin-left -rotate-[52deg] motion-safe:animate-pencil-drop';
+  'pointer-events-none absolute bottom-[45%] left-[calc(100%-0.32em)] h-[0.22em] w-[2.2em] origin-left -rotate-[52deg] motion-safe:intro:animate-pencil-drop';
 
 /**
  * The landing logo: sticker letters you can poke, grab and fling (they spring back home), a
  * pencil that has just finished the "!", and a swirl drawn under "Whirl!". The server-rendered
- * HTML is the finished picture; JS only adds the physics.
+ * HTML is the finished picture; JS only adds the physics. In a room, StickerLogo is the same logo,
+ * small: the shared `logo` view-transition name morphs one into the other (global.css).
  */
 export function HeroLogo() {
   const container = useRef<HTMLDivElement>(null);
@@ -40,7 +41,7 @@ export function HeroLogo() {
 
   return (
     <div ref={container} className="relative">
-      <h1 className="relative isolate font-logo text-[clamp(4rem,15vw,8rem)] leading-[1.05] font-normal text-ink lg:text-[clamp(5rem,8vw,9rem)]">
+      <h1 className="relative isolate font-logo text-[clamp(4rem,15vw,8rem)] leading-[1.05] font-normal text-ink lg:text-[clamp(5rem,8vw,9rem)] [view-transition-name:logo]">
         <span className="sr-only">{NAME}</span>
         <span aria-hidden="true" className="flex flex-wrap justify-center gap-x-[0.18em]">
           {LETTERS.map((word, w) => (
@@ -48,7 +49,7 @@ export function HeroLogo() {
               {word.map(({ char, index, color, spin }) => (
                 <span
                   key={index}
-                  className="inline-block motion-safe:animate-letter-drop"
+                  className="inline-block motion-safe:intro:animate-letter-drop"
                   style={
                     {
                       animationDelay: `${350 + index * 60}ms`,
@@ -99,7 +100,7 @@ function Swirl() {
         strokeWidth="7"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="[stroke-dasharray:1] motion-safe:animate-swirl-draw"
+        className="[stroke-dasharray:1] motion-safe:intro:animate-swirl-draw"
       />
     </svg>
   );
