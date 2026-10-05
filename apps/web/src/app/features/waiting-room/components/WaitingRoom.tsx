@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { amHost, sendToRoom, useRoomStore } from '../../../realtime';
 import { DeckCover } from '../../deck-cover';
+import { DeckChooser } from '../../deck-picker';
+import { DrawYourself } from '../../identity';
 import { ReportDeckButton } from '../../report-deck';
 import { RoomSettingsForm } from './RoomSettingsForm';
 
@@ -8,6 +10,8 @@ import { RoomSettingsForm } from './RoomSettingsForm';
 export function WaitingRoom() {
   const view = useRoomStore((s) => s.view);
   const [copied, setCopied] = useState(false);
+  // The host picks the deck here, with friends watching (user-flows.md §4): open to start with.
+  const [choosingDeck, setChoosingDeck] = useState(true);
   if (!view) return null;
   const host = amHost(view);
   const connected = view.players.filter((p) => p.connected).length;
@@ -33,6 +37,7 @@ export function WaitingRoom() {
             <ReportDeckButton deck={view.deck} className="absolute -top-2 -right-2" />
           </div>
         )}
+        {!view.deck && <p className="text-sm text-zinc-500">Loading the deck…</p>}
         <div className="flex flex-col items-center gap-2 text-center">
           <p className="text-sm text-zinc-500">
             {view.isPublic ? '🌍 Public room' : '🔒 Private room'} · share this code
@@ -56,14 +61,7 @@ export function WaitingRoom() {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-zinc-200 p-4 dark:border-zinc-800">
-        <h2 className="mb-2 font-semibold">
-          Settings{' '}
-          {!host && <span className="text-sm font-normal text-zinc-500">(the host decides)</span>}
-        </h2>
-        <RoomSettingsForm view={view} editable={host} />
-      </section>
-
+      {/* Up top, so the host never scrolls past the deck picker to start. */}
       {host ? (
         <div className="flex flex-col items-center gap-1">
           <button
@@ -81,6 +79,43 @@ export function WaitingRoom() {
       ) : (
         <p className="text-center text-zinc-500">Waiting for the host to start…</p>
       )}
+
+      <DrawYourself roomCode={view.code} />
+
+      {host && (
+        <section
+          aria-labelledby="deck-heading"
+          className="rounded-2xl border border-zinc-200 p-4 dark:border-zinc-800"
+        >
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <h2 id="deck-heading" className="font-semibold">
+              Deck{view.deck && <span className="font-normal">: {view.deck.title}</span>}
+            </h2>
+            <button
+              type="button"
+              aria-expanded={choosingDeck}
+              onClick={() => setChoosingDeck(!choosingDeck)}
+              className="text-sm text-brand-600 underline"
+            >
+              {choosingDeck ? 'Done' : '🎴 Change deck'}
+            </button>
+          </div>
+          {choosingDeck && (
+            <DeckChooser
+              selectedId={view.settings.deckId}
+              onSelect={(deckId) => sendToRoom({ t: 'room:settings', settings: { deckId } })}
+            />
+          )}
+        </section>
+      )}
+
+      <section className="rounded-2xl border border-zinc-200 p-4 dark:border-zinc-800">
+        <h2 className="mb-2 font-semibold">
+          Settings{' '}
+          {!host && <span className="text-sm font-normal text-zinc-500">(the host decides)</span>}
+        </h2>
+        <RoomSettingsForm view={view} editable={host} />
+      </section>
     </div>
   );
 }

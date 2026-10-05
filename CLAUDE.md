@@ -1,6 +1,6 @@
-# PictioTheme
+# DoodleWhirl!
 
-Real-time drawing-and-guessing game with themed, AI-generated decks. TypeScript monorepo: Fastify server, Astro + React web app, shared `protocol` and pure `game-core` packages.
+Real-time drawing-and-guessing game with themed, AI-generated decks. Formerly PictioTheme: the repo, the `@pictiotheme/*` packages and the database keep the old name. TypeScript monorepo: Fastify server, Astro + React web app, shared `protocol` and pure `game-core` packages.
 
 ## Start here
 

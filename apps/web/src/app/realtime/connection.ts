@@ -86,8 +86,11 @@ function handleMessage(msg: ServerMessage): void {
   notify(msg, view, next);
 }
 
-/** Connects to a room and keeps the connection alive. Returns a function that leaves. */
-export function connectRoom(code: string, identity: PlayerIdentity): () => void {
+/**
+ * Connects to a room and keeps the connection alive. Returns a function that leaves. `identity`
+ * is read at every (re)connect, so changing your name or avatar in the room doesn't reconnect.
+ */
+export function connectRoom(code: string, identity: () => PlayerIdentity): () => void {
   let stopped = false;
   let attempt = 0;
   let pingTimer: ReturnType<typeof setInterval> | undefined;
@@ -113,7 +116,7 @@ export function connectRoom(code: string, identity: PlayerIdentity): () => void 
     try {
       await apiPost('/api/session/guest', undefined, GuestSessionResponse);
       token = (
-        await apiPost(`/api/rooms/${encodeURIComponent(code)}/join`, identity, JoinRoomResponse)
+        await apiPost(`/api/rooms/${encodeURIComponent(code)}/join`, identity(), JoinRoomResponse)
       ).joinToken;
     } catch (err) {
       if (stopped) return;

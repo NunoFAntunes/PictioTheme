@@ -130,6 +130,15 @@ export class TestPlayer {
     return res.body as JoinRoomResponse;
   }
 
+  async quickPlay(name: string): Promise<JoinRoomResponse> {
+    const res = await this.request('POST', '/api/rooms/quick-play', {
+      displayName: name,
+      avatar: testAvatar([0, 160, 0]),
+    });
+    if (res.status !== 200) throw new Error(`quick play failed: ${JSON.stringify(res.body)}`);
+    return res.body as JoinRoomResponse;
+  }
+
   connect(token: string): Promise<TestSocket> {
     const url = `${this.baseUrl.replace('http', 'ws')}/ws?token=${encodeURIComponent(token)}`;
     const socket = new WebSocket(url, { headers: { origin: this.origin } });

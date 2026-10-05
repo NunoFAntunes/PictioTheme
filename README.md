@@ -1,4 +1,4 @@
-# PictioTheme
+# DoodleWhirl!
 
 A browser-based, real-time drawing-and-guessing game built around AI-generated themed decks.
 Product and technical docs live in [docs/](docs/README.md). Start with

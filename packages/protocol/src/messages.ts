@@ -9,6 +9,7 @@ import {
   GUESS_MAX_LENGTH,
   PlayerId,
   RoomCode,
+  RoomName,
   RoomSettings,
 } from './room';
 
@@ -27,6 +28,12 @@ const PlayerTarget = { playerId: PlayerId };
 
 export const ClientMessage = z.discriminatedUnion('t', [
   z.object({ t: z.literal('room:settings'), settings: RoomSettings.partial() }),
+  /** The room's name and public/private. Host only, any time (user-flows.md §5). */
+  z.object({
+    t: z.literal('room:details'),
+    name: RoomName.optional(),
+    isPublic: z.boolean().optional(),
+  }),
   z.object({ t: z.literal('room:start') }),
   z.object({ t: z.literal('room:kick'), ...PlayerTarget }),
   z.object({ t: z.literal('room:transferHost'), ...PlayerTarget }),
@@ -152,6 +159,7 @@ export const ServerMessage = z.discriminatedUnion('t', [
     settings: RoomSettings,
     deck: RoomDeck.nullable(),
   }),
+  z.object({ t: z.literal('room:details'), name: z.string(), isPublic: z.boolean() }),
   z.object({ t: z.literal('room:paused'), paused: PauseReason.nullable() }),
   z.object({
     t: z.literal('room:notice'),

@@ -6,6 +6,7 @@ import {
   onDisconnect,
   onDrawerGraceTimer,
   onHostGraceTimer,
+  onIdentity,
   onJoin,
   onPlayerGraceTimer,
 } from './players';
@@ -69,6 +70,9 @@ export function step(state: RoomState, event: RoomEvent, ctx: StepContext): Effe
       break;
     case 'disconnect':
       onDisconnect(c, event.playerId);
+      break;
+    case 'identity':
+      onIdentity(c, event.playerId, event.name, event.avatar);
       break;
     case 'message':
       onMessage(c, event.playerId, event.msg);

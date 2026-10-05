@@ -1,19 +1,23 @@
 import { DisplayName } from '@pictiotheme/protocol';
 import { useId, useRef, useState, type SubmitEvent } from 'react';
-import { useIdentity } from '../../../lib/identity';
+import { useIdentity, type Identity } from '../../../lib/identity';
 import { Avatar, AvatarPad, drawingToAvatar, initialAvatar } from '../../avatar';
 import { isBlank } from '../../canvas';
+import { hasGeneratedAvatar } from '../generated-avatar';
 
 /**
  * "Pick a name and draw your avatar" (user-flows.md §2). Guests need nothing else to play.
- * Leaving the pad blank keeps the current avatar, or makes one from your initial.
+ * Leaving the pad blank keeps the current avatar, or makes one from your initial. `onSaved` gets
+ * the saved identity.
  */
 export function IdentityForm({
   submitLabel = 'Continue',
   onDone,
+  onSaved,
 }: {
   submitLabel?: string;
   onDone?: () => void;
+  onSaved?: (identity: Identity) => void;
 }) {
   const { identity, setIdentity } = useIdentity();
   const [name, setName] = useState(identity?.displayName ?? '');
@@ -30,12 +34,24 @@ export function IdentityForm({
     }
     const pad = padRef.current;
     const drawn = pad && !isBlank(pad);
-    const avatar = drawn ? drawingToAvatar(pad) : (identity?.avatar ?? initialAvatar(parsed.data));
+    // A generated initial follows a new name; a drawn avatar is kept.
+    const keptInitial = identity && hasGeneratedAvatar(identity);
+    const avatar = drawn
+      ? drawingToAvatar(pad)
+      : identity && !keptInitial
+        ? identity.avatar
+        : initialAvatar(parsed.data);
     if (!avatar) {
       setError('That drawing is too detailed to save. Try fewer colours or fills.');
       return;
     }
-    setIdentity({ displayName: parsed.data, avatar });
+    // A kept avatar keeps its own state; a new one is always a cut-out.
+    const cutout = drawn || !identity ? true : identity.cutout;
+    const saved: Identity = cutout
+      ? { displayName: parsed.data, avatar, cutout }
+      : { displayName: parsed.data, avatar };
+    setIdentity(saved);
+    onSaved?.(saved);
     onDone?.();
   }
 

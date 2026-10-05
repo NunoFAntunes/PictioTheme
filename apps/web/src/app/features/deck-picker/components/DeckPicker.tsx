@@ -5,13 +5,13 @@ import { RedrawCoverPanel } from '../../generate-deck';
 import { useDeckSearch } from '../api';
 
 /**
- * The deck picker (screens.md §3, next-features.md 1.9): a grid of deck covers. Without a search,
+ * The deck picker (user-flows.md §4, next-features.md 1.9): a grid of deck covers, for the host in the waiting room. Without a search,
  * your generated decks, then the featured (seasonal) curated decks, then the rest. Searching
  * matches titles and tags across all public decks.
  */
 
 const SEARCH_DEBOUNCE_MS = 250;
-/** Decks shown per section before "Show all": two rows in the create-room column. */
+/** Decks shown per section before "Show all": a row or two in the waiting room. */
 const COLLAPSED_COUNT = 4;
 
 type Props = {

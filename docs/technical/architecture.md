@@ -54,7 +54,7 @@ Everything runs on the existing VM with Docker Compose. Hosting costs nothing be
 ┌──────────────▼───────────────────────────── VM (docker compose) ───────────┐
 │  ┌──────────────────────┐                                                   │
 │  │ Caddy                │  /            → static files (apps/web/dist)      │
-│  │                      │  /r/*, /play… → app shell (SPA fallback)          │
+│  │                      │  /r/*, /decks… → app shell (SPA fallback)         │
 │  │                      │  /api/*, /ws  → server:3000                       │
 │  └──────────┬───────────┘                                                   │
 │             │                                                               │
@@ -85,7 +85,9 @@ All components below are **modules inside the one server process**. Their bounda
 - Endpoints (examples):
   - `POST /api/session/guest` → guest cookie
   - `/api/auth/*` → Better Auth (magic link, OAuth callbacks, session)
-  - `GET /api/rooms/public` → lobby list (from the in-memory room registry)
+  - `GET /api/rooms/public` → lobby list and the number of players online (from the in-memory room registry)
+  - `PUT /api/rooms/:code/me` → a player in the room changes name or avatar; everyone gets the new player list ([realtime-protocol.md](realtime-protocol.md#changing-your-name-or-avatar-in-a-room))
+  - `POST /api/rooms/quick-play` → joins the best public room with space, or creates a public one; returns `{code, joinToken}` (user-flows.md §2)
   - `POST /api/rooms` → creates a room, returns `{code, joinToken}`
   - `POST /api/rooms/:code/join` → validates, returns `{joinToken}`. Create and join both carry the drawn avatar as a PNG data URL; the server stores it and puts only its id in the token
   - `GET /api/avatars/:id` → the avatar PNG (`immutable` cache: ids are content hashes)

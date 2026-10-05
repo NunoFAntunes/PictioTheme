@@ -124,6 +124,11 @@ export type RoomEvent =
   /** A socket connected for this player (new player or reconnect). */
   | { type: 'join'; player: JoiningPlayer }
   | { type: 'disconnect'; playerId: PlayerId }
+  /**
+   * A player in the room changed their name or avatar (`PUT /api/rooms/:code/me`). The shell has
+   * already checked the name and stored the avatar.
+   */
+  | { type: 'identity'; playerId: PlayerId; name: string; avatar: AvatarId }
   | { type: 'message'; playerId: PlayerId; msg: ClientMessage }
   | { type: 'timer'; timer: TimerId }
   | { type: 'deckLoaded'; deck: DeckInfo }

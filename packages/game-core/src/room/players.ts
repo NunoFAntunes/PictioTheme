@@ -1,4 +1,4 @@
-import type { PlayerId } from '@pictiotheme/protocol';
+import type { AvatarId, PlayerId } from '@pictiotheme/protocol';
 import { checkAllSolved, checkPlayerCount, currentDrawerId, endTurn } from './match';
 import { broadcastPlayers, cancel, schedule, send, sendError, sendToAll } from './output';
 import { TIMINGS, type Ctx, type JoiningPlayer, type RoomState } from './types';
@@ -8,9 +8,11 @@ import { snapshotFor } from './views';
 
 const MAX_NAME_LENGTH = 20;
 
-/** "Ana" → "Ana (2)" when the name is taken (case-insensitive). */
-export function uniqueName(state: RoomState, name: string): string {
-  const taken = new Set([...state.players.values()].map((p) => p.name.toLowerCase()));
+/** "Ana" → "Ana (2)" when the name is taken (case-insensitive), not counting `self`. */
+export function uniqueName(state: RoomState, name: string, self?: PlayerId): string {
+  const taken = new Set(
+    [...state.players.values()].filter((p) => p.id !== self).map((p) => p.name.toLowerCase()),
+  );
   if (!taken.has(name.toLowerCase())) return name;
   for (let n = 2; ; n++) {
     const suffix = ` (${n})`;
@@ -68,6 +70,15 @@ export function onJoin(c: Ctx, joining: JoiningPlayer): void {
   send(c, joining.id, snapshotFor(state, joining.id));
   broadcastPlayers(c);
   checkPlayerCount(c);
+}
+
+/** A new name or avatar, chosen in the room ("Draw yourself!", user-flows.md §5). */
+export function onIdentity(c: Ctx, playerId: PlayerId, name: string, avatar: AvatarId): void {
+  const player = c.state.players.get(playerId);
+  if (!player) return;
+  player.name = uniqueName(c.state, name, playerId);
+  player.avatar = avatar;
+  broadcastPlayers(c);
 }
 
 export function onDisconnect(c: Ctx, playerId: PlayerId): void {

@@ -1,6 +1,5 @@
 import type { Award } from '@pictiotheme/protocol';
 import { useState } from 'react';
-import { Link } from 'react-router';
 import { amHost, playerById, sendToRoom, useRoomStore } from '../../../realtime';
 import { Avatar } from '../../avatar';
 import { DeckCover } from '../../deck-cover';
@@ -85,12 +84,9 @@ export function ResultsPanel() {
             </button>
           </>
         )}
-        <Link
-          to="/play"
-          className="rounded-full border border-zinc-300 px-6 py-2 dark:border-zinc-700"
-        >
+        <a href="/" className="rounded-full border border-zinc-300 px-6 py-2 dark:border-zinc-700">
           Lobby
-        </Link>
+        </a>
       </div>
       {!host && <p className="text-sm text-zinc-500">The host can start another match.</p>}
     </div>

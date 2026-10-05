@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { DeckCoverId, DeckCoverImage, Difficulty } from './deck';
-import { AvatarImage, DisplayName, RoomCode } from './room';
+import { AvatarImage, DisplayName, RoomCode, RoomName } from './room';
 
 /** REST DTOs shared by the server and the web app. */
 
@@ -35,7 +35,7 @@ export const PlayerIdentity = z.object({
 export type PlayerIdentity = z.infer<typeof PlayerIdentity>;
 
 export const CreateRoomRequest = PlayerIdentity.extend({
-  name: z.string().trim().min(2).max(40),
+  name: RoomName,
   isPublic: z.boolean(),
   deckId: z.string().min(1).optional(),
 });
@@ -43,6 +43,16 @@ export type CreateRoomRequest = z.infer<typeof CreateRoomRequest>;
 
 export const JoinRoomRequest = PlayerIdentity;
 export type JoinRoomRequest = z.infer<typeof JoinRoomRequest>;
+
+/** A player in a room changes their name or avatar ("Draw yourself!", user-flows.md §5). */
+export const UpdateIdentityRequest = PlayerIdentity;
+export type UpdateIdentityRequest = z.infer<typeof UpdateIdentityRequest>;
+export const UpdateIdentityResponse = z.object({ ok: z.literal(true) });
+export type UpdateIdentityResponse = z.infer<typeof UpdateIdentityResponse>;
+
+/** Quick play: the server picks a public room with space, or creates one (user-flows.md §2). */
+export const QuickPlayRequest = PlayerIdentity;
+export type QuickPlayRequest = z.infer<typeof QuickPlayRequest>;
 
 /** Returned by create and join. The token is short-lived: connect to `/ws?token=…` right away. */
 export const JoinRoomResponse = z.object({
@@ -63,7 +73,11 @@ export const PublicRoomSummary = z.object({
 });
 export type PublicRoomSummary = z.infer<typeof PublicRoomSummary>;
 
-export const PublicRoomsResponse = z.object({ rooms: z.array(PublicRoomSummary) });
+export const PublicRoomsResponse = z.object({
+  rooms: z.array(PublicRoomSummary),
+  /** Players connected right now, in every room (public and private). */
+  online: z.number().int(),
+});
 export type PublicRoomsResponse = z.infer<typeof PublicRoomsResponse>;
 
 // ── Decks ──

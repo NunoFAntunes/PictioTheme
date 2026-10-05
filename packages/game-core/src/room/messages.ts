@@ -1,7 +1,7 @@
 import type { ClientMessage, PlayerId, RoomDeck, RoomSettings } from '@pictiotheme/protocol';
 import { buildCardPool } from '../card-pool';
 import { classifyGuess } from '../guess/classify';
-import { maskProfanity } from '../moderation/profanity';
+import { hasProfanity, maskProfanity } from '../moderation/profanity';
 import { cardMultiplier, guesserPoints } from '../scoring';
 import { onDraw } from './drawing';
 import {
@@ -31,6 +31,9 @@ export function onMessage(c: Ctx, playerId: PlayerId, msg: ClientMessage): void 
       return;
     case 'room:settings':
       updateSettings(c, playerId, msg.settings);
+      return;
+    case 'room:details':
+      updateDetails(c, playerId, msg);
       return;
     case 'room:start':
       requestStart(c, playerId);
@@ -131,6 +134,24 @@ function updateSettings(c: Ctx, playerId: PlayerId, patch: Partial<RoomSettings>
   if (next.deckId !== state.settings.deckId) c.fx.push({ kind: 'loadDeck', deckId: next.deckId });
   state.settings = next;
   sendToAll(c, { t: 'room:settings', settings: next, deck: deckRef(c) });
+}
+
+/** The room's name and public/private: the host can change them any time. */
+function updateDetails(
+  c: Ctx,
+  playerId: PlayerId,
+  patch: { name?: string | undefined; isPublic?: boolean | undefined },
+): void {
+  const { state } = c;
+  if (!requireHost(c, playerId)) return;
+  // Public rooms are listed for strangers (security-and-moderation.md), so no offensive names.
+  if (patch.name !== undefined && hasProfanity(patch.name)) {
+    sendError(c, playerId, 'VALIDATION', "That room name isn't allowed. Please pick another one.");
+    return;
+  }
+  if (patch.name !== undefined) state.name = patch.name;
+  if (patch.isPublic !== undefined) state.isPublic = patch.isPublic;
+  sendToAll(c, { t: 'room:details', name: state.name, isPublic: state.isPublic });
 }
 
 export function deckRef(c: Ctx): RoomDeck | null {

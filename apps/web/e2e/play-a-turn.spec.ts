@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { canvasHasInk, newPlayerPage, pickIdentity } from './support';
+import { canvasHasInk, followInvite, hostRoom, newPlayerPage } from './support';
 
 /** Two players in separate browser contexts play one turn through the real UI. */
 
@@ -7,17 +7,11 @@ test('two players create, join, draw and guess', async ({ browser }) => {
   const host = await newPlayerPage(browser);
   const guest = await newPlayerPage(browser);
 
-  // Host: name, then create a room with the default deck.
-  await host.goto('/play');
-  await pickIdentity(host, 'Ana', /play/i);
-  await host.getByRole('button', { name: /create room/i }).click();
-  const codeButton = host.getByTestId('room-code');
-  await expect(codeButton).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/);
-  const code = (await codeButton.textContent()) ?? '';
+  // Host: name, then one click for a private room with the default deck.
+  const code = await hostRoom(host, 'Ana');
 
-  // Guest: follows the invite link and picks a name there.
-  await guest.goto(`/r/${code}`);
-  await pickIdentity(guest, 'Bo', /join room/i);
+  // Guest: follows the invite link (named first on the home page).
+  await followInvite(guest, code, 'Bo');
   await expect(host.getByRole('list', { name: 'Players' }).getByText('Bo')).toBeVisible();
   await expect(guest.getByText('Waiting for the host to start')).toBeVisible();
   // The room's deck, with its back cover (built-in decks show the default one).

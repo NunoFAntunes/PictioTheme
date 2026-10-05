@@ -1,11 +1,6 @@
-import {
-  CreateRoomRequest,
-  DeckListResponse,
-  GuestSessionResponse,
-  JoinRoomResponse,
-} from '@pictiotheme/protocol';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { apiGet, apiPost } from '../../lib/api';
+import { DeckListResponse } from '@pictiotheme/protocol';
+import { useQuery } from '@tanstack/react-query';
+import { apiGet } from '../../lib/api';
 
 /** The curated decks, featured first. */
 export function useDecks() {
@@ -26,14 +21,5 @@ export function useDeckSearch(q: string) {
     enabled: query !== '',
     staleTime: 60_000,
     placeholderData: (previous) => previous,
-  });
-}
-
-export function useCreateRoom() {
-  return useMutation({
-    mutationFn: async (input: CreateRoomRequest) => {
-      await apiPost('/api/session/guest', undefined, GuestSessionResponse);
-      return apiPost('/api/rooms', input, JoinRoomResponse);
-    },
   });
 }

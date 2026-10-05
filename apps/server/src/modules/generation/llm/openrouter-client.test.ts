@@ -55,7 +55,7 @@ describe('OpenRouter client', () => {
     expect(call?.headers).toMatchObject({
       authorization: 'Bearer sk-test',
       'http-referer': 'https://pictiotheme.test',
-      'x-title': 'PictioTheme',
+      'x-title': 'DoodleWhirl!',
     });
     expect(call?.body).toMatchObject({
       model: 'anthropic/claude-sonnet-5.5',

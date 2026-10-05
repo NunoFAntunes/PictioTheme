@@ -7,7 +7,7 @@ import { LlmTransportError, type LlmClient, type LlmCompletion } from './llm-cli
  */
 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
-const APP_TITLE = 'PictioTheme';
+const APP_TITLE = 'DoodleWhirl!';
 /** A full deck is several thousand output tokens plus reasoning. */
 const REQUEST_TIMEOUT_MS = 180_000;
 

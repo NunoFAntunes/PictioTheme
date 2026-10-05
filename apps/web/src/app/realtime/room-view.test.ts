@@ -79,6 +79,15 @@ describe('room view reducer', () => {
     expect(view.feed[0]).toMatchObject({ kind: 'guess', guess: 'close', text: undefined });
   });
 
+  it("follows the room's new name and public/private", () => {
+    const view = apply(viewFromSnapshot(snapshot(), null), {
+      t: 'room:details',
+      name: 'Spooky night',
+      isPublic: true,
+    });
+    expect(view).toMatchObject({ name: 'Spooky night', isPublic: true });
+  });
+
   it('keeps the feed across a reconnect to the same room', () => {
     let view = apply(viewFromSnapshot(snapshot(), null), { t: 'chat', playerId: 'p1', text: 'hi' });
     view = applyServerMessage(view, snapshot(), 2000);

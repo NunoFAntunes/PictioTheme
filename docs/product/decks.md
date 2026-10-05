@@ -33,7 +33,7 @@ Every deck has a back cover, like the back of a real deck of cards: a 3:4 drawin
 - **Drawn by the creator while the deck generates.** Generation takes about a minute, so the progress view asks "Draw the back cover of your deck" with a drawing pad. Drawing is optional (**Skip** is always there) and never races the model: if the deck finishes first, the creator is told it's ready and can finish the cover or skip. If generation fails, the drawing stays on the pad for the retry.
 - **Default cover.** A deck without a drawing (curated decks until their covers are drawn, skipped covers) shows its title on a striped background, coloured from a hash of the title.
 - **Shown** in the deck pickers, beside the room code in the waiting room, on the results screen, and as the back of the cards on the card-choice screen (the draw pile and the dealt cards, face down, then flipped for the drawer). A deck without a drawing shows its default cover there too, title included. Planned: the library and the preview image of a shared deck link.
-- **Redrawing.** The creator can redraw their deck's cover any time from the ✏️ button on their decks in the create-room picker. The new cover replaces the old one everywhere; rooms already playing the deck pick it up the next time they load it.
+- **Redrawing.** The creator can redraw their deck's cover any time from the ✏️ button on their decks in the deck picker (waiting room). The new cover replaces the old one everywhere; rooms already playing the deck pick it up the next time they load it.
 - **Drawing tools.** The cover pad has the game's full drawing toolbar (sizes, opacity, fill tolerance, the whole palette, eyedropper, undo/redo and the shortcuts), with bigger buttons and a bigger pad on touch screens.
 - **Reporting.** Covers are shown to strangers, so any player can report one with 🚩 on the deck (waiting room, results). Once 3 different players report the cover shown right now, it's hidden and the default cover shows instead; the deck stays playable. A redrawn cover starts with no reports. See [Quality control](#quality-control) for reporting a deck's cards.
 
@@ -65,7 +65,7 @@ You could build silly prompts from templates (`{monster} + {job}`), but most com
 - Results card: title, tags, flag/language, card counts per level, 🤪 if a silly pool exists, 👍 %, plays, creator name.
 - "Similar decks" are shown before generation so people don't generate 40 Halloween decks: *"There are 12 Halloween decks already. Generate anyway?"*
 - Featured / staff-picked decks appear on the deck picker's empty state, along with seasonal suggestions (e.g. Halloween in October).
-- **Built so far:** the create-room picker searches titles and tags (typo-tolerant), and shows featured curated decks first. No card-text search, quality ranking or library page yet.
+- **Built so far:** the deck picker (host, waiting room) searches titles and tags (typo-tolerant), and shows featured curated decks first. No card-text search, quality ranking or library page yet.
 
 ## Curated decks
 

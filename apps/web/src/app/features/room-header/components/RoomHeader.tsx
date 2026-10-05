@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import {
   amHost,
   drawerIdOf,
@@ -55,9 +54,9 @@ export function RoomHeader() {
 
   return (
     <header className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-zinc-200 px-4 py-2 dark:border-zinc-800">
-      <Link to="/play" className="font-display text-lg font-bold">
-        Pictio<span className="text-brand-600">Theme</span>
-      </Link>
+      <a href="/" className="font-logo text-xl text-ink dark:text-zinc-100">
+        DoodleWhirl!
+      </a>
       {inMatch && (
         <span className="text-sm">
           Round {view.round}/{view.settings.rounds}

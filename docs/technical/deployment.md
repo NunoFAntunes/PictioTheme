@@ -1,6 +1,6 @@
 # Deployment
 
-How PictioTheme gets to the VM. The topology and why are in [architecture.md](architecture.md#deployment) and decision D5 in [decisions.md](decisions.md).
+How DoodleWhirl! gets to the VM. The topology and why are in [architecture.md](architecture.md#deployment) and decision D5 in [decisions.md](decisions.md).
 
 ## How a release happens
 

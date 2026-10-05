@@ -23,6 +23,24 @@ describe('joining', () => {
     expect([...h.state.players.values()].map((p) => p.name)).toEqual(['Ana', 'ana (2)', 'Ana (3)']);
   });
 
+  it('takes a new name and avatar from a player in the room, and tells everyone', () => {
+    const h = createHarness();
+    h.init();
+    h.join('p1', 'Ana');
+    h.join('p2', 'Bo');
+    const fx = h.dispatch({ type: 'identity', playerId: 'p2', name: 'ana', avatar: 'dog' });
+    // Names stay unique; the player's own old name doesn't count.
+    expect(h.state.players.get('p2')).toMatchObject({ name: 'ana (2)', avatar: 'dog' });
+    const players = receivedOfType(fx, 'p1', 'room:players')[0]?.players;
+    expect(players?.find((p) => p.id === 'p2')).toMatchObject({ name: 'ana (2)', avatar: 'dog' });
+
+    h.dispatch({ type: 'identity', playerId: 'p1', name: 'ANA', avatar: 'cat' });
+    expect(h.state.players.get('p1')?.name).toBe('ANA');
+    expect(h.dispatch({ type: 'identity', playerId: 'nobody', name: 'X', avatar: 'cat' })).toEqual(
+      [],
+    );
+  });
+
   it('refuses players when the room is full', () => {
     const h = createHarness({ settings: { maxPlayers: 2 } });
     h.init();
@@ -471,5 +489,36 @@ describe('drawing', () => {
     expect(snap?.strokes).toHaveLength(1);
     expect(snap?.secret.word).toBeUndefined();
     expect(snap?.phase.kind).toBe('drawing');
+  });
+});
+
+describe('room details', () => {
+  it('the host renames the room and makes it public, and everyone hears', () => {
+    const h = createHarness();
+    h.init();
+    h.join('p1', 'Ana');
+    h.join('p2', 'Bo');
+    const fx = h.send('p1', { t: 'room:details', name: 'Spooky night', isPublic: true });
+    expect(h.state).toMatchObject({ name: 'Spooky night', isPublic: true });
+    expect(receivedOfType(fx, 'p2', 'room:details')).toEqual([
+      { t: 'room:details', name: 'Spooky night', isPublic: true },
+    ]);
+    // One at a time works too, and mid-match.
+    h.send('p1', { t: 'room:start' });
+    h.send('p1', { t: 'room:details', isPublic: false });
+    expect(h.state).toMatchObject({ name: 'Spooky night', isPublic: false });
+  });
+
+  it('refuses non-hosts and offensive names', () => {
+    const h = createHarness();
+    h.init();
+    h.join('p1', 'Ana');
+    h.join('p2', 'Bo');
+    const before = h.state.name;
+    const notHost = h.send('p2', { t: 'room:details', name: 'Mine now' });
+    expect(receivedOfType(notHost, 'p2', 'error')[0]).toMatchObject({ code: 'NOT_HOST' });
+    const rude = h.send('p1', { t: 'room:details', name: 'fuckface room' });
+    expect(receivedOfType(rude, 'p1', 'error')[0]).toMatchObject({ code: 'VALIDATION' });
+    expect(h.state.name).toBe(before);
   });
 });

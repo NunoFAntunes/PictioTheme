@@ -1,21 +1,35 @@
 ---
+import { Font } from 'astro:assets';
+import { HeroLogo } from '../components/hero/HeroLogo';
+import { HomeLobby } from '../components/home/HomeLobby';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="PictioTheme · Draw it. Guess it. Theme it.">
-  <main class="mx-auto flex min-h-dvh max-w-3xl flex-col items-center justify-center gap-8 px-4 py-16 text-center">
-    <h1 class="font-display text-5xl font-bold tracking-tight sm:text-6xl">
-      Draw it. Guess it. <span class="text-brand-600">Theme it.</span>
-    </h1>
-    <p class="max-w-xl text-lg text-zinc-600 dark:text-zinc-400">
-      A multiplayer drawing game where every match has a theme, with endless decks and a Silly
-      Mode that makes everyone laugh.
-    </p>
-    <a
-      href="/play"
-      class="rounded-full bg-brand-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+<BaseLayout title="DoodleWhirl! · Draw it. Guess it. Theme it.">
+  <!-- Preload only Latin: the font's ~50 Japanese chunks download only if such text appears. -->
+  <Font slot="head" cssVariable="--font-cherry-bomb" preload={[{ subset: 'latin' }]} />
+  <main
+    class="flex min-h-dvh items-center justify-center overflow-x-clip bg-desk px-4 py-10 sm:px-8 dark:bg-desk-dark"
+  >
+    <!-- A sheet of ruled paper dropped on the desk: the stage for the logo and the lobby, the same in both themes. -->
+    <div
+      data-paper
+      class="relative w-full max-w-6xl -rotate-1 rounded-sm bg-paper bg-[repeating-linear-gradient(to_bottom,transparent_0_2.25rem,var(--color-paper-line)_2.25rem_calc(2.25rem+1px))] px-6 pt-20 pb-12 text-center text-ink shadow-[0_2px_0_rgb(0_0_0/0.06),0_30px_60px_-24px_rgb(0_0_0/0.45)] motion-safe:animate-paper-drop sm:px-12 sm:pt-20"
     >
-      Play now — no sign-up
-    </a>
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-y-0 left-10 w-px bg-pop-tomato/50 sm:left-16"
+      >
+      </div>
+      <div class="rotate-1">
+        <HeroLogo client:load />
+        <div class="mt-12">
+          <HomeLobby client:only="react">
+            <!-- Holds the lobby's space while it loads, so nothing jumps. -->
+            <div slot="fallback" class="h-72" aria-hidden="true"></div>
+          </HomeLobby>
+        </div>
+      </div>
+    </div>
   </main>
 </BaseLayout>

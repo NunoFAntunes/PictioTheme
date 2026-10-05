@@ -11,7 +11,7 @@ Astro builds to **static files** (`output: 'static'`). Caddy serves them. There 
 | **Static pages** | `.astro` files, zero JS by default, SEO-friendly | Landing, about, how to play, privacy, terms, featured-decks showcase |
 | **The app** | One React SPA, mounted as `<App client:only="react" />` on a single shell page (`src/pages/app.astro`) | Lobby, room `/r/ABC-DEF`, deck library, generation, account, purchase |
 
-Caddy rewrites app routes (`/play`, `/r/*`, `/decks*`, `/generate*`, `/account*`) to the shell page, and **React Router** handles routing inside it. The list lives in `src/app-routes.ts`. In dev, `src/middleware.ts` performs the same rewrite and Astro proxies `/api` and `/ws` to the server, so dev is same-origin like production. Static pages may have small islands (e.g. a "join with code" box on the landing page using `client:visible`). Each island stays small and doesn't import the app.
+Caddy rewrites app routes (`/r/*`, `/decks*`, `/generate*`, `/account*`) to the shell page and redirects the old lobby (`/play`) to `/`, and **React Router** handles routing inside it. The list lives in `src/app-routes.ts`. In dev, `src/middleware.ts` performs the same rewrite and redirect, and Astro proxies `/api` and `/ws` to the server, so dev is same-origin like production. Static pages may have small islands. Each island stays small and doesn't import the app, with one exception: the home page (`/`) is the lobby (user-flows.md §2), so it mounts the **home lobby island** (`src/components/home/`), which reuses app features through their `index.ts`. Entering a room from it is a full page load of `/r/CODE` in the shell page.
 
 Deck library pages are client-rendered in v1. If search engines need to index decks later, add the Astro Node adapter for those routes only, or rebuild static deck pages on a schedule.
 
@@ -44,8 +44,8 @@ apps/web/
         selectors.ts        read helpers + useSecondsLeft / useNow hooks
         index.ts            public API for features and routes
       features/             one folder per product piece, each with components/ and index.ts
-        avatar/  identity/  join-room/  create-room/  public-rooms/  server-status/
-        create-room/ (incl. DeckPicker)  phone-gate/  generate-deck/ (incl. RedrawCoverPanel)  deck-cover/ (DeckCover with the default cover, CoverPad, PNG export)
+        avatar/  identity/ (incl. useEnsureIdentity)  join-room/  lobby/ (create, quick play, RoomNotes)  server-status/
+        deck-picker/ (DeckChooser, DeckPicker)  phone-gate/  generate-deck/ (incl. RedrawCoverPanel)  deck-cover/ (DeckCover with the default cover, CoverPad, PNG export)
         report-deck/        ReportDeckButton (🚩 report a deck's cover or content)
         canvas/             engine/ (flood-fill, paint, renderer, input, adjust, brush-cursor),
                             shortcuts.ts + DrawingBoard, Toolbar (both also drive the cover pad), SketchPad (avatar pad)
@@ -79,7 +79,7 @@ apps/web/
 ### Structure
 
 - **W1 🔒** `routes/*` may import `features/*`, `realtime/`, `lib/`, `ui/`. `features/*` may import `realtime/`, `lib/`, `ui/`, and other features **only through their `index.ts`**. `ui/` and `lib/` import nothing from `features`, `routes` or `realtime`.
-- **W2** Static `.astro` pages never import from `src/app/` except the shell page. Islands live in `src/components/` and stay tiny.
+- **W2** Static `.astro` pages never import from `src/app/` except the shell page. Islands live in `src/components/` and stay tiny. Exception: the home lobby island (`src/components/home/`) may import app features (through their `index.ts`) and `src/app/lib/`, never routes or the router.
 - **W3** Shared types come from `@pictiotheme/protocol`. Never redeclare a DTO or message type in the web app.
 
 ### Data and state

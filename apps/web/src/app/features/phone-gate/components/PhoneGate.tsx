@@ -49,7 +49,7 @@ export function PhoneGate({ children }: { children: ReactNode }) {
       <p className="text-5xl" aria-hidden="true">
         🖍️
       </p>
-      <h1 className="text-2xl font-bold">PictioTheme needs a bigger screen</h1>
+      <h1 className="text-2xl font-bold">DoodleWhirl! needs a bigger screen</h1>
       <p className="text-zinc-600 dark:text-zinc-400">
         Drawing on a phone is no fun. Open this link on a tablet or a computer to play.
       </p>

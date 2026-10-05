@@ -113,6 +113,8 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
       return { ...view, players: msg.players };
     case 'room:settings':
       return { ...view, settings: msg.settings, deck: msg.deck };
+    case 'room:details':
+      return { ...view, name: msg.name, isPublic: msg.isPublic };
     case 'room:paused':
       return { ...view, paused: msg.paused };
     case 'room:notice': {

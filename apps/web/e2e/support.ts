@@ -21,9 +21,32 @@ export async function newPlayerPage(
   return context.newPage();
 }
 
-export async function pickIdentity(page: Page, name: string, submit: RegExp) {
-  await page.getByLabel('Your name').fill(name);
-  await page.getByRole('button', { name: submit }).click();
+/**
+ * Opens the home page and names the player with the "Playing as" chip (nobody has to: first-time
+ * players get a silly name). `draw` can draw on the avatar pad before saving.
+ */
+export async function nameOnHome(page: Page, name: string, draw?: (page: Page) => Promise<void>) {
+  await page.goto('/');
+  await page.getByRole('button', { name: /^Playing as/ }).click();
+  await page.getByRole('textbox', { name: 'Your name', exact: true }).fill(name);
+  await draw?.(page);
+  await page.getByRole('button', { name: 'Save' }).click();
+  await expect(page.getByRole('button', { name: new RegExp(`^Playing as ${name}`) })).toBeVisible();
+}
+
+/** Names the player, then one click on "New private room". Resolves to the room code. */
+export async function hostRoom(page: Page, name: string): Promise<string> {
+  await nameOnHome(page, name);
+  await page.getByRole('button', { name: /new private room/i }).click();
+  const codeButton = page.getByTestId('room-code');
+  await expect(codeButton).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/);
+  return (await codeButton.textContent()) ?? '';
+}
+
+/** Follows an invite link as `name` (invite links skip the name form). */
+export async function followInvite(page: Page, code: string, name: string) {
+  await nameOnHome(page, name);
+  await page.goto(`/r/${code}`);
 }
 
 /** True when the canvas has any non-transparent pixel. */
@@ -42,15 +65,9 @@ export async function startTurn(browser: Browser): Promise<{ host: Page; guest: 
   const host = await newPlayerPage(browser);
   const guest = await newPlayerPage(browser);
 
-  await host.goto('/play');
-  await pickIdentity(host, 'Ana', /play/i);
-  await host.getByRole('button', { name: /create room/i }).click();
-  const codeButton = host.getByTestId('room-code');
-  await expect(codeButton).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/);
-  const code = (await codeButton.textContent()) ?? '';
+  const code = await hostRoom(host, 'Ana');
 
-  await guest.goto(`/r/${code}`);
-  await pickIdentity(guest, 'Bo', /join room/i);
+  await followInvite(guest, code, 'Bo');
   await expect(host.getByRole('list', { name: 'Players' }).getByText('Bo')).toBeVisible();
 
   // Ana joined first, so she draws first.

@@ -11,6 +11,7 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 | Type | Payload | Who | Notes |
 |---|---|---|---|
 | `room:settings` | partial settings | host | Waiting phase only (except visibility/hints) |
+| `room:details` | `name?, isPublic?` | host | Any time. Names are 2–40 characters and profanity-checked (`VALIDATION` error otherwise); a public room is listed on the home page |
 | `room:start` | — | host | ≥ 2 players |
 | `room:kick` | `playerId` | host | |
 | `room:transferHost` | `playerId` | host | |
@@ -32,7 +33,8 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 | Type | Payload | Notes |
 |---|---|---|
 | `room:snapshot` | full sanitized room state, current strokes, `deck`, `paused`, and `secret` (options/word only for those allowed) | On connect/reconnect |
-| `room:players` | player list | On join/leave/score change |
+| `room:players` | player list | On join/leave/score change, and when a player changes their name or avatar (`PUT /api/rooms/:code/me`, below) |
+| `room:details` | `name, isPublic` | After the host renames the room or switches public/private |
 | `room:settings` | `settings, deck` | `deck` (`{ id, title, coverId }`, `coverId` null for the default cover) is `null` while a newly picked deck loads |
 | `room:paused` | `paused: 'host' \| 'players' \| null` | `players`: auto-pause when only one player is left |
 | `room:notice` | `code, playerId?, count?, needed?` | `pool_reshuffled`, `player_kicked`, `vote_kick` (progress), `host_changed`, `deck_unavailable` |
@@ -114,3 +116,7 @@ connect(token) → server verifies JWT → adds/reattaches player → room:snaps
 heartbeat: ws ping every 20s; 2 missed → mark disconnected (grace period per user-flows edge cases)
 close → mark disconnected; if not back within grace → remove from turn order
 ```
+
+## Changing your name or avatar in a room
+
+Not a socket message: avatars are PNG data URLs, and create/join already send them over HTTP. `PUT /api/rooms/:code/me` with `{ displayName, avatar }` (only for players in the room; names are profanity-checked, avatars stored like on join) hands the room an `identity` event (`packages/game-core/src/room/players.ts`: the name is made unique, then `room:players` goes to everyone). The client doesn't reconnect: `connectRoom` reads the current identity at each (re)connect, so later reconnects join with the new one too. Used by "Draw yourself!" in the waiting room (user-flows.md §5).

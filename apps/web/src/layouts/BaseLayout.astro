@@ -7,7 +7,7 @@ type Props = {
 };
 
 const {
-  title = 'PictioTheme',
+  title = 'DoodleWhirl!',
   description = 'A multiplayer drawing game where every match has a theme.',
 } = Astro.props;
 ---
@@ -18,7 +18,12 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta property="og:site_name" content="DoodleWhirl!" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
+    <slot name="head" />
   </head>
   <body>
     <slot />

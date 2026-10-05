@@ -1,12 +1,27 @@
 import type { DeckSummary, GenerationJob } from '@pictiotheme/protocol';
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+import { hostRoom } from './support';
 
 /**
- * Generating a deck from the create-room deck picker. CI never calls OpenRouter, so the
- * generation endpoints are stubbed in the browser. Creating a room with a generated deck is
- * covered against the real server in apps/server (generation.e2e.test.ts); this spec doesn't
- * create a room, so the suite stays under the dev server's room-creation rate limit.
+ * Generating a deck from the host's deck picker in the waiting room. CI never calls OpenRouter,
+ * so the generation endpoints are stubbed in the browser, and the stubbed deck doesn't exist on
+ * the server: the specs check that the client asks the room for it (`room:settings`). Playing a
+ * generated deck is covered against the real server in apps/server (generation.e2e.test.ts).
+ * Each test creates a room: run this file alone against a dev server with rate limits on.
  */
+
+/** The deck ids this page asked the room to switch to. */
+function deckRequests(page: Page): string[] {
+  const ids: string[] = [];
+  page.on('websocket', (ws) =>
+    ws.on('framesent', ({ payload }) => {
+      if (typeof payload !== 'string') return;
+      const msg = JSON.parse(payload) as { t?: string; settings?: { deckId?: string } };
+      if (msg.t === 'room:settings' && msg.settings?.deckId) ids.push(msg.settings.deckId);
+    }),
+  );
+  return ids;
+}
 
 const DECK: DeckSummary = {
   id: '0190a000-0000-7000-8000-0000000000aa',
@@ -32,6 +47,7 @@ const COVER_ID = 'c'.repeat(32);
 test('generate a deck, draw its cover while waiting, and it becomes the selected deck', async ({
   page,
 }) => {
+  const requested = deckRequests(page);
   let published = false;
   let request: unknown = null;
   const cover: { image?: string } = {};
@@ -61,13 +77,15 @@ test('generate a deck, draw its cover while waiting, and it becomes the selected
     }),
   );
 
-  await page.goto('/play');
-  await page.getByLabel('Your name').fill('Ana');
-  await page.getByRole('button', { name: /play/i }).click();
+  await hostRoom(page, 'Ana');
 
   await page.getByRole('button', { name: /generate a deck/i }).click();
   await page.getByLabel('Theme').fill('pirates');
-  await page.getByRole('button', { name: 'Hard' }).click(); // turn hard off
+  // Turn hard off in the panel (the room settings below have their own Hard).
+  await page
+    .getByRole('group', { name: /Generate a deck/ })
+    .getByRole('button', { name: 'Hard' })
+    .click();
   await page.getByRole('button', { name: 'Generate' }).click();
 
   await expect(page.getByText('Making your “pirates” deck')).toBeVisible();
@@ -87,7 +105,7 @@ test('generate a deck, draw its cover while waiting, and it becomes the selected
   expect(cover.image).toMatch(/^data:image\/png;base64,/);
 
   published = true; // the next poll sees the finished deck
-  await expect(page.getByRole('radio', { name: /Pirate Party/ })).toBeChecked();
+  await expect.poll(() => requested).toContain(DECK.id); // the room is asked to switch to it
   await expect(page.getByRole('img', { name: 'Cover of Pirate Party' })).toHaveAttribute(
     'src',
     `/api/decks/covers/${COVER_ID}`,
@@ -118,9 +136,7 @@ test('redraw the cover of one of your decks', async ({ page }) => {
     }),
   );
 
-  await page.goto('/play');
-  await page.getByLabel('Your name').fill('Ana');
-  await page.getByRole('button', { name: /play/i }).click();
+  await hostRoom(page, 'Ana');
 
   await page.getByRole('button', { name: 'Redraw the cover of Pirate Party' }).click();
   await page.getByRole('button', { name: 'Save cover ✓' }).click();
@@ -147,6 +163,7 @@ test('redraw the cover of one of your decks', async ({ page }) => {
 test('a deck that finishes first waits for the cover to be finished or skipped', async ({
   page,
 }) => {
+  const requested = deckRequests(page);
   let published = false;
   await page.route('**/api/decks/generations/config', (route) =>
     route.fulfill({ json: { enabled: true, daily: null } }),
@@ -161,9 +178,7 @@ test('a deck that finishes first waits for the cover to be finished or skipped',
     route.fulfill({ json: { decks: published ? [DECK] : [] } }),
   );
 
-  await page.goto('/play');
-  await page.getByLabel('Your name').fill('Cy');
-  await page.getByRole('button', { name: /play/i }).click();
+  await hostRoom(page, 'Cy');
   await page.getByRole('button', { name: /generate a deck/i }).click();
   await page.getByLabel('Theme').fill('pirates');
   await page.getByRole('button', { name: 'Generate' }).click();
@@ -172,7 +187,7 @@ test('a deck that finishes first waits for the cover to be finished or skipped',
   await expect(page.getByText('is ready! Finish your cover')).toBeVisible();
   await expect(page.getByLabel('Deck cover drawing pad')).toBeVisible();
   await page.getByRole('button', { name: 'Skip' }).click();
-  await expect(page.getByRole('radio', { name: /Pirate Party/ })).toBeChecked();
+  await expect.poll(() => requested).toContain(DECK.id);
 });
 
 test("a player who used today's deck sees when the next one is available", async ({ page }) => {
@@ -180,9 +195,7 @@ test("a player who used today's deck sees when the next one is available", async
   await page.route('**/api/decks/generations/config', (route) =>
     route.fulfill({ json: { enabled: true, daily: { limit: 1, remaining: 0, nextAt } } }),
   );
-  await page.goto('/play');
-  await page.getByLabel('Your name').fill('Ana');
-  await page.getByRole('button', { name: /play/i }).click();
+  await hostRoom(page, 'Ana');
   await page.getByRole('button', { name: /generate a deck/i }).click();
   await page.getByLabel('Theme').fill('pirates');
   await expect(page.getByTestId('generation-allowance')).toHaveText(
@@ -195,9 +208,7 @@ test('the generate button is hidden when the server has generation off', async (
   await page.route('**/api/decks/generations/config', (route) =>
     route.fulfill({ json: { enabled: false, daily: null } }),
   );
-  await page.goto('/play');
-  await page.getByLabel('Your name').fill('Bo');
-  await page.getByRole('button', { name: /play/i }).click();
+  await hostRoom(page, 'Bo');
   await expect(page.getByRole('radio').first()).toBeVisible();
   await expect(page.getByRole('button', { name: /generate a deck/i })).toHaveCount(0);
 });

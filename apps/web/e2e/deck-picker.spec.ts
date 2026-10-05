@@ -1,16 +1,15 @@
 import { expect, test } from '@playwright/test';
-import { newPlayerPage, pickIdentity } from './support';
+import { hostRoom, newPlayerPage } from './support';
 
-/** The create-room deck picker over the seeded curated decks (db:migrate seeds them). */
+/** The host's deck picker in the waiting room, over the seeded curated decks (db:migrate seeds them). */
 
 test('pick a deck from the featured row, show more, and search', async ({ browser }) => {
   const page = await newPlayerPage(browser);
-  await page.goto('/play');
-  await pickIdentity(page, 'Ana', /play/i);
+  await hostRoom(page, 'Ana');
 
   const featured = page.getByRole('region', { name: 'Featured' });
   const more = page.getByRole('region', { name: 'More decks' });
-  // The first featured deck is selected to start with.
+  // The room starts with the default deck: the first featured one.
   await expect(featured.getByRole('radio').first()).toBeChecked();
   await expect(featured.getByRole('radio', { name: /Spooky Halloween/ })).toBeChecked();
 
@@ -23,9 +22,13 @@ test('pick a deck from the featured row, show more, and search', async ({ browse
   await page.getByLabel('Search decks').fill('dinosaur');
   const results = page.getByRole('region', { name: 'Results' });
   await expect(results.getByRole('radio')).toHaveCount(1);
-  await results.getByRole('radio').check({ force: true });
+  // The radio shows the room's deck, so it turns on once the server applies the change.
+  await results.getByRole('radio').click({ force: true });
+  await expect(results.getByRole('radio')).toBeChecked();
   await page.getByLabel('Search decks').fill('');
   await expect(more.getByRole('radio', { name: /Dinosaur/ })).toBeChecked();
+  // Picking it changed the room's deck, for everyone.
+  await expect(page.getByTestId('room-deck')).toHaveAttribute('title', /Dinosaur/);
 
   await page.getByLabel('Search decks').fill('zzzzqqq');
   await expect(page.getByText('No decks match “zzzzqqq”.')).toBeVisible();

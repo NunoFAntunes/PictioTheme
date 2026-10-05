@@ -10,6 +10,7 @@ export const PlayerId = z.string().min(1).max(64);
 export type PlayerId = z.infer<typeof PlayerId>;
 
 export const DisplayName = z.string().trim().min(2).max(20);
+export const RoomName = z.string().trim().min(2).max(40);
 /**
  * Avatars are drawn by the players. The client sends the image as a PNG data URL; the server
  * stores it content-addressed and everyone else refers to it by id (`GET /api/avatars/:id`).

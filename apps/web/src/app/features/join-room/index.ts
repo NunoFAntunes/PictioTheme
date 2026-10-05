@@ -1,1 +1,1 @@
-export { JoinRoomForm } from './components/JoinRoomForm';
+export { JoinRoomForm, formatCodeInput } from './components/JoinRoomForm';

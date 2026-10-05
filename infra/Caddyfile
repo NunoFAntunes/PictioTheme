@@ -42,8 +42,12 @@
 		encode zstd gzip
 		root * /srv
 
+		# The old lobby: the home page is the lobby now. Keep in sync with apps/web/src/app-routes.ts.
+		redir /play / 301
+		redir /play/ / 301
+
 		# App routes are served by the React shell. Keep in sync with apps/web/src/app-routes.ts.
-		@app path /play* /r /r/* /decks* /generate* /account*
+		@app path /r /r/* /decks* /generate* /account*
 		rewrite @app /app/index.html
 
 		# Astro's hashed bundles never change.

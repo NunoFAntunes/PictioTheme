@@ -12,6 +12,8 @@ import {
   type CreateRoomRequest,
   type JoinRoomRequest,
   type JoinRoomResponse,
+  type QuickPlayRequest,
+  type UpdateIdentityRequest,
   type PublicRoomSummary,
   type ServerMessage,
 } from '@pictiotheme/protocol';
@@ -102,7 +104,7 @@ export function createRoomsService(deps: {
     }
   }
 
-  return {
+  const service = {
     async createRoom(actor: Actor, input: CreateRoomRequest): Promise<JoinRoomResponse> {
       if (!accepting) throw serviceUnavailable('The server is restarting');
       assertAllowed(input.displayName, 'name');
@@ -180,6 +182,64 @@ export function createRoomsService(deps: {
       };
     },
 
+    /**
+     * Joins the public room with space that is waiting and has the most players; failing that, the
+     * fullest public match with space (joined as a guesser); failing that, creates a public room
+     * named after the player (user-flows.md §2).
+     */
+    async quickPlay(actor: Actor, identity: QuickPlayRequest): Promise<JoinRoomResponse> {
+      if (!accepting) throw serviceUnavailable('The server is restarting');
+      assertAllowed(identity.displayName, 'name');
+      const playerId = playerIdOf(actor);
+      const [best] = [...rooms.values()]
+        .filter(({ state }) => {
+          const connected = [...state.players.values()].some((p) => p.connected);
+          const hasSpace =
+            state.players.has(playerId) || state.players.size < state.settings.maxPlayers;
+          return state.isPublic && connected && hasSpace && !state.banned.has(playerId);
+        })
+        .map((room) => ({ room, summary: room.summary() }))
+        .sort(
+          (a, b) =>
+            Number(a.summary.status === 'playing') - Number(b.summary.status === 'playing') ||
+            b.summary.players - a.summary.players,
+        );
+      if (best) return service.joinRoom(actor, best.room.code, identity);
+      return service.createRoom(actor, {
+        ...identity,
+        name: `${identity.displayName}'s room`,
+        isPublic: true,
+      });
+    },
+
+    /**
+     * A player already in the room changes their name or avatar. Checked and stored like a join;
+     * the room tells everyone (user-flows.md §5).
+     */
+    async updateIdentity(
+      actor: Actor,
+      rawCode: string,
+      identity: UpdateIdentityRequest,
+    ): Promise<void> {
+      const room = roomByCode(rawCode);
+      assertAllowed(identity.displayName, 'name');
+      const playerId = playerIdOf(actor);
+      if (!room.state.players.has(playerId)) {
+        throw new AppError('FORBIDDEN', 403, 'You are not in this room');
+      }
+      const avatar = await deps.avatars.store(identity.avatar);
+      room.handle({ type: 'identity', playerId, name: identity.displayName, avatar });
+    },
+
+    /** Players connected right now, across every room. */
+    onlineCount(): number {
+      let count = 0;
+      for (const room of rooms.values()) {
+        for (const player of room.state.players.values()) if (player.connected) count++;
+      }
+      return count;
+    },
+
     listPublic(): PublicRoomSummary[] {
       return [...rooms.values()]
         .filter((r) => r.state.isPublic && r.state.players.size > 0)
@@ -206,6 +266,7 @@ export function createRoomsService(deps: {
       }
     },
   };
+  return service;
 }
 
 export type RoomsService = ReturnType<typeof createRoomsService>;

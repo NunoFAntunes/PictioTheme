@@ -1,15 +1,16 @@
 import { normalizeRoomCode } from '@pictiotheme/game-core';
 import { useEffect, useState, type ReactNode } from 'react';
-import { Link, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { GuessFeed, GuessInput } from '../../features/guess-feed';
-import { IdentityForm } from '../../features/identity';
+import { useEnsureIdentity } from '../../features/identity';
 import { PlayerList } from '../../features/player-list';
 import { ResultsPanel } from '../../features/results';
 import { RoomHeader } from '../../features/room-header';
 import { RoomMetrics } from '../../features/metrics';
 import { RoomSounds } from '../../features/sound';
 import { WaitingRoom } from '../../features/waiting-room';
-import { useIdentity, type Identity } from '../../lib/identity';
+import type { PlayerIdentity } from '@pictiotheme/protocol';
+import { useIdentity } from '../../lib/identity';
 import { useMediaQuery } from '../../lib/use-media-query';
 import { connectRoom, useRoomStore, type RoomView } from '../../realtime';
 import { GameBoard } from './GameBoard';
@@ -19,20 +20,29 @@ function CenteredMessage({ title, children }: { title: string; children?: ReactN
     <main className="mx-auto flex min-h-dvh max-w-md flex-col items-center justify-center gap-4 px-4 text-center">
       <h1 className="text-2xl font-semibold">{title}</h1>
       {children}
-      <Link to="/play" className="text-brand-600 underline">
+      <a href="/" className="text-brand-600 underline">
         Back to the lobby
-      </Link>
+      </a>
     </main>
   );
 }
 
-/** The room screen: players left, board centre, feed right (screens.md §4). */
-function RoomSession({ code, identity }: { code: string; identity: Identity }) {
+/**
+ * Who to join as, read at each (re)connect. A name or avatar changed in the room ("Draw yourself!")
+ * reaches the room through PUT /api/rooms/:code/me instead of a reconnect.
+ */
+function roomIdentity(): PlayerIdentity {
+  const identity = useIdentity.getState().identity;
+  if (!identity) throw new Error('No identity yet');
+  return { displayName: identity.displayName, avatar: identity.avatar };
+}
+
+/** The room screen: players in the sheet's margin, board beside them, feed right (screens.md §4). */
+function RoomSession({ code }: { code: string }) {
   const view = useRoomStore((s) => s.view);
   const connection = useRoomStore((s) => s.connection);
 
-  const { displayName, avatar } = identity;
-  useEffect(() => connectRoom(code, { displayName, avatar }), [code, displayName, avatar]);
+  useEffect(() => connectRoom(code, roomIdentity), [code]);
 
   if (connection.kind === 'closed' && connection.reason !== 'left') {
     return (
@@ -62,20 +72,49 @@ function RoomSession({ code, identity }: { code: string; identity: Identity }) {
   );
 }
 
-/** Wide screens (laptops, tablets in landscape): three columns, players · board · guesses. */
+/** Wide screens (laptops, tablets in landscape): the sheet (players' margin + board) · guesses. */
 const WIDE = '(min-width: 1024px)';
+
+/**
+ * One sheet of paper: the players stand in its left margin, right next to the canvas, with nothing
+ * but a faint margin line between them. Always light, like the paper on the landing page.
+ */
+function RoomSheet({ phase, children }: { phase: RoomView['phase']['kind']; children: ReactNode }) {
+  const inMatch = phase !== 'waiting' && phase !== 'results';
+  return (
+    <div
+      data-paper
+      className="flex min-h-0 overflow-hidden rounded-xl border border-zinc-300 bg-white text-zinc-900 shadow-sm scheme-light dark:border-zinc-700"
+    >
+      <aside className="relative w-44 shrink-0" aria-label="Players">
+        <div className="absolute inset-0 overflow-x-hidden overflow-y-auto pb-4">
+          <PlayerList />
+        </div>
+        <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-pop-tomato/30" />
+      </aside>
+      <main
+        className={`flex min-h-0 min-w-0 flex-1 justify-center overflow-y-auto ${inMatch ? '' : 'p-4'}`}
+      >
+        {children}
+      </main>
+    </div>
+  );
+}
 
 function RoomLayout({ phase }: { phase: RoomView['phase']['kind'] }) {
   const wide = useMediaQuery(WIDE);
   const centre =
-    phase === 'waiting' ? <WaitingRoom /> : phase === 'results' ? <ResultsPanel /> : <GameBoard />;
+    phase === 'waiting' ? (
+      <WaitingRoom />
+    ) : phase === 'results' ? (
+      <ResultsPanel />
+    ) : (
+      <GameBoard bare={wide} />
+    );
   if (wide) {
     return (
-      <div className="grid min-h-0 flex-1 grid-cols-[15rem_minmax(0,1fr)_18rem] gap-3 p-3">
-        <aside className="overflow-y-auto" aria-label="Players">
-          <PlayerList />
-        </aside>
-        <main className="flex min-h-0 justify-center overflow-y-auto">{centre}</main>
+      <div className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_18rem] gap-3 p-3">
+        <RoomSheet phase={phase}>{centre}</RoomSheet>
         <aside className="flex min-h-64 flex-col gap-2 rounded-xl border border-zinc-200 p-2 dark:border-zinc-800">
           <GuessFeed />
           <GuessInput />
@@ -148,8 +187,12 @@ function RoomTabs({ grow }: { grow: boolean }) {
         {tab === 'guesses' ? (
           <GuessFeed />
         ) : (
-          <div aria-label="Players">
-            <PlayerList />
+          <div
+            aria-label="Players"
+            data-paper
+            className="rounded-lg bg-white pb-4 text-zinc-900 scheme-light"
+          >
+            <PlayerList layout="grid" />
           </div>
         )}
       </div>
@@ -160,20 +203,11 @@ function RoomTabs({ grow }: { grow: boolean }) {
 
 export function RoomPage() {
   const params = useParams();
-  const identity = useIdentity((s) => s.identity);
+  // Invite links go straight in: a first-time player gets a silly name (user-flows.md §2).
+  const identity = useEnsureIdentity();
   const code = normalizeRoomCode(params.code ?? '');
 
   if (!code.ok) return <CenteredMessage title="That doesn’t look like a room code." />;
-  if (!identity) {
-    // Invite links land here: pick a name first (user-flows.md §2).
-    return (
-      <main className="mx-auto flex min-h-dvh max-w-md flex-col items-center justify-center gap-4 px-4">
-        <h1 className="text-2xl font-semibold">
-          Join room <span className="font-mono">{code.code}</span>
-        </h1>
-        <IdentityForm submitLabel="Join room ▶" />
-      </main>
-    );
-  }
-  return <RoomSession code={code.code} identity={identity} />;
+  if (!identity) return <CenteredMessage title={`Joining ${code.code}…`} />;
+  return <RoomSession code={code.code} />;
 }

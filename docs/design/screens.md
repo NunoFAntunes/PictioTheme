@@ -2,104 +2,88 @@
 
 Low-fidelity wireframes. Desktop first, with mobile notes. Visual direction: playful, hand-drawn accents, high contrast, big touch targets.
 
-## 1. Landing
+## 1. Home (the lobby is the front door)
+
+The flows are in [user-flows.md](../product/user-flows.md#2-home-page-the-lobby-is-the-front-door): every way into a game is one click, and there's no name form. Everything below sits above the fold on a laptop.
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│  PictioTheme ✏️                                  [Sign in]   │
-│                                                              │
-│        Draw it. Guess it. Theme it.                          │
-│        (animated doodle of a vampire on a unicycle)          │
-│                                                              │
-│   ┌───────────────────────┐   ┌──────────────────────────┐   │
-│   │  Your name: [______]  │   │  Have a code?            │   │
-│   │  Avatar: [draw pad]   │   │  [ ABC-DEF ]  [Join]     │   │
-│   │  [ Play as guest ▶ ]  │   │                          │   │
-│   └───────────────────────┘   └──────────────────────────┘   │
-│                                                              │
-│   Popular themes this week: 🎃 Halloween  🍕 Food  🚀 Space   │
-└──────────────────────────────────────────────────────────────┘
+desk ─────────────────────────────────────────────────────────────────────
+ 🔊  ● online                                 Playing as 🥒 Sneaky Pickle ✏️
+ ┌──────────────────────────── paper ────────────────────────────────────┐
+ │                  D o o d l e   W h i r l ! ✏                          │
+ │                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~                          │
+ │                                                                       │
+ │    [ ⚡ Quick play ]     [ 🔒 New private room ]    [ ABC-DEF  → ]     │
+ │                                                                       │
+ │    Public rooms · 23 doodling now                                     │
+ │    ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐                        │
+ │    │🎃 Spooky│ │🍕 Pizza │ │🚀 Space │ │ (full) │   sticky notes, tilted │
+ │    │ 4/8 ●  │ │ 2/6 ●  │ │ 7/10 ▶ │ │ 10/10  │   ● waiting ▶ in game  │
+ │    └────────┘ └────────┘ └────────┘ └────────┘                        │
+ └───────────────────────────────────────────────────────────────────────┘
 ```
+
+**The logo (built):** a sheet of ruled paper drops onto the desk. The "DoodleWhirl!" letters (Cherry Bomb One, coloured sticker letters with an ink outline) rain onto it, a pencil falls in and lands as if it has just written the "!" (its tip is painted in front of the letters, its body behind), and a swirl draws itself under "Whirl!". Then the letters are a toy: moving the mouse past them nudges and spins them, and you can grab one, drag it, and fling it into the others. They always spring back home, so the logo stays readable. There is no tagline or marketing copy: the page title and meta description carry that. The server-rendered HTML is the finished picture; with `prefers-reduced-motion` there's no intro and no physics. Code: `apps/web/src/components/hero/`.
+
+**The lobby (under the logo):** the header chip, the three actions, and the room notes. Quick play is the biggest button. An empty room list says "No public rooms yet: Quick play starts one". Phones get the logo and a short "open this on a tablet or computer" note instead of the actions.
 
 ## 2. Lobby
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│  PictioTheme   [🔍 search rooms/themes]   🧛 Nuno ▾  💳 3     │
-├──────────────────────────────────────────────────────────────┤
-│  [ + Create room ]        Join private: [ ___-___ ] [Join]   │
-│                                                              │
-│  Public rooms                    filters: ☐ waiting ☐ space  │
-│  ┌──────────────────────────────────────────────────────┐    │
-│  │ 🎃 Spooky Night     Halloween · E M 🤪   6/10  waiting │ ▶ │
-│  │ 🍕 Pizza Party      Food · E          3/8   in game   │ ▶ │
-│  │ 🚀 Space Cadets     Space · M H       9/10  waiting   │ ▶ │
-│  └──────────────────────────────────────────────────────┘    │
-└──────────────────────────────────────────────────────────────┘
-```
+Retired: the home page is the lobby (§1). `/play` redirects to `/`. Filters for the room notes ("waiting", "has space", theme search) are still to come.
 
-## 3. Create room → deck picker
+## 3. Choosing the deck (waiting room, host)
+
+There's no create-room form: rooms are made in one click (user-flows.md §3). In the waiting room the host gets a **Deck** section above the settings, open to start with ("Done" folds it away, "🎴 Change deck" opens it again):
 
 ```
-┌─ Create room ────────────────────────────────────────────────┐
-│ Name [Nuno's room______]   ( ● Public  ○ Private )           │
-│                                                              │
-│ Deck  [🔍 halloween____________]                             │
-│  ┌────────────────────────────────────────────────────────┐  │
-│  │ ◉ Spooky Halloween   E40 M40 H30 🤪40  👍92%  1.2k plays│  │
-│  │ ○ Kids Halloween     E60 M20         👍88%   430 plays │  │
-│  │ ○ Horror Movies      M30 H40 🤪25    👍81%   210 plays │  │
-│  │                                   [Preview cards]      │  │
-│  └────────────────────────────────────────────────────────┘  │
-│  Can't find it? [✨ Generate "halloween" deck] (2 free left) │
-│                                                              │
-│ Difficulty  [✓Easy] [✓Medium] [ Hard ]                       │
-│ Silly Mode  [ON]   mix ──●──── 25%                           │
-│ Rounds [3]  Draw time [80s]  Max players [10]                │
-│ Guesses     ( ● Show  ○ Hide )   Hints [ON]                  │
-│                                           [Create room ▶]    │
-└──────────────────────────────────────────────────────────────┘
+┌─ Deck: Spooky Halloween ─────────────────────────── Done ──┐
+│ [🔍 Search decks: halloween, space, food…______________]   │
+│ Your decks   [✨🏴‍☠️ cover] [✏️]                              │
+│ Featured     [🎃 cover] [🍂 cover] [👻 cover] [🕸 cover]      │
+│ More decks   [🦖 cover] [🚀 cover] [🍕 cover] [🐙 cover]      │
+│              Show all 15 decks                             │
+│ [✨ Generate a deck]                                        │
+└────────────────────────────────────────────────────────────┘
 ```
 
-**Built so far:** name, public/private, a search box, and a grid of deck covers in sections: "Your decks" (✨ yours, with ✏️ to redraw the cover), "Featured" (seasonal curated decks) and "More decks", 4 per section until "Show all". Each tile has the [back cover](../product/decks.md#back-cover), title, card count and 🤪. Searching matches titles and tags of all public decks, typos included. No ratings or play counts yet, and the other settings are changed in the waiting room.
+**Start game** sits right under the room code, above the picker, so the host never scrolls to start. Picking a cover changes the room's deck for everyone at once (the cover beside the room code updates). Other players see the cover and title, not the picker. Search matches titles and tags of all public decks, typos included. Each tile has the [back cover](../product/decks.md#back-cover), title, card count and 🤪; "Your decks" have ✏️ to redraw the cover. A generated deck becomes the room's deck as soon as it's ready. No ratings, play counts or card previews yet. The room's name and a Public 🌍 switch are the first two settings rows (host only).
 
 ## 4. Game screen (the main one)
 
-Players on the **left**, canvas in the **center**, guess feed and input on the **right**.
+One **sheet of paper** holds the players and the canvas: the players stand in its left margin, right next to the drawing, with only a faint margin line between them. The guess feed and input are on the **right**. The sheet is always light, like paper, even in dark mode.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
 │ Round 2/3   ⏱ 0:47        _ _ _ _ _ _ _   _ _ _ _ _ _ _ _ _ (7, 9)  ⚙ │
-├───────────────┬──────────────────────────────────────┬───────────────────┤
-│ PLAYERS       │                                      │ GUESSES / CHAT    │
-│               │                                      │                   │
-│ 👑🧛 Nuno 820 │                                      │ Ana: bat          │
-│   ✏️ drawing   │                                      │ Rui: vampire      │
-│               │            (canvas 4:3)              │ Ana: ███████  ←red│
-│ 🎃 Ana    610 │                                      │ 🎉 Rui guessed it!│
-│   💬 ███████   │  ← red redacted close guess          │ Mia: dracula      │
-│               │                                      │                   │
-│ 🐺 Rui ✅ 540 │                                      │                   │
-│   guessed!    │                                      │                   │
-│               │                                      │                   │
-│ 👻 Mia    300 │                                      │                   │
-│   💬 dracula   │                                      │                   │
-│               ├──────────────────────────────────────┤                   │
-│               │ (toolbar: only visible to drawer)     │ [type guess…] ⏎  │
-└───────────────┴──────────────────────────────────────┴───────────────────┘
+├──────────────────────────────────────────────────────┬───────────────────┤
+│ ┌────────────╎────────────────────────────────────┐  │ GUESSES / CHAT    │
+│ │ 👑  /\_/\   ╎                                    │  │                   │
+│ │ ✏️ ( o.o ) ⬮820                                 │  │ Ana: bat          │
+│ │    Nuno    ╎                                    │  │ Rui: vampire      │
+│ │  [███████] ╎          (canvas 4:3)              │  │ Ana: ███████  ←red│
+│ │    🎃   ⬮610                                    │  │ 🎉 Rui guessed it!│
+│ │    Ana     ╎                                    │  │                   │
+│ │ ✅  🐺  ⬮540                                    │  │                   │
+│ │    Rui     ╎                                    │  │                   │
+│ │            ╎   (toolbar: only visible to drawer)│  │ [type guess…] ⏎  │
+│ └────────────╎────────────────────────────────────┘  │                   │
+└──────────────────────────────────────────────────────┴───────────────────┘
+   ⬮ = score sticker   ╎ = faint margin line
 ```
 
-Player list details:
+Player details (`features/player-list`):
 
-- The **drawn avatar is the focus**: shown large (64 px), with the name in small text beside it, then the status, the guess bubble and the score. Status: ✏️ drawing (badge on the avatar) / ✅ guessed / 💤 disconnected (greyed out).
-- **Latest guess bubble** under each player when guess visibility is ON. It fades out after ~3s. Close guesses show as `█████` in red (the guesser sees their own text in red).
-- Crown on the host's avatar. The host gets a ⋯ menu on each player (kick, make host).
-- Score changes animate (+180) at the end of each turn.
-- **In a match the list is a leaderboard**: sorted by score with a `#rank` beside it (ties share a rank and keep join order). When the order changes the rows slide to their new places, and whoever overtook someone pops with a brand-coloured ring as they pass. No motion with `prefers-reduced-motion`. The sort is display only: the drawing order is still the server's join-order rotation.
+- **Each player is their own doodle.** The avatar is cut out of its background (transparent, cropped to the drawing, white enclosed by lines kept) and shown with no frame. It moves a little: the lines **boil** (SVG displacement filters switched about 8 times a second, like redrawn cartoon frames) and the character **sways** gently, out of step with the others. Sizes shrink as the room fills (about 88 / 64 / 48 px for ≤6 / ≤10 / more players), and the margin scrolls past that.
+- **Names are handwritten** under the character in one of ten messy Google Fonts (Rock Salt, Gloria Hallelujah, Gochi Hand, Schoolbell, Kranky, Sedgwick Ave, Walter Turncoat, Covered By Your Grace, Just Me Again Down Here, Fuzzy Bubbles), self-hosted. The font is picked from the player id and room code, so every client agrees and it can change between rooms (`name-font.ts`).
+- **Points sit on a scribbled sticker** beside the character: a wobbly blob in a pop colour with the score in the logo font and a `#rank` tag. At the end of each turn a "+N" floats up from it and the number counts up to the server's new score.
+- **States**: 👑 host (tilted on the head), ✏️ drawing (the character wiggles as if drawing), ✅ guessed (it hops), 💤 away (greyscale, faded, no boil).
+- **Latest guess bubble** above the character when guess visibility is ON. It fades out after ~3s. Close guesses show as `█████` in red (the guesser sees their own text in red).
+- The host gets a ⋯ menu on each player (kick, make host); others get vote to kick.
+- **In a match the list is a leaderboard**: sorted by score (ties share a rank and keep join order). When the order changes the characters slide to their new places, and whoever overtook someone grows, wiggles and glows as they pass. No motion with `prefers-reduced-motion` (no boil, sway, hop, float or slide either). The sort is display only: the drawing order is still the server's join-order rotation.
 
 Drawer's view: the header shows the **full word** (e.g. "VAMPIRE ON A UNICYCLE" with a 🤪 tag) instead of blanks. The guess input is disabled and reads "You're drawing!".
 
-**Tablets in portrait** (built; any screen under 1024 px wide, while tablets in landscape and laptops get the three columns): the canvas takes the top of the screen, at most ~56% of its height. The drawer's toolbar sits right under it. Below that, tabs switch between [Guesses] (the default, with a count of new lines while you're on Players) and [Players], and the guess input is pinned at the bottom. Mid-match the page doesn't scroll, only the tab content. The lobby also stacks below 1024 px, "Join with a code" first.
+**Tablets in portrait** (built; any screen under 1024 px wide, while tablets in landscape and laptops get the sheet and the guess column): the canvas takes the top of the screen, at most ~56% of its height. The drawer's toolbar sits right under it. Below that, tabs switch between [Guesses] (the default, with a count of new lines while you're on Players) and [Players] (the same characters in a wrapping grid on a strip of paper), and the guess input is pinned at the bottom. Mid-match the page doesn't scroll, only the tab content. The lobby also stacks below 1024 px, "Join with a code" first.
 
 **Phones** get the "bigger screen" page (`features/phone-gate`, [next-features.md](../planning/next-features.md) 1.3). If a phone guess-only mode comes later: the player list becomes a horizontal avatar strip above the canvas with the guess bubbles shown as small overlays.
 

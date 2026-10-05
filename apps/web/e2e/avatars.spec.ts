@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { newPlayerPage } from './support';
+import { followInvite, nameOnHome, newPlayerPage } from './support';
 
 /** Drawn avatars: draw on the pad, and everyone in the room sees the image. */
 
@@ -28,17 +28,13 @@ test('a drawn avatar shows in the player list for everyone', async ({ browser })
   const host = await newPlayerPage(browser);
   const guest = await newPlayerPage(browser);
 
-  await host.goto('/play');
-  await host.getByLabel('Your name').fill('Ana');
-  await scribble(host);
-  await host.getByRole('button', { name: /play/i }).click();
-  await host.getByRole('button', { name: /create room/i }).click();
+  await nameOnHome(host, 'Ana', scribble);
+  await host.getByRole('button', { name: /new private room/i }).click();
+  await expect(host.getByTestId('room-code')).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/);
   const code = (await host.getByTestId('room-code').textContent()) ?? '';
 
-  // The guest leaves the pad blank and gets an avatar made from their initial.
-  await guest.goto(`/r/${code}`);
-  await guest.getByLabel('Your name').fill('Bo');
-  await guest.getByRole('button', { name: /join room/i }).click();
+  // The guest never draws and keeps the avatar made from their initial.
+  await followInvite(guest, code, 'Bo');
 
   const anaOnGuest = await loadedAvatar(guest, 'Ana');
   const boOnHost = await loadedAvatar(host, 'Bo');
@@ -46,3 +42,39 @@ test('a drawn avatar shows in the player list for everyone', async ({ browser })
   expect(anaSrc).not.toBe(await boOnHost.getAttribute('src'));
   expect(await (await loadedAvatar(host, 'Ana')).getAttribute('src')).toBe(anaSrc);
 });
+
+test('a player who never drew draws themselves in the waiting room, and the room updates', async ({
+  browser,
+}) => {
+  const host = await newPlayerPage(browser);
+  const guest = await newPlayerPage(browser);
+  await nameOnHome(host, 'Ana', scribble);
+  await host.getByRole('button', { name: /new private room/i }).click();
+  await expect(host.getByTestId('room-code')).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/);
+  const code = (await host.getByTestId('room-code').textContent()) ?? '';
+
+  // Straight from the invite link, with a generated name and initial.
+  await guest.goto(`/r/${code}`);
+  await expect(guest.getByRole('heading', { name: /Draw yourself/ })).toBeVisible();
+  const before = await loadedAvatar(host, (await playerNames(host)).find((n) => n !== 'Ana') ?? '');
+  const beforeSrc = await before.getAttribute('src');
+
+  await guest.getByRole('textbox', { name: 'Your name', exact: true }).fill('Bo');
+  await scribble(guest);
+  await guest.getByRole('button', { name: 'Save' }).click();
+  await expect(guest.getByRole('heading', { name: /Draw yourself/ })).toHaveCount(0);
+
+  // The host sees the new name and drawing, without the guest reconnecting.
+  const after = await loadedAvatar(host, 'Bo');
+  expect(await after.getAttribute('src')).not.toBe(beforeSrc);
+});
+
+/** Names in the player list, read from the avatars' alt text ("Bo's avatar"). */
+async function playerNames(page: Page): Promise<string[]> {
+  const list = page.getByRole('list', { name: 'Players' });
+  await expect(list.getByRole('img')).toHaveCount(2);
+  const alts = await list
+    .getByRole('img')
+    .evaluateAll((imgs) => imgs.map((img) => img.getAttribute('alt') ?? ''));
+  return alts.map((alt) => alt.replace(/'s avatar$/, ''));
+}

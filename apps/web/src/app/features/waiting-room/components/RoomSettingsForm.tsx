@@ -1,10 +1,9 @@
-import type { Difficulty, RoomSettings } from '@pictiotheme/protocol';
-import type { ReactNode } from 'react';
+import { RoomName, type Difficulty, type RoomSettings } from '@pictiotheme/protocol';
+import { useState, type ReactNode } from 'react';
 import { sendToRoom, type RoomView } from '../../../realtime';
-import { useDecks } from '../../create-room';
-import { useMyDecks } from '../../generate-deck';
 
-/** Room settings. Editable by the host; everyone else sees them read-only. */
+/** Room settings. Editable by the host; everyone else sees them read-only. The deck is chosen
+ * above them, with covers (WaitingRoom). */
 
 const DIFFICULTIES: { value: Difficulty; label: string }[] = [
   { value: 'easy', label: 'Easy' },
@@ -49,16 +48,41 @@ function Toggle({
   );
 }
 
+/** The room's name: edited in place by the host, saved on Enter or when the field loses focus. */
+function RoomNameField({ name, editable }: { name: string; editable: boolean }) {
+  const [value, setValue] = useState(name);
+  if (!editable) return <span>{name}</span>;
+
+  function save() {
+    const parsed = RoomName.safeParse(value);
+    if (!parsed.success) {
+      setValue(name);
+      return;
+    }
+    if (parsed.data !== name) sendToRoom({ t: 'room:details', name: parsed.data });
+  }
+
+  return (
+    <input
+      aria-label="Room name"
+      value={value}
+      maxLength={40}
+      onChange={(e) => setValue(e.target.value)}
+      onBlur={save}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') e.currentTarget.blur();
+        if (e.key === 'Escape') {
+          setValue(name);
+          e.currentTarget.blur();
+        }
+      }}
+      className="w-56 rounded-md border border-zinc-300 bg-transparent px-2 py-1 dark:border-zinc-700"
+    />
+  );
+}
+
 export function RoomSettingsForm({ view, editable }: { view: RoomView; editable: boolean }) {
-  const decks = useDecks();
-  const myDecks = useMyDecks();
   const s = view.settings;
-  // The room's deck may be someone else's generated deck, so it's always an option.
-  const deckOptions = [
-    ...(view.deck ? [{ id: view.deck.id, title: view.deck.title }] : []),
-    ...(myDecks.data ?? []),
-    ...(decks.data ?? []),
-  ].filter((d, i, all) => all.findIndex((x) => x.id === d.id) === i);
   const update = (patch: Partial<RoomSettings>) =>
     sendToRoom({ t: 'room:settings', settings: patch });
   const select =
@@ -66,21 +90,20 @@ export function RoomSettingsForm({ view, editable }: { view: RoomView; editable:
 
   return (
     <div className="flex flex-col divide-y divide-zinc-100 dark:divide-zinc-800">
-      <Row label="Deck">
-        <select
-          aria-label="Deck"
-          className={select}
+      <Row label="Room name">
+        {/* Keyed by the name, so a change from the server resets the field. */}
+        <RoomNameField key={view.name} name={view.name} editable={editable} />
+      </Row>
+      <Row label="Public 🌍">
+        <Toggle
+          label="Public room"
+          on={view.isPublic}
           disabled={!editable}
-          value={s.deckId}
-          onChange={(e) => update({ deckId: e.target.value })}
-        >
-          {deckOptions.map((d) => (
-            <option key={d.id} value={d.id}>
-              {d.title}
-            </option>
-          ))}
-        </select>
-        {!view.deck && <span className="text-xs text-zinc-500">loading…</span>}
+          onChange={(isPublic) => sendToRoom({ t: 'room:details', isPublic })}
+        />
+        <span className="text-xs text-zinc-500">
+          {view.isPublic ? 'Listed on the home page' : 'Only people with the code'}
+        </span>
       </Row>
       <Row label="Difficulty">
         {DIFFICULTIES.map((d) => {

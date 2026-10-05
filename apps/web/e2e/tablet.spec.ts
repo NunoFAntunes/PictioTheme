@@ -1,6 +1,6 @@
 import { CANVAS_WIDTH } from '@pictiotheme/protocol';
 import { devices, expect, test, type CDPSession, type Page } from '@playwright/test';
-import { newPlayerPage, pickIdentity } from './support';
+import { followInvite, hostRoom, newPlayerPage } from './support';
 
 /**
  * Tablets (drawing-tools.md#touch-and-stylus, screens.md §4): the portrait layout, pen pressure,
@@ -80,13 +80,7 @@ test('a tablet in portrait: tabs, pen pressure, palm rejection and the eyedroppe
   const sent = sentDrawOps(host);
   const guest = await newPlayerPage(browser);
 
-  await host.goto('/play');
-  await pickIdentity(host, 'Ana', /play/i);
-  await host.getByRole('button', { name: /create room/i }).click();
-  const codeButton = host.getByTestId('room-code');
-  await expect(codeButton).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/);
-  await guest.goto(`/r/${(await codeButton.textContent()) ?? ''}`);
-  await pickIdentity(guest, 'Bo', /join room/i);
+  await followInvite(guest, await hostRoom(host, 'Ana'), 'Bo');
 
   // Portrait: Players and Guesses are tabs under the board.
   await host.getByRole('tab', { name: /Players/ }).click();
@@ -159,8 +153,7 @@ test('without a pen, a finger draws (on the cover pad)', async ({ browser }) => 
     counts: { easy: 1, medium: 1, hard: 0, silly: 0 },
   };
   await page.route('**/api/decks/mine', (route) => route.fulfill({ json: { decks: [deck] } }));
-  await page.goto('/play');
-  await pickIdentity(page, 'Ana', /play/i);
+  await hostRoom(page, 'Ana'); // the host's deck picker, in the waiting room
   await page.getByRole('button', { name: 'Redraw the cover of Pirate Party' }).click();
 
   const pad = page.getByLabel('Deck cover drawing pad');

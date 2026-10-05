@@ -16,31 +16,53 @@
 
 **Accounts** can sign up with email magic link, Google, or Discord (Discord fits the audience well). We avoid passwords in v1 to cut down on support and security work.
 
-## 2. Landing page
+## 2. Home page: the lobby is the front door
+
+**Principle: every way into a game is one click from the home page.** There is no separate landing page, no "Play now" button and no name form standing between a visitor and a room. The home page (`/`) is the big interactive DoodleWhirl! logo with the ways in directly underneath, all above the fold. `/play` redirects to `/`.
 
 ```
-Landing
- ├─ [Play as guest] ──► Name & avatar picker ──► Lobby
- ├─ [Sign in / Sign up] ──► Auth ──► (first time: name & avatar) ──► Lobby
- └─ Opened via invite link /r/ABC-DEF ──► Name & avatar (if needed) ──► Room
+Home (/)
+ ├─ [⚡ Quick play] ───────────────► best public room (or a new public one) ──► Room
+ ├─ [🔒 New private room] ─────────► new private room, default deck ─────────► Waiting room (share the code)
+ ├─ [ ABC-DEF → ] (code or pasted invite link) ─────────────────────────────► Room
+ ├─ Public room cards (click one) ──────────────────────────────────────────► Room
+ └─ Opened via invite link /r/ABC-DEF ──────────────────────────────────────► Room (no name form)
 ```
 
-- The name & avatar step is one small card: a text field (2–20 chars, profanity-filtered) and a small square pad where players **draw their own avatar** (brush, eraser, fill, three sizes, a short palette, undo, start over). Leaving it blank keeps the current avatar, or makes a coloured tile with their initial. Registered users skip it after the first time. Later, registered users can save avatars they've drawn and pick from them (Phase 3).
-- Invite links (`/r/ABC-DEF`) go straight to the room once the user has a name.
+| Player wants to… | Clicks from the home page |
+|---|---|
+| Just play with anyone | 1: Quick play |
+| Host friends | 1: New private room, then share the code |
+| Join a friend's room | type or paste the code, Enter (or open the invite link: 0) |
+| Pick a public room | 1: its card |
 
-## 3. Lobby
+### Identity without a gate
 
-The lobby has three ways in:
+- On the first visit the player gets a **generated silly name** ("Sneaky Pickle", "Wobbly Crayon"): an adjective plus a doodle-ish noun, always 2–20 characters and passing the profanity filter. Until they draw one, their avatar is their initial in colour with an ink outline on a transparent background (not a filled square). Both are remembered in localStorage like chosen ones.
+- A **"Playing as 🥒 Sneaky Pickle ✏️" chip** in the home header opens a small editor at any time: a name field (2–20 chars, profanity-filtered) and a small square pad to **draw your own avatar** (brush, eraser, fill, three sizes, a short palette, undo, start over; the doodle is cut out of its background). Leaving the pad blank keeps the current avatar. Nothing ever *requires* it.
+- Players who still have the generated initial avatar are invited to **draw themselves in the waiting room**, which is dead time anyway (see §5).
+- Registered users (Phase 3) use their saved name and avatar instead.
 
-1. **Public room list**, refreshed live. Each row shows the room name, deck theme, player count / max, status (`waiting` / `in game`), difficulty badges, and a 🤪 badge if Silly Mode is on. Filters: theme search, "not started yet", "has space".
-2. **Join with code**: a field that auto-formats input to `ABC-DEF` (it uppercases, drops invalid characters, and adds the dash).
-3. **Create room**: opens the room-creation dialog.
+### Quick play
+
+Joins, in order of preference: the public room that is **waiting** for players and has space, with the most players; otherwise a public room **in a match** with space, with the most players (they join as a guesser and draw from the next round, see §3); otherwise it **creates a public room** with the default deck, named after the player ("Sneaky Pickle's room"). Rooms the player was kicked from are skipped.
+
+### Phones
+
+Phones (see the phone gate in [next-features.md](../planning/next-features.md)) see the logo, with a short "open this on a tablet or computer" note where the actions would be.
+
+## 3. Ways in, in detail
+
+1. **Public room cards**, refreshed live, drawn as sticky notes on the paper. Each shows the room name, deck theme, player count / max, status (`waiting` / `in game`), difficulty badges, and a 🤪 badge if Silly Mode is on. Full rooms are greyed out. A "N doodling now" counter sits above them. Later: filters (theme search, "not started yet", "has space") and a live thumbnail of what's being drawn.
+2. **Join with code**: a field that auto-formats input to `ABC-DEF` (it uppercases, drops invalid characters, and adds the dash). Pasting a whole invite link (`…/r/ABC-DEF`) works too.
+3. **New private room**: creates the room at once with the default deck and settings; everything is changed in the waiting room (§4).
+4. **Quick play**: see §2.
 
 Joining an in-progress public game is allowed. The player joins as a guesser and is added to the drawing rotation from the next round.
 
 ## 4. Creating a room
 
-Step 1 is required, everything else has defaults, and all of it can be changed later in the room's waiting screen.
+Creating takes one click (§3): the room starts private (or public, via Quick play) with the default deck and settings. **The choices below are made in the waiting room**, by the host, while friends arrive. Picking the theme together is part of the fun, not a form to get through.
 
 1. **Room name** (pre-filled, e.g. "Nuno's room") and **Public / Private** toggle.
 2. **Deck**: search box → results show deck title, theme tags, card counts per difficulty, play count, rating, and whether a silly pool exists. A "Preview" button shows 5 sample cards.
@@ -54,9 +76,10 @@ When the room is created, the server generates a unique code and the host lands 
 ## 5. Waiting room
 
 - Player list on the left (avatar, name, crown for host, ready state).
-- Center: room code (large, click to copy), share link, the deck's back cover beside the code (with 🚩 to report the deck), settings (editable by host only, read-only for others).
+- Center: room code (large, click to copy), share link, the deck's back cover beside the code (with 🚩 to report the deck), then for the host the **deck picker** (open to start with, see §4), then the settings (editable by host only, read-only for others).
+- **"Draw yourself!"**: players still on their generated initial (§2) get the name field and avatar pad here, open to start with ("Not now" folds it to a "✏️ Change your name or drawing" link). Saving updates their entry in everyone's player list at once, without leaving the room.
 - Chat is active.
-- Host actions: **Start game** (needs ≥ 2 players), kick player, transfer host, change settings.
+- Host actions: **Start game** (needs ≥ 2 players), kick player, transfer host, change settings, **rename the room and switch public/private** (any time; a public room shows up on the home page's room notes).
 - If the host leaves, host passes to the longest-present player.
 
 ## 6. In-game
@@ -88,7 +111,7 @@ Search "pirate cooking" → no good match
 
 If the user has no free generations or credits left, the generate button opens the credit purchase sheet (see [monetization.md](monetization.md)).
 
-**Built so far** (open to guests: 1 deck per player per day, 3 per network, a global daily budget): "✨ Generate a deck" in the create-room deck picker → form (theme, notes, difficulties, silly on/off) → progress (polled, ~1 min) with a pad to draw the deck's [back cover](decks.md#back-cover) (or skip) → once the deck is ready and the cover is saved or skipped, the deck is selected, and listed as "yours" in the deck pickers, where ✏️ redraws its cover. No review step, language choice or credits yet. Blocked themes are refused before anything starts ("We can't make a deck about that").
+**Built so far** (open to guests: 1 deck per player per day, 3 per network, a global daily budget): "✨ Generate a deck" in the host's deck picker (waiting room) → form (theme, notes, difficulties, silly on/off) → progress (polled, ~1 min) with a pad to draw the deck's [back cover](decks.md#back-cover) (or skip) → once the deck is ready and the cover is saved or skipped, it becomes the room's deck, and listed as "yours" in the deck pickers, where ✏️ redraws its cover. No review step, language choice or credits yet. Blocked themes are refused before anything starts ("We can't make a deck about that").
 
 ## 9. Edge cases
 
