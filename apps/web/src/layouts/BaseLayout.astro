@@ -4,16 +4,19 @@ import '../styles/global.css';
 type Props = {
   title?: string;
   description?: string;
+  /** Grow the rem with the viewport past 1080p, so a rem-sized page fills 1440p and 4K screens. */
+  fluidRoot?: boolean;
 };
 
 const {
   title = 'DoodleWhirl!',
   description = 'A multiplayer drawing game where every match has a theme.',
+  fluidRoot = false,
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class:list={{ 'fluid-root': fluidRoot }}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

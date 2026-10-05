@@ -5,7 +5,7 @@ import { HomeLobby } from '../components/home/HomeLobby';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="DoodleWhirl! · Draw it. Guess it. Theme it.">
+<BaseLayout title="DoodleWhirl! · Draw it. Guess it. Theme it." fluidRoot>
   <!-- Preload only Latin: the font's ~50 Japanese chunks download only if such text appears. -->
   <Font slot="head" cssVariable="--font-cherry-bomb" preload={[{ subset: 'latin' }]} />
   <main

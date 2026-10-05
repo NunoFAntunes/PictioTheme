@@ -195,6 +195,14 @@ html {
   touch-action: manipulation;
 }
 
+/*
+ * 16px up to 1920x1080, then growing with whichever of width or height is tighter: 20px at
+ * 2560x1440, 28px at 3840x2160. rem-based, so it still honours the browser's font-size setting.
+ */
+html.fluid-root {
+  font-size: clamp(1rem, 0.25rem + min(0.625vw, 1.111vh), 2rem);
+}
+
 body {
   @apply min-h-dvh bg-white text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
 }
