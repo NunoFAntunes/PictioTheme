@@ -205,7 +205,8 @@ export type Effect =
       vote: CardVote | null;
     }
   /** The room is over: the shell disposes it and closes every socket. */
-  | { kind: 'close' };
+  /** Close the room. `byHost`: the host closed it (`room:close`), not the idle or alone timer. */
+  | { kind: 'close'; byHost?: true };
 
 /** The effects the shell records for the launch metrics; they never change the game. */
 export type MetricEffect = Extract<

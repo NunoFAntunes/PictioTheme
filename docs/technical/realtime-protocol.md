@@ -16,6 +16,7 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 | `room:kick` | `playerId` | host | |
 | `room:transferHost` | `playerId` | host | |
 | `room:pause` / `room:resume` / `room:skipTurn` / `room:end` | — | host | |
+| `room:close` | — | host | Any time. Ends a running match (recorded as `host_ended`), then closes every socket with 4007 and removes the room |
 | `vote:kick` | `playerId` | any | |
 | `turn:choose` | `index` (0–2) | drawer | Choosing phase |
 | `turn:vote` | `index` (0–2), `vote` (`up`, `down` or `null` to take it back) | drawer | Choosing phase. Rates an option without picking it (card quality metrics) |
@@ -62,6 +63,7 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 | 4001 | Same player connected from another tab | Show "Opened in another tab", don't reconnect |
 | 4003 | Kicked | Show a message, don't reconnect |
 | 4004 | Room closed | Go back to the lobby |
+| 4007 | Closed by the host | Show "The host closed this room" ("You closed the room" for the host), don't reconnect |
 | 4005 | Room full | Show "Room full" |
 | 4006 | Banned from this room | Show a message, don't reconnect |
 | 1008 | Too many invalid messages | Don't reconnect |

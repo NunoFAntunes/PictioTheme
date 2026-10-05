@@ -69,6 +69,12 @@ export function onMessage(c: Ctx, playerId: PlayerId, msg: ClientMessage): void 
     case 'room:end':
       if (requireHost(c, playerId) && isInMatch(c.state.phase)) finishMatch(c, 'host_ended');
       return;
+    case 'room:close':
+      if (!requireHost(c, playerId)) return;
+      // End a running match first, so it's still recorded.
+      if (isInMatch(c.state.phase)) finishMatch(c, 'host_ended');
+      c.fx.push({ kind: 'close', byHost: true });
+      return;
     case 'vote:kick':
       voteKick(c, playerId, msg.playerId);
       return;

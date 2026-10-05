@@ -91,43 +91,57 @@ export function RoomHeader() {
         </span>
       )}
 
-      {host && inMatch && (
+      {host && (
         <div className="flex gap-1 text-sm">
-          {view.paused === 'host' ? (
-            <button
-              type="button"
-              onClick={() => sendToRoom({ t: 'room:resume' })}
-              className="rounded-md px-2 py-1 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-            >
-              ▶ Resume
-            </button>
-          ) : (
-            <button
-              type="button"
-              disabled={view.paused !== null}
-              onClick={() => sendToRoom({ t: 'room:pause' })}
-              className="rounded-md px-2 py-1 hover:bg-zinc-100 disabled:opacity-40 dark:hover:bg-zinc-800"
-            >
-              ⏸ Pause
-            </button>
+          {inMatch && (
+            <>
+              {view.paused === 'host' ? (
+                <button
+                  type="button"
+                  onClick={() => sendToRoom({ t: 'room:resume' })}
+                  className="rounded-md px-2 py-1 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                >
+                  ▶ Resume
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  disabled={view.paused !== null}
+                  onClick={() => sendToRoom({ t: 'room:pause' })}
+                  className="rounded-md px-2 py-1 hover:bg-zinc-100 disabled:opacity-40 dark:hover:bg-zinc-800"
+                >
+                  ⏸ Pause
+                </button>
+              )}
+              <button
+                type="button"
+                disabled={phase.kind === 'reveal'}
+                onClick={() => sendToRoom({ t: 'room:skipTurn' })}
+                className="rounded-md px-2 py-1 hover:bg-zinc-100 disabled:opacity-40 dark:hover:bg-zinc-800"
+              >
+                ⏭ Skip
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (window.confirm('End the match now and show the results?'))
+                    sendToRoom({ t: 'room:end' });
+                }}
+                className="rounded-md px-2 py-1 text-close hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              >
+                ⏹ End
+              </button>
+            </>
           )}
           <button
             type="button"
-            disabled={phase.kind === 'reveal'}
-            onClick={() => sendToRoom({ t: 'room:skipTurn' })}
-            className="rounded-md px-2 py-1 hover:bg-zinc-100 disabled:opacity-40 dark:hover:bg-zinc-800"
-          >
-            ⏭ Skip
-          </button>
-          <button
-            type="button"
             onClick={() => {
-              if (window.confirm('End the match now and show the results?'))
-                sendToRoom({ t: 'room:end' });
+              if (window.confirm('Close the room for everyone? Nobody can come back to it.'))
+                sendToRoom({ t: 'room:close' });
             }}
             className="rounded-md px-2 py-1 text-close hover:bg-zinc-100 dark:hover:bg-zinc-800"
           >
-            ⏹ End
+            🚪 Close room
           </button>
         </div>
       )}

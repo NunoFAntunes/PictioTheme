@@ -89,6 +89,7 @@ Ties at the end are broken by the number of correct guesses, then by total guess
 | Pause / resume | Any time |
 | Transfer host | Any time |
 | End match early | Any time (shows results) |
+| Close the room | Any time (🚪 in the room header, after a confirm). A running match is ended first; everyone sees "The host closed this room" and the code stops working |
 
 ## Player limits and moderation in-room
 

@@ -32,28 +32,31 @@ export function RedrawCoverPanel({ deck, onClose }: { deck: DeckSummary; onClose
     <div
       role="group"
       aria-labelledby={headingId}
-      className="flex flex-wrap items-start gap-4 rounded-lg border border-brand-600/40 p-4"
+      className="flex flex-col gap-3 rounded-lg border border-brand-600/40 p-4"
     >
-      <CoverPad canvasRef={padRef} />
-      <div className="flex min-w-40 flex-1 flex-col gap-2 text-sm">
-        <h3 id={headingId} className="font-semibold">
-          Redraw the cover of “{deck.title}”
-        </h3>
-        <div className="flex items-center gap-2 text-zinc-500">
-          <DeckCover deck={deck} size="sm" />
-          <span>The current cover. Saving replaces it everywhere the deck appears.</span>
+      <div className="flex items-center gap-3 text-sm">
+        <DeckCover deck={deck} size="sm" />
+        <div className="min-w-0">
+          <h3 id={headingId} className="font-semibold">
+            Redraw the cover of “{deck.title}”
+          </h3>
+          <p className="text-zinc-500">
+            The current cover. Saving replaces it everywhere the deck appears.
+          </p>
         </div>
+      </div>
+      <CoverPad canvasRef={padRef}>
         {message && (
-          <p className="text-close" role="alert">
+          <p className="text-sm text-close" role="alert">
             {message}
           </p>
         )}
-        <div className="flex gap-2">
+        <div className="flex justify-end gap-2 text-sm">
           <button
             type="button"
             onClick={onClose}
             disabled={redraw.isPending}
-            className="rounded-lg px-4 py-2"
+            className="rounded-lg px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-900"
           >
             Cancel
           </button>
@@ -66,7 +69,7 @@ export function RedrawCoverPanel({ deck, onClose }: { deck: DeckSummary; onClose
             {redraw.isPending ? 'Saving…' : 'Save cover ✓'}
           </button>
         </div>
-      </div>
+      </CoverPad>
     </div>
   );
 }

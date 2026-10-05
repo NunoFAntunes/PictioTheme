@@ -5,9 +5,10 @@ import { DeckPicker } from './DeckPicker';
 
 /**
  * Choosing a room's deck (user-flows.md §4): a panel of its own with search, categories and the
- * cover grid, and ✨ Generate a deck when the server allows it. The panel keeps its height (give
- * it one with `className`) and scrolls inside, however many decks there are. A generated deck is
- * chosen as soon as it's ready.
+ * cover grid, and ✨ Generate a deck when the server allows it. The library keeps its height (give
+ * it one with `className`) and scrolls inside, however many decks there are. While generating,
+ * the panel grows to fit the form and the cover pad instead, so drawing never scrolls inside a
+ * box. A generated deck is chosen as soon as it's ready.
  */
 export function DeckChooser({
   selectedId,
@@ -26,7 +27,7 @@ export function DeckChooser({
   return (
     <section
       aria-labelledby="deck-heading"
-      className={`flex min-h-0 flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950 ${className}`}
+      className={`flex min-h-0 flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950 ${generating ? '' : className}`}
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 id="deck-heading" className="text-lg font-semibold">
@@ -43,15 +44,13 @@ export function DeckChooser({
         )}
       </div>
       {generating ? (
-        <div className="min-h-0 flex-1 overflow-y-auto">
-          <GenerateDeckPanel
-            onCancel={() => setGenerating(false)}
-            onGenerated={(deck) => {
-              onSelect(deck.id);
-              setGenerating(false);
-            }}
-          />
-        </div>
+        <GenerateDeckPanel
+          onCancel={() => setGenerating(false)}
+          onGenerated={(deck) => {
+            onSelect(deck.id);
+            setGenerating(false);
+          }}
+        />
       ) : (
         <>
           {decks.isPending && <p className="text-sm text-zinc-500">Loading decks…</p>}

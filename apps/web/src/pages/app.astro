@@ -20,8 +20,9 @@ const FONTS = [
 ] as const;
 ---
 
-<!-- The single shell for the React app. Every app route is rewritten here (see src/app-routes.ts). -->
-<BaseLayout>
+<!-- The single shell for the React app. Every app route is rewritten here (see src/app-routes.ts).
+     fluidRoot: like the home page, the room grows with 1440p and 4K screens. -->
+<BaseLayout fluidRoot>
   {FONTS.map((cssVariable) => <Font slot="head" cssVariable={cssVariable} />)}
   <App client:only="react" />
 </BaseLayout>

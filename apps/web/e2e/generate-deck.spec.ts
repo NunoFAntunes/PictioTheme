@@ -89,7 +89,7 @@ test('generate a deck, draw its cover while waiting, and it becomes the selected
   await page.getByRole('button', { name: 'Generate' }).click();
 
   await expect(page.getByText('Making your “pirates” deck')).toBeVisible();
-  await page.getByRole('button', { name: 'Done ✓' }).click();
+  await page.getByRole('button', { name: 'Save cover ✓' }).click();
   await expect(page.getByText('Draw something first')).toBeVisible();
 
   const padCanvas = page.getByLabel('Deck cover drawing pad');
@@ -100,7 +100,7 @@ test('generate a deck, draw its cover while waiting, and it becomes the selected
   await page.mouse.down();
   await page.mouse.move(pad.x + pad.width * 0.8, pad.y + pad.height * 0.8, { steps: 10 });
   await page.mouse.up();
-  await page.getByRole('button', { name: 'Done ✓' }).click();
+  await page.getByRole('button', { name: 'Save cover ✓' }).click();
   await expect(page.getByText('Cover saved ✓')).toBeVisible();
   expect(cover.image).toMatch(/^data:image\/png;base64,/);
 

@@ -111,9 +111,10 @@ export function CardTable({ endsAt, deck, cards, header, footer }: Props) {
     pickTimer.current = setTimeout(() => onPick?.(index), prefersReducedMotion() ? 0 : PICK_MS);
   };
 
+  // Each slot is a container, so the face's padding and gap scale with the card, not the board.
   const slotClass = (i: number) =>
     [
-      'relative aspect-[3/4] w-[min(10rem,26cqw)] rotate-(--tilt) perspective-distant motion-reduce:animate-none',
+      '@container relative aspect-[3/4] w-[min(10rem,26cqw)] rotate-(--tilt) perspective-distant motion-reduce:animate-none',
       intro ? 'animate-card-deal' : '',
       picked === null ? '' : picked === i ? 'animate-card-pick' : 'animate-card-discard',
     ].join(' ');

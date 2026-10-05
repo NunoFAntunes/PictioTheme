@@ -159,6 +159,14 @@ export function GenerateDeckPanel({
     upload(jobId, image);
   }
 
+  function skipCover() {
+    const pad = padRef.current;
+    if (pad && !isBlank(pad) && !window.confirm('Skip the cover? Your drawing will be lost.'))
+      return;
+    setCoverError(null);
+    setCover({ step: 'skipped' });
+  }
+
   // Hand the deck back once it exists and the cover is dealt with.
   useEffect(() => {
     if (handedBack.current || status !== 'published' || !deck) return;
@@ -229,34 +237,28 @@ export function GenerateDeckPanel({
           </div>
         )}
         {cover.step !== 'skipped' && (
-          <div className="flex flex-wrap items-start gap-4">
-            {drawing ? (
-              <CoverPad canvasRef={padRef} />
-            ) : (
-              <DeckCover
-                deck={{ title: theme.trim(), coverId: null }}
-                src={cover.image}
-                size="lg"
-              />
-            )}
-            <div className="flex min-w-40 flex-1 flex-col gap-2 text-sm">
-              <h4 className="font-medium">Draw the back cover of your deck</h4>
+          <div className="flex flex-col gap-3 border-t border-zinc-200 pt-3 dark:border-zinc-800">
+            <div className="text-sm">
+              <h4 className="font-medium">
+                🎨 Draw the back cover of your deck{status === 'running' && ' while you wait'}
+              </h4>
               <p className="text-zinc-500">
-                Everyone sees it when they pick your deck. Draw while you wait, or skip it and your
-                deck gets a plain cover.
+                Everyone sees it when they pick your deck. Skip it and your deck gets a plain cover.
               </p>
-              {coverError && (
-                <p className="text-close" role="alert">
-                  {coverError}
-                </p>
-              )}
-              {drawing ? (
-                <div className="flex gap-2">
+            </div>
+            {drawing ? (
+              <CoverPad canvasRef={padRef}>
+                {coverError && (
+                  <p className="text-sm text-close" role="alert">
+                    {coverError}
+                  </p>
+                )}
+                <div className="flex justify-end gap-2 text-sm">
                   <button
                     type="button"
-                    onClick={() => setCover({ step: 'skipped' })}
+                    onClick={skipCover}
                     disabled={cover.step === 'saving'}
-                    className="rounded-lg px-4 py-2"
+                    className="rounded-lg px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-900"
                   >
                     Skip
                   </button>
@@ -266,15 +268,22 @@ export function GenerateDeckPanel({
                     disabled={cover.step === 'saving'}
                     className="rounded-lg bg-brand-600 px-4 py-2 font-semibold text-white hover:bg-brand-700 disabled:opacity-50"
                   >
-                    {cover.step === 'saving' ? 'Saving…' : 'Done ✓'}
+                    {cover.step === 'saving' ? 'Saving…' : 'Save cover ✓'}
                   </button>
                 </div>
-              ) : (
+              </CoverPad>
+            ) : (
+              <div className="flex items-center gap-4 text-sm">
+                <DeckCover
+                  deck={{ title: theme.trim(), coverId: null }}
+                  src={cover.image}
+                  size="lg"
+                />
                 <p className="font-medium">
                   Cover saved ✓{status === 'running' && ' Waiting for your deck…'}
                 </p>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         )}
         {cover.step === 'skipped' && status === 'running' && (

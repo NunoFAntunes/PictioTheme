@@ -30,6 +30,7 @@ export const CloseCode = {
   replaced: 4001, // the same player connected from another tab
   kicked: 4003,
   roomClosed: 4004,
+  closedByHost: 4007, // the host closed the room
   roomFull: 4005,
   banned: 4006,
   policy: 1008, // repeated invalid messages

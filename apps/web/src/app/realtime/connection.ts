@@ -8,6 +8,7 @@ import {
 } from '@pictiotheme/protocol';
 import { ApiError, apiPost } from '../lib/api';
 import { serverNow, useRoomStore, type CloseReason } from './room-store';
+import { amHost } from './selectors';
 import { applyServerMessage, startsNewDrawing, viewFromSnapshot, type RoomView } from './room-view';
 import { createStrokeModel, type DrawOp } from './stroke-model';
 
@@ -28,6 +29,7 @@ const FINAL_CLOSES: Record<number, [CloseReason, string]> = {
   [CloseCode.kicked]: ['kicked', 'You were removed from the room.'],
   [CloseCode.banned]: ['banned', 'You were removed from the room.'],
   [CloseCode.roomClosed]: ['room_closed', 'This room has closed.'],
+  [CloseCode.closedByHost]: ['room_closed', 'The host closed this room.'],
   [CloseCode.roomFull]: ['full', 'This room is full.'],
   [CloseCode.policy]: ['lost', 'The connection was closed.'],
 };
@@ -157,7 +159,10 @@ export function connectRoom(code: string, identity: () => PlayerIdentity): () =>
       if (socket === ws) socket = null;
       if (stopped) return;
       const final = FINAL_CLOSES[event.code];
-      if (final) close(final[0], final[1]);
+      const view = useRoomStore.getState().view;
+      if (event.code === CloseCode.closedByHost && view && amHost(view)) {
+        close('room_closed', 'You closed the room.');
+      } else if (final) close(final[0], final[1]);
       else scheduleRetry(); // network blip, server restart (1012), heartbeat timeout…
     };
   };

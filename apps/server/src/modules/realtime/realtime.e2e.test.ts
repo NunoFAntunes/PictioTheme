@@ -184,6 +184,28 @@ describe('realtime, end to end', () => {
     hostSocket.close();
   });
 
+  it('closes every socket when the host closes the room', async () => {
+    const host = player();
+    const guest = player();
+    await host.startSession();
+    await guest.startSession();
+    const { code, joinToken } = await host.createRoom('Host');
+    const hostSocket = await host.connect(joinToken);
+    const guestSocket = await guest.connect((await guest.joinRoom(code, 'Guest')).joinToken);
+    await hostSocket.next('room:players', (m) => m.players.length === 2);
+
+    guestSocket.send({ t: 'room:close' });
+    expect(await guestSocket.next('error')).toMatchObject({ code: 'NOT_HOST' });
+    hostSocket.send({ t: 'room:close' });
+    expect((await guestSocket.closed).code).toBe(CloseCode.closedByHost);
+    expect((await hostSocket.closed).code).toBe(CloseCode.closedByHost);
+    const rejoin = await guest.request('POST', `/api/rooms/${code}/join`, {
+      displayName: 'Guest',
+      avatar: testAvatar(),
+    });
+    expect(rejoin.status).toBe(404);
+  });
+
   it('answers invalid messages with an error instead of crashing', async () => {
     const p = player();
     await p.startSession();

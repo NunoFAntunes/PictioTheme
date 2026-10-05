@@ -41,6 +41,8 @@ export const ClientMessage = z.discriminatedUnion('t', [
   z.object({ t: z.literal('room:resume') }),
   z.object({ t: z.literal('room:skipTurn') }),
   z.object({ t: z.literal('room:end') }),
+  /** Closes the room for everyone, any time (a running match is ended first). Host only. */
+  z.object({ t: z.literal('room:close') }),
   z.object({ t: z.literal('vote:kick'), ...PlayerTarget }),
   z.object({ t: z.literal('turn:choose'), index: z.number().int().min(0).max(2) }),
   /**

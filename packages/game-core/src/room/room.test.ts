@@ -419,6 +419,27 @@ describe('host controls', () => {
     expect(fx).toContainEqual({ kind: 'disconnect', playerId: 'p2', reason: 'kicked' });
     expect(h.join('p2')).toContainEqual({ kind: 'disconnect', playerId: 'p2', reason: 'banned' });
   });
+
+  it('lets only the host close the room', () => {
+    const h = createHarness();
+    h.init();
+    h.join('p1');
+    h.join('p2');
+    const refused = h.send('p2', { t: 'room:close' });
+    expect(receivedOfType(refused, 'p2', 'error')[0]?.code).toBe('NOT_HOST');
+    expect(refused.some((e) => e.kind === 'close')).toBe(false);
+    expect(h.send('p1', { t: 'room:close' })).toContainEqual({ kind: 'close', byHost: true });
+  });
+
+  it('ends a running match before closing the room', () => {
+    const h = createHarness();
+    h.startWith(['p1', 'p2']);
+    h.chooseFirst();
+    const fx = h.send('p1', { t: 'room:close' });
+    const ended = fx.find((e) => e.kind === 'matchEnded');
+    expect(ended?.kind === 'matchEnded' && ended.summary.reason).toBe('host_ended');
+    expect(fx.at(-1)).toEqual({ kind: 'close', byHost: true });
+  });
 });
 
 describe('vote kick', () => {

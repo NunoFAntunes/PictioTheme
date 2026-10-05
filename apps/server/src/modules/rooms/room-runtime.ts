@@ -169,7 +169,8 @@ export class RoomRuntime {
         }
         return;
       case 'close':
-        this.dispose();
+        if (effect.byHost) this.dispose(CloseCode.closedByHost, 'Closed by the host');
+        else this.dispose();
         return;
     }
   }
