@@ -24,13 +24,14 @@ import {
 import { playerIdOf, type Actor } from '../../lib/actor';
 import { AppError, conflict, notFound, serviceUnavailable } from '../../lib/errors';
 import type { Logger } from '../../lib/logger';
-import { decodePngDataUrl } from '../../lib/png';
+import { contentIdOf, decodePngDataUrl } from '../../lib/png';
 import type { AuthService } from '../auth';
 import type { MetricsService } from '../metrics';
 import type { AvatarsService } from '../avatars';
 import type { DecksService } from '../decks';
 import { RoomRuntime } from './room-runtime';
 import type { RoomTransport } from './room-transport';
+import { renderShareCard, SHARE_CARD_REVISION, shareEmbedHtml } from './share-card';
 
 const MAX_PUBLIC_ROOMS_LISTED = 50;
 
@@ -58,6 +59,8 @@ export function createRoomsService(deps: {
   metrics: MetricsService;
   transport: RoomTransport;
   log: Logger;
+  /** Where the site is served, for the share card's links. */
+  publicOrigin: string;
   now?: () => number;
   rng?: Rng;
 }) {
@@ -95,6 +98,23 @@ export function createRoomsService(deps: {
       avatar: identity.avatar,
       isRegistered: actor.kind === 'user',
     });
+  }
+
+  /** Changes whenever something the share card shows changes. */
+  function shareCardVersion(room: RoomRuntime): string {
+    const { name, deck, settings } = room.state;
+    const shown = [
+      SHARE_CARD_REVISION,
+      room.code,
+      name,
+      deck?.title ?? null,
+      deck?.coverId ?? null,
+      settings.rounds,
+      settings.drawSeconds,
+      settings.difficulties,
+      settings.silly.enabled,
+    ];
+    return contentIdOf(Buffer.from(JSON.stringify(shown))).slice(0, 12);
   }
 
   /** Max one active hosted room per player (security-and-moderation.md: spam rooms). */
@@ -270,6 +290,43 @@ export function createRoomsService(deps: {
 
     coverPng(rawCode: string): Buffer | null {
       return roomByCode(rawCode).coverPng;
+    },
+
+    /**
+     * The room's share card (share-card.ts) and its version, drawn again only when what it shows
+     * changed. Anyone with the code may see it, like the room itself.
+     */
+    async shareCard(rawCode: string): Promise<{ version: string; png: Buffer }> {
+      const room = roomByCode(rawCode);
+      const version = shareCardVersion(room);
+      if (room.shareCard?.version === version) return room.shareCard;
+      const { name, deck, settings } = room.state;
+      const cover = deck?.coverId ? await deps.decks.getCoverPng(deck.coverId) : null;
+      const png = await renderShareCard({
+        code: room.code,
+        name,
+        host: new URL(deps.publicOrigin).host,
+        deck: deck ? { title: deck.title, cover } : null,
+        rounds: settings.rounds,
+        drawSeconds: settings.drawSeconds,
+        difficulties: settings.difficulties,
+        silly: settings.silly.enabled,
+      });
+      room.shareCard = { version, png };
+      return room.shareCard;
+    },
+
+    /** The page link preview bots get for an invite link: Open Graph tags around the card. */
+    shareEmbed(rawCode: string): string {
+      const room = roomByCode(rawCode);
+      return shareEmbedHtml({
+        origin: deps.publicOrigin,
+        code: room.code,
+        name: room.state.name,
+        deckTitle: room.state.deck?.title ?? null,
+        rounds: room.state.settings.rounds,
+        imageVersion: shareCardVersion(room),
+      });
     },
 
     /** Players connected right now, across every room. */

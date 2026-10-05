@@ -32,7 +32,7 @@ export function DeckChooser({
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 id="deck-heading" className={PANEL_HEADING}>
-          🎴 Pick a deck
+          Pick a deck
         </h2>
         {generationEnabled && !generating && (
           <button

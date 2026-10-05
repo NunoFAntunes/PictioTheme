@@ -62,7 +62,7 @@ export function ResultsPanel() {
       )}
       {editing && host && (
         <div className="flex w-full flex-col gap-4 rounded-2xl border border-zinc-200 p-4 dark:border-zinc-800">
-          <RoomTitle name={view.name} editable />
+          <RoomTitle name={view.name} isPublic={view.isPublic} editable />
           <RoomSettingsForm view={view} editable />
         </div>
       )}

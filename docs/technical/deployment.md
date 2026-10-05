@@ -52,6 +52,8 @@ Caddy serves `SITE_ADDRESS` from `.env`:
 
 After changing them: `docker compose up -d web server`, and update the `PUBLIC_URL` variable in GitHub. `PUBLIC_ORIGIN` is derived from `SITE_ADDRESS`, and the server rejects writes from any other origin.
 
+Invite links unfurl into the room's card: Caddy sends `/r/CODE` requests from link-preview bots (Discordbot, Slackbot, WhatsApp, Twitterbot, facebookexternalhit… matched on User-Agent, see the `@preview` matcher in the Caddyfile) to the server's `/api/rooms/CODE/embed` instead of the app shell. To check it after a deploy: `curl -A Discordbot https://<domain>/r/<code>` returns `og:` tags, and Discord's preview updates when the room's name, deck or rules change (the image URL is versioned). Discord caches a link's embed for a while, so re-pasting the exact same link may show the older card.
+
 Caddy trusts Cloudflare's IP ranges for the client IP and sends it on to the server, which trusts only the private Docker network (`TRUST_PROXY=uniquelocal`). So IP rate limits see real clients (rule F10).
 
 ## Only Cloudflare reaches the web ports

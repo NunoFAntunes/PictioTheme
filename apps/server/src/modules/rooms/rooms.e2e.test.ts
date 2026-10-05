@@ -106,6 +106,42 @@ describe('quick play and the lobby list, end to end', () => {
     });
   });
 
+  it('draws the share card, and gives link previews a page around it', async () => {
+    const ana = await player();
+    const room = await ana.createRoom('Ana');
+    const socket = await enter(ana, room.joinToken);
+    socket.send({ t: 'room:details', name: 'Pickles & <Co>' });
+    await socket.next('room:details', (m) => m.name === 'Pickles & <Co>');
+
+    const embed = await fetch(`${baseUrl}/api/rooms/${room.code}/embed`);
+    expect(embed.status).toBe(200);
+    expect(embed.headers.get('content-type')).toContain('text/html');
+    const html = await embed.text();
+    expect(html).toContain('<meta property="og:title" content="Pickles &amp; &lt;Co&gt;">');
+    expect(html).toContain(`<meta property="og:url" content="${ORIGIN}/r/${room.code}">`);
+    const image = /property="og:image" content="([^"]+)"/.exec(html)?.[1] ?? '';
+    expect(image).toMatch(new RegExp(`^${ORIGIN}/api/rooms/${room.code}/card\\.png\\?v=\\w+$`));
+
+    // The version in the page is cached forever; asking without it always gets the current card.
+    const versioned = await fetch(`${baseUrl}${new URL(image).pathname}${new URL(image).search}`);
+    expect(versioned.status).toBe(200);
+    expect(versioned.headers.get('content-type')).toBe('image/png');
+    expect(versioned.headers.get('cache-control')).toContain('immutable');
+    const png = Buffer.from(await versioned.arrayBuffer());
+    expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
+    const current = await fetch(`${baseUrl}/api/rooms/${room.code}/card.png`);
+    expect(current.headers.get('cache-control')).toBe('no-cache');
+
+    // Changing what the card shows changes its version.
+    socket.send({ t: 'room:settings', settings: { rounds: 5 } });
+    await socket.next('room:settings', (m) => m.settings.rounds === 5);
+    const after = await (await fetch(`${baseUrl}/api/rooms/${room.code}/embed`)).text();
+    expect(/card\.png\?v=(\w+)/.exec(after)?.[1]).not.toBe(new URL(image).searchParams.get('v'));
+
+    expect((await fetch(`${baseUrl}/api/rooms/ZZZ-ZZZ/embed`)).status).toBe(404);
+    expect((await fetch(`${baseUrl}/api/rooms/ZZZ-ZZZ/card.png`)).status).toBe(404);
+  });
+
   it('a player in the room changes name and avatar, and everyone sees it', async () => {
     const [ana, bo] = await Promise.all([player(), player()]);
     const room = await ana.createRoom('Ana');

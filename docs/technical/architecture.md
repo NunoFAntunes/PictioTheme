@@ -90,6 +90,7 @@ All components below are **modules inside the one server process**. Their bounda
   - `PUT /api/rooms/:code/cover` → the drawer's picture of the room's new most-liked drawing (after `cover:request`); `GET /api/rooms/:code/cover?v=<coverVersion>` serves it (kept in memory with the room)
   - `POST /api/rooms/quick-play` → joins the best public room with space, or creates a public one; returns `{code, joinToken}` (user-flows.md §2)
   - `POST /api/rooms` → creates a room, returns `{code, joinToken}`
+  - `GET /api/rooms/:code/card.png[?v=<version>]` → the room's share card, a 1200×630 PNG of the waiting room's card drawn by the server (`rooms/share-card.ts`, resvg-wasm; cached with the room until the name, deck or rules change). With the current `v` it's cached forever, without it `no-cache`. `GET /api/rooms/:code/embed` → a page of Open Graph tags around it, which Caddy serves to link-preview bots asking for `/r/CODE` (screens.md §3). Both rate-limited 30/min, like a lookup
   - `GET /api/rooms/:code` → `{code}` if the room exists, 404 `ROOM_NOT_FOUND` otherwise; the home page's "Join with a code" checks it before leaving the page (rate-limited like join)
   - `POST /api/rooms/:code/join` → validates, returns `{joinToken}`. Create and join both carry the drawn avatar as a PNG data URL; the server stores it and puts only its id in the token
   - `GET /api/avatars/:id` → the avatar PNG (`immutable` cache: ids are content hashes)

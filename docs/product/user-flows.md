@@ -76,7 +76,7 @@ When the room is created, the server generates a unique code and the host lands 
 ## 5. Waiting room
 
 - Player list on the left (avatar, name, crown for host, ready state).
-- Center ([screens.md](../design/screens.md#3-the-waiting-room-choosing-the-deck-house-rules) §3): the room's name as the title (the host renames it in place), then one card with the deck (its back cover, with 🚩 to report it, and the rules at a glance), the room code (click to copy) and share link, and Start game. Then for the host the **deck library** (see §4) beside the **house rules** (editable by host only, read-only for others).
+- Center ([screens.md](../design/screens.md#3-the-waiting-room-choosing-the-deck-house-rules) §3): the room's name as the title (the host renames it in place), then one card with the deck (its back cover, with 🚩 to report it, and the rules at a glance), the room code (click to copy) and share link. Then for the host the **deck library** (see §4) beside the **house rules** (editable by host only, read-only for others), with **Start game** at the foot of the rules.
 - **"Draw yourself!"**: players still on their generated initial (§2) get the name field and avatar pad here, open to start with ("Not now" folds it to a one-line "Draw yourself" prompt). The host gets the prompt from the start, so the deck and rules stay in view. Saving updates their entry in everyone's player list at once, without leaving the room. Once they've drawn, the prompt is gone: the header's "you" sticker is where to change it.
 - Any time, even mid-match, everyone can change their name or drawing with their "you" sticker (avatar, name, ✏️) in the room header.
 - Chat is active.

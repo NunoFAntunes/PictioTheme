@@ -31,6 +31,17 @@
 		-Server
 	}
 
+	# Link previews: a chat app's bot unfurling an invite link gets a page of Open Graph tags whose
+	# image is the room's share card (apps/server/src/modules/rooms/share-card.ts). People get the app.
+	@preview {
+		path_regexp invite ^/r/([A-Za-z0-9-]{1,20})/?$
+		header_regexp User-Agent (?i)(discordbot|twitterbot|slackbot|facebookexternalhit|whatsapp|telegrambot|linkedinbot|skypeuripreview|mastodon|embedly|redditbot|iframely|vkshare|bluesky|google-pagerenderer)
+	}
+	handle @preview {
+		rewrite * /api/rooms/{re.invite.1}/embed
+		import to_server
+	}
+
 	handle /api/* {
 		import to_server
 	}

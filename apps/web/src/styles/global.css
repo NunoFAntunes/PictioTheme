@@ -29,6 +29,8 @@
   --font-display: ui-rounded, system-ui, sans-serif;
   /* Set by <Font cssVariable="--font-cherry-bomb"> (astro.config.mjs) on pages that load it. */
   --font-logo: var(--font-cherry-bomb), ui-rounded, system-ui, sans-serif;
+  /* Handwriting for the room card's notes (app.astro loads it, with the players' name fonts). */
+  --font-hand: var(--font-gochi-hand), cursive;
 
   /* Landing hero (components/hero): a sheet of paper on a desk, sticker letters, a pencil. */
   --color-desk: oklch(0.9 0.04 75);

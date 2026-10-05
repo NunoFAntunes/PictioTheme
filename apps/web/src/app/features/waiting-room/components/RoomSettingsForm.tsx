@@ -5,8 +5,8 @@ import { maxMatchMinutes, paceOf, PACES } from '../match-length';
 
 /**
  * The house rules, in groups: how long the match runs, which cards come up, how guessing works,
- * and who can join. Editable by the host; everyone else sees them read-only. The deck is chosen
- * beside them (WaitingRoom), and the room's name sits on top (RoomTitle).
+ * and how many can join. Editable by the host; everyone else sees them read-only. The deck is
+ * chosen beside them (WaitingRoom); the room's name and public/private sit on top (RoomTitle).
  */
 
 const DIFFICULTIES: { value: Difficulty; label: string }[] = [
@@ -157,7 +157,7 @@ export function RoomSettingsForm({ view, editable }: { view: RoomView; editable:
     // Two columns of groups when there's room (read-only for players, on results), else one.
     <div className="@container">
       <div className="grid gap-4 @xl:grid-cols-2">
-        <Group title="⏱ Pace">
+        <Group title="Pace">
           <div className="flex flex-col gap-1.5 py-2">
             <div role="group" aria-label="Pace" className="grid grid-cols-3 gap-1.5">
               {PACES.map((p) => (
@@ -197,7 +197,7 @@ export function RoomSettingsForm({ view, editable }: { view: RoomView; editable:
           </Row>
         </Group>
 
-        <Group title="🃏 Cards">
+        <Group title="Cards">
           <Row label="Difficulty">
             <div role="group" aria-label="Difficulty" className="flex flex-wrap gap-1.5">
               {DIFFICULTIES.map((d) => {
@@ -261,7 +261,7 @@ export function RoomSettingsForm({ view, editable }: { view: RoomView; editable:
           </Row>
         </Group>
 
-        <Group title="💬 Guessing">
+        <Group title="Guessing">
           <Row
             label="Show guesses"
             hint={
@@ -287,18 +287,7 @@ export function RoomSettingsForm({ view, editable }: { view: RoomView; editable:
           </Row>
         </Group>
 
-        <Group title="🚪 Room">
-          <Row
-            label="Public 🌍"
-            hint={view.isPublic ? 'Listed on the home page' : 'Only people with the code'}
-          >
-            <Toggle
-              label="Public room"
-              on={view.isPublic}
-              disabled={!editable}
-              onChange={(isPublic) => sendToRoom({ t: 'room:details', isPublic })}
-            />
-          </Row>
+        <Group title="Players">
           <Row label="Max players">
             <Stepper
               label="Max players"

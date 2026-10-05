@@ -22,3 +22,5 @@ await build({
 await cp('src/db/migrations', 'dist/migrations', { recursive: true });
 // Curated decks are seeded by migrate.js (src/modules/decks/curated-decks.ts).
 await cp('src/modules/decks/curated', 'dist/curated', { recursive: true });
+// The share card's fonts (src/modules/rooms/share-card.ts).
+await cp('src/modules/rooms/share-card-fonts', 'dist/share-card-fonts', { recursive: true });

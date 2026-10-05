@@ -1,12 +1,16 @@
 import { RoomName } from '@pictiotheme/protocol';
 import { useRef, useState, type CSSProperties } from 'react';
 import { sendToRoom } from '../../../realtime';
+import { PrivacyToggle } from './PrivacyToggle';
 
 /**
- * The room's name at the top of the waiting room, as sticker letters like the logo's: they pop on
- * one by one, again after every rename, and hop when you point at them. The host renames the
- * room in place (click the name or ✏️); Enter or leaving the field saves, Escape cancels.
+ * The room's name, as sticker letters like the logo's: they pop on one by one, again after every
+ * rename, and hop when you point at them. The host renames the room in place (click the name or
+ * ✏️); Enter or leaving the field saves, Escape cancels. Beside it, whether the room is public.
+ * On the waiting room's card (RoomCard) it's left-aligned; on results, centred.
  */
+
+type Align = 'start' | 'center';
 
 const POPS = [
   'var(--color-pop-purple)',
@@ -17,20 +21,21 @@ const POPS = [
 ];
 
 /**
- * As big as fits the name on one line of the waiting room (a size container), up to 4rem. A
+ * As big as fits the name on one line of its container (a size container), up to `max`. A
  * sticker letter is about half an em wide; below 1.75rem long names wrap instead.
  */
-function sizeFor(name: string): CSSProperties {
+function sizeFor(name: string, max: string, share = 170): CSSProperties {
   const length = Math.max(8, [...name].length);
-  return { fontSize: `clamp(1.75rem, ${(170 / length).toFixed(2)}cqi, 4rem)` };
+  return { fontSize: `clamp(1.75rem, ${(share / length).toFixed(2)}cqi, ${max})` };
 }
 
-function StickerLetters({ name }: { name: string }) {
+function StickerLetters({ name, align }: { name: string; align: Align }) {
+  const justify = align === 'start' ? 'justify-start' : 'justify-center';
   let index = 0;
   return (
-    <span aria-hidden="true" className="flex flex-wrap justify-center gap-x-[0.3em]">
+    <span aria-hidden="true" className={`flex flex-wrap gap-x-[0.3em] ${justify}`}>
       {name.split(/\s+/).map((word, w) => (
-        <span key={w} className="inline-flex flex-wrap justify-center">
+        <span key={w} className={`inline-flex flex-wrap ${justify}`}>
           {[...word].map((char) => {
             const i = index++;
             return (
@@ -65,13 +70,13 @@ function StickerLetters({ name }: { name: string }) {
 }
 
 /** A scribbled underline, drawn once the letters have landed. */
-function Squiggle({ delayMs }: { delayMs: number }) {
+function Squiggle({ delayMs, align }: { delayMs: number; align: Align }) {
   return (
     <svg
       viewBox="0 0 300 24"
       preserveAspectRatio="none"
       aria-hidden="true"
-      className="mx-auto -mt-1 h-3 w-[min(80%,18rem)] overflow-visible"
+      className={`-mt-1 h-3 w-[min(80%,18rem)] overflow-visible ${align === 'center' ? 'mx-auto' : ''}`}
     >
       <path
         d="M4 14c30-10 52-10 74 0s44 10 72 0 50-10 74 0 46 8 72-2"
@@ -87,7 +92,7 @@ function Squiggle({ delayMs }: { delayMs: number }) {
   );
 }
 
-function RenameField({ name, onDone }: { name: string; onDone: () => void }) {
+function RenameField({ name, max, onDone }: { name: string; max: string; onDone: () => void }) {
   const [value, setValue] = useState(name);
   // Escape closes the field, and the blur that may follow must not save it.
   const cancelled = useRef(false);
@@ -117,61 +122,82 @@ function RenameField({ name, onDone }: { name: string; onDone: () => void }) {
           onDone();
         }
       }}
-      style={sizeFor(value)}
+      style={sizeFor(value, max)}
       className="w-full max-w-3xl rounded-xl border-2 border-dashed border-ink/40 bg-transparent px-3 py-1 text-center font-logo text-ink outline-none focus:border-pop-purple dark:border-zinc-500 dark:text-zinc-100"
     />
   );
 }
 
-export function RoomTitle({ name, editable }: { name: string; editable: boolean }) {
+export function RoomTitle({
+  name,
+  isPublic,
+  editable,
+  align = 'center',
+}: {
+  name: string;
+  isPublic: boolean;
+  editable: boolean;
+  align?: Align;
+}) {
   const [editing, setEditing] = useState(false);
   const letters = [...name.replace(/\s+/g, '')].length;
+  // On the card the name shares its line with the privacy switch, so it stays smaller.
+  const max = align === 'start' ? '3.25rem' : '4rem';
+  const items = align === 'start' ? 'items-start' : 'items-center';
 
   if (editing) {
     return (
-      <div className="@container flex w-full flex-col items-center gap-1">
-        <RenameField name={name} onDone={() => setEditing(false)} />
+      <div className={`@container flex w-full flex-col gap-1 ${items}`}>
+        <RenameField name={name} max={max} onDone={() => setEditing(false)} />
         <p className="text-xs text-zinc-500">Enter to save · Esc to cancel</p>
       </div>
     );
   }
 
   return (
-    <div className="@container flex w-full flex-col items-center">
-      <div className="flex items-center justify-center gap-2">
-        <h1 className="font-logo leading-tight font-normal text-ink" style={sizeFor(name)}>
-          <span className="sr-only">{name}</span>
-          {/* Keyed by the name, so the letters pop on again after a rename. */}
-          {editable ? (
-            // A shortcut for the pointer: keyboards and screen readers get the ✏️ button.
-            <button
-              key={name}
-              type="button"
-              tabIndex={-1}
-              aria-hidden="true"
-              onClick={() => setEditing(true)}
-              title="Rename the room"
-              className="cursor-text rounded-xl"
-            >
-              <StickerLetters name={name} />
-            </button>
-          ) : (
-            <StickerLetters key={name} name={name} />
-          )}
-        </h1>
-        {editable && (
-          <button
-            type="button"
-            onClick={() => setEditing(true)}
-            aria-label="Rename the room"
-            title="Rename the room"
-            className="shrink-0 rotate-6 rounded-full border-2 border-ink bg-white px-2 py-1 text-sm shadow-[2px_2px_0_var(--color-ink)] transition hover:rotate-0"
+    <div
+      className={`@container flex w-full flex-wrap items-center gap-x-5 gap-y-2 ${align === 'start' ? 'justify-between' : 'justify-center'}`}
+    >
+      <div className={`flex min-w-0 flex-col ${items}`}>
+        <div className="flex min-w-0 items-center gap-2">
+          <h1
+            className="min-w-0 font-logo leading-tight font-normal text-ink"
+            style={sizeFor(name, max, align === 'start' ? 95 : 170)}
           >
-            ✏️
-          </button>
-        )}
+            <span className="sr-only">{name}</span>
+            {/* Keyed by the name, so the letters pop on again after a rename. */}
+            {editable ? (
+              // A shortcut for the pointer: keyboards and screen readers get the ✏️ button.
+              <button
+                key={name}
+                type="button"
+                tabIndex={-1}
+                aria-hidden="true"
+                onClick={() => setEditing(true)}
+                title="Rename the room"
+                className="cursor-text rounded-xl text-left"
+              >
+                <StickerLetters name={name} align={align} />
+              </button>
+            ) : (
+              <StickerLetters key={name} name={name} align={align} />
+            )}
+          </h1>
+          {editable && (
+            <button
+              type="button"
+              onClick={() => setEditing(true)}
+              aria-label="Rename the room"
+              title="Rename the room"
+              className="shrink-0 rotate-6 rounded-full border-2 border-ink bg-white px-2 py-1 text-sm shadow-[2px_2px_0_var(--color-ink)] transition hover:rotate-0"
+            >
+              ✏️
+            </button>
+          )}
+        </div>
+        <Squiggle key={name} delayMs={letters * 45 + 250} align={align} />
       </div>
-      <Squiggle key={name} delayMs={letters * 45 + 250} />
+      <PrivacyToggle isPublic={isPublic} editable={editable} />
     </div>
   );
 }

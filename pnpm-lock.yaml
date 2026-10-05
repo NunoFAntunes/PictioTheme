@@ -211,6 +211,9 @@ importers:
       '@pictiotheme/protocol':
         specifier: workspace:*
         version: link:../../packages/protocol
+      '@resvg/resvg-wasm':
+        specifier: 2.6.2
+        version: 2.6.2
       close-with-grace:
         specifier: ^2.5.0
         version: 2.5.0
@@ -1544,6 +1547,10 @@ packages:
 
   '@remix-run/route-pattern@0.22.1':
     resolution: {integrity: sha512-czdGJWh09Lapvcqt7Vb09KlrU2PhRJ8xQaI+AItTuD9aDJ5MAgxnS38lnys6Ll+6RJEqPiaUqTwIQhVLwFvv+w==}
+
+  '@resvg/resvg-wasm@2.6.2':
+    resolution: {integrity: sha512-FqALmHI8D4o6lk/LRWDnhw95z5eO+eAa6ORjVg09YRR7BkcM6oPHU9uyC0gtQG5vpFLvgpeU4+zEAz2H8APHNw==}
+    engines: {node: '>= 10'}
 
   '@rolldown/binding-android-arm-eabi@1.2.12':
     resolution: {integrity: sha512-dB/a1214qKfHMXCpgqR4OZT+jS4kTyEXbQGJPqzobt5EwH5rX080pxE37alt3RzvR1bf1Yz/yGqRfrYAxuPw0A==}
@@ -4942,6 +4949,8 @@ snapshots:
       playwright: 1.63.0
 
   '@remix-run/route-pattern@0.22.1': {}
+
+  '@resvg/resvg-wasm@2.6.2': {}
 
   '@rolldown/binding-android-arm-eabi@1.2.12':
     optional: true

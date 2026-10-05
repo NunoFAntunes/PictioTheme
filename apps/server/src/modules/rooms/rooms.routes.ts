@@ -98,6 +98,41 @@ export const roomsRoutes: FastifyPluginAsyncZod<{ rooms: RoomsService }> = async
     },
   );
 
+  // The share card (share-card.ts): link previews ask for `?v=<version>` from the embed page,
+  // which is cached forever; "Copy as image" asks without it and always gets the current one.
+  // Rate-limited like the lookup: it tells whether a code is live.
+  app.get(
+    '/:code/card.png',
+    {
+      config: { rateLimit: { max: 30, timeWindow: '1 minute' } },
+      schema: {
+        params: z.object({ code: z.string().max(20) }),
+        querystring: z.object({ v: z.string().max(40).optional() }),
+      },
+    },
+    async (request, reply) => {
+      const card = await rooms.shareCard(request.params.code);
+      const current = request.query.v === card.version;
+      return reply
+        .headers({ ...IMMUTABLE_PNG_HEADERS, ...(current ? {} : { 'cache-control': 'no-cache' }) })
+        .send(card.png);
+    },
+  );
+
+  // What link preview bots (Discord, Slack, WhatsApp…) get for /r/CODE: Caddy sends them here.
+  app.get(
+    '/:code/embed',
+    {
+      config: { rateLimit: { max: 30, timeWindow: '1 minute' } },
+      schema: { params: z.object({ code: z.string().max(20) }) },
+    },
+    async (request, reply) =>
+      reply
+        .type('text/html; charset=utf-8')
+        .header('cache-control', 'no-cache')
+        .send(rooms.shareEmbed(request.params.code)),
+  );
+
   // It may create a room, so it shares the create limit's spirit, with room for a few retries.
   app.post(
     '/quick-play',

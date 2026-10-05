@@ -45,6 +45,8 @@ export class RoomRuntime {
   private disposed = false;
   /** The cover's picture (its most-liked drawing), kept with the room in memory like the rest. */
   coverPng: Buffer | null = null;
+  /** The last share card drawn (share-card.ts), until the name, deck or rules change. */
+  shareCard: { version: string; png: Buffer } | null = null;
 
   constructor(state: RoomState, deps: RoomRuntimeDeps) {
     this.state = state;

@@ -50,7 +50,10 @@ test('quick play goes straight into a public room', async ({ browser }) => {
   await page.getByRole('button', { name: /quick play/i }).click();
   await expect(page).toHaveURL(/\/r\/[A-Z]{3}-[A-Z]{3}$/);
   await expect(page.getByTestId('room-code')).toBeVisible();
-  await expect(page.getByText(/public room/i)).toBeVisible();
+  await expect(page.getByRole('switch', { name: 'Public room' })).toHaveAttribute(
+    'aria-checked',
+    'true',
+  );
 });
 
 test('a new private room takes one click, and a friend joins by pasting the link', async ({
@@ -60,7 +63,10 @@ test('a new private room takes one click, and a friend joins by pasting the link
   await host.goto('/');
   await host.getByRole('button', { name: /new private room/i }).click();
   await expect(host).toHaveURL(/\/r\/[A-Z]{3}-[A-Z]{3}$/);
-  await expect(host.getByText(/private room/i)).toBeVisible();
+  await expect(host.getByRole('switch', { name: 'Public room' })).toHaveAttribute(
+    'aria-checked',
+    'false',
+  );
   const link = host.url();
 
   const friend = await newPlayerPage(browser);
@@ -96,8 +102,10 @@ test('the host renames a private room and makes it public, and it shows on the h
   await host.getByRole('button', { name: 'Rename the room' }).click();
   await host.getByLabel('Room name').fill('Spooky Scribblers');
   await host.getByLabel('Room name').press('Enter');
-  await host.getByRole('switch', { name: 'Public room' }).click();
-  await expect(host.getByText(/public room · share this code/i)).toBeVisible();
+  const visibility = host.getByRole('switch', { name: 'Public room' });
+  await expect(visibility).toHaveAttribute('aria-checked', 'false');
+  await visibility.click();
+  await expect(visibility).toHaveAttribute('aria-checked', 'true');
   await expect(host.getByRole('heading', { name: 'Spooky Scribblers' })).toBeVisible();
 
   const visitor = await newPlayerPage(browser);

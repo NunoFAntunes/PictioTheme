@@ -59,3 +59,25 @@ export function SpeakerIcon({
     </svg>
   );
 }
+
+/** A globe: a wobbly circle with its meridian and three latitudes. */
+export function GlobeIcon({ className = '', fill = 'var(--color-pop-teal)' }: IconProps) {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true" className={className}>
+      <path
+        d="M32 10.5C44.5 10 54.5 19.5 54 32.5 53.5 45 44 54.5 31.5 54 19.5 53.5 10 44 10.5 31.5 11 19.5 20 11 32 10.5Z"
+        fill={fill}
+      />
+      <path
+        {...STROKE}
+        d="M31 7.5C45.5 7 56.5 18 56 32.5 55.5 46 45 56.5 31 56 17.5 55.5 7.5 45 8 31 8.5 18 18.5 8 33.5 8.5"
+      />
+      <path {...STROKE} d="M31.5 8.5C22.5 18 22 46 32.5 55.5M32.5 8C41.5 18.5 42 45 31 55.5" />
+      <path
+        {...STROKE}
+        strokeWidth={4}
+        d="M8.5 31.5C22 33.5 42 33 55.5 30.5M13.5 19.5C25 22 41 21.5 50.5 18.5M13.5 44.5C26 42 40 42.5 51 45"
+      />
+    </svg>
+  );
+}

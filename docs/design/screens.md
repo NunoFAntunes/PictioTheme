@@ -47,32 +47,36 @@ The host's **Close room** is a paper sticker in the header with a little paper b
 There's no create-room form: rooms are made in one click (user-flows.md §3). The waiting room fills the sheet beside the players' margin (up to `max-w-6xl`) and lays itself out by its own width (a CSS size container), so it works the same beside the guess column, on a 1024 px laptop and on a tablet in portrait:
 
 ```
-                 Spooky Scribblers ✏️          ← sticker letters, scribbled underline
-                 ﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ [cover] PLAYING WITH          ┆ 🔒 Private room · share ┆  [ Start game ▶ ] │
-│ Spooky Halloween              ┆      GHY-CLL            ┆  2 players here    │
-│ 3 rounds · 80s · Easy, Medium ┆  📋 Copy invite link    ┆                    │
-│ · up to ~19 min               ┆                         ┆                    │
-└─────────────────────────────────────────────────────────────────────────────┘
+ ▨tape                                                                 tape▨
+╭──────────────────────────────────────────────────────────┬┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
+│ ┌─────┐ Come draw & guess with us in                     ┆  room code   │
+│ │cover│ Spooky Scribblers ✏️     [🔒|🌍] Private        ┆   GHY-CLL    │
+│ └─────┘ Deck: Spooky Halloween                           ┆[Copy invite] │
+│        (3 rounds) (80s to draw) (Easy · Medium)          ┆or as picture │
+╰──────────────────────────────────────────────────────────┴┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯
         ( 🖍️ You're still a plain letter. Draw yourself while friends arrive! )
-┌─ 🎴 Pick a deck ────────── ✨ Generate a deck ─┐ ┌─ 📜 House rules ────────┐
-│ [🔍 Search decks: halloween, space, food…]    │ │ ⏱ PACE                 │
+┌─ Pick a deck ───────────── ✨ Generate a deck ─┐ ┌─ House rules ───────────┐
+│ [🔍 Search decks: halloween, space, food…]    │ │ PACE                    │
 │ (All) (family) (silly) (animals) (spooky) …   │ │ [⚡Quick][🎲Classic][🐢Long]│
 │ ┌ scrolls inside, fixed height ─────────────┐ │ │ Up to ~19 min, 4 players│
 │ │ FEATURED · 5               (sticky)       │ │ │ Rounds        − 3 +     │
 │ │ [✓Playing][🍂][👻][🕸][🎃]                │ │ │ Draw time     − 80s +   │
-│ │ MORE DECKS · 15                           │ │ │ 🃏 CARDS  💬 GUESSING   │
-│ │ [🦖][🚀][🍕][🐙][🌍] … Show all 15 decks   │ │ │ 🚪 ROOM (public, max)   │
-│ └───────────────────────────────────────────┘ │ └─────────────────────────┘
-└───────────────────────────────────────────────┘
+│ │ MORE DECKS · 15                           │ │ │ CARDS  GUESSING         │
+│ │ [🦖][🚀][🍕][🐙][🌍] … Show all 15 decks   │ │ │ PLAYERS (max)           │
+│ └───────────────────────────────────────────┘ │ │ ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄ │
+└───────────────────────────────────────────────┘ │    [ Start game ▶ ]     │
+                                                  │ 2 players, up to ~19 min│
+                                                  └─────────────────────────┘
 ```
 
-- **The room's name** is the page's title, in the logo's sticker letters (Cherry Bomb One, pop colours, ink outline). The letters pop on one by one, again after every rename, and hop when you point at them; a squiggle draws under them. Its size follows the room's width and the name's length (up to 4rem, wrapping only below 1.75rem). The host renames in place: click the name or ✏️, Enter or leaving the field saves, Esc cancels. The header doesn't repeat the name.
-- **One "ready" card** holds everything needed to begin: what you'll play (cover, title and the rules at a glance, with the longest the match can take), the code to share, and **Start game** (host) or "Waiting for the host to start…". Below ~42rem it becomes the deck on top, then code and Start side by side.
+- **The room card** (`RoomCard`) is the invite: a ticket drawn in ink on ruled paper (lopsided marker outline, hard ink shadow, two strips of tape), with the deck's back cover tilted on the left, "Come draw & guess with us in", the room's name, the deck's title, the rules as little stickers (rounds, draw time, difficulties, "Silly mode!"), and a yellow tear-off stub behind a dotted perforation with the **code** in sticker letters on one line. The card is kept short (small cover, no extra hint lines) so the host's workspace gets the room. Clicking the code or **Copy invite link** copies `/r/CODE`; **or copy it as a picture** copies the card as a PNG (`GET /api/rooms/:code/card.png`; where images can't be copied it opens in a new tab). Below ~42rem the stub moves under the card; below ~36rem the cover sits above the text.
+- **The link unfurls into the card.** Pasted into Discord, Slack, WhatsApp, Telegram, X, etc., `/r/CODE` shows the same card as a large picture: Caddy sends those apps' link-preview bots (by User-Agent) to `GET /api/rooms/:code/embed`, a page of Open Graph tags whose image is `card.png?v=<version>`. The server draws it (`apps/server/src/modules/rooms/share-card.ts`: SVG with seeded wobbly outlines, rendered by resvg-wasm with Cherry Bomb One and Gochi Hand), 1200×630 with a transparent background, so it lies on the chat like a ticket. The version changes with the name, deck, cover or rules, so a new paste shows the current card; the drawing is cached with the room. It doesn't show players or public/private, which go stale.
+- **The room's name** sits on the card in the logo's sticker letters (Cherry Bomb One, pop colours, ink outline). The letters pop on one by one, again after every rename, and hop when you point at them; a squiggle draws under them. Its size follows the card's width and the name's length (up to 3.25rem; 4rem on results). The host renames in place: click the name or ✏️, Enter or leaving the field saves, Esc cancels. The header doesn't repeat the name.
+- **Public or private** is a doodled switch beside the name (`PrivacyToggle`): a padlock and a globe, a yellow highlighter blob sliding under the one that's on, and "Private" or "Public" next to it. The host flips it; players see it. When the name is long it wraps under the name.
+- **Start game** sits at the foot of the house rules, not on the card: the card is the invite, Start is the host's last move after setting up. It's a doodled purple button, with "2 players here, up to ~N min" or "Waiting for at least one more player…" under it; players see "Waiting for the host to start…" under the card.
 - **Draw yourself** starts open for players on their generated initial; for the host it starts as a one-line prompt, so the deck and rules stay in view. Players who already drew see nothing here (the header's "you" sticker changes it). The host's rename ✏️ sits on a white badge.
 - **The deck library** (host) takes most of the width and keeps a fixed height (`min(42rem, 80dvh)`), scrolling inside with sticky section headings, however many decks there are. ✨ Generate sits in its header; while generating, the form takes the panel's place. **Category chips** are the tags most decks share (`top-tags.ts`, top 6 with at least 2 decks); a chip, like the search box, searches titles and tags across all public decks (server search, best 30). Without a search: Your decks, Featured, More decks, about two rows each (8) plus the selected deck, then "Show all N decks" and "Show more" 48 at a time, so thousands of decks never render at once. Each tile has the [back cover](../product/decks.md#back-cover), title, card count and 🤪; the room's deck wears a "✓ Playing" sticker; "Your decks" have ✏️ to redraw the cover. Picking a cover changes the room's deck for everyone at once. No ratings, play counts or card previews yet.
-- **House rules** are grouped by what they change: ⏱ Pace (Quick 2×60s, Classic 3×80s, Long 5×120s presets, then − / + steppers for rounds and draw time, and "up to ~N min with M players": every turn run to the end of its clock), 🃏 Cards (difficulty, Silly Mode and its share, drawer picks from 3), 💬 Guessing (show guesses, hints) and 🚪 Room (public, max players). Short hints say what a switch does. Players see them read-only, in two columns.
+- **House rules** are grouped by what they change: Pace (Quick 2×60s, Classic 3×80s, Long 5×120s presets, then − / + steppers for rounds and draw time, and "up to ~N min with M players": every turn run to the end of its clock), Cards (difficulty, Silly Mode and its share, drawer picks from 3), Guessing (show guesses, hints) and Players (max players). Short hints say what a switch does. The headings carry no emoji (2026-10-05). Players see them read-only, in two columns.
 - Side by side when the room is at least 46rem wide (library | 21rem rules); stacked, library first, below that.
 
 ## 4. Game screen (the main one)

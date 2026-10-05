@@ -101,6 +101,7 @@ export async function buildApp(config: Config, overrides: { llm?: LlmClient | nu
     metrics,
     transport: connections,
     log: app.log,
+    publicOrigin: config.publicOrigin,
   });
 
   // Tell players and close rooms before the server stops accepting connections.
