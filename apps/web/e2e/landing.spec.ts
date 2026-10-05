@@ -127,7 +127,9 @@ test('a letter can be dragged away and springs back home', async ({ browser }) =
   expect(await offsetFromHome(page, 3)).toBeGreaterThan(100);
 
   await page.mouse.up();
-  await expect.poll(() => offsetFromHome(page, 3)).toBeLessThan(1);
+  // About a second of simulated time, but each frame advances at most 1/15 s (letter-physics.ts),
+  // so a starved CI browser dropping to a few fps plays it back in slow motion.
+  await expect.poll(() => offsetFromHome(page, 3), { timeout: 15_000 }).toBeLessThan(1);
 });
 
 test('with reduced motion the logo stays put', async ({ browser }) => {

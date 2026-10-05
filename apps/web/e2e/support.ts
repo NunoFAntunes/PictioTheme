@@ -39,7 +39,9 @@ export async function hostRoom(page: Page, name: string): Promise<string> {
   await nameOnHome(page, name);
   await page.getByRole('button', { name: /new private room/i }).click();
   const codeButton = page.getByTestId('room-code');
-  await expect(codeButton).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/);
+  // The room is a client-only island: on a busy CI runner (WebKit especially) loading its dev
+  // modules and joining can take longer than the default 5s.
+  await expect(codeButton).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/, { timeout: 15_000 });
   return (await codeButton.textContent()) ?? '';
 }
 
