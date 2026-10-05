@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { DEFAULT_TOOL, DrawingBoard, Toolbar, withColor } from '../../features/canvas';
+import { LikeButton } from '../../features/likes';
 import { TurnOverlay } from '../../features/turn-overlays';
 import { drawerIdOf, useRoomStore } from '../../realtime';
 
@@ -47,6 +48,7 @@ export function GameBoard({ bare = false }: { bare?: boolean }) {
         onCloseColorPopover={closeColorPopover}
       >
         <TurnOverlay />
+        <LikeButton />
       </DrawingBoard>
       {canDraw && (
         <Toolbar

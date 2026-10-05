@@ -53,7 +53,7 @@ Phones (see the phone gate in [next-features.md](../planning/next-features.md)) 
 
 ## 3. Ways in, in detail
 
-1. **Public room cards**, refreshed live, drawn as sticky notes on the paper. Each shows the room name, deck theme, player count / max, status (`waiting` / `in game`), difficulty badges, and a 🤪 badge if Silly Mode is on. Full rooms are greyed out. A "N doodling now" counter sits above them. Later: filters (theme search, "not started yet", "has space") and a live thumbnail of what's being drawn.
+1. **Public room cards**, refreshed live, drawn as sticky notes on the paper. Each shows the room name, deck theme, player count / max, status (`waiting` / `in game`), difficulty badges, and a 🤪 badge if Silly Mode is on. Full rooms are greyed out. A note shows the room's cover, its most-liked drawing (game-rules.md, likes), once it has one. A "N doodling now" counter sits above them. Later: filters (theme search, "not started yet", "has space").
 2. **Join with code**: a field that auto-formats input to `ABC-DEF` (it uppercases, drops invalid characters, and adds the dash). Pasting a whole invite link (`…/r/ABC-DEF`) works too.
 3. **New private room**: creates the room at once with the default deck and settings; everything is changed in the waiting room (§4).
 4. **Quick play**: see §2.

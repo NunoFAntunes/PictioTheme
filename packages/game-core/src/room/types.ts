@@ -106,6 +106,12 @@ export type RoomState = {
   matchStartedAt: number | null;
   /** Turns drawn in the current match, for the match summary. */
   turnsPlayed: number;
+  /** The current drawing's ❤️: who drew it and who liked it. Null outside a drawing and its reveal. */
+  likes: { drawerId: PlayerId; likers: Set<PlayerId> } | null;
+  /** The room's cover: its most-liked drawing so far. `version` goes up with each new one. */
+  cover: { likes: number; version: number } | null;
+  /** A drawing that beat the cover, waiting for its drawer to send a picture (cover:request). */
+  pendingCover: { turn: number; likes: number; drawerId: PlayerId } | null;
 };
 
 export type TimerId =
@@ -132,7 +138,9 @@ export type RoomEvent =
   | { type: 'message'; playerId: PlayerId; msg: ClientMessage }
   | { type: 'timer'; timer: TimerId }
   | { type: 'deckLoaded'; deck: DeckInfo }
-  | { type: 'deckFailed'; deckId: string };
+  | { type: 'deckFailed'; deckId: string }
+  /** The shell stored the picture for the pending cover (`PUT /api/rooms/:code/cover`). */
+  | { type: 'coverStored'; turn: number };
 
 export type DisconnectReason = 'kicked' | 'banned' | 'room_full' | 'room_closed';
 

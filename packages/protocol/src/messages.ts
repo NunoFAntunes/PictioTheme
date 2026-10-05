@@ -52,6 +52,8 @@ export const ClientMessage = z.discriminatedUnion('t', [
     index: z.number().int().min(0).max(2),
     vote: CardVote.nullable(),
   }),
+  /** ❤️ the current drawing (or take it back). Not the drawer; while drawing and at the reveal. */
+  z.object({ t: z.literal('turn:like'), liked: z.boolean() }),
   z.object({ t: z.literal('draw:begin'), ...DrawBegin.shape }),
   z.object({ t: z.literal('draw:pts'), id: StrokeId, pts: Points }),
   z.object({ t: z.literal('draw:end'), id: StrokeId }),
@@ -150,6 +152,8 @@ export const ServerMessage = z.discriminatedUnion('t', [
     round: z.number().int(),
     deck: RoomDeck.nullable(),
     strokes: z.array(Stroke),
+    /** Who ❤️ the current drawing. */
+    likers: z.array(PlayerId),
     /** Only for the drawer (options while choosing, word while drawing) or players who solved. */
     secret: z.object({ options: z.array(CardOption).optional(), word: z.string().optional() }),
   }),
@@ -160,6 +164,13 @@ export const ServerMessage = z.discriminatedUnion('t', [
     deck: RoomDeck.nullable(),
   }),
   z.object({ t: z.literal('room:details'), name: z.string(), isPublic: z.boolean() }),
+  /** Who ❤️ the current drawing, after every change. Cleared at the next turn. */
+  z.object({ t: z.literal('turn:likes'), likers: z.array(PlayerId) }),
+  /**
+   * To the drawer: your drawing from turn `turn` is the room's most liked yet, please send a
+   * picture of it (`PUT /api/rooms/:code/cover`). Sent as the reveal ends, before the canvas clears.
+   */
+  z.object({ t: z.literal('cover:request'), turn: z.number().int() }),
   z.object({ t: z.literal('room:paused'), paused: PauseReason.nullable() }),
   z.object({
     t: z.literal('room:notice'),

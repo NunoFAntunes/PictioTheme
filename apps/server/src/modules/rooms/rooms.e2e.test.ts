@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { buildApp, type App } from '../../app';
-import { testAvatar } from '../../test-support/avatar';
+import { ROOM_COVER_HEIGHT_PX, ROOM_COVER_WIDTH_PX } from '@pictiotheme/protocol';
+import { testAvatar, testCover } from '../../test-support/avatar';
 import { TestPlayer, type TestSocket } from '../../test-support/clients';
 import { testConfig } from '../../test-support/test-config';
 
@@ -122,6 +123,45 @@ describe('quick play and the lobby list, end to end', () => {
     });
     expect(rude.status).toBe(400);
   });
+
+  it(
+    "a liked drawing becomes the room's cover, sent by its drawer",
+    { timeout: 15_000 },
+    async () => {
+      const [ana, bo] = await Promise.all([player(), player()]);
+      const room = await ana.createRoom('Ana', true);
+      const anaSocket = await enter(ana, room.joinToken);
+      const boSocket = await enter(bo, (await bo.joinRoom(room.code, 'Bo')).joinToken);
+      await anaSocket.next('room:players', (m) => m.players.length === 2);
+
+      anaSocket.send({ t: 'room:start' });
+      await anaSocket.next('phase:choosing'); // Ana joined first, so she draws
+      anaSocket.send({ t: 'turn:choose', index: 0 });
+      await boSocket.next('phase:drawing');
+      boSocket.send({ t: 'turn:like', liked: true });
+      expect((await anaSocket.next('turn:likes')).likers).toHaveLength(1);
+      anaSocket.send({ t: 'room:skipTurn' });
+
+      // As the reveal ends, the drawer is asked for a picture.
+      const request = await anaSocket.next('cover:request', () => true, 8_000);
+      const image = testCover([200, 40, 40], ROOM_COVER_WIDTH_PX, ROOM_COVER_HEIGHT_PX);
+      const path = `/api/rooms/${room.code}/cover`;
+      expect((await bo.request('PUT', path, { turn: request.turn, image })).body).toEqual({
+        accepted: false,
+      });
+      const wrongSize = await ana.request('PUT', path, { turn: request.turn, image: testCover() });
+      expect(wrongSize.status).toBe(400);
+      expect((await ana.request('PUT', path, { turn: request.turn, image })).body).toEqual({
+        accepted: true,
+      });
+
+      const lobby = await ana.request('GET', '/api/rooms/public');
+      expect(lobby.body).toMatchObject({ rooms: [{ code: room.code, coverVersion: 1 }] });
+      const png = await fetch(`${baseUrl}${path}?v=1`);
+      expect(png.status).toBe(200);
+      expect(png.headers.get('content-type')).toBe('image/png');
+    },
+  );
 
   it('refuses an offensive name', async () => {
     const ana = await player();

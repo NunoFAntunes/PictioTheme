@@ -1,4 +1,5 @@
 import type { PublicRoomSummary } from '@pictiotheme/protocol';
+import { BoilFilters } from '../../player-list';
 import { usePublicRooms } from '../api';
 
 const DIFFICULTY_LETTER = { easy: 'E', medium: 'M', hard: 'H' } as const;
@@ -26,6 +27,8 @@ export function RoomNotes() {
       {rooms?.length === 0 && (
         <p className="text-ink/60">No public rooms yet. Quick play starts one!</p>
       )}
+      {/* The covers boil like the players' doodles. */}
+      <BoilFilters />
       {rooms && rooms.length > 0 && (
         <ul className="flex flex-wrap justify-center gap-4">
           {rooms.map((room, i) => (
@@ -46,10 +49,20 @@ function RoomNote({ room, index }: { room: PublicRoomSummary; index: number }) {
   const status = full ? 'Full' : room.status === 'waiting' ? 'Waiting' : 'In game';
   const body = (
     <>
-      <span className="line-clamp-2 font-bold leading-tight">{room.name}</span>
+      <span className="line-clamp-1 font-bold leading-tight">{room.name}</span>
       <span className="line-clamp-1 text-sm text-ink/70">
         {room.deckTitle ?? 'Choosing a deck'}
         {room.silly && ' 🤪'}
+      </span>
+      {/* The room's most-liked drawing, cut out, boiling like the players (game-rules.md). */}
+      <span className="flex min-h-0 flex-1 items-center justify-center">
+        {room.coverVersion !== null && (
+          <img
+            src={`/api/rooms/${room.code}/cover?v=${room.coverVersion}`}
+            alt={`The most-liked drawing in ${room.name}`}
+            className="max-h-full max-w-full object-contain motion-safe:animate-boil"
+          />
+        )}
       </span>
       <span className="mt-auto flex items-center justify-between text-sm">
         <span className="tabular-nums">
@@ -66,7 +79,7 @@ function RoomNote({ room, index }: { room: PublicRoomSummary; index: number }) {
       </span>
     </>
   );
-  const note = `flex h-32 w-44 flex-col gap-1 p-3 text-left text-ink shadow-[2px_4px_0_rgb(0_0_0/0.12)] ${colour} ${tilt}`;
+  const note = `flex h-44 w-48 flex-col gap-1 p-3 text-left text-ink shadow-[2px_4px_0_rgb(0_0_0/0.12)] ${colour} ${tilt}`;
 
   if (full) {
     return (

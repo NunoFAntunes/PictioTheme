@@ -23,6 +23,18 @@ export const AvatarImage = z
   .startsWith(AVATAR_DATA_URL_PREFIX)
   .max(AVATAR_DATA_URL_PREFIX.length + Math.ceil(AVATAR_MAX_BYTES / 3) * 4);
 export type AvatarImage = z.infer<typeof AvatarImage>;
+/**
+ * A room's cover: its most-liked drawing, cut out of the white background (transparent PNG),
+ * shown on the home page's room notes (game-rules.md, likes).
+ */
+export const ROOM_COVER_WIDTH_PX = 320;
+export const ROOM_COVER_HEIGHT_PX = 240;
+export const ROOM_COVER_MAX_BYTES = 120_000;
+export const RoomCoverImage = z
+  .string()
+  .startsWith(AVATAR_DATA_URL_PREFIX)
+  .max(AVATAR_DATA_URL_PREFIX.length + Math.ceil(ROOM_COVER_MAX_BYTES / 3) * 4);
+export type RoomCoverImage = z.infer<typeof RoomCoverImage>;
 /** The first 32 hex characters of the image's SHA-256. */
 export const AvatarId = z.string().regex(/^[0-9a-f]{32}$/);
 export type AvatarId = z.infer<typeof AvatarId>;

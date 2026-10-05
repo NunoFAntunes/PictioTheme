@@ -43,6 +43,8 @@ export class RoomRuntime {
   private readonly queue: RoomEvent[] = [];
   private processing = false;
   private disposed = false;
+  /** The cover's picture (its most-liked drawing), kept with the room in memory like the rest. */
+  coverPng: Buffer | null = null;
 
   constructor(state: RoomState, deps: RoomRuntimeDeps) {
     this.state = state;
@@ -102,6 +104,7 @@ export class RoomRuntime {
         state.phase.kind === 'waiting' || state.phase.kind === 'results' ? 'waiting' : 'playing',
       difficulties: state.settings.difficulties,
       silly: state.settings.silly.enabled,
+      coverVersion: state.cover?.version ?? null,
     };
   }
 

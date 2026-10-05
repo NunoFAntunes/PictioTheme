@@ -4,6 +4,7 @@ import { prepareCard } from '../guess/classify';
 import { randomInt } from '../rng';
 import { cardMultiplier, drawerPoints } from '../scoring';
 import { buildMask, pickHintIndex } from '../word-mask';
+import { considerCover, startLikes } from './likes';
 import { broadcastPlayers, cancel, connectedIds, schedule, send, sendToAll } from './output';
 import {
   TIMINGS,
@@ -68,6 +69,7 @@ export function startMatch(c: Ctx, pool: CardPool): void {
 /** Moves to the next connected drawer, the next round, or the results. */
 export function advance(c: Ctx): void {
   const { state } = c;
+  considerCover(c);
   for (;;) {
     state.turnIndex += 1;
     if (state.turnIndex >= state.turnOrder.length) {
@@ -93,6 +95,7 @@ function startTurn(c: Ctx, drawerId: PlayerId): void {
   state.strokes = [];
   state.redo = [];
   state.pointsThisTurn = 0;
+  state.likes = null;
 
   const taken = takeOptions(state.pool, state.settings.wordChoice, c.rng);
   state.pool = taken.pool;
@@ -156,6 +159,7 @@ function beginDrawing(
     solved: [],
     deltas: {},
   };
+  startLikes(c, drawerId);
   schedule(c, 'phase', endsAt);
   if (nextHintAt !== null) schedule(c, 'hint', nextHintAt);
   announcePhase(c);

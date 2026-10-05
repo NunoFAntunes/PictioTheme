@@ -18,6 +18,7 @@ desk ─────────────────────────
  │    Public rooms · 23 doodling now                                     │
  │    ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐                        │
  │    │🎃 Spooky│ │🍕 Pizza │ │🚀 Space │ │ (full) │   sticky notes, tilted │
+ │    │ ~👻~   │ │  🍕~   │ │        │ │        │   + the room's cover   │
  │    │ 4/8 ●  │ │ 2/6 ●  │ │ 7/10 ▶ │ │ 10/10  │   ● waiting ▶ in game  │
  │    └────────┘ └────────┘ └────────┘ └────────┘                        │
  └───────────────────────────────────────────────────────────────────────┘
@@ -80,6 +81,8 @@ Player details (`features/player-list`):
 - **Latest guess bubble** above the character when guess visibility is ON. It fades out after ~3s. Close guesses show as `█████` in red (the guesser sees their own text in red).
 - The host gets a ⋯ menu on each player (kick, make host); others get vote to kick.
 - **In a match the list is a leaderboard**: sorted by score (ties share a rank and keep join order). When the order changes the characters slide to their new places, and whoever overtook someone grows, wiggles and glows as they pass. No motion with `prefers-reduced-motion` (no boil, sway, hop, float or slide either). The sort is display only: the drawing order is still the server's join-order rotation.
+
+The ❤️ like button sits in the board's bottom-right corner while drawing and at the reveal (guessers press it; the drawer sees the count).
 
 The header's right end has your avatar chip (✏️: change your name or drawing, any time) and the sound settings.
 

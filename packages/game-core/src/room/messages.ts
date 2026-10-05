@@ -15,6 +15,7 @@ import {
   startMatch,
 } from './match';
 import { broadcastPlayers, connectedIds, send, sendError, sendToAll } from './output';
+import { onLike } from './likes';
 import { kick, transferHost } from './players';
 import type { Ctx, Phase } from './types';
 import { knowsWord, roomDeck } from './views';
@@ -80,6 +81,9 @@ export function onMessage(c: Ctx, playerId: PlayerId, msg: ClientMessage): void 
       chooseCard(c, msg.index);
       return;
     }
+    case 'turn:like':
+      onLike(c, playerId, msg.liked);
+      return;
     case 'turn:vote': {
       const { phase } = c.state;
       const card = phase.kind === 'choosing' ? phase.options[msg.index] : undefined;

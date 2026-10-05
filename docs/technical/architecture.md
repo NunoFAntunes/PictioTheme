@@ -87,6 +87,7 @@ All components below are **modules inside the one server process**. Their bounda
   - `/api/auth/*` → Better Auth (magic link, OAuth callbacks, session)
   - `GET /api/rooms/public` → lobby list and the number of players online (from the in-memory room registry)
   - `PUT /api/rooms/:code/me` → a player in the room changes name or avatar; everyone gets the new player list ([realtime-protocol.md](realtime-protocol.md#changing-your-name-or-avatar-in-a-room))
+  - `PUT /api/rooms/:code/cover` → the drawer's picture of the room's new most-liked drawing (after `cover:request`); `GET /api/rooms/:code/cover?v=<coverVersion>` serves it (kept in memory with the room)
   - `POST /api/rooms/quick-play` → joins the best public room with space, or creates a public one; returns `{code, joinToken}` (user-flows.md §2)
   - `POST /api/rooms` → creates a room, returns `{code, joinToken}`
   - `POST /api/rooms/:code/join` → validates, returns `{joinToken}`. Create and join both carry the drawn avatar as a PNG data URL; the server stores it and puts only its id in the token

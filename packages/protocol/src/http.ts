@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { DeckCoverId, DeckCoverImage, Difficulty } from './deck';
-import { AvatarImage, DisplayName, RoomCode, RoomName } from './room';
+import { AvatarImage, DisplayName, RoomCode, RoomCoverImage, RoomName } from './room';
 
 /** REST DTOs shared by the server and the web app. */
 
@@ -50,6 +50,13 @@ export type UpdateIdentityRequest = z.infer<typeof UpdateIdentityRequest>;
 export const UpdateIdentityResponse = z.object({ ok: z.literal(true) });
 export type UpdateIdentityResponse = z.infer<typeof UpdateIdentityResponse>;
 
+/** The drawer's picture of the drawing the server asked for (`cover:request`). */
+export const RoomCoverUpload = z.object({ turn: z.number().int(), image: RoomCoverImage });
+export type RoomCoverUpload = z.infer<typeof RoomCoverUpload>;
+/** False when the request is stale (another drawing got more likes, or it's already stored). */
+export const RoomCoverUploadResponse = z.object({ accepted: z.boolean() });
+export type RoomCoverUploadResponse = z.infer<typeof RoomCoverUploadResponse>;
+
 /** Quick play: the server picks a public room with space, or creates one (user-flows.md §2). */
 export const QuickPlayRequest = PlayerIdentity;
 export type QuickPlayRequest = z.infer<typeof QuickPlayRequest>;
@@ -70,6 +77,8 @@ export const PublicRoomSummary = z.object({
   status: z.enum(['waiting', 'playing']),
   difficulties: z.array(Difficulty),
   silly: z.boolean(),
+  /** Bumped each time the room gets a new cover (`GET /api/rooms/:code/cover?v=…`); null: none yet. */
+  coverVersion: z.number().int().nullable(),
 });
 export type PublicRoomSummary = z.infer<typeof PublicRoomSummary>;
 

@@ -56,6 +56,11 @@ export type RoomView = {
   round: number;
   /** Drawer's options while choosing; the word for the drawer and for players who solved. */
   secret: { options?: CardOption[]; word?: string };
+  /**
+   * ❤️ on the current drawing, while it's drawn and at its reveal (null otherwise). `drawerId` is
+   * null only after reconnecting mid-reveal, when the reveal doesn't say who drew.
+   */
+  likes: { drawerId: PlayerId | null; likers: PlayerId[] } | null;
   feed: FeedItem[];
   bubbles: Record<PlayerId, Bubble>;
   restarting: boolean;
@@ -82,6 +87,12 @@ export function viewFromSnapshot(
     paused: msg.paused,
     round: msg.round,
     secret: msg.secret,
+    likes:
+      msg.phase.kind === 'drawing'
+        ? { drawerId: msg.phase.drawerId, likers: msg.likers }
+        : msg.phase.kind === 'reveal'
+          ? { drawerId: null, likers: msg.likers }
+          : null,
     feed: keep?.feed ?? [],
     bubbles: {},
     restarting: false,
@@ -113,6 +124,8 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
       return { ...view, players: msg.players };
     case 'room:settings':
       return { ...view, settings: msg.settings, deck: msg.deck };
+    case 'turn:likes':
+      return view.likes ? { ...view, likes: { ...view.likes, likers: msg.likers } } : view;
     case 'room:details':
       return { ...view, name: msg.name, isPublic: msg.isPublic };
     case 'room:paused':
@@ -126,6 +139,7 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
         ...view,
         phase: { kind: 'choosing', drawerId: msg.drawerId, endsAt: msg.endsAt },
         secret: msg.options ? { options: msg.options } : {},
+        likes: null,
         bubbles: {},
         round: msg.round,
       };
@@ -135,6 +149,11 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
         phase: { kind: 'drawing', drawerId: msg.drawerId, endsAt: msg.endsAt, mask: msg.mask },
         secret: msg.word ? { word: msg.word } : {},
         bubbles: view.phase.kind === 'drawing' ? view.bubbles : {},
+        // phase:drawing is re-sent after a pause: only a new turn starts with no likes.
+        likes:
+          view.phase.kind === 'drawing' && view.likes
+            ? view.likes
+            : { drawerId: msg.drawerId, likers: [] },
         round: msg.round,
       };
     case 'hint':
@@ -191,6 +210,7 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
         ...view,
         phase: { kind: 'results', ranking: msg.ranking, awards: msg.awards },
         secret: {},
+        likes: null,
         paused: null,
         bubbles: {},
       };

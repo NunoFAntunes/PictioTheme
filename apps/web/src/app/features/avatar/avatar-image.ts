@@ -33,21 +33,31 @@ function encode(canvas: HTMLCanvasElement): AvatarImage | null {
   return parsed.success ? parsed.data : null;
 }
 
-/** Cuts out and crops whatever is drawn on `source`, centred in the avatar square. */
-function cutoutToAvatar(source: CanvasImageSource, width: number, height: number) {
+/**
+ * Cuts out whatever is drawn on `source` (transparent background), crops it, and fits it centred
+ * into a new `out`-sized canvas. Null if nothing is drawn. Also used for room covers.
+ */
+export function cutoutFitted(
+  source: CanvasImageSource,
+  width: number,
+  height: number,
+  out: { width: number; height: number },
+): HTMLCanvasElement | null {
   const work = document.createElement('canvas');
   work.width = width;
   work.height = height;
   const workCtx = work.getContext('2d', { willReadFrequently: true });
-  const out = exportCanvas();
-  if (!workCtx || !out) return null;
+  const canvas = document.createElement('canvas');
+  canvas.width = out.width;
+  canvas.height = out.height;
+  const ctx = canvas.getContext('2d');
+  if (!workCtx || !ctx) return null;
   workCtx.drawImage(source, 0, 0, width, height);
   const pixels = workCtx.getImageData(0, 0, width, height);
   const box = cutout(pixels, CROP_PADDING);
   if (!box) return null;
   workCtx.putImageData(pixels, 0, 0);
-  const [canvas, ctx] = out;
-  const scale = AVATAR_SIZE_PX / Math.max(box.width, box.height);
+  const scale = Math.min(out.width / box.width, out.height / box.height);
   const w = box.width * scale;
   const h = box.height * scale;
   ctx.imageSmoothingQuality = 'high';
@@ -57,12 +67,21 @@ function cutoutToAvatar(source: CanvasImageSource, width: number, height: number
     box.y,
     box.width,
     box.height,
-    (AVATAR_SIZE_PX - w) / 2,
-    (AVATAR_SIZE_PX - h) / 2,
+    (out.width - w) / 2,
+    (out.height - h) / 2,
     w,
     h,
   );
-  return encode(canvas);
+  return canvas;
+}
+
+/** Cuts out and crops whatever is drawn on `source`, centred in the avatar square. */
+function cutoutToAvatar(source: CanvasImageSource, width: number, height: number) {
+  const canvas = cutoutFitted(source, width, height, {
+    width: AVATAR_SIZE_PX,
+    height: AVATAR_SIZE_PX,
+  });
+  return canvas ? encode(canvas) : null;
 }
 
 /** The drawing as a PNG data URL, or null if it is empty or can't be encoded within the size limit. */

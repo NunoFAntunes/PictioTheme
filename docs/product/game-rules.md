@@ -71,6 +71,13 @@ This rewards drawings that many people understand, and the drawer gets 0 if nobo
 
 Ties at the end are broken by the number of correct guesses, then by total guess speed.
 
+## Likes and the room cover
+
+- While a drawing is being made and at its reveal, every player except the drawer can **❤️ like** it (once; pressing again takes it back). The button sits in the board's corner and shows the count; the drawer sees "N people like your drawing".
+- Likes don't score points. They pick the **room's cover**: the drawing with the most likes so far, cut out of the white background, shown (gently boiling, like the players) on the room's note on the home page.
+- A drawing replaces the cover only with **strictly more** likes: a tie keeps the older one. A drawing nobody liked never becomes the cover.
+- The picture comes from the drawer's browser as the reveal ends (the server keeps strokes, not images). If the drawer has left by then, the cover stays as it was.
+
 ## Host controls
 
 | Control | When |

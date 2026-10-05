@@ -8,11 +8,15 @@ import {
 import {
   CloseCode,
   DEFAULT_ROOM_SETTINGS,
+  ROOM_COVER_HEIGHT_PX,
+  ROOM_COVER_MAX_BYTES,
+  ROOM_COVER_WIDTH_PX,
   type AvatarId,
   type CreateRoomRequest,
   type JoinRoomRequest,
   type JoinRoomResponse,
   type QuickPlayRequest,
+  type RoomCoverUpload,
   type UpdateIdentityRequest,
   type PublicRoomSummary,
   type ServerMessage,
@@ -20,6 +24,7 @@ import {
 import { playerIdOf, type Actor } from '../../lib/actor';
 import { AppError, conflict, notFound, serviceUnavailable } from '../../lib/errors';
 import type { Logger } from '../../lib/logger';
+import { decodePngDataUrl } from '../../lib/png';
 import type { AuthService } from '../auth';
 import type { MetricsService } from '../metrics';
 import type { AvatarsService } from '../avatars';
@@ -231,6 +236,37 @@ export function createRoomsService(deps: {
       room.handle({ type: 'identity', playerId, name: identity.displayName, avatar });
     },
 
+    /**
+     * The drawer's picture of a drawing that beat the room's cover (game-rules.md, likes). Only the
+     * drawing the room asked for (`cover:request`), from its drawer; anything else is stale.
+     */
+    uploadCover(actor: Actor, rawCode: string, upload: RoomCoverUpload): { accepted: boolean } {
+      const room = roomByCode(rawCode);
+      const pending = room.state.pendingCover;
+      if (!pending || pending.turn !== upload.turn || pending.drawerId !== playerIdOf(actor)) {
+        return { accepted: false };
+      }
+      const png = decodePngDataUrl(upload.image, {
+        width: ROOM_COVER_WIDTH_PX,
+        height: ROOM_COVER_HEIGHT_PX,
+        maxBytes: ROOM_COVER_MAX_BYTES,
+      });
+      if (!png) {
+        throw new AppError(
+          'VALIDATION',
+          400,
+          `Room covers must be ${ROOM_COVER_WIDTH_PX}×${ROOM_COVER_HEIGHT_PX} PNG images`,
+        );
+      }
+      room.coverPng = png;
+      room.handle({ type: 'coverStored', turn: upload.turn });
+      return { accepted: true };
+    },
+
+    coverPng(rawCode: string): Buffer | null {
+      return roomByCode(rawCode).coverPng;
+    },
+
     /** Players connected right now, across every room. */
     onlineCount(): number {
       let count = 0;
@@ -241,9 +277,11 @@ export function createRoomsService(deps: {
     },
 
     listPublic(): PublicRoomSummary[] {
+      // Only rooms someone is in right now (not ones whose players are all reconnecting).
       return [...rooms.values()]
-        .filter((r) => r.state.isPublic && r.state.players.size > 0)
+        .filter((r) => r.state.isPublic)
         .map((r) => r.summary())
+        .filter((summary) => summary.players > 0)
         .sort(
           (a, b) =>
             Number(a.status === 'playing') - Number(b.status === 'playing') ||

@@ -1,4 +1,5 @@
 import type { PlayerId, RoomSettings } from '@pictiotheme/protocol';
+import { onCoverStored } from './likes';
 import { finishMatch, onHintTimer, onPhaseTimer } from './match';
 import { deckRef, onMessage } from './messages';
 import { schedule, sendToAll } from './output';
@@ -51,6 +52,9 @@ export function createRoomState(input: {
     kickVotes: new Map(),
     matchStartedAt: null,
     turnsPlayed: 0,
+    likes: null,
+    cover: null,
+    pendingCover: null,
   };
 }
 
@@ -85,6 +89,9 @@ export function step(state: RoomState, event: RoomEvent, ctx: StepContext): Effe
         state.deck = event.deck;
         sendToAll(c, { t: 'room:settings', settings: state.settings, deck: deckRef(c) });
       }
+      break;
+    case 'coverStored':
+      onCoverStored(c, event.turn);
       break;
     case 'deckFailed':
       if (event.deckId === state.settings.deckId) {

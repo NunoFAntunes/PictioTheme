@@ -29,6 +29,7 @@ function view(overrides: Partial<RoomView> = {}): RoomView {
     paused: null,
     round: 1,
     secret: {},
+    likes: null,
     feed: [],
     bubbles: {},
     restarting: false,

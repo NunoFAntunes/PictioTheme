@@ -89,6 +89,7 @@ export function snapshotFor(state: RoomState, playerId: PlayerId): ServerMessage
     round: state.round,
     deck: state.deck ? roomDeck(state.deck) : null,
     strokes: state.strokes,
+    likers: [...(state.likes?.likers ?? [])],
     secret,
   };
 }

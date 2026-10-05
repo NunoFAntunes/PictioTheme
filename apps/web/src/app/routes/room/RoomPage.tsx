@@ -6,6 +6,7 @@ import { useEnsureIdentity } from '../../features/identity';
 import { PlayerList } from '../../features/player-list';
 import { ResultsPanel } from '../../features/results';
 import { RoomHeader } from '../../features/room-header';
+import { CoverUploader } from '../../features/likes';
 import { RoomMetrics } from '../../features/metrics';
 import { RoomSounds } from '../../features/sound';
 import { WaitingRoom } from '../../features/waiting-room';
@@ -65,6 +66,7 @@ function RoomSession({ code }: { code: string }) {
     // The page itself never scrolls (no rubber-banding mid-drawing): each area scrolls inside.
     <div className="flex h-dvh flex-col overflow-hidden overscroll-none">
       <RoomSounds />
+      <CoverUploader />
       <RoomMetrics />
       <RoomHeader />
       <RoomLayout phase={view.phase.kind} />

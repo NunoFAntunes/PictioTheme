@@ -35,6 +35,7 @@ function snapshot(overrides: Partial<Extract<ServerMessage, { t: 'room:snapshot'
     round: 0,
     deck: { id: 'd', title: 'Deck', coverId: null },
     strokes: [],
+    likers: [],
     secret: {},
     ...overrides,
   } as const satisfies ServerMessage;
@@ -77,6 +78,17 @@ describe('room view reducer', () => {
       kind: 'close',
     });
     expect(view.feed[0]).toMatchObject({ kind: 'guess', guess: 'close', text: undefined });
+  });
+
+  it('counts likes for the current drawing, and starts over at the next turn', () => {
+    let view = apply(viewFromSnapshot(snapshot(), null), drawing);
+    expect(view.likes).toEqual({ drawerId: 'p1', likers: [] });
+    view = apply(view, { t: 'turn:likes', likers: ['p2'] });
+    // A pause re-sends phase:drawing: the likes stay.
+    view = apply(view, drawing, { t: 'phase:reveal', word: 'Bat', deltas: {}, endsAt: 9 });
+    expect(view.likes).toEqual({ drawerId: 'p1', likers: ['p2'] });
+    view = apply(view, { t: 'phase:choosing', drawerId: 'p2', round: 1, endsAt: 50 });
+    expect(view.likes).toBeNull();
   });
 
   it("follows the room's new name and public/private", () => {
