@@ -125,11 +125,12 @@ function RoomLayout({ phase }: { phase: RoomView['phase']['kind'] }) {
     );
   }
   // Tablets in portrait (screens.md §4): the board on top, then Players/Guesses tabs, with the
-  // guess input always below. During a match nothing scrolls but the tab content.
+  // guess input always below. During a match the page never scrolls: if the header wraps tall
+  // enough that board, toolbar and tabs don't all fit, the board area scrolls, not the tabs.
   const inMatch = phase !== 'waiting' && phase !== 'results';
   return (
     <div className={`flex min-h-0 flex-1 flex-col gap-2 p-2 ${inMatch ? '' : 'overflow-y-auto'}`}>
-      <main className="flex shrink-0 justify-center">
+      <main className={`flex justify-center ${inMatch ? 'min-h-0 overflow-y-auto' : 'shrink-0'}`}>
         {inMatch ? (
           // Leave the tabs room: the 4:3 board takes at most ~56% of the screen height.
           <div className="w-full max-w-[calc(56dvh*4/3)]">{centre}</div>

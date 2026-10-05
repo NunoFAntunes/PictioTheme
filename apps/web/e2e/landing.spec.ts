@@ -9,6 +9,23 @@ async function centreOf(page: Page, index: number) {
   return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
 }
 
+/**
+ * How far a letter sits from its home spot. Measured against its wrapper (which physics never
+ * moves) rather than the page: the hero is centred, so the lobby below it loading or listing other
+ * tests' public rooms shifts the whole logo.
+ */
+async function offsetFromHome(page: Page, index: number) {
+  return page
+    .getByTestId('logo-letter')
+    .nth(index)
+    .evaluate((el) => {
+      const home = el.parentElement?.getBoundingClientRect();
+      if (!home) throw new Error('letter has no wrapper');
+      const now = el.getBoundingClientRect();
+      return Math.hypot(now.x - home.x, now.y - home.y);
+    });
+}
+
 async function waitForIntro(page: Page) {
   await page
     .locator('astro-island[component-url*="HeroLogo"]:not([ssr])')
@@ -90,16 +107,10 @@ test('a letter can be dragged away and springs back home', async ({ browser }) =
   await page.mouse.move(home.x, home.y);
   await page.mouse.down();
   await page.mouse.move(home.x + 120, home.y + 180, { steps: 10 });
-  const held = await centreOf(page, 3);
-  expect(held.y - home.y).toBeGreaterThan(100);
+  expect(await offsetFromHome(page, 3)).toBeGreaterThan(100);
 
   await page.mouse.up();
-  await expect
-    .poll(async () => {
-      const now = await centreOf(page, 3);
-      return Math.hypot(now.x - home.x, now.y - home.y);
-    })
-    .toBeLessThan(1);
+  await expect.poll(() => offsetFromHome(page, 3)).toBeLessThan(1);
 });
 
 test('with reduced motion the logo stays put', async ({ browser }) => {
@@ -115,7 +126,7 @@ test('with reduced motion the logo stays put', async ({ browser }) => {
   await page.mouse.move(home.x, home.y);
   await page.mouse.down();
   await page.mouse.move(home.x + 120, home.y + 180, { steps: 10 });
-  const after = await centreOf(page, 3);
+  const after = await offsetFromHome(page, 3);
   await page.mouse.up();
-  expect(Math.hypot(after.x - home.x, after.y - home.y)).toBeLessThan(1);
+  expect(after).toBeLessThan(1);
 });

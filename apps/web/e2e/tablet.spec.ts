@@ -95,12 +95,16 @@ test('a tablet in portrait: tabs, pen pressure, palm rejection and the eyedroppe
   const canvas = host
     .getByRole('img', { name: /Drawing canvas/ })
     .or(host.getByLabel(/Drawing canvas/));
+  // The canvas is already there under the cards: wait for the drawing tools, i.e. the pick done.
   await expect(canvas).toBeVisible();
+  await expect(
+    host.getByRole('button', { name: 'Pick up a colour from the drawing' }),
+  ).toBeVisible();
 
-  // Mid-match nothing scrolls but the tab content, and the guess input stays on screen.
-  expect(await host.evaluate(() => document.documentElement.scrollHeight <= innerHeight)).toBe(
-    true,
-  );
+  // Mid-match the page never scrolls, and the guess input stays on screen.
+  await expect
+    .poll(() => host.evaluate(() => document.documentElement.scrollHeight <= innerHeight))
+    .toBe(true);
   await expect(host.getByRole('textbox').last()).toBeInViewport();
 
   const box = await canvas.boundingBox();
