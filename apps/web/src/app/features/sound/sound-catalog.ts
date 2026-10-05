@@ -5,7 +5,7 @@
  * MP3 for one-shots; WAV for loops.
  */
 
-export type SoundGroup = 'game' | 'guesses' | 'drawing' | 'timer' | 'room';
+export type SoundGroup = 'game' | 'guesses' | 'drawing' | 'timer' | 'room' | 'music';
 
 export const SOUND_GROUPS: { id: SoundGroup; label: string; description: string }[] = [
   { id: 'game', label: 'Cards & turns', description: 'Shuffling, dealing, your turn, results' },
@@ -13,6 +13,7 @@ export const SOUND_GROUPS: { id: SoundGroup; label: string; description: string 
   { id: 'drawing', label: 'Drawing', description: 'Pencil scribbling and the paint bucket' },
   { id: 'timer', label: 'Clock ticking', description: 'The last 10 seconds of a turn' },
   { id: 'room', label: 'Chat & players', description: 'Messages, players joining and leaving' },
+  { id: 'music', label: 'Music', description: 'The tune on the home page' },
 ];
 
 type SoundDef = {
@@ -54,13 +55,20 @@ export const SOUNDS = {
 export type SoundId = keyof typeof SOUNDS;
 
 /** What plays when a group's volume is changed in the settings, so players hear the result. */
-export const GROUP_PREVIEW: Record<SoundGroup, SoundId> = {
+export const GROUP_PREVIEW: Record<SoundGroup, SoundId | null> = {
   game: 'cardDeal',
   guesses: 'guessCorrect',
   drawing: 'fillGlug',
   timer: 'clockTick',
   room: 'chat',
+  music: null, // the music itself is the preview
 };
+
+/** The home page's tune: Ogg Vorbis (gapless loop) where the browser plays it, else MP3. */
+export const HOME_MUSIC = [
+  { file: 'flowerbed-fields.ogg', type: 'audio/ogg; codecs=vorbis' },
+  { file: 'flowerbed-fields.mp3', type: 'audio/mpeg' },
+] as const;
 
 export function soundUrl(file: string): string {
   return `/sounds/${file}`;

@@ -27,6 +27,8 @@ export const DEFAULT_SOUND_SETTINGS: SoundSettings = {
     // Ticking divides players, so it starts quieter.
     timer: { on: true, volume: 0.6 },
     room: { on: true, volume: 0.7 },
+    // Background music: present but not pushy.
+    music: { on: true, volume: 0.5 },
   },
 };
 

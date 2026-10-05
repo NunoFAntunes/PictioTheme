@@ -53,7 +53,10 @@ function GroupRow({
   const muted = useSoundSettings((s) => s.muted);
   const setGroup = useSoundSettings((s) => s.setGroup);
   const descriptionId = useId();
-  const preview = () => playSound(GROUP_PREVIEW[group]);
+  const preview = () => {
+    const id = GROUP_PREVIEW[group];
+    if (id) playSound(id);
+  };
 
   return (
     <li className="flex flex-col gap-1">

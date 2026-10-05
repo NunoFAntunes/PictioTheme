@@ -1,7 +1,10 @@
 ---
 import { Font } from 'astro:assets';
+import { HomeMusic } from '../app/features/sound/components/HomeMusic';
 import { HeroLogo } from '../components/hero/HeroLogo';
+import { DeskProps } from '../components/home/DeskProps';
 import { HomeLobby } from '../components/home/HomeLobby';
+import CoffeeRing from '../components/home/CoffeeRing.astro';
 import DoodleDesk from '../components/home/DoodleDesk.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
@@ -10,26 +13,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- Preload only Latin: the font's ~50 Japanese chunks download only if such text appears. -->
   <Font slot="head" cssVariable="--font-cherry-bomb" preload={[{ subset: 'latin' }]} />
   <main
-    class="relative flex min-h-dvh items-center justify-center overflow-x-clip bg-desk px-4 py-10 sm:px-8 dark:bg-desk-dark"
+    class="relative flex min-h-dvh items-center justify-center overflow-clip bg-desk px-4 py-10 sm:px-8 dark:bg-desk-dark"
   >
     <DoodleDesk />
-    <!-- A sheet of ruled paper dropped on the desk: the stage for the logo and the lobby, the same in both themes. -->
-    <div
-      data-paper
-      class="relative w-full max-w-6xl -rotate-1 rounded-sm bg-paper bg-[repeating-linear-gradient(to_bottom,transparent_0_2.25rem,var(--color-paper-line)_2.25rem_calc(2.25rem+1px))] px-6 pt-20 pb-12 text-center text-ink shadow-[0_2px_0_rgb(0_0_0/0.06),0_30px_60px_-24px_rgb(0_0_0/0.45)] motion-safe:animate-paper-drop sm:px-12 sm:pt-20"
-    >
+    <HomeMusic client:load />
+    <div class="relative w-full max-w-6xl">
+      <!-- Things on the desk, their inner ends under the paper. Click them. -->
+      <DeskProps client:load />
+      <!-- A sheet of ruled paper dropped on the desk: the stage for the logo and the lobby, the same in both themes. -->
       <div
-        aria-hidden="true"
-        class="pointer-events-none absolute inset-y-0 left-10 w-px bg-pop-tomato/50 sm:left-16"
+        data-paper
+        class="relative w-full -rotate-1 rounded-sm bg-paper bg-[repeating-linear-gradient(to_bottom,transparent_0_2.25rem,var(--color-paper-line)_2.25rem_calc(2.25rem+1px))] px-6 pt-20 pb-12 text-center text-ink shadow-[0_2px_0_rgb(0_0_0/0.06),0_30px_60px_-24px_rgb(0_0_0/0.45)] motion-safe:animate-paper-drop sm:px-12 sm:pt-20"
       >
-      </div>
-      <div class="rotate-1">
-        <HeroLogo client:load />
-        <div class="mt-12">
-          <HomeLobby client:only="react">
-            <!-- Holds the lobby's space while it loads, so nothing jumps. -->
-            <div slot="fallback" class="h-72" aria-hidden="true"></div>
-          </HomeLobby>
+        <div
+          aria-hidden="true"
+          class="pointer-events-none absolute inset-y-0 left-10 w-px bg-pop-tomato/50 sm:left-16"
+        >
+        </div>
+        <CoffeeRing />
+        <div class="rotate-1">
+          <HeroLogo client:load />
+          <div class="mt-12">
+            <HomeLobby client:only="react">
+              <!-- Holds the lobby's space while it loads, so nothing jumps. -->
+              <div slot="fallback" class="h-72" aria-hidden="true"></div>
+            </HomeLobby>
+          </div>
         </div>
       </div>
     </div>

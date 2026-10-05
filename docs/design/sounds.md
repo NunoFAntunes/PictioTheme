@@ -1,6 +1,6 @@
 # Sounds
 
-Sound makes the game feel like a table, not a web page. Every sound tells the player something happened. There is no music and no constant ambience. Code: `apps/web/src/app/features/sound/`. Files: `apps/web/public/sounds/`.
+Sound makes the game feel like a table, not a web page. Every sound tells the player something happened. The only music is a looping tune on the home page (below); there is no ambience. Code: `apps/web/src/app/features/sound/`. Files: `apps/web/public/sounds/`.
 
 ## What plays, and when
 
@@ -35,11 +35,15 @@ Rules:
 The 🔊 button sits in the room header and the lobby header. It opens a panel with:
 
 - **Mute all**, and a main volume slider.
-- Five groups, each with an on/off checkbox and a volume slider: **Cards & turns**, **Guesses**, **Drawing**, **Clock ticking** (starts at 60%, since ticking divides players), **Chat & players** (starts at 70%).
+- Six groups (the sixth, **Music**, starts at 50%), each with an on/off checkbox and a volume slider: **Cards & turns**, **Guesses**, **Drawing**, **Clock ticking** (starts at 60%, since ticking divides players), **Chat & players** (starts at 70%).
 
 Letting go of a slider plays a sample of that group. The settings are saved in `localStorage` (`pictiotheme.sound`).
 
 To swap a clip, put the MP3 in `public/sounds/` and change the file name in `sound-catalog.ts`. Each sound's relative loudness lives there too.
+
+## Home page music
+
+"Flowerbed Fields" by Zane Little (`public/sounds/flowerbed-fields.ogg`, plus a 128 kbps `.mp3` for browsers without Ogg). It's an `<audio>` element (`home-music.ts`, mounted by `HomeMusic.tsx` on `/` only), started on the first click or key press, looping, paused while the tab is hidden, and controlled by the Music group in a 🔊 button in the page's top corner. **Check the license** (credited in `CREDITS.txt`; not CC0 as far as we know).
 
 ## Sources and licenses
 

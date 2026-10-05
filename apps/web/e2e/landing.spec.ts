@@ -130,3 +130,25 @@ test('with reduced motion the logo stays put', async ({ browser }) => {
   await page.mouse.up();
   expect(after).toBeLessThan(1);
 });
+
+test('the things on the desk are toys: the eraser leaves crumbs, a crayon scribbles', async ({
+  browser,
+}) => {
+  const page = await newPlayerPage(browser, { viewport: { width: 1440, height: 900 } });
+  await page.goto('/');
+  await page
+    .locator('astro-island[component-url*="DeskProps"]:not([ssr])')
+    .waitFor({ state: 'attached' });
+
+  const crumbs = page.getByTestId('eraser-crumb');
+  const before = await crumbs.count();
+  await page.getByTestId('desk-eraser').click();
+  await expect.poll(() => crumbs.count()).toBeGreaterThan(before);
+
+  // The crayon's inner end is under the paper: click near its tip, out on the desk.
+  const crayon = page.getByTestId('desk-crayon').first();
+  const box = await crayon.boundingBox();
+  if (!box) throw new Error('crayon not visible');
+  await crayon.click({ position: { x: box.width * 0.85, y: box.height / 2 } });
+  await expect(page.getByTestId('crayon-scribble')).toHaveCount(1);
+});
