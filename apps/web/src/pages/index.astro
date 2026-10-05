@@ -2,6 +2,7 @@
 import { Font } from 'astro:assets';
 import { HeroLogo } from '../components/hero/HeroLogo';
 import { HomeLobby } from '../components/home/HomeLobby';
+import DoodleDesk from '../components/home/DoodleDesk.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
@@ -9,8 +10,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- Preload only Latin: the font's ~50 Japanese chunks download only if such text appears. -->
   <Font slot="head" cssVariable="--font-cherry-bomb" preload={[{ subset: 'latin' }]} />
   <main
-    class="flex min-h-dvh items-center justify-center overflow-x-clip bg-desk px-4 py-10 sm:px-8 dark:bg-desk-dark"
+    class="relative flex min-h-dvh items-center justify-center overflow-x-clip bg-desk px-4 py-10 sm:px-8 dark:bg-desk-dark"
   >
+    <DoodleDesk />
     <!-- A sheet of ruled paper dropped on the desk: the stage for the logo and the lobby, the same in both themes. -->
     <div
       data-paper

@@ -1,0 +1,56 @@
+---
+import { layOutLanes, type LaneTone } from './doodle-lanes';
+import { DOODLES } from './doodles';
+
+/*
+ * The desk behind the home page's paper: lanes of faded silly doodles drifting left and right,
+ * slipping under the sheet and out the other side (screens.md §1). Server-rendered, CSS only:
+ * each lane is two copies of the same strip sliding by one copy. Reduced motion keeps them still.
+ */
+const lanes = layOutLanes();
+const symbols = Object.values(DOODLES).flat();
+
+const TONE: Record<LaneTone, string> = {
+  ink: 'text-doodle opacity-30 dark:text-doodle-dark dark:opacity-20',
+  tomato: 'text-pop-tomato opacity-25 dark:opacity-20',
+  purple: 'text-pop-purple opacity-20 dark:opacity-25',
+  teal: 'text-pop-teal opacity-30 dark:opacity-20',
+  pink: 'text-pop-pink opacity-30 dark:opacity-20',
+};
+---
+
+<div
+  aria-hidden="true"
+  class="pointer-events-none absolute inset-0 flex flex-col justify-evenly overflow-hidden fill-none stroke-current stroke-3 [stroke-linecap:round] [stroke-linejoin:round]"
+>
+  <svg class="absolute size-0">
+    {
+      symbols.map((doodle) => (
+        <symbol id={`doodle-${doodle.id}`} viewBox="0 0 64 64">
+          {doodle.paths.map((d) => (
+            <path d={d} />
+          ))}
+        </symbol>
+      ))
+    }
+  </svg>
+  {
+    lanes.map((lane) => (
+      <div class:list={['flex shrink-0 items-center', TONE[lane.tone]]} style={`height: ${lane.height}rem`}>
+        <div
+          class="flex w-max items-center motion-safe:animate-doodle-lane"
+          style={`--lane-duration: ${lane.duration}s; animation-delay: ${lane.delay}s; animation-direction: ${lane.reverse ? 'reverse' : 'normal'}`}
+        >
+          {[...lane.doodles, ...lane.doodles].map((d) => (
+            <svg
+              class="shrink-0 overflow-visible"
+              style={`width: ${d.size}rem; height: ${d.size}rem; margin-left: ${d.gapBefore}rem; translate: 0 ${d.lift}rem; rotate: ${d.rotate}deg`}
+            >
+              <use href={`#doodle-${d.id}`} />
+            </svg>
+          ))}
+        </div>
+      </div>
+    ))
+  }
+</div>
