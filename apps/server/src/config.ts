@@ -2,6 +2,13 @@ import { z } from 'zod';
 import type { LogLevel } from './lib/logger';
 
 /** The only place that reads `process.env` (rule B22). Parsed once at boot. Invalid config crashes. */
+/**
+ * Picked by the theme-check eval (model-eval-2026-10.md#theme-check): the deck model was the most
+ * accurate and, per check, already among the cheapest (~$0.0001). `openai/gpt-oss-20b` is the
+ * cheap option (~3.5× less, but misses more themes in the wrong language).
+ */
+const THEME_CHECK_DEFAULT_MODEL = 'openai/gpt-6-luna';
+
 const Env = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   HOST: z.string().default('0.0.0.0'),
@@ -27,7 +34,23 @@ const Env = z.object({
   GENERATION_PER_PLAYER_PER_DAY: z.coerce.number().int().min(0).default(1),
   /** Decks one IP can generate in any 24 hours (several guests can share a network). */
   GENERATION_PER_IP_PER_DAY: z.coerce.number().int().min(0).default(3),
-  /** What all generations together may cost in any 24 hours, in USD. Then: "busy, try later". */
+  /**
+   * Deck translations one player / one IP can start in any 24 hours. Translations are shared (the
+   * next room in that language reuses them) and cheaper than a new deck, so these are higher.
+   */
+  GENERATION_TRANSLATIONS_PER_PLAYER_PER_DAY: z.coerce.number().int().min(0).default(5),
+  GENERATION_TRANSLATIONS_PER_IP_PER_DAY: z.coerce.number().int().min(0).default(15),
+  /**
+   * Theme checks one player / one IP may fail in any 24 hours (a theme in the wrong language, too
+   * unclear, or refused). Refused themes never become jobs, so without this cap they'd cost model
+   * calls without limit.
+   */
+  GENERATION_REFUSED_CHECKS_PER_PLAYER_PER_DAY: z.coerce.number().int().min(0).default(20),
+  GENERATION_REFUSED_CHECKS_PER_IP_PER_DAY: z.coerce.number().int().min(0).default(60),
+  /**
+   * What all generations, translations and theme checks together may cost in any 24 hours, in
+   * USD. Then: "busy, try later".
+   */
   GENERATION_DAILY_BUDGET_USD: z.coerce.number().min(0).default(5),
   /** OpenRouter key for AI deck generation. Empty: generation is unavailable. */
   OPENROUTER_API_KEY: z.string().default(''),
@@ -43,6 +66,17 @@ const Env = z.object({
    * enforced. Turn off for models without structured-output support (output is validated anyway).
    */
   DECK_REQUIRE_PARAMETERS: z.enum(['on', 'off']).default('on'),
+  /**
+   * OpenRouter model for the theme check (ai-deck-pipeline.md#theme-check), apart from the deck
+   * model so it can be switched to a cheaper one, e.g. `openai/gpt-oss-20b`. Compare models with
+   * `pnpm --filter @pictiotheme/server theme-check:eval`.
+   */
+  THEME_CHECK_MODEL: z.string().min(1).default(THEME_CHECK_DEFAULT_MODEL),
+  /**
+   * Comma-separated slugs OpenRouter falls back to when the theme-check model fails. Empty: the
+   * deck model and its fallbacks (minus the check model itself).
+   */
+  THEME_CHECK_FALLBACK_MODELS: z.string().default(''),
 });
 
 export type Config = {
@@ -67,12 +101,18 @@ export type Config = {
     deckModel: string;
     fallbackModels: string[];
     requireParameters: boolean;
+    themeCheckModel: string;
+    themeCheckFallbackModels: string[];
   };
 };
 
 export type GenerationLimits = {
   perPlayerPerDay: number;
   perIpPerDay: number;
+  translationsPerPlayerPerDay: number;
+  translationsPerIpPerDay: number;
+  refusedChecksPerPlayerPerDay: number;
+  refusedChecksPerIpPerDay: number;
   dailyBudgetUsd: number;
 };
 
@@ -106,6 +146,10 @@ export function loadConfig(env: Record<string, string | undefined> = process.env
         ? {
             perPlayerPerDay: e.GENERATION_PER_PLAYER_PER_DAY,
             perIpPerDay: e.GENERATION_PER_IP_PER_DAY,
+            translationsPerPlayerPerDay: e.GENERATION_TRANSLATIONS_PER_PLAYER_PER_DAY,
+            translationsPerIpPerDay: e.GENERATION_TRANSLATIONS_PER_IP_PER_DAY,
+            refusedChecksPerPlayerPerDay: e.GENERATION_REFUSED_CHECKS_PER_PLAYER_PER_DAY,
+            refusedChecksPerIpPerDay: e.GENERATION_REFUSED_CHECKS_PER_IP_PER_DAY,
             dailyBudgetUsd: e.GENERATION_DAILY_BUDGET_USD,
           }
         : null,
@@ -114,6 +158,12 @@ export function loadConfig(env: Record<string, string | undefined> = process.env
       deckModel: e.DECK_MODEL,
       fallbackModels: splitList(e.DECK_FALLBACK_MODELS),
       requireParameters: e.DECK_REQUIRE_PARAMETERS === 'on',
+      themeCheckModel: e.THEME_CHECK_MODEL,
+      themeCheckFallbackModels: e.THEME_CHECK_FALLBACK_MODELS.trim()
+        ? splitList(e.THEME_CHECK_FALLBACK_MODELS)
+        : [e.DECK_MODEL, ...splitList(e.DECK_FALLBACK_MODELS)].filter(
+            (m) => m !== e.THEME_CHECK_MODEL,
+          ),
     },
   };
 }

@@ -130,10 +130,11 @@ export class TestPlayer {
     return res.body as JoinRoomResponse;
   }
 
-  async quickPlay(name: string): Promise<JoinRoomResponse> {
+  async quickPlay(name: string, language?: string): Promise<JoinRoomResponse> {
     const res = await this.request('POST', '/api/rooms/quick-play', {
       displayName: name,
       avatar: testAvatar([0, 160, 0]),
+      ...(language && { language }),
     });
     if (res.status !== 200) throw new Error(`quick play failed: ${JSON.stringify(res.body)}`);
     return res.body as JoinRoomResponse;

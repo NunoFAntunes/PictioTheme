@@ -1,5 +1,7 @@
 import { Difficulty } from '@pictiotheme/protocol';
 import { z } from 'zod';
+import { LlmThemeCheck } from './theme-check';
+import { LlmTranslationOutput } from './translate-prompt';
 
 /**
  * What the model is asked to return. Deliberately looser than `GeneratedDeck` in protocol:
@@ -33,3 +35,8 @@ function jsonSchemaOf(schema: z.ZodType): Record<string, unknown> {
 
 export const DECK_JSON_SCHEMA = { name: 'deck', schema: jsonSchemaOf(LlmDeckOutput) };
 export const TOP_UP_JSON_SCHEMA = { name: 'deck_cards', schema: jsonSchemaOf(LlmTopUpOutput) };
+export const THEME_CHECK_JSON_SCHEMA = { name: 'theme_check', schema: jsonSchemaOf(LlmThemeCheck) };
+export const TRANSLATION_JSON_SCHEMA = {
+  name: 'deck_translation',
+  schema: jsonSchemaOf(LlmTranslationOutput),
+};

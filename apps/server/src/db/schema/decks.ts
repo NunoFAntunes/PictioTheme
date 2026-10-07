@@ -1,5 +1,6 @@
 import { sql } from 'drizzle-orm';
 import {
+  type AnyPgColumn,
   boolean,
   check,
   index,
@@ -44,7 +45,13 @@ export const decks = pgTable(
       .array()
       .notNull()
       .default(sql`'{}'::text[]`),
+    /** A `DeckLanguage` code (protocol language.ts). */
     language: text().notNull().default('en'),
+    /**
+     * For a translation: the original deck it was translated from (never another translation).
+     * One translation per original and language. Null for originals.
+     */
+    sourceDeckId: uuid().references((): AnyPgColumn => decks.id, { onDelete: 'cascade' }),
     familyFriendly: boolean().notNull().default(true),
     visibility: text().notNull().default('public'),
     // References users(id) once the users module exists.
@@ -65,8 +72,11 @@ export const decks = pgTable(
   },
   (t) => [
     check('decks_visibility_check', sql`${t.visibility} in ('public', 'unlisted', 'hidden')`),
-    check('decks_source_check', sql`${t.source} in ('ai', 'curated', 'remix')`),
+    check('decks_source_check', sql`${t.source} in ('ai', 'curated', 'remix', 'translation')`),
     index('decks_tags_idx').using('gin', t.tags),
+    uniqueIndex('decks_translation_unique')
+      .on(t.sourceDeckId, t.language)
+      .where(sql`${t.sourceDeckId} is not null`),
   ],
 );
 

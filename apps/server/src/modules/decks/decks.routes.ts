@@ -1,7 +1,9 @@
 import {
   DeckCoverId,
+  DeckLanguage,
   DeckListQuery,
   DeckListResponse,
+  DeckSummary,
   ReportDeckRequest,
   ReportDeckResponse,
   SavedDeckId,
@@ -21,7 +23,26 @@ export const decksRoutes: FastifyPluginAsyncZod<{ decks: DecksService }> = async
   app.get(
     '/',
     { schema: { querystring: DeckListQuery, response: { 200: DeckListResponse } } },
-    async (request) => ({ decks: await decks.listDecks(request.query.q) }),
+    async (request) => ({
+      decks: await decks.listDecks(request.query.q, request.query.language),
+    }),
+  );
+
+  // The deck in another language, if it's been translated into it (404 otherwise). Asked when
+  // the host changes the room's language, to switch to the translation without making one.
+  app.get(
+    '/:id/translations/:language',
+    {
+      schema: {
+        params: z.object({ id: SavedDeckId, language: DeckLanguage }),
+        response: { 200: DeckSummary },
+      },
+    },
+    async (request) => {
+      const deck = await decks.findInLanguage(request.params.id, request.params.language);
+      if (!deck) throw notFound('Translation');
+      return deck;
+    },
   );
 
   // Ids are content hashes, so a response never changes and can be cached forever.

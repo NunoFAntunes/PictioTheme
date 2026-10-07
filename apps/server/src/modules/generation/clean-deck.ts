@@ -1,4 +1,9 @@
-import { meaningfulWords, normalizeText, tokenize } from '@pictiotheme/game-core';
+import {
+  isInLanguageScript,
+  meaningfulWords,
+  normalizeText,
+  tokenize,
+} from '@pictiotheme/game-core';
 import {
   CARD_TEXT_MAX,
   CARD_TEXT_MIN,
@@ -31,12 +36,23 @@ const MAX_TAGS = 10;
 const ALLOWED_TEXT = /^\p{L}[\p{L}\p{M} '’-]*$/u;
 
 export type DropReason =
-  'wrongPool' | 'length' | 'characters' | 'blocked' | 'duplicate' | 'noKeywords';
+  'wrongPool' | 'length' | 'characters' | 'language' | 'blocked' | 'duplicate' | 'noKeywords';
 export type DropCounts = Record<DropReason, number>;
 
 export function emptyDropCounts(): DropCounts {
-  return { wrongPool: 0, length: 0, characters: 0, blocked: 0, duplicate: 0, noKeywords: 0 };
+  return {
+    wrongPool: 0,
+    length: 0,
+    characters: 0,
+    language: 0,
+    blocked: 0,
+    duplicate: 0,
+    noKeywords: 0,
+  };
 }
+
+/** What cleanup checks cards against: the pools asked for and the deck's language. */
+export type CardRules = Pick<DeckGenerationRequest, 'difficulties' | 'silly' | 'language'>;
 
 function tidy(text: string): string {
   return text.replace(/\s+/g, ' ').trim();
@@ -51,13 +67,19 @@ export function bucketOf(card: Pick<Card, 'difficulty' | 'silly'>): Bucket {
   return card.silly ? 'silly' : card.difficulty;
 }
 
-function cleanAlternates(text: string, alternates: readonly string[]): string[] {
+function cleanAlternates(
+  text: string,
+  alternates: readonly string[],
+  language: CardRules['language'],
+): string[] {
   const seen = new Set([normalizeText(text)]);
   const kept: string[] = [];
   for (const raw of alternates) {
     const alt = tidy(raw);
     const key = normalizeText(alt);
     if (alt.length > MAX_ALTERNATE_LENGTH || !ALLOWED_TEXT.test(alt) || key === '') continue;
+    // A Latin-letter alternate is fine in any language: players type "Pikachu" in Tokyo too.
+    if (!isInLanguageScript(alt, language) && !isInLanguageScript(alt, 'en')) continue;
     if (isBlockedText(alt)) continue;
     if (seen.has(key)) continue;
     seen.add(key);
@@ -90,11 +112,12 @@ function cleanKeywords(text: string, alternates: readonly string[], keywords: re
 
 /**
  * Cleans cards from the model. Cards that duplicate each other or `existing` (the deck so far,
- * for a top-up) are dropped, as are cards outside the requested pools.
+ * for a top-up) are dropped, as are cards outside the requested pools and cards not written in
+ * the deck language's script (the language rule's deterministic half).
  */
 export function cleanCards(
   raw: readonly LlmCard[],
-  request: DeckGenerationRequest,
+  request: CardRules,
   existing: readonly Card[] = [],
 ): { cards: Card[]; dropped: DropCounts } {
   const allowed = new Set(request.difficulties);
@@ -116,6 +139,10 @@ export function cleanCards(
       dropped.characters++;
       continue;
     }
+    if (!isInLanguageScript(text, request.language)) {
+      dropped.language++;
+      continue;
+    }
     if (isBlockedText(text)) {
       dropped.blocked++;
       continue;
@@ -125,7 +152,7 @@ export function cleanCards(
       dropped.duplicate++;
       continue;
     }
-    const alternates = cleanAlternates(text, card.alternates);
+    const alternates = cleanAlternates(text, card.alternates, request.language);
     const keywords = cleanKeywords(text, alternates, card.keywords);
     if (keywords.length === 0) {
       dropped.noKeywords++;
@@ -170,17 +197,20 @@ export function hasBlockedMeta(
   return [meta.title, meta.description, ...meta.tags].some((text) => isBlockedText(text));
 }
 
-/** Assembles the final deck and validates it against the shared schema (rule B25). */
+/**
+ * Assembles the final deck and validates it against the shared schema (rule B25). `fallback`
+ * (the theme, or the translated deck's title) stands in for a missing title or tags.
+ */
 export function buildDeck(
   meta: Pick<LlmDeckOutput, 'title' | 'description' | 'tags'>,
   cards: readonly Card[],
-  request: DeckGenerationRequest,
+  fallback: string,
 ): GeneratedDeck {
   const title = tidy(meta.title);
   return GeneratedDeck.parse({
-    title: title.length >= 2 && title.length <= MAX_TITLE_LENGTH ? title : request.theme,
+    title: title.length >= 2 && title.length <= MAX_TITLE_LENGTH ? title : fallback,
     description: tidy(meta.description).slice(0, MAX_DESCRIPTION_LENGTH).trim(),
-    tags: cleanTags(meta.tags, request.theme),
+    tags: cleanTags(meta.tags, fallback),
     cards,
   });
 }

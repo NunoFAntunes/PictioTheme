@@ -1,11 +1,19 @@
-import type { DeckSummary, GenerationJob } from '@pictiotheme/protocol';
-import { afterEach, describe, expect, it } from 'vitest';
+import type { DeckSummary, GenerationJob, TranslateDeckResponse } from '@pictiotheme/protocol';
+import { afterAll, afterEach, describe, expect, it } from 'vitest';
 import { buildApp, type App } from '../../app';
 import { testAvatar, testCover, testPng } from '../../test-support/avatar';
-import { completion, fullDeckOutput } from '../../test-support/llm';
+import {
+  ACCEPTED_THEME,
+  acceptingThemes,
+  completion,
+  fullDeckOutput,
+} from '../../test-support/llm';
 import { testConfig } from '../../test-support/test-config';
+import { createDb } from '../../db/client';
 import { contentIdOf } from '../../lib/png';
-import type { LlmClient, LlmCompletion } from './llm/llm-client';
+import { TEST_DATABASE_URL } from '../../test-support/test-config';
+import { spendSince } from './generation.repository';
+import type { LlmClient, LlmCompletion, LlmJsonRequest } from './llm/llm-client';
 
 const ORIGIN = 'http://localhost:4321';
 const REQUEST = { theme: 'pirates', notes: '', difficulties: ['easy', 'medium'], silly: true };
@@ -30,16 +38,29 @@ afterEach(async () => {
   await Promise.all(apps.splice(0).map((a) => a.close()));
 });
 
+const { db, pool } = createDb(TEST_DATABASE_URL);
+afterAll(() => pool.end());
+
+/** The app, with `llm` behind a theme check that accepts every theme unless `themeCheck` says otherwise. */
 async function start(
-  options: { enabled?: boolean; llm?: LlmClient | null; limits?: Record<string, string> } = {},
+  options: {
+    enabled?: boolean;
+    llm?: LlmClient | null;
+    limits?: Record<string, string>;
+    themeCheck?: LlmCompletion;
+    /** Hand theme checks to `llm` too, instead of accepting them. */
+    llmChecksThemes?: boolean;
+  } = {},
 ) {
+  const llm = options.llm === undefined ? { completeJson: async () => goodReply() } : options.llm;
+  const wrapped = llm && !options.llmChecksThemes ? acceptingThemes(llm, options.themeCheck) : llm;
   const app = await buildApp(
     testConfig({
       PUBLIC_ORIGIN: ORIGIN,
       DECK_GENERATION: options.enabled === false ? 'off' : 'on',
       ...(options.limits && { GENERATION_LIMITS: 'on', ...options.limits }),
     }),
-    { llm: options.llm === undefined ? { completeJson: async () => goodReply() } : options.llm },
+    { llm: wrapped },
   );
   apps.push(app);
   return app;
@@ -379,5 +400,292 @@ describe('deck generation', () => {
       expect((await get('0'.repeat(32))).statusCode).toBe(404);
       expect((await get('NOT-HEX')).statusCode).toBe(400);
     });
+  });
+});
+
+describe('theme check', () => {
+  async function refusedWith(verdict: object, language = 'de') {
+    const app = await start({
+      limits: NO_BUDGET_LIMIT,
+      themeCheck: completion({ ...ACCEPTED_THEME, ...verdict }),
+    });
+    const cookie = await guest(app);
+    const res = await post(app, cookie, { ...REQUEST, language }, freshIp());
+    const config = await app.inject({
+      method: 'GET',
+      url: '/api/decks/generations/config',
+      headers: { cookie },
+    });
+    return { res, remaining: config.json<{ daily: { remaining: number } }>().daily.remaining };
+  }
+
+  it('refuses a theme in another language than the room’s before a job starts', async () => {
+    const { res, remaining } = await refusedWith({ writtenIn: 'English', matchesLanguage: false });
+    expect(res.statusCode).toBe(422);
+    const { error } = res.json<{ error: { code: string; message: string } }>();
+    expect(error.code).toBe('THEME_WRONG_LANGUAGE');
+    expect(error.message).toContain('German');
+    // No job, so the player's daily deck is still there.
+    expect(remaining).toBe(1);
+  });
+
+  it('refuses a theme too unclear for a good deck', async () => {
+    const { res, remaining } = await refusedWith({ quality: 1 }, 'en');
+    expect(res.statusCode).toBe(422);
+    expect(res.json()).toMatchObject({ error: { code: 'THEME_UNCLEAR' } });
+    expect(remaining).toBe(1);
+  });
+
+  it('records each check with its cost, and caps refused ones without calling the model', async () => {
+    let checks = 0;
+    const app = await start({
+      llmChecksThemes: true,
+      llm: {
+        async completeJson(request) {
+          if (request.schema.name !== 'theme_check') return goodReply();
+          checks++;
+          return completion(
+            { ...ACCEPTED_THEME, quality: 1 },
+            {
+              usage: { inputTokens: 900, outputTokens: 60, costUsd: 0.0001 },
+            },
+          );
+        },
+      },
+      limits: { ...NO_BUDGET_LIMIT, GENERATION_REFUSED_CHECKS_PER_PLAYER_PER_DAY: '2' },
+    });
+    const cookie = await guest(app);
+    const ip = freshIp();
+    const spent = async () => (await spendSince(db, new Date(Date.now() - 60_000))).costUsd;
+    const before = await spent();
+
+    for (let i = 0; i < 2; i++) {
+      const res = await post(app, cookie, { ...REQUEST, theme: 'asdf qwer' }, ip);
+      expect(res.json()).toMatchObject({ error: { code: 'THEME_UNCLEAR' } });
+    }
+    expect(checks).toBe(2);
+    // Other tests share the database, so the budget is checked as a difference.
+    expect(await spent()).toBeGreaterThanOrEqual(before + 0.0002 - 1e-9);
+
+    const capped = await post(app, cookie, REQUEST, ip);
+    expect(capped.statusCode).toBe(429);
+    expect(capped.json()).toMatchObject({ error: { code: 'RATE_LIMITED' } });
+    expect(checks).toBe(2);
+  });
+
+  it('saves the deck in the language it was made in', async () => {
+    const app = await start();
+    const cookie = await guest(app);
+    const started = (await post(app, cookie, { ...REQUEST, language: 'de' })).json<GenerationJob>();
+    expect(started).toMatchObject({ kind: 'generate', language: 'de' });
+    const done = await settled(app, cookie, started.id);
+    expect(done.deck).toMatchObject({ language: 'de', languages: ['de'] });
+  });
+});
+
+describe('deck translations', () => {
+  /** "easy card ba" → "leichte Karte ba", for every card the prompt sends. */
+  function germanReply(request: LlmJsonRequest): LlmCompletion {
+    const cards = JSON.parse(request.user.split('Cards:\n')[1] ?? '[]') as {
+      id: number;
+      text: string;
+    }[];
+    return completion({
+      title: 'Piratenparty',
+      description: 'Arr, auf Deutsch.',
+      tags: ['piraten'],
+      cards: cards.map((c) => ({
+        id: c.id,
+        text: c.text.replace('card', 'Karte'),
+        alternates: [],
+        keywords: [],
+      })),
+      dropped: [],
+    });
+  }
+
+  /** Generates decks right away; translations wait for `release`. */
+  function translatingLlm() {
+    let release = () => {};
+    const gate = new Promise<void>((resolve) => (release = resolve));
+    const title = `Pirate Party ${Math.random()
+      .toString(36)
+      .replace(/[^a-z]/g, '')}`;
+    const llm: LlmClient = {
+      async completeJson(request) {
+        if (request.schema.name !== 'deck_translation') {
+          return completion(fullDeckOutput(['easy', 'medium'], true, title));
+        }
+        await gate;
+        return germanReply(request);
+      },
+    };
+    return { llm, release, title };
+  }
+
+  function translate(app: App, cookie: string, deckId: string, language: string, ip?: string) {
+    return app.inject({
+      method: 'POST',
+      url: `/api/decks/${deckId}/translations`,
+      headers: { origin: ORIGIN, cookie },
+      payload: { language },
+      ...(ip && { remoteAddress: ip }),
+    });
+  }
+
+  async function generated(app: App, cookie: string, ip?: string): Promise<DeckSummary> {
+    const started = await post(app, cookie, REQUEST, ip);
+    const done = await settled(app, cookie, started.json<GenerationJob>().id);
+    if (!done.deck) throw new Error('no deck');
+    return done.deck;
+  }
+
+  it('translates a deck once, shares the running job, and keeps the translation', async () => {
+    const model = translatingLlm();
+    const app = await start({ llm: model.llm });
+    const creator = await guest(app);
+    const original = await generated(app, creator);
+    expect(original).toMatchObject({ language: 'en', languages: ['en'] });
+
+    const host = await guest(app);
+    const first = await translate(app, host, original.id, 'de');
+    expect(first.statusCode).toBe(200);
+    const job1 = first.json<TranslateDeckResponse>();
+    expect(job1).toMatchObject({
+      status: 'translating',
+      job: { kind: 'translate', status: 'running', language: 'de', theme: model.title },
+    });
+    // A second host asking meanwhile waits on the same job, and may poll it.
+    const otherHost = await guest(app);
+    const second = (
+      await translate(app, otherHost, original.id, 'de')
+    ).json<TranslateDeckResponse>();
+    const jobId = job1.status === 'translating' ? job1.job.id : '';
+    expect(second).toMatchObject({ status: 'translating', job: { id: jobId } });
+
+    model.release();
+    const done = await settled(app, otherHost, jobId);
+    expect(done.status).toBe('published');
+    const german = done.deck;
+    expect(german).toMatchObject({
+      title: 'Piratenparty',
+      language: 'de',
+      languages: ['en', 'de'],
+      counts: original.counts,
+    });
+
+    // From now on it's there straight away, from the original or from the translation itself.
+    expect((await translate(app, host, original.id, 'de')).json()).toEqual({
+      status: 'ready',
+      deck: german,
+    });
+    expect((await translate(app, host, german?.id ?? '', 'en')).json()).toMatchObject({
+      status: 'ready',
+      deck: { id: original.id, languages: ['en', 'de'] },
+    });
+    const lookup = (language: string) =>
+      app.inject({ method: 'GET', url: `/api/decks/${original.id}/translations/${language}` });
+    expect((await lookup('de')).json()).toMatchObject({ id: german?.id });
+    expect((await lookup('fr')).statusCode).toBe(404);
+
+    // Lists show each deck in the room's language when it has been translated into it.
+    const search = (language?: string) =>
+      app.inject({
+        method: 'GET',
+        url: `/api/decks?q=${encodeURIComponent(model.title)}${language ? `&language=${language}` : ''}`,
+      });
+    const ids = async (language?: string) =>
+      (await search(language)).json<{ decks: DeckSummary[] }>().decks.map((d) => d.id);
+    // Search is fuzzy, so other runs' pirate decks may show up too.
+    expect(await ids('de')).toContain(german?.id);
+    expect(await ids('de')).not.toContain(original.id);
+    expect(await ids('fr')).toContain(original.id);
+    expect(await ids('fr')).not.toContain(german?.id);
+    const mine = await app.inject({
+      method: 'GET',
+      url: '/api/decks/mine?language=de',
+      headers: { cookie: creator },
+    });
+    expect(mine.json<{ decks: DeckSummary[] }>().decks.map((d) => d.id)).toContain(german?.id);
+    // Asking for a translation doesn't make the deck yours.
+    const hostDecks = await app.inject({
+      method: 'GET',
+      url: '/api/decks/mine',
+      headers: { cookie: host },
+    });
+    expect(hostDecks.json()).toEqual({ decks: [] });
+    // Nor can a translation's cover be redrawn by whoever asked for it.
+    expect(
+      (
+        await app.inject({
+          method: 'PUT',
+          url: `/api/decks/generations/${jobId}/cover`,
+          headers: { origin: ORIGIN, cookie: host },
+          payload: { image: testCover() },
+        })
+      ).statusCode,
+    ).toBe(404);
+  });
+
+  it('records a friendly failure when most cards don’t survive', async () => {
+    const title = `Pun Party ${Math.random()
+      .toString(36)
+      .replace(/[^a-z]/g, '')}`;
+    const app = await start({
+      llm: {
+        async completeJson(request) {
+          if (request.schema.name !== 'deck_translation') {
+            return completion(fullDeckOutput(['easy', 'medium'], true, title));
+          }
+          return completion({ title, description: '', tags: [], cards: [], dropped: [] });
+        },
+      },
+    });
+    const cookie = await guest(app);
+    const original = await generated(app, cookie);
+    const res = (await translate(app, cookie, original.id, 'fr')).json<TranslateDeckResponse>();
+    const failed = await settled(app, cookie, res.status === 'translating' ? res.job.id : '');
+    expect(failed.status).toBe('failed');
+    expect(failed.error).toContain("doesn't translate well");
+    // A failed translation can be tried again.
+    expect((await translate(app, cookie, original.id, 'fr')).json()).toMatchObject({
+      status: 'translating',
+    });
+  });
+
+  it('limits new translations per player, not picking existing ones', async () => {
+    const model = translatingLlm();
+    model.release();
+    const app = await start({
+      llm: model.llm,
+      limits: {
+        ...NO_BUDGET_LIMIT,
+        GENERATION_PER_PLAYER_PER_DAY: '5',
+        GENERATION_TRANSLATIONS_PER_PLAYER_PER_DAY: '1',
+      },
+    });
+    const ip = freshIp();
+    const cookie = await guest(app);
+    const original = await generated(app, cookie, ip);
+    const first = (
+      await translate(app, cookie, original.id, 'de', ip)
+    ).json<TranslateDeckResponse>();
+    await settled(app, cookie, first.status === 'translating' ? first.job.id : '');
+
+    const second = await translate(app, cookie, original.id, 'it', ip);
+    expect(second.statusCode).toBe(429);
+    expect(second.json()).toMatchObject({ error: { code: 'RATE_LIMITED' } });
+    expect((await translate(app, cookie, original.id, 'de', ip)).json()).toMatchObject({
+      status: 'ready',
+    });
+  });
+
+  it('validates the request', async () => {
+    const app = await start();
+    const cookie = await guest(app);
+    const unknown = '0190a000-0000-7000-8000-000000000000';
+    expect((await translate(app, cookie, unknown, 'de')).statusCode).toBe(404);
+    expect((await translate(app, cookie, unknown, 'xx')).statusCode).toBe(400);
+    expect((await translate(app, '', unknown, 'de')).statusCode).toBe(401);
   });
 });

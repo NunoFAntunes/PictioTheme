@@ -27,7 +27,7 @@ User submits theme ─► API: auth check, rate limit, theme pre-check, reserve 
 
 ### What's built (2026-10)
 
-The pipeline steps above run in `generation.service.ts`. Around them, `generation-jobs.service.ts` runs each generation **in-process** as a row in `generation_jobs`: `POST /api/decks/generations` inserts the job and starts it without waiting, the client polls `GET /api/decks/generations/:id`, and the finished deck is saved through the decks service (`decks`/`cards` tables) with no review step. A restart fails any running job at boot. While a job runs (or after it's published), its creator can attach the drawn [back cover](../product/decks.md#back-cover) with `PUT /api/decks/generations/:id/cover`; the job holds it and it's copied onto the deck whichever of the two finishes last. Later, `PUT /api/decks/:id/cover` redraws it: the published job with that `deck_id` and the caller as `created_by` is the ownership check. Generation is on for everyone, guests included, within daily limits checked before a job starts: 1 deck per player and 3 per IP in any 24 hours (failed jobs don't count), and a global daily budget (running jobs count at an estimated $0.02). `DECK_GENERATION=off` is the kill switch, and the feature reports itself off when there's no API key. The theme pre-check (blocklist on theme and notes) runs before the job is created, and the blocklist runs again on the cards, alternates, title and tags (`content-check.ts`). Still to come from the flow above: auth and credits, pg-boss, streaming progress, the review step, and the optional LLM theme check.
+The pipeline steps above run in `generation.service.ts` (plus the [theme check](#theme-check) before the job, and [translations](#translation) as a second kind of job). Around them, `generation-jobs.service.ts` runs each generation **in-process** as a row in `generation_jobs`: `POST /api/decks/generations` inserts the job and starts it without waiting, the client polls `GET /api/decks/generations/:id`, and the finished deck is saved through the decks service (`decks`/`cards` tables) with no review step. A restart fails any running job at boot. While a job runs (or after it's published), its creator can attach the drawn [back cover](../product/decks.md#back-cover) with `PUT /api/decks/generations/:id/cover`; the job holds it and it's copied onto the deck whichever of the two finishes last. Later, `PUT /api/decks/:id/cover` redraws it: the published job with that `deck_id` and the caller as `created_by` is the ownership check. Generation is on for everyone, guests included, within daily limits checked before a job starts: 1 deck per player and 3 per IP in any 24 hours (failed jobs don't count), and a global daily budget (running jobs count at an estimated $0.02). `DECK_GENERATION=off` is the kill switch, and the feature reports itself off when there's no API key. The theme pre-check (blocklist on theme and notes) runs before the job is created, and the blocklist runs again on the cards, alternates, title and tags (`content-check.ts`). Still to come from the flow above: auth and credits, pg-boss, streaming progress, the review step, and the optional LLM theme check.
 
 ## Model access: OpenRouter
 
@@ -131,6 +131,8 @@ The creator picks which difficulties the deck has and whether it gets a silly po
 
 The theme and notes are user input. Put them in clearly labelled fields and tell the model to treat them only as a theme description, never as instructions. This blocks attempts like "ignore the rules and…".
 
+The deck's language (`DeckGenerationRequest.language`, the room's language) is on the user message's `Language:` line with the regional variant spelled out ("European Portuguese as spoken in Portugal (not Brazilian Portuguese)", `DECK_LANGUAGES[].prompt`). The static system prompt makes it a rule that holds whatever the theme or notes say: every text, alternate, keyword, title, description and tag in that language and region, cards are what players there would type (not literal translations of English cards), franchises use their local names, and English-only wordplay is skipped. Cleanup enforces the deterministic half: a card not written in the language's script is dropped (see the table below), which can trigger the top-up and fail the job.
+
 ## Validation and cleanup (deterministic, after the model call)
 
 | Check | Action |
@@ -138,6 +140,7 @@ The theme and notes are user input. Put them in clearly labelled fields and tell
 | JSON schema | Requested through `response_format`, but support varies by model, so **always validate with zod**. Invalid → one retry, then fail |
 | Length | `text` 2–40 chars. Drop violators |
 | Characters | Letters, spaces, hyphens, apostrophes only. Drop digits, emoji |
+| Script | The card must be written in the deck language's script (`isInLanguageScript` in game-core): only Latin letters for Latin-script languages; at least one letter of its own script for the others (kana or kanji for Japanese, Hangul for Korean, Han for Chinese, Cyrillic, Greek), Latin letters allowed alongside ("Tシャツ"). Drop violators. Alternates may also be in Latin letters ("Pikachu" in a Japanese deck) |
 | Duplicates | Normalize (same as guess matching) and drop duplicates, counting the same meaningful words in any order as one card ("Vampire on a unicycle" / "Unicycle vampire"). Cards that contain another card are **kept**: dropping them would remove "Witch" because of "Witch hat", and most silly cards contain a theme noun. The prompt asks for no near-duplicates instead |
 | Pools | Cards with a difficulty the creator didn't pick, or silly cards when the silly pool is off, are dropped |
 | Blocklist | Profanity and slur list on text, alternates, title, and tags. Drop the card. If the title or tags match, fail the whole job |
@@ -150,7 +153,37 @@ The theme and notes are user input. Put them in clearly labelled fields and tell
 A cheap synchronous check when the user submits:
 1. Blocklist on the theme text.
 2. Length 2–60 chars.
-3. Optional: a short classification call that answers `{ok: boolean, reason}` to catch themes that are obviously abusive, and also flags themes about **real private individuals**. (Public topics like "Taylor Swift songs" are borderline. Product decision, see open questions.)
+3. The theme check below.
+4. Optional, later: flag themes about **real private individuals**. (Public topics like "Taylor Swift songs" are borderline. Product decision, see open questions.)
+
+## Theme check
+
+Built 2026-10-07 (`theme-check.ts`). One quick model call (`reasoning: low`, 2k tokens, on its own model: `THEME_CHECK_MODEL`, by default the deck model, see [the eval](model-eval-2026-10.md#theme-check)) runs in `POST /api/decks/generations` after the blocklist and the daily limits and **before the job is created**, so a refused theme never starts a job, never uses up the player's daily deck, and the player sees the reason right away in the form. It answers:
+
+```json
+{ "writtenIn": "German", "matchesLanguage": true, "quality": 4, "reason": "…" }
+```
+
+- `matchesLanguage: false` → 422 `THEME_WRONG_LANGUAGE`: "Your theme looks like English, but this room plays in German (Deutsch). Write the theme in German, or change the room's language." Names and words used unchanged across languages ("Pokémon", "Halloween", "Pizza") count as neutral and match any language; regional variants of the same language match. The model's `writtenIn` only goes into the message if it's a short plain name.
+- `quality` (1–5: can a family-friendly deck of 100+ varied, drawable cards come from it?) below 3 → 422 `THEME_UNCLEAR`. 1 is gibberish, 2 is meaningful but unusable (far too vague or narrow, or only an instruction).
+- A refusal → 400 `VALIDATION` ("We can't make a deck about that").
+- A malformed reply is retried once; an unreadable or truncated reply after that lets the theme through: the generation has its own guardrails, and a flaky check shouldn't block every deck. A busy model → 503, like generation.
+
+Every check is recorded in `theme_checks` with its verdict and cost (~$0.0001 with luna): the daily budget counts it like a job's. Refused themes never become jobs, so they don't count against the daily deck; instead, after 20 refused checks per player or 60 per IP in 24 hours (`GENERATION_REFUSED_CHECKS_PER_*`) the endpoint answers 429 without calling the model. Switching to a cheaper model is one env line (`THEME_CHECK_MODEL=openai/gpt-oss-20b`); when the check model isn't the deck model, it falls back to the deck model. The generator doesn't self-score its deck: a model grading its own output is a weak signal, and the deterministic cleanup plus the pool counts already fail decks that came out thin.
+
+## Translation
+
+Built 2026-10-07 (`translate-prompt.ts`, `translateDeck` in `generation.service.ts`, jobs in `generation-jobs.service.ts`). A translation is a deck of its own: `decks.source_deck_id` points at the original and `language` says what it's in, unique per original and language. Translations are always made from the original, so errors never compound.
+
+`POST /api/decks/:id/translations { language }` (any deck of the family) returns:
+- `{ status: 'ready', deck }` when the family already has that language (or it's the original's language), and
+- `{ status: 'translating', job }` otherwise: a running translation of the same original and language is joined (a unique index on running translate jobs settles races), or a new job starts. Translation jobs are readable by anyone polling `GET /api/decks/generations/:id`, since several hosts can wait on one; they show only the deck's title.
+
+The model gets the deck as JSON (`id`, text, alternates, difficulty, silly) and returns each card it keeps by `id`, with its text, alternates and keywords in the target language, plus the ones it dropped and why (for the logs). The prompt's rules: translate to what a native speaker would type for the picture; keep names players there use unchanged; use the **local official name** for franchises and characters (Pokémon names change in German, French and Japanese; when unsure of the official name, drop the card rather than invent one); adapt cards whose literal translation wouldn't be drawn or guessed the same way; **drop** cards that don't work in the language or culture (puns, rhymes, unknown things, a translation that repeats another card); keep each card family friendly in the target language.
+
+After the call: difficulty and silliness come from the original card (the model can't move a card between pools), unknown or repeated ids are ignored, and the cards go through the same cleanup as a new deck (length, characters, script, blocklist, duplicates, keywords). Fewer than 60% of the original's cards left → the job fails with "This deck doesn't translate well into that language". A malformed reply is retried once. Covers are copied from the original when the translation is saved; a translation can't have its cover redrawn and doesn't appear in anyone's "Your decks".
+
+Limits: 5 new translations per player and 15 per IP in any 24 hours (`GENERATION_TRANSLATIONS_PER_*`), counted apart from generations, within the shared daily budget. `DECK_GENERATION=off` turns translations off too; translations that already exist can still be picked.
 
 ## Cost
 

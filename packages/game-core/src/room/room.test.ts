@@ -10,7 +10,12 @@ describe('joining', () => {
     const fx = h.join('p2', 'Bo');
     const snap = receivedOfType(fx, 'p2', 'room:snapshot')[0];
     expect(snap).toMatchObject({ you: 'p2', code: 'ABC-DEF', phase: { kind: 'waiting' } });
-    expect(snap?.deck).toEqual({ id: TEST_DECK.id, title: TEST_DECK.title, coverId: null });
+    expect(snap?.deck).toEqual({
+      id: TEST_DECK.id,
+      title: TEST_DECK.title,
+      coverId: null,
+      language: 'en',
+    });
     expect(receivedOfType(fx, 'p1', 'room:players')[0]?.players).toHaveLength(2);
   });
 
@@ -64,6 +69,20 @@ describe('starting a match', () => {
     expect(receivedOfType(h.send('p2', { t: 'room:start' }), 'p2', 'error')[0]?.code).toBe(
       'NOT_HOST',
     );
+    h.send('p1', { t: 'room:start' });
+    expect(h.state.phase.kind).toBe('choosing');
+  });
+
+  it("only starts with a deck in the room's language", () => {
+    const h = createHarness({ settings: { language: 'de' } });
+    h.init();
+    h.join('p1');
+    h.join('p2');
+    expect(receivedOfType(h.send('p1', { t: 'room:start' }), 'p1', 'error')[0]?.code).toBe(
+      'DECK_LANGUAGE_MISMATCH',
+    );
+    expect(h.state.phase.kind).toBe('waiting');
+    h.send('p1', { t: 'room:settings', settings: { language: 'en' } });
     h.send('p1', { t: 'room:start' });
     expect(h.state.phase.kind).toBe('choosing');
   });

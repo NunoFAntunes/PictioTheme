@@ -30,6 +30,7 @@ export const TEST_DECK: DeckInfo = {
   id: 'deck-test',
   title: 'Test Deck',
   coverId: null,
+  language: 'en',
   cards: [
     ...['Pumpkin', 'Ghost', 'Bat', 'Candle', 'Spider', 'Broom'].map((t) => card(t, 'easy')),
     ...['Haunted house', 'Black cat', 'Witch hat', 'Scarecrow', 'Cauldron', 'Skeleton'].map((t) =>

@@ -13,6 +13,7 @@
     "db:migrate": "tsx --env-file-if-exists=.env src/migrate.ts",
     "deck:generate": "tsx --env-file-if-exists=.env scripts/generate-deck.ts",
     "deck:eval": "tsx --env-file-if-exists=.env scripts/eval-decks.ts",
+    "theme-check:eval": "tsx --env-file-if-exists=.env scripts/eval-theme-check.ts",
     "metrics:report": "tsx --env-file-if-exists=.env scripts/metrics-report.ts"
   },
   "dependencies": {

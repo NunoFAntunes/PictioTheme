@@ -9,6 +9,7 @@ const request: DeckGenerationRequest = {
   notes: '',
   difficulties: ['easy', 'medium'],
   silly: true,
+  language: 'en',
 };
 
 function card(text: string, overrides: Partial<LlmCard> = {}): LlmCard {
@@ -182,7 +183,7 @@ describe('buildDeck', () => {
     const deck = buildDeck(
       { title: 'X', description: 'Spooky.', tags: ['  ', 'x'.repeat(31)] },
       cards,
-      request,
+      request.theme,
     );
     expect(deck.title).toBe('Halloween');
     expect(deck.tags).toEqual(['halloween']);
@@ -192,7 +193,7 @@ describe('buildDeck', () => {
     const deck = buildDeck(
       { title: 'Spooky Halloween', description: 'd', tags: ['Spooky', 'spooky ', 'October'] },
       cards,
-      request,
+      request.theme,
     );
     expect(deck.tags).toEqual(['spooky', 'october']);
   });

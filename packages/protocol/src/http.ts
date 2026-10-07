@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { DeckCoverId, DeckCoverImage, Difficulty } from './deck';
+import { DeckLanguage } from './language';
 import { AvatarImage, DisplayName, RoomCode, RoomCoverImage, RoomName } from './room';
 
 /** REST DTOs shared by the server and the web app. */
@@ -38,6 +39,8 @@ export const CreateRoomRequest = PlayerIdentity.extend({
   name: RoomName,
   isPublic: z.boolean(),
   deckId: z.string().min(1).optional(),
+  /** The room's language: the one the host last picked. English when absent. */
+  language: DeckLanguage.optional(),
 });
 export type CreateRoomRequest = z.infer<typeof CreateRoomRequest>;
 
@@ -57,8 +60,11 @@ export type RoomCoverUpload = z.infer<typeof RoomCoverUpload>;
 export const RoomCoverUploadResponse = z.object({ accepted: z.boolean() });
 export type RoomCoverUploadResponse = z.infer<typeof RoomCoverUploadResponse>;
 
-/** Quick play: the server picks a public room with space, or creates one (user-flows.md §2). */
-export const QuickPlayRequest = PlayerIdentity;
+/**
+ * Quick play: the server picks a public room with space in the player's language, or creates one
+ * (user-flows.md §2).
+ */
+export const QuickPlayRequest = PlayerIdentity.extend({ language: DeckLanguage.optional() });
 export type QuickPlayRequest = z.infer<typeof QuickPlayRequest>;
 
 /** Returned by create and join. The token is short-lived: connect to `/ws?token=…` right away. */
@@ -81,6 +87,7 @@ export const PublicRoomSummary = z.object({
   status: z.enum(['waiting', 'playing']),
   difficulties: z.array(Difficulty),
   silly: z.boolean(),
+  language: DeckLanguage,
   /** Bumped each time the room gets a new cover (`GET /api/rooms/:code/cover?v=…`); null: none yet. */
   coverVersion: z.number().int().nullable(),
 });
@@ -104,6 +111,13 @@ export const DeckSummary = z.object({
   coverId: DeckCoverId.nullable(),
   /** A curated deck in the featured row (seasonal ones first). */
   featured: z.boolean(),
+  /** What its cards are written in. */
+  language: DeckLanguage,
+  /**
+   * Every language this deck exists in: the original and its translations (decks.md#languages).
+   * Picking it in another language translates it first.
+   */
+  languages: z.array(DeckLanguage),
   counts: z.object({
     easy: z.number().int(),
     medium: z.number().int(),
@@ -115,8 +129,14 @@ export type DeckSummary = z.infer<typeof DeckSummary>;
 
 export const DeckListResponse = z.object({ decks: z.array(DeckSummary) });
 
-/** `GET /api/decks?q=`: search titles and tags. Without `q`, the curated decks, featured first. */
-export const DeckListQuery = z.object({ q: z.string().trim().max(60).optional() });
+/**
+ * `GET /api/decks?q=&language=`: search titles and tags. Without `q`, the curated decks, featured
+ * first. With `language`, each deck comes in that language when it has been translated into it.
+ */
+export const DeckListQuery = z.object({
+  q: z.string().trim().max(60).optional(),
+  language: DeckLanguage.optional(),
+});
 export type DeckListQuery = z.infer<typeof DeckListQuery>;
 export type DeckListResponse = z.infer<typeof DeckListResponse>;
 
@@ -142,11 +162,23 @@ export type GenerationConfigResponse = z.infer<typeof GenerationConfigResponse>;
 export const GenerationStatus = z.enum(['running', 'published', 'failed']);
 export type GenerationStatus = z.infer<typeof GenerationStatus>;
 
-/** One deck generation, polled by its creator until it's `published` or `failed`. */
+/** A new deck from a theme, or an existing deck in another language. */
+export const GenerationKind = z.enum(['generate', 'translate']);
+export type GenerationKind = z.infer<typeof GenerationKind>;
+
+/**
+ * One deck generation or translation, polled until it's `published` or `failed`. Generations
+ * are seen only by their creator; translations by anyone (a second host asking for the same
+ * translation waits on the first one's job).
+ */
 export const GenerationJob = z.object({
   id: z.string(),
+  kind: GenerationKind,
   status: GenerationStatus,
+  /** The theme, or the title of the deck being translated. */
   theme: z.string(),
+  /** What the new deck is written in. */
+  language: DeckLanguage,
   /** A message for the player when `failed`. */
   error: z.string().nullable(),
   /** The new deck when `published`. */
@@ -162,6 +194,22 @@ export type GenerationJob = z.infer<typeof GenerationJob>;
  */
 export const SetDeckCoverRequest = z.object({ image: DeckCoverImage });
 export type SetDeckCoverRequest = z.infer<typeof SetDeckCoverRequest>;
+
+// ── Deck translations ──
+
+/**
+ * `POST /api/decks/:id/translations`: the deck in another language. When that translation
+ * exists (or the deck is already in that language) it comes back as `deck`; otherwise a
+ * translation starts, or the one already running is joined, and comes back as `job` to poll.
+ */
+export const TranslateDeckRequest = z.object({ language: DeckLanguage });
+export type TranslateDeckRequest = z.infer<typeof TranslateDeckRequest>;
+
+export const TranslateDeckResponse = z.discriminatedUnion('status', [
+  z.object({ status: z.literal('ready'), deck: DeckSummary }),
+  z.object({ status: z.literal('translating'), job: GenerationJob }),
+]);
+export type TranslateDeckResponse = z.infer<typeof TranslateDeckResponse>;
 
 // ── Deck reports ──
 

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { Difficulty } from './deck';
+import { DEFAULT_DECK_LANGUAGE, DeckLanguage } from './language';
 
 /** `ABC-DEF`: 24 letters (A–Z without I and O). */
 export const ROOM_CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
@@ -55,6 +56,8 @@ export const RoomSettings = z.object({
   guessVisibility: GuessVisibility,
   hints: z.boolean(),
   wordChoice: z.union([z.literal(1), z.literal(3)]),
+  /** What the cards are written in. A match only starts with a deck in this language. */
+  language: DeckLanguage,
 });
 export type RoomSettings = z.infer<typeof RoomSettings>;
 
@@ -67,6 +70,7 @@ export const DEFAULT_ROOM_SETTINGS: Omit<RoomSettings, 'deckId'> = {
   guessVisibility: 'show',
   hints: true,
   wordChoice: 3,
+  language: DEFAULT_DECK_LANGUAGE,
 };
 
 export const GUESS_MAX_LENGTH = 60;

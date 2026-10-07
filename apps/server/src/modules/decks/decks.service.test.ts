@@ -48,6 +48,7 @@ describe('decks service', () => {
       theme: 'pirates',
       model: 'test/model',
       coverId: null,
+      language: 'en',
     });
 
     expect(await decks.exists(id)).toBe(true);
@@ -64,6 +65,8 @@ describe('decks service', () => {
         tags: ['pirates'],
         coverId: null,
         featured: false,
+        language: 'en',
+        languages: ['en'],
         counts: { easy: 1, medium: 1, hard: 1, silly: 1 },
       },
     ]);
@@ -74,6 +77,7 @@ describe('decks service', () => {
       theme: 'pirates',
       model: null,
       coverId: null,
+      language: 'en',
     });
     expect((await decks.getPlayableDeck(id)).coverId).toBeNull();
 
@@ -113,7 +117,12 @@ describe('decks service', () => {
 
 describe('deck reports', () => {
   const save = () =>
-    decks.saveGeneratedDeck(generated, { theme: 'pirates', model: null, coverId: null });
+    decks.saveGeneratedDeck(generated, {
+      theme: 'pirates',
+      model: null,
+      coverId: null,
+      language: 'en',
+    });
   const reporters = (n: number, prefix = 'g_reporter') =>
     Array.from({ length: n }, (_, i) => `${prefix}-${i}-${Math.random()}`);
 

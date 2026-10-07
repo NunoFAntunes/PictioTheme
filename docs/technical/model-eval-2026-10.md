@@ -84,3 +84,24 @@ Known gap: a provider-side refusal (mercury's "I can't help with that", passed t
 | **Total (OpenRouter key usage)** | **$0.52** |
 
 Per deck, for a full ~145-card deck: gpt-6-luna $0.004, gpt-6-luna-pro $0.011, glm-5.3-flash $0.005, deepseek-v4-flash $0.001, gemini-3.1-flash-lite $0.011, mercury-2.5 $0.0015. 1,000 decks with gpt-6-luna ≈ $4.
+
+## Theme check
+
+Run 2026-10-07 with `pnpm --filter @pictiotheme/server theme-check:eval` (`scripts/eval-theme-check.ts`): 23 labelled themes per model through the production theme check (ai-deck-pipeline.md#theme-check), each model alone with no fallbacks. 10 clear themes (including names that belong to no language: "Pokémon" for a German deck, "Halloween" for a French one), 6 in another language than the deck's (some close: Spanish for a Portuguese deck), 5 gibberish or unusable ("asdkjh qwe zzz", "stuff", "my cousin Pedro's birthday"), and 2 prompt injections in the notes. Cost is what OpenRouter reported. Reasoning models ran at `reasoning: low`; Mistral without the parameter.
+
+| Model | Right | Clear | Wrong language | Gibberish | Injections | Avg time | $/check |
+|---|---|---|---|---|---|---|---|
+| **openai/gpt-6-luna** | **96%** | 10/10 | 5/6 | 5/5 | 2/2 | 2.2 s | $0.000097 |
+| z-ai/glm-5.3-flash | 100% | 10/10 | 6/6 | 5/5 | 2/2 | 9.9 s | $0.000212 |
+| inception/mercury-2.5 | 91% | 10/10 | 6/6 | 4/5 | 1/2 | 2.9 s | $0.000204 |
+| google/gemini-3.1-flash-lite | 87% | 10/10 | 3/6 | 5/5 | 2/2 | 1.0 s | $0.000217 |
+| deepseek/deepseek-v4-flash | 87% | 9/10 | 4/6 | 5/5 | 2/2 | 9.3 s | $0.000117 |
+| openai/gpt-oss-120b | 83% | 10/10 | 5/6 | 3/5 | 1/2 | 3.0 s | $0.000049 |
+| openai/gpt-oss-20b | 83% | 10/10 | 4/6 | 3/5 | 2/2 | 3.3 s | $0.000027 |
+| mistralai/mistral-nemo | 74% | 10/10 | 1/6 | 4/5 | 2/2 | 2.2 s | $0.000011 |
+| mistralai/mistral-small-24b-instruct-2501 | 70% | 10/10 | 0/6 | 5/5 | 1/2 | 1.5 s | $0.000029 |
+
+`qwen/qwen3.7-flash` and `inclusionai/ling-3.0-flash` had no provider that takes our settings (`require_parameters` with structured output and `data_collection: deny`). luna at `reasoning: minimal` scored the same at the same cost.
+
+**Adopted: `openai/gpt-6-luna`, the deck model** (`THEME_CHECK_MODEL`). A check is ~1,000 tokens in and under 100 out, so input price decides, and luna's cached system prompt made it cheaper than models with lower list prices. The cheaper models mostly fail the check's main job, spotting a theme in another language; deepseek and mercury also sent replies that couldn't be parsed, which let a theme through (mercury let an injection through that way; malformed replies are now retried once). The cheap option is `openai/gpt-oss-20b`: ~3.5× cheaper, no injection followed, but it missed 2 of 6 wrong-language themes and 2 of 5 unusable ones. Its one miss for luna ("Piraten" with English notes for a German deck) is arguable. 23 cases per model is a small sample: re-run the script before switching.
+

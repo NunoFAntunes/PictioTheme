@@ -25,6 +25,8 @@ export const generationJobs = pgTable(
       .default(sql`uuidv7()`),
     /** The player id (`g_<guestId>` or `u_<userId>`), so guests and accounts work the same way. */
     createdBy: text().notNull(),
+    /** `generate`: a new deck from a theme. `translate`: `sourceDeckId` in `language`. */
+    kind: text().notNull().default('generate'),
     /**
      * Keyed hash of the requester's IP, for the per-IP daily limit. Never the IP itself:
      * HMAC-SHA256 with the session secret, so it can't be reversed from the database alone.
@@ -35,6 +37,8 @@ export const generationJobs = pgTable(
     difficulties: text().array().notNull(),
     includeSilly: boolean().notNull(),
     language: text().notNull().default('en'),
+    /** For a translation: the original deck being translated. */
+    sourceDeckId: uuid().references(() => decks.id, { onDelete: 'set null' }),
     status: text().notNull().default('running'),
     deckId: uuid().references(() => decks.id, { onDelete: 'set null' }),
     error: text(),
@@ -50,6 +54,7 @@ export const generationJobs = pgTable(
   },
   (t) => [
     check('generation_jobs_status_check', sql`${t.status} in ('running', 'published', 'failed')`),
+    check('generation_jobs_kind_check', sql`${t.kind} in ('generate', 'translate')`),
     index('generation_jobs_created_by_idx').on(t.createdBy, t.createdAt),
     index('generation_jobs_client_ip_idx').on(t.clientIpHash, t.createdAt),
     index('generation_jobs_created_at_idx').on(t.createdAt),
@@ -57,5 +62,43 @@ export const generationJobs = pgTable(
     uniqueIndex('generation_jobs_one_running_idx')
       .on(t.createdBy)
       .where(sql`${t.status} = 'running'`),
+    // One running translation per deck and language: a second host joins the first one's job.
+    uniqueIndex('generation_jobs_one_translation_idx')
+      .on(t.sourceDeckId, t.language)
+      .where(sql`${t.status} = 'running' and ${t.kind} = 'translate'`),
+  ],
+);
+
+/**
+ * Owned by the `generation` module. One row per theme check (the quick model call before a
+ * generation job, ai-deck-pipeline.md#theme-check): what it cost, for the daily budget, and how it
+ * ended, so refused checks can be capped per player and IP (they never become jobs).
+ */
+export const themeChecks = pgTable(
+  'theme_checks',
+  {
+    id: uuid()
+      .primaryKey()
+      .default(sql`uuidv7()`),
+    /** The player id (`g_<guestId>` or `u_<userId>`). */
+    createdBy: text().notNull(),
+    /** HMAC of the requester's IP, like `generation_jobs.client_ip_hash`. */
+    clientIpHash: text(),
+    theme: text().notNull(),
+    language: text().notNull(),
+    /** How it ended: only `accepted` (and `unreadable`, which lets the theme through) start a job. */
+    verdict: text().notNull(),
+    model: text(),
+    costUsd: numeric({ precision: 10, scale: 6 }),
+    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    check(
+      'theme_checks_verdict_check',
+      sql`${t.verdict} in ('accepted', 'wrong_language', 'unclear', 'refused', 'unreadable')`,
+    ),
+    index('theme_checks_created_by_idx').on(t.createdBy, t.createdAt),
+    index('theme_checks_client_ip_idx').on(t.clientIpHash, t.createdAt),
+    index('theme_checks_created_at_idx').on(t.createdAt),
   ],
 );

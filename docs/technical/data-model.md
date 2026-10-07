@@ -47,11 +47,12 @@ decks (
   description     text,
   theme_query     text not null,            -- what the user asked for
   tags            text[] not null,
-  language        text not null default 'en',
+  language        text not null default 'en',   -- a DeckLanguage code (protocol language.ts)
+  source_deck_id  uuid null fk decks on delete cascade,   -- a translation's original (migration 0009); never a translation
   family_friendly bool not null default true,
   visibility      text not null default 'public',   -- 'public' | 'unlisted' | 'hidden' (moderation)
   created_by      uuid fk users null,
-  source          text not null,            -- 'ai' | 'curated' | 'remix'
+  source          text not null,            -- 'ai' | 'curated' | 'remix' | 'translation'
   model           text null,                -- OpenRouter model slug that generated it
   cover_id        text null fk deck_covers on delete set null,   -- null → default cover from the title
   cover_hidden    bool not null default false,   -- hidden by reports (migration 0004): shown as no cover; a new cover clears it
@@ -64,6 +65,8 @@ decks (
   created_at      timestamptz
 )
 -- index: GIN(tags), GIN(title gin_trgm_ops) (built, migration 0007); GIN(search_vector) planned
+-- unique(source_deck_id, language) where source_deck_id is not null: one translation per original and language
+-- a deck's "family" is its original plus the original's translations; lists show each family in the room's language when it has it
 -- curated decks are seeded from JSON by db:migrate (source 'curated', upsert by slug)
 
 cards (
@@ -106,7 +109,11 @@ generation_jobs (                           -- built (migration 0002); not yet: 
   id           uuid pk,
   created_by   text,                        -- player id: 'g_<guestId>' now, 'u_<userId>' with accounts
   client_ip_hash text null,                 -- HMAC of the requester's IP, for the per-IP daily limit (migration 0005)
+  kind         text not null default 'generate',   -- 'generate' | 'translate' (migration 0009)
   theme        text, notes text, difficulties text[], include_silly bool, language text,
+                                            -- a translation: theme = the original's title, language = the target
+  source_deck_id uuid null fk decks on delete set null,   -- a translation's original
+                                            -- unique(source_deck_id, language) where running and kind = 'translate'
   status       text,                        -- built: 'running' | 'published' | 'failed'; later 'queued' | 'review'
                                             -- unique(created_by) where status = 'running': one job at a time
   deck_id      uuid null,
@@ -116,6 +123,17 @@ generation_jobs (                           -- built (migration 0002); not yet: 
   input_tokens int, output_tokens int, cost_usd numeric(10,4),   -- cost as reported by OpenRouter
   created_at, finished_at
 )
+
+theme_checks (                              -- built (migration 0010): the theme check before each generation
+  id             uuid pk,
+  created_by     text,                      -- player id
+  client_ip_hash text null,
+  theme          text, language text,
+  verdict        text,                      -- 'accepted' | 'wrong_language' | 'unclear' | 'refused' | 'unreadable'
+  model          text, cost_usd numeric(10,6),   -- counted in the daily budget with generation_jobs
+  created_at     timestamptz
+)
+-- refused verdicts are capped per player and per IP in 24 h (they never become jobs)
 
 credit_ledger (                             -- append-only; balance = SUM(delta)
   id          bigserial pk,

@@ -19,9 +19,14 @@ export const ErrorCode = z.enum([
   'WRONG_PHASE',
   'NOT_ENOUGH_PLAYERS',
   'DECK_NOT_READY',
+  'DECK_LANGUAGE_MISMATCH',
   // Decks and credits
   'INSUFFICIENT_CREDITS',
   'GENERATION_FAILED',
+  /** The theme or notes aren't written in the deck's language (ai-deck-pipeline.md#theme-check). */
+  'THEME_WRONG_LANGUAGE',
+  /** The theme is gibberish, or too vague or narrow for a good deck. */
+  'THEME_UNCLEAR',
 ]);
 export type ErrorCode = z.infer<typeof ErrorCode>;
 

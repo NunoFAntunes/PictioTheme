@@ -1,8 +1,10 @@
+import { deckLanguageInfo } from '@pictiotheme/game-core';
 import { useState } from 'react';
 import type { RoomView } from '../../../realtime';
 import { WOBBLE } from '../../../ui/hand-drawn';
 import { DeckCover } from '../../deck-cover';
 import { ReportDeckButton } from '../../report-deck';
+import { LanguagePicker } from '../../room-language';
 import { copyShareCardImage } from '../share-card';
 import { RoomTitle } from './RoomTitle';
 
@@ -194,6 +196,27 @@ export function RoomCard({ view, host }: { view: RoomView; host: boolean }) {
                 <span className="truncate text-2xl leading-tight">{view.deck.title}</span>
               </p>
             )}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="font-hand text-lg text-ink/70">Cards in:</span>
+              <LanguagePicker
+                language={view.settings.language}
+                deckId={view.settings.deckId}
+                editable={host}
+              />
+              {view.deck && view.deck.language !== view.settings.language && (
+                <span
+                  role="status"
+                  title={`This deck is in ${deckLanguageInfo(view.deck.language).name}: ${
+                    host
+                      ? 'translate it in the deck library below, or pick another deck.'
+                      : 'the host needs to translate it, or pick another, before starting.'
+                  }`}
+                  className="rotate-2 rounded-full border-2 border-dashed border-pop-tomato px-1 font-hand text-[0.95rem] leading-snug whitespace-nowrap text-pop-tomato"
+                >
+                  Needs translation
+                </span>
+              )}
+            </div>
             <ul aria-label="Rules" className="mt-1 flex flex-wrap gap-2.5">
               {rulesOf(view).map((label, i) => (
                 <RuleSticker key={label} label={label} index={i} />

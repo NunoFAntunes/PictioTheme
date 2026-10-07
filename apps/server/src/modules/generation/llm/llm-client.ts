@@ -11,6 +11,11 @@ export type LlmJsonRequest = {
   /** JSON Schema the reply must follow (structured output). Validate the reply anyway (rule B25). */
   schema: { name: string; schema: Record<string, unknown> };
   maxTokens: number;
+  /**
+   * How hard a reasoning model thinks first. Default `medium`. Null leaves the parameter out,
+   * for models that don't reason (with `require_parameters`, sending it can rule them out).
+   */
+  reasoningEffort?: 'minimal' | 'low' | 'medium' | 'high' | null;
 };
 
 export type LlmUsage = {

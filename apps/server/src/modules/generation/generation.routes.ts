@@ -1,10 +1,14 @@
 import {
   DeckGenerationRequest,
+  DeckLanguage,
   DeckListResponse,
   DeckSummary,
   GenerationConfigResponse,
   GenerationJob,
+  SavedDeckId,
   SetDeckCoverRequest,
+  TranslateDeckRequest,
+  TranslateDeckResponse,
 } from '@pictiotheme/protocol';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 import { z } from 'zod';
@@ -22,7 +26,8 @@ export const generationRoutes: FastifyPluginAsyncZod<{ jobs: GenerationJobsServi
     async (request) => jobs.config(request.actor ?? null),
   );
 
-  // Each call can cost real money, so this is limited well below what a person needs.
+  // Each call can cost real money (the theme check runs before the job), so this is limited
+  // well below what a person needs.
   app.post(
     '/generations',
     {
@@ -33,6 +38,21 @@ export const generationRoutes: FastifyPluginAsyncZod<{ jobs: GenerationJobsServi
       reply.code(202);
       return jobs.startJob(actorOf(request), request.body, request.ip);
     },
+  );
+
+  // The deck in another language: ready right away, or a translation to poll like a generation.
+  app.post(
+    '/:id/translations',
+    {
+      config: { rateLimit: { max: 10, timeWindow: '1 minute' } },
+      schema: {
+        params: z.object({ id: SavedDeckId }),
+        body: TranslateDeckRequest,
+        response: { 200: TranslateDeckResponse },
+      },
+    },
+    async (request) =>
+      jobs.translate(actorOf(request), request.params.id, request.body.language, request.ip),
   );
 
   // Polled every couple of seconds while a deck is being made.
@@ -75,7 +95,16 @@ export const generationRoutes: FastifyPluginAsyncZod<{ jobs: GenerationJobsServi
     async (request) => jobs.setDeckCover(actorOf(request), request.params.id, request.body.image),
   );
 
-  app.get('/mine', { schema: { response: { 200: DeckListResponse } } }, async (request) => ({
-    decks: request.actor ? await jobs.myDecks(request.actor) : [],
-  }));
+  app.get(
+    '/mine',
+    {
+      schema: {
+        querystring: z.object({ language: DeckLanguage.optional() }),
+        response: { 200: DeckListResponse },
+      },
+    },
+    async (request) => ({
+      decks: request.actor ? await jobs.myDecks(request.actor, request.query.language) : [],
+    }),
+  );
 };

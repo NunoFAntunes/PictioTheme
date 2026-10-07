@@ -4,6 +4,7 @@ import type {
   Card,
   CardVote,
   ClientMessage,
+  DeckLanguage,
   PauseReason,
   PlayerId,
   RoomSettings,
@@ -52,7 +53,14 @@ export type PlayerState = {
   drawerPoints: number;
 };
 
-export type DeckInfo = { id: string; title: string; coverId: string | null; cards: Card[] };
+export type DeckInfo = {
+  id: string;
+  title: string;
+  coverId: string | null;
+  /** What the cards are written in. A match starts only when it's the room's language. */
+  language: DeckLanguage;
+  cards: Card[];
+};
 
 export type Phase =
   | { kind: 'waiting' }

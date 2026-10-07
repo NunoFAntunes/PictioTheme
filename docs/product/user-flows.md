@@ -65,6 +65,7 @@ Joining an in-progress public game is allowed. The player joins as a guesser and
 Creating takes one click (§3): the room starts private (or public, via Quick play) with the default deck and settings. **The choices below are made in the waiting room**, by the host, while friends arrive. Picking the theme together is part of the fun, not a form to get through.
 
 1. **Room name** (pre-filled, e.g. "Nuno's room") and **Public / Private** toggle.
+1. **Language** (built 2026-10-07): the flag on the room card; the host types a language and picks it. Decks not in it are marked, and the room's deck must be translated (or another picked) before Start works. See [decks.md](decks.md#languages).
 2. **Deck**: search box → results show deck title, theme tags, card counts per difficulty, play count, rating, and whether a silly pool exists. A "Preview" button shows 5 sample cards.
    - Not found → "Generate a deck for *'pirate cooking'*" (logged-in users only. Guests see a sign-up prompt).
 3. **Difficulty**: multi-select chips `Easy` `Medium` `Hard` (at least one).
@@ -112,7 +113,7 @@ Search "pirate cooking" → no good match
 
 If the user has no free generations or credits left, the generate button opens the credit purchase sheet (see [monetization.md](monetization.md)).
 
-**Built so far** (open to guests: 1 deck per player per day, 3 per network, a global daily budget): "✨ Generate a deck" in the host's deck picker (waiting room) → form (theme, notes, difficulties, silly on/off) → progress (polled, ~1 min) with a pad to draw the deck's [back cover](decks.md#back-cover) (or skip) → once the deck is ready and the cover is saved or skipped, it becomes the room's deck, and listed as "yours" in the deck pickers, where ✏️ redraws its cover. No review step, language choice or credits yet. Blocked themes are refused before anything starts ("We can't make a deck about that").
+**Built so far** (open to guests: 1 deck per player per day, 3 per network, a global daily budget): "✨ Generate a deck" in the host's deck picker (waiting room) → form (theme, notes, difficulties, silly on/off) → progress (polled, ~1 min) with a pad to draw the deck's [back cover](decks.md#back-cover) (or skip) → once the deck is ready and the cover is saved or skipped, it becomes the room's deck, and listed as "yours" in the deck pickers, where ✏️ redraws its cover. No review step or credits yet. Blocked themes are refused before anything starts ("We can't make a deck about that"). The deck is written in the room's language; a theme written in another language, or too unclear for a deck, is refused right away with the reason, without using up the daily deck ([ai-deck-pipeline.md](../technical/ai-deck-pipeline.md#theme-check)). Picking a deck that isn't in the room's language offers to translate it (~1 minute, shared with every later room in that language).
 
 ## 9. Edge cases
 

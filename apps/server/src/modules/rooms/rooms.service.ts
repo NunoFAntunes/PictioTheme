@@ -7,6 +7,7 @@ import {
 } from '@pictiotheme/game-core';
 import {
   CloseCode,
+  DEFAULT_DECK_LANGUAGE,
   DEFAULT_ROOM_SETTINGS,
   ROOM_COVER_HEIGHT_PX,
   ROOM_COVER_MAX_BYTES,
@@ -134,8 +135,12 @@ export function createRoomsService(deps: {
       if (!accepting) throw serviceUnavailable('The server is restarting');
       assertAllowed(input.displayName, 'name');
       assertAllowed(input.name, 'room name');
-      const deckId = input.deckId ?? (await deps.decks.defaultDeckId());
+      const language = input.language ?? DEFAULT_DECK_LANGUAGE;
+      let deckId = input.deckId ?? (await deps.decks.defaultDeckId());
       if (!deckId || !(await deps.decks.exists(deckId))) throw notFound('Deck');
+      // The deck in the room's language when it's been translated; otherwise the host is asked
+      // to translate it in the waiting room.
+      deckId = (await deps.decks.findInLanguage(deckId, language))?.id ?? deckId;
       // Stored before the room exists, so an invalid avatar doesn't leave an empty room behind.
       const avatar = await deps.avatars.store(input.avatar);
       const hostId = playerIdOf(actor);
@@ -151,7 +156,7 @@ export function createRoomsService(deps: {
           name: input.name,
           isPublic: input.isPublic,
           hostId,
-          settings: { ...DEFAULT_ROOM_SETTINGS, deckId },
+          settings: { ...DEFAULT_ROOM_SETTINGS, deckId, language },
           now: now(),
         }),
         {
@@ -178,7 +183,7 @@ export function createRoomsService(deps: {
         playerId: hostId,
         roomCode: code,
         deckId,
-        props: { isPublic: input.isPublic },
+        props: { isPublic: input.isPublic, language },
       });
       return {
         code,
@@ -213,12 +218,13 @@ export function createRoomsService(deps: {
     },
 
     /**
-     * Joins the public room with space that is waiting and has the most players; failing that, the
-     * fullest public match with space (joined as a guesser); failing that, creates a public room
-     * named after the player (user-flows.md §2).
+     * Joins the public room in the player's language with space that is waiting and has the most
+     * players; failing that, the fullest such match with space (joined as a guesser); failing
+     * that, creates a public room in that language named after the player (user-flows.md §2).
      */
-    async quickPlay(actor: Actor, identity: QuickPlayRequest): Promise<JoinRoomResponse> {
+    async quickPlay(actor: Actor, request: QuickPlayRequest): Promise<JoinRoomResponse> {
       if (!accepting) throw serviceUnavailable('The server is restarting');
+      const { language = DEFAULT_DECK_LANGUAGE, ...identity } = request;
       assertAllowed(identity.displayName, 'name');
       const playerId = playerIdOf(actor);
       const [best] = [...rooms.values()]
@@ -226,7 +232,13 @@ export function createRoomsService(deps: {
           const connected = [...state.players.values()].some((p) => p.connected);
           const hasSpace =
             state.players.has(playerId) || state.players.size < state.settings.maxPlayers;
-          return state.isPublic && connected && hasSpace && !state.banned.has(playerId);
+          return (
+            state.isPublic &&
+            state.settings.language === language &&
+            connected &&
+            hasSpace &&
+            !state.banned.has(playerId)
+          );
         })
         .map((room) => ({ room, summary: room.summary() }))
         .sort(
@@ -239,6 +251,7 @@ export function createRoomsService(deps: {
         ...identity,
         name: `${identity.displayName}'s room`,
         isPublic: true,
+        language,
       });
     },
 

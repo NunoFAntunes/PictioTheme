@@ -44,19 +44,26 @@ function loggerOptions(config: Config): FastifyServerOptions['logger'] {
   };
 }
 
-function createLlm(config: Config): LlmClient | null {
-  const { apiKey, deckModel, fallbackModels, requireParameters } = config.openRouter;
+/** The deck model, or the cheaper theme-check model (ai-deck-pipeline.md#theme-check). */
+function createLlm(config: Config, use: 'deck' | 'themeCheck'): LlmClient | null {
+  const { apiKey, requireParameters } = config.openRouter;
   if (!apiKey) return null;
+  const deck = use === 'deck';
   return createOpenRouterClient({
     apiKey,
-    model: deckModel,
-    fallbackModels,
+    model: deck ? config.openRouter.deckModel : config.openRouter.themeCheckModel,
+    fallbackModels: deck
+      ? config.openRouter.fallbackModels
+      : config.openRouter.themeCheckFallbackModels,
     requireParameters,
     appUrl: config.publicOrigin,
   });
 }
 
-/** `overrides.llm` replaces the OpenRouter client in tests (CI never calls OpenRouter). */
+/**
+ * `overrides.llm` replaces both OpenRouter clients (deck and theme check) in tests: CI never calls
+ * OpenRouter.
+ */
 export async function buildApp(config: Config, overrides: { llm?: LlmClient | null } = {}) {
   const app = Fastify({
     logger: loggerOptions(config),
@@ -79,8 +86,10 @@ export async function buildApp(config: Config, overrides: { llm?: LlmClient | nu
   const system = createSystemService({ db, log: app.log });
   const auth = createAuthService({ secret: config.sessionSecret });
   const decks = createDecksService({ db });
-  const llm = overrides.llm !== undefined ? overrides.llm : createLlm(config);
-  const generation = createGenerationService({ llm, log: app.log });
+  const llm = overrides.llm !== undefined ? overrides.llm : createLlm(config, 'deck');
+  const themeCheckLlm =
+    overrides.llm !== undefined ? overrides.llm : createLlm(config, 'themeCheck');
+  const generation = createGenerationService({ llm, themeCheckLlm, log: app.log });
   const generationJobs = createGenerationJobsService({
     db,
     log: app.log,

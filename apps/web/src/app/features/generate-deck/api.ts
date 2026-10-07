@@ -4,8 +4,10 @@ import {
   GenerationConfigResponse,
   GenerationJob,
   GuestSessionResponse,
+  TranslateDeckResponse,
   type DeckCoverImage,
   type DeckGenerationRequest,
+  type DeckLanguage,
 } from '@pictiotheme/protocol';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiGet, apiPost, apiPut } from '../../lib/api';
@@ -22,12 +24,26 @@ export function useGenerationConfig() {
   });
 }
 
-/** Decks this player generated, newest first. */
-export function useMyDecks() {
+/** Decks this player generated, newest first, each in `language` when translated into it. */
+export function useMyDecks(language: DeckLanguage) {
   return useQuery({
-    queryKey: ['decks', 'mine'],
-    queryFn: async () => (await apiGet('/api/decks/mine', DeckListResponse)).decks,
+    queryKey: ['decks', 'mine', language],
+    queryFn: async () =>
+      (await apiGet(`/api/decks/mine?language=${language}`, DeckListResponse)).decks,
     staleTime: 60_000,
+  });
+}
+
+/**
+ * A deck in another language: ready right away when someone translated it already, otherwise a
+ * translation job to poll with `useGenerationJob`.
+ */
+export function useTranslateDeck() {
+  return useMutation({
+    mutationFn: async ({ deckId, language }: { deckId: string; language: DeckLanguage }) => {
+      await apiPost('/api/session/guest', undefined, GuestSessionResponse);
+      return apiPost(`/api/decks/${deckId}/translations`, { language }, TranslateDeckResponse);
+    },
   });
 }
 

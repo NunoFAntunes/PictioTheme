@@ -6,6 +6,7 @@ import {
   DECK_COVER_WIDTH_PX,
   type DeckCoverId,
   type DeckCoverImage,
+  type DeckLanguage,
   type DeckReportReason,
   type DeckSummary,
   type GeneratedDeck,
@@ -55,6 +56,17 @@ export function createDecksService(deps: { db: Db }) {
     return ids.flatMap((id) => byId.get(id) ?? []);
   }
 
+  /**
+   * Each deck in `language` when its family has it, otherwise as it is. Several ids of one family
+   * become one deck, at the first one's place.
+   */
+  async function inLanguage(ids: string[], language: DeckLanguage | undefined): Promise<string[]> {
+    const valid = ids.filter((id) => UUID.test(id));
+    if (!language) return valid;
+    const members = await repo.familyMembersIn(deps.db, valid, language);
+    return [...new Set(valid.map((id) => members.get(id) ?? id))];
+  }
+
   return {
     /** The deck a new room starts with when none is picked: the first featured curated deck. */
     async defaultDeckId(): Promise<string | null> {
@@ -65,26 +77,107 @@ export function createDecksService(deps: { db: Db }) {
       return UUID.test(deckId) && repo.deckExists(deps.db, deckId);
     },
 
-    /** The curated decks, featured first; or, with a query, the decks that match it. */
-    async listDecks(q?: string): Promise<DeckSummary[]> {
+    /**
+     * The curated decks, featured first; or, with a query, the decks that match it. With a
+     * language, each deck comes translated into it when that translation exists.
+     */
+    async listDecks(q?: string, language?: DeckLanguage): Promise<DeckSummary[]> {
       const query = q?.trim() ?? '';
-      if (query === '') return summaries(await repo.curatedDeckIds(deps.db));
-      return summaries(await repo.searchDeckIds(deps.db, query, SEARCH_LIMIT));
+      const ids =
+        query === ''
+          ? await repo.curatedDeckIds(deps.db)
+          : await repo.searchDeckIds(deps.db, query, SEARCH_LIMIT);
+      return summaries(await inLanguage(ids, language));
     },
 
     summaries,
+
+    /** Like `summaries`, with each deck in `language` when it's been translated into it. */
+    async summariesIn(ids: string[], language: DeckLanguage | undefined): Promise<DeckSummary[]> {
+      return summaries(await inLanguage(ids, language));
+    },
+
+    /**
+     * The deck of this deck's family (its original and the original's translations) written in
+     * `language`, or null when it hasn't been translated into it yet.
+     */
+    async findInLanguage(deckId: string, language: DeckLanguage): Promise<DeckSummary | null> {
+      if (!UUID.test(deckId)) return null;
+      const id = (await repo.familyMembersIn(deps.db, [deckId], language)).get(deckId);
+      if (!id) return null;
+      return (await summaries([id]))[0] ?? null;
+    },
+
+    /** The original a translation of `deckId` is made from, with its cards. Null if unknown or hidden. */
+    async translationSource(deckId: string): Promise<repo.TranslationSource | null> {
+      if (!UUID.test(deckId)) return null;
+      const originalId = await repo.originalIdOf(deps.db, deckId);
+      return originalId ? repo.findTranslationSource(deps.db, originalId) : null;
+    },
+
+    /** Whether `originalId` has a translation into `language`, even one hidden by reports. */
+    async hasTranslation(originalId: string, language: DeckLanguage): Promise<boolean> {
+      return (await repo.findTranslationId(deps.db, originalId, language)) !== null;
+    },
+
+    /**
+     * Saves a translation of `source`. If another one was saved meanwhile (two servers, or a
+     * hidden one), that one wins and its id comes back.
+     */
+    async saveTranslatedDeck(
+      source: repo.TranslationSource,
+      deck: GeneratedDeck,
+      meta: { language: DeckLanguage; model: string | null },
+    ): Promise<string> {
+      try {
+        return await deps.db.transaction((tx) =>
+          repo.insertDeck(
+            tx,
+            {
+              slug: slugFor(deck.title),
+              title: deck.title,
+              description: deck.description,
+              themeQuery: source.title,
+              tags: deck.tags,
+              source: 'translation',
+              model: meta.model,
+              coverId: source.coverId,
+              language: meta.language,
+              sourceDeckId: source.id,
+            },
+            deck.cards,
+          ),
+        );
+      } catch (err) {
+        if (!repo.isTranslationExistsViolation(err)) throw err;
+        const existing = await repo.findTranslationId(deps.db, source.id, meta.language);
+        if (!existing) throw err;
+        return existing;
+      }
+    },
 
     /** The cards a room plays with. */
     async getPlayableDeck(deckId: string): Promise<DeckInfo> {
       const deck = UUID.test(deckId) ? await repo.findDeckWithCards(deps.db, deckId) : null;
       if (!deck) throw notFound('Deck');
-      return { id: deck.id, title: deck.title, coverId: deck.coverId, cards: deck.cards };
+      return {
+        id: deck.id,
+        title: deck.title,
+        coverId: deck.coverId,
+        language: deck.language,
+        cards: deck.cards,
+      };
     },
 
     /** Saves an AI-generated deck. Returns its id. */
     async saveGeneratedDeck(
       deck: GeneratedDeck,
-      meta: { theme: string; model: string | null; coverId: DeckCoverId | null },
+      meta: {
+        theme: string;
+        model: string | null;
+        coverId: DeckCoverId | null;
+        language: DeckLanguage;
+      },
     ): Promise<string> {
       return deps.db.transaction((tx) =>
         repo.insertDeck(
@@ -98,6 +191,7 @@ export function createDecksService(deps: { db: Db }) {
             source: 'ai',
             model: meta.model,
             coverId: meta.coverId,
+            language: meta.language,
           },
           deck.cards,
         ),

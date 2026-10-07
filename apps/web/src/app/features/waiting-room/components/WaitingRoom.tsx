@@ -32,6 +32,8 @@ export function WaitingRoom() {
           <DeckChooser
             className="h-[min(42rem,80dvh)]"
             selectedId={view.settings.deckId}
+            currentDeck={view.deck}
+            language={view.settings.language}
             onSelect={(deckId) => sendToRoom({ t: 'room:settings', settings: { deckId } })}
           />
           <RulesPanel view={view} editable>
@@ -80,7 +82,8 @@ function WaitingForHost() {
 /** Start, at the foot of the house rules: the host's last move after setting the room up. */
 function StartButton({ view }: { view: RoomView }) {
   const connected = view.players.filter((p) => p.connected).length;
-  const canStart = connected >= 2 && view.deck !== null;
+  const deckInLanguage = view.deck !== null && view.deck.language === view.settings.language;
+  const canStart = connected >= 2 && deckInLanguage;
 
   return (
     <div className="mt-4 flex flex-col items-center gap-2 border-t-2 border-dashed border-ink/20 pt-4 dark:border-zinc-600">
@@ -93,9 +96,11 @@ function StartButton({ view }: { view: RoomView }) {
         Start game ▶
       </button>
       <p className="text-center font-hand text-lg text-ink/70 dark:text-zinc-300">
-        {connected < 2
-          ? 'Waiting for at least one more player…'
-          : `${connected} players here, up to ~${maxMatchMinutes(view.settings, connected)} min`}
+        {view.deck && !deckInLanguage
+          ? 'Translate the deck, or pick one in the room’s language, to start'
+          : connected < 2
+            ? 'Waiting for at least one more player…'
+            : `${connected} players here, up to ~${maxMatchMinutes(view.settings, connected)} min`}
       </p>
     </div>
   );

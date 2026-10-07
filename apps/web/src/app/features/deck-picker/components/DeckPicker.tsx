@@ -1,5 +1,6 @@
-import type { DeckSummary } from '@pictiotheme/protocol';
+import type { DeckLanguage, DeckSummary } from '@pictiotheme/protocol';
 import { Fragment, useEffect, useId, useRef, useState } from 'react';
+import { LanguageFlag } from '../../../ui/LanguageFlag';
 import { DeckCover } from '../../deck-cover';
 import { RedrawCoverPanel } from '../../generate-deck';
 import { useDeckSearch } from '../api';
@@ -10,7 +11,8 @@ import { topTags } from '../top-tags';
  * waiting room, scrolling inside its panel. Without a search: your generated decks, then the
  * featured (seasonal) curated decks, then the rest, a couple of rows each until "Show all". The
  * category chips (the most shared tags) and the search box match titles and tags across all
- * public decks.
+ * public decks. Decks come in the room's language when they've been translated into it; the
+ * others are marked, and picking one asks to translate it first (DeckChooser).
  */
 
 const SEARCH_DEBOUNCE_MS = 250;
@@ -23,6 +25,8 @@ const CATEGORY_COUNT = 6;
 type Props = {
   curated: DeckSummary[];
   mine: DeckSummary[];
+  /** The room's language. */
+  language: DeckLanguage;
   selectedId: string | null;
   onSelect: (deck: DeckSummary) => void;
 };
@@ -61,7 +65,7 @@ function CategoryChip({
   );
 }
 
-export function DeckPicker({ curated, mine, selectedId, onSelect }: Props) {
+export function DeckPicker({ curated, mine, language, selectedId, onSelect }: Props) {
   const [query, setQuery] = useState('');
   const [tag, setTag] = useState<string | null>(null);
   const [redrawing, setRedrawing] = useState<string | null>(null);
@@ -69,7 +73,7 @@ export function DeckPicker({ curated, mine, selectedId, onSelect }: Props) {
   const [shownBy, setShownBy] = useState<Record<string, number>>({});
   const scroller = useRef<HTMLDivElement>(null);
   const typed = query.trim() !== '';
-  const search = useDeckSearch(useDebounced(tag ?? query, tag ? 0 : SEARCH_DEBOUNCE_MS));
+  const search = useDeckSearch(useDebounced(tag ?? query, tag ? 0 : SEARCH_DEBOUNCE_MS), language);
   const searchId = useId();
   const mineIds = new Set(mine.map((d) => d.id));
   const searching = typed || tag !== null;
@@ -183,6 +187,7 @@ export function DeckPicker({ curated, mine, selectedId, onSelect }: Props) {
                         deck={deck}
                         selected={selectedId === deck.id}
                         mine={mineIds.has(deck.id)}
+                        needsTranslation={deck.language !== language}
                         onSelect={() => onSelect(deck)}
                         onRedraw={() => setRedrawing(deck.id)}
                       />
@@ -220,12 +225,15 @@ function DeckTile({
   deck,
   selected,
   mine,
+  needsTranslation,
   onSelect,
   onRedraw,
 }: {
   deck: DeckSummary;
   selected: boolean;
   mine: boolean;
+  /** Not in the room's language yet: picking it asks to translate it. */
+  needsTranslation: boolean;
   onSelect: () => void;
   onRedraw: () => void;
 }) {
@@ -262,6 +270,16 @@ function DeckTile({
           {counts.easy + counts.medium + counts.hard + counts.silly} cards
           {counts.silly > 0 && ' · 🤪'}
         </span>
+        {needsTranslation && (
+          <span
+            data-testid="needs-translation"
+            title="Not in the room’s language yet: picking it translates it first"
+            className="flex items-center gap-1 text-xs whitespace-nowrap text-pop-purple"
+          >
+            <LanguageFlag language={deck.language} className="h-3" />
+            to translate
+          </span>
+        )}
       </label>
       {mine && (
         <button

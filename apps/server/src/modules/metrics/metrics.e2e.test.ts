@@ -46,7 +46,7 @@ describe('metrics, end to end', () => {
     baseUrl = `http://127.0.0.1:${address.port}`;
     deckId = await createDecksService({ db }).saveGeneratedDeck(
       { title: 'Metrics deck', description: '', tags: ['test'], cards: deckCards() },
-      { theme: 'test', model: null, coverId: null },
+      { theme: 'test', model: null, coverId: null, language: 'en' },
     );
   });
   afterAll(async () => {

@@ -1,5 +1,9 @@
 import type { Logger } from '../lib/logger';
-import type { LlmCompletion, LlmJsonRequest } from '../modules/generation/llm/llm-client';
+import type {
+  LlmClient,
+  LlmCompletion,
+  LlmJsonRequest,
+} from '../modules/generation/llm/llm-client';
 
 /** A logger that drops everything. */
 export function silentLogger(): Logger {
@@ -21,15 +25,54 @@ export function completion(output: unknown, overrides: Partial<LlmCompletion> = 
   };
 }
 
+/** A theme check that lets the theme through (theme-check.ts). */
+export const ACCEPTED_THEME = {
+  writtenIn: 'English',
+  matchesLanguage: true,
+  quality: 4,
+  reason: 'A clear theme.',
+};
+
+/**
+ * Wraps a model client so theme checks get `themeCheck` (accepted by default) and every other
+ * call goes to `llm`. For tests about something else than the check.
+ */
+export function acceptingThemes(
+  llm: LlmClient,
+  themeCheck: LlmCompletion | Error = completion(ACCEPTED_THEME),
+): LlmClient {
+  return {
+    async completeJson(request) {
+      if (request.schema.name !== 'theme_check') return llm.completeJson(request);
+      if (themeCheck instanceof Error) throw themeCheck;
+      return themeCheck;
+    },
+  };
+}
+
 /**
  * The fake `LlmClient` (rule B9): replies with the queued results in order and records
  * each request. A queued Error is thrown instead. CI never calls OpenRouter.
+ *
+ * Theme checks (the quick call before a generation job) are answered apart from the queue, with
+ * `themeCheck` (accepted by default), and recorded in `themeChecks` instead of `requests`.
  */
-export function fakeLlm(replies: Array<LlmCompletion | Error>) {
+export function fakeLlm(
+  replies: Array<LlmCompletion | Error>,
+  options: { themeCheck?: LlmCompletion | Error } = {},
+) {
   const requests: LlmJsonRequest[] = [];
+  const themeChecks: LlmJsonRequest[] = [];
   return {
     requests,
+    themeChecks,
     async completeJson(request: LlmJsonRequest): Promise<LlmCompletion> {
+      if (request.schema.name === 'theme_check') {
+        themeChecks.push(request);
+        const reply = options.themeCheck ?? completion(ACCEPTED_THEME);
+        if (reply instanceof Error) throw reply;
+        return reply;
+      }
       requests.push(request);
       const reply = replies.shift();
       if (!reply) throw new Error('fakeLlm: no reply queued');

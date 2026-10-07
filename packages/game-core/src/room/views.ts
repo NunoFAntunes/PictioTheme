@@ -29,7 +29,7 @@ export function publicPlayers(state: RoomState): PublicPlayer[] {
 
 /** What players see of a deck: never its cards. */
 export function roomDeck(deck: DeckInfo): RoomDeck {
-  return { id: deck.id, title: deck.title, coverId: deck.coverId };
+  return { id: deck.id, title: deck.title, coverId: deck.coverId, language: deck.language };
 }
 
 export function toOption(card: {

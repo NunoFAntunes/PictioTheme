@@ -185,6 +185,15 @@ function requestStart(c: Ctx, playerId: PlayerId): void {
     sendError(c, playerId, 'DECK_NOT_READY', 'The deck is still loading');
     return;
   }
+  if (deck.language !== state.settings.language) {
+    sendError(
+      c,
+      playerId,
+      'DECK_LANGUAGE_MISMATCH',
+      "The deck isn't in the room's language yet. Translate it or pick another deck",
+    );
+    return;
+  }
   const pool = buildCardPool(deck.cards, state.settings, c.rng);
   if (pool.remaining.length === 0) {
     sendError(c, playerId, 'DECK_NOT_READY', 'No cards match the selected difficulties');

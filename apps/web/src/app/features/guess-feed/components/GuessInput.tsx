@@ -1,5 +1,5 @@
 import { CHAT_MAX_LENGTH, GUESS_MAX_LENGTH } from '@pictiotheme/protocol';
-import { useState, type SubmitEvent } from 'react';
+import { useRef, useState, type SubmitEvent } from 'react';
 import { drawerIdOf, playerById, sendToRoom, useRoomStore } from '../../../realtime';
 
 type Mode = 'guess' | 'solved-chat' | 'chat' | 'drawing';
@@ -12,6 +12,11 @@ export function GuessInput() {
   const view = useRoomStore((s) => s.view);
   const open = useRoomStore((s) => s.connection.kind === 'open');
   const [text, setText] = useState('');
+  /**
+   * True while an IME composes (Japanese, Chinese, Korean): the Enter that confirms the text isn't
+   * a send. Cleared a tick after compositionend, because Safari sends that Enter right after it.
+   */
+  const composing = useRef(false);
   if (!view) return null;
 
   const drawing = view.phase.kind === 'drawing' && !view.paused;
@@ -49,6 +54,13 @@ export function GuessInput() {
         maxLength={maxLength}
         disabled={mode === 'drawing' || !open}
         onChange={(e) => setText(e.target.value)}
+        onCompositionStart={() => (composing.current = true)}
+        onCompositionEnd={() => setTimeout(() => (composing.current = false))}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && (composing.current || e.nativeEvent.isComposing)) {
+            e.preventDefault();
+          }
+        }}
         placeholder={placeholder}
         autoComplete="off"
         className="min-w-0 flex-1 rounded-lg border border-zinc-300 bg-transparent px-3 py-2 disabled:opacity-50 dark:border-zinc-700"

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { DEFAULT_DECK_LANGUAGE, DeckLanguage } from './language';
 
 export const Difficulty = z.enum(['easy', 'medium', 'hard']);
 export type Difficulty = z.infer<typeof Difficulty>;
@@ -41,6 +42,11 @@ export const DeckGenerationRequest = z.object({
     .refine((d) => new Set(d).size === d.length, 'Difficulties must be unique'),
   /** Whether to generate the silly pool too. */
   silly: z.boolean(),
+  /**
+   * What the deck is written in: the room's language. A rule for the model, and the theme and
+   * notes must be written in it too (ai-deck-pipeline.md#theme-check).
+   */
+  language: DeckLanguage.default(DEFAULT_DECK_LANGUAGE),
 });
 export type DeckGenerationRequest = z.infer<typeof DeckGenerationRequest>;
 

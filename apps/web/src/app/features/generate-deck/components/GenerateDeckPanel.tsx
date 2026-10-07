@@ -1,14 +1,17 @@
+import { deckLanguageInfo } from '@pictiotheme/game-core';
 import {
   DECK_NOTES_MAX,
   DECK_THEME_MAX,
   DECK_THEME_MIN,
   type DeckCoverImage,
+  type DeckLanguage,
   type DeckSummary,
   type Difficulty,
   type GenerationStatus,
 } from '@pictiotheme/protocol';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
+import { LanguageFlag } from '../../../ui/LanguageFlag';
 import { isBlank } from '../../canvas';
 import { CoverPad, DeckCover, drawingToCover } from '../../deck-cover';
 import { useGenerationConfig, useGenerationJob, useSetCover, useStartGeneration } from '../api';
@@ -16,7 +19,9 @@ import { useGenerationConfig, useGenerationJob, useSetCover, useStartGeneration 
 /**
  * "Generate a deck" (user-flows.md §8, without the review step for now): a short form, then,
  * while the server makes the deck (~1 minute), the creator draws the deck's back cover. The new
- * deck is handed back once it's published and the cover is saved or skipped.
+ * deck is handed back once it's published and the cover is saved or skipped. The deck is in the
+ * room's language, and the theme must be written in it: the server checks the theme first and
+ * refuses one in another language, or one too unclear for a deck (ai-deck-pipeline.md#theme-check).
  */
 
 const DIFFICULTIES: { value: Difficulty; label: string }[] = [
@@ -95,12 +100,16 @@ function StatusLine({
 }
 
 export function GenerateDeckPanel({
+  language,
   onGenerated,
   onCancel,
 }: {
+  /** The room's language: the deck is written in it. */
+  language: DeckLanguage;
   onGenerated: (deck: DeckSummary) => void;
   onCancel: () => void;
 }) {
+  const languageInfo = deckLanguageInfo(language);
   const start = useStartGeneration();
   const daily = useGenerationConfig().data?.daily ?? null;
   const usedUp = daily !== null && daily.remaining === 0;
@@ -185,7 +194,7 @@ export function GenerateDeckPanel({
   function generate() {
     if (!valid || start.isPending) return;
     start.mutate(
-      { theme: theme.trim(), notes: notes.trim(), difficulties, silly },
+      { theme: theme.trim(), notes: notes.trim(), difficulties, silly, language },
       {
         onSuccess: (started) => {
           setJobId(started.id);
@@ -232,7 +241,7 @@ export function GenerateDeckPanel({
               disabled={start.isPending}
               className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-50"
             >
-              {start.isPending ? 'Starting…' : 'Try again'}
+              {start.isPending ? 'Checking your theme…' : 'Try again'}
             </button>
           </div>
         )}
@@ -303,6 +312,14 @@ export function GenerateDeckPanel({
       <h3 id={headingId} className="font-semibold">
         ✨ Generate a deck
       </h3>
+      <p
+        data-testid="generation-language"
+        className="flex flex-wrap items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-300"
+      >
+        Cards in <LanguageFlag language={language} className="h-3.5" label={false} />
+        <span className="font-medium text-ink dark:text-zinc-100">{languageInfo.native}</span>
+        {language !== 'en' && <span>· write the theme in {languageInfo.name} too</span>}
+      </p>
       <label htmlFor={themeId} className="flex flex-col gap-1 text-sm font-medium">
         Theme
         <input
@@ -380,7 +397,7 @@ export function GenerateDeckPanel({
           disabled={!valid || start.isPending}
           className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-50"
         >
-          {start.isPending ? 'Starting…' : 'Generate'}
+          {start.isPending ? 'Checking your theme…' : 'Generate'}
         </button>
       </div>
     </div>

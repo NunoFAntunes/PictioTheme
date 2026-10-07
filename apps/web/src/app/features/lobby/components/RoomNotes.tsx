@@ -1,4 +1,5 @@
 import type { PublicRoomSummary } from '@pictiotheme/protocol';
+import { LanguageFlag } from '../../../ui/LanguageFlag';
 import { BoilFilters } from '../../player-list';
 import { usePublicRooms } from '../api';
 
@@ -50,9 +51,12 @@ function RoomNote({ room, index }: { room: PublicRoomSummary; index: number }) {
   const body = (
     <>
       <span className="line-clamp-1 font-bold leading-tight">{room.name}</span>
-      <span className="line-clamp-1 text-sm text-ink/70">
-        {room.deckTitle ?? 'Choosing a deck'}
-        {room.silly && ' 🤪'}
+      <span className="flex items-center gap-1.5 text-sm text-ink/70">
+        {room.language !== 'en' && <LanguageFlag language={room.language} className="h-3" />}
+        <span className="line-clamp-1">
+          {room.deckTitle ?? 'Choosing a deck'}
+          {room.silly && ' 🤪'}
+        </span>
       </span>
       {/* The room's most-liked drawing, cut out, boiling like the players (game-rules.md). */}
       <span className="flex min-h-0 flex-1 items-center justify-center">

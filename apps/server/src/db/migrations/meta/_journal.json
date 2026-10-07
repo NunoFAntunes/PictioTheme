@@ -64,6 +64,20 @@
       "when": 1791129621603,
       "tag": "0008_metrics",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1791335849761,
+      "tag": "0009_deck_languages",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1791337532566,
+      "tag": "0010_theme_checks",
+      "breakpoints": true
     }
   ]
 }

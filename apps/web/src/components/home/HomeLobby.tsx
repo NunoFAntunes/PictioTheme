@@ -5,6 +5,7 @@ import { JoinRoomForm } from '../../app/features/join-room';
 import { RoomNotes, useCreateRoom, useQuickPlay } from '../../app/features/lobby';
 import { isThisDeviceAPhone } from '../../app/lib/device';
 import type { Identity } from '../../app/lib/identity';
+import { loadRoomLanguage } from '../../app/lib/room-language';
 import { DOODLE_BUTTON, WOBBLE } from '../../app/ui/hand-drawn';
 import { BoltIcon, LockIcon } from '../../app/ui/ScribbleIcons';
 
@@ -68,14 +69,24 @@ function Actions({ identity }: { identity: Identity | null }) {
   function onQuickPlay() {
     if (!identity) return;
     const { displayName, avatar } = identity;
-    quickPlay.mutate({ displayName, avatar }, { onSuccess: (room) => enterRoom(room.code) });
+    // Rooms in the language this browser last played in (picked on a room card).
+    quickPlay.mutate(
+      { displayName, avatar, language: loadRoomLanguage() },
+      { onSuccess: (room) => enterRoom(room.code) },
+    );
   }
 
   function onNewRoom() {
     if (!identity) return;
     const { displayName, avatar } = identity;
     createRoom.mutate(
-      { displayName, avatar, name: `${displayName}'s room`, isPublic: false },
+      {
+        displayName,
+        avatar,
+        name: `${displayName}'s room`,
+        isPublic: false,
+        language: loadRoomLanguage(),
+      },
       { onSuccess: (room) => enterRoom(room.code) },
     );
   }

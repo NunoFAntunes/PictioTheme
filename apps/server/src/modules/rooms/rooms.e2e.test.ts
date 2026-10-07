@@ -81,6 +81,20 @@ describe('quick play and the lobby list, end to end', () => {
     expect((lobby.body as { online: number }).online).toBe(5);
   });
 
+  it("only quick-plays into rooms in the player's language, else opens one in it", async () => {
+    const [ana, bo, cy] = await Promise.all([player(), player(), player()]);
+    const english = await ana.createRoom('Ana', true);
+    await enter(ana, english.joinToken);
+
+    const german = await bo.quickPlay('Bo', 'de');
+    expect(german.code).not.toBe(english.code);
+    const boSocket = await bo.connect(german.joinToken);
+    sockets.push(boSocket);
+    expect((await boSocket.next('room:snapshot')).settings.language).toBe('de');
+
+    expect((await cy.quickPlay('Cy', 'de')).code).toBe(german.code);
+  });
+
   it('joins a match in progress when no public room is waiting', async () => {
     const [ana, bo, cy] = await Promise.all([player(), player(), player()]);
     const match = await ana.createRoom('Ana', true);

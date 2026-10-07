@@ -30,7 +30,7 @@ describe('deck reports over HTTP', () => {
           { text: 'Ghost', difficulty: 'easy', silly: false, alternates: [], keywords: ['ghost'] },
         ],
       },
-      { theme: 'x', model: null, coverId: null },
+      { theme: 'x', model: null, coverId: null, language: 'en' },
     );
   });
   afterAll(async () => {

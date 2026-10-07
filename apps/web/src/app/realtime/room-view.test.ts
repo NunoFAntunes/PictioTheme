@@ -33,7 +33,7 @@ function snapshot(overrides: Partial<Extract<ServerMessage, { t: 'room:snapshot'
     phase: { kind: 'waiting' },
     paused: null,
     round: 0,
-    deck: { id: 'd', title: 'Deck', coverId: null },
+    deck: { id: 'd', title: 'Deck', coverId: null, language: 'en' },
     strokes: [],
     likers: [],
     secret: {},

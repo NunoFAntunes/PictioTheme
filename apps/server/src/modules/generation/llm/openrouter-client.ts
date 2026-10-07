@@ -78,7 +78,9 @@ export function createOpenRouterClient(options: OpenRouterOptions): LlmClient {
           // Never send user themes to providers that may train on them.
           data_collection: 'deny',
         },
-        reasoning: { effort: 'medium' },
+        ...(request.reasoningEffort !== null && {
+          reasoning: { effort: request.reasoningEffort ?? 'medium' },
+        }),
         max_tokens: request.maxTokens,
         usage: { include: true },
       };

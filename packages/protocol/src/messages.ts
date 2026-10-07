@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { DeckCoverId, Difficulty } from './deck';
+import { DeckLanguage } from './language';
 import { DrawBegin, DrawFill, Points, Stroke, StrokeId } from './drawing';
 import { ErrorCode } from './errors';
 import {
@@ -137,6 +138,8 @@ export const RoomDeck = z.object({
   id: z.string(),
   title: z.string(),
   coverId: DeckCoverId.nullable(),
+  /** What its cards are written in. Differs from `settings.language` until the host translates it. */
+  language: DeckLanguage,
 });
 export type RoomDeck = z.infer<typeof RoomDeck>;
 

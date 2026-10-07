@@ -151,3 +151,14 @@ Overall constraint behind all of them: **hosting cost as close to zero as possib
 
 **Revisit when:** other languages arrive (the dataset is English only), or false positives show up in real chat.
 
+## D10 — Deck languages: translations as decks of their own, checked by the model
+
+**Date:** 2026-10-07 · **Status:** accepted
+
+**Decision:** A room has a language (`settings.language`) and every deck has one (`decks.language`). A translation is its own `decks` row pointing at its original (`source_deck_id`, unique per original and language), always translated from the original, made once by an AI job and shared by every later room. A match starts only with a deck in the room's language (game-core). Generation makes the language a rule in the static prompt and drops cards outside the language's script; a quick model call (the theme check) refuses themes written in another language or too unclear for a deck, before the job exists. 27 languages, chosen for the model's quality and for scripts the game handles; flags are SVGs (`country-flag-icons`), not emoji.
+
+**Alternatives:** translated texts as columns or a JSON map on `cards` (one row per card, but stats, votes, reports and dedupe are all per deck and the card counts differ per language once cards are dropped); translating on the fly per room (pays for the same translation again and again, and a minute's wait every time); a local language detector instead of the theme check (unreliable on two-word themes, and can't tell "Pokémon" is neutral); asking the generator to grade its own deck (a weak signal; the pool counts already fail thin decks); free-text languages (the model's quality and our script handling vary too much to promise).
+
+**Consequences:** the theme check fails open when its reply can't be read (generation still has its guardrails); it isn't counted in the daily budget. The profanity filter (D9) and plural folding are still English-only, so other languages lean on the model's guardrails and alternates. Translations keep the original's cover as it was when translated, and are reported and hidden on their own.
+
+**Revisit when:** players ask for a language we left out (RTL and combining-mark scripts need hint/mask work first), cards in other languages get poor guess rates in card stats, or curated decks should get hand-checked translations.

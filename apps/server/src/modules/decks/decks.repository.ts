@@ -1,5 +1,11 @@
-import type { Card, DeckSummary } from '@pictiotheme/protocol';
+import {
+  DEFAULT_DECK_LANGUAGE,
+  type Card,
+  type DeckLanguage,
+  type DeckSummary,
+} from '@pictiotheme/protocol';
 import { and, asc, count, eq, inArray, isNull, ne, notInArray, sql } from 'drizzle-orm';
+import { alias } from 'drizzle-orm/pg-core';
 import type { DbExecutor } from '../../db/client';
 import { cardVotes, cards, deckCovers, deckReports, decks } from '../../db/schema';
 
@@ -16,10 +22,13 @@ export type NewDeck = {
   description: string;
   themeQuery: string;
   tags: string[];
-  source: 'ai' | 'curated' | 'remix';
+  source: 'ai' | 'curated' | 'remix' | 'translation';
   model: string | null;
   coverId: string | null;
   featuredRank?: number | null;
+  language: DeckLanguage;
+  /** For a translation: the original deck. */
+  sourceDeckId?: string | null;
 };
 
 export async function insertDeck(
@@ -48,9 +57,20 @@ export async function insertDeck(
 export async function findDeckWithCards(
   db: DbExecutor,
   id: string,
-): Promise<{ id: string; title: string; coverId: string | null; cards: Card[] } | null> {
+): Promise<{
+  id: string;
+  title: string;
+  coverId: string | null;
+  language: DeckLanguage;
+  cards: Card[];
+} | null> {
   const [deck] = await db
-    .select({ id: decks.id, title: decks.title, coverId: shownCoverId })
+    .select({
+      id: decks.id,
+      title: decks.title,
+      coverId: shownCoverId,
+      language: sql<DeckLanguage>`${decks.language}`,
+    })
     .from(decks)
     .where(and(eq(decks.id, id), visible))
     .limit(1);
@@ -90,6 +110,14 @@ export async function deckSummaries(db: DbExecutor, ids: string[]): Promise<Deck
       tags: decks.tags,
       coverId: shownCoverId,
       featuredRank: decks.featuredRank,
+      language: decks.language,
+      // The original's language and its visible translations', original first.
+      languages: sql<DeckLanguage[]>`array(
+        select f.language from decks f
+        where f.visibility <> 'hidden'
+          and (f.id = coalesce(${decks.sourceDeckId}, ${decks.id})
+            or f.source_deck_id = coalesce(${decks.sourceDeckId}, ${decks.id}))
+        order by f.source_deck_id nulls first, f.language)`,
       easy: count(sql`not ${cards.isSilly} and ${cards.difficulty} = 'easy'`),
       medium: count(sql`not ${cards.isSilly} and ${cards.difficulty} = 'medium'`),
       hard: count(sql`not ${cards.isSilly} and ${cards.difficulty} = 'hard'`),
@@ -106,6 +134,8 @@ export async function deckSummaries(db: DbExecutor, ids: string[]): Promise<Deck
     tags: r.tags,
     coverId: r.coverId,
     featured: r.featuredRank !== null,
+    language: r.language as DeckLanguage,
+    languages: r.languages,
     counts: { easy: r.easy, medium: r.medium, hard: r.hard, silly: r.silly },
   }));
 }
@@ -236,6 +266,7 @@ export async function upsertCuratedDeck(
         model: null,
         coverId: null,
         featuredRank: deck.featuredRank,
+        language: DEFAULT_DECK_LANGUAGE,
       },
       deck.cards,
     );
@@ -471,4 +502,120 @@ export async function searchDeckIds(db: DbExecutor, q: string, limit: number): P
     )
     .limit(limit);
   return rows.map((r) => r.id);
+}
+
+// ── Languages and translations (docs/product/decks.md#languages) ──
+
+const original = alias(decks, 'original');
+const translation = alias(decks, 'translation');
+
+/**
+ * For each deck id, the deck of the same family (its original and the original's translations)
+ * written in `language`, or null if there's none. Hidden decks don't count.
+ */
+export async function familyMembersIn(
+  db: DbExecutor,
+  ids: string[],
+  language: DeckLanguage,
+): Promise<Map<string, string | null>> {
+  if (ids.length === 0) return new Map();
+  const rows = await db
+    .select({
+      id: decks.id,
+      originalId: original.id,
+      originalLanguage: original.language,
+      translationId: translation.id,
+    })
+    .from(decks)
+    .innerJoin(original, eq(original.id, sql`coalesce(${decks.sourceDeckId}, ${decks.id})`))
+    .leftJoin(
+      translation,
+      and(
+        eq(translation.sourceDeckId, original.id),
+        eq(translation.language, language),
+        ne(translation.visibility, 'hidden'),
+      ),
+    )
+    .where(inArray(decks.id, ids));
+  return new Map(
+    rows.map((r) => [
+      r.id,
+      r.originalLanguage === language ? r.originalId : (r.translationId ?? null),
+    ]),
+  );
+}
+
+/** The original of a deck's family (itself for an original), or null when there's no such deck. */
+export async function originalIdOf(db: DbExecutor, id: string): Promise<string | null> {
+  const [row] = await db
+    .select({ originalId: sql<string>`coalesce(${decks.sourceDeckId}, ${decks.id})` })
+    .from(decks)
+    .where(eq(decks.id, id))
+    .limit(1);
+  return row?.originalId ?? null;
+}
+
+export type TranslationSource = {
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
+  language: DeckLanguage;
+  /** The drawn cover the translation starts with (a hidden cover is not carried over). */
+  coverId: string | null;
+  cards: Card[];
+};
+
+/** A visible original deck with everything a translation needs. `id` must be a uuid. */
+export async function findTranslationSource(
+  db: DbExecutor,
+  id: string,
+): Promise<TranslationSource | null> {
+  const [deck] = await db
+    .select({
+      id: decks.id,
+      title: decks.title,
+      description: decks.description,
+      tags: decks.tags,
+      language: decks.language,
+      coverId: shownCoverId,
+    })
+    .from(decks)
+    .where(and(eq(decks.id, id), isNull(decks.sourceDeckId), visible))
+    .limit(1);
+  if (!deck) return null;
+  const withCards = await findDeckWithCards(db, id);
+  return {
+    ...deck,
+    description: deck.description ?? '',
+    language: deck.language as DeckLanguage,
+    cards: withCards?.cards ?? [],
+  };
+}
+
+/** Postgres unique_violation on decks_translation_unique: someone saved this translation first. */
+export function isTranslationExistsViolation(err: unknown): boolean {
+  const cause = err instanceof Error && 'cause' in err ? err.cause : err;
+  return (
+    typeof cause === 'object' &&
+    cause !== null &&
+    'code' in cause &&
+    cause.code === '23505' &&
+    'constraint' in cause &&
+    cause.constraint === 'decks_translation_unique'
+  );
+}
+
+/** The translation of `originalId` into `language`, any visibility, so a hidden one isn't made again. */
+export async function findTranslationId(
+  db: DbExecutor,
+  originalId: string,
+  language: DeckLanguage,
+): Promise<string | null> {
+  const [row] = await db
+    .select({ id: decks.id })
+    .from(decks)
+    .where(and(eq(decks.sourceDeckId, originalId), eq(decks.language, language)))
+    .limit(1);
+  return row?.id ?? null;
 }

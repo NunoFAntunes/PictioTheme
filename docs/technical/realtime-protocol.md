@@ -10,7 +10,7 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 
 | Type | Payload | Who | Notes |
 |---|---|---|---|
-| `room:settings` | partial settings | host | Waiting phase only (except visibility/hints) |
+| `room:settings` | partial settings | host | Waiting phase only (except visibility/hints). Includes `language`, the room's language (decks.md#languages); the host's client sends it together with the deck's translation into that language, when one exists |
 | `room:details` | `name?, isPublic?` | host | Any time. Names are 2–40 characters and profanity-checked (`VALIDATION` error otherwise); a public room is listed on the home page |
 | `room:start` | — | host | ≥ 2 players |
 | `room:kick` | `playerId` | host | |
@@ -39,7 +39,7 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 | `turn:likes` | `likers` | After every like or unlike. Cleared by the client at the next turn; the snapshot carries `likers` too |
 | `cover:request` | `turn` | To the drawer only, as the reveal ends, when their drawing has strictly more likes than the room's cover. The client paints the stroke model off screen right away (before the next turn clears it), cuts it out and sends it: `PUT /api/rooms/:code/cover` with `{ turn, image }` (320×240 PNG). Stale uploads get `{ accepted: false }` |
 | `room:details` | `name, isPublic` | After the host renames the room or switches public/private |
-| `room:settings` | `settings, deck` | `deck` (`{ id, title, coverId }`, `coverId` null for the default cover) is `null` while a newly picked deck loads |
+| `room:settings` | `settings, deck` | `deck` (`{ id, title, coverId, language }`, `coverId` null for the default cover) is `null` while a newly picked deck loads. `room:start` answers `DECK_LANGUAGE_MISMATCH` while `deck.language` differs from `settings.language` |
 | `room:paused` | `paused: 'host' \| 'players' \| null` | `players`: auto-pause when only one player is left |
 | `room:notice` | `code, playerId?, count?, needed?` | `pool_reshuffled`, `player_kicked`, `vote_kick` (progress), `host_changed`, `deck_unavailable` |
 | `phase:choosing` | `drawerId, round, endsAt` (+ `options` **only to drawer**) | |

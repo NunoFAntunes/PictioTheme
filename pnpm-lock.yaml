@@ -287,6 +287,9 @@ importers:
       astro:
         specifier: ^7.3.5
         version: 7.3.5(@types/node@24.19.1)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)
+      country-flag-icons:
+        specifier: ^1.6.20
+        version: 1.6.20
       perfect-freehand:
         specifier: ^1.2.3
         version: 1.2.3
@@ -2187,6 +2190,9 @@ packages:
   cookie@2.0.1:
     resolution: {integrity: sha512-yuToqVvRrj6pfDXREyQAAv8SkAEk/8GS3jQRTiUMm66TVtBYmqQeoEjL2Lmq8Rpo6271vH76InTChTitEAm65w==}
     engines: {node: '>=22'}
+
+  country-flag-icons@1.6.20:
+    resolution: {integrity: sha512-py8JiEKzjhYw6HPJ0L7SxLgCYim36UPRTZX43/kqGueUCZLSvnrqAiwW8HtQibur7mdkFQUkjOgdK+o/9FBtaw==}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -5595,6 +5601,8 @@ snapshots:
   cookie@1.1.1: {}
 
   cookie@2.0.1: {}
+
+  country-flag-icons@1.6.20: {}
 
   cross-spawn@7.0.6:
     dependencies:

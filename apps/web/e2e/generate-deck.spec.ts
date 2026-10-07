@@ -30,13 +30,17 @@ const DECK: DeckSummary = {
   tags: ['pirates'],
   coverId: null,
   featured: false,
+  language: 'en',
+  languages: ['en'],
   counts: { easy: 40, medium: 40, hard: 30, silly: 40 },
 };
 
 const job = (status: GenerationJob['status']): GenerationJob => ({
   id: '0190a000-0000-7000-8000-000000000001',
+  kind: 'generate',
   status,
   theme: 'pirates',
+  language: 'en',
   error: null,
   deck: status === 'published' ? DECK : null,
   createdAt: new Date().toISOString(),
@@ -65,7 +69,7 @@ test('generate a deck, draw its cover while waiting, and it becomes the selected
     cover.image = (route.request().postDataJSON() as { image: string }).image;
     return route.fulfill({ json: job('running') });
   });
-  await page.route('**/api/decks/mine', (route) =>
+  await page.route('**/api/decks/mine*', (route) =>
     route.fulfill({
       json: { decks: published ? [{ ...DECK, coverId: cover.image ? COVER_ID : null }] : [] },
     }),
@@ -115,6 +119,7 @@ test('generate a deck, draw its cover while waiting, and it becomes the selected
     notes: '',
     difficulties: ['easy', 'medium'],
     silly: true,
+    language: 'en',
   });
   await expect(page.getByRole('radio', { name: /Pirate Party/ })).toHaveValue(DECK.id);
   await expect(page.getByRole('button', { name: /generate a deck/i })).toBeVisible();
@@ -122,7 +127,7 @@ test('generate a deck, draw its cover while waiting, and it becomes the selected
 
 test('redraw the cover of one of your decks', async ({ page }) => {
   const cover: { image?: string } = {};
-  await page.route('**/api/decks/mine', (route) =>
+  await page.route('**/api/decks/mine*', (route) =>
     route.fulfill({ json: { decks: [{ ...DECK, coverId: cover.image ? COVER_ID : null }] } }),
   );
   await page.route(`**/api/decks/${DECK.id}/cover`, (route) => {
@@ -174,7 +179,7 @@ test('a deck that finishes first waits for the cover to be finished or skipped',
   await page.route('**/api/decks/generations/*-*', (route) =>
     route.fulfill({ json: job(published ? 'published' : 'running') }),
   );
-  await page.route('**/api/decks/mine', (route) =>
+  await page.route('**/api/decks/mine*', (route) =>
     route.fulfill({ json: { decks: published ? [DECK] : [] } }),
   );
 
