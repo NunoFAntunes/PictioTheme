@@ -1,10 +1,10 @@
 import { expect, test } from '@playwright/test';
-import { canvasHasInk, followInvite, hostRoom, newPlayerPage } from './support';
+import { DRAWER, canvasHasInk, followInvite, hostRoom, newPlayerPage } from './support';
 
 /** Two players in separate browser contexts play one turn through the real UI. */
 
 test('two players create, join, draw and guess', async ({ browser }) => {
-  const host = await newPlayerPage(browser);
+  const host = await newPlayerPage(browser, DRAWER);
   const guest = await newPlayerPage(browser);
 
   // Host: name, then one click for a private room with the default deck.

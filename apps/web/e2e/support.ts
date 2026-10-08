@@ -62,9 +62,16 @@ export function canvasHasInk(page: Page): Promise<boolean> {
   });
 }
 
+/**
+ * Options for the page of a player who will pick a card. The pick has only 10s before the server
+ * picks one itself, and on a busy CI runner the card table's shuffle, deal and flip took most of
+ * that (each click waited seconds for the cards to stop moving). Reduced motion skips them.
+ */
+export const DRAWER: BrowserContextOptions = { reducedMotion: 'reduce' };
+
 /** Host creates a room, a guest joins by invite link, the host starts and picks a card. */
 export async function startTurn(browser: Browser): Promise<{ host: Page; guest: Page }> {
-  const host = await newPlayerPage(browser);
+  const host = await newPlayerPage(browser, DRAWER);
   const guest = await newPlayerPage(browser);
 
   const code = await hostRoom(host, 'Ana');

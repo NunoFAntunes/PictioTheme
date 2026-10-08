@@ -38,9 +38,10 @@ test('shows the logo and gives a first-time visitor a silly name, no form', asyn
   await page.goto('/');
   await expect(page).toHaveTitle(/^DoodleWhirl!/);
   await expect(page.getByRole('heading', { level: 1, name: 'DoodleWhirl!' })).toBeVisible();
-  await expect(
-    page.getByRole('button', { name: /^Playing as [A-Z][a-z]+ [A-Z][a-z]+/ }),
-  ).toBeVisible();
+  const chip = page.getByRole('button', { name: /^Playing as [A-Z][a-z]+ [A-Z][a-z]+/ });
+  await expect(chip).toBeVisible();
+  // Still a plain letter: an arrow asks them to draw themselves.
+  await expect(chip).toHaveAccessibleDescription(/Introduce yourself/);
   await expect(page.getByRole('textbox', { name: 'Your name', exact: true })).toBeHidden();
 });
 

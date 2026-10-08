@@ -39,7 +39,8 @@ test('a liked drawing becomes the cover of a public room on the home page', asyn
   await expect(host.getByText('1 person likes your drawing')).toBeVisible();
 
   // Skip to the reveal; as it ends, Ana's browser sends the picture.
-  await host.getByRole('button', { name: '⏭ Skip' }).click();
+  await host.getByRole('button', { name: 'Manage room' }).click();
+  await host.getByRole('button', { name: 'Skip' }).click();
   await expect
     .poll(async () => (await host.request.get(`/api/rooms/${code}/cover`)).status(), {
       timeout: 15_000,

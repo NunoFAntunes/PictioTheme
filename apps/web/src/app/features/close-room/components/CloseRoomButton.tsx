@@ -1,11 +1,11 @@
 import { sendToRoom, useRoomStore } from '../../../realtime';
 import { ConfirmNote } from '../../../ui/ConfirmNote';
 import { PaperBall } from '../../../ui/PaperBall';
-import { STICKER_BUTTON } from '../../../ui/room-frame';
+import { sticker } from '../../../ui/room-frame';
 import { crumpleRoom } from '../crumple-store';
 
 /** The host's "Close room": asks on a note, then the room is crumpled up and kicked away. */
-export function CloseRoomButton() {
+export function CloseRoomButton({ className = sticker(0) }: { className?: string }) {
   const open = useRoomStore((s) => s.connection.kind === 'open');
   return (
     <ConfirmNote
@@ -15,7 +15,7 @@ export function CloseRoomButton() {
           Close room
         </>
       }
-      className={`${STICKER_BUTTON} hover:bg-pop-tomato`}
+      className={`${className} hover:bg-pop-tomato`}
       title="Close the room?"
       cancelLabel="Keep it open"
       confirmLabel={

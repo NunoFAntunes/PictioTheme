@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
-import { IdentityChip, useEnsureIdentity } from '../../app/features/identity';
+import { IdentityChip, hasGeneratedAvatar, useEnsureIdentity } from '../../app/features/identity';
 import { JoinRoomForm } from '../../app/features/join-room';
 import { RoomNotes, useCreateRoom, useQuickPlay } from '../../app/features/lobby';
 import { isThisDeviceAPhone } from '../../app/lib/device';
@@ -49,8 +49,9 @@ function Lobby() {
   return (
     <div className="flex flex-col gap-10">
       {identity && (
-        <div className="absolute -top-16 left-0">
-          <IdentityChip identity={identity} />
+        <div className="absolute -top-16 left-6 sm:left-8">
+          {/* Still a plain letter: an arrow asks you to introduce yourself. */}
+          <IdentityChip identity={identity} nudge={hasGeneratedAvatar(identity)} />
         </div>
       )}
       <Actions identity={identity} />

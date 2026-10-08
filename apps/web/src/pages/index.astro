@@ -12,6 +12,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="DoodleWhirl! · Draw it. Guess it. Theme it." fluidRoot>
   <!-- Preload only Latin: the font's ~50 Japanese chunks download only if such text appears. -->
   <Font slot="head" cssVariable="--font-cherry-bomb" preload={[{ subset: 'latin' }]} />
+  <!-- The handwriting of the "you" sticker and its "introduce yourself" note. -->
+  <Font slot="head" cssVariable="--font-gochi-hand" />
   <!-- Back from a room, the logo and paper morph into place: skip the intro (global.css, intro:). -->
   <script slot="head" is:inline>
     addEventListener('pagereveal', (event) => {

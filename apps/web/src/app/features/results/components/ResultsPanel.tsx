@@ -4,7 +4,7 @@ import { amHost, playerById, sendToRoom, useRoomStore } from '../../../realtime'
 import { Avatar } from '../../avatar';
 import { DeckCover } from '../../deck-cover';
 import { ReportDeckButton } from '../../report-deck';
-import { RoomSettingsForm, RoomTitle } from '../../waiting-room';
+import { WaitingRoom } from '../../waiting-room';
 
 const AWARD_LABEL: Record<Award['id'], string> = {
   fastest_guesser: '⚡ Fastest guesser',
@@ -19,6 +19,8 @@ export function ResultsPanel() {
   if (view?.phase.kind !== 'results') return null;
   const { ranking, awards } = view.phase;
   const host = amHost(view);
+  // The host sets up the next match on the waiting room's own screen: deck library and rules.
+  if (editing && host) return <WaitingRoom onBack={() => setEditing(false)} />;
   const ranked = ranking.flatMap((id) => {
     const player = playerById(view, id);
     return player ? [player] : [];
@@ -60,12 +62,6 @@ export function ResultsPanel() {
           ))}
         </ul>
       )}
-      {editing && host && (
-        <div className="flex w-full flex-col gap-4 rounded-2xl border border-zinc-200 p-4 dark:border-zinc-800">
-          <RoomTitle name={view.name} isPublic={view.isPublic} editable />
-          <RoomSettingsForm view={view} editable />
-        </div>
-      )}
       <div className="flex flex-wrap justify-center gap-3">
         {host && (
           <>
@@ -78,10 +74,10 @@ export function ResultsPanel() {
             </button>
             <button
               type="button"
-              onClick={() => setEditing((e) => !e)}
+              onClick={() => setEditing(true)}
               className="rounded-full border border-zinc-300 px-6 py-2 dark:border-zinc-700"
             >
-              {editing ? 'Hide settings' : 'Change deck & settings'}
+              Change deck & settings
             </button>
           </>
         )}

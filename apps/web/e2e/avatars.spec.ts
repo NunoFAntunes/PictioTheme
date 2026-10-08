@@ -29,6 +29,8 @@ test('a drawn avatar shows in the player list for everyone', async ({ browser })
   const guest = await newPlayerPage(browser);
 
   await nameOnHome(host, 'Ana', scribble);
+  // Ana drew a face, so the arrow asking for one is gone.
+  await expect(host.getByTestId('introduce-yourself')).toHaveCount(0);
   await host.getByRole('button', { name: /new private room/i }).click();
   await expect(host.getByTestId('room-code')).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/);
   const code = (await host.getByTestId('room-code').textContent()) ?? '';

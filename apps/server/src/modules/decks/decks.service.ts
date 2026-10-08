@@ -57,14 +57,21 @@ export function createDecksService(deps: { db: Db }) {
   }
 
   /**
-   * Each deck in `language` when its family has it, otherwise as it is. Several ids of one family
-   * become one deck, at the first one's place.
+   * Each deck in `language` when its family has it, otherwise its family's original (or itself
+   * when that's hidden). Several ids of one family become one deck, at the first one's place.
    */
   async function inLanguage(ids: string[], language: DeckLanguage | undefined): Promise<string[]> {
     const valid = ids.filter((id) => UUID.test(id));
     if (!language) return valid;
     const members = await repo.familyMembersIn(deps.db, valid, language);
-    return [...new Set(valid.map((id) => members.get(id) ?? id))];
+    return [
+      ...new Set(
+        valid.map((id) => {
+          const family = members.get(id);
+          return family?.member ?? family?.original ?? id;
+        }),
+      ),
+    ];
   }
 
   return {
@@ -103,7 +110,7 @@ export function createDecksService(deps: { db: Db }) {
      */
     async findInLanguage(deckId: string, language: DeckLanguage): Promise<DeckSummary | null> {
       if (!UUID.test(deckId)) return null;
-      const id = (await repo.familyMembersIn(deps.db, [deckId], language)).get(deckId);
+      const id = (await repo.familyMembersIn(deps.db, [deckId], language)).get(deckId)?.member;
       if (!id) return null;
       return (await summaries([id]))[0] ?? null;
     },

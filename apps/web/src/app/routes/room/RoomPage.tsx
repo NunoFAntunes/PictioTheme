@@ -2,7 +2,7 @@ import { normalizeRoomCode } from '@pictiotheme/game-core';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useParams } from 'react-router';
 import { CrumpleStage, useCrumple } from '../../features/close-room';
-import { GuessFeed, GuessInput } from '../../features/guess-feed';
+import { GuessBar, GuessFeed } from '../../features/guess-feed';
 import { useEnsureIdentity } from '../../features/identity';
 import { PlayerList } from '../../features/player-list';
 import { ResultsPanel } from '../../features/results';
@@ -86,8 +86,11 @@ function RoomSheet({ phase, children }: { phase: RoomView['phase']['kind']; chil
   const inMatch = phase !== 'waiting' && phase !== 'results';
   return (
     <div data-paper className={`flex min-h-0 overflow-hidden ${SHEET}`}>
-      <aside className="relative w-44 shrink-0" aria-label="Players">
-        <div className="absolute inset-0 overflow-x-hidden overflow-y-auto pb-4">
+      <aside className="relative z-10 w-44 shrink-0" aria-label="Players">
+        {/* Scrolling clips sideways too, so the scroller reaches 1.5rem past the margin line: the
+            score stickers can poke over the board. Clicks there fall through to the board, and the
+            scrollbar is hidden so it doesn't sit on the board either. */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 -right-6 overflow-x-hidden overflow-y-auto pr-6 pb-4 [scrollbar-width:none] *:pointer-events-auto">
           <PlayerList />
         </div>
         <MarginLine className="right-0" />
@@ -127,16 +130,18 @@ function RoomLayout({ phase }: { phase: RoomView['phase']['kind'] }) {
     return (
       <div className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_18rem] gap-3 px-3 pb-3">
         <RoomSheet phase={phase}>{centre}</RoomSheet>
-        <aside data-paper className={`flex min-h-64 flex-col gap-2 p-2 pt-4 ${NOTE}`}>
-          <Tape />
-          <GuessFeed />
-          <GuessInput />
+        <aside className="flex min-h-64 flex-col gap-4">
+          <div data-paper className={`flex min-h-0 flex-1 flex-col p-2 pt-4 ${NOTE}`}>
+            <Tape />
+            <GuessFeed />
+          </div>
+          <GuessBar />
         </aside>
       </div>
     );
   }
   // Tablets in portrait (screens.md §4): the board on top, then Players/Guesses tabs, with the
-  // guess input always below. During a match the page never scrolls: if the header wraps tall
+  // guess bar always below them. During a match the page never scrolls: if the header wraps tall
   // enough that board, toolbar and tabs don't all fit, the board area scrolls, not the tabs.
   const inMatch = phase !== 'waiting' && phase !== 'results';
   return (
@@ -150,6 +155,7 @@ function RoomLayout({ phase }: { phase: RoomView['phase']['kind'] }) {
         )}
       </main>
       <RoomTabs grow={inMatch} />
+      <GuessBar />
     </div>
   );
 }
@@ -209,7 +215,6 @@ function RoomTabs({ grow }: { grow: boolean }) {
           </div>
         )}
       </div>
-      <GuessInput />
     </section>
   );
 }

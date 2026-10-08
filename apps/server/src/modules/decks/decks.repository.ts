@@ -511,19 +511,21 @@ const translation = alias(decks, 'translation');
 
 /**
  * For each deck id, the deck of the same family (its original and the original's translations)
- * written in `language`, or null if there's none. Hidden decks don't count.
+ * written in `language` (`member`, or null if there's none), and the family's original (null when
+ * it's hidden). Hidden decks don't count.
  */
 export async function familyMembersIn(
   db: DbExecutor,
   ids: string[],
   language: DeckLanguage,
-): Promise<Map<string, string | null>> {
+): Promise<Map<string, { member: string | null; original: string | null }>> {
   if (ids.length === 0) return new Map();
   const rows = await db
     .select({
       id: decks.id,
       originalId: original.id,
       originalLanguage: original.language,
+      originalVisibility: original.visibility,
       translationId: translation.id,
     })
     .from(decks)
@@ -538,10 +540,11 @@ export async function familyMembersIn(
     )
     .where(inArray(decks.id, ids));
   return new Map(
-    rows.map((r) => [
-      r.id,
-      r.originalLanguage === language ? r.originalId : (r.translationId ?? null),
-    ]),
+    rows.map((r) => {
+      const original = r.originalVisibility === 'hidden' ? null : r.originalId;
+      const member = r.originalLanguage === language ? original : (r.translationId ?? null);
+      return [r.id, { member, original }];
+    }),
   );
 }
 

@@ -8,8 +8,9 @@ The flows are in [user-flows.md](../product/user-flows.md#2-home-page-the-lobby-
 
 ```
 desk ─────────────────────────────────────────────────────────────────────
- 🔊  ● online                                 Playing as 🥒 Sneaky Pickle ✏️
+ 🔊  ● online
  ┌──────────────────────────── paper ────────────────────────────────────┐
+ │ 🥒[PLAYING AS Sneaky Pickle]✏  ↶ Psst! Introduce yourself!            │
  │                  D o o d l e   W h i r l ! ✏                          │
  │                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~                          │
  │                                                                       │
@@ -28,7 +29,9 @@ desk ─────────────────────────
 
 **The desk (built):** behind the paper, twelve lanes of faded hand-drawn doodles (silly, spooky, space, food, with squiggles between them) drift left and right, neighbouring lanes in opposite directions, slipping under the sheet and out the other side. Some lanes are pencil-grey, some in the logo's pop colours, all faded so the paper stays the focus; the spooky lane sits second from the top, where it shows above the paper too. Server-rendered SVG symbols moved by CSS only (no JS, no hover), laid out from a fixed seed so every render is the same picture; reduced motion keeps them still. Still props lie around the paper, drawn like the pencil, their inner ends under the sheet: a mug of coffee (and the ring it left on the paper's corner), an eraser and its crumbs, a paintbrush with a purple dab, two crayons. They're toys: the mug sloshes (the latte heart swirls, a ripple and a puff of steam, sometimes a spilt drop), the eraser rubs on a click or a scrub, wears down from its pink end and leaves crumbs, the paintbrush wiggles and flicks drops while its splat grows, and a crayon rolls and scribbles one of the desk's doodles beside it (the last three stay). Each plays a quiet sound from the existing set. With reduced motion the changes happen without the movement. They need desk beside the paper, so they show from 1024 px wide; the coffee ring always shows. Code: `apps/web/src/components/home/` (`DoodleDesk.astro`, art in `doodles.ts`; `DeskProps.tsx`, a `client:load` island; `CoffeeRing.astro`).
 
-**The lobby (under the logo):** the header chip, the three actions, and the room notes. Quick play is the biggest button. An empty room list says "No public rooms yet: Quick play starts one". Phones get the logo and a short "open this on a tablet or computer" note instead of the actions.
+**The lobby (under the logo):** the "you" sticker, the three actions, and the room notes. Quick play is the biggest button. An empty room list says "No public rooms yet: Quick play starts one". Phones get the logo and a short "open this on a tablet or computer" note instead of the actions.
+
+**The "you" sticker (top left of the paper):** your doodle, frameless as in the player list and with a white die-cut edge, leans out of a white lopsided marker sticker with "PLAYING AS" over your handwritten name and a ✏️ on its corner; it opens the name and drawing editor. Point at it and it straightens, and your doodle tips and boils. While you're still a plain letter (you never drew yourself), a loopy arrow scribbled beside it points back at it: "Psst! Introduce yourself! (draw your face, we won't judge)". It draws itself in after the intro and is gone once you've drawn.
 
 ## 2. Lobby
 
@@ -40,7 +43,7 @@ The room is the home page's desk with the game on it, so entering one doesn't fe
 
 ## Closing the room (built)
 
-The host's **Close room** is a paper sticker in the header with a little paper ball on it. It asks on a slip of paper taped to the desk under it ("Close the room?", [Keep it open] [Crumple it up]), the same note **End** uses; no browser dialog. Confirming plays it out: the room (header, sheet and guess column) becomes one sheet of paper, creases spread across it while it scrunches up and turns, and it closes into a paper ball. The ball winds up and is kicked off the top-right of the desk, leaving a few ink speed lines, with a crumple and a thump-whoosh. Then the host is home, where a **new** sheet drops onto the desk (the home intro plays; the usual morph back is skipped). About two seconds. Guests see "The host closed this room." With reduced motion there's no animation: the host goes straight home. Code: `features/close-room` (`crumple.ts` is the animation), `ui/ConfirmNote.tsx`, `ui/PaperBall.tsx`.
+The host's controls are folded away behind a **Manage room** sticker with a crown in the header; pressing it pops Pause/Resume, Skip, End and Close room out beside it as hand-cut stickers (lopsided outlines, each tilted its own way, doodled icons). **Close room** is one of them, with a little paper ball on it. It asks on a slip of paper taped to the desk under it ("Close the room?", [Keep it open] [Crumple it up]), the same note **End** uses; no browser dialog. Confirming plays it out: the room (header, sheet and guess column) becomes one sheet of paper, creases spread across it while it scrunches up and turns, and it closes into a paper ball. The ball winds up and is kicked off the top-right of the desk, leaving a few ink speed lines, with a crumple and a thump-whoosh. Then the host is home, where a **new** sheet drops onto the desk (the home intro plays; the usual morph back is skipped). About two seconds. Guests see "The host closed this room." With reduced motion there's no animation: the host goes straight home. Code: `features/close-room` (`crumple.ts` is the animation), `ui/ConfirmNote.tsx`, `ui/PaperBall.tsx`.
 
 ## 3. The waiting room (choosing the deck, house rules)
 
@@ -96,7 +99,7 @@ One **sheet of paper** holds the players and the canvas: the players stand in it
 │ │    Ana     ╎                                    │  │                   │
 │ │ ✅  🐺  ⬮540                                    │  │                   │
 │ │    Rui     ╎                                    │  │                   │
-│ │            ╎   (toolbar: only visible to drawer)│  │ [type guess…] ⏎  │
+│ │            ╎   (toolbar: only visible to drawer)│  │ [guess…] 🎤 ⏎    │
 │ └────────────╎────────────────────────────────────┘  │                   │
 └──────────────────────────────────────────────────────┴───────────────────┘
    ⬮ = score sticker   ╎ = faint margin line
@@ -114,11 +117,13 @@ Player details (`features/player-list`):
 
 The ❤️ like button sits in the board's bottom-right corner while drawing and at the reveal (guessers press it; the drawer sees the count).
 
-The header's right end has your "you" sticker (a tilted sun-yellow pill: avatar, a small YOU tag over your name in the same handwriting the player list uses for you, and a ✏️ badge; it opens the name and drawing editor, any time) and the sound settings. Players' handwritten names get a thin stroke in their own colour so the fonts read bolder.
+The header's right end has your "you" sticker (the home page's, sun-yellow and smaller: your frameless doodle leaning out of a lopsided marker sticker, a small YOU tag over your name in the same handwriting the player list uses for you, and a ✏️ on its corner; it opens the name and drawing editor, any time) and the sound settings. Players' handwritten names get a thin stroke in their own colour so the fonts read bolder.
 
-Drawer's view: the header shows the **full word** (e.g. "VAMPIRE ON A UNICYCLE" with a 🤪 tag) instead of blanks. The guess input is disabled and reads "You're drawing!".
+**The guess bar** (built 2026-10-08, `GuessBar`): a strip of paper of its own, a little below the feed, taped down on the right. A tilted sticker tab on its top edge says what it's for: "Your guess" (sun yellow), "Solvers' chat" or "Chat" (teal), "You're drawing!" (grey). You write on a dashed blue line, in handwriting for Latin-script languages. Send is a small ↵ keycap, since Enter does the same. Between them, where the browser can listen, a doodled pink microphone: hold it while you talk, or tap it to leave it open for guess after guess (decisions.md D11). While it listens it tips over, a red ring pulses round it, and a speech bubble over the strip shows the words as they're heard ("Listening…" before that, "✓ “…” sent" after); a problem shows in the same bubble with a red outline for a few seconds.
 
-**Tablets in portrait** (built; any screen under 1024 px wide, while tablets in landscape and laptops get the sheet and the guess column): the canvas takes the top of the screen, at most ~56% of its height. The drawer's toolbar sits right under it. Below that, tabs switch between [Guesses] (the default, with a count of new lines while you're on Players) and [Players] (the same characters in a wrapping grid on a strip of paper), and the guess input is pinned at the bottom. Mid-match the page doesn't scroll, only the tab content (and, if a tall header leaves too little room for board, toolbar and tabs, the board area rather than the tabs). The lobby also stacks below 1024 px, "Join with a code" first.
+Drawer's view: the header shows the **full word** (e.g. "VAMPIRE ON A UNICYCLE" with a 🤪 tag) instead of blanks. The guess bar is disabled, with no mic, and reads "You're drawing!".
+
+**Tablets in portrait** (built; any screen under 1024 px wide, while tablets in landscape and laptops get the sheet and the guess column): the canvas takes the top of the screen, at most ~56% of its height. The drawer's toolbar sits right under it. Below that, tabs switch between [Guesses] (the default, with a count of new lines while you're on Players) and [Players] (the same characters in a wrapping grid on a strip of paper), and the guess bar is pinned at the bottom, apart from the tabs. Mid-match the page doesn't scroll, only the tab content (and, if a tall header leaves too little room for board, toolbar and tabs, the board area rather than the tabs). The lobby also stacks below 1024 px, "Join with a code" first.
 
 **Phones** get the "bigger screen" page (`features/phone-gate`, [next-features.md](../planning/next-features.md) 1.3). If a phone guess-only mode comes later: the player list becomes a horizontal avatar strip above the canvas with the guess bubbles shown as small overlays.
 
@@ -132,6 +137,8 @@ Drawer's view: the header shows the **full word** (e.g. "VAMPIRE ON A UNICYCLE" 
 ## 6. Results
 
 The deck's cover and title next to the heading (with 🚩 to report the deck), podium (top 3 with avatars), full table, awards, drawing gallery strip, and buttons [Play again] [Change deck] [Lobby]. Logged-in users see "Rate deck 👍 👎".
+
+[Change deck & settings] (host) swaps the results for the waiting room's own screen (§3): the room card, the deck library and the house rules, with "Play again ▶" at the foot of the rules and "← Back to results" above the card. Draw yourself and the waiting-room music stay out of it.
 
 ## 7. Deck generation
 

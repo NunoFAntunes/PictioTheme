@@ -14,18 +14,32 @@ import { RoomSettingsForm } from './RoomSettingsForm';
  * private, deck, rules, the code to share), then the host's workspace: the deck library (most of
  * the width, scrolling inside) beside the house rules, with Start at the foot of the rules. Players
  * see the rules read-only, under "Waiting for the host to start…".
+ *
+ * After a match the host gets the same screen from the results ("Change deck & settings"), with
+ * `onBack` to return to them and Start reading "Play again".
  */
-export function WaitingRoom() {
+export function WaitingRoom({ onBack }: { onBack?: () => void } = {}) {
   const view = useRoomStore((s) => s.view);
   if (!view) return null;
   const host = amHost(view);
+  const afterMatch = onBack !== undefined;
 
   return (
     <div className="@container mx-auto flex w-full max-w-6xl flex-col gap-5">
-      <WaitingRoomMusic />
+      {afterMatch ? (
+        <button
+          type="button"
+          onClick={onBack}
+          className="self-start font-hand text-lg text-ink/70 underline dark:text-zinc-300"
+        >
+          ← Back to results
+        </button>
+      ) : (
+        <WaitingRoomMusic />
+      )}
       <RoomCard view={view} host={host} />
       {!host && <WaitingForHost />}
-      <DrawYourself roomCode={view.code} startFolded={host} />
+      {!afterMatch && <DrawYourself roomCode={view.code} startFolded={host} />}
 
       {host ? (
         <div className="grid gap-4 @[46rem]:grid-cols-[minmax(0,1fr)_21rem] @[46rem]:items-start">
@@ -37,7 +51,7 @@ export function WaitingRoom() {
             onSelect={(deckId) => sendToRoom({ t: 'room:settings', settings: { deckId } })}
           />
           <RulesPanel view={view} editable>
-            <StartButton view={view} />
+            <StartButton view={view} label={afterMatch ? 'Play again ▶' : 'Start game ▶'} />
           </RulesPanel>
         </div>
       ) : (
@@ -80,7 +94,7 @@ function WaitingForHost() {
 }
 
 /** Start, at the foot of the house rules: the host's last move after setting the room up. */
-function StartButton({ view }: { view: RoomView }) {
+function StartButton({ view, label }: { view: RoomView; label: string }) {
   const connected = view.players.filter((p) => p.connected).length;
   const deckInLanguage = view.deck !== null && view.deck.language === view.settings.language;
   const canStart = connected >= 2 && deckInLanguage;
@@ -93,7 +107,7 @@ function StartButton({ view }: { view: RoomView }) {
         onClick={() => sendToRoom({ t: 'room:start' })}
         className={`${DOODLE_BUTTON} ${WOBBLE[1]} -rotate-1 bg-pop-purple px-8 py-2.5 text-2xl text-white`}
       >
-        Start game ▶
+        {label}
       </button>
       <p className="text-center font-hand text-lg text-ink/70 dark:text-zinc-300">
         {view.deck && !deckInLanguage

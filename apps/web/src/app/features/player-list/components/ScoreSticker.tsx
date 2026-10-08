@@ -23,9 +23,9 @@ const COLOURS = [
 ] as const;
 
 const SIZES = {
-  lg: { box: 'size-14', number: 'text-base' },
-  md: { box: 'size-11', number: 'text-sm' },
-  sm: { box: 'size-9', number: 'text-xs' },
+  lg: { box: 'size-14', number: 'text-base', rank: 'text-sm' },
+  md: { box: 'size-11', number: 'text-sm', rank: 'text-xs' },
+  sm: { box: 'size-9', number: 'text-xs', rank: 'text-[0.7rem]' },
 } as const;
 
 export type StickerSize = keyof typeof SIZES;
@@ -48,7 +48,10 @@ export function ScoreSticker({ score, rank, seed, size, gained, turnKey }: Props
   const pick = (what: string) => playerHash(String(seed), what);
   const tilt = (pick('tilt') % 17) - 8;
   return (
-    <div className={`relative ${SIZES[size].box}`} style={{ rotate: `${tilt}deg` }}>
+    <div
+      className={`pointer-events-none relative ${SIZES[size].box}`}
+      style={{ rotate: `${tilt}deg` }}
+    >
       <svg
         viewBox="0 0 100 100"
         className="absolute inset-0 size-full overflow-visible"
@@ -68,7 +71,7 @@ export function ScoreSticker({ score, rank, seed, size, gained, turnKey }: Props
         {shown}
       </span>
       <span
-        className="absolute -top-2 -right-2 rounded-full bg-ink px-1 font-logo text-[0.6rem] leading-tight text-paper"
+        className={`absolute -top-2.5 -right-3 rounded-full bg-ink px-1.5 py-0.5 font-logo leading-none whitespace-nowrap text-paper ${SIZES[size].rank}`}
         aria-label={`Rank ${rank}`}
       >
         #{rank}

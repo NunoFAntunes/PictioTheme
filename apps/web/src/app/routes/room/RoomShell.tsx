@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { StickerLogo } from '../../ui/StickerLogo';
-import { HEADER, NOTE, SHEET } from '../../ui/room-frame';
+import { GUESS_STRIP, HEADER, NOTE, SHEET } from '../../ui/room-frame';
 
 /** Wide screens (laptops, tablets in landscape): the sheet · guesses. Matches `lg:` (1024 px). */
 export const WIDE = '(min-width: 1024px)';
@@ -24,7 +24,7 @@ export function MarginLine({ className = '' }: { className?: string }) {
 
 /**
  * The room before it's there (app.astro's first frame, then joining, or why it couldn't open):
- * the logo, an empty sheet with a message, an empty guess column.
+ * the logo, an empty sheet with a message, an empty guess column and the strip under it.
  */
 export function RoomShell({ title, children }: { title: string; children?: ReactNode }) {
   return (
@@ -40,8 +40,11 @@ export function RoomShell({ title, children }: { title: string; children?: React
             {children}
           </div>
         </main>
-        <aside data-paper aria-hidden="true" className={`hidden lg:block ${NOTE}`}>
-          <Tape />
+        <aside aria-hidden="true" className="hidden flex-col gap-4 lg:flex">
+          <div data-paper className={`flex-1 ${NOTE}`}>
+            <Tape />
+          </div>
+          <div data-paper className={GUESS_STRIP} />
         </aside>
       </div>
     </div>
