@@ -27,7 +27,13 @@ export type FeedItem =
     }
   | { id: number; kind: 'chat'; playerId: PlayerId; text: string; solvedChannel: boolean }
   | { id: number; kind: 'solved'; playerId: PlayerId; order: number }
-  | { id: number; kind: 'reveal'; word: string }
+  /** A turn begins: a divider between turns, so system lines stand apart from the chat. */
+  | { id: number; kind: 'turn'; round: number; drawerId: PlayerId }
+  /** `drawerId` is null when the reveal came without a turn we watched (a snapshot mid-reveal). */
+  | { id: number; kind: 'reveal'; word: string; drawerId: PlayerId | null }
+  | { id: number; kind: 'matchOver' }
+  /** The match paused (with why) or resumed (null). */
+  | { id: number; kind: 'pause'; reason: PauseReason | null }
   | {
       id: number;
       kind: 'notice';
@@ -135,13 +141,14 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
     case 'room:details':
       return { ...view, name: msg.name, isPublic: msg.isPublic };
     case 'room:paused':
-      return { ...view, paused: msg.paused };
+      if (msg.paused === view.paused) return view;
+      return addFeed({ ...view, paused: msg.paused }, { kind: 'pause', reason: msg.paused });
     case 'room:notice': {
       const { t: _t, ...notice } = msg;
       return addFeed(view, { kind: 'notice', ...notice });
     }
-    case 'phase:choosing':
-      return {
+    case 'phase:choosing': {
+      const next: RoomView = {
         ...view,
         phase: { kind: 'choosing', drawerId: msg.drawerId, endsAt: msg.endsAt },
         phaseLive: true,
@@ -150,6 +157,12 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
         bubbles: {},
         round: msg.round,
       };
+      // phase:choosing is re-sent after a pause: only a new turn gets a divider in the feed.
+      const sameTurn = view.phase.kind === 'choosing' && view.phase.drawerId === msg.drawerId;
+      return sameTurn
+        ? next
+        : addFeed(next, { kind: 'turn', round: msg.round, drawerId: msg.drawerId });
+    }
     case 'phase:drawing':
       return {
         ...view,
@@ -212,18 +225,25 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
           phaseLive: true,
           secret: {},
         },
-        { kind: 'reveal', word: msg.word },
+        {
+          kind: 'reveal',
+          word: msg.word,
+          drawerId: view.phase.kind === 'drawing' ? view.phase.drawerId : null,
+        },
       );
     case 'phase:results':
-      return {
-        ...view,
-        phase: { kind: 'results', ranking: msg.ranking, awards: msg.awards },
-        phaseLive: true,
-        secret: {},
-        likes: null,
-        paused: null,
-        bubbles: {},
-      };
+      return addFeed(
+        {
+          ...view,
+          phase: { kind: 'results', ranking: msg.ranking, awards: msg.awards },
+          phaseLive: true,
+          secret: {},
+          likes: null,
+          paused: null,
+          bubbles: {},
+        },
+        { kind: 'matchOver' },
+      );
     case 'error':
       return addFeed(view, { kind: 'error', message: msg.message });
     case 'server:restarting':

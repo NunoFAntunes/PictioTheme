@@ -71,6 +71,25 @@ describe('room view reducer', () => {
     expect(view.bubbles.p2?.kind).toBe('correct');
   });
 
+  it('marks turns, reveals, pauses and the end of the match in the feed once each', () => {
+    let view = viewFromSnapshot(snapshot(), null);
+    const choosing = { t: 'phase:choosing', drawerId: 'p1', round: 1, endsAt: 50 } as const;
+    view = apply(
+      view,
+      choosing,
+      { t: 'room:paused', paused: 'host' },
+      { t: 'room:paused', paused: 'host' },
+      { t: 'room:paused', paused: null },
+      { ...choosing, endsAt: 60 }, // re-sent on resume: same turn
+      drawing,
+      { t: 'phase:reveal', word: 'Bat', deltas: {}, endsAt: 9 },
+      { t: 'phase:results', ranking: ['p1', 'p2'], awards: [] },
+    );
+    expect(view.feed.map((f) => f.kind)).toEqual(['turn', 'pause', 'pause', 'reveal', 'matchOver']);
+    expect(view.feed[0]).toMatchObject({ round: 1, drawerId: 'p1' });
+    expect(view.feed[3]).toMatchObject({ word: 'Bat', drawerId: 'p1' });
+  });
+
   it('keeps close guesses redacted (no text) when the server sends none', () => {
     const view = apply(apply(viewFromSnapshot(snapshot(), null), drawing), {
       t: 'guess:feed',

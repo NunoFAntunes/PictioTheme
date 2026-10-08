@@ -9,8 +9,11 @@ test('the host closes the room for everyone', async ({ browser }) => {
   await expect(host.getByRole('list', { name: 'Players' }).getByText('Bo')).toBeVisible();
 
   // Only the host has the button.
+  await expect(guest.getByRole('button', { name: 'Manage room' })).toHaveCount(0);
   await expect(guest.getByRole('button', { name: /close room/i })).toHaveCount(0);
-  // It asks first, on a note; "Keep it open" puts the note away.
+  // It's in the host's "Manage room" menu, and asks first, on a note; "Keep it open" puts the
+  // note away.
+  await host.getByRole('button', { name: 'Manage room' }).click();
   await host.getByRole('button', { name: /close room/i }).click();
   const note = host.getByRole('alertdialog', { name: 'Close the room?' });
   await note.getByRole('button', { name: 'Keep it open' }).click();
