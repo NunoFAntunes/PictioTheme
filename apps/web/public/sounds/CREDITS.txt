@@ -5,7 +5,8 @@ Sound effects by Kenney (www.kenney.nl), Creative Commons Zero (CC0):
 Freesound, Creative Commons Zero (CC0):
   Pencil or Marker writing and scribble on paper, khenshom   https://freesound.org/s/530190/   pencil-loop.wav
   Myles Moss' Cartoon Glugging, MylieJoeMoss1996             https://freesound.org/s/741576/   fill-glug-1/2.mp3
-Made for this game (synthesised noise, no samples), CC0: paper-crumple.mp3, paper-kick.mp3
+Made for this game (synthesised noise, no samples), CC0: paper-crumple.mp3, paper-kick.mp3,
+  podium-scribble, podium-thump, drumroll, cymbal-crash, winner-fanfare, sticker-pop, poke-boing (.mp3)
 Converted to mono 96 kbps MP3; card-shuffle is trimmed to 1.1 s with a fade-out.
 Details and alternatives: docs/design/sounds.md
 Music: "Flowerbed Fields" by Zane Little (zanelittle.com), the home page's tune, flowerbed-fields.ogg/.mp3 (MP3 is a 128 kbps copy for browsers without Ogg).

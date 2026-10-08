@@ -12,7 +12,8 @@ Sound makes the game feel like a table, not a web page. Every sound tells the pl
 | Card picked | The drawer picks a card | The drawer | Cards & turns | `card-pick` (Casino Audio `card-shove-1`) |
 | Your turn | A turn starts and you are the drawer | The drawer | Cards & turns | `your-turn` (Music Jingles `PIZZI00`) |
 | Turn over | The word is revealed | Everyone | Cards & turns | `time-up` (Interface Sounds `bong_001`) |
-| Match results | The results screen opens | Everyone | Cards & turns | `match-results` (Music Jingles `PIZZI07`) |
+| Match results | The results screen opens without the podium show (reduced motion) | Everyone | Cards & turns | `match-results` (Music Jingles `PIZZI07`) |
+| Podium ceremony | The results' show (screens.md §6), in time with it: the podium scribbled on, each landing on a step, a drumroll, a cymbal crash and a fanfare as the winner lands, a pop per crowd member and per award sticker, a boing when you poke someone | Everyone who watched the match end (not on a late join) | Cards & turns | `podium-scribble`, `podium-thump`, `drumroll`, `cymbal-crash`, `winner-fanfare`, `sticker-pop`, `poke-boing` (synthesised for the game, 2026-10-08: the prototype's Web Audio recipes rendered to WAV and encoded with ffmpeg. Filtered noise for the pencil, roll and cymbal; a falling sine for the thump; a triangle arpeggio for the fanfare; rising sweeps for the pop and boing) |
 | Correct guess | Your guess is right | You | Guesses | `guess-correct` (Interface Sounds `confirmation_002`) |
 | Someone solved | Another player gets it | Everyone else | Guesses | `guess-solved` (Interface Sounds `confirmation_001`), quieter |
 | Close guess | Your guess is close | You | Guesses | `guess-close` (Interface Sounds `question_002`) |
@@ -30,6 +31,7 @@ Rules:
 - **Bursts are thinned.** Chat, joins and "someone solved" play at most once per 120–200 ms.
 - **No sound before the first click.** Browsers block audio until the player interacts with the page. The audio context starts on the first pointer or key press, and sounds asked for before that are dropped (they would be stale).
 - **Reduced motion** skips the card intro, so its shuffle and deal sounds are skipped too.
+- **Skipping the podium show** (a tap, or Skip) cuts off what it was playing, the drumroll too (`playSound` returns a stop function).
 
 ## Settings
 

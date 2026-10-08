@@ -100,6 +100,18 @@ describe('room view reducer', () => {
     expect(view).toMatchObject({ name: 'Spooky night', isPublic: true });
   });
 
+  it('knows whether the phase started live or came in a snapshot', () => {
+    const results: ServerMessage = { t: 'phase:results', ranking: ['p1', 'p2'], awards: [] };
+    const live = apply(viewFromSnapshot(snapshot(), null), drawing, results);
+    expect(live.phaseLive).toBe(true);
+    const caughtUp = applyServerMessage(
+      live,
+      snapshot({ phase: { kind: 'results', ranking: ['p1', 'p2'], awards: [] } }),
+      2000,
+    );
+    expect(caughtUp.phaseLive).toBe(false);
+  });
+
   it('keeps the feed across a reconnect to the same room', () => {
     let view = apply(viewFromSnapshot(snapshot(), null), { t: 'chat', playerId: 'p1', text: 'hi' });
     view = applyServerMessage(view, snapshot(), 2000);

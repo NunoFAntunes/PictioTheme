@@ -52,6 +52,11 @@ export type RoomView = {
   deck: RoomDeck | null;
   players: PublicPlayer[];
   phase: PublicPhase;
+  /**
+   * True when the current phase started while we watched (a phase:* message), false when it came
+   * in a snapshot (joining, reconnecting). The results' podium ceremony only plays live.
+   */
+  phaseLive: boolean;
   paused: PauseReason | null;
   round: number;
   /** Drawer's options while choosing; the word for the drawer and for players who solved. */
@@ -84,6 +89,7 @@ export function viewFromSnapshot(
     deck: msg.deck,
     players: msg.players,
     phase: msg.phase,
+    phaseLive: false,
     paused: msg.paused,
     round: msg.round,
     secret: msg.secret,
@@ -138,6 +144,7 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
       return {
         ...view,
         phase: { kind: 'choosing', drawerId: msg.drawerId, endsAt: msg.endsAt },
+        phaseLive: true,
         secret: msg.options ? { options: msg.options } : {},
         likes: null,
         bubbles: {},
@@ -147,6 +154,7 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
       return {
         ...view,
         phase: { kind: 'drawing', drawerId: msg.drawerId, endsAt: msg.endsAt, mask: msg.mask },
+        phaseLive: true,
         secret: msg.word ? { word: msg.word } : {},
         bubbles: view.phase.kind === 'drawing' ? view.bubbles : {},
         // phase:drawing is re-sent after a pause: only a new turn starts with no likes.
@@ -201,6 +209,7 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
         {
           ...view,
           phase: { kind: 'reveal', word: msg.word, deltas: msg.deltas, endsAt: msg.endsAt },
+          phaseLive: true,
           secret: {},
         },
         { kind: 'reveal', word: msg.word },
@@ -209,6 +218,7 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
       return {
         ...view,
         phase: { kind: 'results', ranking: msg.ranking, awards: msg.awards },
+        phaseLive: true,
         secret: {},
         likes: null,
         paused: null,

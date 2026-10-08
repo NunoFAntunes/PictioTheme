@@ -31,8 +31,7 @@ export function soundsForMessage(
       return before.phase.kind === 'drawing' && before.phase.mask !== msg.mask ? ['hint'] : [];
     case 'phase:reveal':
       return before.phase.kind === 'drawing' ? ['timeUp'] : [];
-    case 'phase:results':
-      return ['matchResults'];
+    // The results screen plays its own ceremony sounds (features/results).
     case 'room:players': {
       const had = new Set(before.players.map((p) => p.id));
       const has = new Set(after.players.map((p) => p.id));

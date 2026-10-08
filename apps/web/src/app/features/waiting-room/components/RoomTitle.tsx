@@ -1,6 +1,7 @@
 import { RoomName } from '@pictiotheme/protocol';
 import { useRef, useState, type CSSProperties } from 'react';
 import { sendToRoom } from '../../../realtime';
+import { StickerLetters, type StickerAlign } from '../../../ui/StickerLetters';
 import { PrivacyToggle } from './PrivacyToggle';
 
 /**
@@ -10,15 +11,7 @@ import { PrivacyToggle } from './PrivacyToggle';
  * On the waiting room's card (RoomCard) it's left-aligned; on results, centred.
  */
 
-type Align = 'start' | 'center';
-
-const POPS = [
-  'var(--color-pop-purple)',
-  'var(--color-pop-tomato)',
-  'var(--color-pop-sun)',
-  'var(--color-pop-teal)',
-  'var(--color-pop-pink)',
-];
+type Align = StickerAlign;
 
 /**
  * As big as fits the name on one line of its container (a size container), up to `max`. A
@@ -27,46 +20,6 @@ const POPS = [
 function sizeFor(name: string, max: string, share = 170): CSSProperties {
   const length = Math.max(8, [...name].length);
   return { fontSize: `clamp(1.75rem, ${(share / length).toFixed(2)}cqi, ${max})` };
-}
-
-function StickerLetters({ name, align }: { name: string; align: Align }) {
-  const justify = align === 'start' ? 'justify-start' : 'justify-center';
-  let index = 0;
-  return (
-    <span aria-hidden="true" className={`flex flex-wrap gap-x-[0.3em] ${justify}`}>
-      {name.split(/\s+/).map((word, w) => (
-        <span key={w} className={`inline-flex flex-wrap ${justify}`}>
-          {[...word].map((char) => {
-            const i = index++;
-            return (
-              <span
-                key={i}
-                className="inline-block motion-safe:animate-sticker-pop"
-                style={
-                  {
-                    animationDelay: `${i * 45}ms`,
-                    '--drop-spin': `${(i % 2 ? 1 : -1) * (20 + ((i * 37) % 40))}deg`,
-                  } as CSSProperties
-                }
-              >
-                <span
-                  className="inline-block px-[0.01em] transition-transform duration-150 [paint-order:stroke_fill] [text-shadow:0.05em_0.06em_0_var(--color-ink)] [-webkit-text-stroke:0.07em_var(--color-ink)] motion-safe:hover:-translate-y-[0.12em] motion-safe:hover:rotate-[var(--tilt)]"
-                  style={
-                    {
-                      color: POPS[i % POPS.length],
-                      '--tilt': `${i % 2 ? 8 : -8}deg`,
-                    } as CSSProperties
-                  }
-                >
-                  {char}
-                </span>
-              </span>
-            );
-          })}
-        </span>
-      ))}
-    </span>
-  );
 }
 
 /** A scribbled underline, drawn once the letters have landed. */

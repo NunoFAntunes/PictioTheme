@@ -248,6 +248,281 @@
   }
 }
 
+/*
+ * The results' podium ceremony (features/results PodiumCeremony). Durations and delays are set
+ * inline from ceremony.ts, so the timeline lives in one place. Characters move with the
+ * individual `translate`/`rotate`/`scale` properties, so stacked wrappers don't fight.
+ */
+@keyframes podium-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes podium-fade {
+  from {
+    opacity: 0;
+  }
+}
+/* Written left to right: the "And the winner is…" line, the ground under the podium. */
+@keyframes podium-write {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes podium-enter-hop {
+  0% {
+    translate: 0 70px;
+    scale: 0.5;
+    opacity: 0;
+  }
+  45% {
+    translate: 0 -40px;
+    scale: 0.95 1.08;
+    opacity: 1;
+  }
+  70% {
+    translate: 0 0;
+    scale: 1.18 0.8;
+  }
+  85% {
+    translate: 0 -5px;
+    scale: 0.95 1.06;
+  }
+  100% {
+    translate: 0 0;
+    scale: 1;
+  }
+}
+/* The winner falls in from above, squashes flat on landing and springs back. */
+@keyframes podium-enter-drop {
+  0% {
+    translate: 0 -24rem;
+    scale: 0.88 1.15;
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+  6% {
+    opacity: 1;
+  }
+  52% {
+    translate: 0 0;
+    scale: 0.88 1.15;
+    animation-timing-function: ease-out;
+  }
+  64% {
+    translate: 0 0;
+    scale: 1.32 0.68;
+    animation-timing-function: ease-out;
+  }
+  80% {
+    translate: 0 -18px;
+    scale: 0.94 1.08;
+    animation-timing-function: ease-in;
+  }
+  90% {
+    translate: 0 0;
+    scale: 1.06 0.95;
+  }
+  100% {
+    translate: 0 0;
+    scale: 1;
+  }
+}
+@keyframes podium-enter-wave {
+  0% {
+    translate: 0 30px;
+    scale: 0.7;
+    opacity: 0;
+  }
+  50% {
+    translate: 0 -18px;
+    scale: 1.05;
+    opacity: 1;
+  }
+  100% {
+    translate: 0 0;
+    scale: 1;
+  }
+}
+/* 2nd and 3rd lean toward the empty top step during the drumroll, trembling. */
+@keyframes podium-lean {
+  to {
+    rotate: var(--lean);
+  }
+}
+@keyframes podium-tremble {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 1.4px 0;
+  }
+}
+/* …and jump when the winner lands. */
+@keyframes podium-react {
+  0% {
+    rotate: var(--lean);
+  }
+  30% {
+    translate: 0 -24px;
+    rotate: 0deg;
+    scale: 1.08;
+  }
+  60% {
+    translate: 0 0;
+    scale: 1;
+  }
+  75% {
+    translate: 0 -6px;
+  }
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+}
+/* The winner's victory loop: a hop with a full turn (the spin shows the back of the paper). */
+@keyframes podium-victory-hop {
+  0%,
+  30%,
+  100% {
+    translate: 0 0;
+    scale: 1;
+  }
+  4% {
+    scale: 1.14 0.84;
+  }
+  12% {
+    translate: 0 -48px;
+    scale: 0.92 1.12;
+  }
+  20% {
+    translate: 0 0;
+    scale: 1.16 0.84;
+  }
+  25% {
+    scale: 0.97 1.04;
+  }
+}
+@keyframes podium-victory-spin {
+  0%,
+  5% {
+    transform: rotateY(0deg);
+  }
+  20%,
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+/* Last place tips over like a plank (--dir: 1 right, -1 left), lies there, then pops back up. */
+@keyframes podium-keel {
+  0% {
+    rotate: 0deg;
+  }
+  8% {
+    rotate: calc(-7deg * var(--dir));
+    animation-timing-function: cubic-bezier(0.6, 0, 1, 0.6);
+  }
+  34% {
+    rotate: calc(88deg * var(--dir));
+  }
+  39% {
+    rotate: calc(78deg * var(--dir));
+  }
+  44%,
+  70% {
+    rotate: calc(88deg * var(--dir));
+  }
+  80% {
+    rotate: calc(-12deg * var(--dir));
+    translate: 0 -22px;
+  }
+  90% {
+    rotate: calc(4deg * var(--dir));
+    translate: 0 0;
+  }
+  100% {
+    rotate: 0deg;
+  }
+}
+@keyframes podium-crown-drop {
+  0% {
+    translate: -50% -420%;
+    rotate: -40deg;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  60% {
+    translate: -50% -62%;
+    rotate: -2deg;
+  }
+  78% {
+    translate: -50% -85%;
+    rotate: -15deg;
+  }
+  100% {
+    translate: -50% -62%;
+    rotate: -10deg;
+  }
+}
+/* An award sticker slapped onto its owner. */
+@keyframes podium-slap {
+  0% {
+    translate: 90px -130px;
+    scale: 2.6;
+    rotate: 25deg;
+    opacity: 0;
+  }
+  60% {
+    translate: 0 0;
+    scale: 0.9;
+    opacity: 1;
+  }
+  100% {
+    translate: 0 0;
+    scale: 1;
+  }
+}
+/* A two-player match leaves 3rd place empty: a tumbleweed rolls across it. */
+@keyframes podium-tumble {
+  0% {
+    translate: -70px 0;
+    rotate: 0deg;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  25% {
+    translate: -35px -10px;
+  }
+  40% {
+    translate: -10px 0;
+  }
+  60% {
+    translate: 20px -8px;
+  }
+  75% {
+    translate: 40px 0;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    translate: 70px 0;
+    rotate: 720deg;
+    opacity: 0;
+  }
+}
+
 html {
   color-scheme: light dark;
   /* No double-tap zoom on tablets (it would fire mid-drawing); pinch zoom still works outside the canvas. */

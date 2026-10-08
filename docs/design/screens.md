@@ -136,7 +136,21 @@ Drawer's view: the header shows the **full word** (e.g. "VAMPIRE ON A UNICYCLE" 
 
 ## 6. Results
 
-The deck's cover and title next to the heading (with 🚩 to report the deck), podium (top 3 with avatars), full table, awards, drawing gallery strip, and buttons [Play again] [Change deck] [Lobby]. Logged-in users see "Rate deck 👍 👎".
+The deck's cover and title at the top (with 🚩 to report the deck), then **the podium ceremony**, then [Play again] [Change deck & settings] [Lobby], which are there from the start, so nobody waits for the show to press them. Logged-in users see "Rate deck 👍 👎" (not built). Code: `features/results` (`ceremony.ts` has the layout and the timeline, `PodiumCeremony.tsx` plays it).
+
+**The ceremony (built, 2026-10-08)**, about 8 seconds, prototyped first and tuned at 0.75× speed:
+
+1. The podium **scribbles itself** onto the sheet in ink (two passes, the second lighter), hatched in sun, teal and tomato, its numbers popping on; the ground line writes itself under it.
+2. **3rd, then 2nd hop on** to their steps, squashing as they land (a thump each).
+3. **Drumroll**: "And the winner is…" writes itself in handwriting, the two on the podium lean toward the empty top step, trembling, and their lines boil faster.
+4. **The winner drops in** from above and squashes flat on landing; a crown falls onto their head, doodle confetti bursts (stars, hearts, squiggles, spirals, pencil shavings), "Bo wins!" pops on in the logo's sticker letters, and 2nd and 3rd jump. Cymbal and fanfare.
+5. **The crowd** (4th and below) pops up in a wave under the podium, each with "#5 · 640".
+6. **Award stickers** (⚡ Fastest guesser, 🎨 Best drawer) are slapped onto their owners, who shake.
+7. **Idle**: the winner does a hop with a full turn every 4.5 s (mid-turn you see the back of the paper: the doodle mirrored and faint), everyone else sways, and **last place keels over** once like a plank, lies there, and pops back up. Tapping a character pokes it (a hop and a boing; the winner also spins and throws a little confetti). Pokes are local: nobody else sees them.
+
+Each player stands as their own doodle (avatar, boil, name in their handwriting font) with their score on the step. **Ties share a step**, which widens; a place nobody holds has no step (1, 1, 3: no 2nd step). **Two players**: the empty 3rd step stays, "(nobody)" on it, with a tumbleweed rolling across. Everyone tied for first: nobody keels over. The figures shrink to keep the podium on one row of the sheet.
+
+**When it plays**: only when the match ends while you watch. Joining or reconnecting during results (a snapshot), or coming back from Change deck & settings, shows the finished podium with no sound. **Tapping the ceremony, or Skip ▸**, jumps to the end and cuts off its sounds. **Reduced motion**: the finished podium, still, with the results jingle. Sounds: [sounds.md](sounds.md).
 
 [Change deck & settings] (host) swaps the results for the waiting room's own screen (§3): the room card, the deck library and the house rules, with "Play again ▶" at the foot of the rules and "← Back to results" above the card. Draw yourself and the waiting-room music stay out of it.
 

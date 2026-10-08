@@ -26,6 +26,7 @@ function view(overrides: Partial<RoomView> = {}): RoomView {
     deck: null,
     players: [player('me'), player('ana')],
     phase: { kind: 'drawing', drawerId: 'ana', endsAt: 99, mask: '___' },
+    phaseLive: true,
     paused: null,
     round: 1,
     secret: {},

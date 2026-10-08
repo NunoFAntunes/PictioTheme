@@ -56,7 +56,11 @@ export type PlayOptions = {
   volume?: number;
 };
 
-export function playSound(id: SoundId, { rate = 1, volume = 1 }: PlayOptions = {}): void {
+/** Plays a sound once. Returns a function that cuts it off (a skipped drumroll), if it played. */
+export function playSound(
+  id: SoundId,
+  { rate = 1, volume = 1 }: PlayOptions = {},
+): (() => void) | undefined {
   const ctx = context;
   if (!ctx || ctx.state !== 'running') return;
   const def = SOUNDS[id];
@@ -79,6 +83,14 @@ export function playSound(id: SoundId, { rate = 1, volume = 1 }: PlayOptions = {
   gainNode.gain.value = gain;
   source.connect(gainNode).connect(ctx.destination);
   source.start();
+  return () => {
+    gainNode.gain.setTargetAtTime(0, ctx.currentTime, FADE_S);
+    try {
+      source.stop(ctx.currentTime + FADE_S * 8);
+    } catch {
+      // already stopped
+    }
+  };
 }
 
 /** A sound that loops while something goes on (the pencil), with its level steered live. */
