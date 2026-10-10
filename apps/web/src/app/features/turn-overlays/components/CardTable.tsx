@@ -1,3 +1,4 @@
+import { drawerMultiplier } from '@pictiotheme/game-core';
 import type { CardOption, CardVote, RoomDeck } from '@pictiotheme/protocol';
 import {
   useEffect,
@@ -25,7 +26,6 @@ const PICK_MS = 300; // --animate-card-pick
 const MIN_TIME_FOR_INTRO_MS = 5000;
 
 const DIFFICULTY_LABEL = { easy: 'Easy', medium: 'Medium', hard: 'Hard' } as const;
-const MULTIPLIER = { easy: '×1', medium: '×1.2', hard: '×1.5' } as const;
 /** Cards land slightly askew, like they were tossed onto a table. */
 const TILTS = ['-4deg', '1deg', '5deg'];
 
@@ -176,9 +176,8 @@ export function CardTable({ endsAt, deck, cards, header, footer }: Props) {
                       {option.text}
                     </span>
                     <span className="text-[9cqw] text-zinc-500">
-                      {option.silly
-                        ? '🤪 Silly ×1.5'
-                        : `${DIFFICULTY_LABEL[option.difficulty]} ${MULTIPLIER[option.difficulty]}`}
+                      {/* The drawer's multiplier: only the drawer sees the cards face up. */}
+                      {`${option.silly ? '🤪 Silly' : DIFFICULTY_LABEL[option.difficulty]} ×${drawerMultiplier(option)}`}
                     </span>
                   </span>
                   <CardBack deck={deck} className="absolute inset-0 rotate-y-180 backface-hidden" />

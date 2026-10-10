@@ -1,3 +1,4 @@
+import { rushWindowMs } from '@pictiotheme/game-core';
 import type { Difficulty, RoomSettings } from '@pictiotheme/protocol';
 import type { ReactNode } from 'react';
 import { sendToRoom, type RoomView } from '../../../realtime';
@@ -277,12 +278,23 @@ export function RoomSettingsForm({ view, editable }: { view: RoomView; editable:
               onChange={(on) => update({ guessVisibility: on ? 'show' : 'hide' })}
             />
           </Row>
-          <Row label="Hints" hint="A letter shows at ½ and ¾ of the time">
+          <Row label="Hints" hint="A few letters show from ½ of the time on">
             <Toggle
               label="Hints"
               on={s.hints}
               disabled={!editable}
               onChange={(hints) => update({ hints })}
+            />
+          </Row>
+          <Row
+            label="Rush"
+            hint={`After the first correct guess, ${rushWindowMs(s.drawSeconds * 1000) / 1000}s left and points drain`}
+          >
+            <Toggle
+              label="Rush"
+              on={s.rush}
+              disabled={!editable}
+              onChange={(rush) => update({ rush })}
             />
           </Row>
         </Group>

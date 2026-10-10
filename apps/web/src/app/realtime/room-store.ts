@@ -10,7 +10,15 @@ export type ConnectionState =
   | { kind: 'closed'; reason: CloseReason; message: string };
 
 export type CloseReason =
-  'left' | 'not_found' | 'full' | 'kicked' | 'banned' | 'replaced' | 'room_closed' | 'lost';
+  | 'left'
+  | 'not_found'
+  | 'full'
+  | 'kicked'
+  | 'banned'
+  | 'replaced'
+  | 'room_closed'
+  | 'closed_by_host'
+  | 'lost';
 
 type RoomStore = {
   view: RoomView | null;

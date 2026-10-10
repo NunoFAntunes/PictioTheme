@@ -3,7 +3,7 @@ import { useRoomStore } from '../../../realtime';
 import { PaperBall } from '../../../ui/PaperBall';
 import { playSound } from '../../sound';
 import { crumpleAndKick } from '../crumple';
-import { useCrumple } from '../crumple-store';
+import { useClosing, useCrumple } from '../crumple-store';
 
 /** Resolves once the server has closed the socket, or after `timeoutMs` (it already has the intent). */
 function roomClosed(timeoutMs: number): Promise<void> {
@@ -33,10 +33,11 @@ function goHome(): void {
 
 /**
  * Wraps the room so closing it can crumple it (crumple.ts): the room is the sheet, and while it
- * crumples the ball, the kick's ink marks and the creasing filter are drawn over the desk.
+ * crumples the ball, the kick's ink marks and the creasing filter are drawn over the desk. Everyone
+ * sees it: the host's page then goes home, and guests are told the room has closed.
  */
 export function CrumpleStage({ className, children }: { className: string; children: ReactNode }) {
-  const crumpling = useCrumple((s) => s.crumpling);
+  const crumpling = useClosing();
   const filterId = useId().replace(/:/g, '');
   const sheet = useRef<HTMLDivElement>(null);
   const ball = useRef<HTMLDivElement>(null);
@@ -73,7 +74,8 @@ export function CrumpleStage({ className, children }: { className: string; child
       playSound('paperCrumple');
       played = crumpleAndKick(parts, () => playSound('paperKick')).catch(() => {});
     }
-    void Promise.all([played, roomClosed(2000)]).then(goHome);
+    if (useCrumple.getState().mine) void Promise.all([played, roomClosed(2000)]).then(goHome);
+    else void played.then(() => useCrumple.setState({ done: true }));
   }, [crumpling]);
 
   return (

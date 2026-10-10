@@ -29,7 +29,7 @@ const FINAL_CLOSES: Record<number, [CloseReason, string]> = {
   [CloseCode.kicked]: ['kicked', 'You were removed from the room.'],
   [CloseCode.banned]: ['banned', 'You were removed from the room.'],
   [CloseCode.roomClosed]: ['room_closed', 'This room has closed.'],
-  [CloseCode.closedByHost]: ['room_closed', 'The host closed this room.'],
+  [CloseCode.closedByHost]: ['closed_by_host', 'The host closed this room.'],
   [CloseCode.roomFull]: ['full', 'This room is full.'],
   [CloseCode.policy]: ['lost', 'The connection was closed.'],
 };

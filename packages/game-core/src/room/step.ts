@@ -55,6 +55,7 @@ export function createRoomState(input: {
     likes: null,
     cover: null,
     pendingCover: null,
+    favourite: null,
   };
 }
 

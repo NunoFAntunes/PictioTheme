@@ -21,6 +21,7 @@ import {
   SkipIcon,
 } from '../../../ui/ScribbleIcons';
 import { StickerLogo } from '../../../ui/StickerLogo';
+import { RushMeter } from './RushMeter';
 
 /** `"_____ ___"` → spaced blanks plus word lengths "(5, 3)". Revealed hint letters show. */
 function MaskedWord({ mask }: { mask: string }) {
@@ -203,7 +204,7 @@ export function RoomHeader() {
       )}
       {inMatch && <Timer endsAt={endsAt} paused={view.paused !== null} />}
 
-      <div className="flex flex-1 justify-center">
+      <div className="flex flex-1 flex-col items-center gap-1">
         {phase.kind === 'drawing' &&
           (word ? (
             <span className="text-xl font-bold tracking-wide uppercase" data-testid="current-word">
@@ -213,6 +214,14 @@ export function RoomHeader() {
           ) : (
             <MaskedWord mask={phase.mask} />
           ))}
+        {phase.kind === 'drawing' && phase.rush && (
+          <RushMeter
+            rush={phase.rush}
+            endsAt={phase.endsAt}
+            paused={view.paused !== null}
+            showPoints={!word}
+          />
+        )}
       </div>
 
       {connection.kind === 'reconnecting' && (

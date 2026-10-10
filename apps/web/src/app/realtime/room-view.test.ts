@@ -110,6 +110,18 @@ describe('room view reducer', () => {
     expect(view.likes).toBeNull();
   });
 
+  it('picks up a rush window and announces it in the feed once', () => {
+    const rush = { windowMs: 20_000, fromPoints: 250, toPoints: 100 };
+    let view = apply(viewFromSnapshot(snapshot(), null), drawing);
+    view = apply(view, { ...drawing, endsAt: 120, rush });
+    expect(view.phase).toMatchObject({ kind: 'drawing', endsAt: 120, rush });
+    // A pause re-sends it: no second announcement.
+    view = apply(view, { ...drawing, endsAt: 130, rush });
+    expect(view.feed.filter((f) => f.kind === 'rush')).toEqual([
+      expect.objectContaining({ kind: 'rush', seconds: 20 }),
+    ]);
+  });
+
   it("follows the room's new name and public/private", () => {
     const view = apply(viewFromSnapshot(snapshot(), null), {
       t: 'room:details',

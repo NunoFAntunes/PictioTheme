@@ -30,6 +30,7 @@ import { PodiumFigure, type FigureMotion } from './PodiumFigure';
 const AWARD_LABEL: Record<Award['id'], string> = {
   fastest_guesser: '⚡ Fastest guesser',
   best_drawer: '🎨 Best drawer',
+  crowd_favourite: '❤️ Crowd favourite',
 };
 
 const ORDINAL: Record<PodiumRank, string> = { 1: '1st', 2: '2nd', 3: '3rd' };

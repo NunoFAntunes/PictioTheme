@@ -27,6 +27,8 @@ export type FeedItem =
     }
   | { id: number; kind: 'chat'; playerId: PlayerId; text: string; solvedChannel: boolean }
   | { id: number; kind: 'solved'; playerId: PlayerId; order: number }
+  /** Rush mode: someone got it, and the clock dropped to `seconds`. */
+  | { id: number; kind: 'rush'; seconds: number }
   /** A turn begins: a divider between turns, so system lines stand apart from the chat. */
   | { id: number; kind: 'turn'; round: number; drawerId: PlayerId }
   /** `drawerId` is null when the reveal came without a turn we watched (a snapshot mid-reveal). */
@@ -163,10 +165,16 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
         ? next
         : addFeed(next, { kind: 'turn', round: msg.round, drawerId: msg.drawerId });
     }
-    case 'phase:drawing':
-      return {
+    case 'phase:drawing': {
+      const next: RoomView = {
         ...view,
-        phase: { kind: 'drawing', drawerId: msg.drawerId, endsAt: msg.endsAt, mask: msg.mask },
+        phase: {
+          kind: 'drawing',
+          drawerId: msg.drawerId,
+          endsAt: msg.endsAt,
+          mask: msg.mask,
+          ...(msg.rush && { rush: msg.rush }),
+        },
         phaseLive: true,
         secret: msg.word ? { word: msg.word } : {},
         bubbles: view.phase.kind === 'drawing' ? view.bubbles : {},
@@ -177,6 +185,12 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
             : { drawerId: msg.drawerId, likers: [] },
         round: msg.round,
       };
+      // Re-sent with a rush window once a rush turn's first guess is in.
+      const rushStarts = view.phase.kind === 'drawing' && !view.phase.rush;
+      return msg.rush && rushStarts
+        ? addFeed(next, { kind: 'rush', seconds: Math.round(msg.rush.windowMs / 1000) })
+        : next;
+    }
     case 'hint':
       return view.phase.kind === 'drawing'
         ? { ...view, phase: { ...view.phase, mask: msg.mask } }

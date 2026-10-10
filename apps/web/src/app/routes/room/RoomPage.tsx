@@ -1,7 +1,7 @@
 import { normalizeRoomCode } from '@pictiotheme/game-core';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useParams } from 'react-router';
-import { CrumpleStage, useCrumple } from '../../features/close-room';
+import { CrumpleStage, resetCrumple, useCrumpling } from '../../features/close-room';
 import { GuessBar, GuessFeed } from '../../features/guess-feed';
 import { useEnsureIdentity } from '../../features/identity';
 import { PlayerList } from '../../features/player-list';
@@ -44,10 +44,14 @@ function roomIdentity(): PlayerIdentity {
 function RoomSession({ code }: { code: string }) {
   const view = useRoomStore((s) => s.view);
   const connection = useRoomStore((s) => s.connection);
-  // Closing the room yourself crumples it up and goes home, instead of saying it's closed.
-  const crumpling = useCrumple((s) => s.crumpling);
+  // When the host closes the room it's crumpled up first: the host then goes home, and guests are
+  // told it's closed once the ball is gone.
+  const crumpling = useCrumpling() && view !== null;
 
-  useEffect(() => connectRoom(code, roomIdentity), [code]);
+  useEffect(() => {
+    resetCrumple();
+    return connectRoom(code, roomIdentity);
+  }, [code]);
 
   if (connection.kind === 'closed' && connection.reason !== 'left' && !crumpling) {
     return (

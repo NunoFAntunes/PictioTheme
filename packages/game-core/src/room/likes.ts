@@ -23,9 +23,18 @@ export function onLike(c: Ctx, playerId: PlayerId, liked: boolean): void {
   sendToAll(c, { t: 'turn:likes', likers: [...likes.likers] });
 }
 
+/** Does the current drawing beat the match's most-liked one (the crowd favourite award)? */
+export function considerFavourite(c: Ctx): void {
+  const { state } = c;
+  const count = state.likes?.likers.size ?? 0;
+  if (!state.likes || count === 0 || count <= (state.favourite?.likes ?? 0)) return;
+  state.favourite = { drawerId: state.likes.drawerId, likes: count };
+}
+
 /** As a reveal ends: does this drawing beat the cover? Then ask its drawer for a picture. */
 export function considerCover(c: Ctx): void {
   const { state } = c;
+  considerFavourite(c);
   const { likes } = state;
   state.likes = null;
   if (!likes) return;

@@ -124,6 +124,12 @@ function FeedLine({ item, view }: { item: FeedItem; view: RoomView }) {
           {item.order === 1 && <span className="ml-1 font-normal">First!</span>}
         </SystemLine>
       );
+    case 'rush':
+      return (
+        <SystemLine icon="⚡" className="border border-pop-sun bg-pop-sun/25 font-medium text-ink">
+          Rush! {item.seconds} seconds left to guess.
+        </SystemLine>
+      );
     case 'reveal':
       return (
         <div

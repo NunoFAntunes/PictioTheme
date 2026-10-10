@@ -2,22 +2,24 @@ import type { ClientMessage, PlayerId, RoomDeck, RoomSettings } from '@pictiothe
 import { buildCardPool } from '../card-pool';
 import { classifyGuess } from '../guess/classify';
 import { hasProfanity, maskProfanity } from '../moderation/profanity';
-import { cardMultiplier, guesserPoints } from '../scoring';
+import { cardMultiplier, guesserPoints, rushPoints, speedPoints } from '../scoring';
 import { onDraw } from './drawing';
 import {
   checkAllSolved,
   chooseCard,
+  elapsedMs,
   endTurn,
   finishMatch,
   isInMatch,
   pause,
   resume,
   startMatch,
+  startRush,
 } from './match';
 import { broadcastPlayers, connectedIds, send, sendError, sendToAll } from './output';
 import { onLike } from './likes';
 import { kick, transferHost } from './players';
-import type { Ctx, Phase } from './types';
+import type { Ctx, DrawingPhase } from './types';
 import { knowsWord, roomDeck } from './views';
 
 /** Everything a connected player can send. Rules: docs/product/game-rules.md. */
@@ -126,14 +128,19 @@ function requireHost(c: Ctx, playerId: PlayerId): boolean {
 // ── Host: settings and start ──
 
 /** Settings that may change during a match (they take effect from the next turn). */
-const LIVE_SETTINGS = new Set<keyof RoomSettings>(['guessVisibility', 'hints']);
+const LIVE_SETTINGS = new Set<keyof RoomSettings>(['guessVisibility', 'hints', 'rush']);
 
 function updateSettings(c: Ctx, playerId: PlayerId, patch: Partial<RoomSettings>): void {
   const { state } = c;
   if (!requireHost(c, playerId)) return;
   const keys = (Object.keys(patch) as (keyof RoomSettings)[]).filter((k) => patch[k] !== undefined);
   if (isInMatch(state.phase) && keys.some((k) => !LIVE_SETTINGS.has(k))) {
-    sendError(c, playerId, 'WRONG_PHASE', 'Only guess visibility and hints can change mid-match');
+    sendError(
+      c,
+      playerId,
+      'WRONG_PHASE',
+      'Only guess visibility, hints and rush can change mid-match',
+    );
     return;
   }
   const next: RoomSettings = { ...state.settings };
@@ -225,8 +232,6 @@ function voteKick(c: Ctx, voterId: PlayerId, targetId: PlayerId): void {
 
 // ── Guessing and chat ──
 
-type DrawingPhase = Extract<Phase, { kind: 'drawing' }>;
-
 function guess(c: Ctx, playerId: PlayerId, text: string): void {
   const { state } = c;
   const { phase } = state;
@@ -272,25 +277,24 @@ function guess(c: Ctx, playerId: PlayerId, text: string): void {
 function correctGuess(c: Ctx, phase: DrawingPhase, playerId: PlayerId, text: string): void {
   const player = c.state.players.get(playerId);
   if (!player) return;
-  const drawTimeMs = c.state.settings.drawSeconds * 1000;
   const timeRemainingMs = Math.max(0, phase.endsAt - c.now);
-  const points = guesserPoints({
-    timeRemainingMs,
-    drawTimeMs,
-    isFirst: phase.solved.length === 0,
-    multiplier: cardMultiplier(phase.card),
-  });
+  const base = phase.rush
+    ? rushPoints(phase.rush.fromBase, timeRemainingMs, phase.rush.windowMs)
+    : speedPoints(timeRemainingMs, c.state.settings.drawSeconds * 1000);
+  const order = phase.solved.length + 1;
+  const points = guesserPoints({ base, order, multiplier: cardMultiplier(phase.card) });
   phase.solved.push(playerId);
   phase.deltas[playerId] = points;
   player.score += points;
   player.correctGuesses += 1;
-  player.guessTimeMs += drawTimeMs - timeRemainingMs;
+  player.guessTimeMs += elapsedMs(c, phase);
 
   send(c, playerId, { t: 'guess:self', kind: 'correct', text, word: phase.card.text });
   sendToAll(c, { t: 'guess:feed', playerId, kind: 'correct' }, playerId); // never the text
   sendToAll(c, { t: 'turn:solved', playerId, order: phase.solved.length });
   broadcastPlayers(c);
   checkAllSolved(c);
+  if (order === 1 && phase.rushMode && c.state.phase === phase) startRush(c, phase, base);
 }
 
 /** Messages from solvers reach only the drawer and other solvers, so the answer can't leak. */

@@ -10,7 +10,7 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 
 | Type | Payload | Who | Notes |
 |---|---|---|---|
-| `room:settings` | partial settings | host | Waiting phase only (except visibility/hints). Includes `language`, the room's language (decks.md#languages); the host's client sends it together with the deck's translation into that language, when one exists |
+| `room:settings` | partial settings | host | Waiting phase only (except visibility, hints and rush). Includes `language`, the room's language (decks.md#languages); the host's client sends it together with the deck's translation into that language, when one exists |
 | `room:details` | `name?, isPublic?` | host | Any time. Names are 2–40 characters and profanity-checked (`VALIDATION` error otherwise); a public room is listed on the home page |
 | `room:start` | — | host | ≥ 2 players |
 | `room:kick` | `playerId` | host | |
@@ -43,7 +43,7 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 | `room:paused` | `paused: 'host' \| 'players' \| null` | `players`: auto-pause when only one player is left |
 | `room:notice` | `code, playerId?, count?, needed?` | `pool_reshuffled`, `player_kicked`, `vote_kick` (progress), `host_changed`, `deck_unavailable` |
 | `phase:choosing` | `drawerId, round, endsAt` (+ `options` **only to drawer**) | |
-| `phase:drawing` | `drawerId, round, endsAt, mask` (+ `word` **only to the drawer and solvers**) | `mask` e.g. `"_____ __ _ ________"`. Re-sent with a new `endsAt` after a pause |
+| `phase:drawing` | `drawerId, round, endsAt, mask` (+ `word` **only to the drawer and solvers**) (+ `rush`) | `mask` e.g. `"_____ __ _ ________"`. Re-sent with a new `endsAt` after a pause, and when a [rush](../product/game-rules.md#rush) starts: then `rush: { windowMs, fromPoints, toPoints }`, and a guess is worth `toPoints + (fromPoints − toPoints) × (endsAt − now) / windowMs` before the order bonus |
 | `hint` | `mask` | Letter revealed |
 | `draw:*` | same as client draw messages | Forwarded to all except drawer |
 | `guess:feed` | `playerId, kind: 'wrong'|'close'|'correct', text?` | See visibility rules below |
@@ -51,7 +51,7 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 | `chat` | `playerId, text, solvedChannel?` | `solvedChannel`: from a solver, only sent to the drawer and other solvers |
 | `turn:solved` | `playerId, order` | "Ana guessed it!" |
 | `phase:reveal` | `word, deltas, endsAt` | |
-| `phase:results` | `ranking, awards` | |
+| `phase:results` | `ranking, awards` | Award ids: `fastest_guesser`, `best_drawer`, `crowd_favourite` |
 | `error` | `code, message` | e.g. `ROOM_FULL`, `NOT_HOST`, `RATE_LIMITED`. Codes are the shared `ErrorCode` union in `packages/protocol` |
 | `server:restarting` | — | Sent before a deploy or shutdown. The client shows a notice, then reconnects with backoff |
 | `pong` | `ts, serverTime` | Reply to `ping`. Used for latency and the clock offset |

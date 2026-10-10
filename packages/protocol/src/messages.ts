@@ -112,15 +112,33 @@ export const NoticeCode = z.enum([
 export type NoticeCode = z.infer<typeof NoticeCode>;
 
 export const Award = z.object({
-  id: z.enum(['fastest_guesser', 'best_drawer']),
+  id: z.enum(['fastest_guesser', 'best_drawer', 'crowd_favourite']),
   playerId: PlayerId,
 });
 export type Award = z.infer<typeof Award>;
 
+/**
+ * Rush mode, once someone has guessed (game-rules.md#rush): the turn now ends at `endsAt`, and a
+ * correct guess is worth `toPoints + (fromPoints - toPoints) × (endsAt - now) / windowMs`, before
+ * the order bonus. Points include the card multiplier.
+ */
+export const RushWindow = z.object({
+  windowMs: z.number().int().positive(),
+  fromPoints: z.number().int(),
+  toPoints: z.number().int(),
+});
+export type RushWindow = z.infer<typeof RushWindow>;
+
 export const PublicPhase = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('waiting') }),
   z.object({ kind: z.literal('choosing'), drawerId: PlayerId, endsAt: z.number() }),
-  z.object({ kind: z.literal('drawing'), drawerId: PlayerId, endsAt: z.number(), mask: WordMask }),
+  z.object({
+    kind: z.literal('drawing'),
+    drawerId: PlayerId,
+    endsAt: z.number(),
+    mask: WordMask,
+    rush: RushWindow.optional(),
+  }),
   z.object({
     kind: z.literal('reveal'),
     word: z.string(),
@@ -198,6 +216,8 @@ export const ServerMessage = z.discriminatedUnion('t', [
     endsAt: z.number(),
     mask: WordMask,
     word: z.string().optional(),
+    /** Set once a rush turn's first guess is in (re-sent with the shortened `endsAt`). */
+    rush: RushWindow.optional(),
   }),
   z.object({ t: z.literal('hint'), mask: WordMask }),
   z.object({ t: z.literal('draw:begin'), ...DrawBegin.shape }),

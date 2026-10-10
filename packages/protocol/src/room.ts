@@ -55,6 +55,8 @@ export const RoomSettings = z.object({
   maxPlayers: z.number().int().min(2).max(16),
   guessVisibility: GuessVisibility,
   hints: z.boolean(),
+  /** Rush: after the first correct guess the clock drops to a short window and points drain. */
+  rush: z.boolean(),
   wordChoice: z.union([z.literal(1), z.literal(3)]),
   /** What the cards are written in. A match only starts with a deck in this language. */
   language: DeckLanguage,
@@ -69,6 +71,7 @@ export const DEFAULT_ROOM_SETTINGS: Omit<RoomSettings, 'deckId'> = {
   maxPlayers: 10,
   guessVisibility: 'show',
   hints: true,
+  rush: false,
   wordChoice: 3,
   language: DEFAULT_DECK_LANGUAGE,
 };

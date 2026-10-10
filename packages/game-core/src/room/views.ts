@@ -1,13 +1,16 @@
 import type {
+  Card,
   CardOption,
   PlayerId,
   PublicPhase,
   PublicPlayer,
   RoomDeck,
+  RushWindow,
   ServerMessage,
 } from '@pictiotheme/protocol';
+import { cardMultiplier, rushPoints } from '../scoring';
 import { buildMask } from '../word-mask';
-import type { DeckInfo, Phase, RoomState } from './types';
+import type { DeckInfo, DrawingPhase, Phase, RoomState } from './types';
 
 /**
  * What each player is allowed to see. The secret word never leaves the server
@@ -52,6 +55,7 @@ export function publicPhase(phase: Phase): PublicPhase {
         drawerId: phase.drawerId,
         endsAt: phase.endsAt,
         mask: buildMask(phase.card.text, phase.revealed),
+        ...(phase.rush && { rush: publicRush(phase.card, phase.rush) }),
       };
     case 'reveal':
       return { kind: 'reveal', word: phase.card.text, deltas: phase.deltas, endsAt: phase.endsAt };
@@ -91,5 +95,15 @@ export function snapshotFor(state: RoomState, playerId: PlayerId): ServerMessage
     strokes: state.strokes,
     likers: [...(state.likes?.likers ?? [])],
     secret,
+  };
+}
+
+/** The rush window as players see it, with the card multiplier applied. */
+export function publicRush(card: Card, rush: NonNullable<DrawingPhase['rush']>): RushWindow {
+  const multiplier = cardMultiplier(card);
+  return {
+    windowMs: rush.windowMs,
+    fromPoints: Math.round(rush.fromBase * multiplier),
+    toPoints: Math.round(rushPoints(rush.fromBase, 0, rush.windowMs) * multiplier),
   };
 }

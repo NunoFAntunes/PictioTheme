@@ -23,7 +23,7 @@ Sound makes the game feel like a table, not a web page. Every sound tells the pl
 | Clock tick | Each of the last 10 seconds of drawing (not while paused) | Everyone | Clock ticking | `clock-tick` (Interface Sounds `tick_004`), alternating pitch for tick/tock, quiet and getting a little louder |
 | Message | Someone else chats or guesses wrong | Everyone else | Chat & players | `chat` (Interface Sounds `pluck_001`) |
 | Player joined / left | The player list gains or loses someone | Everyone | Chat & players | `player-join` (`drop_002`), `player-leave` (`back_002`) |
-| Paper crumple / kick | The host closes the room: it's scrunched into a ball, then the ball is kicked away | The host | Chat & players | `paper-crumple`, `paper-kick` (synthesised for the game: crackle bursts through resonant filters over a rustle; a thump, a papery tap and a whoosh. Not auditioned yet) |
+| Paper crumple / kick | The host closes the room: it's scrunched into a ball, then the ball is kicked away | Everyone in the room | Chat & players | `paper-crumple`, `paper-kick` (synthesised for the game: crackle bursts through resonant filters over a rustle; a thump, a papery tap and a whoosh. Not auditioned yet) |
 
 Rules:
 

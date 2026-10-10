@@ -67,4 +67,26 @@ describe('likes', () => {
     expect(receivedOfType(turn.revealEnd(), turn.drawer, 'cover:request')).toEqual([]);
     expect(h.state.pendingCover).toBeNull();
   });
+
+  it('gives the most liked drawing of the match the crowd favourite award', () => {
+    const h = createHarness({ settings: { rounds: 1 } });
+    h.startWith(PLAYERS);
+    playTurn(h, 1).revealEnd();
+    const second = playTurn(h, 2);
+    second.revealEnd();
+    playTurn(h, 2).revealEnd(); // a tie keeps the older one
+    if (h.state.phase.kind !== 'results') throw new Error();
+    expect(h.state.phase.awards).toContainEqual({
+      id: 'crowd_favourite',
+      playerId: second.drawer,
+    });
+  });
+
+  it('gives no crowd favourite when nobody liked anything', () => {
+    const h = createHarness({ settings: { rounds: 1 } });
+    h.startWith(PLAYERS);
+    for (let i = 0; i < 3; i++) playTurn(h, 0).revealEnd();
+    if (h.state.phase.kind !== 'results') throw new Error();
+    expect(h.state.phase.awards.map((a) => a.id)).not.toContain('crowd_favourite');
+  });
 });

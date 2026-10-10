@@ -8,7 +8,7 @@
   1. **Choose** (10s): the drawer sees 3 cards drawn from the active pool and picks one. If the timer runs out, a random one is used. The host can turn this off so the drawer always gets a single random card.
   2. **Draw** (default 80s): the drawer draws and the others guess.
   3. **Reveal** (5s): the answer is shown with the scores earned this turn.
-- A turn ends early when **every guesser has guessed correctly**.
+- A turn ends early when **every guesser has guessed correctly**, or, in [rush mode](#rush), when the rush window after the first correct guess runs out.
 
 ## Card pool
 
@@ -49,27 +49,72 @@ The host can change this between turns.
 
 ## Hints
 
-If hints are on, letters are revealed over time: at 50% and 75% of draw time, one random letter is shown (never the whole word, and at most ⅓ of the letters). Word lengths are always visible: `_ _ _ _ _   _ _ _ _`. Spaces, hyphens, and digits are shown from the start.
+If hints are on, a few letters are revealed as time goes by. Word lengths are always visible: `_ _ _ _ _   _ _ _ _`. Spaces, hyphens, and digits are shown from the start.
+
+- **How many**: one per 5 letters (rounded up), and never more than a third of any word's letters, so words of 1–2 letters ("on", "a") get none and no word is ever given away.
+
+  | Card | Letters | Hints |
+  |---|---|---|
+  | Cat, Moon | 3, 4 | 1 |
+  | Pumpkin | 7 | 2 |
+  | Haunted house | 12 | 3 |
+  | Headless horseman | 16 | 4 |
+  | Vampire on a unicycle | 18 | 4 |
+
+- **When**: spread evenly from ½ to ⅘ of the draw time (a single hint shows at ½).
+- **Which letters**: they go round the words, so a phrase gets a letter in each word before a second one in any. A word's first letter is revealed last because it gives the most away.
 
 ## Scoring
 
-The scoring is simple and rewards speed:
+Guessers are rewarded for speed and for being first. Drawers are rewarded for drawings that get understood, and for being brave enough to pick hard cards.
 
 **Guesser** who guesses correctly:
 ```
-points = round(50 + 250 × (timeRemaining / drawTime))     // 50–300
-bonus  = first correct guesser +50
+points = (speed + order bonus) × card multiplier
+speed  = 100 + 200 × (timeRemaining / drawTime)            // 100–300
+order bonus = 1st +100, 2nd +50, 3rd +25
 ```
+A correct guess at the buzzer is still worth 100.
 
 **Drawer**:
 ```
-points = round(200 × (correctGuessers / totalGuessers))   // 0–200
+points = 50 × guessers × min(1, solvedShare / ½) × drawer multiplier
 ```
-This rewards drawings that many people understand, and the drawer gets 0 if nobody guesses.
+- `guessers` is the number of guessers in the room at the end of the turn: those still connected, plus anyone who solved and left. It counts as at least 2 and at most 8, so a drawing is worth 100–400 points before the multiplier.
+- The drawer gets **full points once half the guessers get it**. More guessers don't add more points: a drawing everyone gets straight away isn't better than one half the room gets. Fewer guessers do cost points, and the drawer gets **0 if nobody guesses**.
+- Speed doesn't count for the drawer, because it would favour the easiest cards again.
+- Why everyone guessing isn't penalised: it would pay the drawer to draw badly on purpose, and the guessers would lose out.
 
-**Difficulty multiplier** (applied to both): easy ×1.0, medium ×1.2, hard ×1.5, silly ×1.5.
+**Card multipliers**:
+
+| | Easy | Medium | Hard | Silly |
+|---|---|---|---|---|
+| Guessers | ×1.0 | ×1.2 | ×1.5 | ×1.5 |
+| Drawer | ×1.0 | ×1.4 | ×2.0 | ×2.0 |
+
+The drawer's multiplier is steeper because the drawer chose the risk. A hard card only a quarter of the room gets pays the drawer as much as an easy card everyone gets, and a hard card half the room gets pays twice as much. So picking "Bat" over "Headless horseman" is never the safe bet.
+
+Roughly, drawing makes up a quarter to a third of a player's score in a room of 4–8.
 
 Ties at the end are broken by the number of correct guesses, then by total guess speed.
+
+**Awards** at the end of a match:
+- ⚡ **Fastest guesser**: the lowest average time to a correct guess.
+- 🎨 **Best drawer**: the most drawer points.
+- ❤️ **Crowd favourite**: the drawer of the match's most-liked drawing. A tie goes to the earlier drawing, and a drawing nobody liked doesn't count.
+
+Awards don't score points.
+
+## Rush
+
+**Rush** is a host setting, off by default. It can be changed during a match and takes effect from the next turn. When the first correct guess comes in:
+
+- **The clock drops** to the rush window: a quarter of the draw time, between 15 and 30 seconds (20s at the default 80s). If less time than that is left, the clock stays as it is.
+- **Points drain** over the window. A guess is worth what the first guesser's speed points were at the start of the window, falling to 100 when the window ends. The order bonus and card multiplier apply as usual. The first guesser gets the normal points.
+- **Everyone sees a bar** under the word that drains with the time left. Players who haven't guessed also see what a guess is worth right now. The feed says "⚡ Rush! 20 seconds left to guess."
+- If nobody has seen a hint yet, **one letter is revealed** as the rush starts, so slower players still have a chance. Later hints still show if their time comes before the window ends.
+- The turn still ends early if everyone gets it. Pausing freezes the window.
+- The drawer scores the same way as without rush.
 
 ## Likes and the room cover
 
@@ -83,7 +128,7 @@ Ties at the end are broken by the number of correct guesses, then by total guess
 | Control | When |
 |---|---|
 | Change deck, difficulties, Silly Mode, rounds, timer, max players, public/private | Waiting room |
-| Toggle guess visibility, hints | Any time (takes effect next turn) |
+| Toggle guess visibility, hints, rush | Any time (takes effect next turn) |
 | Kick player | Any time |
 | Skip current turn | During a turn (card is revealed, no points) |
 | Pause / resume | Any time |

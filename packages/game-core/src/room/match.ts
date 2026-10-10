@@ -2,19 +2,21 @@ import type { Award, Card, PlayerId } from '@pictiotheme/protocol';
 import { settleOptions, takeOptions, type CardPool } from '../card-pool';
 import { prepareCard } from '../guess/classify';
 import { randomInt } from '../rng';
-import { cardMultiplier, drawerPoints } from '../scoring';
-import { buildMask, pickHintIndex } from '../word-mask';
-import { considerCover, startLikes } from './likes';
+import { drawerMultiplier, drawerPoints, rushWindowMs } from '../scoring';
+import { buildMask, hintFraction, maxHints, pickHintIndex } from '../word-mask';
+import { considerCover, considerFavourite, startLikes } from './likes';
 import { broadcastPlayers, cancel, connectedIds, schedule, send, sendToAll } from './output';
 import {
   TIMINGS,
   type Ctx,
+  type DrawingPhase,
   type MatchEndReason,
   type Phase,
   type PlayerState,
+  type RoomState,
   type TurnEndReason,
 } from './types';
-import { knowsWord, toOption } from './views';
+import { knowsWord, publicRush, toOption } from './views';
 
 /** Match flow: turns, phases, hints, scoring at turn end, pause, results. */
 
@@ -49,6 +51,9 @@ export function startMatch(c: Ctx, pool: CardPool): void {
     p.guessTimeMs = 0;
     p.drawerPoints = 0;
   }
+  // A drawing left over from a match ended mid-turn still counts for the cover, not the awards.
+  considerCover(c);
+  state.favourite = null;
   state.pool = pool;
   state.round = 1;
   state.turnOrder = turnOrderFor(c, 1);
@@ -146,7 +151,8 @@ function beginDrawing(
   });
   state.pool = settleOptions(state.pool, options, card);
   const endsAt = c.now + drawTimeMs(c);
-  const nextHintAt = state.settings.hints ? endsAt - drawTimeMs(c) * 0.5 : null;
+  const hints = state.settings.hints ? maxHints(card.text) : 0;
+  const nextHintAt = hints > 0 ? c.now + drawTimeMs(c) * hintFraction(0, hints) : null;
   state.phase = {
     kind: 'drawing',
     drawerId,
@@ -155,6 +161,8 @@ function beginDrawing(
     startedAt: c.now,
     endsAt,
     nextHintAt,
+    rushMode: state.settings.rush,
+    rush: null,
     revealed: new Set(),
     solved: [],
     deltas: {},
@@ -191,6 +199,7 @@ export function announcePhase(c: Ctx): void {
         round: state.round,
         endsAt: phase.endsAt,
         mask: buildMask(phase.card.text, phase.revealed),
+        ...(phase.rush && { rush: publicRush(phase.card, phase.rush) }),
       } as const;
       const ids = connectedIds(c);
       send(
@@ -227,25 +236,59 @@ export function onPhaseTimer(c: Ctx): void {
   else if (phase.kind === 'reveal') advance(c);
 }
 
-/** Reveals one letter at 50% and one at 75% of the draw time (never more than a third). */
+/** Reveals one more letter to everyone who doesn't know the word. False when none is left. */
+function revealHint(c: Ctx, phase: DrawingPhase): boolean {
+  const idx = pickHintIndex(phase.card.text, phase.revealed, c.rng);
+  if (idx === null) return false;
+  phase.revealed.add(idx);
+  send(
+    c,
+    connectedIds(c).filter((id) => !knowsWord(c.state, id)),
+    { t: 'hint', mask: buildMask(phase.card.text, phase.revealed) },
+  );
+  return true;
+}
+
+/** Hints are spread from ½ to ⅘ of the draw time (word-mask.ts has how many a card gets). */
 export function onHintTimer(c: Ctx): void {
   const { state } = c;
   const { phase } = state;
   if (phase.kind !== 'drawing' || phase.nextHintAt === null || state.paused) return;
-  const idx = pickHintIndex(phase.card.text, phase.revealed, c.rng);
-  if (idx === null) {
+  phase.nextHintAt = null;
+  if (!revealHint(c, phase)) return;
+  const total = maxHints(phase.card.text);
+  const k = phase.revealed.size;
+  if (k >= total) return;
+  const next = c.now + drawTimeMs(c) * (hintFraction(k, total) - hintFraction(k - 1, total));
+  if (next >= phase.endsAt) return;
+  phase.nextHintAt = next;
+  schedule(c, 'hint', next);
+}
+
+/** Time drawn so far this turn (pauses don't count). */
+export function elapsedMs(c: Ctx, phase: DrawingPhase): number {
+  const left = Math.max(0, phase.endsAt - c.now);
+  return phase.rush ? phase.rush.elapsedMs + phase.rush.windowMs - left : drawTimeMs(c) - left;
+}
+
+/**
+ * Rush mode (game-rules.md#rush): the first correct guess cuts the clock to a short window, in
+ * which a guess's points drain from what the first guesser got down to the minimum. Players who
+ * haven't seen a hint yet get one, so the rush isn't hopeless for them.
+ */
+export function startRush(c: Ctx, phase: DrawingPhase, fromBase: number): void {
+  const left = phase.endsAt - c.now;
+  const windowMs = Math.min(left, rushWindowMs(drawTimeMs(c)));
+  if (windowMs <= 0) return;
+  phase.rush = { windowMs, fromBase, elapsedMs: elapsedMs(c, phase) };
+  phase.endsAt = c.now + windowMs;
+  schedule(c, 'phase', phase.endsAt);
+  if (phase.nextHintAt !== null && phase.revealed.size === 0) revealHint(c, phase);
+  if (phase.nextHintAt !== null && phase.nextHintAt >= phase.endsAt) {
     phase.nextHintAt = null;
-    return;
+    cancel(c, 'hint');
   }
-  phase.revealed.add(idx);
-  send(
-    c,
-    connectedIds(c).filter((id) => !knowsWord(state, id)),
-    { t: 'hint', mask: buildMask(phase.card.text, phase.revealed) },
-  );
-  const secondHintAt = phase.endsAt - drawTimeMs(c) * 0.25;
-  phase.nextHintAt = phase.revealed.size === 1 && secondHintAt > c.now ? secondHintAt : null;
-  if (phase.nextHintAt !== null) schedule(c, 'hint', phase.nextHintAt);
+  announcePhase(c);
 }
 
 /** Ends the turn early once every connected guesser has solved it. */
@@ -293,11 +336,12 @@ export function endTurn(c: Ctx, reason: TurnEndReason): void {
   // A skipped or abandoned turn gives the drawer nothing; guessers keep what they earned.
   if (reason === 'time' || reason === 'all_guessed') {
     const drawer = state.players.get(phase.drawerId);
-    const guessers = [...state.players.keys()].filter((id) => id !== phase.drawerId).length;
+    // Guessers still here, plus any who solved and then left. Not players waiting out a disconnect.
+    const guessers = new Set([...connectedIds(c, phase.drawerId), ...phase.solved]).size;
     const points = drawerPoints({
       correctGuessers: phase.solved.length,
-      totalGuessers: Math.max(guessers, phase.solved.length),
-      multiplier: cardMultiplier(phase.card),
+      totalGuessers: guessers,
+      multiplier: drawerMultiplier(phase.card),
     });
     if (drawer && points > 0) {
       drawer.score += points;
@@ -320,7 +364,7 @@ function rankPlayers(players: PlayerState[]): PlayerState[] {
   );
 }
 
-function pickAwards(players: PlayerState[]): Award[] {
+function pickAwards(players: PlayerState[], favourite: RoomState['favourite']): Award[] {
   const awards: Award[] = [];
   const [fastest] = players
     .filter((p) => p.correctGuesses > 0)
@@ -330,6 +374,10 @@ function pickAwards(players: PlayerState[]): Award[] {
     .filter((p) => p.drawerPoints > 0)
     .sort((a, b) => b.drawerPoints - a.drawerPoints);
   if (bestDrawer) awards.push({ id: 'best_drawer', playerId: bestDrawer.id });
+  // The most-liked drawing of the match.
+  if (favourite && players.some((p) => p.id === favourite.drawerId)) {
+    awards.push({ id: 'crowd_favourite', playerId: favourite.drawerId });
+  }
   return awards;
 }
 
@@ -337,11 +385,12 @@ export function finishMatch(c: Ctx, reason: MatchEndReason = 'completed'): void 
   const { state } = c;
   for (const timer of ['phase', 'hint', 'drawer-grace', 'alone'] as const) cancel(c, timer);
 
+  considerFavourite(c); // a match ended mid-turn: the drawing on the board counts too
   const ranked = rankPlayers([...state.players.values()]);
   state.phase = {
     kind: 'results',
     ranking: ranked.map((p) => p.id),
-    awards: pickAwards(ranked),
+    awards: pickAwards(ranked, state.favourite),
   };
   state.paused = null;
   state.strokes = [];

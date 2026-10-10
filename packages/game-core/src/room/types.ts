@@ -73,6 +73,13 @@ export type Phase =
       startedAt: number;
       endsAt: number;
       nextHintAt: number | null;
+      /** Rush mode for this turn (the setting when the turn began). */
+      rushMode: boolean;
+      /**
+       * Set by the first correct guess in rush mode: the window's length, the first guesser's
+       * speed points (where the points start draining from) and the time drawn before it.
+       */
+      rush: { windowMs: number; fromBase: number; elapsedMs: number } | null;
       revealed: Set<number>;
       /** Players who guessed correctly, in order. */
       solved: PlayerId[];
@@ -80,6 +87,8 @@ export type Phase =
     }
   | { kind: 'reveal'; card: Card; deltas: Record<PlayerId, number>; endsAt: number }
   | { kind: 'results'; ranking: PlayerId[]; awards: Award[] };
+
+export type DrawingPhase = Extract<Phase, { kind: 'drawing' }>;
 
 export type Pause = {
   reason: PauseReason;
@@ -120,6 +129,8 @@ export type RoomState = {
   cover: { likes: number; version: number } | null;
   /** A drawing that beat the cover, waiting for its drawer to send a picture (cover:request). */
   pendingCover: { turn: number; likes: number; drawerId: PlayerId } | null;
+  /** This match's most-liked drawing, for the crowd favourite award. A tie keeps the older one. */
+  favourite: { drawerId: PlayerId; likes: number } | null;
 };
 
 export type TimerId =

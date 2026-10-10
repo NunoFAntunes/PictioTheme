@@ -1,6 +1,15 @@
 import { describe, expect, it } from 'vitest';
+import { drawerMultiplier, drawerPoints } from '../scoring';
+import { maxHints } from '../word-mask';
 import { createHarness, received, receivedOfType, TEST_DECK } from './test-harness';
 import { TIMINGS } from './types';
+
+/** The card being drawn (a function, so TypeScript doesn't keep an earlier phase narrowing). */
+function drawnCard(h: ReturnType<typeof createHarness>) {
+  const { phase } = h.state;
+  if (phase.kind !== 'drawing') throw new Error(phase.kind);
+  return phase.card;
+}
 
 describe('joining', () => {
   it('sends a snapshot to the joiner and the player list to everyone', () => {
@@ -221,14 +230,14 @@ describe('a turn', () => {
     expect(h.state.phase.kind).toBe('reveal');
     const reveal = receivedOfType(fx, 'p3', 'phase:reveal')[0];
     expect(reveal?.word).toBe(word);
-    const multiplier = { easy: 1, medium: 1.2, hard: 1.5 }[
-      TEST_DECK.cards.find((c) => c.text === word)?.difficulty ?? 'easy'
-    ];
-    // p2: 50 + 250 × 60/80 + 50 first bonus = 287.5; p3: 50 + 250 × 40/80 = 175; drawer: 200.
+    const card = TEST_DECK.cards.find((c) => c.text === word);
+    const multiplier = { easy: 1, medium: 1.2, hard: 1.5 }[card?.difficulty ?? 'easy'];
+    // p2: 100 + 200 × 60/80 + 100 for 1st = 350; p3: 100 + 200 × 40/80 + 50 for 2nd = 250.
+    // Drawer: everyone got it, 2 guessers × 50, times the drawer's multiplier.
     expect(reveal?.deltas).toEqual({
-      p2: Math.round(287.5 * multiplier),
-      p3: Math.round(175 * multiplier),
-      p1: Math.round(200 * multiplier),
+      p2: Math.round(350 * multiplier),
+      p3: Math.round(250 * multiplier),
+      p1: Math.round(100 * (card ? drawerMultiplier(card) : 1)),
     });
   });
 
@@ -242,19 +251,95 @@ describe('a turn', () => {
     expect(h.state.phase.deltas).toEqual({});
   });
 
-  it('reveals at most two hint letters, at 50% and 75% of the time', () => {
+  it('spreads the card’s hints from half to four fifths of the time', () => {
     const h = createHarness();
     h.startWith();
     if (h.state.phase.kind !== 'choosing') throw new Error();
-    // The longest option, so the word allows 2 hints (at most a third of its letters).
-    const lengths = h.state.phase.options.map((o) => o.text.length);
-    h.send('p1', { t: 'turn:choose', index: lengths.indexOf(Math.max(...lengths)) });
+    // "Headless horseman": 4 hints, at 40s, 48s, 56s and 64s of 80s.
+    const index = h.state.phase.options.findIndex((o) => maxHints(o.text) > 1);
+    h.send('p1', { t: 'turn:choose', index });
+    const total = maxHints(drawnCard(h).text);
     const first = h.advance(40_000);
     expect(receivedOfType(first, 'p2', 'hint')).toHaveLength(1);
     expect(receivedOfType(first, 'p1', 'hint')).toEqual([]); // the drawer knows the word
-    const second = h.advance(20_000);
-    expect(receivedOfType(second, 'p2', 'hint')).toHaveLength(1);
-    expect(receivedOfType(h.advance(19_000), 'p2', 'hint')).toEqual([]);
+    const rest = h.advance(24_000);
+    expect(receivedOfType(rest, 'p2', 'hint')).toHaveLength(total - 1);
+    expect(receivedOfType(h.advance(15_000), 'p2', 'hint')).toEqual([]);
+  });
+
+  it('counts only guessers still here for the drawer’s share', () => {
+    const h = createHarness();
+    h.startWith(['p1', 'p2', 'p3', 'p4', 'p5', 'p6']);
+    const word = h.chooseFirst();
+    for (const p of ['p4', 'p5', 'p6']) h.disconnect(p);
+    h.send('p2', { t: 'guess', text: word });
+    h.send('p3', { t: 'guess', text: word });
+    if (h.state.phase.kind !== 'reveal') throw new Error();
+    const card = TEST_DECK.cards.find((c) => c.text === word);
+    expect(h.state.phase.deltas['p1']).toBe(
+      drawerPoints({
+        correctGuessers: 2,
+        totalGuessers: 2,
+        multiplier: card ? drawerMultiplier(card) : 1,
+      }),
+    );
+  });
+});
+
+describe('rush mode', () => {
+  function rushTurn() {
+    const h = createHarness({ settings: { rush: true } });
+    h.startWith(['p1', 'p2', 'p3', 'p4']);
+    // An easy card, so the multiplier is 1.
+    if (h.state.phase.kind !== 'choosing') throw new Error();
+    const index = h.state.phase.options.findIndex((o) => o.difficulty === 'easy' && !o.silly);
+    h.send('p1', { t: 'turn:choose', index });
+    return { h, word: drawnCard(h).text };
+  }
+
+  it('cuts the clock after the first guess and gives a hint to those who had none', () => {
+    const { h, word } = rushTurn();
+    h.advance(20_000); // 60s of 80s left: p2 gets 100 + 150 + 100
+    const fx = h.send('p2', { t: 'guess', text: word });
+    const [drawing] = receivedOfType(fx, 'p3', 'phase:drawing');
+    expect(drawing?.endsAt).toBe(h.now + 20_000);
+    expect(drawing?.rush).toEqual({ windowMs: 20_000, fromPoints: 250, toPoints: 100 });
+    expect(receivedOfType(fx, 'p3', 'hint')).toHaveLength(1);
+    expect(receivedOfType(fx, 'p2', 'hint')).toEqual([]);
+    expect(h.timers.get('phase')).toBe(h.now + 20_000);
+  });
+
+  it('drains the points over the window, then ends the turn', () => {
+    const { h, word } = rushTurn();
+    h.advance(20_000);
+    h.send('p2', { t: 'guess', text: word });
+    h.advance(10_000); // halfway: 100 + 150 × ½ = 175, + 50 for 2nd
+    h.send('p3', { t: 'guess', text: word });
+    h.advance(10_000);
+    if (h.state.phase.kind !== 'reveal') throw new Error();
+    expect(h.state.phase.deltas).toMatchObject({ p2: 350, p3: 225 });
+    expect(h.state.players.get('p3')?.guessTimeMs).toBe(30_000);
+  });
+
+  it('keeps the window through a pause', () => {
+    const { h, word } = rushTurn();
+    h.advance(20_000);
+    h.send('p2', { t: 'guess', text: word });
+    h.advance(5_000);
+    h.send('p1', { t: 'room:pause' });
+    h.advance(60_000);
+    h.send('p1', { t: 'room:resume' });
+    expect(h.state.phase.kind).toBe('drawing');
+    expect(h.timers.get('phase')).toBe(h.now + 15_000);
+  });
+
+  it('is off by default', () => {
+    const h = createHarness();
+    h.startWith();
+    const word = h.chooseFirst();
+    h.advance(20_000);
+    const fx = h.send('p2', { t: 'guess', text: word });
+    expect(receivedOfType(fx, 'p3', 'phase:drawing')).toEqual([]);
   });
 });
 
