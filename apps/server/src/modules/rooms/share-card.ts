@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
-import type { Difficulty } from '@pictiotheme/protocol';
+import type { Difficulty, GameMode } from '@pictiotheme/protocol';
 import { initWasm, Resvg } from '@resvg/resvg-wasm';
 import { readFontMetrics, type FontMetrics } from './font-metrics';
 
@@ -23,15 +23,15 @@ export type ShareCardInput = {
   deck: { title: string; cover: Buffer | null } | null;
   rounds: number;
   drawSeconds: number;
+  mode: GameMode;
   difficulties: readonly Difficulty[];
-  silly: boolean;
 };
 
 export const SHARE_CARD_WIDTH = 1200;
 export const SHARE_CARD_HEIGHT = 630;
 
 /** Bump when the drawing changes, so cached cards (and chat apps' caches) are redrawn. */
-export const SHARE_CARD_REVISION = 1;
+export const SHARE_CARD_REVISION = 2;
 
 // The theme's colours (apps/web/src/styles/global.css), in sRGB.
 const INK = '#1f1c31';
@@ -185,8 +185,7 @@ function rulesOf(input: ShareCardInput): string[] {
   return [
     `${input.rounds} round${input.rounds === 1 ? '' : 's'}`,
     `${input.drawSeconds}s to draw`,
-    difficulties.join(' · '),
-    ...(input.silly ? ['Silly mode!'] : []),
+    input.mode === 'chaos' ? 'Chaos mode!' : difficulties.join(' · '),
   ];
 }
 

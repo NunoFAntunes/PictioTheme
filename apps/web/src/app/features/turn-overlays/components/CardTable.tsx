@@ -25,7 +25,7 @@ const PICK_MS = 300; // --animate-card-pick
 /** Joining (or reconnecting) late in the phase skips the show and goes straight to the cards. */
 const MIN_TIME_FOR_INTRO_MS = 5000;
 
-const DIFFICULTY_LABEL = { easy: 'Easy', medium: 'Medium', hard: 'Hard' } as const;
+const KIND_LABEL = { easy: 'Easy', hard: 'Hard', chaos: '🌀 Chaos' } as const;
 /** Cards land slightly askew, like they were tossed onto a table. */
 const TILTS = ['-4deg', '1deg', '5deg'];
 
@@ -177,7 +177,7 @@ export function CardTable({ endsAt, deck, cards, header, footer }: Props) {
                     </span>
                     <span className="text-[9cqw] text-zinc-500">
                       {/* The drawer's multiplier: only the drawer sees the cards face up. */}
-                      {`${option.silly ? '🤪 Silly' : DIFFICULTY_LABEL[option.difficulty]} ×${drawerMultiplier(option)}`}
+                      {`${KIND_LABEL[option.kind]} ×${drawerMultiplier(option)}`}
                     </span>
                   </span>
                   <CardBack deck={deck} className="absolute inset-0 rotate-y-180 backface-hidden" />

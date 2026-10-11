@@ -1,12 +1,14 @@
 import { createHmac } from 'node:crypto';
-import type {
-  DeckCoverImage,
-  DeckGenerationRequest,
-  DeckLanguage,
-  DeckSummary,
-  GenerationConfigResponse,
-  GenerationJob,
-  TranslateDeckResponse,
+import {
+  CHAOS_MIN_CARDS,
+  type AddChaosResponse,
+  type DeckCoverImage,
+  type DeckGenerationRequest,
+  type DeckLanguage,
+  type DeckSummary,
+  type GenerationConfigResponse,
+  type GenerationJob,
+  type TranslateDeckResponse,
 } from '@pictiotheme/protocol';
 import type { GenerationLimits } from '../../config';
 import type { Db } from '../../db/client';
@@ -14,7 +16,7 @@ import { playerIdOf, type Actor } from '../../lib/actor';
 import { AppError, conflict, forbidden, notFound, serviceUnavailable } from '../../lib/errors';
 import type { Logger } from '../../lib/logger';
 import type { DecksService, TranslationSource } from '../decks';
-import type { GenerationResult, GenerationService } from './generation.service';
+import type { CallStats, GenerationService } from './generation.service';
 import { assertAllowedRequest } from './content-check';
 import * as repo from './generation.repository';
 
@@ -31,6 +33,10 @@ import * as repo from './generation.repository';
  * Translations (decks.md#languages) are shared: the first host to pick a deck in a new language
  * starts one, anyone else asking meanwhile waits on the same job, and later rooms get the saved
  * translation straight away. A translation keeps the original's cover.
+ *
+ * Chaos cards for a deck without them (decks.md#chaos-cards) are shared the same way: any host
+ * may start them, others wait on the same job, and rooms playing the deck reload it when they're
+ * saved (`onDeckCardsAdded`).
  */
 
 /** How many of a player's generated decks the deck picker shows. */
@@ -52,6 +58,7 @@ function hoursUntil(at: Date, now: number): number {
 
 const MESSAGES = {
   failed: "We couldn't make a deck for that theme. Try a different theme.",
+  chaosFailed: "We couldn't make Chaos cards for this deck. Try again, or pick another deck.",
   translationFailed:
     "This deck doesn't translate well into that language. Try another deck, or generate one in it.",
   busy: 'Deck generation is busy right now. Try again in a minute.',
@@ -61,6 +68,7 @@ const MESSAGES = {
 
 function failureMessage(err: unknown, kind: repo.JobKind): string {
   if (err instanceof AppError && err.code === 'GENERATION_FAILED') {
+    if (kind === 'chaos') return MESSAGES.chaosFailed;
     return kind === 'translate' ? MESSAGES.translationFailed : MESSAGES.failed;
   }
   if (err instanceof AppError && err.code === 'SERVICE_UNAVAILABLE') return MESSAGES.busy;
@@ -78,6 +86,8 @@ export function createGenerationJobsService(deps: {
   limits: GenerationLimits | null;
   /** Keys the IP hashes (the session secret). */
   secret: string;
+  /** A deck got new cards (its Chaos cards): rooms playing it reload it. */
+  onDeckCardsAdded?: (deckId: string) => void;
 }) {
   const log = deps.log.child({ module: 'generation-jobs' });
   const inFlight = new Set<Promise<void>>();
@@ -102,7 +112,7 @@ export function createGenerationJobsService(deps: {
    */
   async function run(
     job: repo.JobRow,
-    produce: () => Promise<{ deckId: string; result: GenerationResult }>,
+    produce: () => Promise<{ deckId: string; result: CallStats }>,
   ): Promise<void> {
     const started = Date.now();
     const jobId = job.id;
@@ -168,6 +178,21 @@ export function createGenerationJobsService(deps: {
     return { deckId, result };
   }
 
+  async function addChaos(job: repo.JobRow, source: TranslationSource) {
+    const result = await deps.generation.makeChaosCards({
+      theme: source.title,
+      description: source.description,
+      notes: '',
+      language: source.language,
+      deckCards: source.cards.filter((c) => c.kind !== 'chaos').map((c) => c.text),
+      chaosCards: source.cards.filter((c) => c.kind === 'chaos').map((c) => c.text),
+    });
+    await assertStillRunning(job.id);
+    await deps.decks.addCards(source.id, result.cards);
+    deps.onDeckCardsAdded?.(source.id);
+    return { deckId: source.id, result };
+  }
+
   /** Stores the cover and points the job, and its deck if it has one, at it. */
   async function saveCover(job: repo.JobRow, image: DeckCoverImage): Promise<repo.JobRow> {
     // Covers are shown to strangers: players report them (decks.service.ts `report`).
@@ -199,30 +224,39 @@ export function createGenerationJobsService(deps: {
     if (!limits) return;
     const now = Date.now();
     const since = new Date(now - DAY_MS);
-    const translating = kind === 'translate';
-    const perPlayer = translating ? limits.translationsPerPlayerPerDay : limits.perPlayerPerDay;
-    const perIp = translating ? limits.translationsPerIpPerDay : limits.perIpPerDay;
+    const perKind = {
+      generate: { player: limits.perPlayerPerDay, ip: limits.perIpPerDay, verb: 'made' },
+      translate: {
+        player: limits.translationsPerPlayerPerDay,
+        ip: limits.translationsPerIpPerDay,
+        verb: 'translated',
+      },
+      chaos: {
+        player: limits.chaosPerPlayerPerDay,
+        ip: limits.chaosPerIpPerDay,
+        verb: 'given Chaos cards',
+      },
+    }[kind];
 
     const mine = await countedToday(kind, playerId, now);
-    if (mine.length >= perPlayer) {
-      const next = mine[mine.length - perPlayer];
+    if (mine.length >= perKind.player) {
+      const next = mine[mine.length - perKind.player];
       const wait = next
         ? ` You can make another in about ${hoursUntil(new Date(next.getTime() + DAY_MS), now)} h.`
         : '';
-      throw new AppError(
-        'RATE_LIMITED',
-        429,
-        translating
-          ? `You've translated ${perPlayer} decks today.${wait} Decks someone already translated are still free to pick.`
-          : `You've used today's free deck.${wait}`,
-      );
+      const message = {
+        generate: `You've used today's free deck.${wait}`,
+        translate: `You've translated ${perKind.player} decks today.${wait} Decks someone already translated are still free to pick.`,
+        chaos: `You've made Chaos cards for ${perKind.player} decks today.${wait} Decks that already have them are still free to play.`,
+      }[kind];
+      throw new AppError('RATE_LIMITED', 429, message);
     }
     const fromIp = await repo.countedJobsSince(deps.db, kind, { clientIpHash: ipHash }, since);
-    if (fromIp.length >= perIp) {
+    if (fromIp.length >= perKind.ip) {
       throw new AppError(
         'RATE_LIMITED',
         429,
-        `Lots of decks were ${translating ? 'translated' : 'made'} from your network today. Try again tomorrow.`,
+        `Lots of decks were ${perKind.verb} from your network today. Try again tomorrow.`,
       );
     }
     const spend = await repo.spendSince(deps.db, since);
@@ -314,8 +348,7 @@ export function createGenerationJobsService(deps: {
         clientIpHash,
         theme: request.theme,
         notes: request.notes,
-        difficulties: request.difficulties,
-        includeSilly: request.silly,
+        includeChaos: request.chaos,
         language: request.language,
       });
       startInBackground(
@@ -361,8 +394,7 @@ export function createGenerationJobsService(deps: {
           createdBy: playerId,
           clientIpHash,
           theme: source.title,
-          difficulties: [],
-          includeSilly: false,
+          includeChaos: false,
           language,
           sourceDeckId: source.id,
         });
@@ -378,12 +410,57 @@ export function createGenerationJobsService(deps: {
     },
 
     /**
-     * A job. Generations only for the player who started them; translations for anyone, since
-     * several hosts can wait on the same one (and they show only the deck's title).
+     * Chaos cards for a deck that has too few (`POST /api/decks/:id/chaos`): the deck if it
+     * already has them, or the running job to wait on, or a new one. Any host may ask; new ones
+     * count towards the player's daily Chaos limit.
+     */
+    async addChaos(actor: Actor, deckId: string, clientIp: string): Promise<AddChaosResponse> {
+      const source = await deps.decks.chaosSource(deckId);
+      if (!source) throw notFound('Deck');
+      const chaosCards = source.cards.filter((c) => c.kind === 'chaos').length;
+      if (chaosCards >= CHAOS_MIN_CARDS) {
+        const [deck] = await deps.decks.summaries([source.id]);
+        if (!deck) throw notFound('Deck');
+        // A room asking may have loaded the deck before they were added: let it load them.
+        deps.onDeckCardsAdded?.(source.id);
+        return { status: 'ready', deck };
+      }
+      if (!deps.enabled) throw forbidden('Deck generation is turned off on this server');
+      const running = await repo.findRunningChaos(deps.db, source.id);
+      if (running) return { status: 'generating', job: await toDto(running) };
+
+      const playerId = playerIdOf(actor);
+      const clientIpHash = ipHashOf(clientIp);
+      await assertWithinLimits('chaos', playerId, clientIpHash);
+      let job: repo.JobRow;
+      try {
+        job = await insertJob({
+          kind: 'chaos',
+          createdBy: playerId,
+          clientIpHash,
+          theme: source.title,
+          includeChaos: true,
+          language: source.language,
+          sourceDeckId: source.id,
+        });
+      } catch (err) {
+        // Another host started it a moment ago: wait on theirs.
+        if (!repo.isOneChaosViolation(err)) throw err;
+        const theirs = await repo.findRunningChaos(deps.db, source.id);
+        if (!theirs) throw err;
+        return { status: 'generating', job: await toDto(theirs) };
+      }
+      startInBackground(run(job, () => addChaos(job, source)));
+      return { status: 'generating', job: await toDto(job) };
+    },
+
+    /**
+     * A job. Generations only for the player who started them; translations and Chaos cards for
+     * anyone, since several hosts can wait on the same one (and they show only the deck's title).
      */
     async getJob(actor: Actor, jobId: string): Promise<GenerationJob> {
       const job = await repo.findJob(deps.db, jobId);
-      if (!job || (job.kind !== 'translate' && job.createdBy !== playerIdOf(actor))) {
+      if (!job || (job.kind === 'generate' && job.createdBy !== playerIdOf(actor))) {
         throw notFound('Generation');
       }
       return toDto(job);

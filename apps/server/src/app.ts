@@ -99,6 +99,8 @@ export async function buildApp(config: Config, overrides: { llm?: LlmClient | nu
     enabled: config.deckGeneration && llm !== null,
     limits: config.generationLimits,
     secret: config.sessionSecret,
+    // Rooms playing a deck pick up its new Chaos cards. `rooms` exists by the time a job ends.
+    onDeckCardsAdded: (deckId) => rooms.reloadDeck(deckId),
   });
   await generationJobs.failInterrupted();
   const avatars = createAvatarsService({ db });

@@ -6,7 +6,6 @@ import {
   type DeckCoverImage,
   type DeckLanguage,
   type DeckSummary,
-  type Difficulty,
   type GenerationStatus,
 } from '@pictiotheme/protocol';
 import { useQueryClient } from '@tanstack/react-query';
@@ -23,12 +22,6 @@ import { useGenerationConfig, useGenerationJob, useSetCover, useStartGeneration 
  * room's language, and the theme must be written in it: the server checks the theme first and
  * refuses one in another language, or one too unclear for a deck (ai-deck-pipeline.md#theme-check).
  */
-
-const DIFFICULTIES: { value: Difficulty; label: string }[] = [
-  { value: 'easy', label: 'Easy' },
-  { value: 'medium', label: 'Medium' },
-  { value: 'hard', label: 'Hard' },
-];
 
 /** "about 5 h" / "about 40 min" until `iso`. */
 function waitText(iso: string): string {
@@ -117,8 +110,7 @@ export function GenerateDeckPanel({
   const queryClient = useQueryClient();
   const [theme, setTheme] = useState('');
   const [notes, setNotes] = useState('');
-  const [difficulties, setDifficulties] = useState<Difficulty[]>(['easy', 'medium', 'hard']);
-  const [silly, setSilly] = useState(true);
+  const [chaos, setChaos] = useState(true);
   const [jobId, setJobId] = useState<string | null>(null);
   const [cover, setCover] = useState<CoverState>({ step: 'drawing' });
   const [coverError, setCoverError] = useState<string | null>(null);
@@ -133,7 +125,7 @@ export function GenerateDeckPanel({
   const deck = job.data?.deck ?? null;
   const failure =
     job.data?.status === 'failed' ? job.data.error : job.isError ? job.error.message : null;
-  const valid = theme.trim().length >= DECK_THEME_MIN && difficulties.length > 0 && !usedUp;
+  const valid = theme.trim().length >= DECK_THEME_MIN && !usedUp;
 
   function upload(id: string, image: DeckCoverImage) {
     setCoverError(null);
@@ -185,16 +177,10 @@ export function GenerateDeckPanel({
     onGenerated(deck);
   }, [status, deck, cover.step, queryClient, onGenerated]);
 
-  function toggle(d: Difficulty) {
-    setDifficulties((current) =>
-      current.includes(d) ? current.filter((x) => x !== d) : [...current, d],
-    );
-  }
-
   function generate() {
     if (!valid || start.isPending) return;
     start.mutate(
-      { theme: theme.trim(), notes: notes.trim(), difficulties, silly, language },
+      { theme: theme.trim(), notes: notes.trim(), chaos, language },
       {
         onSuccess: (started) => {
           setJobId(started.id);
@@ -345,36 +331,21 @@ export function GenerateDeckPanel({
           className="rounded-lg border border-zinc-300 bg-transparent px-3 py-2 font-normal dark:border-zinc-700"
         />
       </label>
-      <fieldset className="flex flex-wrap items-center gap-2 text-sm">
-        <legend className="mb-1 font-medium">Difficulties</legend>
-        {DIFFICULTIES.map((d) => (
-          <button
-            key={d.value}
-            type="button"
-            aria-pressed={difficulties.includes(d.value)}
-            onClick={() => toggle(d.value)}
-            className={`rounded-md border px-3 py-1 ${
-              difficulties.includes(d.value)
-                ? 'border-brand-600 bg-brand-600 text-white'
-                : 'border-zinc-300 dark:border-zinc-700'
-            }`}
-          >
-            {d.label}
-          </button>
-        ))}
-        <label className="ml-auto flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked={silly}
-            onChange={(e) => setSilly(e.target.checked)}
-            className="accent-brand-600"
-          />
-          🤪 Silly cards
-        </label>
-      </fieldset>
-      {difficulties.length === 0 && (
-        <p className="text-sm text-close">Pick at least one difficulty.</p>
-      )}
+      <label className="flex items-start gap-2 text-sm">
+        <input
+          type="checkbox"
+          checked={chaos}
+          onChange={(e) => setChaos(e.target.checked)}
+          className="mt-0.5 accent-brand-600"
+        />
+        <span>
+          <span className="font-medium">🌀 Chaos cards too</span>
+          <span className="block text-zinc-500">
+            Every deck gets easy and hard cards. Chaos cards are the absurd ones for Chaos mode, and
+            can be added later.
+          </span>
+        </span>
+      </label>
       {start.isError && (
         <p className="text-sm text-close" role="alert">
           {start.error.message}

@@ -32,10 +32,7 @@ test('two players create, join, draw and guess', async ({ browser }) => {
     .nth(1)
     .click();
   await expect(host.getByText('Choose what to draw')).toBeVisible(); // still choosing
-  await host
-    .getByRole('button', { name: /×1|silly/i })
-    .first()
-    .click();
+  await host.getByRole('button', { name: /×1/ }).first().click();
 
   const word =
     (await host.getByTestId('current-word').textContent())?.replace('✏️', '').trim() ?? '';

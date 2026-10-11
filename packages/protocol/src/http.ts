@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { DeckCoverId, DeckCoverImage, Difficulty } from './deck';
 import { DeckLanguage } from './language';
-import { AvatarImage, DisplayName, RoomCode, RoomCoverImage, RoomName } from './room';
+import { AvatarImage, DisplayName, GameMode, RoomCode, RoomCoverImage, RoomName } from './room';
 
 /** REST DTOs shared by the server and the web app. */
 
@@ -85,8 +85,8 @@ export const PublicRoomSummary = z.object({
   players: z.number().int(),
   maxPlayers: z.number().int(),
   status: z.enum(['waiting', 'playing']),
+  mode: GameMode,
   difficulties: z.array(Difficulty),
-  silly: z.boolean(),
   language: DeckLanguage,
   /** Bumped each time the room gets a new cover (`GET /api/rooms/:code/cover?v=…`); null: none yet. */
   coverVersion: z.number().int().nullable(),
@@ -120,9 +120,8 @@ export const DeckSummary = z.object({
   languages: z.array(DeckLanguage),
   counts: z.object({
     easy: z.number().int(),
-    medium: z.number().int(),
     hard: z.number().int(),
-    silly: z.number().int(),
+    chaos: z.number().int(),
   }),
 });
 export type DeckSummary = z.infer<typeof DeckSummary>;
@@ -162,8 +161,11 @@ export type GenerationConfigResponse = z.infer<typeof GenerationConfigResponse>;
 export const GenerationStatus = z.enum(['running', 'published', 'failed']);
 export type GenerationStatus = z.infer<typeof GenerationStatus>;
 
-/** A new deck from a theme, or an existing deck in another language. */
-export const GenerationKind = z.enum(['generate', 'translate']);
+/**
+ * A new deck from a theme, an existing deck in another language, or Chaos cards added to an
+ * existing deck.
+ */
+export const GenerationKind = z.enum(['generate', 'translate', 'chaos']);
 export type GenerationKind = z.infer<typeof GenerationKind>;
 
 /**
@@ -175,7 +177,7 @@ export const GenerationJob = z.object({
   id: z.string(),
   kind: GenerationKind,
   status: GenerationStatus,
-  /** The theme, or the title of the deck being translated. */
+  /** The theme, or the title of the deck being translated or given Chaos cards. */
   theme: z.string(),
   /** What the new deck is written in. */
   language: DeckLanguage,
@@ -210,6 +212,20 @@ export const TranslateDeckResponse = z.discriminatedUnion('status', [
   z.object({ status: z.literal('translating'), job: GenerationJob }),
 ]);
 export type TranslateDeckResponse = z.infer<typeof TranslateDeckResponse>;
+
+// ── Chaos cards for an existing deck ──
+
+/**
+ * `POST /api/decks/:id/chaos`: Chaos cards for a deck that has none (decks.md#chaos-cards). Any
+ * host may ask; the cards are shared by everyone who plays the deck. When the deck already has
+ * them it comes back as `deck`; otherwise a job starts, or the running one is joined, to poll.
+ * Rooms playing the deck reload it when the job publishes.
+ */
+export const AddChaosResponse = z.discriminatedUnion('status', [
+  z.object({ status: z.literal('ready'), deck: DeckSummary }),
+  z.object({ status: z.literal('generating'), job: GenerationJob }),
+]);
+export type AddChaosResponse = z.infer<typeof AddChaosResponse>;
 
 // ── Deck reports ──
 

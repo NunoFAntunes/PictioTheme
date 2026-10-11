@@ -43,13 +43,18 @@ export type AvatarId = z.infer<typeof AvatarId>;
 export const GuessVisibility = z.enum(['show', 'hide']);
 export type GuessVisibility = z.infer<typeof GuessVisibility>;
 
+/**
+ * Normal plays the deck's easy and/or hard cards; Chaos plays only its Chaos cards
+ * (game-rules.md#card-pool).
+ */
+export const GameMode = z.enum(['normal', 'chaos']);
+export type GameMode = z.infer<typeof GameMode>;
+
 export const RoomSettings = z.object({
   deckId: z.string().min(1),
-  difficulties: z.array(Difficulty).min(1).max(3),
-  silly: z.object({
-    enabled: z.boolean(),
-    ratio: z.number().min(0).max(1),
-  }),
+  mode: GameMode,
+  /** Normal mode only: which difficulties to deal. */
+  difficulties: z.array(Difficulty).min(1).max(2),
   rounds: z.number().int().min(1).max(10),
   drawSeconds: z.number().int().min(30).max(180),
   maxPlayers: z.number().int().min(2).max(16),
@@ -64,8 +69,8 @@ export const RoomSettings = z.object({
 export type RoomSettings = z.infer<typeof RoomSettings>;
 
 export const DEFAULT_ROOM_SETTINGS: Omit<RoomSettings, 'deckId'> = {
-  difficulties: ['easy', 'medium'],
-  silly: { enabled: false, ratio: 0.25 },
+  mode: 'normal',
+  difficulties: ['easy', 'hard'],
   rounds: 3,
   drawSeconds: 80,
   maxPlayers: 10,

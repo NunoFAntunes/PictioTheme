@@ -1,4 +1,10 @@
-import type { ClientMessage, PlayerId, RoomDeck, RoomSettings } from '@pictiotheme/protocol';
+import {
+  CHAOS_MIN_CARDS,
+  type ClientMessage,
+  type PlayerId,
+  type RoomDeck,
+  type RoomSettings,
+} from '@pictiotheme/protocol';
 import { buildCardPool } from '../card-pool';
 import { classifyGuess } from '../guess/classify';
 import { hasProfanity, maskProfanity } from '../moderation/profanity';
@@ -198,6 +204,18 @@ function requestStart(c: Ctx, playerId: PlayerId): void {
       playerId,
       'DECK_LANGUAGE_MISMATCH',
       "The deck isn't in the room's language yet. Translate it or pick another deck",
+    );
+    return;
+  }
+  if (
+    state.settings.mode === 'chaos' &&
+    deck.cards.filter((card) => card.kind === 'chaos').length < CHAOS_MIN_CARDS
+  ) {
+    sendError(
+      c,
+      playerId,
+      'DECK_NO_CHAOS_CARDS',
+      'This deck has no Chaos cards yet. Make some or pick another deck',
     );
     return;
   }

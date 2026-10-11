@@ -1,4 +1,4 @@
-import type { Card, Difficulty, RoomSettings } from '@pictiotheme/protocol';
+import type { Card, CardKind, RoomSettings } from '@pictiotheme/protocol';
 import { shuffle, type Rng } from './rng';
 
 /**
@@ -14,32 +14,23 @@ export type CardPool = {
 
 export function buildCardPool(
   cards: readonly Card[],
-  settings: Pick<RoomSettings, 'difficulties' | 'silly'>,
+  settings: Pick<RoomSettings, 'mode' | 'difficulties'>,
   rng: Rng,
 ): CardPool {
-  const allowed = new Set<Difficulty>(settings.difficulties);
-  const inDifficulty = cards.filter((c) => allowed.has(c.difficulty));
-  const normal = inDifficulty.filter((c) => !c.silly);
-  const silly = inDifficulty.filter((c) => c.silly);
-
-  let selected: Card[];
-  if (!settings.silly.enabled || silly.length === 0) {
-    selected = normal;
-  } else if (normal.length === 0 || settings.silly.ratio >= 1) {
-    selected = silly;
-  } else {
-    // Mix so that silly cards make up ~ratio of the pool.
-    const { ratio } = settings.silly;
-    const sillyCount = Math.min(silly.length, Math.round((normal.length * ratio) / (1 - ratio)));
-    selected = [...normal, ...shuffle(silly, rng).slice(0, sillyCount)];
-  }
-
-  return { remaining: shuffle(selected, rng), used: [] };
+  // Chaos mode plays only the Chaos cards; normal mode the selected difficulties.
+  const allowed = new Set<CardKind>(settings.mode === 'chaos' ? ['chaos'] : settings.difficulties);
+  return {
+    remaining: shuffle(
+      cards.filter((c) => allowed.has(c.kind)),
+      rng,
+    ),
+    used: [],
+  };
 }
 
 /**
- * Takes up to `count` options for the drawer, spread across difficulties when possible
- * (one easy, one medium, one hard) so the drawer can choose their risk.
+ * Takes up to `count` options for the drawer, spread across kinds when possible
+ * (an easy and a hard one) so the drawer can choose their risk.
  * Recycles used cards when the pool runs out; `reshuffled` tells the room to notify the host.
  */
 export function takeOptions(
@@ -57,10 +48,10 @@ export function takeOptions(
   }
 
   const picked = new Set<number>();
-  const seenDifficulties = new Set<Difficulty>();
+  const seenKinds = new Set<CardKind>();
   remaining.forEach((card, i) => {
-    if (picked.size < count && !seenDifficulties.has(card.difficulty)) {
-      seenDifficulties.add(card.difficulty);
+    if (picked.size < count && !seenKinds.has(card.kind)) {
+      seenKinds.add(card.kind);
       picked.add(i);
     }
   });

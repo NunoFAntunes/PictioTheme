@@ -1,10 +1,16 @@
-import type { DeckSummary, GenerationJob, TranslateDeckResponse } from '@pictiotheme/protocol';
+import type {
+  AddChaosResponse,
+  DeckSummary,
+  GenerationJob,
+  TranslateDeckResponse,
+} from '@pictiotheme/protocol';
 import { afterAll, afterEach, describe, expect, it } from 'vitest';
 import { buildApp, type App } from '../../app';
 import { testAvatar, testCover, testPng } from '../../test-support/avatar';
 import {
   ACCEPTED_THEME,
   acceptingThemes,
+  chaosOutput,
   completion,
   fullDeckOutput,
 } from '../../test-support/llm';
@@ -16,22 +22,26 @@ import { spendSince } from './generation.repository';
 import type { LlmClient, LlmCompletion, LlmJsonRequest } from './llm/llm-client';
 
 const ORIGIN = 'http://localhost:4321';
-const REQUEST = { theme: 'pirates', notes: '', difficulties: ['easy', 'medium'], silly: true };
+const REQUEST = { theme: 'pirates', notes: '', chaos: true };
 
 /** A model client whose replies wait until `release` is called. */
-function heldLlm(reply: () => LlmCompletion) {
+function heldLlm(reply: (request: LlmJsonRequest) => LlmCompletion) {
   let release = () => {};
   const gate = new Promise<void>((resolve) => (release = resolve));
   const llm: LlmClient = {
-    async completeJson() {
+    async completeJson(request) {
       await gate;
-      return reply();
+      return reply(request);
     },
   };
   return { llm, release };
 }
 
-const goodReply = () => completion(fullDeckOutput(['easy', 'medium'], true, 'Pirate Party'));
+/** A deck, or its Chaos cards when that's what the call asks for. */
+const deckReply = (request: LlmJsonRequest, title = 'Pirate Party') =>
+  completion(request.schema.name === 'chaos_cards' ? chaosOutput() : fullDeckOutput(title));
+
+const goodReply = (request: LlmJsonRequest) => deckReply(request);
 
 const apps: App[] = [];
 afterEach(async () => {
@@ -52,7 +62,10 @@ async function start(
     llmChecksThemes?: boolean;
   } = {},
 ) {
-  const llm = options.llm === undefined ? { completeJson: async () => goodReply() } : options.llm;
+  const llm =
+    options.llm === undefined
+      ? { completeJson: async (request: LlmJsonRequest) => goodReply(request) }
+      : options.llm;
   const wrapped = llm && !options.llmChecksThemes ? acceptingThemes(llm, options.themeCheck) : llm;
   const app = await buildApp(
     testConfig({
@@ -144,7 +157,7 @@ describe('deck generation', () => {
     const app = await start();
     expect((await post(app, '')).statusCode).toBe(401);
     const cookie = await guest(app);
-    expect((await post(app, cookie, { ...REQUEST, difficulties: [] })).statusCode).toBe(400);
+    expect((await post(app, cookie, { ...REQUEST, chaos: 'yes' })).statusCode).toBe(400);
     expect((await post(app, cookie, { ...REQUEST, theme: 'x' })).statusCode).toBe(400);
     const blocked = await post(app, cookie, { ...REQUEST, theme: 'porn stars' });
     expect(blocked.statusCode).toBe(400);
@@ -166,7 +179,7 @@ describe('deck generation', () => {
     expect(done.status).toBe('published');
     expect(done.deck).toMatchObject({
       title: 'Pirate Party',
-      counts: { easy: 40, medium: 40, hard: 0, silly: 40 },
+      counts: { easy: 50, hard: 40, chaos: 50 },
     });
 
     const mine = await app.inject({ method: 'GET', url: '/api/decks/mine', headers: { cookie } });
@@ -442,7 +455,7 @@ describe('theme check', () => {
       llmChecksThemes: true,
       llm: {
         async completeJson(request) {
-          if (request.schema.name !== 'theme_check') return goodReply();
+          if (request.schema.name !== 'theme_check') return goodReply(request);
           checks++;
           return completion(
             { ...ACCEPTED_THEME, quality: 1 },
@@ -514,7 +527,7 @@ describe('deck translations', () => {
     const llm: LlmClient = {
       async completeJson(request) {
         if (request.schema.name !== 'deck_translation') {
-          return completion(fullDeckOutput(['easy', 'medium'], true, title));
+          return deckReply(request, title);
         }
         await gate;
         return germanReply(request);
@@ -635,7 +648,7 @@ describe('deck translations', () => {
       llm: {
         async completeJson(request) {
           if (request.schema.name !== 'deck_translation') {
-            return completion(fullDeckOutput(['easy', 'medium'], true, title));
+            return deckReply(request, title);
           }
           return completion({ title, description: '', tags: [], cards: [], dropped: [] });
         },
@@ -687,5 +700,130 @@ describe('deck translations', () => {
     expect((await translate(app, cookie, unknown, 'de')).statusCode).toBe(404);
     expect((await translate(app, cookie, unknown, 'xx')).statusCode).toBe(400);
     expect((await translate(app, '', unknown, 'de')).statusCode).toBe(401);
+  });
+});
+
+describe('Chaos cards for an existing deck', () => {
+  /** Makes decks without Chaos cards right away; Chaos calls wait for `release`. */
+  function chaosLlm() {
+    let release = () => {};
+    const gate = new Promise<void>((resolve) => (release = resolve));
+    const llm: LlmClient = {
+      async completeJson(request) {
+        if (request.schema.name !== 'chaos_cards')
+          return completion(fullDeckOutput('Pirate Party'));
+        await gate;
+        return completion(chaosOutput());
+      },
+    };
+    return { llm, release };
+  }
+
+  function addChaos(app: App, cookie: string, deckId: string, ip?: string) {
+    return app.inject({
+      method: 'POST',
+      url: `/api/decks/${deckId}/chaos`,
+      headers: { origin: ORIGIN, cookie },
+      ...(ip && { remoteAddress: ip }),
+    });
+  }
+
+  async function plainDeck(app: App, cookie: string, ip?: string): Promise<DeckSummary> {
+    const started = await post(app, cookie, { ...REQUEST, chaos: false }, ip);
+    const done = await settled(app, cookie, started.json<GenerationJob>().id);
+    if (!done.deck) throw new Error('no deck');
+    return done.deck;
+  }
+
+  it('lets any host add them, shares the running job, and then has them ready', async () => {
+    const model = chaosLlm();
+    const app = await start({ llm: model.llm });
+    const creator = await guest(app);
+    const deck = await plainDeck(app, creator);
+    expect(deck.counts).toEqual({ easy: 50, hard: 40, chaos: 0 });
+
+    const host = await guest(app);
+    const first = await addChaos(app, host, deck.id);
+    expect(first.statusCode).toBe(200);
+    const started = first.json<AddChaosResponse>();
+    expect(started).toMatchObject({
+      status: 'generating',
+      job: { kind: 'chaos', status: 'running', theme: 'Pirate Party' },
+    });
+    const jobId = started.status === 'generating' ? started.job.id : '';
+    // Another host asking meanwhile waits on the same job, and may poll it.
+    const otherHost = await guest(app);
+    const second = (await addChaos(app, otherHost, deck.id)).json<AddChaosResponse>();
+    expect(second.status === 'generating' && second.job.id).toBe(jobId);
+
+    model.release();
+    const done = await settled(app, otherHost, jobId);
+    expect(done.status).toBe('published');
+    expect(done.deck).toMatchObject({ id: deck.id, counts: { easy: 50, hard: 40, chaos: 50 } });
+    expect((await addChaos(app, host, deck.id)).json()).toMatchObject({
+      status: 'ready',
+      deck: { id: deck.id },
+    });
+    // Adding Chaos cards doesn't make the deck yours.
+    const hostDecks = await app.inject({
+      method: 'GET',
+      url: '/api/decks/mine',
+      headers: { cookie: host },
+    });
+    expect(hostDecks.json()).toEqual({ decks: [] });
+  });
+
+  it('records a friendly failure, and can be tried again', async () => {
+    const app = await start({
+      llm: {
+        async completeJson(request) {
+          if (request.schema.name !== 'chaos_cards') {
+            return completion(fullDeckOutput('Pirate Party'));
+          }
+          return completion({ cards: [] });
+        },
+      },
+    });
+    const cookie = await guest(app);
+    const deck = await plainDeck(app, cookie);
+    const res = (await addChaos(app, cookie, deck.id)).json<AddChaosResponse>();
+    const failed = await settled(app, cookie, res.status === 'generating' ? res.job.id : '');
+    expect(failed.status).toBe('failed');
+    expect(failed.error).toContain("couldn't make Chaos cards");
+    expect((await addChaos(app, cookie, deck.id)).json()).toMatchObject({ status: 'generating' });
+  });
+
+  it('limits new Chaos cards per player', async () => {
+    const model = chaosLlm();
+    model.release();
+    const app = await start({
+      llm: model.llm,
+      limits: {
+        ...NO_BUDGET_LIMIT,
+        GENERATION_PER_PLAYER_PER_DAY: '5',
+        GENERATION_CHAOS_PER_PLAYER_PER_DAY: '1',
+      },
+    });
+    const ip = freshIp();
+    const cookie = await guest(app);
+    const a = await plainDeck(app, cookie, ip);
+    const b = await plainDeck(app, cookie, ip);
+    const first = (await addChaos(app, cookie, a.id, ip)).json<AddChaosResponse>();
+    await settled(app, cookie, first.status === 'generating' ? first.job.id : '');
+
+    const second = await addChaos(app, cookie, b.id, ip);
+    expect(second.statusCode).toBe(429);
+    expect(second.json()).toMatchObject({ error: { code: 'RATE_LIMITED' } });
+    // A deck that has them is still free to play.
+    expect((await addChaos(app, cookie, a.id, ip)).json()).toMatchObject({ status: 'ready' });
+  });
+
+  it('validates the request', async () => {
+    const app = await start();
+    const cookie = await guest(app);
+    const unknown = '0190a000-0000-7000-8000-000000000000';
+    expect((await addChaos(app, cookie, unknown)).statusCode).toBe(404);
+    expect((await addChaos(app, cookie, 'not-a-uuid')).statusCode).toBe(400);
+    expect((await addChaos(app, '', unknown)).statusCode).toBe(401);
   });
 });

@@ -12,16 +12,21 @@
 
 ## Card pool
 
+A room plays in one of two **modes**, set by the host:
+
+- **Normal** (default): the deck's easy and/or hard cards. The host picks one or both difficulties (default both).
+- **🌀 Chaos**: only the deck's Chaos cards, the absurd ones ([decks.md](decks.md#chaos-cards)). Difficulties don't apply. The deck needs at least 10 Chaos cards; until it has them the match can't start, and the host can make them from the waiting room.
+
 The active pool is built when the game starts:
 
 ```
-pool = deck.cards where difficulty ∈ selectedDifficulties
-if sillyMode: mix in deck.sillyCards at the configured ratio (e.g. 25%)
+pool = mode == chaos ? deck.cards where kind = chaos
+                     : deck.cards where kind ∈ selectedDifficulties
 shuffle; never repeat a card within the same match
 ```
 
 - If the pool runs out (small deck, many players), the room tells the host and reshuffles the cards already used.
-- The 3 choice cards should, when possible, cover a spread of difficulty (e.g. one easy, one medium, one hard if all are enabled), so the drawer can choose their risk.
+- When both difficulties are on, the 3 choice cards include one easy and one hard card, so the drawer can choose their risk; the third is any card.
 
 ## Guessing
 
@@ -87,10 +92,10 @@ points = 50 × guessers × min(1, solvedShare / ½) × drawer multiplier
 
 **Card multipliers**:
 
-| | Easy | Medium | Hard | Silly |
-|---|---|---|---|---|
-| Guessers | ×1.0 | ×1.2 | ×1.5 | ×1.5 |
-| Drawer | ×1.0 | ×1.4 | ×2.0 | ×2.0 |
+| | Easy | Hard | Chaos |
+|---|---|---|---|
+| Guessers | ×1.0 | ×1.5 | ×1.5 |
+| Drawer | ×1.0 | ×2.0 | ×2.0 |
 
 The drawer's multiplier is steeper because the drawer chose the risk. A hard card only a quarter of the room gets pays the drawer as much as an easy card everyone gets, and a hard card half the room gets pays twice as much. So picking "Bat" over "Headless horseman" is never the safe bet.
 
@@ -127,7 +132,7 @@ Awards don't score points.
 
 | Control | When |
 |---|---|
-| Change deck, difficulties, Silly Mode, rounds, timer, max players, public/private | Waiting room |
+| Change deck, mode (Normal / Chaos), difficulties, rounds, timer, max players, public/private | Waiting room |
 | Toggle guess visibility, hints, rush | Any time (takes effect next turn) |
 | Kick player | Any time |
 | Skip current turn | During a turn (card is revealed, no points) |

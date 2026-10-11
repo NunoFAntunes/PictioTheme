@@ -1,0 +1,3039 @@
+{
+  "slug": "actions-and-expressions",
+  "featuredRank": null,
+  "title": "Actions and Expressions",
+  "description": "Act it out on paper: verbs, faces, body language, sports moves, daily routines and opposites, from a simple sneeze to sneezing a hurricane.",
+  "tags": ["actions", "emotions", "expressions", "sports", "hobbies", "daily life", "opposites"],
+  "cards": [
+    {
+      "text": "Sneezing",
+      "kind": "easy",
+      "alternates": ["sneeze"],
+      "keywords": ["sneezing"]
+    },
+    {
+      "text": "Waving",
+      "kind": "easy",
+      "alternates": ["wave", "waving hello"],
+      "keywords": ["waving"]
+    },
+    {
+      "text": "Jumping",
+      "kind": "easy",
+      "alternates": ["jump"],
+      "keywords": ["jumping"]
+    },
+    {
+      "text": "Sleeping",
+      "kind": "easy",
+      "alternates": ["sleep", "asleep"],
+      "keywords": ["sleeping"]
+    },
+    {
+      "text": "Thumbs up",
+      "kind": "easy",
+      "alternates": ["thumb up"],
+      "keywords": ["thumbs"]
+    },
+    {
+      "text": "High five",
+      "kind": "easy",
+      "alternates": ["high-five"],
+      "keywords": ["five"]
+    },
+    {
+      "text": "Crying",
+      "kind": "easy",
+      "alternates": ["cry", "tears"],
+      "keywords": ["crying"]
+    },
+    {
+      "text": "Yawning",
+      "kind": "easy",
+      "alternates": ["yawn"],
+      "keywords": ["yawning"]
+    },
+    {
+      "text": "Laughing",
+      "kind": "easy",
+      "alternates": ["laugh"],
+      "keywords": ["laughing"]
+    },
+    {
+      "text": "Smiling",
+      "kind": "easy",
+      "alternates": ["smile"],
+      "keywords": ["smiling"]
+    },
+    {
+      "text": "Winking",
+      "kind": "easy",
+      "alternates": ["wink"],
+      "keywords": ["winking"]
+    },
+    {
+      "text": "Shrugging",
+      "kind": "easy",
+      "alternates": ["shrug"],
+      "keywords": ["shrugging"]
+    },
+    {
+      "text": "Blushing",
+      "kind": "easy",
+      "alternates": ["blush"],
+      "keywords": ["blushing"]
+    },
+    {
+      "text": "Surprised",
+      "kind": "easy",
+      "alternates": ["surprise", "shocked"],
+      "keywords": ["surprised"]
+    },
+    {
+      "text": "Angry",
+      "kind": "easy",
+      "alternates": ["anger", "mad"],
+      "keywords": ["angry"]
+    },
+    {
+      "text": "Scared",
+      "kind": "easy",
+      "alternates": ["afraid", "frightened"],
+      "keywords": ["scared"]
+    },
+    {
+      "text": "Frowning",
+      "kind": "easy",
+      "alternates": ["frown"],
+      "keywords": ["frowning"]
+    },
+    {
+      "text": "Pointing",
+      "kind": "easy",
+      "alternates": ["point"],
+      "keywords": ["pointing"]
+    },
+    {
+      "text": "Clapping",
+      "kind": "easy",
+      "alternates": ["clap"],
+      "keywords": ["clapping"]
+    },
+    {
+      "text": "Running",
+      "kind": "easy",
+      "alternates": ["run"],
+      "keywords": ["running"]
+    },
+    {
+      "text": "Swimming",
+      "kind": "easy",
+      "alternates": ["swim"],
+      "keywords": ["swimming"]
+    },
+    {
+      "text": "Dancing",
+      "kind": "easy",
+      "alternates": ["dance"],
+      "keywords": ["dancing"]
+    },
+    {
+      "text": "Singing",
+      "kind": "easy",
+      "alternates": ["sing"],
+      "keywords": ["singing"]
+    },
+    {
+      "text": "Reading",
+      "kind": "easy",
+      "alternates": ["read"],
+      "keywords": ["reading"]
+    },
+    {
+      "text": "Writing",
+      "kind": "easy",
+      "alternates": ["write"],
+      "keywords": ["writing"]
+    },
+    {
+      "text": "Eating",
+      "kind": "easy",
+      "alternates": ["eat"],
+      "keywords": ["eating"]
+    },
+    {
+      "text": "Drinking",
+      "kind": "easy",
+      "alternates": ["drink"],
+      "keywords": ["drinking"]
+    },
+    {
+      "text": "Cooking",
+      "kind": "easy",
+      "alternates": ["cook"],
+      "keywords": ["cooking"]
+    },
+    {
+      "text": "Fishing",
+      "kind": "easy",
+      "alternates": ["fish"],
+      "keywords": ["fishing"]
+    },
+    {
+      "text": "Climbing",
+      "kind": "easy",
+      "alternates": ["climb"],
+      "keywords": ["climbing"]
+    },
+    {
+      "text": "Kicking",
+      "kind": "easy",
+      "alternates": ["kick"],
+      "keywords": ["kicking"]
+    },
+    {
+      "text": "Throwing",
+      "kind": "easy",
+      "alternates": ["throw"],
+      "keywords": ["throwing"]
+    },
+    {
+      "text": "Catching",
+      "kind": "easy",
+      "alternates": ["catch"],
+      "keywords": ["catching"]
+    },
+    {
+      "text": "Skating",
+      "kind": "easy",
+      "alternates": ["skate", "ice skating"],
+      "keywords": ["skating"]
+    },
+    {
+      "text": "Skiing",
+      "kind": "easy",
+      "alternates": ["ski"],
+      "keywords": ["skiing"]
+    },
+    {
+      "text": "Surfing",
+      "kind": "easy",
+      "alternates": ["surf"],
+      "keywords": ["surfing"]
+    },
+    {
+      "text": "Diving",
+      "kind": "easy",
+      "alternates": ["dive"],
+      "keywords": ["diving"]
+    },
+    {
+      "text": "Hugging",
+      "kind": "easy",
+      "alternates": ["hug"],
+      "keywords": ["hugging"]
+    },
+    {
+      "text": "Bowing",
+      "kind": "easy",
+      "alternates": ["bow"],
+      "keywords": ["bowing"]
+    },
+    {
+      "text": "Saluting",
+      "kind": "easy",
+      "alternates": ["salute"],
+      "keywords": ["saluting"]
+    },
+    {
+      "text": "Kneeling",
+      "kind": "easy",
+      "alternates": ["kneel"],
+      "keywords": ["kneeling"]
+    },
+    {
+      "text": "Crawling",
+      "kind": "easy",
+      "alternates": ["crawl"],
+      "keywords": ["crawling"]
+    },
+    {
+      "text": "Hopping",
+      "kind": "easy",
+      "alternates": ["hop"],
+      "keywords": ["hopping"]
+    },
+    {
+      "text": "Skipping",
+      "kind": "easy",
+      "alternates": ["skip"],
+      "keywords": ["skipping"]
+    },
+    {
+      "text": "Tiptoeing",
+      "kind": "easy",
+      "alternates": ["tiptoe"],
+      "keywords": ["tiptoeing"]
+    },
+    {
+      "text": "Sliding",
+      "kind": "easy",
+      "alternates": ["slide"],
+      "keywords": ["sliding"]
+    },
+    {
+      "text": "Falling",
+      "kind": "easy",
+      "alternates": ["fall"],
+      "keywords": ["falling"]
+    },
+    {
+      "text": "Tripping",
+      "kind": "easy",
+      "alternates": ["trip"],
+      "keywords": ["tripping"]
+    },
+    {
+      "text": "Pushing",
+      "kind": "easy",
+      "alternates": ["push"],
+      "keywords": ["pushing"]
+    },
+    {
+      "text": "Pulling",
+      "kind": "easy",
+      "alternates": ["pull"],
+      "keywords": ["pulling"]
+    },
+    {
+      "text": "Lifting",
+      "kind": "easy",
+      "alternates": ["lift"],
+      "keywords": ["lifting"]
+    },
+    {
+      "text": "Carrying",
+      "kind": "easy",
+      "alternates": ["carry"],
+      "keywords": ["carrying"]
+    },
+    {
+      "text": "Digging",
+      "kind": "easy",
+      "alternates": ["dig"],
+      "keywords": ["digging"]
+    },
+    {
+      "text": "Painting",
+      "kind": "easy",
+      "alternates": ["paint"],
+      "keywords": ["painting"]
+    },
+    {
+      "text": "Drawing",
+      "kind": "easy",
+      "alternates": ["draw"],
+      "keywords": ["drawing"]
+    },
+    {
+      "text": "Knocking",
+      "kind": "easy",
+      "alternates": ["knock"],
+      "keywords": ["knocking"]
+    },
+    {
+      "text": "Whispering",
+      "kind": "easy",
+      "alternates": ["whisper"],
+      "keywords": ["whispering"]
+    },
+    {
+      "text": "Shouting",
+      "kind": "easy",
+      "alternates": ["shout", "yelling"],
+      "keywords": ["shouting"]
+    },
+    {
+      "text": "Listening",
+      "kind": "easy",
+      "alternates": ["listen"],
+      "keywords": ["listening"]
+    },
+    {
+      "text": "Thinking",
+      "kind": "easy",
+      "alternates": ["think"],
+      "keywords": ["thinking"]
+    },
+    {
+      "text": "Sweating",
+      "kind": "easy",
+      "alternates": ["sweat"],
+      "keywords": ["sweating"]
+    },
+    {
+      "text": "Shivering",
+      "kind": "easy",
+      "alternates": ["shiver"],
+      "keywords": ["shivering"]
+    },
+    {
+      "text": "Coughing",
+      "kind": "easy",
+      "alternates": ["cough"],
+      "keywords": ["coughing"]
+    },
+    {
+      "text": "Stretching",
+      "kind": "easy",
+      "alternates": ["stretch"],
+      "keywords": ["stretching"]
+    },
+    {
+      "text": "Juggling",
+      "kind": "easy",
+      "alternates": ["juggle"],
+      "keywords": ["juggling"]
+    },
+    {
+      "text": "Whistling",
+      "kind": "easy",
+      "alternates": ["whistle"],
+      "keywords": ["whistling"]
+    },
+    {
+      "text": "Blinking",
+      "kind": "easy",
+      "alternates": ["blink"],
+      "keywords": ["blinking"]
+    },
+    {
+      "text": "Peeking",
+      "kind": "easy",
+      "alternates": ["peek"],
+      "keywords": ["peeking"]
+    },
+    {
+      "text": "Hiding",
+      "kind": "easy",
+      "alternates": ["hide"],
+      "keywords": ["hiding"]
+    },
+    {
+      "text": "Sneaking",
+      "kind": "easy",
+      "alternates": ["sneak"],
+      "keywords": ["sneaking"]
+    },
+    {
+      "text": "Spinning",
+      "kind": "easy",
+      "alternates": ["spin"],
+      "keywords": ["spinning"]
+    },
+    {
+      "text": "Rolling",
+      "kind": "easy",
+      "alternates": ["roll"],
+      "keywords": ["rolling"]
+    },
+    {
+      "text": "Flying",
+      "kind": "easy",
+      "alternates": ["fly"],
+      "keywords": ["flying"]
+    },
+    {
+      "text": "Floating",
+      "kind": "easy",
+      "alternates": ["float"],
+      "keywords": ["floating"]
+    },
+    {
+      "text": "Sinking",
+      "kind": "easy",
+      "alternates": ["sink"],
+      "keywords": ["sinking"]
+    },
+    {
+      "text": "Bouncing",
+      "kind": "easy",
+      "alternates": ["bounce"],
+      "keywords": ["bouncing"]
+    },
+    {
+      "text": "Handshake",
+      "kind": "easy",
+      "alternates": ["shaking hands"],
+      "keywords": ["handshake"]
+    },
+    {
+      "text": "Fist bump",
+      "kind": "easy",
+      "alternates": ["fist-bump"],
+      "keywords": ["fist"]
+    },
+    {
+      "text": "Tickling",
+      "kind": "easy",
+      "alternates": ["tickle"],
+      "keywords": ["tickling"]
+    },
+    {
+      "text": "Pouting",
+      "kind": "easy",
+      "alternates": ["pout"],
+      "keywords": ["pouting"]
+    },
+    {
+      "text": "Facepalm",
+      "kind": "easy",
+      "alternates": ["face palm"],
+      "keywords": ["facepalm"]
+    },
+    {
+      "text": "Eye roll",
+      "kind": "easy",
+      "alternates": ["rolling eyes", "eye-roll"],
+      "keywords": ["eye"]
+    },
+    {
+      "text": "Tongue out",
+      "kind": "easy",
+      "alternates": ["sticking tongue out"],
+      "keywords": ["tongue"]
+    },
+    {
+      "text": "Raising hand",
+      "kind": "easy",
+      "alternates": ["hand up", "hand raised"],
+      "keywords": ["hand"]
+    },
+    {
+      "text": "Arms crossed",
+      "kind": "easy",
+      "alternates": ["crossed arms"],
+      "keywords": ["arms"]
+    },
+    {
+      "text": "Nodding",
+      "kind": "easy",
+      "alternates": ["nod"],
+      "keywords": ["nodding"]
+    },
+    {
+      "text": "Biting nails",
+      "kind": "easy",
+      "alternates": ["nail biting"],
+      "keywords": ["nails"]
+    },
+    {
+      "text": "Thumbs down",
+      "kind": "easy",
+      "alternates": ["thumb down"],
+      "keywords": ["thumbs"]
+    },
+    {
+      "text": "Peace sign",
+      "kind": "easy",
+      "alternates": ["v sign"],
+      "keywords": ["peace"]
+    },
+    {
+      "text": "Flexing",
+      "kind": "easy",
+      "alternates": ["flex", "flexing muscles"],
+      "keywords": ["flexing"]
+    },
+    {
+      "text": "Marching",
+      "kind": "easy",
+      "alternates": ["march"],
+      "keywords": ["marching"]
+    },
+    {
+      "text": "Squatting",
+      "kind": "easy",
+      "alternates": ["squat"],
+      "keywords": ["squatting"]
+    },
+    {
+      "text": "Push-ups",
+      "kind": "easy",
+      "alternates": ["push up", "pushups"],
+      "keywords": ["push"]
+    },
+    {
+      "text": "Sit-ups",
+      "kind": "easy",
+      "alternates": ["sit up", "situps"],
+      "keywords": ["sit"]
+    },
+    {
+      "text": "Cartwheel",
+      "kind": "easy",
+      "alternates": ["cartwheels"],
+      "keywords": ["cartwheel"]
+    },
+    {
+      "text": "Handstand",
+      "kind": "easy",
+      "alternates": ["hand stand"],
+      "keywords": ["handstand"]
+    },
+    {
+      "text": "Somersault",
+      "kind": "easy",
+      "alternates": ["forward roll"],
+      "keywords": ["somersault"]
+    },
+    {
+      "text": "Splits",
+      "kind": "easy",
+      "alternates": ["doing the splits"],
+      "keywords": ["splits"]
+    },
+    {
+      "text": "Boxing",
+      "kind": "easy",
+      "alternates": ["box"],
+      "keywords": ["boxing"]
+    },
+    {
+      "text": "Wrestling",
+      "kind": "easy",
+      "alternates": ["wrestle"],
+      "keywords": ["wrestling"]
+    },
+    {
+      "text": "Bowling",
+      "kind": "easy",
+      "alternates": ["bowl"],
+      "keywords": ["bowling"]
+    },
+    {
+      "text": "Golfing",
+      "kind": "easy",
+      "alternates": ["golf"],
+      "keywords": ["golfing"]
+    },
+    {
+      "text": "Batting",
+      "kind": "easy",
+      "alternates": ["bat", "swinging a bat"],
+      "keywords": ["batting"]
+    },
+    {
+      "text": "Dribbling",
+      "kind": "easy",
+      "alternates": ["dribble"],
+      "keywords": ["dribbling"]
+    },
+    {
+      "text": "Dunking",
+      "kind": "easy",
+      "alternates": ["slam dunk", "dunk"],
+      "keywords": ["dunking"]
+    },
+    {
+      "text": "Rowing",
+      "kind": "easy",
+      "alternates": ["row"],
+      "keywords": ["rowing"]
+    },
+    {
+      "text": "Cycling",
+      "kind": "easy",
+      "alternates": ["cycle", "biking"],
+      "keywords": ["cycling"]
+    },
+    {
+      "text": "Skateboarding",
+      "kind": "easy",
+      "alternates": ["skateboard"],
+      "keywords": ["skateboarding"]
+    },
+    {
+      "text": "Sledding",
+      "kind": "easy",
+      "alternates": ["sled", "sledging"],
+      "keywords": ["sledding"]
+    },
+    {
+      "text": "Snowboarding",
+      "kind": "easy",
+      "alternates": ["snowboard"],
+      "keywords": ["snowboarding"]
+    },
+    {
+      "text": "Hiking",
+      "kind": "easy",
+      "alternates": ["hike"],
+      "keywords": ["hiking"]
+    },
+    {
+      "text": "Camping",
+      "kind": "easy",
+      "alternates": ["camp"],
+      "keywords": ["camping"]
+    },
+    {
+      "text": "Gardening",
+      "kind": "easy",
+      "alternates": ["garden"],
+      "keywords": ["gardening"]
+    },
+    {
+      "text": "Knitting",
+      "kind": "easy",
+      "alternates": ["knit"],
+      "keywords": ["knitting"]
+    },
+    {
+      "text": "Sewing",
+      "kind": "easy",
+      "alternates": ["sew"],
+      "keywords": ["sewing"]
+    },
+    {
+      "text": "Baking",
+      "kind": "easy",
+      "alternates": ["bake"],
+      "keywords": ["baking"]
+    },
+    {
+      "text": "Selfie",
+      "kind": "easy",
+      "alternates": ["taking a selfie"],
+      "keywords": ["selfie"]
+    },
+    {
+      "text": "Vacuuming",
+      "kind": "easy",
+      "alternates": ["vacuum"],
+      "keywords": ["vacuuming"]
+    },
+    {
+      "text": "Sweeping",
+      "kind": "easy",
+      "alternates": ["sweep"],
+      "keywords": ["sweeping"]
+    },
+    {
+      "text": "Mopping",
+      "kind": "easy",
+      "alternates": ["mop"],
+      "keywords": ["mopping"]
+    },
+    {
+      "text": "Ironing",
+      "kind": "easy",
+      "alternates": ["iron"],
+      "keywords": ["ironing"]
+    },
+    {
+      "text": "Dusting",
+      "kind": "easy",
+      "alternates": ["dust"],
+      "keywords": ["dusting"]
+    },
+    {
+      "text": "Showering",
+      "kind": "easy",
+      "alternates": ["shower"],
+      "keywords": ["showering"]
+    },
+    {
+      "text": "Shaving",
+      "kind": "easy",
+      "alternates": ["shave"],
+      "keywords": ["shaving"]
+    },
+    {
+      "text": "Combing",
+      "kind": "easy",
+      "alternates": ["comb"],
+      "keywords": ["combing"]
+    },
+    {
+      "text": "Waking up",
+      "kind": "easy",
+      "alternates": ["wake up"],
+      "keywords": ["waking"]
+    },
+    {
+      "text": "Typing",
+      "kind": "easy",
+      "alternates": ["type"],
+      "keywords": ["typing"]
+    },
+    {
+      "text": "Texting",
+      "kind": "easy",
+      "alternates": ["text"],
+      "keywords": ["texting"]
+    },
+    {
+      "text": "Driving",
+      "kind": "easy",
+      "alternates": ["drive"],
+      "keywords": ["driving"]
+    },
+    {
+      "text": "Shopping",
+      "kind": "easy",
+      "alternates": ["shop"],
+      "keywords": ["shopping"]
+    },
+    {
+      "text": "Hitchhiking",
+      "kind": "easy",
+      "alternates": ["hitchhike"],
+      "keywords": ["hitchhiking"]
+    },
+    {
+      "text": "Sunbathing",
+      "kind": "easy",
+      "alternates": ["sunbathe"],
+      "keywords": ["sunbathing"]
+    },
+    {
+      "text": "Jump rope",
+      "kind": "easy",
+      "alternates": ["skipping rope", "jumping rope"],
+      "keywords": ["rope"]
+    },
+    {
+      "text": "Hopscotch",
+      "kind": "easy",
+      "alternates": ["hop scotch"],
+      "keywords": ["hopscotch"]
+    },
+    {
+      "text": "Tug of war",
+      "kind": "easy",
+      "alternates": ["tug-of-war"],
+      "keywords": ["tug"]
+    },
+    {
+      "text": "Arm wrestling",
+      "kind": "easy",
+      "alternates": ["arm wrestle"],
+      "keywords": ["arm"]
+    },
+    {
+      "text": "Piggyback",
+      "kind": "easy",
+      "alternates": ["piggyback ride"],
+      "keywords": ["piggyback"]
+    },
+    {
+      "text": "Leapfrog",
+      "kind": "easy",
+      "alternates": ["leap frog"],
+      "keywords": ["leapfrog"]
+    },
+    {
+      "text": "Fainting",
+      "kind": "easy",
+      "alternates": ["faint", "passing out"],
+      "keywords": ["fainting"]
+    },
+    {
+      "text": "Dizzy",
+      "kind": "easy",
+      "alternates": ["feeling dizzy"],
+      "keywords": ["dizzy"]
+    },
+    {
+      "text": "Bored",
+      "kind": "easy",
+      "alternates": ["boredom"],
+      "keywords": ["bored"]
+    },
+    {
+      "text": "Confused",
+      "kind": "easy",
+      "alternates": ["confusion"],
+      "keywords": ["confused"]
+    },
+    {
+      "text": "Disgusted",
+      "kind": "easy",
+      "alternates": ["disgust", "grossed out"],
+      "keywords": ["disgusted"]
+    },
+    {
+      "text": "Excited",
+      "kind": "easy",
+      "alternates": ["excitement"],
+      "keywords": ["excited"]
+    },
+    {
+      "text": "Grumpy",
+      "kind": "easy",
+      "alternates": ["grouchy"],
+      "keywords": ["grumpy"]
+    },
+    {
+      "text": "Heart eyes",
+      "kind": "easy",
+      "alternates": ["heart-eyes"],
+      "keywords": ["heart"]
+    },
+    {
+      "text": "Drooling",
+      "kind": "easy",
+      "alternates": ["drool"],
+      "keywords": ["drooling"]
+    },
+    {
+      "text": "Licking",
+      "kind": "easy",
+      "alternates": ["lick"],
+      "keywords": ["licking"]
+    },
+    {
+      "text": "Chewing",
+      "kind": "easy",
+      "alternates": ["chew"],
+      "keywords": ["chewing"]
+    },
+    {
+      "text": "Sniffing",
+      "kind": "easy",
+      "alternates": ["sniff", "smelling"],
+      "keywords": ["sniffing"]
+    },
+    {
+      "text": "Hammering",
+      "kind": "easy",
+      "alternates": ["hammer"],
+      "keywords": ["hammering"]
+    },
+    {
+      "text": "Sawing",
+      "kind": "easy",
+      "alternates": ["saw"],
+      "keywords": ["sawing"]
+    },
+    {
+      "text": "Chopping",
+      "kind": "easy",
+      "alternates": ["chop"],
+      "keywords": ["chopping"]
+    },
+    {
+      "text": "Stirring",
+      "kind": "easy",
+      "alternates": ["stir"],
+      "keywords": ["stirring"]
+    },
+    {
+      "text": "Pouring",
+      "kind": "easy",
+      "alternates": ["pour"],
+      "keywords": ["pouring"]
+    },
+    {
+      "text": "Watering",
+      "kind": "easy",
+      "alternates": ["water"],
+      "keywords": ["watering"]
+    },
+    {
+      "text": "Planting",
+      "kind": "easy",
+      "alternates": ["plant"],
+      "keywords": ["planting"]
+    },
+    {
+      "text": "Raking",
+      "kind": "easy",
+      "alternates": ["rake"],
+      "keywords": ["raking"]
+    },
+    {
+      "text": "Wrapping",
+      "kind": "easy",
+      "alternates": ["wrap"],
+      "keywords": ["wrapping"]
+    },
+    {
+      "text": "Begging",
+      "kind": "easy",
+      "alternates": ["beg"],
+      "keywords": ["begging"]
+    },
+    {
+      "text": "Sailing",
+      "kind": "easy",
+      "alternates": ["sail"],
+      "keywords": ["sailing"]
+    },
+    {
+      "text": "Parachuting",
+      "kind": "easy",
+      "alternates": ["parachute", "skydiving"],
+      "keywords": ["parachuting"]
+    },
+    {
+      "text": "Bungee jumping",
+      "kind": "easy",
+      "alternates": ["bungee"],
+      "keywords": ["bungee"]
+    },
+    {
+      "text": "Archery",
+      "kind": "easy",
+      "alternates": ["bow and arrow"],
+      "keywords": ["archery"]
+    },
+    {
+      "text": "Karate",
+      "kind": "easy",
+      "alternates": ["karate chop", "karate kick"],
+      "keywords": ["karate"]
+    },
+    {
+      "text": "Meditating",
+      "kind": "easy",
+      "alternates": ["meditate"],
+      "keywords": ["meditating"]
+    },
+    {
+      "text": "Weightlifting",
+      "kind": "easy",
+      "alternates": ["weight lifting", "lifting weights"],
+      "keywords": ["weightlifting"]
+    },
+    {
+      "text": "Shushing",
+      "kind": "easy",
+      "alternates": ["shush", "finger on lips"],
+      "keywords": ["shushing"]
+    },
+    {
+      "text": "Scratching",
+      "kind": "easy",
+      "alternates": ["scratch"],
+      "keywords": ["scratching"]
+    },
+    {
+      "text": "Brushing your teeth",
+      "kind": "hard",
+      "alternates": ["brushing teeth", "teeth brushing"],
+      "keywords": ["brushing", "teeth"]
+    },
+    {
+      "text": "Tripping on a banana peel",
+      "kind": "hard",
+      "alternates": ["slipping on a banana peel", "banana peel slip"],
+      "keywords": ["banana", "peel"]
+    },
+    {
+      "text": "Hugging a friend goodbye",
+      "kind": "hard",
+      "alternates": ["goodbye hug"],
+      "keywords": ["hugging", "goodbye"]
+    },
+    {
+      "text": "Full and empty glass",
+      "kind": "hard",
+      "alternates": ["empty and full glass"],
+      "keywords": ["full", "empty", "glass"]
+    },
+    {
+      "text": "Big and small dog",
+      "kind": "hard",
+      "alternates": ["small and big dog"],
+      "keywords": ["big", "small", "dog"]
+    },
+    {
+      "text": "Hot and cold",
+      "kind": "hard",
+      "alternates": ["cold and hot"],
+      "keywords": ["hot", "cold"]
+    },
+    {
+      "text": "Open and closed door",
+      "kind": "hard",
+      "alternates": ["closed and open door"],
+      "keywords": ["open", "closed", "door"]
+    },
+    {
+      "text": "Fast and slow",
+      "kind": "hard",
+      "alternates": ["slow and fast"],
+      "keywords": ["fast", "slow"]
+    },
+    {
+      "text": "Tall and short",
+      "kind": "hard",
+      "alternates": ["short and tall"],
+      "keywords": ["tall", "short"]
+    },
+    {
+      "text": "Happy and sad",
+      "kind": "hard",
+      "alternates": ["sad and happy"],
+      "keywords": ["happy", "sad"]
+    },
+    {
+      "text": "Day and night",
+      "kind": "hard",
+      "alternates": ["night and day"],
+      "keywords": ["day", "night"]
+    },
+    {
+      "text": "Wet and dry",
+      "kind": "hard",
+      "alternates": ["dry and wet"],
+      "keywords": ["wet", "dry"]
+    },
+    {
+      "text": "Heavy and light",
+      "kind": "hard",
+      "alternates": ["light and heavy"],
+      "keywords": ["heavy", "light"]
+    },
+    {
+      "text": "Old and new",
+      "kind": "hard",
+      "alternates": ["new and old"],
+      "keywords": ["old", "new"]
+    },
+    {
+      "text": "Awake and asleep",
+      "kind": "hard",
+      "alternates": ["asleep and awake"],
+      "keywords": ["awake", "asleep"]
+    },
+    {
+      "text": "Clean and dirty",
+      "kind": "hard",
+      "alternates": ["dirty and clean"],
+      "keywords": ["clean", "dirty"]
+    },
+    {
+      "text": "Thick and thin book",
+      "kind": "hard",
+      "alternates": ["thin and thick book"],
+      "keywords": ["thick", "thin"]
+    },
+    {
+      "text": "Hard and soft",
+      "kind": "hard",
+      "alternates": ["soft and hard"],
+      "keywords": ["hard", "soft"]
+    },
+    {
+      "text": "Sunny and rainy",
+      "kind": "hard",
+      "alternates": ["rainy and sunny"],
+      "keywords": ["sunny", "rainy"]
+    },
+    {
+      "text": "Washing your face",
+      "kind": "hard",
+      "alternates": ["washing face", "face washing"],
+      "keywords": ["washing", "face"]
+    },
+    {
+      "text": "Combing your hair",
+      "kind": "hard",
+      "alternates": ["combing hair", "brushing hair"],
+      "keywords": ["combing", "hair"]
+    },
+    {
+      "text": "Tying shoelaces",
+      "kind": "hard",
+      "alternates": ["tying shoes", "lacing shoes"],
+      "keywords": ["tying", "shoelaces"]
+    },
+    {
+      "text": "Making the bed",
+      "kind": "hard",
+      "alternates": ["bed making"],
+      "keywords": ["making", "bed"]
+    },
+    {
+      "text": "Taking out the trash",
+      "kind": "hard",
+      "alternates": ["taking out the rubbish", "taking out the garbage"],
+      "keywords": ["trash"]
+    },
+    {
+      "text": "Doing the dishes",
+      "kind": "hard",
+      "alternates": ["washing dishes", "washing the dishes"],
+      "keywords": ["dishes"]
+    },
+    {
+      "text": "Hanging laundry",
+      "kind": "hard",
+      "alternates": ["drying clothes", "clothesline"],
+      "keywords": ["laundry"]
+    },
+    {
+      "text": "Pouring cereal",
+      "kind": "hard",
+      "alternates": ["pouring a bowl of cereal"],
+      "keywords": ["pouring", "cereal"]
+    },
+    {
+      "text": "Turning off the alarm",
+      "kind": "hard",
+      "alternates": ["alarm clock ringing", "snoozing the alarm"],
+      "keywords": ["alarm"]
+    },
+    {
+      "text": "Feeding the cat",
+      "kind": "hard",
+      "alternates": ["feeding a cat"],
+      "keywords": ["feeding", "cat"]
+    },
+    {
+      "text": "Packing a suitcase",
+      "kind": "hard",
+      "alternates": ["packing luggage"],
+      "keywords": ["packing", "suitcase"]
+    },
+    {
+      "text": "Waiting for the bus",
+      "kind": "hard",
+      "alternates": ["waiting at a bus stop", "bus stop"],
+      "keywords": ["waiting", "bus"]
+    },
+    {
+      "text": "Getting a haircut",
+      "kind": "hard",
+      "alternates": ["haircut", "at the barber"],
+      "keywords": ["haircut"]
+    },
+    {
+      "text": "Pushing a shopping cart",
+      "kind": "hard",
+      "alternates": ["pushing a shopping trolley", "shopping trolley"],
+      "keywords": ["shopping", "cart"]
+    },
+    {
+      "text": "Making a sandwich",
+      "kind": "hard",
+      "alternates": ["sandwich making"],
+      "keywords": ["sandwich"]
+    },
+    {
+      "text": "Flipping pancakes",
+      "kind": "hard",
+      "alternates": ["flipping a pancake", "pancake flip"],
+      "keywords": ["flipping", "pancake"]
+    },
+    {
+      "text": "Blowing out candles",
+      "kind": "hard",
+      "alternates": ["blowing out birthday candles"],
+      "keywords": ["blowing", "candles"]
+    },
+    {
+      "text": "Opening a present",
+      "kind": "hard",
+      "alternates": ["unwrapping a present", "opening a gift"],
+      "keywords": ["opening", "present"]
+    },
+    {
+      "text": "Walking the dog",
+      "kind": "hard",
+      "alternates": ["walking a dog", "dog walking"],
+      "keywords": ["walking", "dog"]
+    },
+    {
+      "text": "Taking a bath",
+      "kind": "hard",
+      "alternates": ["having a bath", "bath time"],
+      "keywords": ["bath"]
+    },
+    {
+      "text": "Reading a bedtime story",
+      "kind": "hard",
+      "alternates": ["bedtime story"],
+      "keywords": ["bedtime", "story"]
+    },
+    {
+      "text": "Tucking into bed",
+      "kind": "hard",
+      "alternates": ["tucking a child into bed", "tucking in"],
+      "keywords": ["tucking", "bed"]
+    },
+    {
+      "text": "Setting the table",
+      "kind": "hard",
+      "alternates": ["laying the table"],
+      "keywords": ["setting", "table"]
+    },
+    {
+      "text": "Stuck in traffic",
+      "kind": "hard",
+      "alternates": ["traffic jam"],
+      "keywords": ["traffic"]
+    },
+    {
+      "text": "Parallel parking",
+      "kind": "hard",
+      "alternates": ["parking a car"],
+      "keywords": ["parking"]
+    },
+    {
+      "text": "Mowing the lawn",
+      "kind": "hard",
+      "alternates": ["cutting the grass", "lawn mowing"],
+      "keywords": ["mowing", "lawn"]
+    },
+    {
+      "text": "Building a snowman",
+      "kind": "hard",
+      "alternates": ["making a snowman"],
+      "keywords": ["snowman"]
+    },
+    {
+      "text": "Snowball fight",
+      "kind": "hard",
+      "alternates": ["throwing snowballs"],
+      "keywords": ["snowball"]
+    },
+    {
+      "text": "Making a sandcastle",
+      "kind": "hard",
+      "alternates": ["building a sandcastle", "sandcastle"],
+      "keywords": ["sandcastle"]
+    },
+    {
+      "text": "Flying a kite",
+      "kind": "hard",
+      "alternates": ["kite flying"],
+      "keywords": ["kite"]
+    },
+    {
+      "text": "Blowing bubbles",
+      "kind": "hard",
+      "alternates": ["bubble blowing"],
+      "keywords": ["bubbles"]
+    },
+    {
+      "text": "Jumping in puddles",
+      "kind": "hard",
+      "alternates": ["puddle jumping", "splashing in puddles"],
+      "keywords": ["puddle"]
+    },
+    {
+      "text": "Roasting marshmallows",
+      "kind": "hard",
+      "alternates": ["toasting marshmallows"],
+      "keywords": ["marshmallows"]
+    },
+    {
+      "text": "Pitching a tent",
+      "kind": "hard",
+      "alternates": ["setting up a tent", "putting up a tent"],
+      "keywords": ["tent"]
+    },
+    {
+      "text": "Climbing a tree",
+      "kind": "hard",
+      "alternates": ["tree climbing"],
+      "keywords": ["climbing", "tree"]
+    },
+    {
+      "text": "Swinging on a swing",
+      "kind": "hard",
+      "alternates": ["on a swing", "playground swing"],
+      "keywords": ["swing"]
+    },
+    {
+      "text": "Going down a slide",
+      "kind": "hard",
+      "alternates": ["sliding down a slide", "playground slide"],
+      "keywords": ["slide"]
+    },
+    {
+      "text": "Waiter carrying a tray",
+      "kind": "hard",
+      "alternates": ["waiter with a tray"],
+      "keywords": ["waiter", "tray"]
+    },
+    {
+      "text": "Cashier scanning groceries",
+      "kind": "hard",
+      "alternates": ["checkout scanning", "scanning groceries"],
+      "keywords": ["cashier"]
+    },
+    {
+      "text": "Taking a photo",
+      "kind": "hard",
+      "alternates": ["taking a picture", "photographer"],
+      "keywords": ["photo"]
+    },
+    {
+      "text": "Talking on the phone",
+      "kind": "hard",
+      "alternates": ["phone call", "on the phone"],
+      "keywords": ["phone"]
+    },
+    {
+      "text": "Holding hands",
+      "kind": "hard",
+      "alternates": ["hand holding"],
+      "keywords": ["holding", "hands"]
+    },
+    {
+      "text": "Whispering a secret",
+      "kind": "hard",
+      "alternates": ["telling a secret"],
+      "keywords": ["secret"]
+    },
+    {
+      "text": "Waving goodbye",
+      "kind": "hard",
+      "alternates": ["waving bye", "goodbye wave"],
+      "keywords": ["waving", "goodbye"]
+    },
+    {
+      "text": "Bumping heads",
+      "kind": "hard",
+      "alternates": ["head bump", "two people bumping heads"],
+      "keywords": ["bumping", "heads"]
+    },
+    {
+      "text": "Pushing a stroller",
+      "kind": "hard",
+      "alternates": ["pushing a pram", "pushing a buggy"],
+      "keywords": ["stroller"]
+    },
+    {
+      "text": "Rocking a baby",
+      "kind": "hard",
+      "alternates": ["cradling a baby"],
+      "keywords": ["rocking", "baby"]
+    },
+    {
+      "text": "Changing a diaper",
+      "kind": "hard",
+      "alternates": ["changing a nappy", "diaper change"],
+      "keywords": ["diaper"]
+    },
+    {
+      "text": "Proposing on one knee",
+      "kind": "hard",
+      "alternates": ["marriage proposal", "down on one knee"],
+      "keywords": ["proposing"]
+    },
+    {
+      "text": "Singing in the shower",
+      "kind": "hard",
+      "alternates": ["shower singing"],
+      "keywords": ["singing", "shower"]
+    },
+    {
+      "text": "Dancing in the rain",
+      "kind": "hard",
+      "alternates": ["rain dancing"],
+      "keywords": ["dancing", "rain"]
+    },
+    {
+      "text": "Playing catch",
+      "kind": "hard",
+      "alternates": ["game of catch", "throwing a ball"],
+      "keywords": ["catch"]
+    },
+    {
+      "text": "Scoring a goal",
+      "kind": "hard",
+      "alternates": ["goal scoring", "shooting at goal"],
+      "keywords": ["scoring", "goal"]
+    },
+    {
+      "text": "Shooting a basketball",
+      "kind": "hard",
+      "alternates": ["basketball shot", "shooting hoops"],
+      "keywords": ["basketball"]
+    },
+    {
+      "text": "Hitting a home run",
+      "kind": "hard",
+      "alternates": ["home run"],
+      "keywords": ["home", "run"]
+    },
+    {
+      "text": "Serving in tennis",
+      "kind": "hard",
+      "alternates": ["tennis serve"],
+      "keywords": ["tennis", "serving"]
+    },
+    {
+      "text": "Goalkeeper diving",
+      "kind": "hard",
+      "alternates": ["goalie diving", "goalkeeper save"],
+      "keywords": ["goalkeeper", "diving"]
+    },
+    {
+      "text": "Crossing the finish line",
+      "kind": "hard",
+      "alternates": ["finish line", "winning a race"],
+      "keywords": ["finish", "line"]
+    },
+    {
+      "text": "Passing the baton",
+      "kind": "hard",
+      "alternates": ["relay race", "baton pass"],
+      "keywords": ["baton"]
+    },
+    {
+      "text": "Jumping hurdles",
+      "kind": "hard",
+      "alternates": ["hurdling", "hurdles"],
+      "keywords": ["hurdles"]
+    },
+    {
+      "text": "Pole vault",
+      "kind": "hard",
+      "alternates": ["pole vaulting"],
+      "keywords": ["pole", "vault"]
+    },
+    {
+      "text": "Putting a golf ball",
+      "kind": "hard",
+      "alternates": ["golf putt", "putting"],
+      "keywords": ["golf", "putting"]
+    },
+    {
+      "text": "Bowling a strike",
+      "kind": "hard",
+      "alternates": ["bowling strike", "strike"],
+      "keywords": ["bowling", "strike"]
+    },
+    {
+      "text": "Doing a backflip",
+      "kind": "hard",
+      "alternates": ["backflip", "back flip"],
+      "keywords": ["backflip"]
+    },
+    {
+      "text": "Climbing a rope",
+      "kind": "hard",
+      "alternates": ["rope climbing", "rope climb"],
+      "keywords": ["climbing", "rope"]
+    },
+    {
+      "text": "Skipping stones",
+      "kind": "hard",
+      "alternates": ["stone skipping", "skimming stones"],
+      "keywords": ["skipping", "stones"]
+    },
+    {
+      "text": "Riding a horse",
+      "kind": "hard",
+      "alternates": ["horse riding", "horseback riding"],
+      "keywords": ["riding", "horse"]
+    },
+    {
+      "text": "Paddling a canoe",
+      "kind": "hard",
+      "alternates": ["canoeing"],
+      "keywords": ["canoe"]
+    },
+    {
+      "text": "Throwing a frisbee",
+      "kind": "hard",
+      "alternates": ["frisbee"],
+      "keywords": ["frisbee"]
+    },
+    {
+      "text": "Hitting a piñata",
+      "kind": "hard",
+      "alternates": ["hitting a pinata", "breaking a piñata"],
+      "keywords": ["piñata"]
+    },
+    {
+      "text": "Playing hide and seek",
+      "kind": "hard",
+      "alternates": ["hide and seek"],
+      "keywords": ["hide", "seek"]
+    },
+    {
+      "text": "Musical chairs",
+      "kind": "hard",
+      "alternates": ["musical chair game"],
+      "keywords": ["musical", "chairs"]
+    },
+    {
+      "text": "Pillow fight",
+      "kind": "hard",
+      "alternates": ["pillow war"],
+      "keywords": ["pillow"]
+    },
+    {
+      "text": "Blowing up a balloon",
+      "kind": "hard",
+      "alternates": ["inflating a balloon"],
+      "keywords": ["blowing", "balloon"]
+    },
+    {
+      "text": "Hailing a taxi",
+      "kind": "hard",
+      "alternates": ["calling a taxi", "hailing a cab"],
+      "keywords": ["taxi"]
+    },
+    {
+      "text": "Crossing the street",
+      "kind": "hard",
+      "alternates": ["crossing the road", "zebra crossing"],
+      "keywords": ["crossing", "street"]
+    },
+    {
+      "text": "Umbrella blowing inside out",
+      "kind": "hard",
+      "alternates": ["inside out umbrella"],
+      "keywords": ["umbrella", "inside"]
+    },
+    {
+      "text": "Slipping on ice",
+      "kind": "hard",
+      "alternates": ["sliding on ice"],
+      "keywords": ["slipping", "ice"]
+    },
+    {
+      "text": "Stubbing your toe",
+      "kind": "hard",
+      "alternates": ["stubbed toe"],
+      "keywords": ["stubbing", "toe"]
+    },
+    {
+      "text": "Spilling coffee",
+      "kind": "hard",
+      "alternates": ["spilled coffee", "coffee spill"],
+      "keywords": ["spilling", "coffee"]
+    },
+    {
+      "text": "Dropping an ice cream",
+      "kind": "hard",
+      "alternates": ["dropped ice cream", "ice cream falling"],
+      "keywords": ["dropping", "ice", "cream"]
+    },
+    {
+      "text": "Missing the bus",
+      "kind": "hard",
+      "alternates": ["running for the bus", "chasing the bus"],
+      "keywords": ["missing", "bus"]
+    },
+    {
+      "text": "Stepping on a Lego",
+      "kind": "hard",
+      "alternates": ["stepping on lego"],
+      "keywords": ["stepping", "lego"]
+    },
+    {
+      "text": "Caught in the rain",
+      "kind": "hard",
+      "alternates": ["getting caught in the rain"],
+      "keywords": ["caught", "rain"]
+    },
+    {
+      "text": "Brain freeze",
+      "kind": "hard",
+      "alternates": ["ice cream headache"],
+      "keywords": ["brain", "freeze"]
+    },
+    {
+      "text": "Falling asleep on the couch",
+      "kind": "hard",
+      "alternates": ["asleep on the sofa", "dozing on the couch"],
+      "keywords": ["asleep", "couch"]
+    },
+    {
+      "text": "Sleepwalking in pajamas",
+      "kind": "hard",
+      "alternates": ["sleepwalker", "sleepwalking"],
+      "keywords": ["sleepwalking"]
+    },
+    {
+      "text": "Jumping on the bed",
+      "kind": "hard",
+      "alternates": ["bed jumping"],
+      "keywords": ["jumping", "bed"]
+    },
+    {
+      "text": "Tickling feet",
+      "kind": "hard",
+      "alternates": ["tickling someone's feet", "feet tickling"],
+      "keywords": ["tickling", "feet"]
+    },
+    {
+      "text": "Petting a dog",
+      "kind": "hard",
+      "alternates": ["stroking a dog", "patting a dog"],
+      "keywords": ["petting", "dog"]
+    },
+    {
+      "text": "Hugging a teddy bear",
+      "kind": "hard",
+      "alternates": ["teddy bear hug"],
+      "keywords": ["hugging", "teddy"]
+    },
+    {
+      "text": "Covering your eyes",
+      "kind": "hard",
+      "alternates": ["hands over eyes", "eyes covered"],
+      "keywords": ["covering", "eyes"]
+    },
+    {
+      "text": "Plugging your ears",
+      "kind": "hard",
+      "alternates": ["fingers in ears", "covering ears"],
+      "keywords": ["plugging", "ears"]
+    },
+    {
+      "text": "Holding your nose",
+      "kind": "hard",
+      "alternates": ["pinching your nose", "nose pinched"],
+      "keywords": ["holding", "nose"]
+    },
+    {
+      "text": "Biting into a lemon",
+      "kind": "hard",
+      "alternates": ["sour lemon face", "lemon face"],
+      "keywords": ["biting", "lemon"]
+    },
+    {
+      "text": "Jumping for joy",
+      "kind": "hard",
+      "alternates": ["jump for joy"],
+      "keywords": ["jumping", "joy"]
+    },
+    {
+      "text": "Stomping your feet",
+      "kind": "hard",
+      "alternates": ["stamping feet", "stomping feet"],
+      "keywords": ["stomping", "feet"]
+    },
+    {
+      "text": "Throwing a tantrum",
+      "kind": "hard",
+      "alternates": ["temper tantrum", "tantrum"],
+      "keywords": ["tantrum"]
+    },
+    {
+      "text": "Taking a bow on stage",
+      "kind": "hard",
+      "alternates": ["stage bow", "bowing on stage"],
+      "keywords": ["bow", "stage"]
+    },
+    {
+      "text": "Cheering at a game",
+      "kind": "hard",
+      "alternates": ["cheering fans", "sports fan cheering"],
+      "keywords": ["cheering"]
+    },
+    {
+      "text": "Doing the wave",
+      "kind": "hard",
+      "alternates": ["stadium wave", "mexican wave"],
+      "keywords": ["wave"]
+    },
+    {
+      "text": "Conducting an orchestra",
+      "kind": "hard",
+      "alternates": ["orchestra conductor", "conductor"],
+      "keywords": ["conducting", "orchestra"]
+    },
+    {
+      "text": "Playing the guitar",
+      "kind": "hard",
+      "alternates": ["strumming a guitar", "guitar playing"],
+      "keywords": ["guitar"]
+    },
+    {
+      "text": "Playing the drums",
+      "kind": "hard",
+      "alternates": ["drumming", "drummer"],
+      "keywords": ["drums"]
+    },
+    {
+      "text": "Playing the piano",
+      "kind": "hard",
+      "alternates": ["piano playing", "pianist"],
+      "keywords": ["piano"]
+    },
+    {
+      "text": "Air guitar",
+      "kind": "hard",
+      "alternates": ["playing air guitar"],
+      "keywords": ["air", "guitar"]
+    },
+    {
+      "text": "Singing karaoke",
+      "kind": "hard",
+      "alternates": ["karaoke"],
+      "keywords": ["karaoke"]
+    },
+    {
+      "text": "Painting a portrait",
+      "kind": "hard",
+      "alternates": ["portrait painting", "painter at an easel"],
+      "keywords": ["painting", "portrait"]
+    },
+    {
+      "text": "Catching a fish",
+      "kind": "hard",
+      "alternates": ["caught a fish", "fish on a hook"],
+      "keywords": ["catching", "fish"]
+    },
+    {
+      "text": "Planting a tree",
+      "kind": "hard",
+      "alternates": ["tree planting"],
+      "keywords": ["planting", "tree"]
+    },
+    {
+      "text": "Picking apples",
+      "kind": "hard",
+      "alternates": ["apple picking"],
+      "keywords": ["picking", "apples"]
+    },
+    {
+      "text": "Hammering a nail",
+      "kind": "hard",
+      "alternates": ["hitting a nail"],
+      "keywords": ["hammering", "nail"]
+    },
+    {
+      "text": "Chopping onions",
+      "kind": "hard",
+      "alternates": ["cutting onions", "crying over onions"],
+      "keywords": ["chopping", "onion"]
+    },
+    {
+      "text": "Kneading dough",
+      "kind": "hard",
+      "alternates": ["kneading bread", "making dough"],
+      "keywords": ["kneading", "dough"]
+    },
+    {
+      "text": "Decorating a cake",
+      "kind": "hard",
+      "alternates": ["cake decorating", "icing a cake"],
+      "keywords": ["decorating", "cake"]
+    },
+    {
+      "text": "Carving a pumpkin",
+      "kind": "hard",
+      "alternates": ["pumpkin carving"],
+      "keywords": ["carving", "pumpkin"]
+    },
+    {
+      "text": "Hanging a picture",
+      "kind": "hard",
+      "alternates": ["hanging a painting"],
+      "keywords": ["hanging", "picture"]
+    },
+    {
+      "text": "Carrying boxes",
+      "kind": "hard",
+      "alternates": ["carrying moving boxes", "moving boxes"],
+      "keywords": ["carrying", "boxes"]
+    },
+    {
+      "text": "Changing a tire",
+      "kind": "hard",
+      "alternates": ["changing a tyre", "flat tire"],
+      "keywords": ["changing", "tire"]
+    },
+    {
+      "text": "Washing the car",
+      "kind": "hard",
+      "alternates": ["washing a car", "car washing"],
+      "keywords": ["washing", "car"]
+    },
+    {
+      "text": "Doing a puzzle",
+      "kind": "hard",
+      "alternates": ["jigsaw puzzle", "solving a puzzle"],
+      "keywords": ["puzzle"]
+    },
+    {
+      "text": "Playing chess",
+      "kind": "hard",
+      "alternates": ["chess game", "chess"],
+      "keywords": ["chess"]
+    },
+    {
+      "text": "Playing cards",
+      "kind": "hard",
+      "alternates": ["card game"],
+      "keywords": ["cards"]
+    },
+    {
+      "text": "Rolling dice",
+      "kind": "hard",
+      "alternates": ["throwing dice", "dice roll"],
+      "keywords": ["dice"]
+    },
+    {
+      "text": "Reading a newspaper",
+      "kind": "hard",
+      "alternates": ["newspaper"],
+      "keywords": ["newspaper"]
+    },
+    {
+      "text": "Writing a letter",
+      "kind": "hard",
+      "alternates": ["letter writing"],
+      "keywords": ["writing", "letter"]
+    },
+    {
+      "text": "Watching TV",
+      "kind": "hard",
+      "alternates": ["watching television", "couch potato"],
+      "keywords": ["watching", "tv"]
+    },
+    {
+      "text": "Playing video games",
+      "kind": "hard",
+      "alternates": ["video gaming", "gaming"],
+      "keywords": ["video", "games"]
+    },
+    {
+      "text": "Popcorn at the movies",
+      "kind": "hard",
+      "alternates": ["eating popcorn at the movies", "popcorn at the cinema"],
+      "keywords": ["popcorn", "movies"]
+    },
+    {
+      "text": "Eating spaghetti",
+      "kind": "hard",
+      "alternates": ["slurping spaghetti", "spaghetti"],
+      "keywords": ["spaghetti"]
+    },
+    {
+      "text": "Using chopsticks",
+      "kind": "hard",
+      "alternates": ["eating with chopsticks"],
+      "keywords": ["chopsticks"]
+    },
+    {
+      "text": "Licking an ice cream",
+      "kind": "hard",
+      "alternates": ["ice cream cone", "licking an ice cream cone"],
+      "keywords": ["licking", "ice", "cream"]
+    },
+    {
+      "text": "Teacher at a blackboard",
+      "kind": "hard",
+      "alternates": ["teacher at a chalkboard", "teaching a class"],
+      "keywords": ["teacher"]
+    },
+    {
+      "text": "Sleeping in class",
+      "kind": "hard",
+      "alternates": ["asleep in class", "dozing in class"],
+      "keywords": ["sleeping", "class"]
+    },
+    {
+      "text": "Doing homework",
+      "kind": "hard",
+      "alternates": ["homework"],
+      "keywords": ["homework"]
+    },
+    {
+      "text": "Doctor with a stethoscope",
+      "kind": "hard",
+      "alternates": ["doctor checkup", "doctor listening to a heartbeat"],
+      "keywords": ["doctor", "stethoscope"]
+    },
+    {
+      "text": "At the dentist",
+      "kind": "hard",
+      "alternates": ["dentist visit", "dentist checkup"],
+      "keywords": ["dentist"]
+    },
+    {
+      "text": "Throwing confetti",
+      "kind": "hard",
+      "alternates": ["confetti"],
+      "keywords": ["confetti"]
+    },
+    {
+      "text": "Cutting a ribbon",
+      "kind": "hard",
+      "alternates": ["ribbon cutting"],
+      "keywords": ["cutting", "ribbon"]
+    },
+    {
+      "text": "Pin the tail on the donkey",
+      "kind": "hard",
+      "alternates": ["pin the tail"],
+      "keywords": ["tail", "donkey"]
+    },
+    {
+      "text": "Walking on stilts",
+      "kind": "hard",
+      "alternates": ["stilt walking", "stilts"],
+      "keywords": ["stilts"]
+    },
+    {
+      "text": "Walking a tightrope",
+      "kind": "hard",
+      "alternates": ["tightrope walker", "tightrope"],
+      "keywords": ["tightrope"]
+    },
+    {
+      "text": "Waiting in line",
+      "kind": "hard",
+      "alternates": ["standing in line", "queueing"],
+      "keywords": ["waiting", "line"]
+    },
+    {
+      "text": "Climbing stairs",
+      "kind": "hard",
+      "alternates": ["walking up stairs", "going upstairs"],
+      "keywords": ["stairs"]
+    },
+    {
+      "text": "Peeking through fingers",
+      "kind": "hard",
+      "alternates": ["watching through fingers"],
+      "keywords": ["peeking", "fingers"]
+    },
+    {
+      "text": "Hugging a tree",
+      "kind": "hard",
+      "alternates": ["tree hugger"],
+      "keywords": ["hugging", "tree"]
+    },
+    {
+      "text": "Folding clothes",
+      "kind": "hard",
+      "alternates": ["folding laundry"],
+      "keywords": ["folding", "clothes"]
+    },
+    {
+      "text": "Drying your hair",
+      "kind": "hard",
+      "alternates": ["blow drying hair", "hair dryer"],
+      "keywords": ["drying", "hair"]
+    },
+    {
+      "text": "Sharpening a pencil",
+      "kind": "hard",
+      "alternates": ["pencil sharpening"],
+      "keywords": ["sharpening", "pencil"]
+    },
+    {
+      "text": "Referee showing a red card",
+      "kind": "hard",
+      "alternates": ["red card"],
+      "keywords": ["referee", "card"]
+    },
+    {
+      "text": "Throwing a dart",
+      "kind": "hard",
+      "alternates": ["darts"],
+      "keywords": ["dart"]
+    },
+    {
+      "text": "Lighting a campfire",
+      "kind": "hard",
+      "alternates": ["campfire"],
+      "keywords": ["campfire"]
+    },
+    {
+      "text": "Mountain climber planting a flag",
+      "kind": "hard",
+      "alternates": ["planting a flag on a mountain", "flag on a mountain top"],
+      "keywords": ["flag", "mountain"]
+    },
+    {
+      "text": "Cannonball into a pool",
+      "kind": "hard",
+      "alternates": ["cannonball", "cannonball jump"],
+      "keywords": ["cannonball"]
+    },
+    {
+      "text": "Burying someone in sand",
+      "kind": "hard",
+      "alternates": ["buried in sand", "buried at the beach"],
+      "keywords": ["buried", "sand"]
+    },
+    {
+      "text": "Putting on sunscreen",
+      "kind": "hard",
+      "alternates": ["applying sunscreen", "sunscreen"],
+      "keywords": ["sunscreen"]
+    },
+    {
+      "text": "Sneezing a hurricane",
+      "kind": "chaos",
+      "alternates": ["sneeze hurricane"],
+      "keywords": ["sneezing", "hurricane"]
+    },
+    {
+      "text": "Sneezing confetti",
+      "kind": "chaos",
+      "alternates": ["confetti sneeze"],
+      "keywords": ["sneezing", "confetti"]
+    },
+    {
+      "text": "Brushing a crocodile's teeth",
+      "kind": "chaos",
+      "alternates": ["crocodile tooth brushing", "brushing crocodile teeth"],
+      "keywords": ["brushing", "crocodile", "teeth"]
+    },
+    {
+      "text": "Bird flying into a yawn",
+      "kind": "chaos",
+      "alternates": ["yawning so wide a bird flies in"],
+      "keywords": ["bird", "yawn"]
+    },
+    {
+      "text": "Hugging a cactus",
+      "kind": "chaos",
+      "alternates": ["cactus hug"],
+      "keywords": ["hugging", "cactus"]
+    },
+    {
+      "text": "Real grizzly bear hug",
+      "kind": "chaos",
+      "alternates": ["bear hug from a real bear", "real bear hug"],
+      "keywords": ["bear", "hug"]
+    },
+    {
+      "text": "Waving at your own reflection",
+      "kind": "chaos",
+      "alternates": ["waving at a mirror"],
+      "keywords": ["waving", "mirror"]
+    },
+    {
+      "text": "Seal clapping at a concert",
+      "kind": "chaos",
+      "alternates": ["seal applauding at a concert"],
+      "keywords": ["seal", "clapping"]
+    },
+    {
+      "text": "High five with a giraffe",
+      "kind": "chaos",
+      "alternates": ["giraffe high five"],
+      "keywords": ["giraffe", "five"]
+    },
+    {
+      "text": "Sleepwalking on a tightrope",
+      "kind": "chaos",
+      "alternates": ["sleepwalker on a tightrope"],
+      "keywords": ["sleepwalking", "tightrope"]
+    },
+    {
+      "text": "Bat in a bunk bed",
+      "kind": "chaos",
+      "alternates": ["bat sleeping in a bunk bed", "upside down bat in bed"],
+      "keywords": ["bat", "bed"]
+    },
+    {
+      "text": "Sheep counting people to sleep",
+      "kind": "chaos",
+      "alternates": ["sheep counting humans"],
+      "keywords": ["sheep", "counting"]
+    },
+    {
+      "text": "Snore blowing the roof off",
+      "kind": "chaos",
+      "alternates": ["snoring that blows the roof off"],
+      "keywords": ["snore", "roof"]
+    },
+    {
+      "text": "Crying a swimming pool",
+      "kind": "chaos",
+      "alternates": ["crying a pool", "tears filling a pool"],
+      "keywords": ["crying", "pool"]
+    },
+    {
+      "text": "Onion chopping a chef",
+      "kind": "chaos",
+      "alternates": ["onion cutting a chef"],
+      "keywords": ["onion", "chef"]
+    },
+    {
+      "text": "Tickling a dragon's feet",
+      "kind": "chaos",
+      "alternates": ["tickling a dragon"],
+      "keywords": ["tickling", "dragon"]
+    },
+    {
+      "text": "Hyena doing stand-up comedy",
+      "kind": "chaos",
+      "alternates": ["hyena comedian"],
+      "keywords": ["hyena", "comedy"]
+    },
+    {
+      "text": "Kangaroo on a pogo stick",
+      "kind": "chaos",
+      "alternates": ["pogo stick kangaroo"],
+      "keywords": ["kangaroo", "pogo"]
+    },
+    {
+      "text": "Cow jumping over the moon",
+      "kind": "chaos",
+      "alternates": ["cow jumps over the moon"],
+      "keywords": ["cow", "moon"]
+    },
+    {
+      "text": "Snail winning a race",
+      "kind": "chaos",
+      "alternates": ["snail race winner"],
+      "keywords": ["snail", "winning"]
+    },
+    {
+      "text": "Human in a hamster wheel",
+      "kind": "chaos",
+      "alternates": ["giant hamster wheel", "person in a hamster wheel"],
+      "keywords": ["hamster", "wheel"]
+    },
+    {
+      "text": "Fish wearing floaties",
+      "kind": "chaos",
+      "alternates": ["fish with water wings", "fish in arm floats"],
+      "keywords": ["fish", "floaties"]
+    },
+    {
+      "text": "Swimming in soup",
+      "kind": "chaos",
+      "alternates": ["swimming in a bowl of soup"],
+      "keywords": ["swimming", "soup"]
+    },
+    {
+      "text": "Diving into a teacup",
+      "kind": "chaos",
+      "alternates": ["cannonball into a teacup"],
+      "keywords": ["diving", "teacup"]
+    },
+    {
+      "text": "Penguin with a jetpack",
+      "kind": "chaos",
+      "alternates": ["jetpack penguin"],
+      "keywords": ["penguin", "jetpack"]
+    },
+    {
+      "text": "Fish fishing for a human",
+      "kind": "chaos",
+      "alternates": ["fish catching a person", "fish fishing for people"],
+      "keywords": ["fish", "fishing", "human"]
+    },
+    {
+      "text": "Tiny rod catching a whale",
+      "kind": "chaos",
+      "alternates": ["catching a whale on a tiny rod"],
+      "keywords": ["whale", "rod"]
+    },
+    {
+      "text": "Pancake flipped to the moon",
+      "kind": "chaos",
+      "alternates": ["flipping a pancake to the moon"],
+      "keywords": ["pancake", "moon"]
+    },
+    {
+      "text": "Gingerbread man baking a human",
+      "kind": "chaos",
+      "alternates": ["gingerbread man baking a person"],
+      "keywords": ["gingerbread", "baking"]
+    },
+    {
+      "text": "Snake swallowing a whole cake",
+      "kind": "chaos",
+      "alternates": ["snake eating a cake"],
+      "keywords": ["snake", "cake"]
+    },
+    {
+      "text": "Eating soup with a fork",
+      "kind": "chaos",
+      "alternates": ["soup with a fork"],
+      "keywords": ["soup", "fork"]
+    },
+    {
+      "text": "Eating a giant sandwich",
+      "kind": "chaos",
+      "alternates": ["giant sandwich"],
+      "keywords": ["giant", "sandwich"]
+    },
+    {
+      "text": "Mosquito drinking a juice box",
+      "kind": "chaos",
+      "alternates": ["mosquito juice box"],
+      "keywords": ["mosquito", "juice"]
+    },
+    {
+      "text": "Lion at the hair salon",
+      "kind": "chaos",
+      "alternates": ["lion getting a haircut", "lion mane blow dry"],
+      "keywords": ["lion", "salon"]
+    },
+    {
+      "text": "Hedgehog as a hairbrush",
+      "kind": "chaos",
+      "alternates": ["using a hedgehog as a hairbrush", "hedgehog hairbrush"],
+      "keywords": ["hedgehog", "hairbrush"]
+    },
+    {
+      "text": "Shaving a mammoth",
+      "kind": "chaos",
+      "alternates": ["mammoth haircut"],
+      "keywords": ["shaving", "mammoth"]
+    },
+    {
+      "text": "Shaving a cactus",
+      "kind": "chaos",
+      "alternates": ["cactus shave"],
+      "keywords": ["shaving", "cactus"]
+    },
+    {
+      "text": "Cat taking a bubble bath",
+      "kind": "chaos",
+      "alternates": ["cat in a bubble bath"],
+      "keywords": ["cat", "bath"]
+    },
+    {
+      "text": "Showering under a raincloud",
+      "kind": "chaos",
+      "alternates": ["personal raincloud shower"],
+      "keywords": ["raincloud", "shower"]
+    },
+    {
+      "text": "Duck using an umbrella",
+      "kind": "chaos",
+      "alternates": ["duck under an umbrella"],
+      "keywords": ["duck", "umbrella"]
+    },
+    {
+      "text": "Vacuuming the beach",
+      "kind": "chaos",
+      "alternates": ["vacuuming sand"],
+      "keywords": ["vacuuming", "beach"]
+    },
+    {
+      "text": "Sweeping the ocean",
+      "kind": "chaos",
+      "alternates": ["sweeping the sea", "broom in the ocean"],
+      "keywords": ["sweeping", "ocean"]
+    },
+    {
+      "text": "Octopus mopping the floor",
+      "kind": "chaos",
+      "alternates": ["octopus mopping"],
+      "keywords": ["octopus", "mopping"]
+    },
+    {
+      "text": "Ironing a wrinkly elephant",
+      "kind": "chaos",
+      "alternates": ["elephant getting ironed"],
+      "keywords": ["ironing", "elephant"]
+    },
+    {
+      "text": "Elephant bath with a toothbrush",
+      "kind": "chaos",
+      "alternates": ["washing an elephant with a toothbrush"],
+      "keywords": ["elephant", "toothbrush"]
+    },
+    {
+      "text": "Painting stripes on a zebra",
+      "kind": "chaos",
+      "alternates": ["zebra getting painted", "painting a zebra"],
+      "keywords": ["painting", "zebra"]
+    },
+    {
+      "text": "Opera singer shattering windows",
+      "kind": "chaos",
+      "alternates": ["singer breaking windows", "high note shattering glass"],
+      "keywords": ["singer", "windows"]
+    },
+    {
+      "text": "Rooster with an alarm clock",
+      "kind": "chaos",
+      "alternates": ["rooster alarm clock", "rooster snoozing an alarm"],
+      "keywords": ["rooster", "alarm"]
+    },
+    {
+      "text": "Flamingo doing ballet",
+      "kind": "chaos",
+      "alternates": ["ballet flamingo"],
+      "keywords": ["flamingo", "ballet"]
+    },
+    {
+      "text": "Snake doing the limbo",
+      "kind": "chaos",
+      "alternates": ["limbo snake"],
+      "keywords": ["snake", "limbo"]
+    },
+    {
+      "text": "Climbing a giraffe's neck",
+      "kind": "chaos",
+      "alternates": ["climbing a giraffe"],
+      "keywords": ["climbing", "giraffe"]
+    },
+    {
+      "text": "Ant pulling a truck",
+      "kind": "chaos",
+      "alternates": ["ant towing a truck"],
+      "keywords": ["ant", "truck"]
+    },
+    {
+      "text": "Baby lifting a barbell",
+      "kind": "chaos",
+      "alternates": ["baby weightlifter", "strong baby"],
+      "keywords": ["baby", "barbell"]
+    },
+    {
+      "text": "Snail with a mansion shell",
+      "kind": "chaos",
+      "alternates": ["snail carrying a mansion", "snail mansion"],
+      "keywords": ["snail", "mansion"]
+    },
+    {
+      "text": "Turtle with a house shell",
+      "kind": "chaos",
+      "alternates": ["turtle with a house on its back"],
+      "keywords": ["turtle", "house"]
+    },
+    {
+      "text": "Digging through the Earth",
+      "kind": "chaos",
+      "alternates": ["digging to the other side of the world"],
+      "keywords": ["digging", "earth"]
+    },
+    {
+      "text": "Dog digging up a dinosaur",
+      "kind": "chaos",
+      "alternates": ["dog finding a dinosaur bone"],
+      "keywords": ["dog", "dinosaur"]
+    },
+    {
+      "text": "Dog making its owner fetch",
+      "kind": "chaos",
+      "alternates": ["dog throwing a stick for its owner", "dog playing fetch with its owner"],
+      "keywords": ["dog", "owner", "fetch"]
+    },
+    {
+      "text": "Goalkeeper catching a meteor",
+      "kind": "chaos",
+      "alternates": ["goalie catching a meteor"],
+      "keywords": ["goalkeeper", "meteor"]
+    },
+    {
+      "text": "Arm wrestling a gorilla",
+      "kind": "chaos",
+      "alternates": ["gorilla arm wrestling"],
+      "keywords": ["wrestling", "gorilla"]
+    },
+    {
+      "text": "Whale tug of war",
+      "kind": "chaos",
+      "alternates": ["tug of war with a whale"],
+      "keywords": ["tug", "whale"]
+    },
+    {
+      "text": "Bowling with an armadillo",
+      "kind": "chaos",
+      "alternates": ["armadillo bowling ball"],
+      "keywords": ["bowling", "armadillo"]
+    },
+    {
+      "text": "Surfing on a shark",
+      "kind": "chaos",
+      "alternates": ["shark surfboard", "riding a shark"],
+      "keywords": ["surfing", "shark"]
+    },
+    {
+      "text": "Skiing down ice cream",
+      "kind": "chaos",
+      "alternates": ["skiing down an ice cream mountain"],
+      "keywords": ["skiing", "ice", "cream"]
+    },
+    {
+      "text": "Monkey swinging on spaghetti",
+      "kind": "chaos",
+      "alternates": ["spaghetti vines"],
+      "keywords": ["monkey", "spaghetti"]
+    },
+    {
+      "text": "Chameleon playing hide and seek",
+      "kind": "chaos",
+      "alternates": ["chameleon hiding"],
+      "keywords": ["chameleon", "hide"]
+    },
+    {
+      "text": "Giant peeking in a window",
+      "kind": "chaos",
+      "alternates": ["giant eye in a window"],
+      "keywords": ["giant", "window"]
+    },
+    {
+      "text": "Elephant tiptoeing past a mouse",
+      "kind": "chaos",
+      "alternates": ["elephant sneaking past a mouse"],
+      "keywords": ["elephant", "mouse"]
+    },
+    {
+      "text": "Sneaking across bubble wrap",
+      "kind": "chaos",
+      "alternates": ["tiptoeing on bubble wrap"],
+      "keywords": ["sneaking", "bubble", "wrap"]
+    },
+    {
+      "text": "Whispering into a megaphone",
+      "kind": "chaos",
+      "alternates": ["megaphone whisper"],
+      "keywords": ["whispering", "megaphone"]
+    },
+    {
+      "text": "Librarian shushing a thunderstorm",
+      "kind": "chaos",
+      "alternates": ["shushing a storm"],
+      "keywords": ["shushing", "storm"]
+    },
+    {
+      "text": "Snowman sunbathing",
+      "kind": "chaos",
+      "alternates": ["sunbathing snowman"],
+      "keywords": ["snowman", "sunbathing"]
+    },
+    {
+      "text": "Polar bear in a scarf",
+      "kind": "chaos",
+      "alternates": ["shivering polar bear", "polar bear shivering in a scarf"],
+      "keywords": ["polar", "bear", "scarf"]
+    },
+    {
+      "text": "Tomato blushing",
+      "kind": "chaos",
+      "alternates": ["blushing tomato"],
+      "keywords": ["tomato", "blushing"]
+    },
+    {
+      "text": "Cyclops winking",
+      "kind": "chaos",
+      "alternates": ["winking cyclops"],
+      "keywords": ["cyclops", "winking"]
+    },
+    {
+      "text": "Owl spinning its head around",
+      "kind": "chaos",
+      "alternates": ["owl head spinning"],
+      "keywords": ["owl", "head"]
+    },
+    {
+      "text": "Octopus facepalming",
+      "kind": "chaos",
+      "alternates": ["octopus facepalm"],
+      "keywords": ["octopus", "facepalm"]
+    },
+    {
+      "text": "Snake trying to shrug",
+      "kind": "chaos",
+      "alternates": ["shrugging snake"],
+      "keywords": ["snake", "shrug"]
+    },
+    {
+      "text": "T-rex trying to clap",
+      "kind": "chaos",
+      "alternates": ["t rex clapping", "dinosaur clapping"],
+      "keywords": ["rex", "clap"]
+    },
+    {
+      "text": "T-rex making the bed",
+      "kind": "chaos",
+      "alternates": ["t rex making a bed"],
+      "keywords": ["rex", "bed"]
+    },
+    {
+      "text": "Proposing with an onion ring",
+      "kind": "chaos",
+      "alternates": ["onion ring proposal"],
+      "keywords": ["proposing", "onion", "ring"]
+    },
+    {
+      "text": "Meditating on a rollercoaster",
+      "kind": "chaos",
+      "alternates": ["calm on a rollercoaster"],
+      "keywords": ["meditating", "rollercoaster"]
+    },
+    {
+      "text": "Dragon sneezing into a tissue",
+      "kind": "chaos",
+      "alternates": ["dragon burning a tissue"],
+      "keywords": ["dragon", "tissue"]
+    },
+    {
+      "text": "Blowing out the sun",
+      "kind": "chaos",
+      "alternates": ["blowing out the sun like a candle"],
+      "keywords": ["blowing", "sun"]
+    },
+    {
+      "text": "Floating on a bubblegum bubble",
+      "kind": "chaos",
+      "alternates": ["bubblegum balloon", "flying with bubblegum"],
+      "keywords": ["bubblegum"]
+    },
+    {
+      "text": "Crabs holding hands",
+      "kind": "chaos",
+      "alternates": ["crabs holding claws", "crab couple"],
+      "keywords": ["crabs", "holding"]
+    },
+    {
+      "text": "Fainting goat surprise party",
+      "kind": "chaos",
+      "alternates": ["fainting goat at a surprise party", "goat fainting at a party"],
+      "keywords": ["goat", "fainting"]
+    },
+    {
+      "text": "Alarm clock sleeping in",
+      "kind": "chaos",
+      "alternates": ["sleepy alarm clock", "alarm clock asleep"],
+      "keywords": ["alarm", "clock", "sleeping"]
+    },
+    {
+      "text": "Centipede tying its shoelaces",
+      "kind": "chaos",
+      "alternates": ["centipede putting on shoes", "centipede shoes"],
+      "keywords": ["centipede", "shoelaces"]
+    },
+    {
+      "text": "Raccoon taking out the trash",
+      "kind": "chaos",
+      "alternates": ["raccoon on bin day"],
+      "keywords": ["raccoon", "trash"]
+    },
+    {
+      "text": "Cat pushing planets off tables",
+      "kind": "chaos",
+      "alternates": ["cat pushing a planet off a table", "cat knocking a planet off a table"],
+      "keywords": ["cat", "planet"]
+    },
+    {
+      "text": "Bird feeding a human",
+      "kind": "chaos",
+      "alternates": ["bird feeding a worm to a human", "bird feeding a person"],
+      "keywords": ["bird", "feeding", "human"]
+    },
+    {
+      "text": "Whole house in a suitcase",
+      "kind": "chaos",
+      "alternates": ["packing a house in a suitcase"],
+      "keywords": ["house", "suitcase"]
+    },
+    {
+      "text": "Barber cutting the lawn",
+      "kind": "chaos",
+      "alternates": ["barber trimming the grass", "haircut for the lawn"],
+      "keywords": ["barber", "lawn"]
+    },
+    {
+      "text": "Snowman building a human",
+      "kind": "chaos",
+      "alternates": ["snowman making a person"],
+      "keywords": ["snowman", "building", "human"]
+    },
+    {
+      "text": "Crab living in a sandcastle",
+      "kind": "chaos",
+      "alternates": ["crab in a sandcastle"],
+      "keywords": ["crab", "sandcastle"]
+    },
+    {
+      "text": "Kite flying a kid",
+      "kind": "chaos",
+      "alternates": ["kite lifting a child", "kite flying a person"],
+      "keywords": ["kite", "kid"]
+    },
+    {
+      "text": "Whale in a puddle",
+      "kind": "chaos",
+      "alternates": ["whale splashing in a puddle"],
+      "keywords": ["whale", "puddle"]
+    },
+    {
+      "text": "Dragon roasting marshmallows",
+      "kind": "chaos",
+      "alternates": ["roasting marshmallows on a dragon", "dragon campfire"],
+      "keywords": ["dragon", "marshmallows"]
+    },
+    {
+      "text": "Selfie with a T-rex",
+      "kind": "chaos",
+      "alternates": ["t rex selfie", "taking a selfie with a t rex"],
+      "keywords": ["selfie", "rex"]
+    },
+    {
+      "text": "Talking on a banana phone",
+      "kind": "chaos",
+      "alternates": ["banana phone"],
+      "keywords": ["banana", "phone"]
+    },
+    {
+      "text": "Parent in a stroller",
+      "kind": "chaos",
+      "alternates": ["baby pushing a parent in a stroller", "baby pushing dad"],
+      "keywords": ["parent", "stroller"]
+    },
+    {
+      "text": "Changing a dinosaur's diaper",
+      "kind": "chaos",
+      "alternates": ["dinosaur diaper"],
+      "keywords": ["dinosaur", "diaper"]
+    },
+    {
+      "text": "Pole vaulting with spaghetti",
+      "kind": "chaos",
+      "alternates": ["spaghetti pole vault"],
+      "keywords": ["vault", "spaghetti"]
+    },
+    {
+      "text": "Skipping a pizza on water",
+      "kind": "chaos",
+      "alternates": ["skipping a pizza across a lake"],
+      "keywords": ["skipping", "pizza"]
+    },
+    {
+      "text": "Horse riding a person",
+      "kind": "chaos",
+      "alternates": ["horse riding a human", "horse on a man's back"],
+      "keywords": ["horse", "riding", "person"]
+    },
+    {
+      "text": "Piñata full of broccoli",
+      "kind": "chaos",
+      "alternates": ["broccoli piñata", "pinata full of broccoli"],
+      "keywords": ["piñata", "broccoli"]
+    },
+    {
+      "text": "Pillow fight with clouds",
+      "kind": "chaos",
+      "alternates": ["cloud pillow fight"],
+      "keywords": ["pillow", "clouds"]
+    },
+    {
+      "text": "Inflating a hot air balloon",
+      "kind": "chaos",
+      "alternates": ["blowing up a hot air balloon"],
+      "keywords": ["inflating", "hot", "balloon"]
+    },
+    {
+      "text": "Hailing a camel taxi",
+      "kind": "chaos",
+      "alternates": ["camel taxi"],
+      "keywords": ["camel", "taxi"]
+    },
+    {
+      "text": "Chicken using a crosswalk",
+      "kind": "chaos",
+      "alternates": ["chicken at a crosswalk"],
+      "keywords": ["chicken", "crosswalk"]
+    },
+    {
+      "text": "Penguin on a banana peel",
+      "kind": "chaos",
+      "alternates": ["penguin slipping on a banana peel"],
+      "keywords": ["penguin", "banana"]
+    },
+    {
+      "text": "Centipede stubbing all its toes",
+      "kind": "chaos",
+      "alternates": ["centipede stubbed toes"],
+      "keywords": ["centipede", "toes"]
+    },
+    {
+      "text": "Ice cream dropping a kid",
+      "kind": "chaos",
+      "alternates": ["ice cream cone dropping a child"],
+      "keywords": ["ice", "cream", "kid"]
+    },
+    {
+      "text": "Lego stepping on a foot",
+      "kind": "chaos",
+      "alternates": ["lego brick stepping on a foot"],
+      "keywords": ["lego", "foot"]
+    },
+    {
+      "text": "Potato on a couch",
+      "kind": "chaos",
+      "alternates": ["couch potato", "potato watching tv on a couch"],
+      "keywords": ["potato", "couch"]
+    },
+    {
+      "text": "Teddy tucking a kid in",
+      "kind": "chaos",
+      "alternates": ["teddy bear tucking a kid into bed", "teddy bear tucking in a child"],
+      "keywords": ["teddy", "tucking"]
+    },
+    {
+      "text": "Skunk holding its nose",
+      "kind": "chaos",
+      "alternates": ["skunk pinching its nose"],
+      "keywords": ["skunk", "nose"]
+    },
+    {
+      "text": "Woodpecker playing the drums",
+      "kind": "chaos",
+      "alternates": ["woodpecker drummer"],
+      "keywords": ["woodpecker", "drums"]
+    },
+    {
+      "text": "Woodpecker hammering nails",
+      "kind": "chaos",
+      "alternates": ["woodpecker carpenter"],
+      "keywords": ["woodpecker", "nails"]
+    },
+    {
+      "text": "Centipede playing the piano",
+      "kind": "chaos",
+      "alternates": ["centipede pianist"],
+      "keywords": ["centipede", "piano"]
+    },
+    {
+      "text": "Portrait painting its painter",
+      "kind": "chaos",
+      "alternates": ["painting painting the artist"],
+      "keywords": ["portrait", "painter"]
+    },
+    {
+      "text": "Firehose watering a cactus",
+      "kind": "chaos",
+      "alternates": ["watering a cactus with a firehose"],
+      "keywords": ["cactus", "firehose"]
+    },
+    {
+      "text": "Bread getting a massage",
+      "kind": "chaos",
+      "alternates": ["loaf of bread at a spa"],
+      "keywords": ["bread", "massage"]
+    },
+    {
+      "text": "Ants carrying furniture",
+      "kind": "chaos",
+      "alternates": ["ants moving house", "ant moving day"],
+      "keywords": ["ants", "furniture"]
+    },
+    {
+      "text": "Snail at a pit stop",
+      "kind": "chaos",
+      "alternates": ["pit crew changing a snail's shell", "snail pit stop"],
+      "keywords": ["snail", "pit"]
+    },
+    {
+      "text": "Mailman chasing a dog",
+      "kind": "chaos",
+      "alternates": ["postman chasing a dog", "mail carrier chasing a dog"],
+      "keywords": ["mailman", "chasing", "dog"]
+    },
+    {
+      "text": "Giraffe with a sore throat",
+      "kind": "chaos",
+      "alternates": ["giraffe with a long scarf"],
+      "keywords": ["giraffe", "throat"]
+    },
+    {
+      "text": "Shark at the dentist",
+      "kind": "chaos",
+      "alternates": ["shark dentist visit"],
+      "keywords": ["shark", "dentist"]
+    },
+    {
+      "text": "Donkey pinning tails on humans",
+      "kind": "chaos",
+      "alternates": ["donkey pinning a tail on a human"],
+      "keywords": ["donkey", "tail", "human"]
+    },
+    {
+      "text": "Flamingo walking on stilts",
+      "kind": "chaos",
+      "alternates": ["flamingo on stilts"],
+      "keywords": ["flamingo", "stilts"]
+    },
+    {
+      "text": "Hippo in a kiddie pool",
+      "kind": "chaos",
+      "alternates": ["hippo cannonball into a kiddie pool", "hippo jumping into a paddling pool"],
+      "keywords": ["hippo", "pool"]
+    },
+    {
+      "text": "Sun putting on sunscreen",
+      "kind": "chaos",
+      "alternates": ["sun wearing sunscreen"],
+      "keywords": ["sun", "sunscreen"]
+    },
+    {
+      "text": "Volcano with hiccups",
+      "kind": "chaos",
+      "alternates": ["hiccuping volcano"],
+      "keywords": ["volcano", "hiccups"]
+    },
+    {
+      "text": "Pufferfish holding its breath",
+      "kind": "chaos",
+      "alternates": ["puffed up pufferfish"],
+      "keywords": ["pufferfish"]
+    },
+    {
+      "text": "Mime in a real box",
+      "kind": "chaos",
+      "alternates": ["mime trapped in a real box"],
+      "keywords": ["mime", "box"]
+    },
+    {
+      "text": "Statue scratching its nose",
+      "kind": "chaos",
+      "alternates": ["statue scratching an itch"],
+      "keywords": ["statue", "scratching"]
+    },
+    {
+      "text": "Scarecrow scared of a crow",
+      "kind": "chaos",
+      "alternates": ["crow scaring a scarecrow", "scared scarecrow"],
+      "keywords": ["scarecrow", "crow"]
+    },
+    {
+      "text": "Spider doing the splits",
+      "kind": "chaos",
+      "alternates": ["spider splits"],
+      "keywords": ["spider", "splits"]
+    },
+    {
+      "text": "Fish doing push-ups",
+      "kind": "chaos",
+      "alternates": ["fish push ups"],
+      "keywords": ["fish", "push"]
+    },
+    {
+      "text": "Starfish doing a cartwheel",
+      "kind": "chaos",
+      "alternates": ["cartwheeling starfish"],
+      "keywords": ["starfish", "cartwheel"]
+    },
+    {
+      "text": "Bat doing a handstand",
+      "kind": "chaos",
+      "alternates": ["bat handstand"],
+      "keywords": ["bat", "handstand"]
+    },
+    {
+      "text": "Spider bungee jumping",
+      "kind": "chaos",
+      "alternates": ["spider on a bungee cord"],
+      "keywords": ["spider", "bungee"]
+    },
+    {
+      "text": "Turtle hitchhiking",
+      "kind": "chaos",
+      "alternates": ["hitchhiking turtle"],
+      "keywords": ["turtle", "hitchhiking"]
+    },
+    {
+      "text": "Ghost scared of a human",
+      "kind": "chaos",
+      "alternates": ["scared ghost", "ghost scared of a person"],
+      "keywords": ["ghost", "scared"]
+    },
+    {
+      "text": "Bird nesting in someone's hair",
+      "kind": "chaos",
+      "alternates": ["nest in hair", "bird nest hairdo"],
+      "keywords": ["nest", "hair"]
+    },
+    {
+      "text": "Cheetah stuck in traffic",
+      "kind": "chaos",
+      "alternates": ["cheetah in a traffic jam"],
+      "keywords": ["cheetah", "traffic"]
+    },
+    {
+      "text": "Mermaid in a sack race",
+      "kind": "chaos",
+      "alternates": ["mermaid sack race"],
+      "keywords": ["mermaid", "sack", "race"]
+    },
+    {
+      "text": "Kangaroo pouch full of groceries",
+      "kind": "chaos",
+      "alternates": ["kangaroo carrying groceries in its pouch"],
+      "keywords": ["kangaroo", "groceries"]
+    },
+    {
+      "text": "Chicken laying a fried egg",
+      "kind": "chaos",
+      "alternates": ["hen laying a fried egg", "hen laying eggs into a frying pan"],
+      "keywords": ["chicken", "fried", "egg"]
+    },
+    {
+      "text": "Birds perching on Pinocchio's nose",
+      "kind": "chaos",
+      "alternates": ["pinocchio nose bird perch"],
+      "keywords": ["pinocchio", "birds"]
+    },
+    {
+      "text": "Weightlifter struggling with a feather",
+      "kind": "chaos",
+      "alternates": ["lifting a feather", "struggling to lift a feather"],
+      "keywords": ["lifting", "feather"]
+    },
+    {
+      "text": "Kid giving dad a piggyback",
+      "kind": "chaos",
+      "alternates": ["kid giving an adult a piggyback", "child carrying a grown up"],
+      "keywords": ["piggyback", "kid"]
+    },
+    {
+      "text": "Leapfrog with a real frog",
+      "kind": "chaos",
+      "alternates": ["leapfrog with a frog"],
+      "keywords": ["leapfrog", "frog"]
+    },
+    {
+      "text": "Juggling planets",
+      "kind": "chaos",
+      "alternates": ["planet juggling"],
+      "keywords": ["juggling", "planets"]
+    },
+    {
+      "text": "Steaming head from thinking",
+      "kind": "chaos",
+      "alternates": ["thinking so hard your head steams", "smoke coming out of ears"],
+      "keywords": ["thinking", "head"]
+    },
+    {
+      "text": "Beaver chewing a pencil",
+      "kind": "chaos",
+      "alternates": ["beaver biting a pencil"],
+      "keywords": ["beaver", "pencil"]
+    },
+    {
+      "text": "Sheep knitting its own wool",
+      "kind": "chaos",
+      "alternates": ["sheep knitting a sweater"],
+      "keywords": ["sheep", "knitting"]
+    },
+    {
+      "text": "Peacock fanning itself",
+      "kind": "chaos",
+      "alternates": ["peacock fanning itself with its tail", "peacock tail fan"],
+      "keywords": ["peacock", "fan"]
+    },
+    {
+      "text": "Hamster cheeks full of pizza",
+      "kind": "chaos",
+      "alternates": ["hamster stuffing a pizza in its cheeks"],
+      "keywords": ["hamster", "pizza"]
+    },
+    {
+      "text": "Ostrich head in a cake",
+      "kind": "chaos",
+      "alternates": ["ostrich burying its head in a cake"],
+      "keywords": ["ostrich", "cake"]
+    }
+  ]
+}

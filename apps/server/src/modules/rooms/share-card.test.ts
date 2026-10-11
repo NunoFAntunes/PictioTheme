@@ -13,8 +13,8 @@ const input = {
   deck: { title: 'Halloween Monsters', cover: null },
   rounds: 3,
   drawSeconds: 80,
-  difficulties: ['easy', 'medium'] as const,
-  silly: true,
+  mode: 'chaos' as const,
+  difficulties: ['easy', 'hard'] as const,
 };
 
 describe('the share card', () => {
@@ -44,8 +44,9 @@ describe('the share card', () => {
     for (const text of ['KMB', 'XRT', 'Halloween Monsters', '3 rounds', '80s to draw']) {
       expect(svg).toContain(text);
     }
-    expect(svg).toContain('Easy · Medium');
-    expect(svg).toContain('Silly mode!');
+    expect(svg).toContain('Chaos mode!');
+    expect(svg).not.toContain('Easy · Hard');
+    expect(shareCardSvg({ ...input, mode: 'normal' }, fonts)).toContain('Easy · Hard');
   });
 
   it('draws the same card for the same room', () => {

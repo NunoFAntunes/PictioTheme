@@ -1,0 +1,2967 @@
+{
+  "slug": "jobs-and-professions",
+  "featuredRank": null,
+  "title": "Hard at Work",
+  "description": "Firefighters, chefs, astronauts and beekeepers, plus the hats, tools and trucks that give them away. Draw the job before the shift ends.",
+  "tags": ["jobs", "professions", "careers", "tools", "vehicles", "people"],
+  "cards": [
+    {
+      "text": "Firefighter",
+      "kind": "easy",
+      "alternates": ["fireman", "firewoman", "fire fighter"],
+      "keywords": ["firefighter"]
+    },
+    {
+      "text": "Police officer",
+      "kind": "easy",
+      "alternates": ["policeman", "policewoman", "cop"],
+      "keywords": ["police"]
+    },
+    {
+      "text": "Chef",
+      "kind": "easy",
+      "alternates": ["cook", "head chef"],
+      "keywords": ["chef"]
+    },
+    {
+      "text": "Astronaut",
+      "kind": "easy",
+      "alternates": ["spaceman", "cosmonaut", "spacewoman"],
+      "keywords": ["astronaut"]
+    },
+    {
+      "text": "Doctor",
+      "kind": "easy",
+      "alternates": ["physician", "medic"],
+      "keywords": ["doctor"]
+    },
+    {
+      "text": "Nurse",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["nurse"]
+    },
+    {
+      "text": "Dentist",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["dentist"]
+    },
+    {
+      "text": "Pilot",
+      "kind": "easy",
+      "alternates": ["airline pilot"],
+      "keywords": ["pilot"]
+    },
+    {
+      "text": "Farmer",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["farmer"]
+    },
+    {
+      "text": "Plumber",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["plumber"]
+    },
+    {
+      "text": "Lifeguard",
+      "kind": "easy",
+      "alternates": ["life guard", "beach lifeguard"],
+      "keywords": ["lifeguard"]
+    },
+    {
+      "text": "Beekeeper",
+      "kind": "easy",
+      "alternates": ["bee keeper", "apiarist"],
+      "keywords": ["beekeeper"]
+    },
+    {
+      "text": "Magician",
+      "kind": "easy",
+      "alternates": ["conjurer"],
+      "keywords": ["magician"]
+    },
+    {
+      "text": "Zookeeper",
+      "kind": "easy",
+      "alternates": ["zoo keeper"],
+      "keywords": ["zookeeper"]
+    },
+    {
+      "text": "Builder",
+      "kind": "easy",
+      "alternates": ["construction worker"],
+      "keywords": ["builder"]
+    },
+    {
+      "text": "Artist",
+      "kind": "easy",
+      "alternates": ["painter"],
+      "keywords": ["artist"]
+    },
+    {
+      "text": "Teacher",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["teacher"]
+    },
+    {
+      "text": "Mail carrier",
+      "kind": "easy",
+      "alternates": ["postman", "mailman", "postal worker"],
+      "keywords": ["mail"]
+    },
+    {
+      "text": "Clown",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["clown"]
+    },
+    {
+      "text": "Sailor",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["sailor"]
+    },
+    {
+      "text": "Fisher",
+      "kind": "easy",
+      "alternates": ["fisherman", "fisherwoman"],
+      "keywords": ["fisher"]
+    },
+    {
+      "text": "Scientist",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["scientist"]
+    },
+    {
+      "text": "Surgeon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["surgeon"]
+    },
+    {
+      "text": "Vet",
+      "kind": "easy",
+      "alternates": ["veterinarian"],
+      "keywords": ["vet"]
+    },
+    {
+      "text": "Baker",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["baker"]
+    },
+    {
+      "text": "Butcher",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["butcher"]
+    },
+    {
+      "text": "Barber",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["barber"]
+    },
+    {
+      "text": "Hairdresser",
+      "kind": "easy",
+      "alternates": ["hair stylist", "hairstylist"],
+      "keywords": ["hairdresser"]
+    },
+    {
+      "text": "Mechanic",
+      "kind": "easy",
+      "alternates": ["car mechanic"],
+      "keywords": ["mechanic"]
+    },
+    {
+      "text": "Electrician",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["electrician"]
+    },
+    {
+      "text": "Carpenter",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["carpenter"]
+    },
+    {
+      "text": "Judge",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["judge"]
+    },
+    {
+      "text": "Detective",
+      "kind": "easy",
+      "alternates": ["private investigator", "private eye"],
+      "keywords": ["detective"]
+    },
+    {
+      "text": "Waiter",
+      "kind": "easy",
+      "alternates": ["waitress", "server"],
+      "keywords": ["waiter"]
+    },
+    {
+      "text": "Cowboy",
+      "kind": "easy",
+      "alternates": ["cowgirl", "rancher"],
+      "keywords": ["cowboy"]
+    },
+    {
+      "text": "Lumberjack",
+      "kind": "easy",
+      "alternates": ["logger", "woodcutter"],
+      "keywords": ["lumberjack"]
+    },
+    {
+      "text": "Miner",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["miner"]
+    },
+    {
+      "text": "Diver",
+      "kind": "easy",
+      "alternates": ["scuba diver", "deep sea diver"],
+      "keywords": ["diver"]
+    },
+    {
+      "text": "Gardener",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["gardener"]
+    },
+    {
+      "text": "Photographer",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["photographer"]
+    },
+    {
+      "text": "Orchestra conductor",
+      "kind": "easy",
+      "alternates": ["conductor"],
+      "keywords": ["conductor"]
+    },
+    {
+      "text": "Ballet dancer",
+      "kind": "easy",
+      "alternates": ["ballerina"],
+      "keywords": ["ballet"]
+    },
+    {
+      "text": "Referee",
+      "kind": "easy",
+      "alternates": ["umpire", "ref"],
+      "keywords": ["referee"]
+    },
+    {
+      "text": "Jockey",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["jockey"]
+    },
+    {
+      "text": "Racing driver",
+      "kind": "easy",
+      "alternates": ["race car driver", "racer"],
+      "keywords": ["racing"]
+    },
+    {
+      "text": "Taxi driver",
+      "kind": "easy",
+      "alternates": ["cab driver", "cabbie"],
+      "keywords": ["taxi"]
+    },
+    {
+      "text": "Bus driver",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["bus"]
+    },
+    {
+      "text": "Truck driver",
+      "kind": "easy",
+      "alternates": ["trucker", "lorry driver"],
+      "keywords": ["truck"]
+    },
+    {
+      "text": "Train driver",
+      "kind": "easy",
+      "alternates": ["train engineer", "engine driver"],
+      "keywords": ["train"]
+    },
+    {
+      "text": "Flight attendant",
+      "kind": "easy",
+      "alternates": ["stewardess", "air hostess", "steward"],
+      "keywords": ["flight attendant"]
+    },
+    {
+      "text": "Ship captain",
+      "kind": "easy",
+      "alternates": ["sea captain", "captain"],
+      "keywords": ["captain"]
+    },
+    {
+      "text": "Gondolier",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["gondolier"]
+    },
+    {
+      "text": "Mountain guide",
+      "kind": "easy",
+      "alternates": ["sherpa", "mountain porter"],
+      "keywords": ["mountain", "guide"]
+    },
+    {
+      "text": "Rickshaw driver",
+      "kind": "easy",
+      "alternates": ["rickshaw puller", "rickshaw"],
+      "keywords": ["rickshaw"]
+    },
+    {
+      "text": "Shepherd",
+      "kind": "easy",
+      "alternates": ["shepherdess"],
+      "keywords": ["shepherd"]
+    },
+    {
+      "text": "Window cleaner",
+      "kind": "easy",
+      "alternates": ["window washer"],
+      "keywords": ["window"]
+    },
+    {
+      "text": "Chimney sweep",
+      "kind": "easy",
+      "alternates": ["sweep"],
+      "keywords": ["chimney"]
+    },
+    {
+      "text": "Garbage collector",
+      "kind": "easy",
+      "alternates": ["garbage man", "bin man", "trash collector"],
+      "keywords": ["garbage"]
+    },
+    {
+      "text": "Park ranger",
+      "kind": "easy",
+      "alternates": ["ranger", "forest ranger"],
+      "keywords": ["ranger"]
+    },
+    {
+      "text": "Archaeologist",
+      "kind": "easy",
+      "alternates": ["archeologist"],
+      "keywords": ["archaeologist"]
+    },
+    {
+      "text": "Tailor",
+      "kind": "easy",
+      "alternates": ["seamstress"],
+      "keywords": ["tailor"]
+    },
+    {
+      "text": "Blacksmith",
+      "kind": "easy",
+      "alternates": ["smith"],
+      "keywords": ["blacksmith"]
+    },
+    {
+      "text": "Potter",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["potter"]
+    },
+    {
+      "text": "Sculptor",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["sculptor"]
+    },
+    {
+      "text": "Mime",
+      "kind": "easy",
+      "alternates": ["mime artist"],
+      "keywords": ["mime"]
+    },
+    {
+      "text": "Ringmaster",
+      "kind": "easy",
+      "alternates": ["ring master"],
+      "keywords": ["ringmaster"]
+    },
+    {
+      "text": "Acrobat",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["acrobat"]
+    },
+    {
+      "text": "Tightrope walker",
+      "kind": "easy",
+      "alternates": ["tightrope", "funambulist"],
+      "keywords": ["tightrope"]
+    },
+    {
+      "text": "Stunt performer",
+      "kind": "easy",
+      "alternates": ["stuntman", "stuntwoman", "stunt double"],
+      "keywords": ["stunt"]
+    },
+    {
+      "text": "Security guard",
+      "kind": "easy",
+      "alternates": ["guard", "bouncer"],
+      "keywords": ["guard"]
+    },
+    {
+      "text": "Crossing guard",
+      "kind": "easy",
+      "alternates": ["lollipop lady", "lollipop man"],
+      "keywords": ["crossing"]
+    },
+    {
+      "text": "Paramedic",
+      "kind": "easy",
+      "alternates": ["ambulance driver", "EMT"],
+      "keywords": ["paramedic"]
+    },
+    {
+      "text": "Weather presenter",
+      "kind": "easy",
+      "alternates": ["weatherman", "weather forecaster", "meteorologist"],
+      "keywords": ["weather"]
+    },
+    {
+      "text": "News reporter",
+      "kind": "easy",
+      "alternates": ["reporter", "journalist"],
+      "keywords": ["reporter"]
+    },
+    {
+      "text": "Delivery driver",
+      "kind": "easy",
+      "alternates": ["courier", "delivery person"],
+      "keywords": ["delivery"]
+    },
+    {
+      "text": "Librarian",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["librarian"]
+    },
+    {
+      "text": "Bricklayer",
+      "kind": "easy",
+      "alternates": ["brick layer"],
+      "keywords": ["bricklayer"]
+    },
+    {
+      "text": "Tour guide",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["tour", "guide"]
+    },
+    {
+      "text": "Janitor",
+      "kind": "easy",
+      "alternates": ["cleaner", "custodian"],
+      "keywords": ["janitor"]
+    },
+    {
+      "text": "Explorer",
+      "kind": "easy",
+      "alternates": ["adventurer"],
+      "keywords": ["explorer"]
+    },
+    {
+      "text": "DJ",
+      "kind": "easy",
+      "alternates": ["disc jockey"],
+      "keywords": ["dj"]
+    },
+    {
+      "text": "Drummer",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["drummer"]
+    },
+    {
+      "text": "Florist",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["florist"]
+    },
+    {
+      "text": "Film director",
+      "kind": "easy",
+      "alternates": ["movie director", "director"],
+      "keywords": ["director"]
+    },
+    {
+      "text": "Puppeteer",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["puppeteer"]
+    },
+    {
+      "text": "Trapeze artist",
+      "kind": "easy",
+      "alternates": ["trapeze"],
+      "keywords": ["trapeze"]
+    },
+    {
+      "text": "Royal guard",
+      "kind": "easy",
+      "alternates": ["palace guard", "queen's guard", "king's guard"],
+      "keywords": ["royal"]
+    },
+    {
+      "text": "Glassblower",
+      "kind": "easy",
+      "alternates": ["glass blower"],
+      "keywords": ["glassblower"]
+    },
+    {
+      "text": "House painter",
+      "kind": "easy",
+      "alternates": ["decorator"],
+      "keywords": ["house painter"]
+    },
+    {
+      "text": "Barista",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["barista"]
+    },
+    {
+      "text": "Sushi chef",
+      "kind": "easy",
+      "alternates": ["sushi master"],
+      "keywords": ["sushi"]
+    },
+    {
+      "text": "Road worker",
+      "kind": "easy",
+      "alternates": ["roadworker"],
+      "keywords": ["road worker"]
+    },
+    {
+      "text": "Stethoscope",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["stethoscope"]
+    },
+    {
+      "text": "Fire truck",
+      "kind": "easy",
+      "alternates": ["fire engine"],
+      "keywords": ["fire truck"]
+    },
+    {
+      "text": "Chef's hat",
+      "kind": "easy",
+      "alternates": ["chef hat", "toque"],
+      "keywords": ["chef hat"]
+    },
+    {
+      "text": "Hard hat",
+      "kind": "easy",
+      "alternates": ["safety helmet", "construction helmet"],
+      "keywords": ["hard hat"]
+    },
+    {
+      "text": "Easel",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["easel"]
+    },
+    {
+      "text": "Microscope",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["microscope"]
+    },
+    {
+      "text": "Cash register",
+      "kind": "easy",
+      "alternates": ["till", "checkout"],
+      "keywords": ["cash register"]
+    },
+    {
+      "text": "Fire hydrant",
+      "kind": "easy",
+      "alternates": ["hydrant"],
+      "keywords": ["hydrant"]
+    },
+    {
+      "text": "Fire extinguisher",
+      "kind": "easy",
+      "alternates": ["extinguisher"],
+      "keywords": ["extinguisher"]
+    },
+    {
+      "text": "Ambulance",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ambulance"]
+    },
+    {
+      "text": "Police car",
+      "kind": "easy",
+      "alternates": ["cop car", "squad car", "patrol car"],
+      "keywords": ["police car"]
+    },
+    {
+      "text": "Tractor",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["tractor"]
+    },
+    {
+      "text": "Rolling pin",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["rolling", "pin"]
+    },
+    {
+      "text": "Toolbox",
+      "kind": "easy",
+      "alternates": ["tool box", "tool kit"],
+      "keywords": ["toolbox"]
+    },
+    {
+      "text": "Wrench",
+      "kind": "easy",
+      "alternates": ["spanner"],
+      "keywords": ["wrench"]
+    },
+    {
+      "text": "Plunger",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["plunger"]
+    },
+    {
+      "text": "Hammer",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["hammer"]
+    },
+    {
+      "text": "Saw",
+      "kind": "easy",
+      "alternates": ["handsaw"],
+      "keywords": ["saw"]
+    },
+    {
+      "text": "Paintbrush",
+      "kind": "easy",
+      "alternates": ["paint brush"],
+      "keywords": ["paintbrush"]
+    },
+    {
+      "text": "Palette",
+      "kind": "easy",
+      "alternates": ["paint palette"],
+      "keywords": ["palette"]
+    },
+    {
+      "text": "Hairdryer",
+      "kind": "easy",
+      "alternates": ["hair dryer", "blow dryer"],
+      "keywords": ["hairdryer"]
+    },
+    {
+      "text": "Barber pole",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["barber", "pole"]
+    },
+    {
+      "text": "Thermometer",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["thermometer"]
+    },
+    {
+      "text": "Syringe",
+      "kind": "easy",
+      "alternates": ["needle", "injection"],
+      "keywords": ["syringe"]
+    },
+    {
+      "text": "X-ray",
+      "kind": "easy",
+      "alternates": ["xray"],
+      "keywords": ["ray"]
+    },
+    {
+      "text": "Gavel",
+      "kind": "easy",
+      "alternates": ["judge's hammer"],
+      "keywords": ["gavel"]
+    },
+    {
+      "text": "Magnifying glass",
+      "kind": "easy",
+      "alternates": ["magnifier"],
+      "keywords": ["magnifying"]
+    },
+    {
+      "text": "Handcuffs",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["handcuffs"]
+    },
+    {
+      "text": "Sheriff badge",
+      "kind": "easy",
+      "alternates": ["police badge", "sheriff star"],
+      "keywords": ["badge"]
+    },
+    {
+      "text": "Whistle",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["whistle"]
+    },
+    {
+      "text": "Megaphone",
+      "kind": "easy",
+      "alternates": ["bullhorn", "loudspeaker"],
+      "keywords": ["megaphone"]
+    },
+    {
+      "text": "Clapperboard",
+      "kind": "easy",
+      "alternates": ["clapper", "film slate"],
+      "keywords": ["clapper"]
+    },
+    {
+      "text": "Spacesuit",
+      "kind": "easy",
+      "alternates": ["space suit"],
+      "keywords": ["spacesuit"]
+    },
+    {
+      "text": "Rocket",
+      "kind": "easy",
+      "alternates": ["space rocket", "spaceship"],
+      "keywords": ["rocket"]
+    },
+    {
+      "text": "Spatula",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["spatula"]
+    },
+    {
+      "text": "Whisk",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["whisk"]
+    },
+    {
+      "text": "Lab coat",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["lab", "coat"]
+    },
+    {
+      "text": "Test tube",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["test", "tube"]
+    },
+    {
+      "text": "Telescope",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["telescope"]
+    },
+    {
+      "text": "Typewriter",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["typewriter"]
+    },
+    {
+      "text": "Camera",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["camera"]
+    },
+    {
+      "text": "Microphone",
+      "kind": "easy",
+      "alternates": ["mic"],
+      "keywords": ["microphone"]
+    },
+    {
+      "text": "Mailbox",
+      "kind": "easy",
+      "alternates": ["postbox", "letterbox"],
+      "keywords": ["mailbox"]
+    },
+    {
+      "text": "Garbage truck",
+      "kind": "easy",
+      "alternates": ["bin lorry", "trash truck", "dustcart"],
+      "keywords": ["garbage truck"]
+    },
+    {
+      "text": "Bulldozer",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["bulldozer"]
+    },
+    {
+      "text": "Excavator",
+      "kind": "easy",
+      "alternates": ["digger"],
+      "keywords": ["excavator"]
+    },
+    {
+      "text": "Cement mixer",
+      "kind": "easy",
+      "alternates": ["concrete mixer"],
+      "keywords": ["mixer"]
+    },
+    {
+      "text": "Construction crane",
+      "kind": "easy",
+      "alternates": ["tower crane", "crane"],
+      "keywords": ["crane"]
+    },
+    {
+      "text": "Traffic cone",
+      "kind": "easy",
+      "alternates": ["cone"],
+      "keywords": ["cone"]
+    },
+    {
+      "text": "Ladder",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ladder"]
+    },
+    {
+      "text": "Wheelbarrow",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["wheelbarrow"]
+    },
+    {
+      "text": "Pitchfork",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pitchfork"]
+    },
+    {
+      "text": "Watering can",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["watering", "can"]
+    },
+    {
+      "text": "Beehive",
+      "kind": "easy",
+      "alternates": ["hive"],
+      "keywords": ["hive"]
+    },
+    {
+      "text": "Magic wand",
+      "kind": "easy",
+      "alternates": ["wand"],
+      "keywords": ["wand"]
+    },
+    {
+      "text": "Crystal ball",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["crystal", "ball"]
+    },
+    {
+      "text": "Anvil",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["anvil"]
+    },
+    {
+      "text": "Pottery wheel",
+      "kind": "easy",
+      "alternates": ["potter's wheel"],
+      "keywords": ["wheel"]
+    },
+    {
+      "text": "Sewing machine",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["sewing", "machine"]
+    },
+    {
+      "text": "Tape measure",
+      "kind": "easy",
+      "alternates": ["measuring tape"],
+      "keywords": ["tape"]
+    },
+    {
+      "text": "Pickaxe",
+      "kind": "easy",
+      "alternates": ["pick axe", "pick"],
+      "keywords": ["pick"]
+    },
+    {
+      "text": "Lighthouse",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["lighthouse"]
+    },
+    {
+      "text": "Lifebuoy",
+      "kind": "easy",
+      "alternates": ["life ring", "life preserver"],
+      "keywords": ["lifebuoy"]
+    },
+    {
+      "text": "Power drill",
+      "kind": "easy",
+      "alternates": ["drill"],
+      "keywords": ["drill"]
+    },
+    {
+      "text": "Screwdriver",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["screwdriver"]
+    },
+    {
+      "text": "Paint roller",
+      "kind": "easy",
+      "alternates": ["roller"],
+      "keywords": ["roller"]
+    },
+    {
+      "text": "Mop and bucket",
+      "kind": "easy",
+      "alternates": ["mop"],
+      "keywords": ["mop"]
+    },
+    {
+      "text": "Feather duster",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["feather", "duster"]
+    },
+    {
+      "text": "Fishing net",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["fishing", "net"]
+    },
+    {
+      "text": "Lasso",
+      "kind": "easy",
+      "alternates": ["lariat"],
+      "keywords": ["lasso"]
+    },
+    {
+      "text": "Horseshoe",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["horseshoe"]
+    },
+    {
+      "text": "Saddle",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["saddle"]
+    },
+    {
+      "text": "Hay bale",
+      "kind": "easy",
+      "alternates": ["haystack", "bale of hay"],
+      "keywords": ["hay"]
+    },
+    {
+      "text": "Pizza oven",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pizza", "oven"]
+    },
+    {
+      "text": "Mannequin",
+      "kind": "easy",
+      "alternates": ["dress form", "dummy"],
+      "keywords": ["mannequin"]
+    },
+    {
+      "text": "Tow truck",
+      "kind": "easy",
+      "alternates": ["breakdown truck"],
+      "keywords": ["tow"]
+    },
+    {
+      "text": "Forklift",
+      "kind": "easy",
+      "alternates": ["fork lift"],
+      "keywords": ["forklift"]
+    },
+    {
+      "text": "Chalkboard",
+      "kind": "easy",
+      "alternates": ["blackboard"],
+      "keywords": ["board"]
+    },
+    {
+      "text": "Clipboard",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["clipboard"]
+    },
+    {
+      "text": "Ship's wheel",
+      "kind": "easy",
+      "alternates": ["helm", "steering wheel"],
+      "keywords": ["wheel"]
+    },
+    {
+      "text": "Diving helmet",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["diving", "helmet"]
+    },
+    {
+      "text": "Scaffolding",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["scaffolding"]
+    },
+    {
+      "text": "Dentures",
+      "kind": "easy",
+      "alternates": ["false teeth"],
+      "keywords": ["teeth"]
+    },
+    {
+      "text": "Rescuing a cat from a tree",
+      "kind": "hard",
+      "alternates": ["firefighter rescuing a cat from a tree", "fireman rescuing a cat"],
+      "keywords": ["rescuing", "cat", "tree"]
+    },
+    {
+      "text": "Firefighter sliding down a pole",
+      "kind": "hard",
+      "alternates": ["fireman sliding down a pole"],
+      "keywords": ["firefighter", "sliding", "pole"]
+    },
+    {
+      "text": "Firefighter putting out a fire",
+      "kind": "hard",
+      "alternates": ["fireman putting out a fire"],
+      "keywords": ["firefighter", "fire"]
+    },
+    {
+      "text": "Dentist pulling a tooth",
+      "kind": "hard",
+      "alternates": ["dentist pulling teeth"],
+      "keywords": ["dentist", "tooth"]
+    },
+    {
+      "text": "Barber giving a haircut",
+      "kind": "hard",
+      "alternates": ["barber cutting hair"],
+      "keywords": ["barber", "haircut"]
+    },
+    {
+      "text": "Barber shaving a beard",
+      "kind": "hard",
+      "alternates": ["barber shaving"],
+      "keywords": ["barber", "shaving", "beard"]
+    },
+    {
+      "text": "Chef tossing pizza dough",
+      "kind": "hard",
+      "alternates": ["pizza chef tossing dough"],
+      "keywords": ["chef", "tossing", "pizza"]
+    },
+    {
+      "text": "Chef chopping onions",
+      "kind": "hard",
+      "alternates": ["chef chopping vegetables"],
+      "keywords": ["chef", "chopping"]
+    },
+    {
+      "text": "Chef tasting the soup",
+      "kind": "hard",
+      "alternates": ["chef tasting soup"],
+      "keywords": ["chef", "tasting", "soup"]
+    },
+    {
+      "text": "Planting a flag on the moon",
+      "kind": "hard",
+      "alternates": ["astronaut planting a flag on the moon"],
+      "keywords": ["flag", "moon"]
+    },
+    {
+      "text": "Astronaut floating in space",
+      "kind": "hard",
+      "alternates": ["astronaut on a spacewalk"],
+      "keywords": ["astronaut", "floating", "space"]
+    },
+    {
+      "text": "Astronaut climbing into a rocket",
+      "kind": "hard",
+      "alternates": ["astronaut boarding a rocket"],
+      "keywords": ["astronaut", "rocket"]
+    },
+    {
+      "text": "Doctor listening with a stethoscope",
+      "kind": "hard",
+      "alternates": ["doctor with a stethoscope"],
+      "keywords": ["doctor", "stethoscope"]
+    },
+    {
+      "text": "Doctor tapping a knee",
+      "kind": "hard",
+      "alternates": ["doctor testing reflexes"],
+      "keywords": ["doctor", "knee"]
+    },
+    {
+      "text": "Broken leg in a cast",
+      "kind": "hard",
+      "alternates": ["doctor putting a cast on a leg"],
+      "keywords": ["leg", "cast"]
+    },
+    {
+      "text": "Nurse giving an injection",
+      "kind": "hard",
+      "alternates": ["nurse giving a shot"],
+      "keywords": ["nurse", "injection"]
+    },
+    {
+      "text": "Nurse pushing a wheelchair",
+      "kind": "hard",
+      "alternates": [],
+      "keywords": ["nurse", "wheelchair"]
+    },
+    {
+      "text": "Pilot landing a plane",
+      "kind": "hard",
+      "alternates": ["pilot landing an airplane"],
+      "keywords": ["pilot", "landing", "plane"]
+    },
+    {
+      "text": "Pilot in the cockpit",
+      "kind": "hard",
+      "alternates": ["pilot flying a plane"],
+      "keywords": ["pilot", "cockpit"]
+    },
+    {
+      "text": "Farmer driving a tractor",
+      "kind": "hard",
+      "alternates": ["farmer on a tractor"],
+      "keywords": ["farmer", "tractor"]
+    },
+    {
+      "text": "Farmer feeding chickens",
+      "kind": "hard",
+      "alternates": ["farmer feeding hens"],
+      "keywords": ["farmer", "chickens"]
+    },
+    {
+      "text": "Farmer harvesting wheat",
+      "kind": "hard",
+      "alternates": ["farmer cutting wheat"],
+      "keywords": ["farmer", "wheat"]
+    },
+    {
+      "text": "Plumber fixing a leaky pipe",
+      "kind": "hard",
+      "alternates": ["plumber fixing a pipe"],
+      "keywords": ["plumber", "pipe"]
+    },
+    {
+      "text": "Plumber unblocking a toilet",
+      "kind": "hard",
+      "alternates": ["plumber plunging a toilet"],
+      "keywords": ["plumber", "toilet"]
+    },
+    {
+      "text": "Lifeguard blowing a whistle",
+      "kind": "hard",
+      "alternates": [],
+      "keywords": ["lifeguard", "whistle"]
+    },
+    {
+      "text": "Lifeguard rescuing a swimmer",
+      "kind": "hard",
+      "alternates": ["lifeguard saving a swimmer"],
+      "keywords": ["lifeguard", "swimmer"]
+    },
+    {
+      "text": "Beekeeper collecting honey",
+      "kind": "hard",
+      "alternates": ["beekeeper harvesting honey"],
+      "keywords": ["beekeeper", "honey"]
+    },
+    {
+      "text": "Beekeeper covered in bees",
+      "kind": "hard",
+      "alternates": [],
+      "keywords": ["beekeeper", "bees"]
+    },
+    {
+      "text": "Pulling a rabbit from a hat",
+      "kind": "hard",
+      "alternates": ["magician pulling a rabbit from a hat", "rabbit out of a hat"],
+      "keywords": ["rabbit", "hat"]
+    },
+    {
+      "text": "Magician sawing an assistant in half",
+      "kind": "hard",
+      "alternates": ["magician sawing someone in half"],
+      "keywords": ["magician", "sawing", "half"]
+    },
+    {
+      "text": "Zookeeper feeding a giraffe",
+      "kind": "hard",
+      "alternates": [],
+      "keywords": ["zookeeper", "giraffe"]
+    },
+    {
+      "text": "Zookeeper washing an elephant",
+      "kind": "hard",
+      "alternates": ["zookeeper bathing an elephant"],
+      "keywords": ["zookeeper", "elephant"]
+    },
+    {
+      "text": "Bricklayer building a wall",
+      "kind": "hard",
+      "alternates": ["bricklayer laying bricks"],
+      "keywords": ["bricklayer", "wall"]
+    },
+    {
+      "text": "Builder on scaffolding",
+      "kind": "hard",
+      "alternates": ["construction worker on scaffolding"],
+      "keywords": ["builder", "scaffolding"]
+    },
+    {
+      "text": "Artist painting a portrait",
+      "kind": "hard",
+      "alternates": ["painter painting a portrait"],
+      "keywords": ["painting", "portrait"]
+    },
+    {
+      "text": "Sculptor carving a statue",
+      "kind": "hard",
+      "alternates": ["sculptor making a statue"],
+      "keywords": ["sculptor", "statue"]
+    },
+    {
+      "text": "Teacher writing on a chalkboard",
+      "kind": "hard",
+      "alternates": ["teacher writing on a blackboard"],
+      "keywords": ["teacher", "writing"]
+    },
+    {
+      "text": "Mail carrier chased by a dog",
+      "kind": "hard",
+      "alternates": ["postman chased by a dog"],
+      "keywords": ["mail", "chased", "dog"]
+    },
+    {
+      "text": "Mail carrier posting a letter",
+      "kind": "hard",
+      "alternates": ["postman delivering a letter"],
+      "keywords": ["mail", "letter"]
+    },
+    {
+      "text": "Clown making balloon animals",
+      "kind": "hard",
+      "alternates": ["clown making a balloon dog"],
+      "keywords": ["clown", "balloon"]
+    },
+    {
+      "text": "Clowns piling out of a car",
+      "kind": "hard",
+      "alternates": ["clowns in a tiny car", "clown car"],
+      "keywords": ["clown", "car"]
+    },
+    {
+      "text": "Sailor climbing the mast",
+      "kind": "hard",
+      "alternates": ["sailor up the mast"],
+      "keywords": ["sailor", "mast"]
+    },
+    {
+      "text": "Sailor swabbing the deck",
+      "kind": "hard",
+      "alternates": ["sailor mopping the deck"],
+      "keywords": ["sailor", "deck"]
+    },
+    {
+      "text": "Fisherman reeling in a big fish",
+      "kind": "hard",
+      "alternates": ["fisher reeling in a fish"],
+      "keywords": ["reeling", "fish"]
+    },
+    {
+      "text": "Fishing boat hauling a net",
+      "kind": "hard",
+      "alternates": ["trawler hauling a net"],
+      "keywords": ["boat", "net"]
+    },
+    {
+      "text": "Scientist mixing chemicals",
+      "kind": "hard",
+      "alternates": ["scientist mixing potions"],
+      "keywords": ["scientist", "mixing"]
+    },
+    {
+      "text": "Scientist looking through a microscope",
+      "kind": "hard",
+      "alternates": ["scientist using a microscope"],
+      "keywords": ["scientist", "microscope"]
+    },
+    {
+      "text": "Surgeon operating on a patient",
+      "kind": "hard",
+      "alternates": ["surgeon in surgery"],
+      "keywords": ["surgeon", "operating"]
+    },
+    {
+      "text": "Vet bandaging a dog's paw",
+      "kind": "hard",
+      "alternates": ["vet bandaging a paw"],
+      "keywords": ["vet", "paw"]
+    },
+    {
+      "text": "Baker pulling bread from an oven",
+      "kind": "hard",
+      "alternates": ["baker taking bread out of the oven"],
+      "keywords": ["baker", "bread", "oven"]
+    },
+    {
+      "text": "Baker decorating a wedding cake",
+      "kind": "hard",
+      "alternates": ["baker decorating a cake"],
+      "keywords": ["baker", "cake"]
+    },
+    {
+      "text": "Butcher with a string of sausages",
+      "kind": "hard",
+      "alternates": ["butcher holding sausages"],
+      "keywords": ["butcher", "sausages"]
+    },
+    {
+      "text": "Hairdresser blow-drying hair",
+      "kind": "hard",
+      "alternates": ["hairdresser blow drying hair"],
+      "keywords": ["hairdresser", "drying"]
+    },
+    {
+      "text": "Mechanic under a car",
+      "kind": "hard",
+      "alternates": ["mechanic fixing a car"],
+      "keywords": ["mechanic", "car"]
+    },
+    {
+      "text": "Mechanic changing a tire",
+      "kind": "hard",
+      "alternates": ["mechanic changing a tyre"],
+      "keywords": ["mechanic", "changing"]
+    },
+    {
+      "text": "Electrician climbing a power pole",
+      "kind": "hard",
+      "alternates": ["electrician on a pole"],
+      "keywords": ["electrician", "pole"]
+    },
+    {
+      "text": "Electrician changing a light bulb",
+      "kind": "hard",
+      "alternates": ["electrician fixing a light"],
+      "keywords": ["electrician", "light"]
+    },
+    {
+      "text": "Carpenter sawing a plank",
+      "kind": "hard",
+      "alternates": ["carpenter sawing wood"],
+      "keywords": ["carpenter", "sawing"]
+    },
+    {
+      "text": "Carpenter hammering a nail",
+      "kind": "hard",
+      "alternates": ["carpenter with a hammer"],
+      "keywords": ["carpenter", "nail"]
+    },
+    {
+      "text": "Judge banging a gavel",
+      "kind": "hard",
+      "alternates": ["judge with a gavel"],
+      "keywords": ["judge", "gavel"]
+    },
+    {
+      "text": "Detective following footprints",
+      "kind": "hard",
+      "alternates": ["detective tracking footprints"],
+      "keywords": ["detective", "footprints"]
+    },
+    {
+      "text": "Detective with a magnifying glass",
+      "kind": "hard",
+      "alternates": ["detective holding a magnifying glass"],
+      "keywords": ["detective", "magnifying"]
+    },
+    {
+      "text": "Waiter carrying a tray of drinks",
+      "kind": "hard",
+      "alternates": ["waiter with a tray"],
+      "keywords": ["waiter", "tray"]
+    },
+    {
+      "text": "Cowboy swinging a lasso",
+      "kind": "hard",
+      "alternates": ["cowboy with a lasso"],
+      "keywords": ["cowboy", "lasso"]
+    },
+    {
+      "text": "Cowboy by a campfire",
+      "kind": "hard",
+      "alternates": ["cowboy at a campfire"],
+      "keywords": ["cowboy", "campfire"]
+    },
+    {
+      "text": "Lumberjack chopping down a tree",
+      "kind": "hard",
+      "alternates": ["lumberjack cutting a tree"],
+      "keywords": ["lumberjack", "tree"]
+    },
+    {
+      "text": "Lumberjack rolling a log",
+      "kind": "hard",
+      "alternates": ["lumberjack log rolling"],
+      "keywords": ["lumberjack", "log"]
+    },
+    {
+      "text": "Miner pushing a mine cart",
+      "kind": "hard",
+      "alternates": ["miner with a mine cart"],
+      "keywords": ["miner", "cart"]
+    },
+    {
+      "text": "Gold miner panning for gold",
+      "kind": "hard",
+      "alternates": ["panning for gold"],
+      "keywords": ["panning", "gold"]
+    },
+    {
+      "text": "Diver exploring a shipwreck",
+      "kind": "hard",
+      "alternates": ["scuba diver at a shipwreck"],
+      "keywords": ["diver", "shipwreck"]
+    },
+    {
+      "text": "Diver in a shark cage",
+      "kind": "hard",
+      "alternates": ["cage diving with sharks"],
+      "keywords": ["diver", "shark", "cage"]
+    },
+    {
+      "text": "Gardener trimming a hedge",
+      "kind": "hard",
+      "alternates": ["gardener clipping a hedge"],
+      "keywords": ["gardener", "hedge"]
+    },
+    {
+      "text": "Photographer taking a group photo",
+      "kind": "hard",
+      "alternates": ["photographer taking a picture"],
+      "keywords": ["photographer", "photo"]
+    },
+    {
+      "text": "Conductor waving a baton",
+      "kind": "hard",
+      "alternates": ["conductor with a baton"],
+      "keywords": ["conductor", "baton"]
+    },
+    {
+      "text": "Ballet dancer twirling",
+      "kind": "hard",
+      "alternates": ["ballerina twirling", "ballerina spinning"],
+      "keywords": ["ballet", "twirling"]
+    },
+    {
+      "text": "Referee showing a red card",
+      "kind": "hard",
+      "alternates": ["referee giving a red card"],
+      "keywords": ["referee", "red card"]
+    },
+    {
+      "text": "Referee tossing a coin",
+      "kind": "hard",
+      "alternates": ["referee flipping a coin"],
+      "keywords": ["referee", "coin"]
+    },
+    {
+      "text": "Jockey crossing the finish line",
+      "kind": "hard",
+      "alternates": ["jockey winning a horse race"],
+      "keywords": ["jockey", "finish"]
+    },
+    {
+      "text": "Racing car at a pit stop",
+      "kind": "hard",
+      "alternates": ["pit stop"],
+      "keywords": ["pit stop"]
+    },
+    {
+      "text": "Waving the checkered flag",
+      "kind": "hard",
+      "alternates": ["checkered flag"],
+      "keywords": ["checkered flag"]
+    },
+    {
+      "text": "Hailing a taxi",
+      "kind": "hard",
+      "alternates": ["calling a taxi"],
+      "keywords": ["hailing", "taxi"]
+    },
+    {
+      "text": "Ticket inspector punching a ticket",
+      "kind": "hard",
+      "alternates": ["conductor punching a ticket"],
+      "keywords": ["ticket", "punching"]
+    },
+    {
+      "text": "Flight attendant pushing a trolley",
+      "kind": "hard",
+      "alternates": ["flight attendant pushing a cart"],
+      "keywords": ["flight attendant", "trolley"]
+    },
+    {
+      "text": "Flight attendant showing a life jacket",
+      "kind": "hard",
+      "alternates": ["flight attendant safety demonstration"],
+      "keywords": ["flight attendant", "life jacket"]
+    },
+    {
+      "text": "Captain steering a ship",
+      "kind": "hard",
+      "alternates": ["ship captain at the wheel"],
+      "keywords": ["captain", "steering", "ship"]
+    },
+    {
+      "text": "Captain looking through a telescope",
+      "kind": "hard",
+      "alternates": ["captain with a telescope"],
+      "keywords": ["captain", "telescope"]
+    },
+    {
+      "text": "Gondolier rowing a gondola",
+      "kind": "hard",
+      "alternates": ["gondolier in a gondola"],
+      "keywords": ["gondolier", "gondola"]
+    },
+    {
+      "text": "Porter carrying bags up a mountain",
+      "kind": "hard",
+      "alternates": ["sherpa carrying bags up a mountain", "mountain guide carrying bags"],
+      "keywords": ["carrying", "bags", "mountain"]
+    },
+    {
+      "text": "Rickshaw driver pulling passengers",
+      "kind": "hard",
+      "alternates": ["rickshaw carrying passengers"],
+      "keywords": ["rickshaw", "passengers"]
+    },
+    {
+      "text": "Shepherd herding sheep",
+      "kind": "hard",
+      "alternates": ["shepherd with a flock"],
+      "keywords": ["shepherd", "sheep"]
+    },
+    {
+      "text": "Shearing a sheep",
+      "kind": "hard",
+      "alternates": ["sheep shearing"],
+      "keywords": ["shearing", "sheep"]
+    },
+    {
+      "text": "Window cleaner on a ladder",
+      "kind": "hard",
+      "alternates": ["window washer on a ladder"],
+      "keywords": ["window", "ladder"]
+    },
+    {
+      "text": "Chimney sweep on a rooftop",
+      "kind": "hard",
+      "alternates": ["chimney sweep on the roof"],
+      "keywords": ["chimney", "roof"]
+    },
+    {
+      "text": "Garbage collector emptying a bin",
+      "kind": "hard",
+      "alternates": ["bin man emptying a bin"],
+      "keywords": ["garbage", "bin"]
+    },
+    {
+      "text": "Park ranger spotting a bear",
+      "kind": "hard",
+      "alternates": ["ranger watching a bear"],
+      "keywords": ["ranger", "bear"]
+    },
+    {
+      "text": "Archaeologist dusting off a bone",
+      "kind": "hard",
+      "alternates": ["archaeologist digging up bones"],
+      "keywords": ["archaeologist", "bone"]
+    },
+    {
+      "text": "Archaeologist finding a mummy",
+      "kind": "hard",
+      "alternates": ["archaeologist opening a tomb"],
+      "keywords": ["archaeologist", "mummy"]
+    },
+    {
+      "text": "Tailor measuring a customer",
+      "kind": "hard",
+      "alternates": ["tailor with a tape measure"],
+      "keywords": ["tailor", "measuring"]
+    },
+    {
+      "text": "Tailor sewing on a button",
+      "kind": "hard",
+      "alternates": ["tailor sewing a button"],
+      "keywords": ["tailor", "button"]
+    },
+    {
+      "text": "Blacksmith hammering a horseshoe",
+      "kind": "hard",
+      "alternates": ["blacksmith at the anvil"],
+      "keywords": ["blacksmith", "horseshoe"]
+    },
+    {
+      "text": "Potter shaping a vase",
+      "kind": "hard",
+      "alternates": ["potter making a vase"],
+      "keywords": ["potter", "vase"]
+    },
+    {
+      "text": "Mime trapped in an invisible box",
+      "kind": "hard",
+      "alternates": ["mime in a box"],
+      "keywords": ["mime", "box"]
+    },
+    {
+      "text": "Mime pulling an invisible rope",
+      "kind": "hard",
+      "alternates": ["mime pulling a rope"],
+      "keywords": ["mime", "rope"]
+    },
+    {
+      "text": "Acrobats making a human pyramid",
+      "kind": "hard",
+      "alternates": ["human pyramid"],
+      "keywords": ["pyramid"]
+    },
+    {
+      "text": "Tightrope walker between skyscrapers",
+      "kind": "hard",
+      "alternates": ["tightrope walker between buildings"],
+      "keywords": ["tightrope", "skyscrapers"]
+    },
+    {
+      "text": "Trapeze artist catching a partner",
+      "kind": "hard",
+      "alternates": ["trapeze catch"],
+      "keywords": ["trapeze", "catching"]
+    },
+    {
+      "text": "Human cannonball flying from a cannon",
+      "kind": "hard",
+      "alternates": ["human cannonball"],
+      "keywords": ["cannonball"]
+    },
+    {
+      "text": "Stunt performer jumping a motorcycle",
+      "kind": "hard",
+      "alternates": ["stuntman jumping a motorbike"],
+      "keywords": ["stunt", "motorcycle"]
+    },
+    {
+      "text": "Stunt performer on a moving train",
+      "kind": "hard",
+      "alternates": ["stuntman on a train roof"],
+      "keywords": ["stunt", "train"]
+    },
+    {
+      "text": "Night guard with a flashlight",
+      "kind": "hard",
+      "alternates": ["security guard with a torch"],
+      "keywords": ["guard", "flashlight"]
+    },
+    {
+      "text": "Crossing guard stopping traffic",
+      "kind": "hard",
+      "alternates": ["lollipop lady stopping traffic"],
+      "keywords": ["crossing", "traffic"]
+    },
+    {
+      "text": "Paramedics carrying a stretcher",
+      "kind": "hard",
+      "alternates": ["paramedic with a stretcher"],
+      "keywords": ["paramedic", "stretcher"]
+    },
+    {
+      "text": "Weather presenter pointing at a map",
+      "kind": "hard",
+      "alternates": ["weatherman pointing at a map"],
+      "keywords": ["weather", "map"]
+    },
+    {
+      "text": "News reporter in a storm",
+      "kind": "hard",
+      "alternates": ["reporter in a hurricane"],
+      "keywords": ["reporter", "storm"]
+    },
+    {
+      "text": "Reporter holding out a microphone",
+      "kind": "hard",
+      "alternates": ["reporter interviewing someone"],
+      "keywords": ["reporter", "microphone"]
+    },
+    {
+      "text": "Delivery driver carrying a parcel",
+      "kind": "hard",
+      "alternates": ["courier delivering a package"],
+      "keywords": ["delivery", "parcel"]
+    },
+    {
+      "text": "Pizza delivery on a scooter",
+      "kind": "hard",
+      "alternates": ["pizza delivery scooter"],
+      "keywords": ["pizza", "delivery", "scooter"]
+    },
+    {
+      "text": "Librarian stamping a book",
+      "kind": "hard",
+      "alternates": ["librarian checking out a book"],
+      "keywords": ["librarian", "book"]
+    },
+    {
+      "text": "Librarian shushing a reader",
+      "kind": "hard",
+      "alternates": ["librarian saying shush"],
+      "keywords": ["librarian", "shushing"]
+    },
+    {
+      "text": "Tour guide holding up an umbrella",
+      "kind": "hard",
+      "alternates": ["tour guide with an umbrella"],
+      "keywords": ["tour guide", "umbrella"]
+    },
+    {
+      "text": "Janitor mopping the floor",
+      "kind": "hard",
+      "alternates": ["cleaner mopping the floor"],
+      "keywords": ["janitor", "mopping"]
+    },
+    {
+      "text": "Explorer crossing a rope bridge",
+      "kind": "hard",
+      "alternates": ["explorer on a rope bridge"],
+      "keywords": ["explorer", "rope bridge"]
+    },
+    {
+      "text": "DJ scratching records",
+      "kind": "hard",
+      "alternates": ["dj spinning records"],
+      "keywords": ["dj", "records"]
+    },
+    {
+      "text": "Drummer smashing the cymbals",
+      "kind": "hard",
+      "alternates": ["drummer hitting the cymbals"],
+      "keywords": ["drummer", "cymbals"]
+    },
+    {
+      "text": "Florist arranging a bouquet",
+      "kind": "hard",
+      "alternates": ["florist making a bouquet"],
+      "keywords": ["florist", "bouquet"]
+    },
+    {
+      "text": "Director snapping a clapperboard",
+      "kind": "hard",
+      "alternates": ["film director with a clapperboard"],
+      "keywords": ["director", "clapperboard"]
+    },
+    {
+      "text": "Puppeteer working a marionette",
+      "kind": "hard",
+      "alternates": ["puppeteer with a marionette"],
+      "keywords": ["puppeteer", "marionette"]
+    },
+    {
+      "text": "Royal guard marching",
+      "kind": "hard",
+      "alternates": ["palace guard marching"],
+      "keywords": ["guard", "marching"]
+    },
+    {
+      "text": "Glassblower blowing a glass bubble",
+      "kind": "hard",
+      "alternates": ["glassblower blowing glass"],
+      "keywords": ["glassblower", "glass"]
+    },
+    {
+      "text": "Painting a wall with a roller",
+      "kind": "hard",
+      "alternates": ["house painter rolling a wall"],
+      "keywords": ["wall", "roller"]
+    },
+    {
+      "text": "Barista making latte art",
+      "kind": "hard",
+      "alternates": ["barista pouring latte art"],
+      "keywords": ["barista", "latte"]
+    },
+    {
+      "text": "Sushi chef rolling sushi",
+      "kind": "hard",
+      "alternates": ["making sushi rolls"],
+      "keywords": ["sushi", "rolling"]
+    },
+    {
+      "text": "Road worker with a jackhammer",
+      "kind": "hard",
+      "alternates": ["road worker drilling the road"],
+      "keywords": ["jackhammer"]
+    },
+    {
+      "text": "Police officer giving a speeding ticket",
+      "kind": "hard",
+      "alternates": ["cop giving a speeding ticket"],
+      "keywords": ["police", "speeding", "ticket"]
+    },
+    {
+      "text": "Police officer handcuffing a robber",
+      "kind": "hard",
+      "alternates": ["police arresting a robber"],
+      "keywords": ["police", "robber"]
+    },
+    {
+      "text": "Police dog sniffing a suitcase",
+      "kind": "hard",
+      "alternates": ["sniffer dog at the airport"],
+      "keywords": ["dog", "sniffing", "suitcase"]
+    },
+    {
+      "text": "Ice cream truck surrounded by kids",
+      "kind": "hard",
+      "alternates": ["kids at an ice cream truck"],
+      "keywords": ["ice cream truck", "kids"]
+    },
+    {
+      "text": "Fortune teller with a crystal ball",
+      "kind": "hard",
+      "alternates": ["fortune teller gazing into a crystal ball"],
+      "keywords": ["fortune teller", "crystal ball"]
+    },
+    {
+      "text": "Construction crane lifting a beam",
+      "kind": "hard",
+      "alternates": ["crane lifting a steel beam"],
+      "keywords": ["crane", "beam"]
+    },
+    {
+      "text": "Bulldozer pushing dirt",
+      "kind": "hard",
+      "alternates": ["bulldozer moving dirt"],
+      "keywords": ["bulldozer", "dirt"]
+    },
+    {
+      "text": "Tow truck towing a car",
+      "kind": "hard",
+      "alternates": ["tow truck pulling a car"],
+      "keywords": ["tow", "car"]
+    },
+    {
+      "text": "Forklift lifting boxes",
+      "kind": "hard",
+      "alternates": ["forklift moving boxes"],
+      "keywords": ["forklift", "boxes"]
+    },
+    {
+      "text": "Ambulance rushing to the hospital",
+      "kind": "hard",
+      "alternates": ["ambulance arriving at the hospital"],
+      "keywords": ["ambulance", "hospital"]
+    },
+    {
+      "text": "Fire truck raising its ladder",
+      "kind": "hard",
+      "alternates": ["fire engine ladder"],
+      "keywords": ["fire", "ladder"]
+    },
+    {
+      "text": "Tractor pulling a plough",
+      "kind": "hard",
+      "alternates": ["tractor pulling a plow"],
+      "keywords": ["tractor", "pulling"]
+    },
+    {
+      "text": "Lab experiment exploding",
+      "kind": "hard",
+      "alternates": ["exploding experiment"],
+      "keywords": ["experiment", "exploding"]
+    },
+    {
+      "text": "Shoveling coal into a steam train",
+      "kind": "hard",
+      "alternates": ["train driver shoveling coal"],
+      "keywords": ["shoveling", "coal", "train"]
+    },
+    {
+      "text": "Cashier scanning groceries",
+      "kind": "hard",
+      "alternates": ["cashier at the checkout"],
+      "keywords": ["cashier", "scanning"]
+    },
+    {
+      "text": "Spy hiding behind a newspaper",
+      "kind": "hard",
+      "alternates": ["spy with a newspaper"],
+      "keywords": ["spy", "newspaper"]
+    },
+    {
+      "text": "Welder making sparks",
+      "kind": "hard",
+      "alternates": ["welder with a mask"],
+      "keywords": ["welder", "sparks"]
+    },
+    {
+      "text": "Locksmith picking a lock",
+      "kind": "hard",
+      "alternates": ["locksmith opening a lock"],
+      "keywords": ["locksmith", "lock"]
+    },
+    {
+      "text": "Dog walker tangled in leashes",
+      "kind": "hard",
+      "alternates": ["dog walker with many dogs"],
+      "keywords": ["dog walker", "leashes"]
+    },
+    {
+      "text": "Opera singer shattering a glass",
+      "kind": "hard",
+      "alternates": ["opera singer breaking a glass"],
+      "keywords": ["opera", "glass"]
+    },
+    {
+      "text": "Lighthouse keeper lighting the lamp",
+      "kind": "hard",
+      "alternates": ["lighthouse keeper"],
+      "keywords": ["lighthouse", "lamp"]
+    },
+    {
+      "text": "Snowplow clearing a road",
+      "kind": "hard",
+      "alternates": ["snow plough clearing a road"],
+      "keywords": ["snow", "road"]
+    },
+    {
+      "text": "Ice sculptor carving a swan",
+      "kind": "hard",
+      "alternates": ["ice sculpture of a swan"],
+      "keywords": ["ice", "swan"]
+    },
+    {
+      "text": "Bellhop pushing a luggage cart",
+      "kind": "hard",
+      "alternates": ["bellhop with luggage"],
+      "keywords": ["bellhop", "luggage"]
+    },
+    {
+      "text": "Butler opening the front door",
+      "kind": "hard",
+      "alternates": ["butler answering the door"],
+      "keywords": ["butler", "door"]
+    },
+    {
+      "text": "Dentist for a crocodile",
+      "kind": "chaos",
+      "alternates": ["crocodile at the dentist"],
+      "keywords": ["dentist", "crocodile"]
+    },
+    {
+      "text": "Tooth running away from the dentist",
+      "kind": "chaos",
+      "alternates": ["tooth escaping the dentist"],
+      "keywords": ["tooth", "running", "dentist"]
+    },
+    {
+      "text": "Vampire at the dentist",
+      "kind": "chaos",
+      "alternates": ["dentist filing vampire fangs"],
+      "keywords": ["vampire", "dentist"]
+    },
+    {
+      "text": "Lifeguard rescuing a fish",
+      "kind": "chaos",
+      "alternates": ["lifeguard saving a fish"],
+      "keywords": ["lifeguard", "fish"]
+    },
+    {
+      "text": "Lifeguard watching a bathtub",
+      "kind": "chaos",
+      "alternates": ["lifeguard guarding a bathtub"],
+      "keywords": ["lifeguard", "bathtub"]
+    },
+    {
+      "text": "Shark working as a lifeguard",
+      "kind": "chaos",
+      "alternates": ["shark lifeguard"],
+      "keywords": ["shark", "lifeguard"]
+    },
+    {
+      "text": "Window cleaner on a glass skyscraper",
+      "kind": "chaos",
+      "alternates": ["window washer on a glass skyscraper"],
+      "keywords": ["window", "skyscraper"]
+    },
+    {
+      "text": "Window cleaner inside a fish tank",
+      "kind": "chaos",
+      "alternates": ["window cleaner cleaning a fish tank"],
+      "keywords": ["window", "fish tank"]
+    },
+    {
+      "text": "Firefighter hosing a birthday candle",
+      "kind": "chaos",
+      "alternates": ["firefighter putting out a birthday candle"],
+      "keywords": ["firefighter", "candle"]
+    },
+    {
+      "text": "Cat saving a stuck firefighter",
+      "kind": "chaos",
+      "alternates": ["cat on a ladder saving a firefighter", "cat saving a fireman"],
+      "keywords": ["cat", "saving", "firefighter"]
+    },
+    {
+      "text": "Elephant working as a firefighter",
+      "kind": "chaos",
+      "alternates": ["elephant firefighter"],
+      "keywords": ["elephant", "firefighter"]
+    },
+    {
+      "text": "Crab working as a barber",
+      "kind": "chaos",
+      "alternates": ["crab barber"],
+      "keywords": ["crab", "barber"]
+    },
+    {
+      "text": "Werewolf at the barber",
+      "kind": "chaos",
+      "alternates": ["werewolf getting a haircut"],
+      "keywords": ["werewolf", "barber"]
+    },
+    {
+      "text": "Pizza chef tossing dough into space",
+      "kind": "chaos",
+      "alternates": ["chef tossing pizza into space"],
+      "keywords": ["pizza", "space"]
+    },
+    {
+      "text": "Chef with a skyscraper hat",
+      "kind": "chaos",
+      "alternates": ["chef with a giant hat"],
+      "keywords": ["chef", "hat"]
+    },
+    {
+      "text": "Lobster cooking the chef",
+      "kind": "chaos",
+      "alternates": ["lobster cooking a chef"],
+      "keywords": ["lobster", "cooking", "chef"]
+    },
+    {
+      "text": "Astronaut sunbathing on the sun",
+      "kind": "chaos",
+      "alternates": ["astronaut tanning on the sun"],
+      "keywords": ["astronaut", "sunbathing", "sun"]
+    },
+    {
+      "text": "Astronaut chasing floating spaghetti",
+      "kind": "chaos",
+      "alternates": ["astronaut catching floating spaghetti"],
+      "keywords": ["astronaut", "spaghetti"]
+    },
+    {
+      "text": "Doctor listening to a watermelon",
+      "kind": "chaos",
+      "alternates": ["doctor with a stethoscope on a watermelon"],
+      "keywords": ["doctor", "watermelon"]
+    },
+    {
+      "text": "Doctor taking a volcano's temperature",
+      "kind": "chaos",
+      "alternates": ["doctor checking a volcano"],
+      "keywords": ["doctor", "volcano"]
+    },
+    {
+      "text": "Nurse bandaging a mummy",
+      "kind": "chaos",
+      "alternates": ["nurse wrapping a mummy"],
+      "keywords": ["nurse", "mummy"]
+    },
+    {
+      "text": "Surgeon operating on a teddy bear",
+      "kind": "chaos",
+      "alternates": ["surgeon fixing a teddy bear"],
+      "keywords": ["surgeon", "teddy"]
+    },
+    {
+      "text": "Pilot flying a paper plane",
+      "kind": "chaos",
+      "alternates": ["pilot in a paper plane"],
+      "keywords": ["pilot", "paper plane"]
+    },
+    {
+      "text": "Pilot flapping arms to fly",
+      "kind": "chaos",
+      "alternates": ["pilot flapping his arms"],
+      "keywords": ["pilot", "flapping"]
+    },
+    {
+      "text": "Penguin flying a plane",
+      "kind": "chaos",
+      "alternates": ["penguin pilot"],
+      "keywords": ["penguin", "plane"]
+    },
+    {
+      "text": "Farmer milking a giraffe",
+      "kind": "chaos",
+      "alternates": ["milking a giraffe"],
+      "keywords": ["milking", "giraffe"]
+    },
+    {
+      "text": "Farmer pulling a giant carrot",
+      "kind": "chaos",
+      "alternates": ["farmer with a giant carrot"],
+      "keywords": ["farmer", "carrot"]
+    },
+    {
+      "text": "Farmer eating soup with a pitchfork",
+      "kind": "chaos",
+      "alternates": ["eating soup with a pitchfork"],
+      "keywords": ["pitchfork", "soup"]
+    },
+    {
+      "text": "Cow driving a tractor",
+      "kind": "chaos",
+      "alternates": ["cow on a tractor"],
+      "keywords": ["cow", "tractor"]
+    },
+    {
+      "text": "Scarecrow scared by a crow",
+      "kind": "chaos",
+      "alternates": ["crow scaring a scarecrow"],
+      "keywords": ["scarecrow", "crow"]
+    },
+    {
+      "text": "Plumber plunging a whale's blowhole",
+      "kind": "chaos",
+      "alternates": ["plumber unblocking a whale"],
+      "keywords": ["plumber", "whale"]
+    },
+    {
+      "text": "Plumber fixing a leaking cloud",
+      "kind": "chaos",
+      "alternates": ["plumber fixing a rain cloud"],
+      "keywords": ["plumber", "cloud"]
+    },
+    {
+      "text": "Bear in a beekeeper suit",
+      "kind": "chaos",
+      "alternates": ["bear dressed as a beekeeper"],
+      "keywords": ["bear", "beekeeper"]
+    },
+    {
+      "text": "Beekeeper with a beard of bees",
+      "kind": "chaos",
+      "alternates": ["bee beard"],
+      "keywords": ["beard", "bees"]
+    },
+    {
+      "text": "Bee working at a flower shop",
+      "kind": "chaos",
+      "alternates": ["bee florist"],
+      "keywords": ["bee", "flower shop"]
+    },
+    {
+      "text": "Magician popping from a rabbit's hat",
+      "kind": "chaos",
+      "alternates": ["rabbit pulling a magician out of a hat"],
+      "keywords": ["magician", "rabbit", "hat"]
+    },
+    {
+      "text": "Beaver sawing a magician in half",
+      "kind": "chaos",
+      "alternates": ["beaver sawing the magician in half"],
+      "keywords": ["beaver", "magician"]
+    },
+    {
+      "text": "Beaver working as a lumberjack",
+      "kind": "chaos",
+      "alternates": ["beaver lumberjack"],
+      "keywords": ["beaver", "lumberjack"]
+    },
+    {
+      "text": "Monkeys feeding the zookeeper",
+      "kind": "chaos",
+      "alternates": ["monkeys feeding a zookeeper"],
+      "keywords": ["monkeys", "feeding", "zookeeper"]
+    },
+    {
+      "text": "Crane building a sandcastle",
+      "kind": "chaos",
+      "alternates": ["construction crane building a sandcastle"],
+      "keywords": ["crane", "sandcastle"]
+    },
+    {
+      "text": "Crane playing a claw machine",
+      "kind": "chaos",
+      "alternates": ["construction crane at a claw machine"],
+      "keywords": ["crane", "claw machine"]
+    },
+    {
+      "text": "Builder building a house of cards",
+      "kind": "chaos",
+      "alternates": ["construction worker building a house of cards"],
+      "keywords": ["builder", "house of cards"]
+    },
+    {
+      "text": "Egg wearing a hard hat",
+      "kind": "chaos",
+      "alternates": ["egg in a hard hat"],
+      "keywords": ["egg", "hard hat"]
+    },
+    {
+      "text": "Bulldozer pushing a single pea",
+      "kind": "chaos",
+      "alternates": ["bulldozer pushing a pea"],
+      "keywords": ["bulldozer", "pea"]
+    },
+    {
+      "text": "Excavator scooping ice cream",
+      "kind": "chaos",
+      "alternates": ["digger scooping ice cream"],
+      "keywords": ["excavator", "ice cream"]
+    },
+    {
+      "text": "Cement mixer mixing pancake batter",
+      "kind": "chaos",
+      "alternates": ["cement mixer making pancakes"],
+      "keywords": ["cement mixer", "pancake"]
+    },
+    {
+      "text": "Artist painting a zebra's stripes",
+      "kind": "chaos",
+      "alternates": ["painter painting stripes on a zebra"],
+      "keywords": ["zebra", "stripes"]
+    },
+    {
+      "text": "Statue chiselling a sculptor",
+      "kind": "chaos",
+      "alternates": ["statue chiseling a sculptor", "statue carving a sculptor"],
+      "keywords": ["statue", "sculptor"]
+    },
+    {
+      "text": "Chameleon working as a house painter",
+      "kind": "chaos",
+      "alternates": ["chameleon painter"],
+      "keywords": ["chameleon", "painter"]
+    },
+    {
+      "text": "Owl teaching a class of chicks",
+      "kind": "chaos",
+      "alternates": ["owl teacher"],
+      "keywords": ["owl", "teaching", "chicks"]
+    },
+    {
+      "text": "Owl working as a night guard",
+      "kind": "chaos",
+      "alternates": ["owl night guard", "owl security guard"],
+      "keywords": ["owl", "guard"]
+    },
+    {
+      "text": "Mail carrier chasing a dog",
+      "kind": "chaos",
+      "alternates": ["postman chasing a dog"],
+      "keywords": ["mail", "chasing", "dog"]
+    },
+    {
+      "text": "Mail carrier delivering an elephant",
+      "kind": "chaos",
+      "alternates": ["postman delivering an elephant"],
+      "keywords": ["mail", "elephant"]
+    },
+    {
+      "text": "Snail delivering the mail",
+      "kind": "chaos",
+      "alternates": ["snail mail carrier"],
+      "keywords": ["snail", "mail"]
+    },
+    {
+      "text": "Clown car full of elephants",
+      "kind": "chaos",
+      "alternates": ["elephants in a clown car"],
+      "keywords": ["clown car", "elephants"]
+    },
+    {
+      "text": "Pie throwing a clown",
+      "kind": "chaos",
+      "alternates": ["pie throwing itself at a clown"],
+      "keywords": ["pie", "throwing", "clown"]
+    },
+    {
+      "text": "Sailor in a teacup boat",
+      "kind": "chaos",
+      "alternates": ["sailor sailing a teacup"],
+      "keywords": ["sailor", "teacup"]
+    },
+    {
+      "text": "Captain steering a rubber duck",
+      "kind": "chaos",
+      "alternates": ["captain on a rubber duck"],
+      "keywords": ["captain", "rubber duck"]
+    },
+    {
+      "text": "Fish fishing for a fisherman",
+      "kind": "chaos",
+      "alternates": ["fish catching a fisherman"],
+      "keywords": ["fish", "fishing", "fisherman"]
+    },
+    {
+      "text": "Fisherman reeling in a submarine",
+      "kind": "chaos",
+      "alternates": ["fisher catching a submarine"],
+      "keywords": ["reeling", "submarine"]
+    },
+    {
+      "text": "Scuba diver in a goldfish bowl",
+      "kind": "chaos",
+      "alternates": ["diver in a fishbowl"],
+      "keywords": ["diver", "goldfish bowl"]
+    },
+    {
+      "text": "Microscope looking at a scientist",
+      "kind": "chaos",
+      "alternates": ["microscope studying a scientist"],
+      "keywords": ["microscope", "scientist"]
+    },
+    {
+      "text": "Rat in a lab coat",
+      "kind": "chaos",
+      "alternates": ["lab rat wearing a lab coat"],
+      "keywords": ["rat", "lab coat"]
+    },
+    {
+      "text": "Gingerbread man baking a baker",
+      "kind": "chaos",
+      "alternates": ["gingerbread man baking the baker"],
+      "keywords": ["gingerbread", "baker"]
+    },
+    {
+      "text": "Baker rowing with baguettes",
+      "kind": "chaos",
+      "alternates": ["baker using baguettes as oars"],
+      "keywords": ["baker", "rowing", "baguettes"]
+    },
+    {
+      "text": "Hairdresser styling Medusa's snakes",
+      "kind": "chaos",
+      "alternates": ["hairdresser styling medusa"],
+      "keywords": ["hairdresser", "medusa"]
+    },
+    {
+      "text": "Beehive hairdo with real bees",
+      "kind": "chaos",
+      "alternates": ["beehive hairstyle with bees"],
+      "keywords": ["beehive", "hairdo"]
+    },
+    {
+      "text": "Tortoise at a pit stop",
+      "kind": "chaos",
+      "alternates": ["turtle at a pit stop"],
+      "keywords": ["tortoise", "pit stop"]
+    },
+    {
+      "text": "Tortoise pulling over a police car",
+      "kind": "chaos",
+      "alternates": ["turtle pulling over a police car"],
+      "keywords": ["tortoise", "police car"]
+    },
+    {
+      "text": "Electric eel as an electrician",
+      "kind": "chaos",
+      "alternates": ["eel electrician"],
+      "keywords": ["eel", "electrician"]
+    },
+    {
+      "text": "Woodpecker working as a carpenter",
+      "kind": "chaos",
+      "alternates": ["woodpecker carpenter"],
+      "keywords": ["woodpecker", "carpenter"]
+    },
+    {
+      "text": "Judge cracking walnuts with a gavel",
+      "kind": "chaos",
+      "alternates": ["judge cracking nuts with a gavel"],
+      "keywords": ["gavel", "walnuts"]
+    },
+    {
+      "text": "Detective following own footprints",
+      "kind": "chaos",
+      "alternates": ["detective following his own footprints", "detective walking in circles"],
+      "keywords": ["detective", "footprints"]
+    },
+    {
+      "text": "Waiter balancing a tower of plates",
+      "kind": "chaos",
+      "alternates": ["waiter carrying a tower of plates"],
+      "keywords": ["waiter", "tower", "plates"]
+    },
+    {
+      "text": "Penguin working as a waiter",
+      "kind": "chaos",
+      "alternates": ["penguin waiter"],
+      "keywords": ["penguin", "waiter"]
+    },
+    {
+      "text": "Cowboy lassoing a tornado",
+      "kind": "chaos",
+      "alternates": ["cowboy roping a tornado"],
+      "keywords": ["cowboy", "tornado"]
+    },
+    {
+      "text": "Cowboy herding cats",
+      "kind": "chaos",
+      "alternates": ["cowboy rounding up cats"],
+      "keywords": ["cowboy", "cats"]
+    },
+    {
+      "text": "Lumberjack chopping a bonsai tree",
+      "kind": "chaos",
+      "alternates": ["lumberjack cutting a bonsai"],
+      "keywords": ["lumberjack", "bonsai"]
+    },
+    {
+      "text": "Tree hugging a lumberjack",
+      "kind": "chaos",
+      "alternates": ["tree hugging the lumberjack"],
+      "keywords": ["tree", "hugging", "lumberjack"]
+    },
+    {
+      "text": "Mole wearing a miner's helmet",
+      "kind": "chaos",
+      "alternates": ["mole miner"],
+      "keywords": ["mole", "miner"]
+    },
+    {
+      "text": "Fire hose watering a tiny flower",
+      "kind": "chaos",
+      "alternates": ["watering a flower with a fire hose", "gardener using a fire hose"],
+      "keywords": ["flower", "fire hose"]
+    },
+    {
+      "text": "Giraffe in a photo booth",
+      "kind": "chaos",
+      "alternates": ["giraffe squeezed into a photo booth"],
+      "keywords": ["giraffe", "photo booth"]
+    },
+    {
+      "text": "Conductor conducting singing frogs",
+      "kind": "chaos",
+      "alternates": ["conductor leading a frog choir"],
+      "keywords": ["conductor", "frogs"]
+    },
+    {
+      "text": "Hippo in a tutu",
+      "kind": "chaos",
+      "alternates": ["hippo ballet dancer"],
+      "keywords": ["hippo", "tutu"]
+    },
+    {
+      "text": "Zebra working as a referee",
+      "kind": "chaos",
+      "alternates": ["zebra referee"],
+      "keywords": ["zebra", "referee"]
+    },
+    {
+      "text": "Jockey carrying the horse",
+      "kind": "chaos",
+      "alternates": ["jockey carrying a horse"],
+      "keywords": ["jockey", "carrying", "horse"]
+    },
+    {
+      "text": "Racing driver in a shopping cart",
+      "kind": "chaos",
+      "alternates": ["race car driver in a shopping trolley"],
+      "keywords": ["racing", "shopping"]
+    },
+    {
+      "text": "Train driver on a toy train",
+      "kind": "chaos",
+      "alternates": ["train driver driving a toy train"],
+      "keywords": ["train", "toy"]
+    },
+    {
+      "text": "Bus full of penguins",
+      "kind": "chaos",
+      "alternates": ["school bus full of penguins"],
+      "keywords": ["bus", "penguins"]
+    },
+    {
+      "text": "Flight attendant serving snacks to birds",
+      "kind": "chaos",
+      "alternates": ["flight attendant feeding birds"],
+      "keywords": ["flight attendant", "birds"]
+    },
+    {
+      "text": "Flight attendant on a witch's broom",
+      "kind": "chaos",
+      "alternates": ["flight attendant on a broomstick"],
+      "keywords": ["flight attendant", "broom"]
+    },
+    {
+      "text": "Gondolier rowing a banana",
+      "kind": "chaos",
+      "alternates": ["gondolier in a banana boat"],
+      "keywords": ["gondolier", "banana"]
+    },
+    {
+      "text": "Porter carrying a piano uphill",
+      "kind": "chaos",
+      "alternates": ["sherpa carrying a piano uphill", "carrying a piano up a mountain"],
+      "keywords": ["carrying", "piano"]
+    },
+    {
+      "text": "Sheep rounding up the shepherd",
+      "kind": "chaos",
+      "alternates": ["sheep herding a shepherd"],
+      "keywords": ["sheep", "shepherd"]
+    },
+    {
+      "text": "Chimney sweep stuck with Santa",
+      "kind": "chaos",
+      "alternates": ["santa and a chimney sweep stuck in a chimney"],
+      "keywords": ["chimney", "santa"]
+    },
+    {
+      "text": "Raccoon driving a garbage truck",
+      "kind": "chaos",
+      "alternates": ["raccoon garbage collector"],
+      "keywords": ["raccoon", "garbage"]
+    },
+    {
+      "text": "Bear ticketing a park ranger",
+      "kind": "chaos",
+      "alternates": ["bear giving a ranger a ticket"],
+      "keywords": ["bear", "ranger", "ticket"]
+    },
+    {
+      "text": "Dog stealing a dinosaur bone",
+      "kind": "chaos",
+      "alternates": ["dog running off with a dinosaur bone"],
+      "keywords": ["dog", "dinosaur bone"]
+    },
+    {
+      "text": "Mummy unwrapping an archaeologist",
+      "kind": "chaos",
+      "alternates": ["mummy wrapping up an archaeologist"],
+      "keywords": ["mummy", "archaeologist"]
+    },
+    {
+      "text": "Tailor measuring a snake",
+      "kind": "chaos",
+      "alternates": ["tailor measuring a snake for a suit"],
+      "keywords": ["tailor", "snake"]
+    },
+    {
+      "text": "Tailor sewing socks for an octopus",
+      "kind": "chaos",
+      "alternates": ["octopus wearing socks"],
+      "keywords": ["socks", "octopus"]
+    },
+    {
+      "text": "Centipede at the shoe shop",
+      "kind": "chaos",
+      "alternates": ["centipede buying shoes"],
+      "keywords": ["centipede", "shoe"]
+    },
+    {
+      "text": "Horse wearing high heels",
+      "kind": "chaos",
+      "alternates": ["blacksmith making high heels for a horse"],
+      "keywords": ["horse", "high heels"]
+    },
+    {
+      "text": "Potter spinning on the pottery wheel",
+      "kind": "chaos",
+      "alternates": ["potter spinning on the wheel"],
+      "keywords": ["potter", "spinning", "wheel"]
+    },
+    {
+      "text": "Mime walking an invisible dog",
+      "kind": "chaos",
+      "alternates": ["mime with an invisible dog"],
+      "keywords": ["mime", "invisible dog"]
+    },
+    {
+      "text": "Pyramid of hamsters",
+      "kind": "chaos",
+      "alternates": ["hamster pyramid"],
+      "keywords": ["pyramid", "hamsters"]
+    },
+    {
+      "text": "Tightrope walker on a spider web",
+      "kind": "chaos",
+      "alternates": ["tightrope walking on a spider web"],
+      "keywords": ["tightrope", "spider web"]
+    },
+    {
+      "text": "Human cannonball landing in a haystack",
+      "kind": "chaos",
+      "alternates": ["cannonball landing in hay"],
+      "keywords": ["cannonball", "haystack"]
+    },
+    {
+      "text": "Stunt performer jumping a puddle",
+      "kind": "chaos",
+      "alternates": ["stuntman jumping a puddle"],
+      "keywords": ["stunt", "puddle"]
+    },
+    {
+      "text": "Spy disguised as a bush",
+      "kind": "chaos",
+      "alternates": ["spy hiding in a bush"],
+      "keywords": ["spy", "bush"]
+    },
+    {
+      "text": "Security guard guarding a cookie",
+      "kind": "chaos",
+      "alternates": ["guard protecting a cookie"],
+      "keywords": ["guard", "cookie"]
+    },
+    {
+      "text": "Fly landing on a royal guard",
+      "kind": "chaos",
+      "alternates": ["royal guard with a fly on his nose"],
+      "keywords": ["guard", "fly"]
+    },
+    {
+      "text": "Crossing guard helping ducks cross",
+      "kind": "chaos",
+      "alternates": ["lollipop lady helping ducks"],
+      "keywords": ["crossing", "ducks"]
+    },
+    {
+      "text": "Ladybug on a paramedic stretcher",
+      "kind": "chaos",
+      "alternates": ["paramedics carrying a ladybug"],
+      "keywords": ["ladybug", "stretcher"]
+    },
+    {
+      "text": "Rain cloud over the weather presenter",
+      "kind": "chaos",
+      "alternates": ["weatherman getting rained on"],
+      "keywords": ["weather", "rain"]
+    },
+    {
+      "text": "Reporter interviewing a parrot",
+      "kind": "chaos",
+      "alternates": ["news reporter interviewing a parrot"],
+      "keywords": ["reporter", "parrot"]
+    },
+    {
+      "text": "Stork delivering a parcel",
+      "kind": "chaos",
+      "alternates": ["stork delivery driver"],
+      "keywords": ["stork", "parcel"]
+    },
+    {
+      "text": "Cashier scanning a zebra",
+      "kind": "chaos",
+      "alternates": ["cashier scanning a zebra's barcode"],
+      "keywords": ["cashier", "zebra"]
+    },
+    {
+      "text": "Librarian shushing a rooster",
+      "kind": "chaos",
+      "alternates": ["librarian hushing a rooster"],
+      "keywords": ["librarian", "rooster"]
+    },
+    {
+      "text": "Janitor mopping the ocean",
+      "kind": "chaos",
+      "alternates": ["cleaner mopping the sea"],
+      "keywords": ["janitor", "mopping", "ocean"]
+    },
+    {
+      "text": "Explorer climbing a giant sofa",
+      "kind": "chaos",
+      "alternates": ["tiny explorer climbing a sofa"],
+      "keywords": ["explorer", "sofa"]
+    },
+    {
+      "text": "DJ scratching a pizza",
+      "kind": "chaos",
+      "alternates": ["dj spinning a pizza"],
+      "keywords": ["dj", "pizza"]
+    },
+    {
+      "text": "Florist arranging a bouquet of cacti",
+      "kind": "chaos",
+      "alternates": ["florist with a cactus bouquet"],
+      "keywords": ["florist", "cacti"]
+    },
+    {
+      "text": "Puppet pulling the puppeteer's strings",
+      "kind": "chaos",
+      "alternates": ["puppet controlling the puppeteer"],
+      "keywords": ["puppet", "puppeteer"]
+    },
+    {
+      "text": "Sushi chef rolling a sleeping bag",
+      "kind": "chaos",
+      "alternates": ["sushi chef rolling someone in a sleeping bag"],
+      "keywords": ["sushi", "sleeping bag"]
+    },
+    {
+      "text": "Unicorn wearing a traffic cone",
+      "kind": "chaos",
+      "alternates": ["traffic cone on a unicorn"],
+      "keywords": ["unicorn", "traffic cone"]
+    },
+    {
+      "text": "Ice cream truck chasing the kids",
+      "kind": "chaos",
+      "alternates": ["ice cream van chasing kids"],
+      "keywords": ["ice cream", "chasing", "kids"]
+    },
+    {
+      "text": "Snowplow clearing a beach",
+      "kind": "chaos",
+      "alternates": ["snow plough on a beach"],
+      "keywords": ["snow", "beach"]
+    },
+    {
+      "text": "Forklift lifting a feather",
+      "kind": "chaos",
+      "alternates": ["forklift carrying a feather"],
+      "keywords": ["forklift", "feather"]
+    },
+    {
+      "text": "Tow truck towing a snail",
+      "kind": "chaos",
+      "alternates": ["tow truck pulling a snail"],
+      "keywords": ["tow", "snail"]
+    },
+    {
+      "text": "Bellhop carrying a snail's shell",
+      "kind": "chaos",
+      "alternates": ["bellhop carrying a shell"],
+      "keywords": ["bellhop", "shell"]
+    },
+    {
+      "text": "Police officer handcuffing an octopus",
+      "kind": "chaos",
+      "alternates": ["cop handcuffing an octopus"],
+      "keywords": ["police", "handcuffing", "octopus"]
+    },
+    {
+      "text": "Octopus directing traffic",
+      "kind": "chaos",
+      "alternates": ["octopus traffic cop"],
+      "keywords": ["octopus", "traffic"]
+    },
+    {
+      "text": "Snowman selling ice cream",
+      "kind": "chaos",
+      "alternates": ["snowman ice cream seller"],
+      "keywords": ["snowman", "selling", "ice cream"]
+    },
+    {
+      "text": "Firefly working in a lighthouse",
+      "kind": "chaos",
+      "alternates": ["firefly lighthouse keeper"],
+      "keywords": ["firefly", "lighthouse"]
+    },
+    {
+      "text": "Whale wearing a lifebuoy",
+      "kind": "chaos",
+      "alternates": ["whale in a life ring"],
+      "keywords": ["whale", "lifebuoy"]
+    },
+    {
+      "text": "Jackhammer used as a pogo stick",
+      "kind": "chaos",
+      "alternates": ["road worker on a jackhammer pogo stick"],
+      "keywords": ["jackhammer", "pogo"]
+    },
+    {
+      "text": "Ice sculptor working in the desert",
+      "kind": "chaos",
+      "alternates": ["ice sculptor in the desert"],
+      "keywords": ["ice", "desert"]
+    },
+    {
+      "text": "Mouse working in a cheese shop",
+      "kind": "chaos",
+      "alternates": ["mouse cheese seller"],
+      "keywords": ["mouse", "cheese"]
+    },
+    {
+      "text": "Bull working in a china shop",
+      "kind": "chaos",
+      "alternates": ["bull in a china shop"],
+      "keywords": ["bull", "china shop"]
+    },
+    {
+      "text": "Spider at the optician",
+      "kind": "chaos",
+      "alternates": ["spider getting glasses"],
+      "keywords": ["spider", "optician"]
+    },
+    {
+      "text": "Dog selling hot dogs",
+      "kind": "chaos",
+      "alternates": ["dog running a hot dog stand"],
+      "keywords": ["dog", "hot dogs"]
+    },
+    {
+      "text": "Sheep at the barber",
+      "kind": "chaos",
+      "alternates": ["sheep getting a haircut"],
+      "keywords": ["sheep", "barber"]
+    },
+    {
+      "text": "Vet wearing a dog cone",
+      "kind": "chaos",
+      "alternates": ["vet in a cone collar"],
+      "keywords": ["vet", "cone"]
+    },
+    {
+      "text": "Glassblower blowing a bubblegum bubble",
+      "kind": "chaos",
+      "alternates": ["glassblower blowing bubblegum"],
+      "keywords": ["glassblower", "bubblegum"]
+    },
+    {
+      "text": "Teacher grading with a paint roller",
+      "kind": "chaos",
+      "alternates": ["teacher marking homework with a roller"],
+      "keywords": ["teacher", "roller"]
+    },
+    {
+      "text": "Scientist cloning a sheep",
+      "kind": "chaos",
+      "alternates": ["scientist with a sheep clone"],
+      "keywords": ["cloning", "sheep"]
+    },
+    {
+      "text": "Ringmaster being tamed by a lion",
+      "kind": "chaos",
+      "alternates": ["lion taming the ringmaster"],
+      "keywords": ["lion", "ringmaster"]
+    },
+    {
+      "text": "Sloth working as a paramedic",
+      "kind": "chaos",
+      "alternates": ["sloth paramedic"],
+      "keywords": ["sloth", "paramedic"]
+    },
+    {
+      "text": "Porcupine giving injections",
+      "kind": "chaos",
+      "alternates": ["porcupine nurse"],
+      "keywords": ["porcupine", "injections"]
+    },
+    {
+      "text": "Pelican working as a delivery driver",
+      "kind": "chaos",
+      "alternates": ["pelican courier"],
+      "keywords": ["pelican", "delivery"]
+    },
+    {
+      "text": "Cactus at the hairdresser",
+      "kind": "chaos",
+      "alternates": ["cactus getting a haircut"],
+      "keywords": ["cactus", "hairdresser"]
+    },
+    {
+      "text": "Fish taking swimming lessons",
+      "kind": "chaos",
+      "alternates": ["fish learning to swim"],
+      "keywords": ["fish", "swimming"]
+    },
+    {
+      "text": "Doctor treating a melting snowman",
+      "kind": "chaos",
+      "alternates": ["doctor with a melting snowman"],
+      "keywords": ["doctor", "snowman"]
+    },
+    {
+      "text": "Dragon working as a welder",
+      "kind": "chaos",
+      "alternates": ["dragon welder"],
+      "keywords": ["dragon", "welder"]
+    },
+    {
+      "text": "Hamster wheel powering a city",
+      "kind": "chaos",
+      "alternates": ["hamster powering the city"],
+      "keywords": ["hamster", "wheel"]
+    },
+    {
+      "text": "Cat working at a fish shop",
+      "kind": "chaos",
+      "alternates": ["cat fishmonger"],
+      "keywords": ["cat", "fish shop"]
+    },
+    {
+      "text": "Mechanic fixing a rocking horse",
+      "kind": "chaos",
+      "alternates": ["mechanic repairing a rocking horse"],
+      "keywords": ["mechanic", "rocking horse"]
+    },
+    {
+      "text": "Bin throwing out a garbage collector",
+      "kind": "chaos",
+      "alternates": ["trash can taking out the garbage man"],
+      "keywords": ["bin", "garbage"]
+    },
+    {
+      "text": "Locksmith unlocking a sardine can",
+      "kind": "chaos",
+      "alternates": ["locksmith opening a can of sardines"],
+      "keywords": ["locksmith", "sardine"]
+    }
+  ]
+}

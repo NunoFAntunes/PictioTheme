@@ -32,7 +32,7 @@ const DECK: DeckSummary = {
   featured: false,
   language: 'en',
   languages: ['en'],
-  counts: { easy: 40, medium: 40, hard: 30, silly: 40 },
+  counts: { easy: 50, hard: 40, chaos: 50 },
 };
 
 const job = (status: GenerationJob['status']): GenerationJob => ({
@@ -85,11 +85,8 @@ test('generate a deck, draw its cover while waiting, and it becomes the selected
 
   await page.getByRole('button', { name: /generate a deck/i }).click();
   await page.getByLabel('Theme').fill('pirates');
-  // Turn hard off in the panel (the room settings below have their own Hard).
-  await page
-    .getByRole('group', { name: /Generate a deck/ })
-    .getByRole('button', { name: 'Hard' })
-    .click();
+  // Chaos cards are on by default.
+  await expect(page.getByRole('checkbox', { name: /Chaos cards too/ })).toBeChecked();
   await page.getByRole('button', { name: 'Generate' }).click();
 
   await expect(page.getByText('Making your “pirates” deck')).toBeVisible();
@@ -117,8 +114,7 @@ test('generate a deck, draw its cover while waiting, and it becomes the selected
   expect(request).toEqual({
     theme: 'pirates',
     notes: '',
-    difficulties: ['easy', 'medium'],
-    silly: true,
+    chaos: true,
     language: 'en',
   });
   await expect(page.getByRole('radio', { name: /Pirate Party/ })).toHaveValue(DECK.id);

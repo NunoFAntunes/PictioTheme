@@ -88,10 +88,7 @@ test('a tablet in portrait: tabs, pen pressure, palm rejection and the eyedroppe
   await host.getByRole('tab', { name: /Guesses/ }).click();
 
   await host.getByRole('button', { name: /start game/i }).click();
-  await host
-    .getByRole('button', { name: /×1|silly/i })
-    .first()
-    .click();
+  await host.getByRole('button', { name: /×1/ }).first().click();
   const canvas = host
     .getByRole('img', { name: /Drawing canvas/ })
     .or(host.getByLabel(/Drawing canvas/));
@@ -156,7 +153,7 @@ test('without a pen, a finger draws (on the cover pad)', async ({ browser }) => 
     featured: false,
     language: 'en',
     languages: ['en'],
-    counts: { easy: 1, medium: 1, hard: 0, silly: 0 },
+    counts: { easy: 2, hard: 0, chaos: 0 },
   };
   await page.route('**/api/decks/mine*', (route) => route.fulfill({ json: { decks: [deck] } }));
   await hostRoom(page, 'Ana'); // the host's deck picker, in the waiting room

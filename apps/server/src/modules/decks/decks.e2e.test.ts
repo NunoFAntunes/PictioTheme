@@ -26,9 +26,7 @@ describe('deck reports over HTTP', () => {
         title: 'Reported',
         description: '',
         tags: ['x'],
-        cards: [
-          { text: 'Ghost', difficulty: 'easy', silly: false, alternates: [], keywords: ['ghost'] },
-        ],
+        cards: [{ text: 'Ghost', kind: 'easy', alternates: [], keywords: ['ghost'] }],
       },
       { theme: 'x', model: null, coverId: null, language: 'en' },
     );

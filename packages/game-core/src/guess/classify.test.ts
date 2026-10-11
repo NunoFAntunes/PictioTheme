@@ -5,8 +5,7 @@ import { classifyGuess, prepareCard } from './classify';
 function card(text: string, extra: Partial<Card> = {}): Card {
   return {
     text,
-    difficulty: 'easy',
-    silly: false,
+    kind: 'easy',
     alternates: [],
     keywords: text.toLowerCase().split(' '),
     ...extra,
@@ -18,16 +17,17 @@ const witchHat = card('Witch hat', { alternates: ['witches hat'] });
 const seance = card('Séance');
 const hauntedHouse = card('Haunted house');
 const vampireUnicycle = card('Vampire on a unicycle', {
-  silly: true,
+  kind: 'chaos',
   alternates: ['vampire riding a unicycle'],
   keywords: ['vampire', 'unicycle'],
 });
 const realtorSkeleton = card('Realtor skeleton', {
-  silly: true,
+  kind: 'chaos',
   alternates: ['real estate agent skeleton', 'skeleton realtor'],
   keywords: ['realtor', 'skeleton'],
 });
 const cat = card('Cat');
+const milkingCow = card('Milking a cow', { kind: 'hard', keywords: ['milking', 'cow'] });
 
 // The starter table from docs/technical/guess-matching.md §4, plus a few edge cases.
 const cases: [Card, string, GuessKind][] = [
@@ -53,7 +53,10 @@ const cases: [Card, string, GuessKind][] = [
   [pumpkin, 'is it pumpkin?', 'correct'],
   [pumpkin, 'The Pumpkin', 'correct'],
   [cat, 'cat dog bird fish horse', 'wrong'],
-  // Non-silly cards need the exact words, in order
+  // Hard cards are scenes: matched by concepts too
+  [milkingCow, 'cow milking', 'correct'],
+  [milkingCow, 'cow', 'close'],
+  // Easy cards need the exact words, in order
   [hauntedHouse, 'house haunted', 'close'],
   [pumpkin, '   ', 'wrong'],
 ];

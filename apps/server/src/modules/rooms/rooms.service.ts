@@ -112,8 +112,8 @@ export function createRoomsService(deps: {
       deck?.coverId ?? null,
       settings.rounds,
       settings.drawSeconds,
+      settings.mode,
       settings.difficulties,
-      settings.silly.enabled,
     ];
     return contentIdOf(Buffer.from(JSON.stringify(shown))).slice(0, 12);
   }
@@ -322,8 +322,8 @@ export function createRoomsService(deps: {
         deck: deck ? { title: deck.title, cover } : null,
         rounds: settings.rounds,
         drawSeconds: settings.drawSeconds,
+        mode: settings.mode,
         difficulties: settings.difficulties,
-        silly: settings.silly.enabled,
       });
       room.shareCard = { version, png };
       return room.shareCard;
@@ -363,6 +363,13 @@ export function createRoomsService(deps: {
             b.players - a.players,
         )
         .slice(0, MAX_PUBLIC_ROOMS_LISTED);
+    },
+
+    /** A deck got new cards (its Chaos cards): rooms playing it load it again. */
+    reloadDeck(deckId: string): void {
+      for (const room of rooms.values()) {
+        if (room.state.settings.deckId === deckId) room.reloadDeck();
+      }
     },
 
     getRoom(code: string): RoomRuntime | undefined {

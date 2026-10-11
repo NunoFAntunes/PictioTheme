@@ -20,6 +20,8 @@ export const ErrorCode = z.enum([
   'NOT_ENOUGH_PLAYERS',
   'DECK_NOT_READY',
   'DECK_LANGUAGE_MISMATCH',
+  /** Chaos mode with a deck that has fewer than `CHAOS_MIN_CARDS` Chaos cards. */
+  'DECK_NO_CHAOS_CARDS',
   // Decks and credits
   'INSUFFICIENT_CREDITS',
   'GENERATION_FAILED',

@@ -78,6 +78,13 @@
       "when": 1791337532566,
       "tag": "0010_theme_checks",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1791688300588,
+      "tag": "0011_chaos_mode",
+      "breakpoints": true
     }
   ]
 }

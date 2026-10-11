@@ -3,7 +3,7 @@
 ## Pitch
 
 > **Draw it. Guess it. Theme it.**
-> A multiplayer drawing game where every match has a theme, with endless AI-generated decks and a Silly Mode that makes everyone laugh.
+> A multiplayer drawing game where every match has a theme, with endless AI-generated decks and a Chaos mode that makes everyone laugh.
 
 Existing drawing games (skribbl.io, Gartic Phone, Drawasaurus) mostly use generic word lists or custom lists typed in by hand. DoodleWhirl!’s angle is **themed, curated, shareable decks**, generated on demand by AI and improved by the community over time. A Halloween party gets Halloween prompts. A team offsite gets office-themed prompts. A family night gets an easy deck the kids can draw.
 
@@ -50,9 +50,9 @@ Secondary loop (logged-in users): **search for a theme → not found → generat
 | **Public / private room** | Public rooms are listed in the lobby. Private rooms can only be joined with the code or a link |
 | **Host** | The player who created the room (host rights can be transferred) and controls its settings |
 | **Deck** | A named, themed collection of cards (e.g. "Spooky Halloween") |
-| **Card / prompt** | One thing to draw (e.g. "Haunted house"), with a difficulty and accepted answers |
-| **Difficulty** | `easy`, `medium`, or `hard`. A host can enable several at once |
-| **Silly Mode** | Adds absurd combination prompts ("Ghost plowing a field") from the deck's silly pool |
+| **Card / prompt** | One thing to draw (e.g. "Haunted house"), with a kind (easy, hard or chaos) and accepted answers |
+| **Difficulty** | `easy` (name it) or `hard` (show it). In normal mode a host can enable one or both |
+| **Chaos mode** | A game mode that plays only the deck's Chaos cards: absurd prompts that bend what a subject is ("Snowman in a sauna", "Vampire buying sunscreen") |
 | **Match** | One full game: several rounds |
 | **Round** | Every player draws once |
 | **Turn** | One player draws one card while the others guess |

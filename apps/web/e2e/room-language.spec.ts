@@ -34,7 +34,7 @@ const GERMAN_DECK: DeckSummary = {
   featured: false,
   language: 'de',
   languages: ['en', 'de'],
-  counts: { easy: 40, medium: 40, hard: 30, silly: 40 },
+  counts: { easy: 50, hard: 40, chaos: 50 },
 };
 
 const job = (status: GenerationJob['status']): GenerationJob => ({

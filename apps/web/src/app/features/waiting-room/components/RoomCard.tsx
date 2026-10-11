@@ -5,6 +5,7 @@ import { WOBBLE } from '../../../ui/hand-drawn';
 import { DeckCover } from '../../deck-cover';
 import { ReportDeckButton } from '../../report-deck';
 import { LanguagePicker } from '../../room-language';
+import { hasChaosCards } from '../chaos';
 import { copyShareCardImage } from '../share-card';
 import { RoomTitle } from './RoomTitle';
 
@@ -19,15 +20,14 @@ const POPS = ['pop-sun', 'pop-teal', 'pop-pink', 'pop-purple', 'pop-tomato'] as 
 /** The code's letters, in the logo's order of colours like the share card's. */
 const CODE_POPS = ['pop-purple', 'pop-tomato', 'pop-sun', 'pop-teal', 'pop-pink'] as const;
 
-/** "3 rounds", "80s to draw", "Easy · Medium", "Silly mode!": the rules at a glance. */
+/** "3 rounds", "80s to draw", "Easy · Hard" or "Chaos mode!": the rules at a glance. */
 function rulesOf(view: RoomView): string[] {
   const s = view.settings;
   const difficulties = s.difficulties.map((d) => d[0]?.toUpperCase() + d.slice(1));
   return [
     `${s.rounds} round${s.rounds === 1 ? '' : 's'}`,
     `${s.drawSeconds}s to draw`,
-    difficulties.join(' · '),
-    ...(s.silly.enabled ? ['Silly mode!'] : []),
+    s.mode === 'chaos' ? 'Chaos mode!' : difficulties.join(' · '),
   ];
 }
 
@@ -216,6 +216,22 @@ export function RoomCard({ view, host }: { view: RoomView; host: boolean }) {
                   Needs translation
                 </span>
               )}
+              {view.deck &&
+                view.deck.language === view.settings.language &&
+                view.settings.mode === 'chaos' &&
+                !hasChaosCards(view.deck) && (
+                  <span
+                    role="status"
+                    title={
+                      host
+                        ? 'This deck has no Chaos cards yet: make them in the deck library below, or pick another deck.'
+                        : 'This deck has no Chaos cards yet: the host needs to make them, or pick another, before starting.'
+                    }
+                    className="-rotate-2 rounded-full border-2 border-dashed border-pop-pink px-1 font-hand text-[0.95rem] leading-snug whitespace-nowrap text-pop-pink"
+                  >
+                    Needs Chaos cards
+                  </span>
+                )}
             </div>
             <ul aria-label="Rules" className="mt-1 flex flex-wrap gap-2.5">
               {rulesOf(view).map((label, i) => (

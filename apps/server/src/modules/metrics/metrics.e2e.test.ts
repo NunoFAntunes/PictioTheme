@@ -12,23 +12,17 @@ const ORIGIN = 'http://localhost:4321';
 
 /** A deck of its own, so the card counters start at zero whatever other tests did. */
 function deckCards(): Card[] {
-  const make = (difficulty: Card['difficulty'], silly: boolean, n: number) =>
+  const make = (kind: Card['kind'], n: number) =>
     Array.from({ length: n }, (_, i) => {
-      const text = `${silly ? 'Silly' : difficulty} card ${String.fromCharCode(97 + i)}`;
+      const text = `${kind} card ${String.fromCharCode(97 + i)}`;
       return {
         text,
-        difficulty,
-        silly,
+        kind,
         alternates: [],
         keywords: [text.split(' ')[0]?.toLowerCase() ?? 'card'],
       };
     });
-  return [
-    ...make('easy', false, 5),
-    ...make('medium', false, 5),
-    ...make('hard', false, 5),
-    ...make('medium', true, 3),
-  ];
+  return [...make('easy', 10), ...make('hard', 5), ...make('chaos', 3)];
 }
 
 describe('metrics, end to end', () => {

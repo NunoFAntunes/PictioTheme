@@ -90,8 +90,8 @@ export const cards = pgTable(
       .notNull()
       .references(() => decks.id, { onDelete: 'cascade' }),
     text: text().notNull(),
-    difficulty: text().notNull(),
-    isSilly: boolean().notNull().default(false),
+    /** `easy` or `hard` (normal mode), or `chaos` (docs/product/decks.md#card-kinds). */
+    kind: text().notNull(),
     alternates: text()
       .array()
       .notNull()
@@ -110,7 +110,7 @@ export const cards = pgTable(
     flags: integer().notNull().default(0),
   },
   (t) => [
-    check('cards_difficulty_check', sql`${t.difficulty} in ('easy', 'medium', 'hard')`),
+    check('cards_kind_check', sql`${t.kind} in ('easy', 'hard', 'chaos')`),
     uniqueIndex('cards_deck_text_unique').on(t.deckId, sql`lower(${t.text})`),
   ],
 );

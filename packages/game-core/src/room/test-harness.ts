@@ -2,7 +2,7 @@ import {
   DEFAULT_ROOM_SETTINGS,
   type Card,
   type ClientMessage,
-  type Difficulty,
+  type CardKind,
   type PlayerId,
   type RoomSettings,
   type ServerMessage,
@@ -16,11 +16,10 @@ import type { DeckInfo, Effect, RoomEvent, TimerId } from './types';
  * Only used by tests.
  */
 
-function card(text: string, difficulty: Difficulty, silly = false): Card {
+function card(text: string, kind: CardKind): Card {
   return {
     text,
-    difficulty,
-    silly,
+    kind,
     alternates: [],
     keywords: text.toLowerCase().split(' ').slice(0, 2),
   };
@@ -34,14 +33,23 @@ export const TEST_DECK: DeckInfo = {
   cards: [
     ...['Pumpkin', 'Ghost', 'Bat', 'Candle', 'Spider', 'Broom'].map((t) => card(t, 'easy')),
     ...['Haunted house', 'Black cat', 'Witch hat', 'Scarecrow', 'Cauldron', 'Skeleton'].map((t) =>
-      card(t, 'medium'),
+      card(t, 'easy'),
     ),
     ...['Headless horseman', 'Full moon', 'Werewolf', 'Graveyard', 'Mummy', 'Seance'].map((t) =>
       card(t, 'hard'),
     ),
-    ...['Vampire on a unicycle', 'Mummy doing yoga', 'Ghost plowing'].map((t) =>
-      card(t, 'medium', true),
-    ),
+    ...[
+      'Vampire buying sunscreen',
+      'Mummy unravelling',
+      'Ghost scared of a sheet',
+      'Skeleton realtor',
+      'Witch broom at a car wash',
+      'Werewolf at the groomer',
+      'Bat hanging laundry',
+      'Pumpkin carving a person',
+      'Spider knitting a web scarf',
+      'Zombie at a salad bar',
+    ].map((t) => card(t, 'chaos')),
   ],
 };
 
@@ -55,7 +63,7 @@ export function createHarness(options: { settings?: Partial<RoomSettings>; seed?
     hostId: 'p1',
     settings: {
       ...DEFAULT_ROOM_SETTINGS,
-      difficulties: ['easy', 'medium', 'hard'],
+      difficulties: ['easy', 'hard'],
       deckId: TEST_DECK.id,
       ...options.settings,
     },

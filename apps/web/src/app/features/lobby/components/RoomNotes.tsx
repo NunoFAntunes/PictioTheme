@@ -55,7 +55,7 @@ function RoomNote({ room, index }: { room: PublicRoomSummary; index: number }) {
         {room.language !== 'en' && <LanguageFlag language={room.language} className="h-3" />}
         <span className="line-clamp-1">
           {room.deckTitle ?? 'Choosing a deck'}
-          {room.silly && ' 🤪'}
+          {room.mode === 'chaos' && ' 🌀'}
         </span>
       </span>
       {/* The room's most-liked drawing, cut out, boiling like the players (game-rules.md). */}

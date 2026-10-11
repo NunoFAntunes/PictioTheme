@@ -1,0 +1,2850 @@
+{
+  "slug": "places-and-geography",
+  "featuredRank": null,
+  "title": "Around the World",
+  "description": "Draw famous landmarks, wild natural wonders and places from every corner of the globe, from the Pyramids to the fjords.",
+  "tags": ["places", "geography", "landmarks", "travel", "nature", "world"],
+  "cards": [
+    {
+      "text": "Eiffel Tower",
+      "kind": "easy",
+      "alternates": ["eiffel"],
+      "keywords": ["eiffel"]
+    },
+    {
+      "text": "Leaning Tower",
+      "kind": "easy",
+      "alternates": ["leaning tower of pisa", "tower of pisa", "pisa tower"],
+      "keywords": ["leaning", "tower"]
+    },
+    {
+      "text": "Big Ben",
+      "kind": "easy",
+      "alternates": ["elizabeth tower"],
+      "keywords": ["big ben"]
+    },
+    {
+      "text": "Colosseum",
+      "kind": "easy",
+      "alternates": ["coliseum", "roman colosseum"],
+      "keywords": ["colosseum"]
+    },
+    {
+      "text": "Stonehenge",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["stonehenge"]
+    },
+    {
+      "text": "Tower Bridge",
+      "kind": "easy",
+      "alternates": ["london bridge"],
+      "keywords": ["tower bridge"]
+    },
+    {
+      "text": "Arc de Triomphe",
+      "kind": "easy",
+      "alternates": ["arch of triumph", "triumphal arch"],
+      "keywords": ["arc"]
+    },
+    {
+      "text": "Parthenon",
+      "kind": "easy",
+      "alternates": ["acropolis"],
+      "keywords": ["parthenon"]
+    },
+    {
+      "text": "Neuschwanstein Castle",
+      "kind": "easy",
+      "alternates": ["neuschwanstein", "fairytale castle"],
+      "keywords": ["neuschwanstein"]
+    },
+    {
+      "text": "Saint Basil's Cathedral",
+      "kind": "easy",
+      "alternates": ["st basil's cathedral", "saint basil's", "onion domes"],
+      "keywords": ["basil's"]
+    },
+    {
+      "text": "London Eye",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["london eye"]
+    },
+    {
+      "text": "Mont Saint-Michel",
+      "kind": "easy",
+      "alternates": ["mont st michel"],
+      "keywords": ["michel"]
+    },
+    {
+      "text": "Matterhorn",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["matterhorn"]
+    },
+    {
+      "text": "Venice",
+      "kind": "easy",
+      "alternates": ["venice canals"],
+      "keywords": ["venice"]
+    },
+    {
+      "text": "Great Wall",
+      "kind": "easy",
+      "alternates": ["great wall of china"],
+      "keywords": ["great wall"]
+    },
+    {
+      "text": "Taj Mahal",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["taj mahal"]
+    },
+    {
+      "text": "Mount Fuji",
+      "kind": "easy",
+      "alternates": ["fuji", "mt fuji"],
+      "keywords": ["fuji"]
+    },
+    {
+      "text": "Angkor Wat",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["angkor"]
+    },
+    {
+      "text": "Petronas Towers",
+      "kind": "easy",
+      "alternates": ["petronas"],
+      "keywords": ["petronas"]
+    },
+    {
+      "text": "Terracotta Army",
+      "kind": "easy",
+      "alternates": ["terracotta warriors"],
+      "keywords": ["terracotta"]
+    },
+    {
+      "text": "Marina Bay Sands",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["marina bay"]
+    },
+    {
+      "text": "Torii gate",
+      "kind": "easy",
+      "alternates": ["torii"],
+      "keywords": ["torii"]
+    },
+    {
+      "text": "Mount Everest",
+      "kind": "easy",
+      "alternates": ["everest", "mt everest"],
+      "keywords": ["everest"]
+    },
+    {
+      "text": "Pyramids of Giza",
+      "kind": "easy",
+      "alternates": ["pyramids", "great pyramid", "egyptian pyramids"],
+      "keywords": ["pyramids"]
+    },
+    {
+      "text": "Great Sphinx",
+      "kind": "easy",
+      "alternates": ["sphinx"],
+      "keywords": ["sphinx"]
+    },
+    {
+      "text": "Table Mountain",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["table mountain"]
+    },
+    {
+      "text": "Mount Kilimanjaro",
+      "kind": "easy",
+      "alternates": ["kilimanjaro"],
+      "keywords": ["kilimanjaro"]
+    },
+    {
+      "text": "Victoria Falls",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["victoria falls"]
+    },
+    {
+      "text": "Sahara",
+      "kind": "easy",
+      "alternates": ["sahara desert"],
+      "keywords": ["sahara"]
+    },
+    {
+      "text": "Nile",
+      "kind": "easy",
+      "alternates": ["river nile", "nile river"],
+      "keywords": ["nile"]
+    },
+    {
+      "text": "Baobab tree",
+      "kind": "easy",
+      "alternates": ["baobab"],
+      "keywords": ["baobab"]
+    },
+    {
+      "text": "Lighthouse of Alexandria",
+      "kind": "easy",
+      "alternates": ["pharos of alexandria"],
+      "keywords": ["alexandria"]
+    },
+    {
+      "text": "Christ the Redeemer",
+      "kind": "easy",
+      "alternates": ["cristo redentor"],
+      "keywords": ["redeemer"]
+    },
+    {
+      "text": "Machu Picchu",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["machu picchu"]
+    },
+    {
+      "text": "Chichen Itza",
+      "kind": "easy",
+      "alternates": ["mayan pyramid"],
+      "keywords": ["chichen itza"]
+    },
+    {
+      "text": "Sugarloaf Mountain",
+      "kind": "easy",
+      "alternates": ["sugarloaf"],
+      "keywords": ["sugarloaf"]
+    },
+    {
+      "text": "Galápagos Islands",
+      "kind": "easy",
+      "alternates": ["galapagos"],
+      "keywords": ["galapagos"]
+    },
+    {
+      "text": "Amazon rainforest",
+      "kind": "easy",
+      "alternates": ["amazon jungle", "amazon"],
+      "keywords": ["amazon"]
+    },
+    {
+      "text": "Sydney Opera House",
+      "kind": "easy",
+      "alternates": ["opera house"],
+      "keywords": ["opera house"]
+    },
+    {
+      "text": "Sydney Harbour Bridge",
+      "kind": "easy",
+      "alternates": ["harbour bridge", "harbor bridge"],
+      "keywords": ["harbour bridge"]
+    },
+    {
+      "text": "Uluru",
+      "kind": "easy",
+      "alternates": ["ayers rock"],
+      "keywords": ["uluru"]
+    },
+    {
+      "text": "Moai",
+      "kind": "easy",
+      "alternates": ["easter island heads", "easter island statues", "moai statues"],
+      "keywords": ["moai"]
+    },
+    {
+      "text": "Petra",
+      "kind": "easy",
+      "alternates": ["treasury of petra"],
+      "keywords": ["petra"]
+    },
+    {
+      "text": "Burj Khalifa",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["burj khalifa"]
+    },
+    {
+      "text": "Burj Al Arab",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["burj al arab"]
+    },
+    {
+      "text": "Palm Jumeirah",
+      "kind": "easy",
+      "alternates": ["palm island", "palm islands"],
+      "keywords": ["palm"]
+    },
+    {
+      "text": "Ziggurat",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ziggurat"]
+    },
+    {
+      "text": "Hanging Gardens",
+      "kind": "easy",
+      "alternates": ["hanging gardens of babylon"],
+      "keywords": ["hanging gardens"]
+    },
+    {
+      "text": "Statue of Liberty",
+      "kind": "easy",
+      "alternates": ["lady liberty"],
+      "keywords": ["liberty"]
+    },
+    {
+      "text": "Golden Gate Bridge",
+      "kind": "easy",
+      "alternates": ["golden gate"],
+      "keywords": ["golden gate"]
+    },
+    {
+      "text": "Niagara Falls",
+      "kind": "easy",
+      "alternates": ["niagara"],
+      "keywords": ["niagara"]
+    },
+    {
+      "text": "Grand Canyon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["grand canyon"]
+    },
+    {
+      "text": "CN Tower",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["cn tower"]
+    },
+    {
+      "text": "Volcano",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["volcano"]
+    },
+    {
+      "text": "Glacier",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["glacier"]
+    },
+    {
+      "text": "Desert",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["desert"]
+    },
+    {
+      "text": "Waterfall",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["waterfall"]
+    },
+    {
+      "text": "Fjord",
+      "kind": "easy",
+      "alternates": ["fiord"],
+      "keywords": ["fjord"]
+    },
+    {
+      "text": "Coral reef",
+      "kind": "easy",
+      "alternates": ["reef"],
+      "keywords": ["reef"]
+    },
+    {
+      "text": "Mountain",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["mountain"]
+    },
+    {
+      "text": "Desert island",
+      "kind": "easy",
+      "alternates": ["tropical island", "island"],
+      "keywords": ["island"]
+    },
+    {
+      "text": "Beach",
+      "kind": "easy",
+      "alternates": ["seaside"],
+      "keywords": ["beach"]
+    },
+    {
+      "text": "Cave",
+      "kind": "easy",
+      "alternates": ["cavern"],
+      "keywords": ["cave"]
+    },
+    {
+      "text": "River",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["river"]
+    },
+    {
+      "text": "Lake",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["lake"]
+    },
+    {
+      "text": "Iceberg",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["iceberg"]
+    },
+    {
+      "text": "Oasis",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["oasis"]
+    },
+    {
+      "text": "Sand dune",
+      "kind": "easy",
+      "alternates": ["dune", "dunes"],
+      "keywords": ["dune"]
+    },
+    {
+      "text": "Geyser",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["geyser"]
+    },
+    {
+      "text": "Swamp",
+      "kind": "easy",
+      "alternates": ["marsh", "bog"],
+      "keywords": ["swamp"]
+    },
+    {
+      "text": "Cliff",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["cliff"]
+    },
+    {
+      "text": "Valley",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["valley"]
+    },
+    {
+      "text": "Lagoon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["lagoon"]
+    },
+    {
+      "text": "Hot spring",
+      "kind": "easy",
+      "alternates": ["hot springs", "onsen"],
+      "keywords": ["hot spring"]
+    },
+    {
+      "text": "Stalactite",
+      "kind": "easy",
+      "alternates": ["stalagmite"],
+      "keywords": ["stalactite"]
+    },
+    {
+      "text": "Crater",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["crater"]
+    },
+    {
+      "text": "Atoll",
+      "kind": "easy",
+      "alternates": ["coral atoll"],
+      "keywords": ["atoll"]
+    },
+    {
+      "text": "Savanna",
+      "kind": "easy",
+      "alternates": ["savannah", "grassland"],
+      "keywords": ["savanna"]
+    },
+    {
+      "text": "Rice terrace",
+      "kind": "easy",
+      "alternates": ["rice terraces", "rice paddy", "rice field"],
+      "keywords": ["rice"]
+    },
+    {
+      "text": "Salt flat",
+      "kind": "easy",
+      "alternates": ["salt flats", "salt desert"],
+      "keywords": ["salt flat"]
+    },
+    {
+      "text": "Northern lights",
+      "kind": "easy",
+      "alternates": ["aurora", "aurora borealis"],
+      "keywords": ["northern lights"]
+    },
+    {
+      "text": "Rock arch",
+      "kind": "easy",
+      "alternates": ["natural arch", "stone arch"],
+      "keywords": ["arch"]
+    },
+    {
+      "text": "Whirlpool",
+      "kind": "easy",
+      "alternates": ["maelstrom"],
+      "keywords": ["whirlpool"]
+    },
+    {
+      "text": "Rapids",
+      "kind": "easy",
+      "alternates": ["white water"],
+      "keywords": ["rapids"]
+    },
+    {
+      "text": "Hill",
+      "kind": "easy",
+      "alternates": ["hills"],
+      "keywords": ["hill"]
+    },
+    {
+      "text": "Meadow",
+      "kind": "easy",
+      "alternates": ["field"],
+      "keywords": ["meadow"]
+    },
+    {
+      "text": "Bamboo forest",
+      "kind": "easy",
+      "alternates": ["bamboo grove"],
+      "keywords": ["bamboo"]
+    },
+    {
+      "text": "Tide pool",
+      "kind": "easy",
+      "alternates": ["rock pool"],
+      "keywords": ["tide pool"]
+    },
+    {
+      "text": "Ocean",
+      "kind": "easy",
+      "alternates": ["sea"],
+      "keywords": ["ocean"]
+    },
+    {
+      "text": "Waterhole",
+      "kind": "easy",
+      "alternates": ["watering hole"],
+      "keywords": ["waterhole"]
+    },
+    {
+      "text": "Termite mound",
+      "kind": "easy",
+      "alternates": ["termite hill"],
+      "keywords": ["termite"]
+    },
+    {
+      "text": "Kelp forest",
+      "kind": "easy",
+      "alternates": ["kelp"],
+      "keywords": ["kelp"]
+    },
+    {
+      "text": "Tulip field",
+      "kind": "easy",
+      "alternates": ["tulip fields", "tulips"],
+      "keywords": ["tulip"]
+    },
+    {
+      "text": "Lighthouse",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["lighthouse"]
+    },
+    {
+      "text": "Market",
+      "kind": "easy",
+      "alternates": ["bazaar", "souk", "marketplace"],
+      "keywords": ["market"]
+    },
+    {
+      "text": "Airport",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["airport"]
+    },
+    {
+      "text": "Igloo",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["igloo"]
+    },
+    {
+      "text": "Castle",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["castle"]
+    },
+    {
+      "text": "Harbour",
+      "kind": "easy",
+      "alternates": ["harbor", "port"],
+      "keywords": ["harbour"]
+    },
+    {
+      "text": "Skyscraper",
+      "kind": "easy",
+      "alternates": ["high rise"],
+      "keywords": ["skyscraper"]
+    },
+    {
+      "text": "Village",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["village"]
+    },
+    {
+      "text": "Farm",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["farm"]
+    },
+    {
+      "text": "Windmill",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["windmill"]
+    },
+    {
+      "text": "Pagoda",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pagoda"]
+    },
+    {
+      "text": "Palace",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["palace"]
+    },
+    {
+      "text": "Tent",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["tent"]
+    },
+    {
+      "text": "Yurt",
+      "kind": "easy",
+      "alternates": ["ger"],
+      "keywords": ["yurt"]
+    },
+    {
+      "text": "Treehouse",
+      "kind": "easy",
+      "alternates": ["tree house"],
+      "keywords": ["treehouse"]
+    },
+    {
+      "text": "Canal",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["canal"]
+    },
+    {
+      "text": "Train station",
+      "kind": "easy",
+      "alternates": ["railway station"],
+      "keywords": ["station"]
+    },
+    {
+      "text": "Zoo",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["zoo"]
+    },
+    {
+      "text": "Museum",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["museum"]
+    },
+    {
+      "text": "Stadium",
+      "kind": "easy",
+      "alternates": ["arena"],
+      "keywords": ["stadium"]
+    },
+    {
+      "text": "Dam",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["dam"]
+    },
+    {
+      "text": "Tunnel",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["tunnel"]
+    },
+    {
+      "text": "Highway",
+      "kind": "easy",
+      "alternates": ["motorway", "freeway"],
+      "keywords": ["highway"]
+    },
+    {
+      "text": "Ski resort",
+      "kind": "easy",
+      "alternates": ["ski slope"],
+      "keywords": ["ski"]
+    },
+    {
+      "text": "Log cabin",
+      "kind": "easy",
+      "alternates": ["cabin"],
+      "keywords": ["cabin"]
+    },
+    {
+      "text": "Houseboat",
+      "kind": "easy",
+      "alternates": ["house boat"],
+      "keywords": ["houseboat"]
+    },
+    {
+      "text": "Stilt house",
+      "kind": "easy",
+      "alternates": ["house on stilts"],
+      "keywords": ["stilt"]
+    },
+    {
+      "text": "Ruins",
+      "kind": "easy",
+      "alternates": ["ancient ruins"],
+      "keywords": ["ruins"]
+    },
+    {
+      "text": "Amphitheatre",
+      "kind": "easy",
+      "alternates": ["amphitheater"],
+      "keywords": ["amphitheatre"]
+    },
+    {
+      "text": "Aqueduct",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["aqueduct"]
+    },
+    {
+      "text": "Observatory",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["observatory"]
+    },
+    {
+      "text": "Pier",
+      "kind": "easy",
+      "alternates": ["jetty"],
+      "keywords": ["pier"]
+    },
+    {
+      "text": "Rope bridge",
+      "kind": "easy",
+      "alternates": ["suspension bridge"],
+      "keywords": ["rope bridge"]
+    },
+    {
+      "text": "Map",
+      "kind": "easy",
+      "alternates": ["world map"],
+      "keywords": ["map"]
+    },
+    {
+      "text": "Globe",
+      "kind": "easy",
+      "alternates": ["world globe"],
+      "keywords": ["globe"]
+    },
+    {
+      "text": "Compass",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["compass"]
+    },
+    {
+      "text": "Signpost",
+      "kind": "easy",
+      "alternates": ["sign post", "road sign"],
+      "keywords": ["signpost"]
+    },
+    {
+      "text": "Gondola",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["gondola"]
+    },
+    {
+      "text": "Cable car",
+      "kind": "easy",
+      "alternates": ["gondola lift"],
+      "keywords": ["cable car"]
+    },
+    {
+      "text": "Hot air balloon",
+      "kind": "easy",
+      "alternates": ["air balloon"],
+      "keywords": ["balloon"]
+    },
+    {
+      "text": "Double-decker bus",
+      "kind": "easy",
+      "alternates": ["double decker"],
+      "keywords": ["double-decker"]
+    },
+    {
+      "text": "Tuk-tuk",
+      "kind": "easy",
+      "alternates": ["tuk tuk", "auto rickshaw"],
+      "keywords": ["tuk-tuk"]
+    },
+    {
+      "text": "City skyline",
+      "kind": "easy",
+      "alternates": ["skyline"],
+      "keywords": ["skyline"]
+    },
+    {
+      "text": "Fountain",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["fountain"]
+    },
+    {
+      "text": "Beach hut",
+      "kind": "easy",
+      "alternates": ["beach huts", "beach cabin"],
+      "keywords": ["beach hut"]
+    },
+    {
+      "text": "Wishing well",
+      "kind": "easy",
+      "alternates": ["well"],
+      "keywords": ["well"]
+    },
+    {
+      "text": "Oil rig",
+      "kind": "easy",
+      "alternates": ["oil platform"],
+      "keywords": ["oil rig"]
+    },
+    {
+      "text": "Cruise ship",
+      "kind": "easy",
+      "alternates": ["cruise liner"],
+      "keywords": ["cruise ship"]
+    },
+    {
+      "text": "Overwater bungalow",
+      "kind": "easy",
+      "alternates": ["water bungalow", "water villa"],
+      "keywords": ["bungalow"]
+    },
+    {
+      "text": "Italy",
+      "kind": "easy",
+      "alternates": ["boot of italy"],
+      "keywords": ["italy"]
+    },
+    {
+      "text": "North Pole",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["north pole"]
+    },
+    {
+      "text": "Antarctica",
+      "kind": "easy",
+      "alternates": ["south pole"],
+      "keywords": ["antarctica"]
+    },
+    {
+      "text": "Snow globe",
+      "kind": "easy",
+      "alternates": ["snowglobe"],
+      "keywords": ["snow globe"]
+    },
+    {
+      "text": "Sandcastle",
+      "kind": "easy",
+      "alternates": ["sand castle"],
+      "keywords": ["sandcastle"]
+    },
+    {
+      "text": "Chalet",
+      "kind": "easy",
+      "alternates": ["swiss chalet"],
+      "keywords": ["chalet"]
+    },
+    {
+      "text": "Obelisk",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["obelisk"]
+    },
+    {
+      "text": "Shipwreck",
+      "kind": "easy",
+      "alternates": ["sunken ship"],
+      "keywords": ["shipwreck"]
+    },
+    {
+      "text": "Railway",
+      "kind": "easy",
+      "alternates": ["railroad", "train tracks"],
+      "keywords": ["railway"]
+    },
+    {
+      "text": "Drawbridge",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["drawbridge"]
+    },
+    {
+      "text": "Watermill",
+      "kind": "easy",
+      "alternates": ["water mill", "water wheel"],
+      "keywords": ["watermill"]
+    },
+    {
+      "text": "Zen garden",
+      "kind": "easy",
+      "alternates": ["rock garden", "japanese garden"],
+      "keywords": ["zen garden"]
+    },
+    {
+      "text": "Ski jump",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ski jump"]
+    },
+    {
+      "text": "Lava",
+      "kind": "easy",
+      "alternates": ["lava flow"],
+      "keywords": ["lava"]
+    },
+    {
+      "text": "Moat",
+      "kind": "easy",
+      "alternates": ["castle moat"],
+      "keywords": ["moat"]
+    },
+    {
+      "text": "Watchtower",
+      "kind": "easy",
+      "alternates": ["lookout tower"],
+      "keywords": ["watchtower"]
+    },
+    {
+      "text": "Holding up the Leaning Tower",
+      "kind": "hard",
+      "alternates": ["holding up the tower of pisa", "propping up the leaning tower"],
+      "keywords": ["holding", "leaning", "tower"]
+    },
+    {
+      "text": "Fireworks over the Eiffel Tower",
+      "kind": "hard",
+      "alternates": ["eiffel tower fireworks"],
+      "keywords": ["fireworks", "eiffel"]
+    },
+    {
+      "text": "Picnic under the Eiffel Tower",
+      "kind": "hard",
+      "alternates": ["eiffel tower picnic"],
+      "keywords": ["picnic", "eiffel"]
+    },
+    {
+      "text": "Gladiator waving in the Colosseum",
+      "kind": "hard",
+      "alternates": ["gladiator in the colosseum"],
+      "keywords": ["gladiator", "colosseum"]
+    },
+    {
+      "text": "Sunrise at Stonehenge",
+      "kind": "hard",
+      "alternates": ["stonehenge sunrise"],
+      "keywords": ["sunrise", "stonehenge"]
+    },
+    {
+      "text": "Big Ben striking midnight",
+      "kind": "hard",
+      "alternates": ["big ben at midnight"],
+      "keywords": ["big ben", "midnight"]
+    },
+    {
+      "text": "Tower Bridge opening for a ship",
+      "kind": "hard",
+      "alternates": ["tower bridge lifting for a boat"],
+      "keywords": ["tower bridge", "ship"]
+    },
+    {
+      "text": "Riding the London Eye",
+      "kind": "hard",
+      "alternates": ["london eye ride"],
+      "keywords": ["riding", "london eye"]
+    },
+    {
+      "text": "Parade through the Arc de Triomphe",
+      "kind": "hard",
+      "alternates": ["parade under the arc de triomphe"],
+      "keywords": ["parade", "arc"]
+    },
+    {
+      "text": "Riding a gondola in Venice",
+      "kind": "hard",
+      "alternates": ["gondola ride in venice", "gondolier in venice"],
+      "keywords": ["gondola", "venice"]
+    },
+    {
+      "text": "Pigeons in Saint Mark's Square",
+      "kind": "hard",
+      "alternates": ["pigeons in st mark's square", "pigeons in venice"],
+      "keywords": ["pigeons", "square"]
+    },
+    {
+      "text": "Skiing down the Matterhorn",
+      "kind": "hard",
+      "alternates": ["skiing the matterhorn"],
+      "keywords": ["skiing", "matterhorn"]
+    },
+    {
+      "text": "Walking on the Great Wall",
+      "kind": "hard",
+      "alternates": ["walking the great wall of china"],
+      "keywords": ["walking", "great wall"]
+    },
+    {
+      "text": "Reflection of the Taj Mahal",
+      "kind": "hard",
+      "alternates": ["taj mahal reflection"],
+      "keywords": ["reflection", "taj mahal"]
+    },
+    {
+      "text": "Cherry blossoms at Mount Fuji",
+      "kind": "hard",
+      "alternates": ["cherry blossom and mount fuji"],
+      "keywords": ["cherry blossom", "fuji"]
+    },
+    {
+      "text": "Bullet train passing Mount Fuji",
+      "kind": "hard",
+      "alternates": ["bullet train and mount fuji"],
+      "keywords": ["bullet train", "fuji"]
+    },
+    {
+      "text": "Tree roots swallowing a temple",
+      "kind": "hard",
+      "alternates": ["tree roots on a temple", "temple covered in roots"],
+      "keywords": ["roots", "temple"]
+    },
+    {
+      "text": "Sunrise over Angkor Wat",
+      "kind": "hard",
+      "alternates": ["angkor wat sunrise"],
+      "keywords": ["sunrise", "angkor"]
+    },
+    {
+      "text": "Walking the Petronas skybridge",
+      "kind": "hard",
+      "alternates": ["petronas towers skybridge", "bridge between the petronas towers"],
+      "keywords": ["petronas", "skybridge"]
+    },
+    {
+      "text": "Climbing Mount Everest",
+      "kind": "hard",
+      "alternates": ["climbing everest"],
+      "keywords": ["climbing", "everest"]
+    },
+    {
+      "text": "Planting a flag on Everest",
+      "kind": "hard",
+      "alternates": ["flag on top of everest", "flag on mount everest"],
+      "keywords": ["flag", "everest"]
+    },
+    {
+      "text": "Yak carrying bags in the Himalayas",
+      "kind": "hard",
+      "alternates": ["yak in the himalayas"],
+      "keywords": ["yak", "himalayas"]
+    },
+    {
+      "text": "Rooftop pool on Marina Bay Sands",
+      "kind": "hard",
+      "alternates": ["infinity pool on marina bay sands"],
+      "keywords": ["pool", "marina bay"]
+    },
+    {
+      "text": "Walking through torii gates",
+      "kind": "hard",
+      "alternates": ["walking through red gates", "torii gate tunnel"],
+      "keywords": ["walking", "torii"]
+    },
+    {
+      "text": "Camel ride at the pyramids",
+      "kind": "hard",
+      "alternates": ["riding a camel at the pyramids"],
+      "keywords": ["camel", "pyramids"]
+    },
+    {
+      "text": "Building the pyramids",
+      "kind": "hard",
+      "alternates": ["building a pyramid"],
+      "keywords": ["building", "pyramid"]
+    },
+    {
+      "text": "Sailboat on the Nile",
+      "kind": "hard",
+      "alternates": ["sailing down the nile", "boat on the nile"],
+      "keywords": ["sailboat", "nile"]
+    },
+    {
+      "text": "Crocodile in the Nile",
+      "kind": "hard",
+      "alternates": ["nile crocodile"],
+      "keywords": ["crocodile", "nile"]
+    },
+    {
+      "text": "Cable car up Table Mountain",
+      "kind": "hard",
+      "alternates": ["table mountain cable car"],
+      "keywords": ["cable car", "table mountain"]
+    },
+    {
+      "text": "Cloud covering Table Mountain",
+      "kind": "hard",
+      "alternates": ["tablecloth on table mountain", "table mountain tablecloth"],
+      "keywords": ["cloud", "table mountain"]
+    },
+    {
+      "text": "Giraffes below Kilimanjaro",
+      "kind": "hard",
+      "alternates": ["giraffes and kilimanjaro", "giraffe under kilimanjaro"],
+      "keywords": ["giraffe", "kilimanjaro"]
+    },
+    {
+      "text": "Rainbow over Victoria Falls",
+      "kind": "hard",
+      "alternates": ["victoria falls rainbow"],
+      "keywords": ["rainbow", "victoria falls"]
+    },
+    {
+      "text": "Camel crossing the desert",
+      "kind": "hard",
+      "alternates": ["camel in the desert", "camel walking through the desert"],
+      "keywords": ["camel", "desert"]
+    },
+    {
+      "text": "Camel caravan in the Sahara",
+      "kind": "hard",
+      "alternates": ["caravan crossing the sahara", "sahara caravan"],
+      "keywords": ["caravan", "sahara"]
+    },
+    {
+      "text": "Lions drinking at a waterhole",
+      "kind": "hard",
+      "alternates": ["lions at a watering hole", "lion at a waterhole"],
+      "keywords": ["lion", "waterhole"]
+    },
+    {
+      "text": "Safari jeep on the savanna",
+      "kind": "hard",
+      "alternates": ["safari truck", "jeep safari"],
+      "keywords": ["safari", "jeep"]
+    },
+    {
+      "text": "Lemurs in a baobab tree",
+      "kind": "hard",
+      "alternates": ["lemur on a baobab"],
+      "keywords": ["lemur", "baobab"]
+    },
+    {
+      "text": "Llama at Machu Picchu",
+      "kind": "hard",
+      "alternates": ["llama on machu picchu"],
+      "keywords": ["llama", "machu picchu"]
+    },
+    {
+      "text": "Hiking the Inca Trail",
+      "kind": "hard",
+      "alternates": ["inca trail hike"],
+      "keywords": ["hiking", "inca trail"]
+    },
+    {
+      "text": "Carnival parade in Rio",
+      "kind": "hard",
+      "alternates": ["rio carnival", "samba parade"],
+      "keywords": ["carnival", "rio"]
+    },
+    {
+      "text": "Giant tortoise on the Galápagos",
+      "kind": "hard",
+      "alternates": ["galapagos tortoise", "tortoise on the galapagos"],
+      "keywords": ["tortoise", "galapagos"]
+    },
+    {
+      "text": "Climbing the steps of Chichen Itza",
+      "kind": "hard",
+      "alternates": ["climbing chichen itza"],
+      "keywords": ["climbing", "chichen itza"]
+    },
+    {
+      "text": "Toucan in the Amazon",
+      "kind": "hard",
+      "alternates": ["toucan in the rainforest", "toucan in the amazon rainforest"],
+      "keywords": ["toucan", "amazon"]
+    },
+    {
+      "text": "Canoe on the Amazon River",
+      "kind": "hard",
+      "alternates": ["canoeing the amazon", "canoe on the amazon"],
+      "keywords": ["canoe", "amazon"]
+    },
+    {
+      "text": "Ship in the Panama Canal",
+      "kind": "hard",
+      "alternates": ["boat in the panama canal"],
+      "keywords": ["ship", "panama canal"]
+    },
+    {
+      "text": "Surfing a giant wave",
+      "kind": "hard",
+      "alternates": ["surfing a big wave", "surfer on a huge wave"],
+      "keywords": ["surfing", "wave"]
+    },
+    {
+      "text": "Climbing the Sydney Harbour Bridge",
+      "kind": "hard",
+      "alternates": ["climbing the harbour bridge"],
+      "keywords": ["climbing", "harbour bridge"]
+    },
+    {
+      "text": "Sailboats by the Opera House",
+      "kind": "hard",
+      "alternates": ["sailboats at the sydney opera house", "boats by the opera house"],
+      "keywords": ["sailboat", "opera house"]
+    },
+    {
+      "text": "Kangaroo near Uluru",
+      "kind": "hard",
+      "alternates": ["kangaroo at uluru", "kangaroo by ayers rock"],
+      "keywords": ["kangaroo", "uluru"]
+    },
+    {
+      "text": "Snorkelling over a coral reef",
+      "kind": "hard",
+      "alternates": ["snorkeling on a reef", "snorkelling on the great barrier reef"],
+      "keywords": ["snorkelling", "reef"]
+    },
+    {
+      "text": "Digging up a moai",
+      "kind": "hard",
+      "alternates": ["digging out a moai", "moai body underground"],
+      "keywords": ["digging", "moai"]
+    },
+    {
+      "text": "Balloons over Cappadocia",
+      "kind": "hard",
+      "alternates": ["hot air balloons over cappadocia", "cappadocia balloons"],
+      "keywords": ["balloons", "cappadocia"]
+    },
+    {
+      "text": "Floating in the Dead Sea",
+      "kind": "hard",
+      "alternates": ["reading in the dead sea", "floating on the dead sea"],
+      "keywords": ["floating", "dead sea"]
+    },
+    {
+      "text": "Horse rider entering Petra",
+      "kind": "hard",
+      "alternates": ["riding a horse into petra", "horseback at petra"],
+      "keywords": ["horse", "petra"]
+    },
+    {
+      "text": "Skydiving over Palm Jumeirah",
+      "kind": "hard",
+      "alternates": ["skydiving over the palm", "skydiving in dubai"],
+      "keywords": ["skydiving", "palm"]
+    },
+    {
+      "text": "Window cleaner on the Burj Khalifa",
+      "kind": "hard",
+      "alternates": ["cleaning the burj khalifa windows"],
+      "keywords": ["window cleaner", "burj khalifa"]
+    },
+    {
+      "text": "Tennis on a helipad",
+      "kind": "hard",
+      "alternates": ["playing tennis on a helipad", "helipad tennis"],
+      "keywords": ["tennis", "helipad"]
+    },
+    {
+      "text": "Ship sailing under the Colossus",
+      "kind": "hard",
+      "alternates": ["ship under the colossus of rhodes", "colossus of rhodes"],
+      "keywords": ["ship", "colossus"]
+    },
+    {
+      "text": "Ferry to the Statue of Liberty",
+      "kind": "hard",
+      "alternates": ["boat to the statue of liberty"],
+      "keywords": ["ferry", "liberty"]
+    },
+    {
+      "text": "Boat under Niagara Falls",
+      "kind": "hard",
+      "alternates": ["boat at niagara falls", "niagara falls boat tour"],
+      "keywords": ["boat", "niagara"]
+    },
+    {
+      "text": "Fog over the Golden Gate Bridge",
+      "kind": "hard",
+      "alternates": ["golden gate bridge in fog", "foggy golden gate"],
+      "keywords": ["fog", "golden gate"]
+    },
+    {
+      "text": "Rafting through the Grand Canyon",
+      "kind": "hard",
+      "alternates": ["rafting in the grand canyon", "grand canyon rafting"],
+      "keywords": ["rafting", "grand canyon"]
+    },
+    {
+      "text": "Volcano erupting",
+      "kind": "hard",
+      "alternates": ["erupting volcano", "volcanic eruption"],
+      "keywords": ["volcano", "erupting"]
+    },
+    {
+      "text": "Lava flowing into the sea",
+      "kind": "hard",
+      "alternates": ["lava meeting the ocean", "lava in the sea"],
+      "keywords": ["lava", "sea"]
+    },
+    {
+      "text": "Penguins on an iceberg",
+      "kind": "hard",
+      "alternates": ["penguin on an iceberg"],
+      "keywords": ["penguin", "iceberg"]
+    },
+    {
+      "text": "Polar bear on an ice floe",
+      "kind": "hard",
+      "alternates": ["polar bear on ice", "polar bear on floating ice"],
+      "keywords": ["polar bear", "ice"]
+    },
+    {
+      "text": "Kayaking through a fjord",
+      "kind": "hard",
+      "alternates": ["kayak in a fjord", "kayaking in a fjord"],
+      "keywords": ["kayaking", "fjord"]
+    },
+    {
+      "text": "Viking ship in a fjord",
+      "kind": "hard",
+      "alternates": ["viking longship in a fjord", "viking boat in a fjord"],
+      "keywords": ["viking", "fjord"]
+    },
+    {
+      "text": "Geyser shooting up water",
+      "kind": "hard",
+      "alternates": ["geyser erupting", "erupting geyser"],
+      "keywords": ["geyser", "shooting"]
+    },
+    {
+      "text": "Climbing a frozen waterfall",
+      "kind": "hard",
+      "alternates": ["ice climbing a waterfall", "ice climbing"],
+      "keywords": ["climbing", "frozen waterfall"]
+    },
+    {
+      "text": "Abseiling down a cliff",
+      "kind": "hard",
+      "alternates": ["rappelling down a cliff", "abseiling a cliff"],
+      "keywords": ["abseiling", "cliff"]
+    },
+    {
+      "text": "Diving off a cliff",
+      "kind": "hard",
+      "alternates": ["cliff diving", "cliff jumping"],
+      "keywords": ["diving", "cliff"]
+    },
+    {
+      "text": "Bats flying out of a cave",
+      "kind": "hard",
+      "alternates": ["bats leaving a cave", "bats in a cave"],
+      "keywords": ["bats", "cave"]
+    },
+    {
+      "text": "Exploring a cave with a torch",
+      "kind": "hard",
+      "alternates": ["caving with a flashlight", "exploring a cave with a flashlight"],
+      "keywords": ["exploring", "cave", "torch"]
+    },
+    {
+      "text": "Sandboarding down a dune",
+      "kind": "hard",
+      "alternates": ["sandboarding a sand dune", "sliding down a sand dune"],
+      "keywords": ["sandboarding", "dune"]
+    },
+    {
+      "text": "Traveller reaching an oasis",
+      "kind": "hard",
+      "alternates": ["finding an oasis", "thirsty traveller at an oasis"],
+      "keywords": ["traveller", "oasis"]
+    },
+    {
+      "text": "Shipwrecked on a desert island",
+      "kind": "hard",
+      "alternates": ["stranded on a desert island", "castaway on an island"],
+      "keywords": ["shipwrecked", "island"]
+    },
+    {
+      "text": "Wave washing away a sandcastle",
+      "kind": "hard",
+      "alternates": ["wave destroying a sandcastle", "sandcastle washed away"],
+      "keywords": ["wave", "sandcastle"]
+    },
+    {
+      "text": "Crossing a rope bridge",
+      "kind": "hard",
+      "alternates": ["walking across a rope bridge", "crossing a suspension bridge"],
+      "keywords": ["crossing", "rope bridge"]
+    },
+    {
+      "text": "Salmon jumping up rapids",
+      "kind": "hard",
+      "alternates": ["salmon leaping up rapids", "salmon jumping upstream"],
+      "keywords": ["salmon", "jumping"]
+    },
+    {
+      "text": "Ice fishing on a frozen lake",
+      "kind": "hard",
+      "alternates": ["fishing through the ice", "ice fishing"],
+      "keywords": ["ice fishing", "lake"]
+    },
+    {
+      "text": "Snow monkeys in a hot spring",
+      "kind": "hard",
+      "alternates": ["monkeys in a hot spring", "monkey bathing in a hot spring"],
+      "keywords": ["monkey", "hot spring"]
+    },
+    {
+      "text": "Airboat in a swamp",
+      "kind": "hard",
+      "alternates": ["airboat ride in the swamp", "swamp airboat"],
+      "keywords": ["airboat", "swamp"]
+    },
+    {
+      "text": "Reindeer under the northern lights",
+      "kind": "hard",
+      "alternates": ["reindeer and the aurora", "reindeer under the aurora"],
+      "keywords": ["reindeer", "northern lights"]
+    },
+    {
+      "text": "Building an igloo",
+      "kind": "hard",
+      "alternates": ["making an igloo", "igloo building"],
+      "keywords": ["building", "igloo"]
+    },
+    {
+      "text": "Explorer at the North Pole",
+      "kind": "hard",
+      "alternates": ["explorer reaching the north pole", "north pole explorer"],
+      "keywords": ["explorer", "north pole"]
+    },
+    {
+      "text": "Husky sled race",
+      "kind": "hard",
+      "alternates": ["husky sledding", "dog sled race", "dog sledding"],
+      "keywords": ["husky", "sled"]
+    },
+    {
+      "text": "Penguins marching in Antarctica",
+      "kind": "hard",
+      "alternates": ["penguin march", "emperor penguins marching"],
+      "keywords": ["penguin", "marching"]
+    },
+    {
+      "text": "Diver exploring a shipwreck",
+      "kind": "hard",
+      "alternates": ["scuba diver at a shipwreck", "diving to a shipwreck"],
+      "keywords": ["diver", "shipwreck"]
+    },
+    {
+      "text": "Whirlpool swallowing a boat",
+      "kind": "hard",
+      "alternates": ["boat in a whirlpool", "boat caught in a whirlpool"],
+      "keywords": ["whirlpool", "boat"]
+    },
+    {
+      "text": "Windmill in a tulip field",
+      "kind": "hard",
+      "alternates": ["windmill and tulips", "tulips and a windmill"],
+      "keywords": ["windmill", "tulip"]
+    },
+    {
+      "text": "Planting rice in a paddy",
+      "kind": "hard",
+      "alternates": ["planting rice", "rice planting", "farmer in a rice paddy"],
+      "keywords": ["planting", "rice"]
+    },
+    {
+      "text": "Panda in a bamboo forest",
+      "kind": "hard",
+      "alternates": ["panda eating bamboo", "panda in bamboo"],
+      "keywords": ["panda", "bamboo"]
+    },
+    {
+      "text": "Crab in a tide pool",
+      "kind": "hard",
+      "alternates": ["crab in a rock pool"],
+      "keywords": ["crab", "tide pool"]
+    },
+    {
+      "text": "Sea otter in a kelp forest",
+      "kind": "hard",
+      "alternates": ["otter in the kelp", "sea otter in kelp"],
+      "keywords": ["otter", "kelp"]
+    },
+    {
+      "text": "Anteater at a termite mound",
+      "kind": "hard",
+      "alternates": ["anteater eating termites", "anteater at a termite hill"],
+      "keywords": ["anteater", "termite"]
+    },
+    {
+      "text": "Elephants crossing a river",
+      "kind": "hard",
+      "alternates": ["elephant crossing a river", "elephants in a river"],
+      "keywords": ["elephant", "river"]
+    },
+    {
+      "text": "Swimming under a waterfall",
+      "kind": "hard",
+      "alternates": ["swimming at a waterfall", "bathing under a waterfall"],
+      "keywords": ["swimming", "waterfall"]
+    },
+    {
+      "text": "Mountain goat on a cliff",
+      "kind": "hard",
+      "alternates": ["goat on a cliff", "goat climbing a cliff"],
+      "keywords": ["goat", "cliff"]
+    },
+    {
+      "text": "Alpine cow wearing a bell",
+      "kind": "hard",
+      "alternates": ["cow with a bell in the alps", "cowbell in the alps"],
+      "keywords": ["cow", "bell"]
+    },
+    {
+      "text": "Flamingos in a lagoon",
+      "kind": "hard",
+      "alternates": ["flamingo in a lagoon", "flamingos in a lake"],
+      "keywords": ["flamingo", "lagoon"]
+    },
+    {
+      "text": "Racing car on a salt flat",
+      "kind": "hard",
+      "alternates": ["car racing on a salt flat", "land speed record"],
+      "keywords": ["car", "salt flat"]
+    },
+    {
+      "text": "Beaver building a dam",
+      "kind": "hard",
+      "alternates": ["beaver dam", "beaver making a dam"],
+      "keywords": ["beaver", "dam"]
+    },
+    {
+      "text": "Lighthouse in a storm",
+      "kind": "hard",
+      "alternates": ["lighthouse in stormy seas", "stormy lighthouse"],
+      "keywords": ["lighthouse", "storm"]
+    },
+    {
+      "text": "Fruit stall at a market",
+      "kind": "hard",
+      "alternates": ["market fruit stall", "fruit stand at a market"],
+      "keywords": ["fruit", "market"]
+    },
+    {
+      "text": "Shopping at a floating market",
+      "kind": "hard",
+      "alternates": ["floating market boats", "boat selling fruit"],
+      "keywords": ["floating market"]
+    },
+    {
+      "text": "Plane landing at an airport",
+      "kind": "hard",
+      "alternates": ["airplane landing", "plane landing on a runway"],
+      "keywords": ["plane", "landing"]
+    },
+    {
+      "text": "Waiting at baggage claim",
+      "kind": "hard",
+      "alternates": ["baggage carousel", "luggage carousel"],
+      "keywords": ["baggage"]
+    },
+    {
+      "text": "Raising the drawbridge",
+      "kind": "hard",
+      "alternates": ["lifting the drawbridge", "drawbridge going up"],
+      "keywords": ["raising", "drawbridge"]
+    },
+    {
+      "text": "Crane unloading a container ship",
+      "kind": "hard",
+      "alternates": ["container ship at a port", "unloading containers at a port"],
+      "keywords": ["crane", "unloading"]
+    },
+    {
+      "text": "Pitching a tent",
+      "kind": "hard",
+      "alternates": ["putting up a tent", "setting up a tent"],
+      "keywords": ["pitching", "tent"]
+    },
+    {
+      "text": "Horse rider beside a yurt",
+      "kind": "hard",
+      "alternates": ["horse by a yurt", "horse and yurt"],
+      "keywords": ["horse", "yurt"]
+    },
+    {
+      "text": "Ski lift up a mountain",
+      "kind": "hard",
+      "alternates": ["chairlift up a mountain", "riding a ski lift"],
+      "keywords": ["ski lift"]
+    },
+    {
+      "text": "Fishing from a pier",
+      "kind": "hard",
+      "alternates": ["fishing off a pier", "fishing on a jetty"],
+      "keywords": ["fishing", "pier"]
+    },
+    {
+      "text": "Stilt fishermen at sea",
+      "kind": "hard",
+      "alternates": ["fisherman on stilts", "stilt fishing"],
+      "keywords": ["stilt", "fisherman"]
+    },
+    {
+      "text": "Steam train over a viaduct",
+      "kind": "hard",
+      "alternates": ["train on a viaduct", "steam train on a bridge"],
+      "keywords": ["train", "viaduct"]
+    },
+    {
+      "text": "Dinosaur skeleton in a museum",
+      "kind": "hard",
+      "alternates": ["dinosaur bones in a museum", "museum dinosaur"],
+      "keywords": ["dinosaur", "museum"]
+    },
+    {
+      "text": "Crowd doing the wave",
+      "kind": "hard",
+      "alternates": ["stadium wave", "mexican wave"],
+      "keywords": ["crowd", "wave"]
+    },
+    {
+      "text": "Throwing a coin in a fountain",
+      "kind": "hard",
+      "alternates": ["coin in a fountain", "tossing a coin into a fountain"],
+      "keywords": ["coin", "fountain"]
+    },
+    {
+      "text": "Traffic jam on a highway",
+      "kind": "hard",
+      "alternates": ["traffic jam", "cars stuck on the motorway"],
+      "keywords": ["traffic jam"]
+    },
+    {
+      "text": "Sunbathing on a cruise ship",
+      "kind": "hard",
+      "alternates": ["sunbathing on deck", "cruise ship deck chairs"],
+      "keywords": ["sunbathing", "cruise ship"]
+    },
+    {
+      "text": "Tourist reading a map",
+      "kind": "hard",
+      "alternates": ["lost tourist with a map", "tourist looking at a map"],
+      "keywords": ["tourist", "map"]
+    },
+    {
+      "text": "Explorer holding a compass",
+      "kind": "hard",
+      "alternates": ["explorer with a compass", "following a compass"],
+      "keywords": ["explorer", "compass"]
+    },
+    {
+      "text": "Spinning a globe",
+      "kind": "hard",
+      "alternates": ["spinning the globe", "globe spinning"],
+      "keywords": ["spinning", "globe"]
+    },
+    {
+      "text": "Signpost at a crossroads",
+      "kind": "hard",
+      "alternates": ["signpost at a junction", "road sign at a crossroads"],
+      "keywords": ["signpost", "crossroads"]
+    },
+    {
+      "text": "Riding a tuk-tuk",
+      "kind": "hard",
+      "alternates": ["tuk-tuk ride", "riding a tuk tuk"],
+      "keywords": ["riding", "tuk-tuk"]
+    },
+    {
+      "text": "Sightseeing on a double-decker bus",
+      "kind": "hard",
+      "alternates": ["double-decker bus tour", "open top bus tour"],
+      "keywords": ["sightseeing", "double-decker"]
+    },
+    {
+      "text": "Shaking a snow globe",
+      "kind": "hard",
+      "alternates": ["shaking a snowglobe"],
+      "keywords": ["shaking", "snow globe"]
+    },
+    {
+      "text": "Dragon boat race",
+      "kind": "hard",
+      "alternates": ["dragon boat racing", "rowing a dragon boat"],
+      "keywords": ["dragon boat"]
+    },
+    {
+      "text": "Panning for gold in a river",
+      "kind": "hard",
+      "alternates": ["gold panning", "panning for gold"],
+      "keywords": ["panning", "gold"]
+    },
+    {
+      "text": "Diving for pearls",
+      "kind": "hard",
+      "alternates": ["pearl diving", "pearl diver"],
+      "keywords": ["diving", "pearl"]
+    },
+    {
+      "text": "Picking tea on a hillside",
+      "kind": "hard",
+      "alternates": ["tea picking", "picking tea leaves"],
+      "keywords": ["picking", "tea"]
+    },
+    {
+      "text": "Bungee jumping off a bridge",
+      "kind": "hard",
+      "alternates": ["bungee jump off a bridge", "bungee jumping"],
+      "keywords": ["bungee", "bridge"]
+    },
+    {
+      "text": "Paragliding over the mountains",
+      "kind": "hard",
+      "alternates": ["paragliding over mountains", "paraglider in the mountains"],
+      "keywords": ["paragliding", "mountain"]
+    },
+    {
+      "text": "Crossing a glacier",
+      "kind": "hard",
+      "alternates": ["walking across a glacier", "hiking on a glacier"],
+      "keywords": ["crossing", "glacier"]
+    },
+    {
+      "text": "Telescope in an observatory",
+      "kind": "hard",
+      "alternates": ["observatory telescope", "looking through an observatory telescope"],
+      "keywords": ["telescope", "observatory"]
+    },
+    {
+      "text": "Houseboat on a canal",
+      "kind": "hard",
+      "alternates": ["canal boat", "narrowboat on a canal"],
+      "keywords": ["houseboat", "canal"]
+    },
+    {
+      "text": "Ice skating on a canal",
+      "kind": "hard",
+      "alternates": ["skating on a frozen canal", "canal skating"],
+      "keywords": ["skating", "canal"]
+    },
+    {
+      "text": "Raking a zen garden",
+      "kind": "hard",
+      "alternates": ["raking sand in a zen garden", "zen garden raking"],
+      "keywords": ["raking", "zen garden"]
+    },
+    {
+      "text": "Archaeologist digging up ruins",
+      "kind": "hard",
+      "alternates": ["archaeologist at the ruins", "digging up ancient ruins"],
+      "keywords": ["archaeologist", "ruins"]
+    },
+    {
+      "text": "Treasure chest on the seabed",
+      "kind": "hard",
+      "alternates": ["treasure on the seabed", "sunken treasure"],
+      "keywords": ["treasure", "seabed"]
+    },
+    {
+      "text": "Mirage of an oasis",
+      "kind": "hard",
+      "alternates": ["desert mirage", "mirage in the desert"],
+      "keywords": ["mirage"]
+    },
+    {
+      "text": "Sandstorm in the desert",
+      "kind": "hard",
+      "alternates": ["desert sandstorm", "dust storm"],
+      "keywords": ["sandstorm"]
+    },
+    {
+      "text": "Ice hotel in Lapland",
+      "kind": "hard",
+      "alternates": ["ice hotel", "hotel made of ice"],
+      "keywords": ["ice hotel"]
+    },
+    {
+      "text": "Paddle steamer on a river",
+      "kind": "hard",
+      "alternates": ["riverboat", "paddle boat on a river"],
+      "keywords": ["paddle", "river"]
+    },
+    {
+      "text": "Changing of the guard",
+      "kind": "hard",
+      "alternates": ["guards outside a palace", "palace guards marching"],
+      "keywords": ["guard"]
+    },
+    {
+      "text": "Lighthouse keeper climbing the stairs",
+      "kind": "hard",
+      "alternates": ["lighthouse keeper on the stairs", "climbing a lighthouse"],
+      "keywords": ["lighthouse keeper", "stairs"]
+    },
+    {
+      "text": "Gorilla in the misty mountains",
+      "kind": "hard",
+      "alternates": ["gorilla in the mountains", "mountain gorilla in the mist"],
+      "keywords": ["gorilla", "mountains"]
+    },
+    {
+      "text": "Sphinx guarding the pyramids",
+      "kind": "hard",
+      "alternates": ["sphinx in front of the pyramids", "sphinx and pyramids"],
+      "keywords": ["sphinx", "pyramids"]
+    },
+    {
+      "text": "Lanterns over a night market",
+      "kind": "hard",
+      "alternates": ["night market with lanterns", "lanterns at a night market"],
+      "keywords": ["lanterns", "night market"]
+    },
+    {
+      "text": "Orangutan in the rainforest",
+      "kind": "hard",
+      "alternates": ["orangutan swinging in the jungle", "orangutan in the jungle"],
+      "keywords": ["orangutan", "rainforest"]
+    },
+    {
+      "text": "Condor over the Andes",
+      "kind": "hard",
+      "alternates": ["condor flying over the andes", "condor over mountains"],
+      "keywords": ["condor", "andes"]
+    },
+    {
+      "text": "Iguana on a Mayan pyramid",
+      "kind": "hard",
+      "alternates": ["iguana on mayan ruins", "iguana on a mayan temple"],
+      "keywords": ["iguana", "mayan"]
+    },
+    {
+      "text": "Koala in a gum tree",
+      "kind": "hard",
+      "alternates": ["koala in a eucalyptus tree", "koala up a tree"],
+      "keywords": ["koala", "tree"]
+    },
+    {
+      "text": "Hobbit hole in a hill",
+      "kind": "hard",
+      "alternates": ["hobbit house", "hobbit hole"],
+      "keywords": ["hobbit"]
+    },
+    {
+      "text": "Spice stall in a bazaar",
+      "kind": "hard",
+      "alternates": ["spice stall at a market", "spices in a souk"],
+      "keywords": ["spice", "bazaar"]
+    },
+    {
+      "text": "Puffin on a rocky island",
+      "kind": "hard",
+      "alternates": ["puffins on a cliff", "puffin on an island"],
+      "keywords": ["puffin", "island"]
+    },
+    {
+      "text": "Zebras grazing on the savanna",
+      "kind": "hard",
+      "alternates": ["zebras on the savanna", "zebra on the savannah"],
+      "keywords": ["zebra", "savanna"]
+    },
+    {
+      "text": "Leaning Tower doing sit-ups",
+      "kind": "chaos",
+      "alternates": ["leaning tower of pisa doing sit-ups", "pisa tower doing sit-ups"],
+      "keywords": ["leaning", "tower", "sit-ups"]
+    },
+    {
+      "text": "Leaning Tower using a walking stick",
+      "kind": "chaos",
+      "alternates": ["leaning tower with a walking stick", "leaning tower with a cane"],
+      "keywords": ["leaning", "walking stick"]
+    },
+    {
+      "text": "Leaning Tower wearing a back brace",
+      "kind": "chaos",
+      "alternates": ["leaning tower in a back brace"],
+      "keywords": ["leaning", "back brace"]
+    },
+    {
+      "text": "Eiffel Tower blasting off",
+      "kind": "chaos",
+      "alternates": ["eiffel tower rocket", "eiffel tower launching into space"],
+      "keywords": ["eiffel", "blasting off"]
+    },
+    {
+      "text": "Eiffel Tower as a camera tripod",
+      "kind": "chaos",
+      "alternates": ["eiffel tower tripod"],
+      "keywords": ["eiffel", "tripod"]
+    },
+    {
+      "text": "Eiffel Tower climbing a tourist",
+      "kind": "chaos",
+      "alternates": ["tourist climbed by the eiffel tower"],
+      "keywords": ["eiffel", "climbing", "tourist"]
+    },
+    {
+      "text": "Big Ben hitting snooze",
+      "kind": "chaos",
+      "alternates": ["big ben pressing snooze", "big ben snoozing an alarm"],
+      "keywords": ["big ben", "snooze"]
+    },
+    {
+      "text": "Big Ben wearing a wristwatch",
+      "kind": "chaos",
+      "alternates": ["big ben checking a wristwatch", "big ben with a watch"],
+      "keywords": ["big ben", "wristwatch"]
+    },
+    {
+      "text": "Colosseum hosting a sack race",
+      "kind": "chaos",
+      "alternates": ["sack race in the colosseum"],
+      "keywords": ["colosseum", "sack race"]
+    },
+    {
+      "text": "Stonehenge falling like dominoes",
+      "kind": "chaos",
+      "alternates": ["stonehenge dominoes", "stonehenge toppling like dominoes"],
+      "keywords": ["stonehenge", "dominoes"]
+    },
+    {
+      "text": "Toddler building Stonehenge",
+      "kind": "chaos",
+      "alternates": ["baby building stonehenge", "toddler stacking stonehenge"],
+      "keywords": ["toddler", "stonehenge"]
+    },
+    {
+      "text": "Tower Bridge opening for rubber ducks",
+      "kind": "chaos",
+      "alternates": [
+        "tower bridge opening for a rubber duck",
+        "tower bridge lifting for a rubber duck"
+      ],
+      "keywords": ["tower bridge", "rubber duck"]
+    },
+    {
+      "text": "Parthenon propped up by a broom",
+      "kind": "chaos",
+      "alternates": ["parthenon using a broom as a pillar", "broom holding up the parthenon"],
+      "keywords": ["parthenon", "broom"]
+    },
+    {
+      "text": "Sphinx gluing its nose back",
+      "kind": "chaos",
+      "alternates": ["sphinx gluing on its nose", "sphinx fixing its nose"],
+      "keywords": ["sphinx", "nose"]
+    },
+    {
+      "text": "Sphinx chasing a laser dot",
+      "kind": "chaos",
+      "alternates": ["sphinx chasing a laser pointer", "sphinx playing with a laser"],
+      "keywords": ["sphinx", "laser"]
+    },
+    {
+      "text": "Pyramid as a party hat",
+      "kind": "chaos",
+      "alternates": ["pyramid party hat", "wearing a pyramid as a party hat"],
+      "keywords": ["pyramid", "party hat"]
+    },
+    {
+      "text": "Pyramid balanced on its point",
+      "kind": "chaos",
+      "alternates": ["upside down pyramid", "pyramid balancing on its tip"],
+      "keywords": ["pyramid", "balanced"]
+    },
+    {
+      "text": "Great Wall playing jump rope",
+      "kind": "chaos",
+      "alternates": ["great wall skipping rope", "great wall as a jump rope"],
+      "keywords": ["great wall", "jump rope"]
+    },
+    {
+      "text": "Taj Mahal made of ice cream",
+      "kind": "chaos",
+      "alternates": ["ice cream taj mahal"],
+      "keywords": ["taj mahal", "ice cream"]
+    },
+    {
+      "text": "Taj Mahal admiring its reflection",
+      "kind": "chaos",
+      "alternates": ["taj mahal looking at its reflection", "taj mahal in a mirror"],
+      "keywords": ["taj mahal", "reflection"]
+    },
+    {
+      "text": "Moai playing hide and seek",
+      "kind": "chaos",
+      "alternates": ["moai hide and seek", "easter island head playing hide and seek"],
+      "keywords": ["moai", "hide and seek"]
+    },
+    {
+      "text": "Moai in a staring contest",
+      "kind": "chaos",
+      "alternates": ["moai staring contest", "moai statues staring contest"],
+      "keywords": ["moai", "staring contest"]
+    },
+    {
+      "text": "Statue of Liberty lighting the barbecue",
+      "kind": "chaos",
+      "alternates": ["statue of liberty lighting a barbecue", "statue of liberty at a barbecue"],
+      "keywords": ["liberty", "barbecue"]
+    },
+    {
+      "text": "Statue of Liberty switching arms",
+      "kind": "chaos",
+      "alternates": ["statue of liberty with a tired arm", "statue of liberty changing arms"],
+      "keywords": ["liberty", "switching arms"]
+    },
+    {
+      "text": "Sydney Opera House sailing away",
+      "kind": "chaos",
+      "alternates": ["opera house sailing away", "sydney opera house setting sail"],
+      "keywords": ["opera house", "sailing"]
+    },
+    {
+      "text": "Burj Khalifa bumping into the moon",
+      "kind": "chaos",
+      "alternates": ["burj khalifa hitting the moon", "burj khalifa touching the moon"],
+      "keywords": ["burj khalifa", "moon"]
+    },
+    {
+      "text": "Burj Khalifa ducking under a plane",
+      "kind": "chaos",
+      "alternates": ["burj khalifa dodging a plane", "plane flying over a ducking burj khalifa"],
+      "keywords": ["burj khalifa", "ducking", "plane"]
+    },
+    {
+      "text": "Volcano with the hiccups",
+      "kind": "chaos",
+      "alternates": ["volcano hiccuping", "hiccuping volcano"],
+      "keywords": ["volcano", "hiccups"]
+    },
+    {
+      "text": "Volcano toasting marshmallows",
+      "kind": "chaos",
+      "alternates": ["volcano roasting marshmallows", "marshmallows over a volcano"],
+      "keywords": ["volcano", "marshmallows"]
+    },
+    {
+      "text": "Volcano with an ice pack",
+      "kind": "chaos",
+      "alternates": ["volcano with an ice pack on its head", "volcano cooling off with ice"],
+      "keywords": ["volcano", "ice pack"]
+    },
+    {
+      "text": "Iceberg in a hot tub",
+      "kind": "chaos",
+      "alternates": ["iceberg in a jacuzzi", "iceberg relaxing in a hot tub"],
+      "keywords": ["iceberg", "hot tub"]
+    },
+    {
+      "text": "Iceberg in a giant lemonade",
+      "kind": "chaos",
+      "alternates": ["iceberg in a glass of lemonade", "iceberg as an ice cube"],
+      "keywords": ["iceberg", "lemonade"]
+    },
+    {
+      "text": "Glacier racing a snail",
+      "kind": "chaos",
+      "alternates": ["glacier in a race with a snail", "snail beating a glacier"],
+      "keywords": ["glacier", "snail"]
+    },
+    {
+      "text": "Igloo with a fireplace",
+      "kind": "chaos",
+      "alternates": ["igloo fireplace", "fireplace in an igloo"],
+      "keywords": ["igloo", "fireplace"]
+    },
+    {
+      "text": "Lighthouse at a disco",
+      "kind": "chaos",
+      "alternates": ["disco lighthouse", "lighthouse dancing at a disco"],
+      "keywords": ["lighthouse", "disco"]
+    },
+    {
+      "text": "Lighthouse reading in bed",
+      "kind": "chaos",
+      "alternates": ["lighthouse reading a book in bed", "lighthouse using its beam to read"],
+      "keywords": ["lighthouse", "reading", "bed"]
+    },
+    {
+      "text": "Camel refuelling at a petrol pump",
+      "kind": "chaos",
+      "alternates": ["camel at a gas station", "camel filling its hump at a petrol pump"],
+      "keywords": ["camel", "pump"]
+    },
+    {
+      "text": "Camel in a drinking contest",
+      "kind": "chaos",
+      "alternates": ["camel winning a drinking contest", "camel drinking contest"],
+      "keywords": ["camel", "drinking contest"]
+    },
+    {
+      "text": "Oasis with a lifeguard",
+      "kind": "chaos",
+      "alternates": ["lifeguard at an oasis", "oasis lifeguard"],
+      "keywords": ["oasis", "lifeguard"]
+    },
+    {
+      "text": "Geyser used as a shower",
+      "kind": "chaos",
+      "alternates": ["geyser shower", "showering in a geyser"],
+      "keywords": ["geyser", "shower"]
+    },
+    {
+      "text": "Waterfall flowing upwards",
+      "kind": "chaos",
+      "alternates": ["waterfall going up", "upside down waterfall"],
+      "keywords": ["waterfall", "upwards"]
+    },
+    {
+      "text": "Salmon taking an escalator",
+      "kind": "chaos",
+      "alternates": ["salmon riding an escalator", "salmon on an escalator up a waterfall"],
+      "keywords": ["salmon", "escalator"]
+    },
+    {
+      "text": "Niagara Falls riding a barrel",
+      "kind": "chaos",
+      "alternates": ["niagara falls in a barrel", "niagara falls going over in a barrel"],
+      "keywords": ["niagara", "barrel"]
+    },
+    {
+      "text": "Bat sleeping right side up",
+      "kind": "chaos",
+      "alternates": ["bat sleeping the right way up", "bat sleeping upright"],
+      "keywords": ["bat", "right side up"]
+    },
+    {
+      "text": "Crowded desert island",
+      "kind": "chaos",
+      "alternates": ["packed desert island", "desert island with a crowd"],
+      "keywords": ["crowded", "desert island"]
+    },
+    {
+      "text": "Desert island with a vending machine",
+      "kind": "chaos",
+      "alternates": ["vending machine on a desert island"],
+      "keywords": ["desert island", "vending machine"]
+    },
+    {
+      "text": "Windmill taking off like a helicopter",
+      "kind": "chaos",
+      "alternates": ["windmill helicopter", "windmill flying away"],
+      "keywords": ["windmill", "helicopter"]
+    },
+    {
+      "text": "Windmill getting dizzy",
+      "kind": "chaos",
+      "alternates": ["dizzy windmill"],
+      "keywords": ["windmill", "dizzy"]
+    },
+    {
+      "text": "Drawbridge sticking out its tongue",
+      "kind": "chaos",
+      "alternates": ["drawbridge as a tongue", "castle sticking out its tongue"],
+      "keywords": ["drawbridge", "tongue"]
+    },
+    {
+      "text": "Castle moat full of soup",
+      "kind": "chaos",
+      "alternates": ["moat full of soup", "soup moat"],
+      "keywords": ["moat", "soup"]
+    },
+    {
+      "text": "Skyscraper scratching a cloud",
+      "kind": "chaos",
+      "alternates": ["skyscraper scratching the sky", "skyscraper itching a cloud"],
+      "keywords": ["skyscraper", "scratching", "cloud"]
+    },
+    {
+      "text": "Gondolier pushing a shopping cart",
+      "kind": "chaos",
+      "alternates": ["gondolier with a shopping cart", "gondola shopping cart"],
+      "keywords": ["gondolier", "shopping cart"]
+    },
+    {
+      "text": "Hot air balloon with a hairdryer",
+      "kind": "chaos",
+      "alternates": ["hot air balloon using a hairdryer", "balloon filled by a hairdryer"],
+      "keywords": ["balloon", "hairdryer"]
+    },
+    {
+      "text": "Map getting lost",
+      "kind": "chaos",
+      "alternates": ["lost map", "map reading a map"],
+      "keywords": ["map", "lost"]
+    },
+    {
+      "text": "Globe wearing a belt",
+      "kind": "chaos",
+      "alternates": ["globe with a belt", "earth wearing a belt on the equator"],
+      "keywords": ["globe", "belt"]
+    },
+    {
+      "text": "Globe playing basketball",
+      "kind": "chaos",
+      "alternates": ["basketball globe", "globe as a basketball"],
+      "keywords": ["globe", "basketball"]
+    },
+    {
+      "text": "Snow globe full of sand",
+      "kind": "chaos",
+      "alternates": ["sand in a snow globe", "snow globe with a beach inside"],
+      "keywords": ["snow globe", "sand"]
+    },
+    {
+      "text": "Cable car on a washing line",
+      "kind": "chaos",
+      "alternates": ["cable car on a clothesline", "cable car hanging on a washing line"],
+      "keywords": ["cable car", "washing line"]
+    },
+    {
+      "text": "Double-decker bus doing the limbo",
+      "kind": "chaos",
+      "alternates": ["double decker bus limbo", "bus doing the limbo"],
+      "keywords": ["bus", "limbo"]
+    },
+    {
+      "text": "Stilt house walking away",
+      "kind": "chaos",
+      "alternates": ["house on stilts walking away", "walking stilt house"],
+      "keywords": ["stilt", "walking"]
+    },
+    {
+      "text": "Sushi on the baggage carousel",
+      "kind": "chaos",
+      "alternates": ["sushi on the luggage carousel", "baggage carousel sushi"],
+      "keywords": ["sushi", "carousel"]
+    },
+    {
+      "text": "Bird at airport security",
+      "kind": "chaos",
+      "alternates": ["pigeon at airport security", "bird going through airport security"],
+      "keywords": ["bird", "airport security"]
+    },
+    {
+      "text": "Pagoda wearing too many hats",
+      "kind": "chaos",
+      "alternates": ["pagoda with a stack of hats", "pagoda wearing hats"],
+      "keywords": ["pagoda", "hats"]
+    },
+    {
+      "text": "Torii gate used as a goal",
+      "kind": "chaos",
+      "alternates": ["torii gate football goal", "torii gate goalpost"],
+      "keywords": ["torii", "goal"]
+    },
+    {
+      "text": "Terracotta warriors doing a conga line",
+      "kind": "chaos",
+      "alternates": ["terracotta army conga line", "terracotta warriors conga"],
+      "keywords": ["terracotta", "conga"]
+    },
+    {
+      "text": "Uluru getting a sunburn",
+      "kind": "chaos",
+      "alternates": ["sunburnt uluru", "uluru with sunburn"],
+      "keywords": ["uluru", "sunburn"]
+    },
+    {
+      "text": "Grand Canyon with a zipper",
+      "kind": "chaos",
+      "alternates": ["zipping up the grand canyon", "grand canyon zip"],
+      "keywords": ["grand canyon", "zipper"]
+    },
+    {
+      "text": "Golden Gate Bridge playing a harp",
+      "kind": "chaos",
+      "alternates": ["golden gate harp", "golden gate bridge harp"],
+      "keywords": ["golden gate", "harp"]
+    },
+    {
+      "text": "Table Mountain set for dinner",
+      "kind": "chaos",
+      "alternates": ["table mountain laid for dinner", "table mountain dinner table"],
+      "keywords": ["table mountain", "dinner"]
+    },
+    {
+      "text": "Mount Everest climbing a molehill",
+      "kind": "chaos",
+      "alternates": ["everest climbing a molehill", "everest climbing a small hill"],
+      "keywords": ["everest", "molehill"]
+    },
+    {
+      "text": "Whirlpool in a teacup",
+      "kind": "chaos",
+      "alternates": ["teacup whirlpool", "whirlpool in a cup of tea"],
+      "keywords": ["whirlpool", "teacup"]
+    },
+    {
+      "text": "Northern lights with a light switch",
+      "kind": "chaos",
+      "alternates": ["switching off the northern lights", "aurora light switch"],
+      "keywords": ["northern lights", "light switch"]
+    },
+    {
+      "text": "Penguin lost at the North Pole",
+      "kind": "chaos",
+      "alternates": ["penguin at the north pole", "lost penguin at the north pole"],
+      "keywords": ["penguin", "north pole"]
+    },
+    {
+      "text": "Penguin sunbathing in the Sahara",
+      "kind": "chaos",
+      "alternates": ["penguin in the sahara", "penguin sunbathing in the desert"],
+      "keywords": ["penguin", "sahara"]
+    },
+    {
+      "text": "Penguin on a ski jump",
+      "kind": "chaos",
+      "alternates": ["penguin ski jumping", "penguin flying off a ski jump"],
+      "keywords": ["penguin", "ski jump"]
+    },
+    {
+      "text": "Sahara getting vacuumed",
+      "kind": "chaos",
+      "alternates": ["vacuuming the sahara", "vacuum cleaner in the sahara"],
+      "keywords": ["sahara", "vacuum"]
+    },
+    {
+      "text": "Hippo floating in the Dead Sea",
+      "kind": "chaos",
+      "alternates": ["hippo in the dead sea", "floating hippo"],
+      "keywords": ["hippo", "dead sea"]
+    },
+    {
+      "text": "Colossus of Rhodes doing the splits",
+      "kind": "chaos",
+      "alternates": ["colossus doing the splits"],
+      "keywords": ["colossus", "splits"]
+    },
+    {
+      "text": "Obelisk getting sharpened",
+      "kind": "chaos",
+      "alternates": ["sharpening an obelisk", "obelisk in a pencil sharpener"],
+      "keywords": ["obelisk", "sharpened"]
+    },
+    {
+      "text": "Palm Jumeirah dropping coconuts",
+      "kind": "chaos",
+      "alternates": ["palm island dropping coconuts", "palm jumeirah coconuts"],
+      "keywords": ["palm", "coconuts"]
+    },
+    {
+      "text": "Petronas Towers holding hands",
+      "kind": "chaos",
+      "alternates": ["petronas towers hand in hand"],
+      "keywords": ["petronas", "holding hands"]
+    },
+    {
+      "text": "Llama as a tour guide",
+      "kind": "chaos",
+      "alternates": ["llama tour guide", "llama guiding tourists"],
+      "keywords": ["llama", "tour guide"]
+    },
+    {
+      "text": "Croquet through the Arc de Triomphe",
+      "kind": "chaos",
+      "alternates": ["arc de triomphe as a croquet hoop", "arc de triomphe croquet"],
+      "keywords": ["arc", "croquet"]
+    },
+    {
+      "text": "London Eye as a hamster wheel",
+      "kind": "chaos",
+      "alternates": ["hamster in the london eye", "london eye hamster wheel"],
+      "keywords": ["london eye", "hamster"]
+    },
+    {
+      "text": "Italy kicking Sicily",
+      "kind": "chaos",
+      "alternates": ["italy kicking a ball", "boot of italy kicking sicily"],
+      "keywords": ["italy", "kicking"]
+    },
+    {
+      "text": "Sandcastle wearing armbands",
+      "kind": "chaos",
+      "alternates": ["sandcastle in armbands", "sandcastle with water wings"],
+      "keywords": ["sandcastle", "armbands"]
+    },
+    {
+      "text": "Rope bridge used as a hammock",
+      "kind": "chaos",
+      "alternates": ["rope bridge hammock", "napping on a rope bridge"],
+      "keywords": ["rope bridge", "hammock"]
+    },
+    {
+      "text": "Plugging a dam with a cork",
+      "kind": "chaos",
+      "alternates": ["cork in a dam", "dam with a cork"],
+      "keywords": ["dam", "cork"]
+    },
+    {
+      "text": "Wishing well with a card machine",
+      "kind": "chaos",
+      "alternates": ["wishing well taking cards", "card reader on a wishing well"],
+      "keywords": ["wishing well", "card machine"]
+    },
+    {
+      "text": "Signpost pointing everywhere",
+      "kind": "chaos",
+      "alternates": ["signpost with arrows everywhere", "confused signpost"],
+      "keywords": ["signpost", "everywhere"]
+    },
+    {
+      "text": "Cruise ship squeezed into a canal",
+      "kind": "chaos",
+      "alternates": ["cruise ship stuck in a canal", "giant cruise ship in a canal"],
+      "keywords": ["cruise ship", "canal"]
+    },
+    {
+      "text": "Shipwreck as a fish hotel",
+      "kind": "chaos",
+      "alternates": ["fish hotel in a shipwreck", "shipwreck hotel for fish"],
+      "keywords": ["shipwreck", "fish", "hotel"]
+    },
+    {
+      "text": "Yak at the barber",
+      "kind": "chaos",
+      "alternates": ["yak getting a haircut", "yak at the hairdresser"],
+      "keywords": ["yak", "barber"]
+    },
+    {
+      "text": "Goat climbing a skyscraper",
+      "kind": "chaos",
+      "alternates": ["mountain goat on a skyscraper", "goat scaling a skyscraper"],
+      "keywords": ["goat", "skyscraper"]
+    },
+    {
+      "text": "Treehouse in a bonsai",
+      "kind": "chaos",
+      "alternates": ["bonsai treehouse", "tiny treehouse in a bonsai tree"],
+      "keywords": ["treehouse", "bonsai"]
+    },
+    {
+      "text": "Beaver eating a log cabin",
+      "kind": "chaos",
+      "alternates": ["beaver chewing a log cabin", "beaver nibbling a cabin"],
+      "keywords": ["beaver", "log cabin"]
+    },
+    {
+      "text": "Overwater bungalow in a fishbowl",
+      "kind": "chaos",
+      "alternates": ["bungalow in a fishbowl", "water villa in a fishbowl"],
+      "keywords": ["bungalow", "fishbowl"]
+    },
+    {
+      "text": "Fish fishing from a pier",
+      "kind": "chaos",
+      "alternates": ["fish with a fishing rod on a pier", "fish catching a fisherman"],
+      "keywords": ["fish", "fishing", "pier"]
+    },
+    {
+      "text": "Train scared of a tunnel",
+      "kind": "chaos",
+      "alternates": ["train afraid of a tunnel", "scared train at a tunnel"],
+      "keywords": ["train", "scared", "tunnel"]
+    },
+    {
+      "text": "Tuk-tuk towing a jumbo jet",
+      "kind": "chaos",
+      "alternates": ["tuk-tuk pulling a plane", "tuk tuk towing a jet"],
+      "keywords": ["tuk-tuk", "jet"]
+    },
+    {
+      "text": "Crocodile used as a bridge",
+      "kind": "chaos",
+      "alternates": ["crocodile bridge", "crossing a river on a crocodile"],
+      "keywords": ["crocodile", "bridge"]
+    },
+    {
+      "text": "Termite mound with an elevator",
+      "kind": "chaos",
+      "alternates": ["termite mound lift", "termites in an elevator"],
+      "keywords": ["termite", "elevator"]
+    },
+    {
+      "text": "Elephant drinking the waterhole dry",
+      "kind": "chaos",
+      "alternates": ["elephant drinking a whole waterhole", "elephant emptying a waterhole"],
+      "keywords": ["elephant", "waterhole"]
+    },
+    {
+      "text": "Lion photographing tourists",
+      "kind": "chaos",
+      "alternates": ["lion taking photos of tourists", "lion on safari photographing tourists"],
+      "keywords": ["lion", "photographing", "tourists"]
+    },
+    {
+      "text": "Desert in an hourglass",
+      "kind": "chaos",
+      "alternates": ["desert inside an hourglass", "whole desert in an hourglass"],
+      "keywords": ["desert", "hourglass"]
+    },
+    {
+      "text": "Pulling the plug on Venice",
+      "kind": "chaos",
+      "alternates": ["venice with a bath plug", "draining venice"],
+      "keywords": ["plug", "venice"]
+    },
+    {
+      "text": "Harbour Bridge as a coat hanger",
+      "kind": "chaos",
+      "alternates": ["sydney harbour bridge coat hanger", "harbour bridge coathanger"],
+      "keywords": ["harbour bridge", "coat hanger"]
+    },
+    {
+      "text": "Aqueduct used as a water slide",
+      "kind": "chaos",
+      "alternates": ["aqueduct water slide", "sliding down an aqueduct"],
+      "keywords": ["aqueduct", "water slide"]
+    },
+    {
+      "text": "Compass pointing at the fridge",
+      "kind": "chaos",
+      "alternates": ["compass pointing to a fridge", "compass needle pointing at a fridge"],
+      "keywords": ["compass", "fridge"]
+    },
+    {
+      "text": "Suitcase packing a tourist",
+      "kind": "chaos",
+      "alternates": ["suitcase packing a person", "tourist packed in a suitcase"],
+      "keywords": ["suitcase", "packing"]
+    },
+    {
+      "text": "Loch Ness monster posing for photos",
+      "kind": "chaos",
+      "alternates": ["nessie posing for a photo", "loch ness monster posing for a photo"],
+      "keywords": ["loch ness", "posing"]
+    },
+    {
+      "text": "Opera House made of nachos",
+      "kind": "chaos",
+      "alternates": ["sydney opera house made of nachos", "nacho opera house"],
+      "keywords": ["opera house", "nachos"]
+    },
+    {
+      "text": "Rice terraces as a giant's staircase",
+      "kind": "chaos",
+      "alternates": ["giant walking up rice terraces", "giant using rice terraces as stairs"],
+      "keywords": ["rice terraces", "giant"]
+    },
+    {
+      "text": "Baobab tree growing upside down",
+      "kind": "chaos",
+      "alternates": ["upside down baobab", "baobab with roots in the air"],
+      "keywords": ["baobab", "upside down"]
+    },
+    {
+      "text": "Mount Fuji as shaved ice",
+      "kind": "chaos",
+      "alternates": ["mount fuji with syrup", "shaved ice mount fuji"],
+      "keywords": ["fuji", "shaved ice"]
+    },
+    {
+      "text": "Burj Al Arab windsurfing",
+      "kind": "chaos",
+      "alternates": ["burj al arab on a windsurf board"],
+      "keywords": ["burj al arab", "windsurfing"]
+    },
+    {
+      "text": "Octopus directing traffic on a reef",
+      "kind": "chaos",
+      "alternates": ["octopus traffic cop on a coral reef", "octopus directing fish traffic"],
+      "keywords": ["octopus", "traffic", "reef"]
+    },
+    {
+      "text": "Cave brushing its stalactites",
+      "kind": "chaos",
+      "alternates": ["cave brushing its teeth", "cave with a toothbrush"],
+      "keywords": ["cave", "brushing"]
+    },
+    {
+      "text": "Meteor filling in its crater",
+      "kind": "chaos",
+      "alternates": ["meteor fixing its crater", "meteor shovelling its crater"],
+      "keywords": ["meteor", "crater"]
+    },
+    {
+      "text": "Bird nesting in a guard's hat",
+      "kind": "chaos",
+      "alternates": ["bird nest on a guard's hat", "guard with a nest in his hat"],
+      "keywords": ["nest", "guard"]
+    },
+    {
+      "text": "Tent with a revolving door",
+      "kind": "chaos",
+      "alternates": ["revolving door on a tent"],
+      "keywords": ["tent", "revolving door"]
+    },
+    {
+      "text": "Yurt as a spinning top",
+      "kind": "chaos",
+      "alternates": ["spinning yurt", "yurt spinning like a top"],
+      "keywords": ["yurt", "spinning top"]
+    },
+    {
+      "text": "Zoo animals watching caged tourists",
+      "kind": "chaos",
+      "alternates": ["tourists in a cage at the zoo", "animals watching tourists in a cage"],
+      "keywords": ["zoo", "caged", "tourists"]
+    },
+    {
+      "text": "Dinosaur skeleton escaping a museum",
+      "kind": "chaos",
+      "alternates": ["skeleton sneaking out of the museum", "dinosaur sneaking out of a museum"],
+      "keywords": ["skeleton", "escaping", "museum"]
+    },
+    {
+      "text": "Cactus on skis",
+      "kind": "chaos",
+      "alternates": ["cactus skiing", "cactus at a ski resort"],
+      "keywords": ["cactus", "skis"]
+    },
+    {
+      "text": "Fountain spitting at a pigeon",
+      "kind": "chaos",
+      "alternates": ["fountain squirting a pigeon", "fountain spraying a pigeon"],
+      "keywords": ["fountain", "pigeon"]
+    },
+    {
+      "text": "Chalet as a cuckoo clock",
+      "kind": "chaos",
+      "alternates": ["cuckoo clock chalet", "chalet with a cuckoo"],
+      "keywords": ["chalet", "cuckoo"]
+    },
+    {
+      "text": "Colosseum as a giant doughnut",
+      "kind": "chaos",
+      "alternates": ["colosseum doughnut", "colosseum donut"],
+      "keywords": ["colosseum", "doughnut"]
+    },
+    {
+      "text": "Great Wall as a slide",
+      "kind": "chaos",
+      "alternates": ["sliding down the great wall", "great wall slide"],
+      "keywords": ["great wall", "slide"]
+    },
+    {
+      "text": "Kangaroo carrying Uluru in its pouch",
+      "kind": "chaos",
+      "alternates": ["uluru in a kangaroo's pouch", "kangaroo pouch with uluru"],
+      "keywords": ["kangaroo", "uluru", "pouch"]
+    },
+    {
+      "text": "Mummy wrapped as a birthday present",
+      "kind": "chaos",
+      "alternates": ["mummy gift wrapped", "mummy as a present"],
+      "keywords": ["mummy", "present"]
+    },
+    {
+      "text": "Viking ship in a bathtub",
+      "kind": "chaos",
+      "alternates": ["viking longship in a bathtub", "viking boat in a bath"],
+      "keywords": ["viking", "bathtub"]
+    },
+    {
+      "text": "Snow globe shaking a tourist",
+      "kind": "chaos",
+      "alternates": ["tourist shaken by a snow globe", "snow globe shaking a person"],
+      "keywords": ["snow globe", "shaking", "tourist"]
+    },
+    {
+      "text": "Tumbleweed at a bowling alley",
+      "kind": "chaos",
+      "alternates": ["tumbleweed bowling", "tumbleweed knocking down pins"],
+      "keywords": ["tumbleweed", "bowling"]
+    },
+    {
+      "text": "Geyser bouncing a beach ball",
+      "kind": "chaos",
+      "alternates": ["beach ball on a geyser", "geyser juggling a beach ball"],
+      "keywords": ["geyser", "beach ball"]
+    },
+    {
+      "text": "Real dragon rowing a dragon boat",
+      "kind": "chaos",
+      "alternates": ["dragon in a dragon boat race", "dragon rowing a boat"],
+      "keywords": ["dragon", "rowing", "boat"]
+    },
+    {
+      "text": "Pigeon feeding a tourist",
+      "kind": "chaos",
+      "alternates": ["pigeon throwing crumbs at a tourist", "pigeon feeding people"],
+      "keywords": ["pigeon", "feeding", "tourist"]
+    },
+    {
+      "text": "Explorer conquering a sandcastle",
+      "kind": "chaos",
+      "alternates": ["explorer planting a flag on a sandcastle", "flag on a sandcastle"],
+      "keywords": ["explorer", "sandcastle"]
+    },
+    {
+      "text": "Moai at the hat shop",
+      "kind": "chaos",
+      "alternates": ["moai trying on hats", "moai shopping for hats"],
+      "keywords": ["moai", "hat shop"]
+    },
+    {
+      "text": "Petra getting a welcome mat",
+      "kind": "chaos",
+      "alternates": ["petra with a doormat", "welcome mat at petra"],
+      "keywords": ["petra", "welcome mat"]
+    },
+    {
+      "text": "Sphinx at the dentist",
+      "kind": "chaos",
+      "alternates": ["sphinx getting a check up at the dentist"],
+      "keywords": ["sphinx", "dentist"]
+    },
+    {
+      "text": "Big Ben getting a manicure",
+      "kind": "chaos",
+      "alternates": ["big ben getting its hands painted", "big ben manicure"],
+      "keywords": ["big ben", "manicure"]
+    },
+    {
+      "text": "Terracotta warrior in a pottery class",
+      "kind": "chaos",
+      "alternates": ["terracotta warrior on a pottery wheel", "terracotta warrior making pots"],
+      "keywords": ["terracotta", "pottery"]
+    },
+    {
+      "text": "Ziggurat as a wedding cake",
+      "kind": "chaos",
+      "alternates": ["ziggurat wedding cake", "wedding cake ziggurat"],
+      "keywords": ["ziggurat", "wedding cake"]
+    },
+    {
+      "text": "Hanging Gardens in a flowerpot",
+      "kind": "chaos",
+      "alternates": ["hanging gardens in a plant pot", "hanging gardens of babylon in a flowerpot"],
+      "keywords": ["hanging gardens", "flowerpot"]
+    },
+    {
+      "text": "Queue at a desert puddle",
+      "kind": "chaos",
+      "alternates": ["line at a puddle in the desert", "queue for a puddle in the desert"],
+      "keywords": ["queue", "puddle"]
+    },
+    {
+      "text": "Giraffe as a lighthouse",
+      "kind": "chaos",
+      "alternates": ["giraffe lighthouse", "lighthouse giraffe"],
+      "keywords": ["giraffe", "lighthouse"]
+    },
+    {
+      "text": "Zebra used as a crosswalk",
+      "kind": "chaos",
+      "alternates": ["zebra crossing", "zebra as a pedestrian crossing"],
+      "keywords": ["zebra", "crosswalk"]
+    },
+    {
+      "text": "Meerkat as a control tower",
+      "kind": "chaos",
+      "alternates": ["meerkat air traffic controller", "meerkat at an airport tower"],
+      "keywords": ["meerkat", "control tower"]
+    },
+    {
+      "text": "Sloth on a bullet train",
+      "kind": "chaos",
+      "alternates": ["sloth riding a bullet train", "sloth on a high speed train"],
+      "keywords": ["sloth", "bullet train"]
+    },
+    {
+      "text": "Giant tortoise carrying an island",
+      "kind": "chaos",
+      "alternates": ["tortoise carrying an island on its back", "island on a tortoise"],
+      "keywords": ["tortoise", "island"]
+    },
+    {
+      "text": "Yeti on a beach holiday",
+      "kind": "chaos",
+      "alternates": ["yeti at the beach", "yeti sunbathing on a beach"],
+      "keywords": ["yeti", "beach"]
+    },
+    {
+      "text": "Builders making new ruins",
+      "kind": "chaos",
+      "alternates": ["builders building ruins", "construction site for ruins"],
+      "keywords": ["builders", "ruins"]
+    },
+    {
+      "text": "Mountain stuffed in a backpack",
+      "kind": "chaos",
+      "alternates": ["hiker carrying a mountain in a backpack", "mountain in a backpack"],
+      "keywords": ["mountain", "backpack"]
+    },
+    {
+      "text": "Airplane waiting at a bus stop",
+      "kind": "chaos",
+      "alternates": ["plane at a bus stop", "airplane at the bus stop"],
+      "keywords": ["plane", "bus stop"]
+    },
+    {
+      "text": "Fish shopping at a fish market",
+      "kind": "chaos",
+      "alternates": ["fish buying fish at a market", "fish at the fish market"],
+      "keywords": ["fish", "shopping", "market"]
+    },
+    {
+      "text": "Tourist tangled in a map",
+      "kind": "chaos",
+      "alternates": ["tourist wrapped in a map", "tourist fighting a map"],
+      "keywords": ["tourist", "tangled", "map"]
+    }
+  ]
+}

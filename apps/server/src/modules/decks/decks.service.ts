@@ -4,6 +4,7 @@ import {
   DECK_COVER_HEIGHT_PX,
   DECK_COVER_MAX_BYTES,
   DECK_COVER_WIDTH_PX,
+  type Card,
   type DeckCoverId,
   type DeckCoverImage,
   type DeckLanguage,
@@ -120,6 +121,19 @@ export function createDecksService(deps: { db: Db }) {
       if (!UUID.test(deckId)) return null;
       const originalId = await repo.originalIdOf(deps.db, deckId);
       return originalId ? repo.findTranslationSource(deps.db, originalId) : null;
+    },
+
+    /**
+     * A deck with its cards, for making its Chaos cards (any deck, translations included: each
+     * language gets its own, written natively). Null if unknown or hidden.
+     */
+    async chaosSource(deckId: string): Promise<repo.TranslationSource | null> {
+      return UUID.test(deckId) ? repo.findTranslationSource(deps.db, deckId, false) : null;
+    },
+
+    /** Adds Chaos cards made for a deck. Rooms playing it reload it (generation jobs). */
+    async addCards(deckId: string, cards: Card[]): Promise<void> {
+      await repo.insertCards(deps.db, deckId, cards);
     },
 
     /** Whether `originalId` has a translation into `language`, even one hidden by reports. */

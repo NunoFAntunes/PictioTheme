@@ -17,27 +17,14 @@ const generated: GeneratedDeck = {
   description: 'Arr.',
   tags: ['pirates'],
   cards: [
-    { text: 'Parrot', difficulty: 'easy', silly: false, alternates: [], keywords: ['parrot'] },
+    { text: 'Parrot', kind: 'easy', alternates: [], keywords: ['parrot'] },
+    { text: 'Treasure map', kind: 'easy', alternates: ['map'], keywords: ['map'] },
+    { text: 'Walking the plank', kind: 'hard', alternates: [], keywords: ['plank'] },
     {
-      text: 'Treasure map',
-      difficulty: 'medium',
-      silly: false,
-      alternates: ['map'],
-      keywords: ['map'],
-    },
-    {
-      text: 'Walking the plank',
-      difficulty: 'hard',
-      silly: false,
+      text: 'Parrot repeating the captain',
+      kind: 'chaos',
       alternates: [],
-      keywords: ['plank'],
-    },
-    {
-      text: 'Parrot at the dentist',
-      difficulty: 'medium',
-      silly: true,
-      alternates: [],
-      keywords: ['parrot', 'dentist'],
+      keywords: ['parrot', 'captain'],
     },
   ],
 };
@@ -67,7 +54,7 @@ describe('decks service', () => {
         featured: false,
         language: 'en',
         languages: ['en'],
-        counts: { easy: 1, medium: 1, hard: 1, silly: 1 },
+        counts: { easy: 2, hard: 1, chaos: 1 },
       },
     ]);
   });
@@ -88,7 +75,7 @@ describe('decks service', () => {
 
   it('lists the seeded curated decks, featured first, and starts rooms with the first', async () => {
     const listed = await decks.listDecks();
-    expect(listed[0]?.title).toBe('Spooky Halloween');
+    expect(listed[0]?.title).toBe('Halloween Night');
     expect(listed.map((d) => d.title)).toContain('Animal Kingdom');
     const defaultId = await decks.defaultDeckId();
     expect(defaultId).toBe(listed[0]?.id);
@@ -98,9 +85,9 @@ describe('decks service', () => {
 
   it('searches titles and tags, tolerating typos', async () => {
     const titles = async (q: string) => (await decks.listDecks(q)).map((d) => d.title);
-    expect((await titles('spooky'))[0]).toBe('Spooky Halloween');
-    expect(await titles('october')).toContain('Spooky Halloween'); // a tag
-    expect(await titles('halowen')).toContain('Spooky Halloween'); // a typo
+    expect((await titles('spooky'))[0]).toBe('Halloween Night');
+    expect(await titles('october')).toContain('Halloween Night'); // a tag
+    expect(await titles('halowen')).toContain('Halloween Night'); // a typo
     expect(await titles('animal')).toContain('Animal Kingdom');
     expect(await titles('%')).toEqual([]); // wildcards are text
     expect((await decks.listDecks('  '))[0]?.featured).toBe(true); // blank: the curated list

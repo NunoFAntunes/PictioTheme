@@ -66,11 +66,11 @@ describe('drawerPoints', () => {
   });
 
   it('makes a hard card worth the risk', () => {
-    const points = (difficulty: 'easy' | 'hard', correctGuessers: number) =>
+    const points = (kind: 'easy' | 'hard', correctGuessers: number) =>
       drawerPoints({
         correctGuessers,
         totalGuessers: 8,
-        multiplier: drawerMultiplier({ difficulty, silly: false }),
+        multiplier: drawerMultiplier({ kind }),
       });
     // Everyone gets "Bat"; a quarter get "Headless horseman": the drawer is no worse off.
     expect(points('hard', 2)).toBe(points('easy', 8));
@@ -79,17 +79,15 @@ describe('drawerPoints', () => {
 });
 
 describe('multipliers', () => {
-  it('uses the silly multiplier for silly cards regardless of difficulty', () => {
-    expect(cardMultiplier({ difficulty: 'easy', silly: false })).toBe(1);
-    expect(cardMultiplier({ difficulty: 'medium', silly: false })).toBe(1.2);
-    expect(cardMultiplier({ difficulty: 'hard', silly: false })).toBe(1.5);
-    expect(cardMultiplier({ difficulty: 'easy', silly: true })).toBe(1.5);
+  it('depends on the card kind', () => {
+    expect(cardMultiplier({ kind: 'easy' })).toBe(1);
+    expect(cardMultiplier({ kind: 'hard' })).toBe(1.5);
+    expect(cardMultiplier({ kind: 'chaos' })).toBe(1.5);
   });
 
   it('gives the drawer a steeper one', () => {
-    expect(drawerMultiplier({ difficulty: 'easy', silly: false })).toBe(1);
-    expect(drawerMultiplier({ difficulty: 'medium', silly: false })).toBe(1.4);
-    expect(drawerMultiplier({ difficulty: 'hard', silly: false })).toBe(2);
-    expect(drawerMultiplier({ difficulty: 'easy', silly: true })).toBe(2);
+    expect(drawerMultiplier({ kind: 'easy' })).toBe(1);
+    expect(drawerMultiplier({ kind: 'hard' })).toBe(2);
+    expect(drawerMultiplier({ kind: 'chaos' })).toBe(2);
   });
 });

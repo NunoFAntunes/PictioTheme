@@ -2,7 +2,7 @@ import { mkdtemp, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { classifyGuess, normalizeText, prepareCard } from '@pictiotheme/game-core';
-import type { Card } from '@pictiotheme/protocol';
+import { CHAOS_MIN_CARDS, type Card } from '@pictiotheme/protocol';
 import { and, eq } from 'drizzle-orm';
 import { afterAll, describe, expect, it } from 'vitest';
 import { createDb } from '../../db/client';
@@ -43,10 +43,11 @@ describe.each(curated.map((d) => [d.slug, d] as const))('%s', (_slug, deck) => {
 
   it('has enough cards of each kind for a full game', () => {
     const count = (pred: (c: Card) => boolean) => deck.cards.filter(pred).length;
-    expect(count((c) => !c.silly && c.difficulty === 'easy')).toBeGreaterThanOrEqual(10);
-    expect(count((c) => !c.silly && c.difficulty === 'medium')).toBeGreaterThanOrEqual(10);
-    expect(count((c) => !c.silly && c.difficulty === 'hard')).toBeGreaterThanOrEqual(8);
-    expect(count((c) => c.silly)).toBeGreaterThanOrEqual(8);
+    expect(count((c) => c.kind === 'easy')).toBeGreaterThanOrEqual(20);
+    expect(count((c) => c.kind === 'hard')).toBeGreaterThanOrEqual(8);
+    // Chaos cards are optional: a curated deck without them gets them when a host asks.
+    const chaos = count((c) => c.kind === 'chaos');
+    expect(chaos === 0 || chaos >= CHAOS_MIN_CARDS).toBe(true);
   });
 });
 
@@ -109,6 +110,27 @@ describe('seeding', () => {
     // The kept card is the same row, stats included.
     expect(await cardId()).toEqual(before);
     expect(before?.drawn).toBe(1);
+  });
+
+  it('keeps Chaos cards a host made when the file has none', async () => {
+    const slug = `seed-chaos-${Date.now()}`;
+    const base = { ...(curated[0] as CuratedDeck), slug, featuredRank: null };
+    await seedCuratedDecks(db, await folderWith(base));
+    const [seeded] = await db
+      .select({ id: decksTable.id })
+      .from(decksTable)
+      .where(eq(decksTable.slug, slug));
+    const id = seeded?.id ?? '';
+    const chaos = {
+      text: 'Snowman in a sauna',
+      kind: 'chaos' as const,
+      alternates: [],
+      keywords: ['snowman', 'sauna'],
+    };
+    await decks.addCards(id, [chaos]);
+
+    await seedCuratedDecks(db, await folderWith(base));
+    expect((await decks.getPlayableDeck(id)).cards).toContainEqual(chaos);
   });
 
   it('refuses a file that is not named after its slug', async () => {

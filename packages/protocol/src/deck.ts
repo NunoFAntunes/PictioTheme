@@ -1,8 +1,19 @@
 import { z } from 'zod';
 import { DEFAULT_DECK_LANGUAGE, DeckLanguage } from './language';
 
-export const Difficulty = z.enum(['easy', 'medium', 'hard']);
+/** Normal mode's two levels. The host picks one or both (game-rules.md#card-pool). */
+export const Difficulty = z.enum(['easy', 'hard']);
 export type Difficulty = z.infer<typeof Difficulty>;
+
+/**
+ * Which pool a card belongs to: a normal-mode difficulty, or Chaos (the absurd cards Chaos mode
+ * plays with, docs/product/decks.md#chaos-cards). Chaos cards have no difficulty.
+ */
+export const CardKind = z.enum(['easy', 'hard', 'chaos']);
+export type CardKind = z.infer<typeof CardKind>;
+
+/** A Chaos match needs at least this many chaos cards in the deck. */
+export const CHAOS_MIN_CARDS = 10;
 
 export const CARD_TEXT_MIN = 2;
 export const CARD_TEXT_MAX = 40;
@@ -10,8 +21,7 @@ export const CARD_TEXT_MAX = 40;
 /** One thing to draw. See docs/product/decks.md. */
 export const Card = z.object({
   text: z.string().min(CARD_TEXT_MIN).max(CARD_TEXT_MAX),
-  difficulty: Difficulty,
-  silly: z.boolean(),
+  kind: CardKind,
   alternates: z.array(z.string().min(1).max(60)).max(6),
   keywords: z.array(z.string().min(1).max(30)).min(1).max(4),
 });
@@ -35,13 +45,11 @@ export const DeckGenerationRequest = z.object({
   theme: z.string().trim().min(DECK_THEME_MIN).max(DECK_THEME_MAX),
   /** Free-text hints for the model ("for kids aged 6+"). Treated as a description, never as instructions. */
   notes: z.string().trim().max(DECK_NOTES_MAX).default(''),
-  /** Which difficulty levels the deck has. Silly cards also get one of these. */
-  difficulties: z
-    .array(Difficulty)
-    .min(1)
-    .refine((d) => new Set(d).size === d.length, 'Difficulties must be unique'),
-  /** Whether to generate the silly pool too. */
-  silly: z.boolean(),
+  /**
+   * Whether to make the Chaos cards too. Every deck gets easy and hard cards; Chaos cards can
+   * also be added later (`POST /api/decks/:id/chaos`).
+   */
+  chaos: z.boolean(),
   /**
    * What the deck is written in: the room's language. A rule for the model, and the theme and
    * notes must be written in it too (ai-deck-pipeline.md#theme-check).

@@ -1,0 +1,2121 @@
+{
+  "slug": "inventions-nobody-asked-for",
+  "featuredRank": null,
+  "title": "Inventions Nobody Asked For",
+  "description": "Umbrella hats, chocolate teapots and ladders for snails: draw the silliest, most useless gadgets ever dreamed up.",
+  "tags": ["inventions", "silly", "absurd", "gadgets", "funny", "contraptions"],
+  "cards": [
+    {
+      "text": "Umbrella hat",
+      "kind": "easy",
+      "alternates": ["umbrella helmet", "hat umbrella"],
+      "keywords": ["umbrella", "hat"]
+    },
+    {
+      "text": "Spaghetti fork fan",
+      "kind": "easy",
+      "alternates": ["spinning spaghetti fork", "spaghetti twirling fork"],
+      "keywords": ["spaghetti", "fork"]
+    },
+    {
+      "text": "Toaster bed",
+      "kind": "easy",
+      "alternates": ["bed toaster"],
+      "keywords": ["toaster", "bed"]
+    },
+    {
+      "text": "Shoe phone",
+      "kind": "easy",
+      "alternates": ["phone shoe", "telephone shoe"],
+      "keywords": ["shoe", "phone"]
+    },
+    {
+      "text": "Inflatable dartboard",
+      "kind": "easy",
+      "alternates": ["balloon dartboard", "blow-up dartboard"],
+      "keywords": ["inflatable", "dartboard"]
+    },
+    {
+      "text": "Chocolate teapot",
+      "kind": "easy",
+      "alternates": ["teapot made of chocolate"],
+      "keywords": ["chocolate", "teapot"]
+    },
+    {
+      "text": "Square wheel",
+      "kind": "easy",
+      "alternates": ["square tire", "square tyre"],
+      "keywords": ["square", "wheel"]
+    },
+    {
+      "text": "Fork spoon knife",
+      "kind": "easy",
+      "alternates": ["spoon fork knife", "spork knife"],
+      "keywords": ["fork", "spoon", "knife"]
+    },
+    {
+      "text": "Glass hammer",
+      "kind": "easy",
+      "alternates": ["hammer made of glass"],
+      "keywords": ["glass", "hammer"]
+    },
+    {
+      "text": "Ice frying pan",
+      "kind": "easy",
+      "alternates": ["frying pan made of ice", "ice pan"],
+      "keywords": ["ice", "pan"]
+    },
+    {
+      "text": "Screen door submarine",
+      "kind": "easy",
+      "alternates": ["submarine with a screen door"],
+      "keywords": ["screen", "door", "submarine"]
+    },
+    {
+      "text": "Cactus pillow",
+      "kind": "easy",
+      "alternates": ["cactus cushion", "pillow made of cactus"],
+      "keywords": ["cactus", "pillow"]
+    },
+    {
+      "text": "Double-spout teapot",
+      "kind": "easy",
+      "alternates": ["two-spout teapot", "teapot with two spouts"],
+      "keywords": ["spout", "teapot"]
+    },
+    {
+      "text": "Banana phone",
+      "kind": "easy",
+      "alternates": ["banana telephone"],
+      "keywords": ["banana", "phone"]
+    },
+    {
+      "text": "Fishbowl helmet",
+      "kind": "easy",
+      "alternates": ["fish bowl helmet", "goldfish bowl helmet"],
+      "keywords": ["fishbowl", "helmet"]
+    },
+    {
+      "text": "Bread shoes",
+      "kind": "easy",
+      "alternates": ["shoes made of bread", "loaf shoes"],
+      "keywords": ["bread", "shoes"]
+    },
+    {
+      "text": "Pizza clock",
+      "kind": "easy",
+      "alternates": ["clock pizza", "pizza watch"],
+      "keywords": ["pizza", "clock"]
+    },
+    {
+      "text": "Car with legs",
+      "kind": "easy",
+      "alternates": ["walking car", "car legs"],
+      "keywords": ["car", "legs"]
+    },
+    {
+      "text": "Sock gloves",
+      "kind": "easy",
+      "alternates": ["glove socks", "socks on hands"],
+      "keywords": ["sock", "gloves"]
+    },
+    {
+      "text": "Lollipop toothbrush",
+      "kind": "easy",
+      "alternates": ["toothbrush lollipop"],
+      "keywords": ["lollipop", "toothbrush"]
+    },
+    {
+      "text": "Ketchup toothpaste",
+      "kind": "easy",
+      "alternates": ["toothpaste ketchup"],
+      "keywords": ["ketchup", "toothpaste"]
+    },
+    {
+      "text": "Broom skateboard",
+      "kind": "easy",
+      "alternates": ["skateboard broom"],
+      "keywords": ["broom", "skateboard"]
+    },
+    {
+      "text": "Mop slippers",
+      "kind": "easy",
+      "alternates": ["mop shoes", "slipper mops"],
+      "keywords": ["mop", "slippers"]
+    },
+    {
+      "text": "Baby mop",
+      "kind": "easy",
+      "alternates": ["mop onesie"],
+      "keywords": ["baby", "mop"]
+    },
+    {
+      "text": "Bubble wrap suit",
+      "kind": "easy",
+      "alternates": ["bubble wrap costume", "bubble wrap armor"],
+      "keywords": ["bubble", "wrap", "suit"]
+    },
+    {
+      "text": "Pillow helmet",
+      "kind": "easy",
+      "alternates": ["helmet pillow"],
+      "keywords": ["pillow", "helmet"]
+    },
+    {
+      "text": "Spring shoes",
+      "kind": "easy",
+      "alternates": ["pogo shoes", "springy shoes"],
+      "keywords": ["spring", "shoes"]
+    },
+    {
+      "text": "Rocket skates",
+      "kind": "easy",
+      "alternates": ["rocket roller skates", "rocket rollerskates"],
+      "keywords": ["rocket", "skates"]
+    },
+    {
+      "text": "Bathtub boat",
+      "kind": "easy",
+      "alternates": ["bath boat", "boat bathtub"],
+      "keywords": ["bathtub", "boat"]
+    },
+    {
+      "text": "Sofa car",
+      "kind": "easy",
+      "alternates": ["couch car", "car sofa"],
+      "keywords": ["sofa", "car"]
+    },
+    {
+      "text": "Candle lightbulb",
+      "kind": "easy",
+      "alternates": ["lightbulb candle", "candle bulb"],
+      "keywords": ["candle", "lightbulb"]
+    },
+    {
+      "text": "Chopstick fork",
+      "kind": "easy",
+      "alternates": ["fork chopsticks", "chopsticks fork"],
+      "keywords": ["chopstick", "fork"]
+    },
+    {
+      "text": "Pancake hat",
+      "kind": "easy",
+      "alternates": ["hat pancake"],
+      "keywords": ["pancake", "hat"]
+    },
+    {
+      "text": "Waffle keyboard",
+      "kind": "easy",
+      "alternates": ["keyboard waffle"],
+      "keywords": ["waffle", "keyboard"]
+    },
+    {
+      "text": "Necktie napkin",
+      "kind": "easy",
+      "alternates": ["tie napkin", "napkin tie"],
+      "keywords": ["necktie", "napkin"]
+    },
+    {
+      "text": "Jelly chair",
+      "kind": "easy",
+      "alternates": ["jello chair", "chair made of jelly"],
+      "keywords": ["jelly", "chair"]
+    },
+    {
+      "text": "Balloon shoes",
+      "kind": "easy",
+      "alternates": ["shoes made of balloons"],
+      "keywords": ["balloon", "shoes"]
+    },
+    {
+      "text": "Inflatable anchor",
+      "kind": "easy",
+      "alternates": ["balloon anchor", "blow-up anchor"],
+      "keywords": ["inflatable", "anchor"]
+    },
+    {
+      "text": "Feather hammer",
+      "kind": "easy",
+      "alternates": ["hammer made of feathers"],
+      "keywords": ["feather", "hammer"]
+    },
+    {
+      "text": "Triangle ball",
+      "kind": "easy",
+      "alternates": ["triangular ball", "triangle football"],
+      "keywords": ["triangle", "ball"]
+    },
+    {
+      "text": "Cube egg",
+      "kind": "easy",
+      "alternates": ["square egg", "cubic egg"],
+      "keywords": ["cube", "egg"]
+    },
+    {
+      "text": "Wavy ruler",
+      "kind": "easy",
+      "alternates": ["wiggly ruler", "bendy ruler"],
+      "keywords": ["wavy", "ruler"]
+    },
+    {
+      "text": "Spoon shovel",
+      "kind": "easy",
+      "alternates": ["shovel spoon"],
+      "keywords": ["spoon", "shovel"]
+    },
+    {
+      "text": "Fan hat",
+      "kind": "easy",
+      "alternates": ["hat with a fan", "hat fan"],
+      "keywords": ["fan", "hat"]
+    },
+    {
+      "text": "Soda hat",
+      "kind": "easy",
+      "alternates": ["drink hat", "cup holder hat"],
+      "keywords": ["soda", "hat"]
+    },
+    {
+      "text": "House hat",
+      "kind": "easy",
+      "alternates": ["hat house", "hat shaped like a house"],
+      "keywords": ["house", "hat"]
+    },
+    {
+      "text": "Birdcage hat",
+      "kind": "easy",
+      "alternates": ["bird cage hat"],
+      "keywords": ["birdcage", "hat"]
+    },
+    {
+      "text": "Lamp hat",
+      "kind": "easy",
+      "alternates": ["lampshade hat"],
+      "keywords": ["lamp", "hat"]
+    },
+    {
+      "text": "Wiper glasses",
+      "kind": "easy",
+      "alternates": ["windshield wiper glasses", "glasses with wipers"],
+      "keywords": ["wiper", "glasses"]
+    },
+    {
+      "text": "Telescope glasses",
+      "kind": "easy",
+      "alternates": ["glasses with telescopes"],
+      "keywords": ["telescope", "glasses"]
+    },
+    {
+      "text": "Six-finger glove",
+      "kind": "easy",
+      "alternates": ["six-fingered glove", "glove with six fingers"],
+      "keywords": ["six", "glove"]
+    },
+    {
+      "text": "Foot mittens",
+      "kind": "easy",
+      "alternates": ["feet mittens", "mittens for feet"],
+      "keywords": ["foot", "mittens"]
+    },
+    {
+      "text": "Chimney car",
+      "kind": "easy",
+      "alternates": ["car with a chimney"],
+      "keywords": ["chimney", "car"]
+    },
+    {
+      "text": "Sail bike",
+      "kind": "easy",
+      "alternates": ["bicycle with a sail", "sail bicycle"],
+      "keywords": ["sail", "bike"]
+    },
+    {
+      "text": "Rowing car",
+      "kind": "easy",
+      "alternates": ["car with oars", "oar car"],
+      "keywords": ["rowing", "car"]
+    },
+    {
+      "text": "Propeller car",
+      "kind": "easy",
+      "alternates": ["car with a propeller"],
+      "keywords": ["propeller", "car"]
+    },
+    {
+      "text": "Rocket chair",
+      "kind": "easy",
+      "alternates": ["rocket-powered chair"],
+      "keywords": ["rocket", "chair"]
+    },
+    {
+      "text": "One-legged chair",
+      "kind": "easy",
+      "alternates": ["chair with one leg", "one-leg chair"],
+      "keywords": ["legged", "chair"]
+    },
+    {
+      "text": "Chair on stilts",
+      "kind": "easy",
+      "alternates": ["stilt chair"],
+      "keywords": ["chair", "stilts"]
+    },
+    {
+      "text": "Shower umbrella",
+      "kind": "easy",
+      "alternates": ["umbrella for the shower"],
+      "keywords": ["shower", "umbrella"]
+    },
+    {
+      "text": "Pet rock",
+      "kind": "easy",
+      "alternates": ["rock on a leash"],
+      "keywords": ["pet", "rock"]
+    },
+    {
+      "text": "Donut tire",
+      "kind": "easy",
+      "alternates": ["doughnut tire", "donut wheel"],
+      "keywords": ["donut", "tire"]
+    },
+    {
+      "text": "Toast skateboard",
+      "kind": "easy",
+      "alternates": ["skateboard made of toast"],
+      "keywords": ["toast", "skateboard"]
+    },
+    {
+      "text": "Watermelon helmet",
+      "kind": "easy",
+      "alternates": ["melon helmet"],
+      "keywords": ["watermelon", "helmet"]
+    },
+    {
+      "text": "Corn paint roller",
+      "kind": "easy",
+      "alternates": ["corn cob roller", "corn roller"],
+      "keywords": ["corn", "roller"]
+    },
+    {
+      "text": "Burger bed",
+      "kind": "easy",
+      "alternates": ["hamburger bed"],
+      "keywords": ["burger", "bed"]
+    },
+    {
+      "text": "Round ladder",
+      "kind": "easy",
+      "alternates": ["circular ladder", "ladder circle"],
+      "keywords": ["round", "ladder"]
+    },
+    {
+      "text": "Toothbrush comb",
+      "kind": "easy",
+      "alternates": ["comb toothbrush"],
+      "keywords": ["toothbrush", "comb"]
+    },
+    {
+      "text": "Saucepan hat",
+      "kind": "easy",
+      "alternates": ["pot hat", "pan helmet"],
+      "keywords": ["saucepan", "hat"]
+    },
+    {
+      "text": "Plunger shoes",
+      "kind": "easy",
+      "alternates": ["suction cup shoes"],
+      "keywords": ["plunger", "shoes"]
+    },
+    {
+      "text": "TV hat",
+      "kind": "easy",
+      "alternates": ["television hat", "TV helmet"],
+      "keywords": ["tv", "hat"]
+    },
+    {
+      "text": "Rear-view glasses",
+      "kind": "easy",
+      "alternates": ["rearview glasses", "glasses with mirrors"],
+      "keywords": ["rear", "glasses"]
+    },
+    {
+      "text": "Fork glove",
+      "kind": "easy",
+      "alternates": ["glove with forks", "fork fingers"],
+      "keywords": ["fork", "glove"]
+    },
+    {
+      "text": "Three-armed sweater",
+      "kind": "easy",
+      "alternates": ["three-sleeve sweater", "sweater with three sleeves"],
+      "keywords": ["three", "sweater"]
+    },
+    {
+      "text": "Brick life jacket",
+      "kind": "easy",
+      "alternates": ["life jacket made of bricks"],
+      "keywords": ["brick", "life", "jacket"]
+    },
+    {
+      "text": "Sponge raincoat",
+      "kind": "easy",
+      "alternates": ["raincoat made of sponge"],
+      "keywords": ["sponge", "raincoat"]
+    },
+    {
+      "text": "Brick pillow",
+      "kind": "easy",
+      "alternates": ["pillow made of bricks"],
+      "keywords": ["brick", "pillow"]
+    },
+    {
+      "text": "Glass trampoline",
+      "kind": "easy",
+      "alternates": ["trampoline made of glass"],
+      "keywords": ["glass", "trampoline"]
+    },
+    {
+      "text": "Paper fireplace",
+      "kind": "easy",
+      "alternates": ["fireplace made of paper"],
+      "keywords": ["paper", "fireplace"]
+    },
+    {
+      "text": "Cardboard pool",
+      "kind": "easy",
+      "alternates": ["cardboard swimming pool"],
+      "keywords": ["cardboard", "pool"]
+    },
+    {
+      "text": "Fridge backpack",
+      "kind": "easy",
+      "alternates": ["backpack fridge"],
+      "keywords": ["fridge", "backpack"]
+    },
+    {
+      "text": "Guitar racket",
+      "kind": "easy",
+      "alternates": ["tennis racket guitar", "racket guitar"],
+      "keywords": ["guitar", "racket"]
+    },
+    {
+      "text": "Basketball hoop lid",
+      "kind": "easy",
+      "alternates": ["basketball hoop with a lid", "hoop with a lid"],
+      "keywords": ["hoop", "lid"]
+    },
+    {
+      "text": "One-piece puzzle",
+      "kind": "easy",
+      "alternates": ["jigsaw with one piece", "one piece jigsaw"],
+      "keywords": ["piece", "puzzle"]
+    },
+    {
+      "text": "Sundial watch",
+      "kind": "easy",
+      "alternates": ["sundial wristwatch"],
+      "keywords": ["sundial", "watch"]
+    },
+    {
+      "text": "Umbrella with holes",
+      "kind": "easy",
+      "alternates": ["holey umbrella"],
+      "keywords": ["umbrella", "holes"]
+    },
+    {
+      "text": "Bucket with holes",
+      "kind": "easy",
+      "alternates": ["holey bucket", "leaky bucket"],
+      "keywords": ["bucket", "holes"]
+    },
+    {
+      "text": "Upside-down umbrella",
+      "kind": "easy",
+      "alternates": ["inverted umbrella"],
+      "keywords": ["upside", "umbrella"]
+    },
+    {
+      "text": "Ice candle",
+      "kind": "easy",
+      "alternates": ["candle made of ice"],
+      "keywords": ["ice", "candle"]
+    },
+    {
+      "text": "Banana boomerang",
+      "kind": "easy",
+      "alternates": ["boomerang banana"],
+      "keywords": ["banana", "boomerang"]
+    },
+    {
+      "text": "One-key piano",
+      "kind": "easy",
+      "alternates": ["piano with one key"],
+      "keywords": ["key", "piano"]
+    },
+    {
+      "text": "Kettle shower",
+      "kind": "easy",
+      "alternates": ["shower kettle", "teapot shower"],
+      "keywords": ["kettle", "shower"]
+    },
+    {
+      "text": "Bike washing machine",
+      "kind": "easy",
+      "alternates": ["washing machine bike", "pedal washing machine"],
+      "keywords": ["bike", "washing", "machine"]
+    },
+    {
+      "text": "Fishbowl TV",
+      "kind": "easy",
+      "alternates": ["aquarium TV", "TV fishbowl"],
+      "keywords": ["fishbowl", "tv"]
+    },
+    {
+      "text": "Spaghetti wig",
+      "kind": "easy",
+      "alternates": ["spaghetti hair", "wig made of spaghetti"],
+      "keywords": ["spaghetti", "wig"]
+    },
+    {
+      "text": "Jelly ladder",
+      "kind": "easy",
+      "alternates": ["jello ladder", "ladder made of jelly"],
+      "keywords": ["jelly", "ladder"]
+    },
+    {
+      "text": "Balloon bridge",
+      "kind": "easy",
+      "alternates": ["inflatable bridge"],
+      "keywords": ["balloon", "bridge"]
+    },
+    {
+      "text": "Inflatable bowling ball",
+      "kind": "easy",
+      "alternates": ["balloon bowling ball"],
+      "keywords": ["inflatable", "bowling", "ball"]
+    },
+    {
+      "text": "Cactus balloon",
+      "kind": "easy",
+      "alternates": ["balloon made of cactus"],
+      "keywords": ["cactus", "balloon"]
+    },
+    {
+      "text": "Square bubble",
+      "kind": "easy",
+      "alternates": ["cube bubble"],
+      "keywords": ["square", "bubble"]
+    },
+    {
+      "text": "Round dice",
+      "kind": "easy",
+      "alternates": ["round die", "spherical dice"],
+      "keywords": ["round", "dice"]
+    },
+    {
+      "text": "Ten-seat bicycle",
+      "kind": "easy",
+      "alternates": ["bicycle for ten", "long bicycle"],
+      "keywords": ["ten", "bicycle"]
+    },
+    {
+      "text": "Double-decker bicycle",
+      "kind": "easy",
+      "alternates": ["two-story bicycle", "double-decker bike"],
+      "keywords": ["double", "decker", "bicycle"]
+    },
+    {
+      "text": "Bed bike",
+      "kind": "easy",
+      "alternates": ["bicycle bed", "bed bicycle"],
+      "keywords": ["bed", "bike"]
+    },
+    {
+      "text": "One-seat seesaw",
+      "kind": "easy",
+      "alternates": ["seesaw with one seat"],
+      "keywords": ["seat", "seesaw"]
+    },
+    {
+      "text": "Racket shoes",
+      "kind": "easy",
+      "alternates": ["tennis racket shoes", "racket snowshoes"],
+      "keywords": ["racket", "shoes"]
+    },
+    {
+      "text": "Steering wheel skateboard",
+      "kind": "easy",
+      "alternates": ["skateboard with a steering wheel"],
+      "keywords": ["steering", "skateboard"]
+    },
+    {
+      "text": "Pogo bike",
+      "kind": "easy",
+      "alternates": ["pogo stick bike", "pogo bicycle"],
+      "keywords": ["pogo", "bike"]
+    },
+    {
+      "text": "Shoe car",
+      "kind": "easy",
+      "alternates": ["car shaped like a shoe"],
+      "keywords": ["shoe", "car"]
+    },
+    {
+      "text": "Toaster TV",
+      "kind": "easy",
+      "alternates": ["TV toaster"],
+      "keywords": ["toaster", "tv"]
+    },
+    {
+      "text": "Computer mouse trap",
+      "kind": "easy",
+      "alternates": ["mousetrap with a computer mouse"],
+      "keywords": ["computer", "mouse", "trap"]
+    },
+    {
+      "text": "Cup holder belt",
+      "kind": "easy",
+      "alternates": ["belt with cup holders"],
+      "keywords": ["cup", "belt"]
+    },
+    {
+      "text": "One-prong fork",
+      "kind": "easy",
+      "alternates": ["single-prong fork", "fork with one prong"],
+      "keywords": ["prong", "fork"]
+    },
+    {
+      "text": "Pizza cutter skates",
+      "kind": "easy",
+      "alternates": ["pizza wheel skates", "pizza cutter roller skates"],
+      "keywords": ["pizza", "skates"]
+    },
+    {
+      "text": "Plant pot shoes",
+      "kind": "easy",
+      "alternates": ["flower pot shoes", "flowerpot shoes"],
+      "keywords": ["pot", "shoes"]
+    },
+    {
+      "text": "Garden hose straw",
+      "kind": "easy",
+      "alternates": ["hose straw", "hosepipe straw"],
+      "keywords": ["hose", "straw"]
+    },
+    {
+      "text": "Stairs to nowhere",
+      "kind": "easy",
+      "alternates": ["staircase to nowhere"],
+      "keywords": ["stairs", "nowhere"]
+    },
+    {
+      "text": "Spoon catapult",
+      "kind": "easy",
+      "alternates": ["catapult spoon"],
+      "keywords": ["spoon", "catapult"]
+    },
+    {
+      "text": "Cheese chair",
+      "kind": "easy",
+      "alternates": ["chair made of cheese", "swiss cheese chair"],
+      "keywords": ["cheese", "chair"]
+    },
+    {
+      "text": "Cucumber sunglasses",
+      "kind": "easy",
+      "alternates": ["cucumber glasses"],
+      "keywords": ["cucumber", "sunglasses"]
+    },
+    {
+      "text": "Coconut phone",
+      "kind": "easy",
+      "alternates": ["coconut telephone"],
+      "keywords": ["coconut", "phone"]
+    },
+    {
+      "text": "Seashell headphones",
+      "kind": "easy",
+      "alternates": ["shell headphones"],
+      "keywords": ["seashell", "headphones"]
+    },
+    {
+      "text": "Bathtub diving board",
+      "kind": "easy",
+      "alternates": ["diving board bathtub", "bath diving board"],
+      "keywords": ["bathtub", "diving", "board"]
+    },
+    {
+      "text": "Toilet roll hat",
+      "kind": "easy",
+      "alternates": ["toilet paper hat", "tissue roll hat"],
+      "keywords": ["roll", "hat"]
+    },
+    {
+      "text": "Pasta hourglass",
+      "kind": "easy",
+      "alternates": ["hourglass full of pasta", "spaghetti hourglass"],
+      "keywords": ["pasta", "hourglass"]
+    },
+    {
+      "text": "Teapot hot tub",
+      "kind": "easy",
+      "alternates": ["teapot bath", "hot tub teapot"],
+      "keywords": ["teapot", "tub"]
+    },
+    {
+      "text": "Fireplace fridge",
+      "kind": "easy",
+      "alternates": ["fridge with a fireplace"],
+      "keywords": ["fireplace", "fridge"]
+    },
+    {
+      "text": "Chicken cuckoo clock",
+      "kind": "easy",
+      "alternates": ["cuckoo clock with a chicken"],
+      "keywords": ["chicken", "cuckoo", "clock"]
+    },
+    {
+      "text": "Pedal helicopter",
+      "kind": "easy",
+      "alternates": ["pedal-powered helicopter", "bicycle helicopter"],
+      "keywords": ["pedal", "helicopter"]
+    },
+    {
+      "text": "Rocket shopping cart",
+      "kind": "easy",
+      "alternates": ["rocket trolley", "jet-powered shopping cart"],
+      "keywords": ["rocket", "cart"]
+    },
+    {
+      "text": "Sprinkler hat",
+      "kind": "easy",
+      "alternates": ["hat with a sprinkler"],
+      "keywords": ["sprinkler", "hat"]
+    },
+    {
+      "text": "One-page book",
+      "kind": "easy",
+      "alternates": ["book with one page"],
+      "keywords": ["page", "book"]
+    },
+    {
+      "text": "Hamster roller coaster",
+      "kind": "easy",
+      "alternates": ["roller coaster for hamsters", "hamster rollercoaster"],
+      "keywords": ["hamster", "roller", "coaster"]
+    },
+    {
+      "text": "Drum shoes",
+      "kind": "easy",
+      "alternates": ["drum boots", "shoes with drums"],
+      "keywords": ["drum", "shoes"]
+    },
+    {
+      "text": "Corn harmonica",
+      "kind": "easy",
+      "alternates": ["harmonica made of corn"],
+      "keywords": ["corn", "harmonica"]
+    },
+    {
+      "text": "Frying pan guitar",
+      "kind": "easy",
+      "alternates": ["pan guitar", "guitar frying pan"],
+      "keywords": ["pan", "guitar"]
+    },
+    {
+      "text": "Soap shoes",
+      "kind": "easy",
+      "alternates": ["shoes made of soap"],
+      "keywords": ["soap", "shoes"]
+    },
+    {
+      "text": "Igloo chimney",
+      "kind": "easy",
+      "alternates": ["igloo with a chimney", "igloo fireplace"],
+      "keywords": ["igloo", "chimney"]
+    },
+    {
+      "text": "Aquarium shoes",
+      "kind": "easy",
+      "alternates": ["fish tank shoes", "fishbowl shoes"],
+      "keywords": ["aquarium", "shoes"]
+    },
+    {
+      "text": "Cactus hammock",
+      "kind": "easy",
+      "alternates": ["hammock made of cactus"],
+      "keywords": ["cactus", "hammock"]
+    },
+    {
+      "text": "Ironing board surfboard",
+      "kind": "easy",
+      "alternates": ["surfboard ironing board", "ironing surfboard"],
+      "keywords": ["ironing", "surfboard"]
+    },
+    {
+      "text": "Donut life ring",
+      "kind": "easy",
+      "alternates": ["doughnut life ring", "donut lifebuoy"],
+      "keywords": ["donut", "ring"]
+    },
+    {
+      "text": "Rubber duck submarine",
+      "kind": "easy",
+      "alternates": ["submarine rubber duck", "duck submarine"],
+      "keywords": ["duck", "submarine"]
+    },
+    {
+      "text": "Mushroom umbrella",
+      "kind": "easy",
+      "alternates": ["umbrella made of a mushroom"],
+      "keywords": ["mushroom", "umbrella"]
+    },
+    {
+      "text": "Headlight shoes",
+      "kind": "easy",
+      "alternates": ["shoes with headlights"],
+      "keywords": ["headlight", "shoes"]
+    },
+    {
+      "text": "Bread boat",
+      "kind": "easy",
+      "alternates": ["boat made of bread", "loaf boat"],
+      "keywords": ["bread", "boat"]
+    },
+    {
+      "text": "Bagel glasses",
+      "kind": "easy",
+      "alternates": ["glasses made of bagels"],
+      "keywords": ["bagel", "glasses"]
+    },
+    {
+      "text": "Celery straw",
+      "kind": "easy",
+      "alternates": ["straw made of celery"],
+      "keywords": ["celery", "straw"]
+    },
+    {
+      "text": "Propeller shoes",
+      "kind": "easy",
+      "alternates": ["shoes with propellers"],
+      "keywords": ["propeller", "shoes"]
+    },
+    {
+      "text": "One-tooth comb",
+      "kind": "easy",
+      "alternates": ["comb with one tooth"],
+      "keywords": ["tooth", "comb"]
+    },
+    {
+      "text": "Fishbowl on wheels",
+      "kind": "easy",
+      "alternates": ["goldfish car", "fish tank on wheels"],
+      "keywords": ["fishbowl", "wheels"]
+    },
+    {
+      "text": "Suitcase with legs",
+      "kind": "easy",
+      "alternates": ["walking suitcase", "suitcase walking"],
+      "keywords": ["suitcase", "legs"]
+    },
+    {
+      "text": "Cat-petting machine",
+      "kind": "easy",
+      "alternates": ["cat petting machine", "machine petting a cat"],
+      "keywords": ["cat", "petting", "machine"]
+    },
+    {
+      "text": "Horse-drawn rocket",
+      "kind": "easy",
+      "alternates": ["rocket pulled by a horse", "horse pulling a rocket"],
+      "keywords": ["horse", "rocket"]
+    },
+    {
+      "text": "Ladder for a snail",
+      "kind": "hard",
+      "alternates": ["snail ladder", "snail on a ladder"],
+      "keywords": ["ladder", "snail"]
+    },
+    {
+      "text": "Selfie stick for a dog",
+      "kind": "hard",
+      "alternates": ["dog selfie stick", "dog with a selfie stick"],
+      "keywords": ["selfie", "stick", "dog"]
+    },
+    {
+      "text": "Hamster-powered phone charger",
+      "kind": "hard",
+      "alternates": ["hamster phone charger", "hamster charging a phone"],
+      "keywords": ["hamster", "phone"]
+    },
+    {
+      "text": "Ice cream cone with a drain",
+      "kind": "hard",
+      "alternates": ["ice cream drain", "cone with a drain"],
+      "keywords": ["cone", "drain"]
+    },
+    {
+      "text": "Solar-powered flashlight at night",
+      "kind": "hard",
+      "alternates": ["solar flashlight at night", "solar torch at night"],
+      "keywords": ["solar", "flashlight", "night"]
+    },
+    {
+      "text": "Raincoat for a duck",
+      "kind": "hard",
+      "alternates": ["duck raincoat", "duck in a raincoat"],
+      "keywords": ["raincoat", "duck"]
+    },
+    {
+      "text": "Sweater for a snake",
+      "kind": "hard",
+      "alternates": ["snake sweater", "snake in a sweater"],
+      "keywords": ["sweater", "snake"]
+    },
+    {
+      "text": "Socks for an octopus",
+      "kind": "hard",
+      "alternates": ["octopus socks", "octopus wearing socks"],
+      "keywords": ["socks", "octopus"]
+    },
+    {
+      "text": "Scarf for a giraffe",
+      "kind": "hard",
+      "alternates": ["giraffe scarf", "giraffe wearing a long scarf"],
+      "keywords": ["scarf", "giraffe"]
+    },
+    {
+      "text": "Sunglasses for a sunflower",
+      "kind": "hard",
+      "alternates": ["sunflower sunglasses", "sunflower wearing sunglasses"],
+      "keywords": ["sunglasses", "sunflower"]
+    },
+    {
+      "text": "Hairbrush for a hedgehog",
+      "kind": "hard",
+      "alternates": ["hedgehog hairbrush", "brushing a hedgehog"],
+      "keywords": ["hairbrush", "hedgehog"]
+    },
+    {
+      "text": "Toothbrush for a shark",
+      "kind": "hard",
+      "alternates": ["shark toothbrush", "brushing a shark's teeth"],
+      "keywords": ["toothbrush", "shark"]
+    },
+    {
+      "text": "Shoes for a centipede",
+      "kind": "hard",
+      "alternates": ["centipede shoes", "centipede wearing shoes"],
+      "keywords": ["shoes", "centipede"]
+    },
+    {
+      "text": "Helmet for a woodpecker",
+      "kind": "hard",
+      "alternates": ["woodpecker helmet", "woodpecker wearing a helmet"],
+      "keywords": ["helmet", "woodpecker"]
+    },
+    {
+      "text": "Earmuffs for a bunny",
+      "kind": "hard",
+      "alternates": ["bunny earmuffs", "rabbit earmuffs"],
+      "keywords": ["earmuffs", "bunny"]
+    },
+    {
+      "text": "Sock for an elephant trunk",
+      "kind": "hard",
+      "alternates": ["elephant trunk sock", "trunk warmer"],
+      "keywords": ["sock", "elephant", "trunk"]
+    },
+    {
+      "text": "Leash for a goldfish",
+      "kind": "hard",
+      "alternates": ["goldfish leash", "walking a goldfish"],
+      "keywords": ["leash", "goldfish"]
+    },
+    {
+      "text": "Jetpack for a turtle",
+      "kind": "hard",
+      "alternates": ["turtle jetpack", "turtle with a jetpack"],
+      "keywords": ["jetpack", "turtle"]
+    },
+    {
+      "text": "Stilts for a dachshund",
+      "kind": "hard",
+      "alternates": ["stilts for a sausage dog", "dachshund on stilts"],
+      "keywords": ["stilts", "dachshund"]
+    },
+    {
+      "text": "Bicycle for a fish",
+      "kind": "hard",
+      "alternates": ["fish bicycle", "fish riding a bike"],
+      "keywords": ["bicycle", "fish"]
+    },
+    {
+      "text": "Parachute for a bird",
+      "kind": "hard",
+      "alternates": ["bird parachute", "bird with a parachute"],
+      "keywords": ["parachute", "bird"]
+    },
+    {
+      "text": "Wings for a pig",
+      "kind": "hard",
+      "alternates": ["pig wings", "pig with wings"],
+      "keywords": ["wings", "pig"]
+    },
+    {
+      "text": "Alarm clock for a rooster",
+      "kind": "hard",
+      "alternates": ["rooster alarm clock", "rooster with an alarm clock"],
+      "keywords": ["alarm", "clock", "rooster"]
+    },
+    {
+      "text": "Heater for a penguin",
+      "kind": "hard",
+      "alternates": ["penguin heater", "penguin with a heater"],
+      "keywords": ["heater", "penguin"]
+    },
+    {
+      "text": "Fan for a snowman",
+      "kind": "hard",
+      "alternates": ["snowman fan", "snowman with a fan"],
+      "keywords": ["fan", "snowman"]
+    },
+    {
+      "text": "Hair dryer for a fish",
+      "kind": "hard",
+      "alternates": ["fish hair dryer", "blow-drying a fish"],
+      "keywords": ["dryer", "fish"]
+    },
+    {
+      "text": "Comb for a bald eagle",
+      "kind": "hard",
+      "alternates": ["bald eagle comb", "combing a bald eagle"],
+      "keywords": ["comb", "eagle"]
+    },
+    {
+      "text": "Glasses for a cyclops",
+      "kind": "hard",
+      "alternates": ["cyclops glasses", "cyclops wearing glasses"],
+      "keywords": ["glasses", "cyclops"]
+    },
+    {
+      "text": "Mittens for a crab",
+      "kind": "hard",
+      "alternates": ["crab mittens", "crab wearing mittens"],
+      "keywords": ["mittens", "crab"]
+    },
+    {
+      "text": "Armbands for a fish",
+      "kind": "hard",
+      "alternates": ["water wings for a fish", "fish with armbands"],
+      "keywords": ["armbands", "fish"]
+    },
+    {
+      "text": "Cracking an egg with a hammer",
+      "kind": "hard",
+      "alternates": ["hammer cracking an egg", "egg hammer"],
+      "keywords": ["egg", "hammer"]
+    },
+    {
+      "text": "Chopsticks for soup",
+      "kind": "hard",
+      "alternates": ["eating soup with chopsticks", "soup chopsticks"],
+      "keywords": ["chopsticks", "soup"]
+    },
+    {
+      "text": "Spaghetti through a straw",
+      "kind": "hard",
+      "alternates": ["drinking spaghetti with a straw", "spaghetti straw"],
+      "keywords": ["spaghetti", "straw"]
+    },
+    {
+      "text": "Drinking from a colander",
+      "kind": "hard",
+      "alternates": ["colander cup", "drinking out of a colander"],
+      "keywords": ["drinking", "colander"]
+    },
+    {
+      "text": "Ice cream in a toaster",
+      "kind": "hard",
+      "alternates": ["toasting ice cream", "ice cream toaster"],
+      "keywords": ["ice", "cream", "toaster"]
+    },
+    {
+      "text": "Umbrella over an ice cream",
+      "kind": "hard",
+      "alternates": ["ice cream umbrella", "umbrella for an ice cream"],
+      "keywords": ["umbrella", "ice", "cream"]
+    },
+    {
+      "text": "Seatbelt for a sandwich",
+      "kind": "hard",
+      "alternates": ["sandwich seatbelt", "sandwich wearing a seatbelt"],
+      "keywords": ["seatbelt", "sandwich"]
+    },
+    {
+      "text": "Helmet for an egg",
+      "kind": "hard",
+      "alternates": ["egg helmet", "egg wearing a helmet"],
+      "keywords": ["helmet", "egg"]
+    },
+    {
+      "text": "Alarm clock running away",
+      "kind": "hard",
+      "alternates": ["runaway alarm clock", "alarm clock with legs"],
+      "keywords": ["alarm", "clock", "running"]
+    },
+    {
+      "text": "Toast stuck on the ceiling",
+      "kind": "hard",
+      "alternates": ["toaster launching toast", "toast hitting the ceiling"],
+      "keywords": ["toast", "ceiling"]
+    },
+    {
+      "text": "Vacuum eating the curtains",
+      "kind": "hard",
+      "alternates": ["vacuum cleaner sucking up curtains", "vacuum swallowing curtains"],
+      "keywords": ["vacuum", "curtains"]
+    },
+    {
+      "text": "Mowing the carpet",
+      "kind": "hard",
+      "alternates": ["lawnmower on the carpet", "mowing a rug"],
+      "keywords": ["mowing", "carpet"]
+    },
+    {
+      "text": "Gloves for hugging a cactus",
+      "kind": "hard",
+      "alternates": ["cactus hugging gloves", "hugging a cactus with gloves"],
+      "keywords": ["gloves", "hugging", "cactus"]
+    },
+    {
+      "text": "Bubble wrap for a cactus",
+      "kind": "hard",
+      "alternates": ["cactus in bubble wrap", "wrapping a cactus"],
+      "keywords": ["bubble", "wrap", "cactus"]
+    },
+    {
+      "text": "Escalator for ants",
+      "kind": "hard",
+      "alternates": ["ant escalator", "ants on an escalator"],
+      "keywords": ["escalator", "ants"]
+    },
+    {
+      "text": "Picnic table for ants",
+      "kind": "hard",
+      "alternates": ["ant picnic table", "ants at a picnic table"],
+      "keywords": ["picnic", "table", "ants"]
+    },
+    {
+      "text": "Racing car for a snail",
+      "kind": "hard",
+      "alternates": ["snail racing car", "snail in a race car"],
+      "keywords": ["snail", "car"]
+    },
+    {
+      "text": "Saddle for a cat",
+      "kind": "hard",
+      "alternates": ["cat saddle", "cat with a saddle"],
+      "keywords": ["saddle", "cat"]
+    },
+    {
+      "text": "Man in a hamster wheel",
+      "kind": "hard",
+      "alternates": ["human hamster wheel", "person in a hamster wheel"],
+      "keywords": ["hamster", "wheel"]
+    },
+    {
+      "text": "Pogo stick for a kangaroo",
+      "kind": "hard",
+      "alternates": ["kangaroo pogo stick", "kangaroo on a pogo stick"],
+      "keywords": ["pogo", "kangaroo"]
+    },
+    {
+      "text": "Stilts for a giraffe",
+      "kind": "hard",
+      "alternates": ["giraffe stilts", "giraffe on stilts"],
+      "keywords": ["stilts", "giraffe"]
+    },
+    {
+      "text": "Mirror for a vampire",
+      "kind": "hard",
+      "alternates": ["vampire mirror", "vampire looking in a mirror"],
+      "keywords": ["mirror", "vampire"]
+    },
+    {
+      "text": "Toothbrush for a chicken",
+      "kind": "hard",
+      "alternates": ["chicken toothbrush", "brushing a chicken's teeth"],
+      "keywords": ["toothbrush", "chicken"]
+    },
+    {
+      "text": "Straw for an elephant",
+      "kind": "hard",
+      "alternates": ["elephant straw", "elephant drinking with a straw"],
+      "keywords": ["straw", "elephant"]
+    },
+    {
+      "text": "Scissors for a crab",
+      "kind": "hard",
+      "alternates": ["crab scissors", "crab with scissors"],
+      "keywords": ["scissors", "crab"]
+    },
+    {
+      "text": "Hammer for a woodpecker",
+      "kind": "hard",
+      "alternates": ["woodpecker hammer", "woodpecker with a hammer"],
+      "keywords": ["hammer", "woodpecker"]
+    },
+    {
+      "text": "Flashlight for a firefly",
+      "kind": "hard",
+      "alternates": ["firefly flashlight", "firefly with a flashlight"],
+      "keywords": ["flashlight", "firefly"]
+    },
+    {
+      "text": "Sharpener for a unicorn horn",
+      "kind": "hard",
+      "alternates": ["unicorn horn sharpener", "sharpening a unicorn horn"],
+      "keywords": ["sharpener", "unicorn"]
+    },
+    {
+      "text": "Fire extinguisher for a dragon",
+      "kind": "hard",
+      "alternates": ["dragon fire extinguisher", "dragon with a fire extinguisher"],
+      "keywords": ["extinguisher", "dragon"]
+    },
+    {
+      "text": "Back scratcher for a bear",
+      "kind": "hard",
+      "alternates": ["bear back scratcher", "bear with a back scratcher"],
+      "keywords": ["scratcher", "bear"]
+    },
+    {
+      "text": "Fan blowing a sailboat",
+      "kind": "hard",
+      "alternates": ["fan on a sailboat", "sailboat with a fan"],
+      "keywords": ["fan", "sailboat"]
+    },
+    {
+      "text": "Soup on a stick",
+      "kind": "hard",
+      "alternates": ["soup popsicle", "soup lollipop"],
+      "keywords": ["soup", "stick"]
+    },
+    {
+      "text": "Teabag on a fishing rod",
+      "kind": "hard",
+      "alternates": ["fishing for tea", "tea bag on a fishing rod"],
+      "keywords": ["teabag", "fishing"]
+    },
+    {
+      "text": "Crane dunking a cookie",
+      "kind": "hard",
+      "alternates": ["cookie crane", "crane dipping a cookie in milk"],
+      "keywords": ["crane", "cookie"]
+    },
+    {
+      "text": "Revolving door for a dog",
+      "kind": "hard",
+      "alternates": ["dog revolving door", "dog in a revolving door"],
+      "keywords": ["revolving", "door", "dog"]
+    },
+    {
+      "text": "Cat flap for an elephant",
+      "kind": "hard",
+      "alternates": ["elephant cat flap", "elephant door"],
+      "keywords": ["flap", "elephant"]
+    },
+    {
+      "text": "Swimming pool on a bus",
+      "kind": "hard",
+      "alternates": ["bus pool", "bus with a swimming pool"],
+      "keywords": ["pool", "bus"]
+    },
+    {
+      "text": "Chandelier in a tent",
+      "kind": "hard",
+      "alternates": ["tent chandelier", "tent with a chandelier"],
+      "keywords": ["chandelier", "tent"]
+    },
+    {
+      "text": "Doorbell on a tent",
+      "kind": "hard",
+      "alternates": ["tent doorbell", "tent with a doorbell"],
+      "keywords": ["doorbell", "tent"]
+    },
+    {
+      "text": "Sprinkler in the rain",
+      "kind": "hard",
+      "alternates": ["sprinkler running in the rain", "watering in the rain"],
+      "keywords": ["sprinkler", "rain"]
+    },
+    {
+      "text": "Chocolate bridge melting",
+      "kind": "hard",
+      "alternates": ["melting chocolate bridge", "bridge made of chocolate"],
+      "keywords": ["chocolate", "bridge", "melting"]
+    },
+    {
+      "text": "Wax wings melting",
+      "kind": "hard",
+      "alternates": ["melting wax wings", "wings melting in the sun"],
+      "keywords": ["wax", "wings", "melting"]
+    },
+    {
+      "text": "Toast with a parachute",
+      "kind": "hard",
+      "alternates": ["parachute toast", "toast parachuting"],
+      "keywords": ["toast", "parachute"]
+    },
+    {
+      "text": "Microphone for a mime",
+      "kind": "hard",
+      "alternates": ["mime microphone", "mime with a microphone"],
+      "keywords": ["microphone", "mime"]
+    },
+    {
+      "text": "Megaphone for a mouse",
+      "kind": "hard",
+      "alternates": ["mouse megaphone", "mouse with a megaphone"],
+      "keywords": ["megaphone", "mouse"]
+    },
+    {
+      "text": "Propeller hat for a penguin",
+      "kind": "hard",
+      "alternates": ["penguin propeller hat", "penguin with a propeller hat"],
+      "keywords": ["propeller", "penguin"]
+    },
+    {
+      "text": "Glasses for a spider",
+      "kind": "hard",
+      "alternates": ["spider glasses", "spider wearing glasses"],
+      "keywords": ["glasses", "spider"]
+    },
+    {
+      "text": "Coat hanger for a bat",
+      "kind": "hard",
+      "alternates": ["bat hanger", "bat on a coat hanger"],
+      "keywords": ["hanger", "bat"]
+    },
+    {
+      "text": "Ice skating on grass",
+      "kind": "hard",
+      "alternates": ["ice skates on grass", "skating on a lawn"],
+      "keywords": ["skating", "grass"]
+    },
+    {
+      "text": "Snowshoes at the beach",
+      "kind": "hard",
+      "alternates": ["snowshoes on sand", "snowshoes on the beach"],
+      "keywords": ["snowshoes", "beach"]
+    },
+    {
+      "text": "Flippers on a bicycle",
+      "kind": "hard",
+      "alternates": ["riding a bike in flippers", "bicycle flippers"],
+      "keywords": ["flippers", "bicycle"]
+    },
+    {
+      "text": "Scuba diving in a bathtub",
+      "kind": "hard",
+      "alternates": ["bathtub scuba diver", "scuba gear in a bathtub"],
+      "keywords": ["scuba", "bathtub"]
+    },
+    {
+      "text": "Pencil sharpener for a carrot",
+      "kind": "hard",
+      "alternates": ["carrot sharpener", "sharpening a carrot"],
+      "keywords": ["sharpener", "carrot"]
+    },
+    {
+      "text": "Mug with the handle inside",
+      "kind": "hard",
+      "alternates": ["mug with an inside handle", "handle inside a mug"],
+      "keywords": ["mug", "handle", "inside"]
+    },
+    {
+      "text": "Robot walking a dog",
+      "kind": "hard",
+      "alternates": ["dog walking robot", "robot dog walker"],
+      "keywords": ["robot", "walking", "dog"]
+    },
+    {
+      "text": "Catapult flipping a pancake",
+      "kind": "hard",
+      "alternates": ["pancake catapult", "pancake flipping catapult"],
+      "keywords": ["catapult", "pancake"]
+    },
+    {
+      "text": "Forklift carrying a pea",
+      "kind": "hard",
+      "alternates": ["pea on a forklift", "forklift lifting a pea"],
+      "keywords": ["forklift", "pea"]
+    },
+    {
+      "text": "Eating cereal with a fork",
+      "kind": "hard",
+      "alternates": ["cereal with a fork", "fork in a cereal bowl"],
+      "keywords": ["cereal", "fork"]
+    },
+    {
+      "text": "Balloon car floating away",
+      "kind": "hard",
+      "alternates": ["flying balloon car", "car lifted by balloons"],
+      "keywords": ["balloon", "car", "floating"]
+    },
+    {
+      "text": "Bridge over a puddle",
+      "kind": "hard",
+      "alternates": ["puddle bridge", "tiny bridge over a puddle"],
+      "keywords": ["bridge", "puddle"]
+    },
+    {
+      "text": "Lifeboat for a rubber duck",
+      "kind": "hard",
+      "alternates": ["rubber duck lifeboat", "rubber duck in a lifeboat"],
+      "keywords": ["lifeboat", "duck"]
+    },
+    {
+      "text": "Water slide into a teacup",
+      "kind": "hard",
+      "alternates": ["teacup water slide", "slide into a teacup"],
+      "keywords": ["slide", "teacup"]
+    },
+    {
+      "text": "Escalator for one step",
+      "kind": "hard",
+      "alternates": ["one-step escalator", "escalator up one step"],
+      "keywords": ["escalator", "step"]
+    },
+    {
+      "text": "Sleeping bag for a caterpillar",
+      "kind": "hard",
+      "alternates": ["caterpillar sleeping bag", "caterpillar in a sleeping bag"],
+      "keywords": ["sleeping", "bag", "caterpillar"]
+    },
+    {
+      "text": "Banana peeler for a monkey",
+      "kind": "hard",
+      "alternates": ["monkey banana peeler", "banana peeling machine for a monkey"],
+      "keywords": ["peeler", "monkey"]
+    },
+    {
+      "text": "Nutcracker for a squirrel",
+      "kind": "hard",
+      "alternates": ["squirrel nutcracker", "squirrel with a nutcracker"],
+      "keywords": ["nutcracker", "squirrel"]
+    },
+    {
+      "text": "Lunchbox for a pelican",
+      "kind": "hard",
+      "alternates": ["pelican lunchbox", "pelican with a lunchbox"],
+      "keywords": ["lunchbox", "pelican"]
+    },
+    {
+      "text": "Backpack for a kangaroo",
+      "kind": "hard",
+      "alternates": ["kangaroo backpack", "kangaroo wearing a backpack"],
+      "keywords": ["backpack", "kangaroo"]
+    },
+    {
+      "text": "Sweater for a sheep",
+      "kind": "hard",
+      "alternates": ["sheep sweater", "sheep wearing a sweater"],
+      "keywords": ["sweater", "sheep"]
+    },
+    {
+      "text": "Flip-flops for a frog",
+      "kind": "hard",
+      "alternates": ["frog flip-flops", "frog wearing flip-flops"],
+      "keywords": ["flip-flops", "frog"]
+    },
+    {
+      "text": "Fridge in an igloo",
+      "kind": "hard",
+      "alternates": ["igloo fridge", "igloo with a fridge"],
+      "keywords": ["fridge", "igloo"]
+    },
+    {
+      "text": "Shaving a peach",
+      "kind": "hard",
+      "alternates": ["peach shaver", "razor on a peach"],
+      "keywords": ["shaving", "peach"]
+    },
+    {
+      "text": "Bowling with a watermelon",
+      "kind": "hard",
+      "alternates": ["watermelon bowling", "watermelon bowling ball"],
+      "keywords": ["bowling", "watermelon"]
+    },
+    {
+      "text": "Tennis with a frying pan",
+      "kind": "hard",
+      "alternates": ["frying pan tennis", "frying pan racket"],
+      "keywords": ["tennis", "pan"]
+    },
+    {
+      "text": "Skiing down the stairs",
+      "kind": "hard",
+      "alternates": ["skis on the stairs", "staircase skiing"],
+      "keywords": ["skiing", "stairs"]
+    },
+    {
+      "text": "Training wheels on a unicycle",
+      "kind": "hard",
+      "alternates": ["unicycle training wheels", "unicycle with training wheels"],
+      "keywords": ["training", "wheels", "unicycle"]
+    },
+    {
+      "text": "Hammering a nail with a banana",
+      "kind": "hard",
+      "alternates": ["banana hammer", "banana as a hammer"],
+      "keywords": ["banana", "nail"]
+    },
+    {
+      "text": "Mopping the sea",
+      "kind": "hard",
+      "alternates": ["mopping the ocean", "mop in the sea"],
+      "keywords": ["mopping", "sea"]
+    },
+    {
+      "text": "Vacuuming the beach",
+      "kind": "hard",
+      "alternates": ["beach vacuum", "vacuum cleaner on the beach"],
+      "keywords": ["vacuuming", "beach"]
+    },
+    {
+      "text": "Combing the grass",
+      "kind": "hard",
+      "alternates": ["grass comb", "comb on a lawn"],
+      "keywords": ["combing", "grass"]
+    },
+    {
+      "text": "Leaf blower on a dandelion",
+      "kind": "hard",
+      "alternates": ["blowing a dandelion with a leaf blower", "dandelion leaf blower"],
+      "keywords": ["blower", "dandelion"]
+    },
+    {
+      "text": "Tow truck for a toy car",
+      "kind": "hard",
+      "alternates": ["toy car tow truck", "tow truck towing a toy car"],
+      "keywords": ["tow", "truck", "toy"]
+    },
+    {
+      "text": "Hot air balloon with a hole",
+      "kind": "hard",
+      "alternates": ["leaky hot air balloon", "hot air balloon with a patch"],
+      "keywords": ["balloon", "hole"]
+    },
+    {
+      "text": "Limousine for a mouse",
+      "kind": "hard",
+      "alternates": ["mouse limousine", "mouse in a limo"],
+      "keywords": ["limousine", "mouse"]
+    },
+    {
+      "text": "Giant on a tiny bicycle",
+      "kind": "hard",
+      "alternates": ["giant riding a tiny bike", "tiny bike for a giant"],
+      "keywords": ["giant", "tiny"]
+    },
+    {
+      "text": "Horse on roller skates",
+      "kind": "hard",
+      "alternates": ["roller skating horse", "horse wearing roller skates"],
+      "keywords": ["horse", "skates"]
+    },
+    {
+      "text": "Ketchup from a fire hose",
+      "kind": "hard",
+      "alternates": ["fire hose ketchup", "ketchup hose"],
+      "keywords": ["ketchup", "hose"]
+    },
+    {
+      "text": "Boiling an egg with a candle",
+      "kind": "hard",
+      "alternates": ["candle egg boiler", "egg over a candle"],
+      "keywords": ["egg", "candle"]
+    },
+    {
+      "text": "Spaghetti on a clothesline",
+      "kind": "hard",
+      "alternates": ["pasta on a clothesline", "drying spaghetti on a clothesline"],
+      "keywords": ["spaghetti", "clothesline"]
+    },
+    {
+      "text": "Hair dryer drying the dishes",
+      "kind": "hard",
+      "alternates": ["drying dishes with a hair dryer", "dish hair dryer"],
+      "keywords": ["dryer", "dishes"]
+    },
+    {
+      "text": "Carrot dangling from a hat",
+      "kind": "hard",
+      "alternates": ["hat with a carrot on a stick", "carrot hat"],
+      "keywords": ["carrot", "hat"]
+    },
+    {
+      "text": "Glasses with painted eyes",
+      "kind": "hard",
+      "alternates": ["fake eye glasses", "glasses with eyes drawn on"],
+      "keywords": ["glasses", "eyes"]
+    },
+    {
+      "text": "Exercise bike powering a toaster",
+      "kind": "hard",
+      "alternates": ["bike-powered toaster", "toaster powered by a bike"],
+      "keywords": ["bike", "toaster"]
+    },
+    {
+      "text": "Robot butler dropping a tray",
+      "kind": "hard",
+      "alternates": ["clumsy robot butler", "robot waiter dropping a tray"],
+      "keywords": ["robot", "tray"]
+    },
+    {
+      "text": "Raincoat for a sandcastle",
+      "kind": "hard",
+      "alternates": ["sandcastle raincoat", "sandcastle in a raincoat"],
+      "keywords": ["raincoat", "sandcastle"]
+    },
+    {
+      "text": "Ice pack on a volcano",
+      "kind": "hard",
+      "alternates": ["volcano ice pack", "ice pack for a volcano"],
+      "keywords": ["ice", "pack", "volcano"]
+    },
+    {
+      "text": "Cork in a volcano",
+      "kind": "hard",
+      "alternates": ["volcano cork", "corking a volcano"],
+      "keywords": ["cork", "volcano"]
+    },
+    {
+      "text": "Catching a waterfall in a bucket",
+      "kind": "hard",
+      "alternates": ["bucket under a waterfall", "waterfall bucket"],
+      "keywords": ["bucket", "waterfall"]
+    },
+    {
+      "text": "Microscope for a whale",
+      "kind": "hard",
+      "alternates": ["whale microscope", "whale under a microscope"],
+      "keywords": ["microscope", "whale"]
+    },
+    {
+      "text": "Trampoline for a hippo",
+      "kind": "hard",
+      "alternates": ["hippo trampoline", "hippo on a trampoline"],
+      "keywords": ["trampoline", "hippo"]
+    },
+    {
+      "text": "Zip line for a sloth",
+      "kind": "hard",
+      "alternates": ["sloth zip line", "sloth on a zip line"],
+      "keywords": ["zip", "line", "sloth"]
+    },
+    {
+      "text": "Bow tie for a penguin",
+      "kind": "hard",
+      "alternates": ["penguin bow tie", "penguin wearing a bow tie"],
+      "keywords": ["bow", "tie", "penguin"]
+    },
+    {
+      "text": "Pajamas for a zebra",
+      "kind": "hard",
+      "alternates": ["zebra pajamas", "striped pajamas for a zebra"],
+      "keywords": ["pajamas", "zebra"]
+    },
+    {
+      "text": "Egg cup for an ostrich egg",
+      "kind": "hard",
+      "alternates": ["ostrich egg cup", "giant egg in an egg cup"],
+      "keywords": ["cup", "ostrich"]
+    },
+    {
+      "text": "Lion in a cat bed",
+      "kind": "hard",
+      "alternates": ["cat bed for a lion", "lion sleeping in a cat bed"],
+      "keywords": ["lion", "bed"]
+    },
+    {
+      "text": "Kennel for a dinosaur",
+      "kind": "hard",
+      "alternates": ["dinosaur kennel", "dinosaur dog house"],
+      "keywords": ["kennel", "dinosaur"]
+    },
+    {
+      "text": "Arm extenders for a T rex",
+      "kind": "hard",
+      "alternates": ["long arms for a T rex", "T rex grabber"],
+      "keywords": ["arm", "rex"]
+    },
+    {
+      "text": "Pizza stuck in a doorway",
+      "kind": "hard",
+      "alternates": ["giant pizza in a door", "pizza too big for the door"],
+      "keywords": ["pizza", "doorway"]
+    },
+    {
+      "text": "Jetpack stuck in a tree",
+      "kind": "hard",
+      "alternates": ["jetpack in a tree", "man with a jetpack stuck in a tree"],
+      "keywords": ["jetpack", "tree"]
+    },
+    {
+      "text": "Drone delivering a piano",
+      "kind": "hard",
+      "alternates": ["piano drone", "drone carrying a piano"],
+      "keywords": ["drone", "piano"]
+    },
+    {
+      "text": "Drone holding an umbrella",
+      "kind": "hard",
+      "alternates": ["umbrella drone", "flying umbrella"],
+      "keywords": ["drone", "umbrella"]
+    },
+    {
+      "text": "Eating corn with a drill",
+      "kind": "hard",
+      "alternates": ["corn on a drill", "drill corn cob"],
+      "keywords": ["corn", "drill"]
+    },
+    {
+      "text": "Remote control on a leash",
+      "kind": "hard",
+      "alternates": ["remote on a leash", "leashed remote"],
+      "keywords": ["remote", "leash"]
+    },
+    {
+      "text": "Diving board for a frog",
+      "kind": "hard",
+      "alternates": ["frog diving board", "frog on a diving board"],
+      "keywords": ["diving", "board", "frog"]
+    },
+    {
+      "text": "Stapling a sandwich",
+      "kind": "hard",
+      "alternates": ["stapled sandwich", "sandwich with staples"],
+      "keywords": ["stapling", "sandwich"]
+    },
+    {
+      "text": "Eraser bigger than the pencil",
+      "kind": "hard",
+      "alternates": ["giant eraser on a pencil", "huge eraser pencil"],
+      "keywords": ["eraser", "pencil"]
+    },
+    {
+      "text": "Wetsuit for a seal",
+      "kind": "hard",
+      "alternates": ["seal wetsuit", "seal in a wetsuit"],
+      "keywords": ["wetsuit", "seal"]
+    },
+    {
+      "text": "Umbrella for a jellyfish",
+      "kind": "hard",
+      "alternates": ["jellyfish umbrella", "jellyfish under an umbrella"],
+      "keywords": ["umbrella", "jellyfish"]
+    },
+    {
+      "text": "Cork on a unicorn horn",
+      "kind": "hard",
+      "alternates": ["unicorn horn cork", "unicorn with a cork"],
+      "keywords": ["cork", "unicorn"]
+    },
+    {
+      "text": "Sleep mask for an owl",
+      "kind": "hard",
+      "alternates": ["owl sleep mask", "owl wearing a sleep mask"],
+      "keywords": ["mask", "owl"]
+    },
+    {
+      "text": "Volume knob on a parrot",
+      "kind": "hard",
+      "alternates": ["parrot volume knob", "parrot with a volume dial"],
+      "keywords": ["volume", "parrot"]
+    },
+    {
+      "text": "UFO with training wheels",
+      "kind": "hard",
+      "alternates": ["flying saucer training wheels", "flying saucer with training wheels"],
+      "keywords": ["ufo", "training", "wheels"]
+    },
+    {
+      "text": "Seatbelt for a broomstick",
+      "kind": "hard",
+      "alternates": ["broomstick seatbelt", "witch broom seatbelt"],
+      "keywords": ["seatbelt", "broomstick"]
+    },
+    {
+      "text": "Raincoat for a robot",
+      "kind": "hard",
+      "alternates": ["robot raincoat", "robot in a raincoat"],
+      "keywords": ["raincoat", "robot"]
+    },
+    {
+      "text": "Hair dryer for a mermaid",
+      "kind": "hard",
+      "alternates": ["mermaid hair dryer", "mermaid drying her tail"],
+      "keywords": ["dryer", "mermaid"]
+    },
+    {
+      "text": "Shoes for a mermaid",
+      "kind": "hard",
+      "alternates": ["mermaid shoes", "mermaid wearing shoes"],
+      "keywords": ["shoes", "mermaid"]
+    },
+    {
+      "text": "Steering wheel on a horse",
+      "kind": "hard",
+      "alternates": ["horse steering wheel", "horse with a steering wheel"],
+      "keywords": ["steering", "wheel", "horse"]
+    },
+    {
+      "text": "Cup holder on a camel",
+      "kind": "hard",
+      "alternates": ["camel cup holder", "camel with a cup holder"],
+      "keywords": ["cup", "holder", "camel"]
+    },
+    {
+      "text": "Doorbell on a beehive",
+      "kind": "hard",
+      "alternates": ["beehive doorbell", "bee pressing a doorbell"],
+      "keywords": ["doorbell", "beehive"]
+    },
+    {
+      "text": "Slide into a cereal bowl",
+      "kind": "hard",
+      "alternates": ["cereal bowl slide", "water slide into cereal"],
+      "keywords": ["slide", "cereal"]
+    },
+    {
+      "text": "Sofa on a ski lift",
+      "kind": "hard",
+      "alternates": ["couch on a ski lift", "ski lift sofa"],
+      "keywords": ["sofa", "ski", "lift"]
+    },
+    {
+      "text": "Sunbed on an iceberg",
+      "kind": "hard",
+      "alternates": ["iceberg sun lounger", "sunbathing on an iceberg"],
+      "keywords": ["sunbed", "iceberg"]
+    },
+    {
+      "text": "Sand truck in the desert",
+      "kind": "hard",
+      "alternates": ["delivering sand to the desert", "dump truck of sand in a desert"],
+      "keywords": ["sand", "truck", "desert"]
+    },
+    {
+      "text": "Forklift for an ant",
+      "kind": "hard",
+      "alternates": ["ant forklift", "ant driving a forklift"],
+      "keywords": ["forklift", "ant"]
+    },
+    {
+      "text": "Slippers for a table",
+      "kind": "hard",
+      "alternates": ["table slippers", "table wearing slippers"],
+      "keywords": ["slippers", "table"]
+    },
+    {
+      "text": "Sunglasses for a car",
+      "kind": "hard",
+      "alternates": ["car sunglasses", "car wearing sunglasses"],
+      "keywords": ["sunglasses", "car"]
+    },
+    {
+      "text": "Comb for a pineapple",
+      "kind": "hard",
+      "alternates": ["pineapple comb", "combing a pineapple"],
+      "keywords": ["comb", "pineapple"]
+    },
+    {
+      "text": "Mirror for a peacock",
+      "kind": "hard",
+      "alternates": ["peacock mirror", "peacock looking in a mirror"],
+      "keywords": ["mirror", "peacock"]
+    },
+    {
+      "text": "Periscope for a giraffe",
+      "kind": "hard",
+      "alternates": ["giraffe periscope", "giraffe with a periscope"],
+      "keywords": ["periscope", "giraffe"]
+    },
+    {
+      "text": "Umbrella for a submarine",
+      "kind": "hard",
+      "alternates": ["submarine umbrella", "submarine with an umbrella"],
+      "keywords": ["umbrella", "submarine"]
+    },
+    {
+      "text": "Life jacket for a boat",
+      "kind": "hard",
+      "alternates": ["boat life jacket", "boat wearing a life jacket"],
+      "keywords": ["life", "jacket", "boat"]
+    },
+    {
+      "text": "Garage for a skateboard",
+      "kind": "hard",
+      "alternates": ["skateboard garage", "skateboard in a garage"],
+      "keywords": ["garage", "skateboard"]
+    },
+    {
+      "text": "Catapult delivering mail",
+      "kind": "hard",
+      "alternates": ["mail catapult", "catapult throwing letters"],
+      "keywords": ["catapult", "mail"]
+    },
+    {
+      "text": "Porcupine in an inflatable boat",
+      "kind": "hard",
+      "alternates": ["porcupine on an inflatable boat", "porcupine in a dinghy"],
+      "keywords": ["porcupine", "inflatable", "boat"]
+    },
+    {
+      "text": "Cutting grass with scissors",
+      "kind": "hard",
+      "alternates": ["scissors lawnmower", "mowing with scissors"],
+      "keywords": ["grass", "scissors"]
+    },
+    {
+      "text": "Chopping a carrot with a chainsaw",
+      "kind": "hard",
+      "alternates": ["chainsaw carrot", "chainsaw cutting a carrot"],
+      "keywords": ["chainsaw", "carrot"]
+    },
+    {
+      "text": "Drinking from a watering can",
+      "kind": "hard",
+      "alternates": ["watering can cup", "drinking out of a watering can"],
+      "keywords": ["drinking", "watering", "can"]
+    },
+    {
+      "text": "Ironing with a frying pan",
+      "kind": "hard",
+      "alternates": ["frying pan iron", "ironing a shirt with a pan"],
+      "keywords": ["ironing", "pan"]
+    },
+    {
+      "text": "Drying hair with a leaf blower",
+      "kind": "hard",
+      "alternates": ["leaf blower hair dryer", "leaf blower on hair"],
+      "keywords": ["blower", "hair"]
+    },
+    {
+      "text": "Snorkel for a whale",
+      "kind": "hard",
+      "alternates": ["whale snorkel", "whale with a snorkel"],
+      "keywords": ["snorkel", "whale"]
+    },
+    {
+      "text": "Hiking boots for a mountain goat",
+      "kind": "hard",
+      "alternates": ["goat hiking boots", "mountain goat in boots"],
+      "keywords": ["boots", "goat"]
+    },
+    {
+      "text": "Climbing rope for a spider",
+      "kind": "hard",
+      "alternates": ["spider climbing rope", "spider on a rope"],
+      "keywords": ["rope", "spider"]
+    },
+    {
+      "text": "Lighthouse for a goldfish bowl",
+      "kind": "hard",
+      "alternates": ["goldfish bowl lighthouse", "fishbowl lighthouse"],
+      "keywords": ["lighthouse", "goldfish"]
+    },
+    {
+      "text": "Umbrella for a cloud",
+      "kind": "hard",
+      "alternates": ["cloud umbrella", "cloud holding an umbrella"],
+      "keywords": ["umbrella", "cloud"]
+    },
+    {
+      "text": "Sunglasses for the sun",
+      "kind": "hard",
+      "alternates": ["sun wearing sunglasses", "sun sunglasses"],
+      "keywords": ["sunglasses", "sun"]
+    },
+    {
+      "text": "Rocket skates for a sloth",
+      "kind": "hard",
+      "alternates": ["sloth rocket skates", "sloth on rocket skates"],
+      "keywords": ["rocket", "skates", "sloth"]
+    },
+    {
+      "text": "Gloves for a starfish",
+      "kind": "hard",
+      "alternates": ["starfish gloves", "starfish wearing gloves"],
+      "keywords": ["gloves", "starfish"]
+    },
+    {
+      "text": "Toothbrush for a walrus",
+      "kind": "hard",
+      "alternates": ["walrus toothbrush", "brushing a walrus's tusks"],
+      "keywords": ["toothbrush", "walrus"]
+    },
+    {
+      "text": "Matches for a dragon",
+      "kind": "hard",
+      "alternates": ["dragon matches", "dragon lighting a match"],
+      "keywords": ["matches", "dragon"]
+    },
+    {
+      "text": "Swimming goggles for a duck",
+      "kind": "hard",
+      "alternates": ["duck goggles", "duck wearing goggles"],
+      "keywords": ["goggles", "duck"]
+    },
+    {
+      "text": "Stairs for a snake",
+      "kind": "hard",
+      "alternates": ["snake stairs", "snake climbing stairs"],
+      "keywords": ["stairs", "snake"]
+    },
+    {
+      "text": "Tutu for a hippo",
+      "kind": "hard",
+      "alternates": ["hippo tutu", "hippo in a tutu"],
+      "keywords": ["tutu", "hippo"]
+    },
+    {
+      "text": "Anchor for a car",
+      "kind": "hard",
+      "alternates": ["car anchor", "parking a car with an anchor"],
+      "keywords": ["anchor", "car"]
+    },
+    {
+      "text": "Electric blanket for an ice cube",
+      "kind": "hard",
+      "alternates": ["ice cube blanket", "ice cube under a blanket"],
+      "keywords": ["blanket", "ice", "cube"]
+    },
+    {
+      "text": "Headlamp for a mole",
+      "kind": "hard",
+      "alternates": ["mole headlamp", "mole wearing a headlamp"],
+      "keywords": ["headlamp", "mole"]
+    },
+    {
+      "text": "Life jacket for an anchor",
+      "kind": "hard",
+      "alternates": ["anchor life jacket", "anchor wearing a life jacket"],
+      "keywords": ["life", "jacket", "anchor"]
+    },
+    {
+      "text": "Hair straightener for a sheep",
+      "kind": "hard",
+      "alternates": ["sheep hair straightener", "straightening a sheep's wool"],
+      "keywords": ["straightener", "sheep"]
+    },
+    {
+      "text": "Pacifier for a crocodile",
+      "kind": "hard",
+      "alternates": ["crocodile pacifier", "crocodile with a dummy"],
+      "keywords": ["pacifier", "crocodile"]
+    }
+  ]
+}

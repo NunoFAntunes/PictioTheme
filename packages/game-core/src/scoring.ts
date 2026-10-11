@@ -1,15 +1,13 @@
-import type { Card, Difficulty } from '@pictiotheme/protocol';
+import type { Card, CardKind } from '@pictiotheme/protocol';
 
 /** Scoring rules from docs/product/game-rules.md#scoring. */
 
-const DIFFICULTY_MULTIPLIER: Record<Difficulty, number> = { easy: 1, medium: 1.2, hard: 1.5 };
-const SILLY_MULTIPLIER = 1.5;
+const KIND_MULTIPLIER: Record<CardKind, number> = { easy: 1, hard: 1.5, chaos: 1.5 };
 /**
  * The drawer's multiplier is steeper than the guessers': a hard card is less likely to be guessed,
  * and the drawer chose the risk. Picking "Bat" over "Headless horseman" should not be the safe bet.
  */
-const DRAWER_DIFFICULTY_MULTIPLIER: Record<Difficulty, number> = { easy: 1, medium: 1.4, hard: 2 };
-const DRAWER_SILLY_MULTIPLIER = 2;
+const DRAWER_KIND_MULTIPLIER: Record<CardKind, number> = { easy: 1, hard: 2, chaos: 2 };
 
 /** Base points for a correct guess: from 100 at the buzzer to 300 for an instant one. */
 const GUESS_MIN = 100;
@@ -29,12 +27,12 @@ const RUSH_SHARE = 0.25;
 const RUSH_MIN_MS = 15_000;
 const RUSH_MAX_MS = 30_000;
 
-export function cardMultiplier(card: Pick<Card, 'difficulty' | 'silly'>): number {
-  return card.silly ? SILLY_MULTIPLIER : DIFFICULTY_MULTIPLIER[card.difficulty];
+export function cardMultiplier(card: Pick<Card, 'kind'>): number {
+  return KIND_MULTIPLIER[card.kind];
 }
 
-export function drawerMultiplier(card: Pick<Card, 'difficulty' | 'silly'>): number {
-  return card.silly ? DRAWER_SILLY_MULTIPLIER : DRAWER_DIFFICULTY_MULTIPLIER[card.difficulty];
+export function drawerMultiplier(card: Pick<Card, 'kind'>): number {
+  return DRAWER_KIND_MULTIPLIER[card.kind];
 }
 
 /** 100–300 for speed, before the order bonus and the multiplier. */

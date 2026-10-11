@@ -25,12 +25,13 @@ type Target = {
 };
 
 export type PreparedCard = {
-  silly: boolean;
+  /** Matched by concepts in any order (hard and Chaos cards: scenes of several things). */
+  concepts: boolean;
   targets: Target[];
   keywords: string[][];
 };
 
-export function prepareCard(card: Pick<Card, 'text' | 'alternates' | 'keywords' | 'silly'>) {
+export function prepareCard(card: Pick<Card, 'text' | 'alternates' | 'keywords' | 'kind'>) {
   const targets = [card.text, ...card.alternates]
     .map((t) => tokenize(t))
     .filter((tokens) => tokens.length > 0)
@@ -41,7 +42,7 @@ export function prepareCard(card: Pick<Card, 'text' | 'alternates' | 'keywords' 
       meaningful: meaningfulWords(tokens),
     }));
   const keywords = card.keywords.map((k) => tokenize(k)).filter((k) => k.length > 0);
-  return { silly: card.silly, targets, keywords } satisfies PreparedCard;
+  return { concepts: card.kind !== 'easy', targets, keywords } satisfies PreparedCard;
 }
 
 /** Max edits for a guess to count as close, by target length (letters only). */
@@ -98,8 +99,8 @@ export function classifyGuess(card: PreparedCard, rawGuess: string): GuessKind {
       return 'correct';
     }
   }
-  if (card.silly) {
-    // Silly cards are matched by concepts, in any order: "unicycle vampire".
+  if (card.concepts) {
+    // Scenes are matched by concepts, in any order: "unicycle vampire", "cow milking".
     const guessWords = new Set(guess);
     const allWordsOfSomeTarget = card.targets.some(
       (t) => t.meaningful.length > 0 && t.meaningful.every((w) => guessWords.has(w)),
@@ -112,7 +113,7 @@ export function classifyGuess(card: PreparedCard, rawGuess: string): GuessKind {
     if (editDistance(compact, t.compact) <= closeThreshold(t.compact.length)) return 'close';
     if (t.meaningful.length > 1 && wordOverlap(t, guess) >= 0.5) return 'close';
   }
-  if (card.silly && keywordCoverage(card, guess) >= 0.5) return 'close';
+  if (card.concepts && keywordCoverage(card, guess) >= 0.5) return 'close';
   for (const t of card.targets) {
     if (t.tokens.length < 2) continue;
     const nearWord = t.tokens.some(

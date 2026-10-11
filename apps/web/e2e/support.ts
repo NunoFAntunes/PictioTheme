@@ -82,10 +82,7 @@ export async function startTurn(browser: Browser): Promise<{ host: Page; guest: 
   // Ana joined first, so she draws first.
   await host.getByRole('button', { name: /start game/i }).click();
   await host.getByText('Choose what to draw').waitFor();
-  await host
-    .getByRole('button', { name: /×1|silly/i })
-    .first()
-    .click();
+  await host.getByRole('button', { name: /×1/ }).first().click();
   await expect(host.getByTestId('current-word')).toBeVisible();
   return { host, guest };
 }

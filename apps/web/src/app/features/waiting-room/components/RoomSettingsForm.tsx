@@ -1,5 +1,5 @@
 import { rushWindowMs } from '@pictiotheme/game-core';
-import type { Difficulty, RoomSettings } from '@pictiotheme/protocol';
+import type { Difficulty, GameMode, RoomSettings } from '@pictiotheme/protocol';
 import type { ReactNode } from 'react';
 import { sendToRoom, type RoomView } from '../../../realtime';
 import { maxMatchMinutes, paceOf, PACES } from '../match-length';
@@ -10,9 +10,12 @@ import { maxMatchMinutes, paceOf, PACES } from '../match-length';
  * chosen beside them (WaitingRoom); the room's name and public/private sit on top (RoomTitle).
  */
 
+const MODES: { value: GameMode; label: string; hint: string }[] = [
+  { value: 'normal', label: 'Normal', hint: 'The deck’s easy and hard cards' },
+  { value: 'chaos', label: '🌀 Chaos', hint: 'Only the absurd cards' },
+];
 const DIFFICULTIES: { value: Difficulty; label: string }[] = [
   { value: 'easy', label: 'Easy' },
-  { value: 'medium', label: 'Medium' },
   { value: 'hard', label: 'Hard' },
 ];
 const ROUNDS = Array.from({ length: 10 }, (_, i) => i + 1);
@@ -199,56 +202,46 @@ export function RoomSettingsForm({ view, editable }: { view: RoomView; editable:
         </Group>
 
         <Group title="Cards">
-          <Row label="Difficulty">
-            <div role="group" aria-label="Difficulty" className="flex flex-wrap gap-1.5">
-              {DIFFICULTIES.map((d) => {
-                const on = s.difficulties.includes(d.value);
-                return (
-                  <Chip
-                    key={d.value}
-                    on={on}
-                    // The last one stays on: a match needs at least one difficulty.
-                    disabled={!editable || (on && s.difficulties.length === 1)}
-                    onClick={() =>
-                      update({
-                        difficulties: on
-                          ? s.difficulties.filter((x) => x !== d.value)
-                          : [...s.difficulties, d.value],
-                      })
-                    }
-                  >
-                    {d.label}
-                  </Chip>
-                );
-              })}
+          <Row label="Mode" hint={MODES.find((m) => m.value === s.mode)?.hint}>
+            <div role="group" aria-label="Mode" className="flex flex-wrap gap-1.5">
+              {MODES.map((m) => (
+                <Chip
+                  key={m.value}
+                  on={s.mode === m.value}
+                  disabled={!editable}
+                  onClick={() => update({ mode: m.value })}
+                >
+                  {m.label}
+                </Chip>
+              ))}
             </div>
           </Row>
-          <Row label="Silly Mode 🤪" hint={s.silly.enabled ? 'Share of silly cards' : undefined}>
-            {s.silly.enabled && (
-              <label className="flex items-center gap-1">
-                <span className="sr-only">Silly cards</span>
-                <input
-                  type="range"
-                  min={10}
-                  max={75}
-                  step={5}
-                  disabled={!editable}
-                  value={Math.round(s.silly.ratio * 100)}
-                  onChange={(e) =>
-                    update({ silly: { ...s.silly, ratio: Number(e.target.value) / 100 } })
-                  }
-                  className="w-24 accent-brand-600"
-                />
-                <span className="w-9 tabular-nums">{Math.round(s.silly.ratio * 100)}%</span>
-              </label>
-            )}
-            <Toggle
-              label="Silly Mode"
-              on={s.silly.enabled}
-              disabled={!editable}
-              onChange={(enabled) => update({ silly: { ...s.silly, enabled } })}
-            />
-          </Row>
+          {s.mode === 'normal' && (
+            <Row label="Difficulty">
+              <div role="group" aria-label="Difficulty" className="flex flex-wrap gap-1.5">
+                {DIFFICULTIES.map((d) => {
+                  const on = s.difficulties.includes(d.value);
+                  return (
+                    <Chip
+                      key={d.value}
+                      on={on}
+                      // The last one stays on: a match needs at least one difficulty.
+                      disabled={!editable || (on && s.difficulties.length === 1)}
+                      onClick={() =>
+                        update({
+                          difficulties: on
+                            ? s.difficulties.filter((x) => x !== d.value)
+                            : [...s.difficulties, d.value],
+                        })
+                      }
+                    >
+                      {d.label}
+                    </Chip>
+                  );
+                })}
+              </div>
+            </Row>
+          )}
           <Row
             label="Drawer picks from 3 cards"
             hint={s.wordChoice === 1 ? 'Or draws the first one' : undefined}

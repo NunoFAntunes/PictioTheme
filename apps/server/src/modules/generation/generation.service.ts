@@ -1,5 +1,5 @@
 import {
-  Difficulty,
+  CardKind,
   type Card,
   type DeckGenerationRequest,
   type DeckLanguage,
@@ -8,24 +8,32 @@ import {
 import type { z } from 'zod';
 import { AppError, serviceUnavailable } from '../../lib/errors';
 import type { Logger } from '../../lib/logger';
+import { CHAOS_PROMPT, CHAOS_TARGET, chaosUserPrompt, type ChaosInput } from './chaos-prompt';
 import {
+  addDropCounts,
   buildDeck,
   cleanCards,
+  cleanChaosCards,
   emptyDropCounts,
+  emptyVariety,
   hasBlockedMeta,
+  missingChaos,
   missingCounts,
   type DropCounts,
+  type RawCard,
 } from './clean-deck';
 import { assertAllowedRequest } from './content-check';
 import { deckUserPrompt, SYSTEM_PROMPT, topUpUserPrompt } from './deck-prompt';
 import {
+  CHAOS_JSON_SCHEMA,
   DECK_JSON_SCHEMA,
+  LlmChaosOutput,
   LlmDeckOutput,
   LlmTopUpOutput,
   THEME_CHECK_JSON_SCHEMA,
   TOP_UP_JSON_SCHEMA,
   TRANSLATION_JSON_SCHEMA,
-  type LlmCard,
+  type LlmDeckOutput as LlmDeck,
 } from './generation.schemas';
 import {
   judgeTheme,
@@ -49,8 +57,8 @@ import {
 } from './llm/llm-client';
 
 /**
- * AI deck generation: prompt → model → cleanup → one top-up if short → validated deck.
- * Pipeline: docs/technical/ai-deck-pipeline.md.
+ * AI deck generation: prompt → model → cleanup → one top-up if short → validated deck, then the
+ * same for its Chaos cards with their own prompt. Pipeline: docs/technical/ai-deck-pipeline.md.
  *
  * Not yet here (see the doc): the generation job queue, credits, saving the draft deck,
  * streaming progress, and the profanity blocklist.
@@ -62,9 +70,11 @@ import {
  */
 export const DECK_MAX_TOKENS = 32_000;
 export const TOP_UP_MAX_TOKENS = 12_000;
+/** 50 Chaos cards with a hook, twist and subject each, plus reasoning. */
+export const CHAOS_MAX_TOKENS = 24_000;
 
-export type GenerationResult = {
-  deck: GeneratedDeck;
+/** What a job's model calls cost and who served them. */
+export type CallStats = {
   /** Summed over every model call made for this deck. */
   usage: LlmUsage;
   /** The models that served each call, in order (fallbacks may differ from config). */
@@ -74,6 +84,18 @@ export type GenerationResult = {
   dropped: DropCounts;
   toppedUp: boolean;
 };
+
+export type GenerationResult = CallStats & {
+  deck: GeneratedDeck;
+  /** A generation asked for Chaos cards but they failed: the deck is saved without them. */
+  chaosFailed?: boolean;
+};
+
+export type ChaosResult = CallStats & { cards: Card[] };
+
+/** A deck's easy and hard model cards with their kind decided (the model says `difficulty`). */
+const asRaw = (cards: LlmDeck['cards']): RawCard[] =>
+  cards.map((c) => ({ ...c, kind: c.difficulty }));
 
 /**
  * Why a reply couldn't be used. Only `invalid` is retried: asking again rarely changes a refusal,
@@ -109,6 +131,16 @@ function usageTracker() {
       usage.outputTokens += c.usage.outputTokens;
       if (c.usage.costUsd !== null) usage.costUsd = (usage.costUsd ?? 0) + c.usage.costUsd;
     },
+    /** Adds the calls another tracker counted (the Chaos cards of a new deck). */
+    absorb: (other: Pick<CallStats, 'usage' | 'models' | 'providers'>) => {
+      models.push(...other.models);
+      providers.push(...other.providers);
+      usage.inputTokens += other.usage.inputTokens;
+      usage.outputTokens += other.usage.outputTokens;
+      if (other.usage.costUsd !== null) {
+        usage.costUsd = (usage.costUsd ?? 0) + other.usage.costUsd;
+      }
+    },
   };
 }
 
@@ -133,9 +165,11 @@ export function createGenerationService(deps: {
   log: Logger;
   /** Overridden only by the model eval script, to compare prompt variants. */
   systemPrompt?: string;
+  chaosPrompt?: string;
 }) {
   const log = deps.log.child({ module: 'generation' });
   const systemPrompt = deps.systemPrompt ?? SYSTEM_PROMPT;
+  const chaosPrompt = deps.chaosPrompt ?? CHAOS_PROMPT;
 
   /** One model call, parsed with `schema`. Transport failures become AppErrors. */
   async function callModel<T>(llm: LlmClient, request: LlmJsonRequest, schema: z.ZodType<T>) {
@@ -163,19 +197,97 @@ export function createGenerationService(deps: {
     return { completion, result };
   }
 
+  /**
+   * A deck's Chaos cards (chaos-prompt.ts): one call, cleanup with the variety rules, and one
+   * top-up if too few survive. Throws `GENERATION_FAILED` when there still aren't enough.
+   */
+  async function makeChaosCards(input: ChaosInput): Promise<ChaosResult> {
+    const { llm } = deps;
+    if (!llm) throw serviceUnavailable('AI deck generation is not configured');
+    const { usage, models, providers, track } = usageTracker();
+    const fail = (reason: string): never => {
+      log.warn({ reason, models, ...usage }, 'chaos cards failed');
+      throw generationFailed();
+    };
+    const existing = input.chaosCards.map((text): Card => ({
+      text,
+      kind: 'chaos',
+      alternates: [],
+      keywords: [text],
+    }));
+    // Normal cards too, so a Chaos card never repeats one.
+    const known = [
+      ...input.deckCards.map((text): Card => ({
+        text,
+        kind: 'easy',
+        alternates: [],
+        keywords: [text],
+      })),
+      ...existing,
+    ];
+    const variety = emptyVariety();
+    const ask = (count: number, have: readonly string[]) => ({
+      system: chaosPrompt,
+      user: chaosUserPrompt({ ...input, chaosCards: have }, count),
+      schema: CHAOS_JSON_SCHEMA,
+      maxTokens: CHAOS_MAX_TOKENS,
+    });
+
+    const want = Math.max(0, CHAOS_TARGET - existing.length);
+    let first = await callModel(llm, ask(want, input.chaosCards), LlmChaosOutput);
+    track(first.completion);
+    if (!first.result.ok && first.result.reason === 'invalid') {
+      first = await callModel(llm, ask(want, input.chaosCards), LlmChaosOutput);
+      track(first.completion);
+    }
+    if (!first.result.ok) return fail(first.result.reason);
+    if (first.result.value.cards.length === 0) return fail('refused: no chaos cards');
+
+    const cleaned = cleanChaosCards(first.result.value.cards, input.language, known, variety);
+    const dropped = cleaned.dropped;
+    let cards = cleaned.cards;
+
+    let missing = missingChaos([...existing, ...cards]);
+    const toppedUp = missing > 0;
+    if (toppedUp) {
+      const have = [...input.chaosCards, ...cards.map((c) => c.text)];
+      const topUp = await callModel(
+        llm,
+        { ...ask(missing, have), maxTokens: TOP_UP_MAX_TOKENS },
+        LlmChaosOutput,
+      );
+      track(topUp.completion);
+      if (topUp.result.ok) {
+        const extra = cleanChaosCards(
+          topUp.result.value.cards,
+          input.language,
+          [...known, ...cards],
+          variety,
+        );
+        cards = [...cards, ...extra.cards];
+        addDropCounts(dropped, extra.dropped);
+      }
+      missing = missingChaos([...existing, ...cards]);
+      if (missing > 0) return fail(`too few chaos cards: ${cards.length}`);
+    }
+
+    log.info({ models, ...usage, cards: cards.length, dropped, toppedUp }, 'chaos cards made');
+    return { cards, usage, models, providers, dropped, toppedUp };
+  }
+
   return {
     async generateDeck(request: DeckGenerationRequest): Promise<GenerationResult> {
       const { llm } = deps;
       if (!llm) throw serviceUnavailable('AI deck generation is not configured');
       assertAllowedRequest(request);
 
-      const { usage, models, providers, track } = usageTracker();
+      const { usage, models, providers, track, absorb } = usageTracker();
       const fail = (reason: string): never => {
         log.warn({ reason, models, ...usage }, 'deck generation failed');
         throw generationFailed();
       };
 
-      // 1. The deck. A malformed reply gets one retry.
+      // 1. The deck's easy and hard cards. A malformed reply gets one retry.
       const deckRequest = {
         system: systemPrompt,
         user: deckUserPrompt(request),
@@ -195,12 +307,13 @@ export function createGenerationService(deps: {
       if (hasBlockedMeta(output)) return fail('blocked title, description or tag');
 
       // 2. Cleanup.
-      const cleaned = cleanCards(output.cards, request);
+      const rules = { kinds: ['easy', 'hard'] as const, language: request.language };
+      const cleaned = cleanCards(asRaw(output.cards), rules);
       const dropped = cleaned.dropped;
       let cards: Card[] = cleaned.cards;
 
-      // 3. One top-up call for pools that came out short.
-      let missing = missingCounts(request, cards);
+      // 3. One top-up call for difficulties that came out short.
+      let missing = missingCounts(cards);
       const toppedUp = missing.size > 0;
       if (toppedUp) {
         const topUp = await callModel(
@@ -219,20 +332,50 @@ export function createGenerationService(deps: {
         );
         track(topUp.completion);
         if (topUp.result.ok) {
-          const extra = cleanCards(topUp.result.value.cards, request, cards);
+          const extra = cleanCards(asRaw(topUp.result.value.cards), rules, cards);
           cards = [...cards, ...extra.cards];
-          for (const [reason, n] of Object.entries(extra.dropped)) {
-            dropped[reason as keyof DropCounts] += n;
-          }
+          addDropCounts(dropped, extra.dropped);
         }
-        missing = missingCounts(request, cards);
+        missing = missingCounts(cards);
         if (missing.size > 0) return fail(`too few cards: ${[...missing.keys()].join(', ')}`);
       }
 
+      // 4. The Chaos cards, made from the deck's cards. Failing them doesn't fail the deck: it's
+      // saved without them, and a host can add them later.
+      let chaosFailed = false;
+      if (request.chaos) {
+        try {
+          const chaos = await makeChaosCards({
+            theme: request.theme,
+            description: output.description,
+            notes: request.notes,
+            language: request.language,
+            deckCards: cards.map((c) => c.text),
+            chaosCards: [],
+          });
+          absorb(chaos);
+          addDropCounts(dropped, chaos.dropped);
+          cards = [...cards, ...chaos.cards];
+        } catch (err) {
+          if (!(err instanceof AppError)) throw err;
+          log.warn({ err }, 'chaos cards failed, saving the deck without them');
+          chaosFailed = true;
+        }
+      }
+
       const deck = buildDeck(output, cards, request.theme);
-      log.info({ models, ...usage, cards: deck.cards.length, dropped, toppedUp }, 'deck generated');
-      return { deck, usage, models, providers, dropped, toppedUp };
+      log.info(
+        { models, ...usage, cards: deck.cards.length, dropped, toppedUp, chaosFailed },
+        'deck generated',
+      );
+      return { deck, usage, models, providers, dropped, toppedUp, chaosFailed };
     },
+
+    /**
+     * Chaos cards for a saved deck that has none, or too few (`POST /api/decks/:id/chaos`). The
+     * same prompt and checks as at generation; throws `GENERATION_FAILED` when too few survive.
+     */
+    makeChaosCards,
 
     /**
      * The theme check (ai-deck-pipeline.md#theme-check): judges whether the theme is written in
@@ -289,7 +432,7 @@ export function createGenerationService(deps: {
     /**
      * Translates a deck into `language` (ai-deck-pipeline.md#translation). The model translates,
      * keeps or localises names, and drops cards that don't work there; each card keeps the
-     * original's difficulty and silliness, and goes through the same cleanup as a new deck.
+     * original's kind, and goes through the same cleanup as a new deck.
      */
     async translateDeck(
       source: TranslationInput,
@@ -319,19 +462,15 @@ export function createGenerationService(deps: {
       const output = reply.result.value;
       if (hasBlockedMeta(output)) return fail('blocked title, description or tag');
 
-      // Difficulty and silliness come from the original card, never from the model.
+      // The kind comes from the original card, never from the model.
       const seen = new Set<number>();
-      const translated: LlmCard[] = output.cards.flatMap((c) => {
+      const translated: RawCard[] = output.cards.flatMap((c) => {
         const original = source.cards[c.id];
         if (!original || seen.has(c.id)) return [];
         seen.add(c.id);
-        return [{ ...c, difficulty: original.difficulty, silly: original.silly }];
+        return [{ ...c, kind: original.kind }];
       });
-      const cleaned = cleanCards(translated, {
-        difficulties: Difficulty.options,
-        silly: true,
-        language,
-      });
+      const cleaned = cleanCards(translated, { kinds: CardKind.options, language });
       const kept = cleaned.cards.length / Math.max(1, source.cards.length);
       if (kept < MIN_TRANSLATED_SHARE) {
         return fail(`kept ${cleaned.cards.length} of ${source.cards.length} cards`);

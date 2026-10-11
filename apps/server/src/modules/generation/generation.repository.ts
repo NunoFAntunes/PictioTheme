@@ -10,12 +10,11 @@ export type NewJob = Pick<
   | 'clientIpHash'
   | 'theme'
   | 'notes'
-  | 'difficulties'
-  | 'includeSilly'
+  | 'includeChaos'
   | 'language'
   | 'sourceDeckId'
 >;
-export type JobKind = 'generate' | 'translate';
+export type JobKind = 'generate' | 'translate' | 'chaos';
 export type JobResult =
   | {
       status: 'published';
@@ -48,6 +47,27 @@ export function isOneRunningViolation(err: unknown): boolean {
 /** Someone else started this translation a moment ago (generation_jobs_one_translation_idx). */
 export function isOneTranslationViolation(err: unknown): boolean {
   return isUniqueViolation(err, 'generation_jobs_one_translation_idx');
+}
+
+/** Someone else started Chaos cards for this deck a moment ago (generation_jobs_one_chaos_idx). */
+export function isOneChaosViolation(err: unknown): boolean {
+  return isUniqueViolation(err, 'generation_jobs_one_chaos_idx');
+}
+
+/** The running Chaos job for this deck, if there is one. */
+export async function findRunningChaos(db: DbExecutor, deckId: string): Promise<JobRow | null> {
+  const [row] = await db
+    .select()
+    .from(generationJobs)
+    .where(
+      and(
+        eq(generationJobs.kind, 'chaos'),
+        eq(generationJobs.status, 'running'),
+        eq(generationJobs.sourceDeckId, deckId),
+      ),
+    )
+    .limit(1);
+  return row ?? null;
 }
 
 /** The running translation of this original into this language, if there is one. */

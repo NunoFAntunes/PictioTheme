@@ -53,7 +53,7 @@ Phones (see the phone gate in [next-features.md](../planning/next-features.md)) 
 
 ## 3. Ways in, in detail
 
-1. **Public room cards**, refreshed live, drawn as sticky notes on the paper. Each shows the room name, deck theme, player count / max, status (`waiting` / `in game`), difficulty badges, and a 🤪 badge if Silly Mode is on. Full rooms are greyed out. A note shows the room's cover, its most-liked drawing (game-rules.md, likes), once it has one. A "N doodling now" counter sits above them. Later: filters (theme search, "not started yet", "has space").
+1. **Public room cards**, refreshed live, drawn as sticky notes on the paper. Each shows the room name, deck theme, player count / max, status (`waiting` / `in game`), difficulty badges, and a 🌀 badge if it plays in Chaos mode. Full rooms are greyed out. A note shows the room's cover, its most-liked drawing (game-rules.md, likes), once it has one. A "N doodling now" counter sits above them. Later: filters (theme search, "not started yet", "has space").
 2. **Join with code**: a field that auto-formats input to `ABC-DEF` (it uppercases, drops invalid characters, and adds the dash). Pasting a whole invite link (`…/r/ABC-DEF`) works too.
 3. **New private room**: creates the room at once with the default deck and settings; everything is changed in the waiting room (§4).
 4. **Quick play**: see §2.
@@ -66,10 +66,10 @@ Creating takes one click (§3): the room starts private (or public, via Quick pl
 
 1. **Room name** (pre-filled, e.g. "Nuno's room") and **Public / Private** toggle.
 1. **Language** (built 2026-10-07): the flag on the room card; the host types a language and picks it. Decks not in it are marked, and the room's deck must be translated (or another picked) before Start works. See [decks.md](decks.md#languages).
-2. **Deck**: search box → results show deck title, theme tags, card counts per difficulty, play count, rating, and whether a silly pool exists. A "Preview" button shows 5 sample cards.
+2. **Deck**: search box → results show deck title, theme tags, card counts per kind, play count, rating, and 🌀 if it has Chaos cards. In Chaos mode, decks without them are marked "🌀 to make". A "Preview" button shows 5 sample cards.
    - Not found → "Generate a deck for *'pirate cooking'*" (logged-in users only. Guests see a sign-up prompt).
-3. **Difficulty**: multi-select chips `Easy` `Medium` `Hard` (at least one).
-4. **Silly Mode**: toggle plus a mix slider (e.g. 25% silly cards).
+3. **Mode**: chips `Normal` ("The deck's easy and hard cards") and `🌀 Chaos` ("Only the absurd cards"). See [game-rules.md](game-rules.md#card-pool).
+4. **Difficulty** (Normal mode only, hidden in Chaos mode): multi-select chips `Easy` `Hard` (at least one).
 5. **Game settings**: rounds (1–10, default 3), draw time (30–180s, default 80s), max players (2–16, default 10), **guess visibility** (`Show guesses` / `Hide guesses`), hints on/off, and word choice (pick 1 of 3, or a single random card).
 
 When the room is created, the server generates a unique code and the host lands on the **waiting room** screen.
@@ -105,15 +105,15 @@ See [game-rules.md](game-rules.md) for the rules and [../design/screens.md](../d
 Search "pirate cooking" → no good match
    → [Generate deck]  (shows "2 of 3 free generations left" or credit balance)
    → Form: theme (prefilled), optional description/notes, language,
-           include silly pool? (default yes), family-friendly (default on)
+           🌀 Chaos cards too? (default yes), family-friendly (default on)
    → Generating… (streamed progress, ~20–60s), while the creator draws the deck's back cover (or skips)
-   → Review screen: cards by difficulty; user can remove cards or regenerate once for free
+   → Review screen: cards by kind; user can remove cards or regenerate once for free
    → Publish → deck appears in library and is selected for the room
 ```
 
 If the user has no free generations or credits left, the generate button opens the credit purchase sheet (see [monetization.md](monetization.md)).
 
-**Built so far** (open to guests: 1 deck per player per day, 3 per network, a global daily budget): "✨ Generate a deck" in the host's deck picker (waiting room) → form (theme, notes, difficulties, silly on/off) → progress (polled, ~1 min) with a pad to draw the deck's [back cover](decks.md#back-cover) (or skip) → once the deck is ready and the cover is saved or skipped, it becomes the room's deck, and listed as "yours" in the deck pickers, where ✏️ redraws its cover. No review step or credits yet. Blocked themes are refused before anything starts ("We can't make a deck about that"). The deck is written in the room's language; a theme written in another language, or too unclear for a deck, is refused right away with the reason, without using up the daily deck ([ai-deck-pipeline.md](../technical/ai-deck-pipeline.md#theme-check)). Picking a deck that isn't in the room's language offers to translate it (~1 minute, shared with every later room in that language).
+**Built so far** (open to guests: 1 deck per player per day, 3 per network, a global daily budget): "✨ Generate a deck" in the host's deck picker (waiting room) → form (theme, notes, "🌀 Chaos cards too", on by default; every deck gets easy and hard cards) → progress (polled, ~1 min) with a pad to draw the deck's [back cover](decks.md#back-cover) (or skip) → once the deck is ready and the cover is saved or skipped, it becomes the room's deck, and listed as "yours" in the deck pickers, where ✏️ redraws its cover. No review step or credits yet. Blocked themes are refused before anything starts ("We can't make a deck about that"). The deck is written in the room's language; a theme written in another language, or too unclear for a deck, is refused right away with the reason, without using up the daily deck ([ai-deck-pipeline.md](../technical/ai-deck-pipeline.md#theme-check)). Picking a deck that isn't in the room's language offers to translate it (~1 minute, shared with every later room in that language). In Chaos mode, a room deck without Chaos cards shows a panel on top of the host's deck library ("No 🌀 Chaos cards yet", **🌀 Make Chaos cards**); any host can make them for any deck, and every room playing the deck reloads it when they're saved ([decks.md](decks.md#chaos-cards)). Until then Start stays off.
 
 ## 9. Edge cases
 

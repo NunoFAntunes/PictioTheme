@@ -72,9 +72,8 @@ decks (
 cards (
   id            uuid pk,
   deck_id       uuid fk decks on delete cascade,
-  text          text not null,              -- 'Vampire on a unicycle'
-  difficulty    text not null,              -- 'easy' | 'medium' | 'hard'
-  is_silly      bool not null default false,
+  text          text not null,              -- 'Vampire buying sunscreen'
+  kind          text not null,              -- 'easy' | 'hard' | 'chaos' (migration 0011; replaced difficulty + is_silly)
   alternates    text[] not null default '{}',
   keywords      text[] not null default '{}',
   times_offered int default 0,              -- shown as one of the drawer's options (only when there's a choice; migration 0008)
@@ -109,11 +108,12 @@ generation_jobs (                           -- built (migration 0002); not yet: 
   id           uuid pk,
   created_by   text,                        -- player id: 'g_<guestId>' now, 'u_<userId>' with accounts
   client_ip_hash text null,                 -- HMAC of the requester's IP, for the per-IP daily limit (migration 0005)
-  kind         text not null default 'generate',   -- 'generate' | 'translate' (migration 0009)
-  theme        text, notes text, difficulties text[], include_silly bool, language text,
+  kind         text not null default 'generate',   -- 'generate' | 'translate' (migration 0009) | 'chaos' (0011)
+  theme        text, notes text, include_chaos bool, language text,
                                             -- a translation: theme = the original's title, language = the target
-  source_deck_id uuid null fk decks on delete set null,   -- a translation's original
+  source_deck_id uuid null fk decks on delete set null,   -- a translation's original; for 'chaos', the deck getting the cards
                                             -- unique(source_deck_id, language) where running and kind = 'translate'
+                                            -- unique(source_deck_id) where running and kind = 'chaos'
   status       text,                        -- built: 'running' | 'published' | 'failed'; later 'queued' | 'review'
                                             -- unique(created_by) where status = 'running': one job at a time
   deck_id      uuid null,
@@ -200,8 +200,8 @@ type Room = {
   createdAt: number;
   settings: {
     deckId: string;
-    difficulties: ('easy' | 'medium' | 'hard')[];
-    silly: { enabled: boolean; ratio: number };   // 0..1
+    mode: 'normal' | 'chaos';    // chaos plays only the deck's Chaos cards
+    difficulties: ('easy' | 'hard')[];   // normal mode only
     rounds: number;
     drawSeconds: number;
     maxPlayers: number;

@@ -1,0 +1,2910 @@
+{
+  "slug": "halloween",
+  "featuredRank": 1,
+  "title": "Halloween Night",
+  "description": "Monsters, witches, haunted houses, trick-or-treating and the spookiest family-friendly characters, all ready to be doodled.",
+  "tags": ["halloween", "spooky", "monsters", "seasonal", "october", "movies"],
+  "cards": [
+    {
+      "text": "Vampire",
+      "kind": "easy",
+      "alternates": ["dracula", "count dracula"],
+      "keywords": ["vampire"]
+    },
+    {
+      "text": "Werewolf",
+      "kind": "easy",
+      "alternates": ["wolfman", "wolf man"],
+      "keywords": ["werewolf"]
+    },
+    {
+      "text": "Mummy",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["mummy"]
+    },
+    {
+      "text": "Zombie",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["zombie"]
+    },
+    {
+      "text": "Frankenstein's monster",
+      "kind": "easy",
+      "alternates": ["frankenstein", "frankenstein monster"],
+      "keywords": ["frankenstein"]
+    },
+    {
+      "text": "Witch",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["witch"]
+    },
+    {
+      "text": "Ghost",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ghost"]
+    },
+    {
+      "text": "Skeleton",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["skeleton"]
+    },
+    {
+      "text": "Grim Reaper",
+      "kind": "easy",
+      "alternates": ["reaper", "death"],
+      "keywords": ["reaper"]
+    },
+    {
+      "text": "Gargoyle",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["gargoyle"]
+    },
+    {
+      "text": "Scarecrow",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["scarecrow"]
+    },
+    {
+      "text": "Goblin",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["goblin"]
+    },
+    {
+      "text": "Headless Horseman",
+      "kind": "easy",
+      "alternates": ["headless rider"],
+      "keywords": ["headless", "horseman"]
+    },
+    {
+      "text": "Bride of Frankenstein",
+      "kind": "easy",
+      "alternates": ["frankenstein's bride"],
+      "keywords": ["bride", "frankenstein"]
+    },
+    {
+      "text": "Swamp monster",
+      "kind": "easy",
+      "alternates": ["swamp creature", "lagoon creature"],
+      "keywords": ["swamp", "monster"]
+    },
+    {
+      "text": "Invisible Man",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["invisible", "man"]
+    },
+    {
+      "text": "Blob",
+      "kind": "easy",
+      "alternates": ["the blob"],
+      "keywords": ["blob"]
+    },
+    {
+      "text": "Mad scientist",
+      "kind": "easy",
+      "alternates": ["crazy scientist"],
+      "keywords": ["scientist"]
+    },
+    {
+      "text": "Monster",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["monster"]
+    },
+    {
+      "text": "The Phantom",
+      "kind": "easy",
+      "alternates": ["phantom of the opera"],
+      "keywords": ["phantom"]
+    },
+    {
+      "text": "Wicked Witch",
+      "kind": "easy",
+      "alternates": ["wicked witch of the west"],
+      "keywords": ["wicked", "witch"]
+    },
+    {
+      "text": "Flying monkey",
+      "kind": "easy",
+      "alternates": ["winged monkey"],
+      "keywords": ["flying", "monkey"]
+    },
+    {
+      "text": "Fortune teller",
+      "kind": "easy",
+      "alternates": ["psychic"],
+      "keywords": ["fortune", "teller"]
+    },
+    {
+      "text": "Trick-or-treater",
+      "kind": "easy",
+      "alternates": ["trick or treater"],
+      "keywords": ["treater"]
+    },
+    {
+      "text": "Casper",
+      "kind": "easy",
+      "alternates": ["casper the friendly ghost", "friendly ghost"],
+      "keywords": ["casper"]
+    },
+    {
+      "text": "Slimer",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["slimer"]
+    },
+    {
+      "text": "Ghostbuster",
+      "kind": "easy",
+      "alternates": ["ghostbusters"],
+      "keywords": ["ghostbuster"]
+    },
+    {
+      "text": "Marshmallow Man",
+      "kind": "easy",
+      "alternates": ["stay puft marshmallow man", "stay puft"],
+      "keywords": ["marshmallow"]
+    },
+    {
+      "text": "Beetlejuice",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["beetlejuice"]
+    },
+    {
+      "text": "Jack Skellington",
+      "kind": "easy",
+      "alternates": ["pumpkin king", "skellington"],
+      "keywords": ["skellington"]
+    },
+    {
+      "text": "Wednesday Addams",
+      "kind": "easy",
+      "alternates": ["wednesday"],
+      "keywords": ["wednesday"]
+    },
+    {
+      "text": "Morticia Addams",
+      "kind": "easy",
+      "alternates": ["morticia"],
+      "keywords": ["morticia"]
+    },
+    {
+      "text": "Uncle Fester",
+      "kind": "easy",
+      "alternates": ["fester"],
+      "keywords": ["fester"]
+    },
+    {
+      "text": "Cousin Itt",
+      "kind": "easy",
+      "alternates": ["itt"],
+      "keywords": ["itt"]
+    },
+    {
+      "text": "Lurch",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["lurch"]
+    },
+    {
+      "text": "Gremlin",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["gremlin"]
+    },
+    {
+      "text": "Gizmo",
+      "kind": "easy",
+      "alternates": ["mogwai"],
+      "keywords": ["gizmo"]
+    },
+    {
+      "text": "Coraline",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["coraline"]
+    },
+    {
+      "text": "Scooby-Doo",
+      "kind": "easy",
+      "alternates": ["scooby"],
+      "keywords": ["scooby"]
+    },
+    {
+      "text": "Mystery Machine",
+      "kind": "easy",
+      "alternates": ["scooby van"],
+      "keywords": ["mystery", "machine"]
+    },
+    {
+      "text": "Oogie Boogie",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["oogie", "boogie"]
+    },
+    {
+      "text": "Sugar skull",
+      "kind": "easy",
+      "alternates": ["calavera"],
+      "keywords": ["sugar", "skull"]
+    },
+    {
+      "text": "Black cat",
+      "kind": "easy",
+      "alternates": ["witch's cat"],
+      "keywords": ["black", "cat"]
+    },
+    {
+      "text": "Bat",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["bat"]
+    },
+    {
+      "text": "Spider",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["spider"]
+    },
+    {
+      "text": "Owl",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["owl"]
+    },
+    {
+      "text": "Raven",
+      "kind": "easy",
+      "alternates": ["crow"],
+      "keywords": ["raven"]
+    },
+    {
+      "text": "Rat",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["rat"]
+    },
+    {
+      "text": "Toad",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["toad"]
+    },
+    {
+      "text": "Wolf",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["wolf"]
+    },
+    {
+      "text": "Snake",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["snake"]
+    },
+    {
+      "text": "Vulture",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["vulture"]
+    },
+    {
+      "text": "Jack-o'-lantern",
+      "kind": "easy",
+      "alternates": ["carved pumpkin", "jack o lantern", "jackolantern"],
+      "keywords": ["jack", "lantern"]
+    },
+    {
+      "text": "Pumpkin",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pumpkin"]
+    },
+    {
+      "text": "Cauldron",
+      "kind": "easy",
+      "alternates": ["witch's cauldron"],
+      "keywords": ["cauldron"]
+    },
+    {
+      "text": "Tombstone",
+      "kind": "easy",
+      "alternates": ["gravestone", "headstone", "grave"],
+      "keywords": ["tombstone"]
+    },
+    {
+      "text": "Cobweb",
+      "kind": "easy",
+      "alternates": ["spider web", "spiderweb", "web"],
+      "keywords": ["cobweb"]
+    },
+    {
+      "text": "Candy corn",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["candy", "corn"]
+    },
+    {
+      "text": "Broomstick",
+      "kind": "easy",
+      "alternates": ["broom", "witch's broom"],
+      "keywords": ["broomstick"]
+    },
+    {
+      "text": "Coffin",
+      "kind": "easy",
+      "alternates": ["casket"],
+      "keywords": ["coffin"]
+    },
+    {
+      "text": "Skull",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["skull"]
+    },
+    {
+      "text": "Bone",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["bone"]
+    },
+    {
+      "text": "Witch hat",
+      "kind": "easy",
+      "alternates": ["witch's hat", "pointy hat"],
+      "keywords": ["witch", "hat"]
+    },
+    {
+      "text": "Crystal ball",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["crystal", "ball"]
+    },
+    {
+      "text": "Spell book",
+      "kind": "easy",
+      "alternates": ["spellbook", "book of spells"],
+      "keywords": ["spell", "book"]
+    },
+    {
+      "text": "Magic wand",
+      "kind": "easy",
+      "alternates": ["wand"],
+      "keywords": ["wand"]
+    },
+    {
+      "text": "Potion",
+      "kind": "easy",
+      "alternates": ["potion bottle"],
+      "keywords": ["potion"]
+    },
+    {
+      "text": "Candle",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["candle"]
+    },
+    {
+      "text": "Candelabra",
+      "kind": "easy",
+      "alternates": ["candle holder"],
+      "keywords": ["candelabra"]
+    },
+    {
+      "text": "Eyeball",
+      "kind": "easy",
+      "alternates": ["eye ball", "eye"],
+      "keywords": ["eyeball"]
+    },
+    {
+      "text": "Fangs",
+      "kind": "easy",
+      "alternates": ["vampire teeth", "vampire fangs"],
+      "keywords": ["fangs"]
+    },
+    {
+      "text": "Cape",
+      "kind": "easy",
+      "alternates": ["cloak"],
+      "keywords": ["cape"]
+    },
+    {
+      "text": "Mask",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["mask"]
+    },
+    {
+      "text": "Scythe",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["scythe"]
+    },
+    {
+      "text": "Full moon",
+      "kind": "easy",
+      "alternates": ["moon"],
+      "keywords": ["moon"]
+    },
+    {
+      "text": "Crypt",
+      "kind": "easy",
+      "alternates": ["tomb"],
+      "keywords": ["crypt"]
+    },
+    {
+      "text": "Haunted house",
+      "kind": "easy",
+      "alternates": ["spooky house", "haunted mansion"],
+      "keywords": ["haunted", "house"]
+    },
+    {
+      "text": "Graveyard",
+      "kind": "easy",
+      "alternates": ["cemetery"],
+      "keywords": ["graveyard"]
+    },
+    {
+      "text": "Castle",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["castle"]
+    },
+    {
+      "text": "Dungeon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["dungeon"]
+    },
+    {
+      "text": "Pumpkin patch",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pumpkin", "patch"]
+    },
+    {
+      "text": "Corn maze",
+      "kind": "easy",
+      "alternates": ["maize maze", "corn labyrinth"],
+      "keywords": ["corn", "maze"]
+    },
+    {
+      "text": "Swamp",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["swamp"]
+    },
+    {
+      "text": "Pyramid",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pyramid"]
+    },
+    {
+      "text": "Sarcophagus",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["sarcophagus"]
+    },
+    {
+      "text": "Ghost ship",
+      "kind": "easy",
+      "alternates": ["pirate ghost ship"],
+      "keywords": ["ghost", "ship"]
+    },
+    {
+      "text": "Lollipop",
+      "kind": "easy",
+      "alternates": ["lolly"],
+      "keywords": ["lollipop"]
+    },
+    {
+      "text": "Candy apple",
+      "kind": "easy",
+      "alternates": ["caramel apple", "toffee apple"],
+      "keywords": ["candy", "apple"]
+    },
+    {
+      "text": "Chocolate bar",
+      "kind": "easy",
+      "alternates": ["candy bar"],
+      "keywords": ["chocolate"]
+    },
+    {
+      "text": "Gummy worm",
+      "kind": "easy",
+      "alternates": ["gummy worms"],
+      "keywords": ["gummy", "worm"]
+    },
+    {
+      "text": "Pumpkin pie",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pumpkin", "pie"]
+    },
+    {
+      "text": "Candy bucket",
+      "kind": "easy",
+      "alternates": ["pumpkin bucket", "candy pail"],
+      "keywords": ["candy", "bucket"]
+    },
+    {
+      "text": "Candy",
+      "kind": "easy",
+      "alternates": ["sweets"],
+      "keywords": ["candy"]
+    },
+    {
+      "text": "Doorbell",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["doorbell"]
+    },
+    {
+      "text": "Flashlight",
+      "kind": "easy",
+      "alternates": ["torch"],
+      "keywords": ["flashlight"]
+    },
+    {
+      "text": "Glow stick",
+      "kind": "easy",
+      "alternates": ["glowstick"],
+      "keywords": ["glow", "stick"]
+    },
+    {
+      "text": "Garlic",
+      "kind": "easy",
+      "alternates": ["garlic bulb"],
+      "keywords": ["garlic"]
+    },
+    {
+      "text": "Skeleton key",
+      "kind": "easy",
+      "alternates": ["old key"],
+      "keywords": ["skeleton", "key"]
+    },
+    {
+      "text": "Slime",
+      "kind": "easy",
+      "alternates": ["goo", "ooze"],
+      "keywords": ["slime"]
+    },
+    {
+      "text": "Pipe organ",
+      "kind": "easy",
+      "alternates": ["organ"],
+      "keywords": ["organ"]
+    },
+    {
+      "text": "Gravedigger",
+      "kind": "easy",
+      "alternates": ["grave digger"],
+      "keywords": ["gravedigger"]
+    },
+    {
+      "text": "Gourd",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["gourd"]
+    },
+    {
+      "text": "Hay bale",
+      "kind": "easy",
+      "alternates": ["haybale"],
+      "keywords": ["hay"]
+    },
+    {
+      "text": "Hourglass",
+      "kind": "easy",
+      "alternates": ["sand timer"],
+      "keywords": ["hourglass"]
+    },
+    {
+      "text": "Chains",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["chains"]
+    },
+    {
+      "text": "Test tube",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["test", "tube"]
+    },
+    {
+      "text": "Lightning bolt",
+      "kind": "easy",
+      "alternates": ["lightning"],
+      "keywords": ["lightning"]
+    },
+    {
+      "text": "Scooby snack",
+      "kind": "easy",
+      "alternates": ["scooby snacks"],
+      "keywords": ["snack"]
+    },
+    {
+      "text": "Proton pack",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["proton", "pack"]
+    },
+    {
+      "text": "Attic",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["attic"]
+    },
+    {
+      "text": "Iron gate",
+      "kind": "easy",
+      "alternates": ["cemetery gate"],
+      "keywords": ["gate"]
+    },
+    {
+      "text": "Rocking chair",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["rocking", "chair"]
+    },
+    {
+      "text": "Face paint",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["face", "paint"]
+    },
+    {
+      "text": "Treat bag",
+      "kind": "easy",
+      "alternates": ["goody bag", "trick or treat bag"],
+      "keywords": ["bag"]
+    },
+    {
+      "text": "Pillowcase",
+      "kind": "easy",
+      "alternates": ["pillow case"],
+      "keywords": ["pillowcase"]
+    },
+    {
+      "text": "Witch's hut",
+      "kind": "easy",
+      "alternates": ["witch hut"],
+      "keywords": ["hut"]
+    },
+    {
+      "text": "Bell tower",
+      "kind": "easy",
+      "alternates": ["belfry"],
+      "keywords": ["bell", "tower"]
+    },
+    {
+      "text": "Well",
+      "kind": "easy",
+      "alternates": ["wishing well"],
+      "keywords": ["well"]
+    },
+    {
+      "text": "Moth",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["moth"]
+    },
+    {
+      "text": "Centipede",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["centipede"]
+    },
+    {
+      "text": "Pharaoh",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pharaoh"]
+    },
+    {
+      "text": "Pumpkin seeds",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pumpkin", "seeds"]
+    },
+    {
+      "text": "Corn stalk",
+      "kind": "easy",
+      "alternates": ["cornstalk"],
+      "keywords": ["corn", "stalk"]
+    },
+    {
+      "text": "Porch",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["porch"]
+    },
+    {
+      "text": "Herman Munster",
+      "kind": "easy",
+      "alternates": ["munster"],
+      "keywords": ["munster"]
+    },
+    {
+      "text": "The Count",
+      "kind": "easy",
+      "alternates": ["count von count"],
+      "keywords": ["count"]
+    },
+    {
+      "text": "Sanderson sisters",
+      "kind": "easy",
+      "alternates": ["hocus pocus witches"],
+      "keywords": ["sanderson"]
+    },
+    {
+      "text": "La Catrina",
+      "kind": "easy",
+      "alternates": ["catrina"],
+      "keywords": ["catrina"]
+    },
+    {
+      "text": "Baba Yaga",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["baba", "yaga"]
+    },
+    {
+      "text": "Ghost train",
+      "kind": "easy",
+      "alternates": ["ghost ride"],
+      "keywords": ["ghost", "train"]
+    },
+    {
+      "text": "Brain",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["brain"]
+    },
+    {
+      "text": "Beaker",
+      "kind": "easy",
+      "alternates": ["flask"],
+      "keywords": ["beaker"]
+    },
+    {
+      "text": "Bandage",
+      "kind": "easy",
+      "alternates": ["bandages"],
+      "keywords": ["bandage"]
+    },
+    {
+      "text": "Shovel",
+      "kind": "easy",
+      "alternates": ["spade"],
+      "keywords": ["shovel"]
+    },
+    {
+      "text": "Worm",
+      "kind": "easy",
+      "alternates": ["earthworm"],
+      "keywords": ["worm"]
+    },
+    {
+      "text": "Slug",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["slug"]
+    },
+    {
+      "text": "Grandfather clock",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["grandfather", "clock"]
+    },
+    {
+      "text": "Chandelier",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["chandelier"]
+    },
+    {
+      "text": "Portrait",
+      "kind": "easy",
+      "alternates": ["painting"],
+      "keywords": ["portrait"]
+    },
+    {
+      "text": "Suit of armor",
+      "kind": "easy",
+      "alternates": ["knight armor", "armour"],
+      "keywords": ["armor"]
+    },
+    {
+      "text": "Trapdoor",
+      "kind": "easy",
+      "alternates": ["trap door"],
+      "keywords": ["trapdoor"]
+    },
+    {
+      "text": "Spiral staircase",
+      "kind": "easy",
+      "alternates": ["spiral stairs"],
+      "keywords": ["spiral", "staircase"]
+    },
+    {
+      "text": "Toadstool",
+      "kind": "easy",
+      "alternates": ["mushroom"],
+      "keywords": ["toadstool"]
+    },
+    {
+      "text": "Cornfield",
+      "kind": "easy",
+      "alternates": ["corn field"],
+      "keywords": ["cornfield"]
+    },
+    {
+      "text": "Gomez Addams",
+      "kind": "easy",
+      "alternates": ["gomez"],
+      "keywords": ["gomez"]
+    },
+    {
+      "text": "Shaggy",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["shaggy"]
+    },
+    {
+      "text": "Velma",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["velma"]
+    },
+    {
+      "text": "Ghost trap",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ghost", "trap"]
+    },
+    {
+      "text": "Cave",
+      "kind": "easy",
+      "alternates": ["bat cave"],
+      "keywords": ["cave"]
+    },
+    {
+      "text": "Pitchfork",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pitchfork"]
+    },
+    {
+      "text": "Scarab",
+      "kind": "easy",
+      "alternates": ["scarab beetle"],
+      "keywords": ["scarab"]
+    },
+    {
+      "text": "Mike Wazowski",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["wazowski"]
+    },
+    {
+      "text": "Sulley",
+      "kind": "easy",
+      "alternates": ["sully"],
+      "keywords": ["sulley"]
+    },
+    {
+      "text": "Maleficent",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["maleficent"]
+    },
+    {
+      "text": "Ursula",
+      "kind": "easy",
+      "alternates": ["sea witch"],
+      "keywords": ["ursula"]
+    },
+    {
+      "text": "No-Face",
+      "kind": "easy",
+      "alternates": ["no face", "kaonashi"],
+      "keywords": ["no", "face"]
+    },
+    {
+      "text": "Laboratory",
+      "kind": "easy",
+      "alternates": ["lab"],
+      "keywords": ["laboratory"]
+    },
+    {
+      "text": "Vampire sleeping in a coffin",
+      "kind": "hard",
+      "alternates": ["dracula sleeping in a coffin"],
+      "keywords": ["vampire", "sleeping", "coffin"]
+    },
+    {
+      "text": "Vampire turning into a bat",
+      "kind": "hard",
+      "alternates": ["dracula turning into a bat"],
+      "keywords": ["vampire", "turning", "bat"]
+    },
+    {
+      "text": "Vampire hiding from the sun",
+      "kind": "hard",
+      "alternates": ["vampire avoiding sunlight"],
+      "keywords": ["vampire", "hiding", "sun"]
+    },
+    {
+      "text": "Hopping vampire with arms out",
+      "kind": "hard",
+      "alternates": ["jiangshi hopping", "jiangshi"],
+      "keywords": ["hopping", "vampire"]
+    },
+    {
+      "text": "Werewolf howling at the moon",
+      "kind": "hard",
+      "alternates": ["wolfman howling at the moon"],
+      "keywords": ["werewolf", "howling", "moon"]
+    },
+    {
+      "text": "Man turning into a werewolf",
+      "kind": "hard",
+      "alternates": ["werewolf transformation"],
+      "keywords": ["turning", "werewolf"]
+    },
+    {
+      "text": "Werewolf bursting out of a shirt",
+      "kind": "hard",
+      "alternates": ["werewolf ripping his shirt"],
+      "keywords": ["werewolf", "shirt"]
+    },
+    {
+      "text": "Mummy rising from a sarcophagus",
+      "kind": "hard",
+      "alternates": ["mummy rising from a tomb"],
+      "keywords": ["mummy", "rising", "sarcophagus"]
+    },
+    {
+      "text": "Mummy's bandage unravelling",
+      "kind": "hard",
+      "alternates": ["mummy unwrapping", "mummy unravelling"],
+      "keywords": ["mummy", "unravelling"]
+    },
+    {
+      "text": "Mummy guarding a pyramid",
+      "kind": "hard",
+      "alternates": ["mummy in a pyramid"],
+      "keywords": ["mummy", "pyramid"]
+    },
+    {
+      "text": "Zombie hand rising from a grave",
+      "kind": "hard",
+      "alternates": ["hand coming out of a grave"],
+      "keywords": ["hand", "rising", "grave"]
+    },
+    {
+      "text": "Zombie shuffling with arms out",
+      "kind": "hard",
+      "alternates": ["zombie walking with arms out"],
+      "keywords": ["zombie", "arms"]
+    },
+    {
+      "text": "Frankenstein's monster hit by lightning",
+      "kind": "hard",
+      "alternates": ["frankenstein struck by lightning"],
+      "keywords": ["frankenstein", "lightning"]
+    },
+    {
+      "text": "Frankenstein dancing with his bride",
+      "kind": "hard",
+      "alternates": ["frankenstein's monster dancing with his bride"],
+      "keywords": ["frankenstein", "dancing", "bride"]
+    },
+    {
+      "text": "Mad scientist pulling a lever",
+      "kind": "hard",
+      "alternates": ["scientist pulling a lever"],
+      "keywords": ["scientist", "lever"]
+    },
+    {
+      "text": "Brain in a jar",
+      "kind": "hard",
+      "alternates": ["brain jar"],
+      "keywords": ["brain", "jar"]
+    },
+    {
+      "text": "Bubbling test tubes",
+      "kind": "hard",
+      "alternates": ["bubbling beakers"],
+      "keywords": ["bubbling", "tubes"]
+    },
+    {
+      "text": "Tesla coil sparking",
+      "kind": "hard",
+      "alternates": ["tesla coil with sparks"],
+      "keywords": ["tesla", "coil"]
+    },
+    {
+      "text": "Witch stirring a cauldron",
+      "kind": "hard",
+      "alternates": ["witch stirring a pot"],
+      "keywords": ["witch", "stirring", "cauldron"]
+    },
+    {
+      "text": "Witch flying across the moon",
+      "kind": "hard",
+      "alternates": ["witch flying past the moon"],
+      "keywords": ["witch", "flying", "moon"]
+    },
+    {
+      "text": "Witch zapping a frog prince",
+      "kind": "hard",
+      "alternates": ["witch turning a prince into a frog", "witch turning a man into a frog"],
+      "keywords": ["witch", "frog"]
+    },
+    {
+      "text": "Wicked Witch melting",
+      "kind": "hard",
+      "alternates": ["witch melting"],
+      "keywords": ["witch", "melting"]
+    },
+    {
+      "text": "Flying monkeys swooping",
+      "kind": "hard",
+      "alternates": ["flying monkeys attacking"],
+      "keywords": ["flying", "monkeys"]
+    },
+    {
+      "text": "Ghost rattling chains",
+      "kind": "hard",
+      "alternates": ["ghost with chains"],
+      "keywords": ["ghost", "chains"]
+    },
+    {
+      "text": "Ghost walking through a wall",
+      "kind": "hard",
+      "alternates": ["ghost passing through a wall"],
+      "keywords": ["ghost", "wall"]
+    },
+    {
+      "text": "Ghost blowing out a candle",
+      "kind": "hard",
+      "alternates": ["ghost blowing out candles"],
+      "keywords": ["ghost", "blowing", "candle"]
+    },
+    {
+      "text": "Kid in a bedsheet ghost costume",
+      "kind": "hard",
+      "alternates": ["bedsheet ghost costume", "sheet ghost"],
+      "keywords": ["bedsheet", "costume"]
+    },
+    {
+      "text": "Ghost costume full of holes",
+      "kind": "hard",
+      "alternates": ["sheet with too many holes"],
+      "keywords": ["costume", "holes"]
+    },
+    {
+      "text": "Skeleton playing its ribs",
+      "kind": "hard",
+      "alternates": ["skeleton xylophone", "skeleton playing ribs like a xylophone"],
+      "keywords": ["skeleton", "ribs"]
+    },
+    {
+      "text": "Dancing skeleton",
+      "kind": "hard",
+      "alternates": ["skeleton dancing"],
+      "keywords": ["dancing", "skeleton"]
+    },
+    {
+      "text": "Skeleton in a closet",
+      "kind": "hard",
+      "alternates": ["skeleton in the closet"],
+      "keywords": ["skeleton", "closet"]
+    },
+    {
+      "text": "Grim Reaper holding a scythe",
+      "kind": "hard",
+      "alternates": ["reaper with a scythe"],
+      "keywords": ["reaper", "scythe"]
+    },
+    {
+      "text": "Grim Reaper with an hourglass",
+      "kind": "hard",
+      "alternates": ["reaper holding an hourglass"],
+      "keywords": ["reaper", "hourglass"]
+    },
+    {
+      "text": "Carving a pumpkin",
+      "kind": "hard",
+      "alternates": ["pumpkin carving"],
+      "keywords": ["carving", "pumpkin"]
+    },
+    {
+      "text": "Scooping out pumpkin seeds",
+      "kind": "hard",
+      "alternates": ["scooping pumpkin guts"],
+      "keywords": ["scooping", "pumpkin"]
+    },
+    {
+      "text": "Pumpkins stacked on hay bales",
+      "kind": "hard",
+      "alternates": ["pumpkins on hay"],
+      "keywords": ["pumpkins", "hay"]
+    },
+    {
+      "text": "Jack-o'-lantern glowing on a porch",
+      "kind": "hard",
+      "alternates": ["jack o lantern on a porch"],
+      "keywords": ["lantern", "porch"]
+    },
+    {
+      "text": "Lighting a jack-o'-lantern",
+      "kind": "hard",
+      "alternates": ["lighting the candle in a pumpkin"],
+      "keywords": ["lighting", "lantern"]
+    },
+    {
+      "text": "Black cat crossing the road",
+      "kind": "hard",
+      "alternates": ["black cat crossing your path"],
+      "keywords": ["cat", "crossing"]
+    },
+    {
+      "text": "Black cat with an arched back",
+      "kind": "hard",
+      "alternates": ["scared black cat"],
+      "keywords": ["cat", "arched"]
+    },
+    {
+      "text": "Black cat on a fence",
+      "kind": "hard",
+      "alternates": ["cat on a fence"],
+      "keywords": ["cat", "fence"]
+    },
+    {
+      "text": "Bats flying out of a cave",
+      "kind": "hard",
+      "alternates": ["bats leaving a cave"],
+      "keywords": ["bats", "cave"]
+    },
+    {
+      "text": "Bat hanging upside down",
+      "kind": "hard",
+      "alternates": ["bat upside down"],
+      "keywords": ["bat", "hanging", "upside"]
+    },
+    {
+      "text": "Bats circling a bell tower",
+      "kind": "hard",
+      "alternates": ["bats around a bell tower"],
+      "keywords": ["bats", "bell", "tower"]
+    },
+    {
+      "text": "Spider spinning a web",
+      "kind": "hard",
+      "alternates": ["spider making a web"],
+      "keywords": ["spider", "spinning", "web"]
+    },
+    {
+      "text": "Spider dangling from a thread",
+      "kind": "hard",
+      "alternates": ["spider hanging from a thread"],
+      "keywords": ["spider", "dangling", "thread"]
+    },
+    {
+      "text": "Spider in the bathtub",
+      "kind": "hard",
+      "alternates": ["spider in a bath"],
+      "keywords": ["spider", "bathtub"]
+    },
+    {
+      "text": "Web catching a fly",
+      "kind": "hard",
+      "alternates": ["fly stuck in a web"],
+      "keywords": ["web", "fly"]
+    },
+    {
+      "text": "Tangled in a spider web",
+      "kind": "hard",
+      "alternates": ["stuck in a spider web"],
+      "keywords": ["tangled", "web"]
+    },
+    {
+      "text": "Owl perched on a tombstone",
+      "kind": "hard",
+      "alternates": ["owl on a gravestone"],
+      "keywords": ["owl", "tombstone"]
+    },
+    {
+      "text": "Raven perched on a skull",
+      "kind": "hard",
+      "alternates": ["crow on a skull"],
+      "keywords": ["raven", "skull"]
+    },
+    {
+      "text": "Raven on a windowsill",
+      "kind": "hard",
+      "alternates": ["crow on a windowsill"],
+      "keywords": ["raven", "windowsill"]
+    },
+    {
+      "text": "Rats scurrying in a dungeon",
+      "kind": "hard",
+      "alternates": ["rats in a dungeon"],
+      "keywords": ["rats", "dungeon"]
+    },
+    {
+      "text": "Vulture on a dead branch",
+      "kind": "hard",
+      "alternates": ["vulture on a branch"],
+      "keywords": ["vulture", "branch"]
+    },
+    {
+      "text": "Scarecrow scaring crows",
+      "kind": "hard",
+      "alternates": ["scarecrow scaring birds"],
+      "keywords": ["scarecrow", "crows"]
+    },
+    {
+      "text": "Scarecrow coming to life",
+      "kind": "hard",
+      "alternates": ["living scarecrow"],
+      "keywords": ["scarecrow", "life"]
+    },
+    {
+      "text": "Crow sitting on a scarecrow",
+      "kind": "hard",
+      "alternates": ["bird on a scarecrow"],
+      "keywords": ["crow", "scarecrow"]
+    },
+    {
+      "text": "Gargoyle perched on a castle",
+      "kind": "hard",
+      "alternates": ["gargoyle on a castle"],
+      "keywords": ["gargoyle", "castle"]
+    },
+    {
+      "text": "Spooky castle on a cliff",
+      "kind": "hard",
+      "alternates": ["castle on a cliff", "castle on a cliff in a storm"],
+      "keywords": ["castle", "cliff"]
+    },
+    {
+      "text": "Headless Horseman throwing a pumpkin",
+      "kind": "hard",
+      "alternates": ["headless horseman with a pumpkin"],
+      "keywords": ["horseman", "pumpkin"]
+    },
+    {
+      "text": "Headless Horseman on a black horse",
+      "kind": "hard",
+      "alternates": ["headless rider on a horse"],
+      "keywords": ["headless", "horse"]
+    },
+    {
+      "text": "Casper waving from a window",
+      "kind": "hard",
+      "alternates": ["casper at a window"],
+      "keywords": ["casper", "window"]
+    },
+    {
+      "text": "Ghostbusters catching a ghost",
+      "kind": "hard",
+      "alternates": ["ghostbusters trapping a ghost"],
+      "keywords": ["ghostbusters", "catching", "ghost"]
+    },
+    {
+      "text": "Ghostbuster firing a proton pack",
+      "kind": "hard",
+      "alternates": ["ghostbuster with a proton pack"],
+      "keywords": ["ghostbuster", "proton"]
+    },
+    {
+      "text": "Slimer eating hot dogs",
+      "kind": "hard",
+      "alternates": ["slimer eating a hot dog"],
+      "keywords": ["slimer", "hot", "dogs"]
+    },
+    {
+      "text": "Slimer sliming a man",
+      "kind": "hard",
+      "alternates": ["slimer slimes someone"],
+      "keywords": ["slimer", "sliming"]
+    },
+    {
+      "text": "Marshmallow Man stomping on a city",
+      "kind": "hard",
+      "alternates": [
+        "stay puft stomping through a city",
+        "marshmallow man stomping through the city"
+      ],
+      "keywords": ["marshmallow", "stomping", "city"]
+    },
+    {
+      "text": "Beetlejuice in a striped suit",
+      "kind": "hard",
+      "alternates": ["beetlejuice striped suit"],
+      "keywords": ["beetlejuice", "striped"]
+    },
+    {
+      "text": "Beetlejuice riding a sandworm",
+      "kind": "hard",
+      "alternates": ["beetlejuice on a sandworm"],
+      "keywords": ["beetlejuice", "sandworm"]
+    },
+    {
+      "text": "Jack Skellington in a Santa suit",
+      "kind": "hard",
+      "alternates": ["jack skellington as santa"],
+      "keywords": ["skellington", "santa"]
+    },
+    {
+      "text": "Ghost dog Zero's glowing nose",
+      "kind": "hard",
+      "alternates": ["zero the ghost dog with a glowing nose", "zero the ghost dog"],
+      "keywords": ["zero", "nose"]
+    },
+    {
+      "text": "Oogie Boogie rolling dice",
+      "kind": "hard",
+      "alternates": ["oogie boogie with dice"],
+      "keywords": ["oogie", "dice"]
+    },
+    {
+      "text": "Wednesday Addams doing her dance",
+      "kind": "hard",
+      "alternates": ["wednesday dance", "wednesday dancing"],
+      "keywords": ["wednesday", "dance"]
+    },
+    {
+      "text": "Thing the crawling hand",
+      "kind": "hard",
+      "alternates": ["crawling hand", "addams family hand"],
+      "keywords": ["hand", "crawling"]
+    },
+    {
+      "text": "Cousin Itt in a bowler hat",
+      "kind": "hard",
+      "alternates": ["cousin itt with a hat"],
+      "keywords": ["itt", "hat"]
+    },
+    {
+      "text": "Uncle Fester lighting a bulb",
+      "kind": "hard",
+      "alternates": ["uncle fester with a bulb in his mouth", "fester light bulb in mouth"],
+      "keywords": ["fester", "bulb"]
+    },
+    {
+      "text": "Lurch answering the door",
+      "kind": "hard",
+      "alternates": ["lurch opening the door"],
+      "keywords": ["lurch", "door"]
+    },
+    {
+      "text": "Gomez playing with toy trains",
+      "kind": "hard",
+      "alternates": ["gomez with a toy train"],
+      "keywords": ["gomez", "trains"]
+    },
+    {
+      "text": "Sanderson sisters riding a vacuum",
+      "kind": "hard",
+      "alternates": ["witch riding a vacuum cleaner"],
+      "keywords": ["sanderson", "vacuum"]
+    },
+    {
+      "text": "Gremlin on an airplane wing",
+      "kind": "hard",
+      "alternates": ["gremlin on a plane wing"],
+      "keywords": ["gremlin", "wing"]
+    },
+    {
+      "text": "Mogwai getting wet",
+      "kind": "hard",
+      "alternates": ["gizmo getting wet"],
+      "keywords": ["mogwai", "wet"]
+    },
+    {
+      "text": "Gizmo driving a toy car",
+      "kind": "hard",
+      "alternates": ["gizmo in a toy car"],
+      "keywords": ["gizmo", "car"]
+    },
+    {
+      "text": "Coraline opening a tiny door",
+      "kind": "hard",
+      "alternates": ["coraline and the little door"],
+      "keywords": ["coraline", "door"]
+    },
+    {
+      "text": "Doll with button eyes",
+      "kind": "hard",
+      "alternates": ["button eyed doll"],
+      "keywords": ["doll", "button"]
+    },
+    {
+      "text": "Dracula checking in hotel guests",
+      "kind": "hard",
+      "alternates": ["drac at the hotel desk"],
+      "keywords": ["dracula", "hotel"]
+    },
+    {
+      "text": "The Count counting bats",
+      "kind": "hard",
+      "alternates": ["count von count counting bats"],
+      "keywords": ["count", "bats"]
+    },
+    {
+      "text": "Scooby-Doo eating a giant sandwich",
+      "kind": "hard",
+      "alternates": ["scooby eating a sandwich"],
+      "keywords": ["scooby", "sandwich"]
+    },
+    {
+      "text": "Scooby and Shaggy fleeing a ghost",
+      "kind": "hard",
+      "alternates": ["scooby and shaggy running from a ghost", "scooby and shaggy running away"],
+      "keywords": ["scooby", "shaggy", "ghost"]
+    },
+    {
+      "text": "Unmasking a fake ghost",
+      "kind": "hard",
+      "alternates": ["pulling off the villain's mask"],
+      "keywords": ["unmasking", "ghost"]
+    },
+    {
+      "text": "Mystery Machine at a haunted house",
+      "kind": "hard",
+      "alternates": ["mystery machine driving to a haunted house"],
+      "keywords": ["mystery", "machine", "haunted"]
+    },
+    {
+      "text": "Luigi vacuuming a ghost",
+      "kind": "hard",
+      "alternates": ["luigi sucking up a ghost"],
+      "keywords": ["luigi", "vacuuming", "ghost"]
+    },
+    {
+      "text": "Linus waiting in a pumpkin patch",
+      "kind": "hard",
+      "alternates": ["linus in the pumpkin patch"],
+      "keywords": ["linus", "pumpkin", "patch"]
+    },
+    {
+      "text": "Phantom playing the organ",
+      "kind": "hard",
+      "alternates": ["phantom of the opera playing the organ", "phantom at the organ"],
+      "keywords": ["phantom", "organ"]
+    },
+    {
+      "text": "Invisible Man unwrapping his bandages",
+      "kind": "hard",
+      "alternates": ["invisible man unwrapping bandages"],
+      "keywords": ["invisible", "bandages"]
+    },
+    {
+      "text": "Swamp monster rising from a lagoon",
+      "kind": "hard",
+      "alternates": ["creature rising from the lagoon"],
+      "keywords": ["swamp", "monster", "lagoon"]
+    },
+    {
+      "text": "Blob oozing under a door",
+      "kind": "hard",
+      "alternates": ["blob under a door"],
+      "keywords": ["blob", "door"]
+    },
+    {
+      "text": "Mike Wazowski scaring a child",
+      "kind": "hard",
+      "alternates": ["mike wazowski scaring a kid"],
+      "keywords": ["wazowski", "scaring"]
+    },
+    {
+      "text": "Sulley carrying a little girl",
+      "kind": "hard",
+      "alternates": ["sulley carrying boo"],
+      "keywords": ["sulley", "carrying"]
+    },
+    {
+      "text": "Maleficent with her raven",
+      "kind": "hard",
+      "alternates": ["maleficent and her crow"],
+      "keywords": ["maleficent", "raven"]
+    },
+    {
+      "text": "Ursula with her eels",
+      "kind": "hard",
+      "alternates": ["ursula and the eels"],
+      "keywords": ["ursula", "eels"]
+    },
+    {
+      "text": "Baba Yaga's hut on chicken legs",
+      "kind": "hard",
+      "alternates": ["hut on chicken legs"],
+      "keywords": ["hut", "chicken", "legs"]
+    },
+    {
+      "text": "Painting a sugar skull face",
+      "kind": "hard",
+      "alternates": ["sugar skull face paint"],
+      "keywords": ["sugar", "skull", "face"]
+    },
+    {
+      "text": "La Catrina in a flower hat",
+      "kind": "hard",
+      "alternates": ["catrina in a big hat"],
+      "keywords": ["catrina", "hat"]
+    },
+    {
+      "text": "Altar with marigolds and candles",
+      "kind": "hard",
+      "alternates": ["day of the dead altar", "ofrenda"],
+      "keywords": ["altar", "marigolds"]
+    },
+    {
+      "text": "Carving a turnip lantern",
+      "kind": "hard",
+      "alternates": ["turnip jack o lantern"],
+      "keywords": ["turnip", "lantern"]
+    },
+    {
+      "text": "No-Face holding out gold",
+      "kind": "hard",
+      "alternates": ["no face offering gold"],
+      "keywords": ["face", "gold"]
+    },
+    {
+      "text": "Kids trick-or-treating at a door",
+      "kind": "hard",
+      "alternates": ["trick or treating at a door"],
+      "keywords": ["trick", "treating", "door"]
+    },
+    {
+      "text": "Ringing a doorbell in costume",
+      "kind": "hard",
+      "alternates": ["ringing the doorbell"],
+      "keywords": ["ringing", "doorbell"]
+    },
+    {
+      "text": "Handing out candy",
+      "kind": "hard",
+      "alternates": ["giving out candy"],
+      "keywords": ["handing", "candy"]
+    },
+    {
+      "text": "Bowl of candy on a doorstep",
+      "kind": "hard",
+      "alternates": ["candy bowl on the doorstep"],
+      "keywords": ["bowl", "candy", "doorstep"]
+    },
+    {
+      "text": "Sorting candy on the floor",
+      "kind": "hard",
+      "alternates": ["sorting halloween candy"],
+      "keywords": ["sorting", "candy"]
+    },
+    {
+      "text": "Pillowcase full of treats",
+      "kind": "hard",
+      "alternates": ["pillowcase of candy"],
+      "keywords": ["pillowcase", "treats"]
+    },
+    {
+      "text": "Dipping apples in caramel",
+      "kind": "hard",
+      "alternates": ["making caramel apples"],
+      "keywords": ["dipping", "apples", "caramel"]
+    },
+    {
+      "text": "Bobbing for apples",
+      "kind": "hard",
+      "alternates": ["apple bobbing"],
+      "keywords": ["bobbing", "apples"]
+    },
+    {
+      "text": "Putting on face paint",
+      "kind": "hard",
+      "alternates": ["painting your face"],
+      "keywords": ["face", "paint"]
+    },
+    {
+      "text": "Putting in fake fangs",
+      "kind": "hard",
+      "alternates": ["plastic vampire teeth"],
+      "keywords": ["fake", "fangs"]
+    },
+    {
+      "text": "Dog in a pumpkin costume",
+      "kind": "hard",
+      "alternates": ["dog dressed as a pumpkin"],
+      "keywords": ["dog", "pumpkin", "costume"]
+    },
+    {
+      "text": "Costume contest on a stage",
+      "kind": "hard",
+      "alternates": ["costume competition"],
+      "keywords": ["costume", "contest"]
+    },
+    {
+      "text": "Monster mash dance party",
+      "kind": "hard",
+      "alternates": ["monster dance party"],
+      "keywords": ["monster", "dance", "party"]
+    },
+    {
+      "text": "Wrapping a friend in toilet paper",
+      "kind": "hard",
+      "alternates": ["toilet paper mummy"],
+      "keywords": ["wrapping", "toilet", "paper"]
+    },
+    {
+      "text": "Hanging fake cobwebs",
+      "kind": "hard",
+      "alternates": ["putting up cobwebs"],
+      "keywords": ["hanging", "cobwebs"]
+    },
+    {
+      "text": "Lawn full of fake tombstones",
+      "kind": "hard",
+      "alternates": ["fake graveyard on a lawn"],
+      "keywords": ["lawn", "tombstones"]
+    },
+    {
+      "text": "Gingerbread haunted house",
+      "kind": "hard",
+      "alternates": ["haunted gingerbread house"],
+      "keywords": ["gingerbread", "haunted", "house"]
+    },
+    {
+      "text": "Haunted hayride",
+      "kind": "hard",
+      "alternates": ["spooky hayride"],
+      "keywords": ["hayride"]
+    },
+    {
+      "text": "Getting lost in a corn maze",
+      "kind": "hard",
+      "alternates": ["lost in a corn maze"],
+      "keywords": ["lost", "corn", "maze"]
+    },
+    {
+      "text": "Riding the ghost train",
+      "kind": "hard",
+      "alternates": ["ghost train ride"],
+      "keywords": ["ghost", "train"]
+    },
+    {
+      "text": "Creaky door opening slowly",
+      "kind": "hard",
+      "alternates": ["creaky door opening"],
+      "keywords": ["door", "opening"]
+    },
+    {
+      "text": "Portrait with moving eyes",
+      "kind": "hard",
+      "alternates": ["painting with moving eyes"],
+      "keywords": ["portrait", "eyes"]
+    },
+    {
+      "text": "Rocking chair rocking by itself",
+      "kind": "hard",
+      "alternates": ["empty rocking chair rocking"],
+      "keywords": ["rocking", "chair"]
+    },
+    {
+      "text": "Piano playing by itself",
+      "kind": "hard",
+      "alternates": ["ghost playing a piano"],
+      "keywords": ["piano", "playing"]
+    },
+    {
+      "text": "Flying books in a haunted library",
+      "kind": "hard",
+      "alternates": ["books flying off the shelves"],
+      "keywords": ["flying", "books"]
+    },
+    {
+      "text": "Floating candles",
+      "kind": "hard",
+      "alternates": ["candles floating in the air"],
+      "keywords": ["floating", "candles"]
+    },
+    {
+      "text": "Glowing eyes in the dark",
+      "kind": "hard",
+      "alternates": ["eyes in the dark"],
+      "keywords": ["glowing", "eyes", "dark"]
+    },
+    {
+      "text": "Monster under the bed",
+      "kind": "hard",
+      "alternates": ["monster hiding under the bed"],
+      "keywords": ["monster", "bed"]
+    },
+    {
+      "text": "Hiding under the covers",
+      "kind": "hard",
+      "alternates": ["hiding under a blanket"],
+      "keywords": ["hiding", "covers"]
+    },
+    {
+      "text": "Telling ghost stories with a flashlight",
+      "kind": "hard",
+      "alternates": ["flashlight under the chin"],
+      "keywords": ["ghost", "stories", "flashlight"]
+    },
+    {
+      "text": "Watching a scary movie",
+      "kind": "hard",
+      "alternates": ["scary movie night"],
+      "keywords": ["scary", "movie"]
+    },
+    {
+      "text": "Monster shadow on the wall",
+      "kind": "hard",
+      "alternates": ["scary shadow on a wall"],
+      "keywords": ["shadow", "wall"]
+    },
+    {
+      "text": "Spooky tree with a face",
+      "kind": "hard",
+      "alternates": ["tree with a scary face"],
+      "keywords": ["tree", "face"]
+    },
+    {
+      "text": "Haunted swing moving by itself",
+      "kind": "hard",
+      "alternates": ["swing moving on its own"],
+      "keywords": ["swing", "moving"]
+    },
+    {
+      "text": "Gravedigger digging a grave",
+      "kind": "hard",
+      "alternates": ["digging a grave"],
+      "keywords": ["digging", "grave"]
+    },
+    {
+      "text": "Fog rolling over a graveyard",
+      "kind": "hard",
+      "alternates": ["foggy graveyard"],
+      "keywords": ["fog", "graveyard"]
+    },
+    {
+      "text": "Skeleton key unlocking a crypt",
+      "kind": "hard",
+      "alternates": ["key unlocking a crypt"],
+      "keywords": ["key", "crypt"]
+    },
+    {
+      "text": "Coffin lid creaking open",
+      "kind": "hard",
+      "alternates": ["coffin opening"],
+      "keywords": ["coffin", "opening"]
+    },
+    {
+      "text": "Cauldron bubbling over",
+      "kind": "hard",
+      "alternates": ["bubbling cauldron"],
+      "keywords": ["cauldron", "bubbling"]
+    },
+    {
+      "text": "Pouring a glowing potion",
+      "kind": "hard",
+      "alternates": ["pouring a potion"],
+      "keywords": ["pouring", "potion"]
+    },
+    {
+      "text": "Fortune teller reading a crystal ball",
+      "kind": "hard",
+      "alternates": ["psychic with a crystal ball"],
+      "keywords": ["fortune", "crystal", "ball"]
+    },
+    {
+      "text": "Palm reading",
+      "kind": "hard",
+      "alternates": ["reading a palm"],
+      "keywords": ["palm", "reading"]
+    },
+    {
+      "text": "Slime dripping from the ceiling",
+      "kind": "hard",
+      "alternates": ["dripping slime"],
+      "keywords": ["slime", "dripping"]
+    },
+    {
+      "text": "Ghost ship with torn sails",
+      "kind": "hard",
+      "alternates": ["ghost ship sailing"],
+      "keywords": ["ghost", "ship", "sails"]
+    },
+    {
+      "text": "Witch's hat blowing away",
+      "kind": "hard",
+      "alternates": ["hat blowing in the wind"],
+      "keywords": ["hat", "blowing"]
+    },
+    {
+      "text": "Broomstick parked by a door",
+      "kind": "hard",
+      "alternates": ["broom leaning on a door"],
+      "keywords": ["broom", "door"]
+    },
+    {
+      "text": "Spell book glowing on a stand",
+      "kind": "hard",
+      "alternates": ["glowing spellbook"],
+      "keywords": ["spell", "book", "glowing"]
+    },
+    {
+      "text": "Bats flying around a full moon",
+      "kind": "hard",
+      "alternates": ["bats in front of the moon"],
+      "keywords": ["bats", "moon"]
+    },
+    {
+      "text": "Wolf silhouette on a hill",
+      "kind": "hard",
+      "alternates": ["wolf on a hill"],
+      "keywords": ["wolf", "hill"]
+    },
+    {
+      "text": "Snake slithering through a skull",
+      "kind": "hard",
+      "alternates": ["snake in a skull"],
+      "keywords": ["snake", "skull"]
+    },
+    {
+      "text": "Toad on a toadstool",
+      "kind": "hard",
+      "alternates": ["frog on a mushroom"],
+      "keywords": ["toad", "toadstool"]
+    },
+    {
+      "text": "Candle dripping wax on a skull",
+      "kind": "hard",
+      "alternates": ["candle on a skull"],
+      "keywords": ["candle", "skull"]
+    },
+    {
+      "text": "Chandelier swinging in the dark",
+      "kind": "hard",
+      "alternates": ["swinging chandelier"],
+      "keywords": ["chandelier", "swinging"]
+    },
+    {
+      "text": "Suit of armor coming to life",
+      "kind": "hard",
+      "alternates": ["armor walking"],
+      "keywords": ["armor", "walking"]
+    },
+    {
+      "text": "Falling through a trapdoor",
+      "kind": "hard",
+      "alternates": ["trapdoor opening"],
+      "keywords": ["falling", "trapdoor"]
+    },
+    {
+      "text": "Chains rattling in a dungeon",
+      "kind": "hard",
+      "alternates": ["chains in a dungeon"],
+      "keywords": ["chains", "dungeon"]
+    },
+    {
+      "text": "Pharaoh's tomb full of treasure",
+      "kind": "hard",
+      "alternates": ["tomb full of gold"],
+      "keywords": ["tomb", "treasure"]
+    },
+    {
+      "text": "Scarab crawling out of a tomb",
+      "kind": "hard",
+      "alternates": ["beetle crawling out of a tomb"],
+      "keywords": ["scarab", "tomb"]
+    },
+    {
+      "text": "Velma losing her glasses",
+      "kind": "hard",
+      "alternates": ["velma looking for her glasses"],
+      "keywords": ["velma", "glasses"]
+    },
+    {
+      "text": "Werewolf paw prints in the mud",
+      "kind": "hard",
+      "alternates": ["big paw prints in mud"],
+      "keywords": ["paw", "prints"]
+    },
+    {
+      "text": "Vampire wearing sunscreen at the beach",
+      "kind": "chaos",
+      "alternates": ["vampire at the beach"],
+      "keywords": ["vampire", "sunscreen", "beach"]
+    },
+    {
+      "text": "Vampire taking a selfie",
+      "kind": "chaos",
+      "alternates": ["dracula taking a selfie"],
+      "keywords": ["vampire", "selfie"]
+    },
+    {
+      "text": "Vampire cooking garlic bread",
+      "kind": "chaos",
+      "alternates": ["dracula making garlic bread"],
+      "keywords": ["vampire", "garlic", "bread"]
+    },
+    {
+      "text": "Werewolf at the dog groomer",
+      "kind": "chaos",
+      "alternates": ["werewolf getting groomed"],
+      "keywords": ["werewolf", "groomer"]
+    },
+    {
+      "text": "Werewolf playing fetch",
+      "kind": "chaos",
+      "alternates": ["werewolf fetching a stick"],
+      "keywords": ["werewolf", "fetch"]
+    },
+    {
+      "text": "Werewolf howling at a streetlight",
+      "kind": "chaos",
+      "alternates": ["werewolf howling at a lamp"],
+      "keywords": ["werewolf", "streetlight"]
+    },
+    {
+      "text": "Mummy wrapping birthday presents",
+      "kind": "chaos",
+      "alternates": ["mummy wrapping gifts"],
+      "keywords": ["mummy", "wrapping", "presents"]
+    },
+    {
+      "text": "Cat unravelling a mummy",
+      "kind": "chaos",
+      "alternates": ["cat playing with a mummy's bandage"],
+      "keywords": ["cat", "unravelling", "mummy"]
+    },
+    {
+      "text": "Mummy getting a spa body wrap",
+      "kind": "chaos",
+      "alternates": ["mummy at a spa getting a body wrap", "mummy at the spa"],
+      "keywords": ["mummy", "spa"]
+    },
+    {
+      "text": "Zombie running a marathon",
+      "kind": "chaos",
+      "alternates": ["zombie in a marathon"],
+      "keywords": ["zombie", "marathon"]
+    },
+    {
+      "text": "Zombie eating cauliflower",
+      "kind": "chaos",
+      "alternates": ["zombie eating a cauliflower"],
+      "keywords": ["zombie", "cauliflower"]
+    },
+    {
+      "text": "Zombie rising from a sandbox",
+      "kind": "chaos",
+      "alternates": ["zombie in a sandbox"],
+      "keywords": ["zombie", "sandbox"]
+    },
+    {
+      "text": "Frankenstein's monster charging a phone",
+      "kind": "chaos",
+      "alternates": ["frankenstein charging his phone"],
+      "keywords": ["frankenstein", "charging", "phone"]
+    },
+    {
+      "text": "Frankenstein's monster at a sewing class",
+      "kind": "chaos",
+      "alternates": ["frankenstein sewing himself"],
+      "keywords": ["frankenstein", "sewing"]
+    },
+    {
+      "text": "Frankenstein's monster flying a kite",
+      "kind": "chaos",
+      "alternates": ["frankenstein flying a kite in a storm", "frankenstein with a kite"],
+      "keywords": ["frankenstein", "kite"]
+    },
+    {
+      "text": "Witch getting a speeding ticket",
+      "kind": "chaos",
+      "alternates": [
+        "witch on a broom getting a speeding ticket",
+        "witch pulled over on her broom"
+      ],
+      "keywords": ["witch", "speeding", "ticket"]
+    },
+    {
+      "text": "Witch in a cauldron hot tub",
+      "kind": "chaos",
+      "alternates": ["witch relaxing in a cauldron hot tub", "cauldron hot tub"],
+      "keywords": ["witch", "cauldron", "tub"]
+    },
+    {
+      "text": "Witch's wand as a TV remote",
+      "kind": "chaos",
+      "alternates": ["witch using a wand as a tv remote", "witch changing channels with a wand"],
+      "keywords": ["witch", "wand", "remote"]
+    },
+    {
+      "text": "Broomstick with training wheels",
+      "kind": "chaos",
+      "alternates": ["broom with training wheels"],
+      "keywords": ["broomstick", "training", "wheels"]
+    },
+    {
+      "text": "Witch's broom with a baby seat",
+      "kind": "chaos",
+      "alternates": ["broom with a child seat"],
+      "keywords": ["broom", "baby", "seat"]
+    },
+    {
+      "text": "Witch hat ice cream cone",
+      "kind": "chaos",
+      "alternates": ["witch hat used as an ice cream cone", "ice cream in a witch hat"],
+      "keywords": ["witch", "hat", "cone"]
+    },
+    {
+      "text": "Ghost getting ironed",
+      "kind": "chaos",
+      "alternates": ["ghost being ironed"],
+      "keywords": ["ghost", "ironed"]
+    },
+    {
+      "text": "Ghost failing at a high five",
+      "kind": "chaos",
+      "alternates": ["ghost missing a high five"],
+      "keywords": ["ghost", "high five"]
+    },
+    {
+      "text": "Ghost trapping a Ghostbuster",
+      "kind": "chaos",
+      "alternates": ["ghost catching a ghostbuster"],
+      "keywords": ["ghost", "trapping", "ghostbuster"]
+    },
+    {
+      "text": "Skeleton drinking milk that leaks out",
+      "kind": "chaos",
+      "alternates": ["skeleton drinking milk"],
+      "keywords": ["skeleton", "milk"]
+    },
+    {
+      "text": "Dog stealing a skeleton's leg",
+      "kind": "chaos",
+      "alternates": ["dog running off with a skeleton's leg", "dog stealing a skeleton's bone"],
+      "keywords": ["dog", "skeleton"]
+    },
+    {
+      "text": "Skeleton building itself from a kit",
+      "kind": "chaos",
+      "alternates": ["skeleton assembling itself"],
+      "keywords": ["skeleton", "kit"]
+    },
+    {
+      "text": "Grim Reaper mowing a lawn",
+      "kind": "chaos",
+      "alternates": ["grim reaper mowing the lawn with a scythe", "reaper mowing the lawn"],
+      "keywords": ["reaper", "mowing", "lawn"]
+    },
+    {
+      "text": "Grim Reaper timing eggs",
+      "kind": "chaos",
+      "alternates": ["grim reaper timing eggs with an hourglass", "grim reaper boiling eggs"],
+      "keywords": ["reaper", "eggs"]
+    },
+    {
+      "text": "Grim Reaper trimming a bonsai tree",
+      "kind": "chaos",
+      "alternates": ["reaper trimming a bonsai"],
+      "keywords": ["reaper", "bonsai"]
+    },
+    {
+      "text": "Jack-o'-lantern eating pumpkin pie",
+      "kind": "chaos",
+      "alternates": ["pumpkin eating pumpkin pie"],
+      "keywords": ["lantern", "pumpkin pie"]
+    },
+    {
+      "text": "Jack-o'-lantern blowing out its candle",
+      "kind": "chaos",
+      "alternates": ["pumpkin blowing out its own candle"],
+      "keywords": ["lantern", "blowing", "candle"]
+    },
+    {
+      "text": "Jack-o'-lantern getting braces",
+      "kind": "chaos",
+      "alternates": ["pumpkin with braces"],
+      "keywords": ["lantern", "braces"]
+    },
+    {
+      "text": "Prize pumpkin bigger than the barn",
+      "kind": "chaos",
+      "alternates": ["giant pumpkin bigger than a barn"],
+      "keywords": ["pumpkin", "barn"]
+    },
+    {
+      "text": "Cauldron at a fondue party",
+      "kind": "chaos",
+      "alternates": ["cauldron fondue"],
+      "keywords": ["cauldron", "fondue"]
+    },
+    {
+      "text": "Black cat walking under a ladder",
+      "kind": "chaos",
+      "alternates": ["black cat under a ladder"],
+      "keywords": ["cat", "ladder"]
+    },
+    {
+      "text": "Black cat stealing the witch's broom",
+      "kind": "chaos",
+      "alternates": ["cat stealing a broom"],
+      "keywords": ["cat", "stealing", "broom"]
+    },
+    {
+      "text": "Bat sleeping in a bunk bed",
+      "kind": "chaos",
+      "alternates": ["bat sleeping upside down in a bunk bed", "bat in a bunk bed"],
+      "keywords": ["bat", "bunk"]
+    },
+    {
+      "text": "Bat hanging from a ceiling fan",
+      "kind": "chaos",
+      "alternates": ["bat on a ceiling fan"],
+      "keywords": ["bat", "ceiling fan"]
+    },
+    {
+      "text": "Bat wings as an umbrella",
+      "kind": "chaos",
+      "alternates": ["bat using its wings as an umbrella", "bat umbrella"],
+      "keywords": ["bat", "umbrella"]
+    },
+    {
+      "text": "Spider wearing eight shoes",
+      "kind": "chaos",
+      "alternates": ["spider putting on shoes"],
+      "keywords": ["spider", "shoes"]
+    },
+    {
+      "text": "Spider napping in a web hammock",
+      "kind": "chaos",
+      "alternates": ["spider in a hammock"],
+      "keywords": ["spider", "hammock"]
+    },
+    {
+      "text": "Spider playing its web harp",
+      "kind": "chaos",
+      "alternates": ["spider playing its web like a harp", "spider playing a harp"],
+      "keywords": ["spider", "harp"]
+    },
+    {
+      "text": "Owl working as a night guard",
+      "kind": "chaos",
+      "alternates": ["owl security guard"],
+      "keywords": ["owl", "guard"]
+    },
+    {
+      "text": "Toad zapping a witch",
+      "kind": "chaos",
+      "alternates": ["toad casting a spell on a witch", "frog casting a spell on a witch"],
+      "keywords": ["toad", "witch"]
+    },
+    {
+      "text": "Scarecrow scared of a crow",
+      "kind": "chaos",
+      "alternates": ["scarecrow afraid of a crow"],
+      "keywords": ["scarecrow", "scared", "crow"]
+    },
+    {
+      "text": "Scarecrow running a bird feeder",
+      "kind": "chaos",
+      "alternates": ["scarecrow feeding birds"],
+      "keywords": ["scarecrow", "bird feeder"]
+    },
+    {
+      "text": "Scarecrow getting a haircut",
+      "kind": "chaos",
+      "alternates": ["scarecrow at the barber"],
+      "keywords": ["scarecrow", "haircut"]
+    },
+    {
+      "text": "Gargoyle posing for an art class",
+      "kind": "chaos",
+      "alternates": ["gargoyle modelling for artists"],
+      "keywords": ["gargoyle", "art class"]
+    },
+    {
+      "text": "Gargoyle as a garden fountain",
+      "kind": "chaos",
+      "alternates": ["gargoyle fountain"],
+      "keywords": ["gargoyle", "fountain"]
+    },
+    {
+      "text": "Headless Horseman at a hat shop",
+      "kind": "chaos",
+      "alternates": ["headless horseman trying on hats"],
+      "keywords": ["horseman", "hat shop"]
+    },
+    {
+      "text": "Headless Horseman bowling with a pumpkin",
+      "kind": "chaos",
+      "alternates": ["headless horseman bowling"],
+      "keywords": ["horseman", "bowling"]
+    },
+    {
+      "text": "Headless Horseman on a merry-go-round",
+      "kind": "chaos",
+      "alternates": ["headless horseman on a carousel"],
+      "keywords": ["horseman", "carousel"]
+    },
+    {
+      "text": "Slimer at an all-you-can-eat buffet",
+      "kind": "chaos",
+      "alternates": ["slimer at a buffet"],
+      "keywords": ["slimer", "buffet"]
+    },
+    {
+      "text": "Slimer licking a giant lollipop",
+      "kind": "chaos",
+      "alternates": ["slimer with a lollipop"],
+      "keywords": ["slimer", "lollipop"]
+    },
+    {
+      "text": "Marshmallow Man roasting over a campfire",
+      "kind": "chaos",
+      "alternates": ["stay puft over a campfire"],
+      "keywords": ["marshmallow", "campfire"]
+    },
+    {
+      "text": "Marshmallow Man in hot chocolate",
+      "kind": "chaos",
+      "alternates": ["stay puft in hot chocolate", "marshmallow man in a mug of hot chocolate"],
+      "keywords": ["marshmallow", "chocolate"]
+    },
+    {
+      "text": "Ghostbuster blowing leaves",
+      "kind": "chaos",
+      "alternates": ["ghostbuster using a proton pack as a leaf blower", "ghostbuster leaf blower"],
+      "keywords": ["ghostbuster", "leaves"]
+    },
+    {
+      "text": "Wednesday Addams on a rainbow unicorn",
+      "kind": "chaos",
+      "alternates": ["wednesday riding a rainbow unicorn", "wednesday on a unicorn"],
+      "keywords": ["wednesday", "unicorn"]
+    },
+    {
+      "text": "Thing the hand hitchhiking",
+      "kind": "chaos",
+      "alternates": ["addams hand hitchhiking"],
+      "keywords": ["hand", "hitchhiking"]
+    },
+    {
+      "text": "Thing wearing a sock puppet",
+      "kind": "chaos",
+      "alternates": ["thing the hand doing a puppet show", "hand wearing a sock puppet"],
+      "keywords": ["thing", "puppet"]
+    },
+    {
+      "text": "Cousin Itt at the hair salon",
+      "kind": "chaos",
+      "alternates": ["cousin itt at the hairdresser"],
+      "keywords": ["itt", "salon"]
+    },
+    {
+      "text": "Cousin Itt used as a mop",
+      "kind": "chaos",
+      "alternates": ["cousin itt mopping"],
+      "keywords": ["itt", "mop"]
+    },
+    {
+      "text": "Uncle Fester as a lighthouse",
+      "kind": "chaos",
+      "alternates": ["fester lighthouse"],
+      "keywords": ["fester", "lighthouse"]
+    },
+    {
+      "text": "Gremlin at a water park",
+      "kind": "chaos",
+      "alternates": ["gremlin on a water slide"],
+      "keywords": ["gremlin", "water park"]
+    },
+    {
+      "text": "Gremlin fixing an airplane",
+      "kind": "chaos",
+      "alternates": ["gremlin repairing a plane"],
+      "keywords": ["gremlin", "fixing", "airplane"]
+    },
+    {
+      "text": "The Count counting sheep in bed",
+      "kind": "chaos",
+      "alternates": ["count von count counting sheep"],
+      "keywords": ["count", "sheep"]
+    },
+    {
+      "text": "Scooby-Doo chasing a ghost",
+      "kind": "chaos",
+      "alternates": ["scooby chasing a ghost"],
+      "keywords": ["scooby", "chasing", "ghost"]
+    },
+    {
+      "text": "Scooby-Doo scared of a kitten",
+      "kind": "chaos",
+      "alternates": ["scooby afraid of a kitten"],
+      "keywords": ["scooby", "kitten"]
+    },
+    {
+      "text": "Scooby sandwich taller than a house",
+      "kind": "chaos",
+      "alternates": ["scooby doo sandwich taller than a house", "giant scooby sandwich"],
+      "keywords": ["scooby", "sandwich", "house"]
+    },
+    {
+      "text": "Wicked Witch dodging water balloons",
+      "kind": "chaos",
+      "alternates": ["wicked witch at a water balloon fight", "wicked witch with water balloons"],
+      "keywords": ["witch", "balloons"]
+    },
+    {
+      "text": "Flying monkey delivering parcels",
+      "kind": "chaos",
+      "alternates": ["flying monkey delivery"],
+      "keywords": ["flying monkey", "parcel"]
+    },
+    {
+      "text": "Phantom of the Opera singing karaoke",
+      "kind": "chaos",
+      "alternates": ["phantom at karaoke"],
+      "keywords": ["phantom", "karaoke"]
+    },
+    {
+      "text": "Invisible Man playing hide and seek",
+      "kind": "chaos",
+      "alternates": ["invisible man hiding"],
+      "keywords": ["invisible", "hide"]
+    },
+    {
+      "text": "Invisible Man walking a dog",
+      "kind": "chaos",
+      "alternates": ["invisible man with a dog on a leash"],
+      "keywords": ["invisible", "dog"]
+    },
+    {
+      "text": "Swamp monster in a bubble bath",
+      "kind": "chaos",
+      "alternates": ["swamp monster taking a bath"],
+      "keywords": ["swamp", "bubble bath"]
+    },
+    {
+      "text": "Blob served as a jelly dessert",
+      "kind": "chaos",
+      "alternates": ["blob jelly"],
+      "keywords": ["blob", "jelly"]
+    },
+    {
+      "text": "Blob squeezing through a keyhole",
+      "kind": "chaos",
+      "alternates": ["blob in a keyhole"],
+      "keywords": ["blob", "keyhole"]
+    },
+    {
+      "text": "Mad scientist reviving a toaster",
+      "kind": "chaos",
+      "alternates": ["mad scientist bringing a toaster to life", "scientist with a living toaster"],
+      "keywords": ["scientist", "toaster"]
+    },
+    {
+      "text": "Mad scientist cloning cats",
+      "kind": "chaos",
+      "alternates": ["scientist cloning cats"],
+      "keywords": ["scientist", "cloning", "cats"]
+    },
+    {
+      "text": "Mad scientist flipping lab pancakes",
+      "kind": "chaos",
+      "alternates": ["mad scientist making pancakes in a lab", "scientist making pancakes"],
+      "keywords": ["scientist", "pancakes"]
+    },
+    {
+      "text": "Brain in a jar playing chess",
+      "kind": "chaos",
+      "alternates": ["brain playing chess"],
+      "keywords": ["brain", "chess"]
+    },
+    {
+      "text": "Bride of Frankenstein's beehive hair",
+      "kind": "chaos",
+      "alternates": ["bride of frankenstein hair as a beehive", "bees in the bride's hair"],
+      "keywords": ["bride", "beehive"]
+    },
+    {
+      "text": "Hopping vampire on a pogo stick",
+      "kind": "chaos",
+      "alternates": ["jiangshi on a pogo stick"],
+      "keywords": ["hopping", "pogo stick"]
+    },
+    {
+      "text": "Hopping vampire winning a sack race",
+      "kind": "chaos",
+      "alternates": ["jiangshi in a sack race"],
+      "keywords": ["hopping", "sack race"]
+    },
+    {
+      "text": "Chicken-leg hut crossing the road",
+      "kind": "chaos",
+      "alternates": ["baba yaga's hut crossing the road"],
+      "keywords": ["hut", "crossing", "road"]
+    },
+    {
+      "text": "Trick-or-treater with a wheelbarrow",
+      "kind": "chaos",
+      "alternates": ["trick or treater with a wheelbarrow of candy", "wheelbarrow of candy"],
+      "keywords": ["treater", "wheelbarrow"]
+    },
+    {
+      "text": "Trick-or-treating at a dentist's house",
+      "kind": "chaos",
+      "alternates": ["dentist giving out toothbrushes"],
+      "keywords": ["dentist", "trick"]
+    },
+    {
+      "text": "Candy corn growing on a cornstalk",
+      "kind": "chaos",
+      "alternates": ["candy corn on a corn plant"],
+      "keywords": ["candy corn", "cornstalk"]
+    },
+    {
+      "text": "Bird pulling up a gummy worm",
+      "kind": "chaos",
+      "alternates": ["bird eating a gummy worm"],
+      "keywords": ["bird", "gummy worm"]
+    },
+    {
+      "text": "Coffin used as a canoe",
+      "kind": "chaos",
+      "alternates": ["coffin canoe"],
+      "keywords": ["coffin", "canoe"]
+    },
+    {
+      "text": "Tombstone with a doorbell",
+      "kind": "chaos",
+      "alternates": ["gravestone with a doorbell"],
+      "keywords": ["tombstone", "doorbell"]
+    },
+    {
+      "text": "Crystal ball disco ball",
+      "kind": "chaos",
+      "alternates": ["crystal ball used as a disco ball", "crystal disco ball"],
+      "keywords": ["crystal", "disco"]
+    },
+    {
+      "text": "Fortune teller reading a snow globe",
+      "kind": "chaos",
+      "alternates": ["fortune teller with a snow globe"],
+      "keywords": ["fortune", "snow globe"]
+    },
+    {
+      "text": "Fortune teller reading a dog's paw",
+      "kind": "chaos",
+      "alternates": ["psychic reading a paw"],
+      "keywords": ["fortune", "paw"]
+    },
+    {
+      "text": "Potion vending machine",
+      "kind": "chaos",
+      "alternates": ["potion machine"],
+      "keywords": ["potion", "vending"]
+    },
+    {
+      "text": "Haunted bouncy castle",
+      "kind": "chaos",
+      "alternates": ["spooky bouncy castle"],
+      "keywords": ["haunted", "bouncy castle"]
+    },
+    {
+      "text": "Ghost exterminator at a haunted house",
+      "kind": "chaos",
+      "alternates": ["ghost exterminator spraying a haunted house", "ghost exterminator"],
+      "keywords": ["exterminator", "haunted"]
+    },
+    {
+      "text": "Monster hiding from a kid",
+      "kind": "chaos",
+      "alternates": ["monster hiding from a kid under the bed", "monster scared of a kid"],
+      "keywords": ["monster", "hiding", "kid"]
+    },
+    {
+      "text": "Monster sleeping with a night light",
+      "kind": "chaos",
+      "alternates": ["monster with a nightlight"],
+      "keywords": ["monster", "night light"]
+    },
+    {
+      "text": "Giraffe in a ghost costume",
+      "kind": "chaos",
+      "alternates": ["giraffe dressed as a ghost"],
+      "keywords": ["giraffe", "ghost costume"]
+    },
+    {
+      "text": "Octopus dressed as a spider",
+      "kind": "chaos",
+      "alternates": ["octopus in a spider costume"],
+      "keywords": ["octopus", "spider"]
+    },
+    {
+      "text": "Penguin dressed as a vampire",
+      "kind": "chaos",
+      "alternates": ["penguin in a vampire costume"],
+      "keywords": ["penguin", "vampire"]
+    },
+    {
+      "text": "Dog dressed as a cat",
+      "kind": "chaos",
+      "alternates": ["dog in a cat costume"],
+      "keywords": ["dog", "cat"]
+    },
+    {
+      "text": "Dog bobbing for tennis balls",
+      "kind": "chaos",
+      "alternates": ["dog bobbing for balls"],
+      "keywords": ["dog", "bobbing", "tennis"]
+    },
+    {
+      "text": "Ghost ship in a bathtub",
+      "kind": "chaos",
+      "alternates": ["toy ghost ship in a bath"],
+      "keywords": ["ghost ship", "bathtub"]
+    },
+    {
+      "text": "Eyeball at an eye exam",
+      "kind": "chaos",
+      "alternates": ["eyeball reading an eye chart"],
+      "keywords": ["eyeball", "eye exam"]
+    },
+    {
+      "text": "Eyeball used as a golf ball",
+      "kind": "chaos",
+      "alternates": ["golfing with an eyeball"],
+      "keywords": ["eyeball", "golf"]
+    },
+    {
+      "text": "Sugar skull melting in coffee",
+      "kind": "chaos",
+      "alternates": ["sugar skull in a coffee"],
+      "keywords": ["sugar skull", "coffee"]
+    },
+    {
+      "text": "Skull used as a flower pot",
+      "kind": "chaos",
+      "alternates": ["flower growing from a skull"],
+      "keywords": ["skull", "flower pot"]
+    },
+    {
+      "text": "Jack Skellington stuck in a chimney",
+      "kind": "chaos",
+      "alternates": ["skellington stuck in a chimney"],
+      "keywords": ["skellington", "chimney"]
+    },
+    {
+      "text": "Ghost dog Zero as a headlight",
+      "kind": "chaos",
+      "alternates": ["zero the ghost dog as a headlight", "zero lighting the way"],
+      "keywords": ["zero", "headlight"]
+    },
+    {
+      "text": "Beetlejuice used as a zebra crossing",
+      "kind": "chaos",
+      "alternates": ["beetlejuice zebra crossing"],
+      "keywords": ["beetlejuice", "zebra crossing"]
+    },
+    {
+      "text": "Lurch playing basketball",
+      "kind": "chaos",
+      "alternates": ["lurch slam dunking"],
+      "keywords": ["lurch", "basketball"]
+    },
+    {
+      "text": "Oogie Boogie scared of bug spray",
+      "kind": "chaos",
+      "alternates": ["oogie boogie and bug spray"],
+      "keywords": ["oogie", "bug spray"]
+    },
+    {
+      "text": "Mike Wazowski wearing a monocle",
+      "kind": "chaos",
+      "alternates": ["mike wazowski with a monocle"],
+      "keywords": ["wazowski", "monocle"]
+    },
+    {
+      "text": "Sulley used as a fluffy rug",
+      "kind": "chaos",
+      "alternates": ["sulley rug"],
+      "keywords": ["sulley", "rug"]
+    },
+    {
+      "text": "Maleficent's horns as a coat rack",
+      "kind": "chaos",
+      "alternates": ["maleficent coat rack"],
+      "keywords": ["maleficent", "coat rack"]
+    },
+    {
+      "text": "Ursula giving a group hug",
+      "kind": "chaos",
+      "alternates": ["ursula hugging everyone"],
+      "keywords": ["ursula", "hug"]
+    },
+    {
+      "text": "Mystery Machine ice cream truck",
+      "kind": "chaos",
+      "alternates": ["mystery machine as an ice cream truck", "mystery machine ice cream van"],
+      "keywords": ["mystery", "ice cream"]
+    },
+    {
+      "text": "Chicken-leg hut laying an egg",
+      "kind": "chaos",
+      "alternates": ["baba yaga's hut laying an egg"],
+      "keywords": ["hut", "egg"]
+    },
+    {
+      "text": "Chicken-leg hut doing the chicken dance",
+      "kind": "chaos",
+      "alternates": ["baba yaga's hut dancing"],
+      "keywords": ["hut", "chicken dance"]
+    },
+    {
+      "text": "Black cat at a mirror shop",
+      "kind": "chaos",
+      "alternates": ["black cat breaking mirrors"],
+      "keywords": ["cat", "mirror"]
+    },
+    {
+      "text": "Pumpkin dressed as a watermelon",
+      "kind": "chaos",
+      "alternates": ["pumpkin in a watermelon costume"],
+      "keywords": ["pumpkin", "watermelon"]
+    },
+    {
+      "text": "Pumpkin carving a turnip",
+      "kind": "chaos",
+      "alternates": ["pumpkin carving a turnip lantern"],
+      "keywords": ["pumpkin", "carving", "turnip"]
+    },
+    {
+      "text": "Candy corn used as traffic cones",
+      "kind": "chaos",
+      "alternates": ["candy corn traffic cone"],
+      "keywords": ["candy corn", "traffic cone"]
+    },
+    {
+      "text": "Coffin racing on wheels",
+      "kind": "chaos",
+      "alternates": ["coffin race car"],
+      "keywords": ["coffin", "racing"]
+    },
+    {
+      "text": "Cobwebs on a treadmill",
+      "kind": "chaos",
+      "alternates": ["cobweb covered treadmill"],
+      "keywords": ["cobwebs", "treadmill"]
+    },
+    {
+      "text": "Moon hiding from werewolves",
+      "kind": "chaos",
+      "alternates": ["full moon hiding from werewolves"],
+      "keywords": ["moon", "hiding", "werewolves"]
+    },
+    {
+      "text": "Gravedigger building a sandcastle",
+      "kind": "chaos",
+      "alternates": ["grave digger making a sandcastle"],
+      "keywords": ["gravedigger", "sandcastle"]
+    },
+    {
+      "text": "Knight armor at a metal detector",
+      "kind": "chaos",
+      "alternates": ["suit of armor at a metal detector", "armor at airport security"],
+      "keywords": ["armor", "metal detector"]
+    },
+    {
+      "text": "Casper used as a tablecloth",
+      "kind": "chaos",
+      "alternates": ["casper tablecloth"],
+      "keywords": ["casper", "tablecloth"]
+    },
+    {
+      "text": "Hopping vampire playing hopscotch",
+      "kind": "chaos",
+      "alternates": ["jiangshi playing hopscotch"],
+      "keywords": ["hopping", "hopscotch"]
+    },
+    {
+      "text": "Gizmo in a raincoat",
+      "kind": "chaos",
+      "alternates": ["mogwai in a raincoat"],
+      "keywords": ["gizmo", "raincoat"]
+    },
+    {
+      "text": "Ghostbuster trapping laundry",
+      "kind": "chaos",
+      "alternates": [
+        "ghostbuster trapping a sheet on a clothesline",
+        "ghostbuster catching laundry"
+      ],
+      "keywords": ["ghostbuster", "laundry"]
+    },
+    {
+      "text": "Shrinking potion on an elephant",
+      "kind": "chaos",
+      "alternates": ["elephant shrunk by a potion"],
+      "keywords": ["potion", "elephant"]
+    },
+    {
+      "text": "Snake in a mummy costume",
+      "kind": "chaos",
+      "alternates": ["snake dressed as a mummy"],
+      "keywords": ["snake", "mummy"]
+    },
+    {
+      "text": "Crystal ball used as a fishbowl",
+      "kind": "chaos",
+      "alternates": ["crystal ball fish bowl"],
+      "keywords": ["crystal ball", "fishbowl"]
+    },
+    {
+      "text": "Scarab rolling a giant gumball",
+      "kind": "chaos",
+      "alternates": ["beetle rolling a gumball"],
+      "keywords": ["scarab", "gumball"]
+    },
+    {
+      "text": "Moths eating a bedsheet ghost",
+      "kind": "chaos",
+      "alternates": ["moth eating a ghost costume"],
+      "keywords": ["moths", "bedsheet", "ghost"]
+    },
+    {
+      "text": "Centipede doing a conga line alone",
+      "kind": "chaos",
+      "alternates": ["centipede conga"],
+      "keywords": ["centipede", "conga"]
+    },
+    {
+      "text": "Tesla coil giving a perm",
+      "kind": "chaos",
+      "alternates": ["tesla coil hairdo"],
+      "keywords": ["tesla", "perm"]
+    },
+    {
+      "text": "Luigi's vacuum blowing up balloons",
+      "kind": "chaos",
+      "alternates": ["luigi blowing up balloons with his vacuum", "luigi vacuum balloons"],
+      "keywords": ["luigi", "balloons"]
+    },
+    {
+      "text": "Portrait eyes following a tennis match",
+      "kind": "chaos",
+      "alternates": ["painting watching tennis"],
+      "keywords": ["portrait", "tennis"]
+    },
+    {
+      "text": "Wolf in a sheep costume",
+      "kind": "chaos",
+      "alternates": ["wolf dressed as a sheep"],
+      "keywords": ["wolf", "sheep"]
+    },
+    {
+      "text": "Gummy worm on a fishing hook",
+      "kind": "chaos",
+      "alternates": ["gummy worm fishing bait"],
+      "keywords": ["gummy worm", "fishing hook"]
+    },
+    {
+      "text": "Books flying south like geese",
+      "kind": "chaos",
+      "alternates": ["flying books migrating"],
+      "keywords": ["books", "flying", "geese"]
+    },
+    {
+      "text": "No-Face eating a whole bakery",
+      "kind": "chaos",
+      "alternates": ["no face eating a bakery"],
+      "keywords": ["face", "bakery"]
+    },
+    {
+      "text": "Haunted dollhouse with tiny ghosts",
+      "kind": "chaos",
+      "alternates": ["haunted doll house"],
+      "keywords": ["haunted", "dollhouse"]
+    },
+    {
+      "text": "The Count counting a centipede's legs",
+      "kind": "chaos",
+      "alternates": ["count counting centipede legs"],
+      "keywords": ["count", "centipede", "legs"]
+    },
+    {
+      "text": "Sanderson sisters sharing one broom",
+      "kind": "chaos",
+      "alternates": ["three witches on one broom"],
+      "keywords": ["sanderson", "broom"]
+    },
+    {
+      "text": "Cauldron overflowing with popcorn",
+      "kind": "chaos",
+      "alternates": ["cauldron popping popcorn"],
+      "keywords": ["cauldron", "popcorn"]
+    },
+    {
+      "text": "Spiral staircase used as a slide",
+      "kind": "chaos",
+      "alternates": ["sliding down a spiral staircase"],
+      "keywords": ["staircase", "slide"]
+    },
+    {
+      "text": "Slime used as hair gel",
+      "kind": "chaos",
+      "alternates": ["slime hair gel"],
+      "keywords": ["slime", "hair gel"]
+    },
+    {
+      "text": "Broomstick at a gas station",
+      "kind": "chaos",
+      "alternates": ["broom at a gas station", "broom filling up with gas"],
+      "keywords": ["broom", "gas station"]
+    },
+    {
+      "text": "Casper used as a boat sail",
+      "kind": "chaos",
+      "alternates": ["casper as a sail"],
+      "keywords": ["casper", "sail"]
+    },
+    {
+      "text": "Hourglass filled with candy corn",
+      "kind": "chaos",
+      "alternates": ["hourglass of candy corn"],
+      "keywords": ["hourglass", "candy corn"]
+    },
+    {
+      "text": "Pumpkin pie with a carved face",
+      "kind": "chaos",
+      "alternates": ["pumpkin pie jack o lantern"],
+      "keywords": ["pie", "carved", "face"]
+    },
+    {
+      "text": "Gourds playing in a maraca band",
+      "kind": "chaos",
+      "alternates": ["gourds as maracas"],
+      "keywords": ["gourds", "maracas"]
+    }
+  ]
+}

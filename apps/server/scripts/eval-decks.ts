@@ -3,7 +3,10 @@
  * Runs every model × prompt × theme through the real pipeline and saves each deck, its model
  * calls, automatic metrics and cost. Run by hand, never in CI:
  *
- *   pnpm --filter @pictiotheme/server deck:eval --models openai/gpt-6-luna --prompts v2-rules,v3-examples
+ *   pnpm --filter @pictiotheme/server deck:eval --models openai/gpt-6-luna --themes league,office
+ *
+ * Each deck's automatic quality numbers (scripts/eval/quality.ts) go in its record; the run's
+ * totals are printed at the end, and `deck:quality <run folder>` prints them again.
  *
  * Spending is capped: a job only starts if the key's total usage (at start, plus this run's spend
  * and in-flight worst cases) stays under --cap USD. The key's real usage is checked at the end.
@@ -11,12 +14,12 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { parseArgs } from 'node:util';
-import { meaningfulWords, tokenize } from '@pictiotheme/game-core';
 import { DeckGenerationRequest, type GeneratedDeck } from '@pictiotheme/protocol';
 import { z } from 'zod';
 import { loadConfig } from '../src/config';
 import type { Logger } from '../src/lib/logger';
 import {
+  CHAOS_MAX_TOKENS,
   createGenerationService,
   createOpenRouterClient,
   DECK_MAX_TOKENS,
@@ -24,14 +27,16 @@ import {
   type LlmClient,
   type LlmCompletion,
 } from '../src/modules/generation';
-import { PROMPTS } from './eval/prompts';
+import { CHAOS_PROMPTS, PROMPTS } from './eval/prompts';
+import { acrossDecks, deckQuality, type QualityDeck } from './eval/quality';
 
 const EVALS_DIR = new URL('../evals/', import.meta.url).pathname;
 
 const { values } = parseArgs({
   options: {
     models: { type: 'string', default: 'all' },
-    prompts: { type: 'string', default: 'v2-rules' },
+    prompts: { type: 'string', default: 'current' },
+    'chaos-prompt': { type: 'string', default: 'current' },
     themes: { type: 'string', default: 'all' },
     cap: { type: 'string', default: '0.90' },
     concurrency: { type: 'string', default: '6' },
@@ -60,6 +65,7 @@ const models = pick(modelsAll, values.models);
 const prompts = values.prompts
   .split(',')
   .map((p) => (PROMPTS[p] ? p : fail(`unknown prompt: ${p}`)));
+const chaosPrompt = CHAOS_PROMPTS[values['chaos-prompt']] ?? fail('unknown chaos prompt');
 const cap = Number(values.cap);
 const out = join(EVALS_DIR, 'results', values.run);
 
@@ -151,50 +157,6 @@ function recording(
   };
 }
 
-/** Automatic quality signals. Human (blind) grading covers what these can't. */
-function metrics(deck: GeneratedDeck, request: DeckGenerationRequest) {
-  const themeWords = new Set(meaningfulWords(tokenize(request.theme)));
-  const words = (t: string) => meaningfulWords(tokenize(t));
-  const silly = deck.cards.filter((c) => c.silly);
-  const firstWords = silly.map((c) => words(c.text)[0] ?? '');
-  const subjectCounts = new Map<string, number>();
-  for (const w of firstWords) subjectCounts.set(w, (subjectCounts.get(w) ?? 0) + 1);
-  const hard = deck.cards.filter((c) => !c.silly && c.difficulty === 'hard');
-  const avgWords = (cards: typeof deck.cards) =>
-    cards.length === 0
-      ? null
-      : +(cards.reduce((n, c) => n + c.text.split(' ').length, 0) / cards.length).toFixed(2);
-  const pool = (d: string) => deck.cards.filter((c) => !c.silly && c.difficulty === d);
-  return {
-    counts: {
-      easy: pool('easy').length,
-      medium: pool('medium').length,
-      hard: hard.length,
-      silly: silly.length,
-    },
-    themeWordShare: +(
-      deck.cards.filter((c) => words(c.text).some((w) => themeWords.has(w))).length /
-      deck.cards.length
-    ).toFixed(3),
-    sillyDistinctSubjects: subjectCounts.size,
-    sillyTopSubjectShare: silly.length
-      ? +(Math.max(...subjectCounts.values()) / silly.length).toFixed(3)
-      : null,
-    hardIngShare: hard.length
-      ? +(
-          hard.filter((c) => /ing\b/i.test(c.text.split(' ')[0] ?? '')).length / hard.length
-        ).toFixed(3)
-      : null,
-    avgWords: {
-      easy: avgWords(pool('easy')),
-      medium: avgWords(pool('medium')),
-      hard: avgWords(hard),
-      silly: avgWords(silly),
-    },
-    sillyDifficulties: [...new Set(silly.map((c) => c.difficulty))],
-  };
-}
-
 // ── Budget ──
 const priceList = await prices();
 const startUsage = await keyUsage();
@@ -202,8 +164,12 @@ let spent = 0;
 let reserved = 0;
 const worstCase = (modelId: string) => {
   const p = priceList.get(modelId) ?? fail(`no price for ${modelId}`);
-  // Deck call, one retry, one top-up; ~8k input tokens each (system prompt + top-up card list).
-  return (2 * DECK_MAX_TOKENS + TOP_UP_MAX_TOKENS) * p.output + 3 * 8000 * p.input;
+  // Deck call, one retry, one top-up, then the same for the Chaos cards; ~8k input tokens each
+  // (system prompt + card lists).
+  return (
+    (2 * DECK_MAX_TOKENS + 2 * CHAOS_MAX_TOKENS + 2 * TOP_UP_MAX_TOKENS) * p.output +
+    6 * 8000 * p.input
+  );
 };
 say(`key usage at start: $${startUsage.toFixed(4)}; cap $${cap}`);
 
@@ -213,6 +179,7 @@ const jobs: Job[] = models.flatMap((model) =>
   prompts.flatMap((prompt) => themes.map((theme) => ({ model, prompt, theme }))),
 );
 const summary: Array<Record<string, unknown>> = [];
+const made: QualityDeck[] = [];
 const perModelRunning = new Map<string, number>();
 const MAX_PER_MODEL = 2;
 
@@ -229,6 +196,7 @@ async function runJob(job: Job) {
     llm: recording(llm, calls, priceList.get(job.model.id) ?? fail(`no price for ${job.model.id}`)),
     log: silentLog,
     systemPrompt: PROMPTS[job.prompt],
+    chaosPrompt,
   });
   const start = Date.now();
   let deck: GeneratedDeck | null = null;
@@ -259,12 +227,18 @@ async function runJob(job: Job) {
     outputTokens: calls.reduce((n, c) => n + c.usage.outputTokens, 0),
     costUsd: +cost.toFixed(6),
     dropped,
-    metrics: deck ? metrics(deck, job.theme.request) : null,
+    metrics: deck ? deckQuality({ ...deck, language: job.theme.request.language }) : null,
   };
   const file = join(out, job.prompt, job.model.id.replace(/[/:]/g, '_'), `${job.theme.id}.json`);
   await mkdir(dirname(file), { recursive: true });
   await writeFile(file, JSON.stringify({ ...record, deck, rawCalls: calls }, null, 2));
   summary.push(record);
+  if (deck)
+    made.push({
+      ...deck,
+      title: `${job.theme.id} ${job.model.id}`,
+      language: job.theme.request.language,
+    });
   return { cost, record };
 }
 
@@ -309,6 +283,8 @@ await Promise.all(Array.from({ length: Number(values.concurrency) }, () => worke
 
 await mkdir(out, { recursive: true });
 await writeFile(join(out, 'summary.json'), JSON.stringify(summary, null, 2));
+const { perDeck: _, ...quality } = acrossDecks(made);
+say(`quality (deck:quality ${out} --per-deck for each deck):\n${JSON.stringify(quality, null, 2)}`);
 const endUsage = await keyUsage();
 say(
   `done: ${summary.length} runs, ${skipped} skipped. Counted cost $${spent.toFixed(4)} (failed calls at worst case); key usage $${startUsage.toFixed(4)} → $${endUsage.toFixed(4)} (Δ $${(endUsage - startUsage).toFixed(4)})`,

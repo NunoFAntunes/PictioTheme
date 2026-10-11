@@ -83,6 +83,12 @@ export class RoomRuntime {
     }
   }
 
+  /** Loads the room's deck again, after it got new cards (its Chaos cards). */
+  reloadDeck(): void {
+    if (this.disposed) return;
+    this.run({ kind: 'loadDeck', deckId: this.state.settings.deckId });
+  }
+
   /** Closes every socket and stops every timer. Idempotent. */
   dispose(closeCode: number = CloseCode.roomClosed, reason = 'Room closed'): void {
     if (this.disposed) return;
@@ -104,8 +110,8 @@ export class RoomRuntime {
       maxPlayers: state.settings.maxPlayers,
       status:
         state.phase.kind === 'waiting' || state.phase.kind === 'results' ? 'waiting' : 'playing',
+      mode: state.settings.mode,
       difficulties: state.settings.difficulties,
-      silly: state.settings.silly.enabled,
       language: state.settings.language,
       coverVersion: state.cover?.version ?? null,
     };

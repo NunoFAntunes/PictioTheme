@@ -27,14 +27,14 @@ Goal: you and friends can play a full match in a private room with a hard-coded 
 - Guessing with correct / close (red redacted) / wrong. Guess visibility toggle.
 - Player list on the left with avatars, scores, and guess bubbles.
 - Scoring, hints, timer.
-- 3–5 hand-written seed decks with easy/medium/hard + silly.
+- 3–5 hand-written seed decks with easy and hard cards.
 
 **Exit criteria**: 6 people play 3 rounds with no desync or crash, and it's fun.
 
 ## Phase 2: Public play and the deck library (≈ 2–3 weeks)
 
 - Public rooms + live lobby list.
-- Deck search, preview, multi-difficulty selection, Silly Mode ratio.
+- Deck search, preview, difficulty selection, Chaos mode (built 2026-10-11).
 - ~30 curated seed decks (AI-generated then hand-edited, using the pipeline script offline).
 - Vote kick, report, profanity filters, rate limits.
 - Fill bucket, keyboard shortcuts, mobile layout.

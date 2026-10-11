@@ -32,8 +32,8 @@ they would type the translated word for what they see.
   another card. Never force a translation nobody would guess.
 
 # Keep
-- Each card's meaning, difficulty and silliness. Silly cards stay funny and drawable: translate
-  the joke, not the words.
+- Each card's meaning and kind (easy, hard or chaos). Chaos cards stay funny and drawable:
+  translate the joke, not the words.
 - 2 to 40 characters: letters, spaces, hyphens and apostrophes only. No digits, emoji or other
   punctuation.
 - The capitalisation of an ordinary noun phrase in the language (German capitalises nouns).
@@ -100,8 +100,7 @@ export function translateUserPrompt(source: TranslationInput, target: DeckLangua
     id,
     text: c.text,
     alternates: c.alternates,
-    difficulty: c.difficulty,
-    silly: c.silly,
+    kind: c.kind,
   }));
   return `Source language: ${source.language} (${deckLanguageInfo(source.language).prompt})
 Target language: ${target} (${deckLanguageInfo(target).prompt})

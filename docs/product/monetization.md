@@ -12,7 +12,7 @@
 | New account | **3 free generations** (one-time grant) |
 | Verified email / OAuth | Required before free generations can be used, to discourage farming throwaway accounts |
 
-A "generation" = one full deck (easy + medium + hard + silly pool). Regenerating before publishing (the review screen) is free once per deck.
+A "generation" = one full deck (easy + hard cards, plus Chaos cards if asked for). Regenerating before publishing (the review screen) is free once per deck.
 
 ## Paid credits
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { drawerMultiplier, drawerPoints } from '../scoring';
+import { cardMultiplier, drawerMultiplier, drawerPoints } from '../scoring';
 import { maxHints } from '../word-mask';
 import { createHarness, received, receivedOfType, TEST_DECK } from './test-harness';
 import { TIMINGS } from './types';
@@ -24,6 +24,7 @@ describe('joining', () => {
       title: TEST_DECK.title,
       coverId: null,
       language: 'en',
+      chaosCards: 10,
     });
     expect(receivedOfType(fx, 'p1', 'room:players')[0]?.players).toHaveLength(2);
   });
@@ -117,7 +118,29 @@ describe('starting a match', () => {
     const h = createHarness();
     h.startWith();
     if (h.state.phase.kind !== 'choosing') throw new Error();
-    expect(new Set(h.state.phase.options.map((c) => c.difficulty)).size).toBe(3);
+    expect(new Set(h.state.phase.options.map((c) => c.kind))).toEqual(new Set(['easy', 'hard']));
+  });
+
+  it('deals only Chaos cards in Chaos mode', () => {
+    const h = createHarness({ settings: { mode: 'chaos' } });
+    h.startWith();
+    if (h.state.phase.kind !== 'choosing') throw new Error();
+    expect(h.state.phase.options.every((c) => c.kind === 'chaos')).toBe(true);
+  });
+
+  it('needs enough Chaos cards for Chaos mode', () => {
+    const h = createHarness({ settings: { mode: 'chaos' } });
+    h.dispatch({ type: 'init' });
+    h.dispatch({
+      type: 'deckLoaded',
+      deck: { ...TEST_DECK, cards: TEST_DECK.cards.filter((c) => c.kind !== 'chaos') },
+    });
+    h.join('p1');
+    h.join('p2');
+    expect(receivedOfType(h.send('p1', { t: 'room:start' }), 'p1', 'error')[0]?.code).toBe(
+      'DECK_NO_CHAOS_CARDS',
+    );
+    expect(h.state.phase.kind).toBe('waiting');
   });
 
   it('picks a card automatically when the drawer does not choose in time', () => {
@@ -231,7 +254,7 @@ describe('a turn', () => {
     const reveal = receivedOfType(fx, 'p3', 'phase:reveal')[0];
     expect(reveal?.word).toBe(word);
     const card = TEST_DECK.cards.find((c) => c.text === word);
-    const multiplier = { easy: 1, medium: 1.2, hard: 1.5 }[card?.difficulty ?? 'easy'];
+    const multiplier = card ? cardMultiplier(card) : 1;
     // p2: 100 + 200 × 60/80 + 100 for 1st = 350; p3: 100 + 200 × 40/80 + 50 for 2nd = 250.
     // Drawer: everyone got it, 2 guessers × 50, times the drawer's multiplier.
     expect(reveal?.deltas).toEqual({
@@ -292,7 +315,7 @@ describe('rush mode', () => {
     h.startWith(['p1', 'p2', 'p3', 'p4']);
     // An easy card, so the multiplier is 1.
     if (h.state.phase.kind !== 'choosing') throw new Error();
-    const index = h.state.phase.options.findIndex((o) => o.difficulty === 'easy' && !o.silly);
+    const index = h.state.phase.options.findIndex((o) => o.kind === 'easy');
     h.send('p1', { t: 'turn:choose', index });
     return { h, word: drawnCard(h).text };
   }

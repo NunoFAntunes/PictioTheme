@@ -1,4 +1,5 @@
 import {
+  AddChaosResponse,
   DeckGenerationRequest,
   DeckLanguage,
   DeckListResponse,
@@ -53,6 +54,16 @@ export const generationRoutes: FastifyPluginAsyncZod<{ jobs: GenerationJobsServi
     },
     async (request) =>
       jobs.translate(actorOf(request), request.params.id, request.body.language, request.ip),
+  );
+
+  // Chaos cards for a deck without them: ready right away, or a job to poll like a generation.
+  app.post(
+    '/:id/chaos',
+    {
+      config: { rateLimit: { max: 10, timeWindow: '1 minute' } },
+      schema: { params: z.object({ id: SavedDeckId }), response: { 200: AddChaosResponse } },
+    },
+    async (request) => jobs.addChaos(actorOf(request), request.params.id, request.ip),
   );
 
   // Polled every couple of seconds while a deck is being made.

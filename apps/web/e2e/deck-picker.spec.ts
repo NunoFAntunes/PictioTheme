@@ -11,7 +11,7 @@ test('pick a deck from the featured row, show more, and search', async ({ browse
   const more = page.getByRole('region', { name: 'More decks' });
   // The room starts with the default deck: the first featured one.
   await expect(featured.getByRole('radio').first()).toBeChecked();
-  await expect(featured.getByRole('radio', { name: /Spooky Halloween/ })).toBeChecked();
+  await expect(featured.getByRole('radio', { name: /Halloween Night/ })).toBeChecked();
 
   // Sections show a few decks until expanded.
   const collapsed = await more.getByRole('radio').count();

@@ -14,10 +14,7 @@ test('a liked drawing becomes the cover of a public room on the home page', asyn
   // Ana draws first.
   await host.getByRole('button', { name: /start game/i }).click();
   await host.getByText('Choose what to draw').waitFor();
-  await host
-    .getByRole('button', { name: /×1|silly/i })
-    .first()
-    .click();
+  await host.getByRole('button', { name: /×1/ }).first().click();
   await expect(host.getByTestId('current-word')).toBeVisible();
   const box = await host.locator('canvas').boundingBox();
   if (!box) throw new Error('no canvas');

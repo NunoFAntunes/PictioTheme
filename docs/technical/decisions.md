@@ -111,7 +111,7 @@ Overall constraint behind all of them: **hosting cost as close to zero as possib
 
 ## D6 — Deck model and prompt: gpt-6-luna with the examples prompt
 
-**Date:** 2026-10-03 · **Status:** accepted
+**Date:** 2026-10-03 · **Status:** accepted (the model stands; the prompt was replaced by D12's two prompts, which keep the examples-and-method style)
 
 **Decision:** Generate decks with `openai/gpt-6-luna`, falling back to `openai/gpt-6-luna-pro`, using the `v3-examples` system prompt (rules plus good/bad examples and a method for silly cards). Both are config defaults (`DECK_MODEL`, `DECK_FALLBACK_MODELS`).
 
@@ -174,3 +174,15 @@ Overall constraint behind all of them: **hosting cost as close to zero as possib
 **Consequences:** A pause longer than 400 ms mid-phrase sends the first half as its own guess ("big purple", then "big purple cactus"); wrong guesses cost nothing, so that's cheap. No mic in Firefox. In Chrome the audio goes to Google, which the privacy page must say. Recognition quality depends on the browser and on the language, and short single words are the hardest case; the server's guess matching already ignores case, punctuation and filler words ("a", "the"), so "It's a cat." still matches.
 
 **Revisit when:** players report poor recognition in a language, Firefox players ask for it, or the privacy story needs audio to stay on the device (Chrome's on-device recognition, or a model in the browser behind the same button).
+
+## D12 — Chaos mode, two difficulties, and Chaos cards tied to their subject
+
+**Date:** 2026-10-11 · **Status:** accepted
+
+**Decision:** A card has one `kind`: `easy`, `hard` or `chaos`. Medium is gone. Silly cards are replaced by **Chaos cards**, and "Silly Mode" (silly cards mixed into the selected difficulties at a ratio) by **Chaos mode**, a room setting that is on or off: normal mode deals the easy and/or hard cards, Chaos mode only the Chaos cards. Chaos cards have no difficulty. They come from a separate model call with their own prompt, so a deck can be made without them and any host can add them later (`POST /api/decks/:id/chaos`, shared by everyone who plays the deck). Their prompt ties every twist to what its subject is (the swap test), and cleanup enforces each twist at most once per deck, at most 3 cards per subject and at most 3 stock activities. Easy cards "name it" and hard cards "show it" (a scene drawn from what the subject is known for); a hard card that is an easy card plus a label is dropped. The silly cards in the database were deleted rather than converted, and medium cards became easy.
+
+**Alternatives:** keeping three difficulties with better medium guidance (models still filled medium with "name + description" for franchise themes, the League of Legends deck's "Cho'Gath void monster"); keeping Silly Mode as a mix-in (a ratio slider is one more thing to set, and silly cards mixed into a normal match had to carry a difficulty they didn't have); a template generator for silly cards (`{monster} + {job}` is the "unrelated activity" problem again); one call for the whole deck (the Chaos cards couldn't be made later, and one prompt carrying both standards did neither well); banning stock activities outright (would also drop role reversals like "Dog walking its owner"); a second model call to grade the Chaos cards (kept as an option if the eval's numbers slip).
+
+**Consequences:** a new deck takes two calls, about 1.5–2.5 minutes instead of 1 (the creator draws the cover meanwhile); a deck costs ~$0.005–0.013. Decks without Chaos cards can't start a Chaos match until a host makes them (`DECK_NO_CHAOS_CARDS`); the curated decks start without any. Hard and Chaos cards are matched by concepts in any order. The variety rules and the label check are English-only; other languages rely on the prompt. The baseline and the first results are in [ai-deck-pipeline.md](ai-deck-pipeline.md#chaos-cards).
+
+**Revisit when:** card stats show Chaos or hard cards with poor pick or guess rates, players miss a middle difficulty, or generation time matters more than the cast list (the Chaos call could run in parallel without it).

@@ -1,6 +1,13 @@
-import type { DeckLanguage, DeckSummary, RoomDeck } from '@pictiotheme/protocol';
+import {
+  CHAOS_MIN_CARDS,
+  type DeckLanguage,
+  type DeckSummary,
+  type GameMode,
+  type RoomDeck,
+} from '@pictiotheme/protocol';
 import { useState } from 'react';
 import {
+  ChaosCardsPanel,
   GenerateDeckPanel,
   TranslateDeckPanel,
   useGenerationConfig,
@@ -20,11 +27,15 @@ import { DeckPicker } from './DeckPicker';
  * Decks are shown in the room's language. A deck that isn't in it yet (picked from the library,
  * or the room's own deck after the host changed the language) gets the translate panel on top:
  * the room switches to the translation once it's ready (decks.md#languages).
+ *
+ * In Chaos mode, a room deck without Chaos cards gets the Chaos panel on top instead: any host can
+ * have them made, and the room reloads the deck once they're saved (decks.md#chaos-cards).
  */
 export function DeckChooser({
   selectedId,
   currentDeck,
   language,
+  mode,
   onSelect,
   className = '',
 }: {
@@ -33,6 +44,7 @@ export function DeckChooser({
   currentDeck: RoomDeck | null;
   /** The room's language. */
   language: DeckLanguage;
+  mode: GameMode;
   onSelect: (deckId: string) => void;
   className?: string;
 }) {
@@ -44,6 +56,11 @@ export function DeckChooser({
   const [toTranslate, setToTranslate] = useState<DeckSummary | null>(null);
   const untranslated: Pick<RoomDeck, 'id' | 'title' | 'coverId' | 'language'> | null =
     toTranslate ?? (currentDeck && currentDeck.language !== language ? currentDeck : null);
+  const needsChaos =
+    mode === 'chaos' &&
+    !untranslated &&
+    currentDeck !== null &&
+    currentDeck.chaosCards < CHAOS_MIN_CARDS;
 
   function pick(deck: DeckSummary) {
     if (deck.language === language) {
@@ -97,12 +114,14 @@ export function DeckChooser({
               }}
             />
           )}
+          {needsChaos && <ChaosCardsPanel key={currentDeck.id} deck={currentDeck} />}
           {decks.isPending && <p className="text-sm text-zinc-500">Loading decks…</p>}
           {decks.isError && <p className="text-sm text-close">Couldn’t load decks.</p>}
           <DeckPicker
             curated={decks.data ?? []}
             mine={myDecks.data ?? []}
             language={language}
+            mode={mode}
             selectedId={selectedId}
             onSelect={pick}
           />

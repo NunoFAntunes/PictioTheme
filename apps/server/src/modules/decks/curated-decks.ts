@@ -15,6 +15,12 @@ import * as repo from './decks.repository';
 /** Next to this file in development; copied next to the bundle in production (scripts/build.mjs). */
 export const CURATED_FOLDER = fileURLToPath(new URL('./curated', import.meta.url));
 
+/**
+ * Curated decks hold far more cards than a generated one (`GeneratedDeck`), so a room rarely sees
+ * the same card twice.
+ */
+export const CURATED_MAX_CARDS = 600;
+
 export const CuratedDeck = z
   .object({
     slug: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
@@ -23,7 +29,7 @@ export const CuratedDeck = z
     title: z.string().min(2).max(60),
     description: z.string().max(200),
     tags: z.array(z.string().min(1).max(30)).min(1).max(10),
-    cards: z.array(Card).min(1).max(250),
+    cards: z.array(Card).min(1).max(CURATED_MAX_CARDS),
   })
   .strict();
 export type CuratedDeck = z.infer<typeof CuratedDeck>;

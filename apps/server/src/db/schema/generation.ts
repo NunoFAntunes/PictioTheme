@@ -25,7 +25,10 @@ export const generationJobs = pgTable(
       .default(sql`uuidv7()`),
     /** The player id (`g_<guestId>` or `u_<userId>`), so guests and accounts work the same way. */
     createdBy: text().notNull(),
-    /** `generate`: a new deck from a theme. `translate`: `sourceDeckId` in `language`. */
+    /**
+     * `generate`: a new deck from a theme. `translate`: `sourceDeckId` in `language`.
+     * `chaos`: Chaos cards added to `sourceDeckId`.
+     */
     kind: text().notNull().default('generate'),
     /**
      * Keyed hash of the requester's IP, for the per-IP daily limit. Never the IP itself:
@@ -34,10 +37,10 @@ export const generationJobs = pgTable(
     clientIpHash: text(),
     theme: text().notNull(),
     notes: text().notNull().default(''),
-    difficulties: text().array().notNull(),
-    includeSilly: boolean().notNull(),
+    /** A generation also makes the Chaos cards. */
+    includeChaos: boolean().notNull(),
     language: text().notNull().default('en'),
-    /** For a translation: the original deck being translated. */
+    /** For a translation: the original deck being translated. For `chaos`: the deck getting them. */
     sourceDeckId: uuid().references(() => decks.id, { onDelete: 'set null' }),
     status: text().notNull().default('running'),
     deckId: uuid().references(() => decks.id, { onDelete: 'set null' }),
@@ -54,7 +57,7 @@ export const generationJobs = pgTable(
   },
   (t) => [
     check('generation_jobs_status_check', sql`${t.status} in ('running', 'published', 'failed')`),
-    check('generation_jobs_kind_check', sql`${t.kind} in ('generate', 'translate')`),
+    check('generation_jobs_kind_check', sql`${t.kind} in ('generate', 'translate', 'chaos')`),
     index('generation_jobs_created_by_idx').on(t.createdBy, t.createdAt),
     index('generation_jobs_client_ip_idx').on(t.clientIpHash, t.createdAt),
     index('generation_jobs_created_at_idx').on(t.createdAt),
@@ -66,6 +69,10 @@ export const generationJobs = pgTable(
     uniqueIndex('generation_jobs_one_translation_idx')
       .on(t.sourceDeckId, t.language)
       .where(sql`${t.status} = 'running' and ${t.kind} = 'translate'`),
+    // One running Chaos job per deck: a second host joins the first one's job.
+    uniqueIndex('generation_jobs_one_chaos_idx')
+      .on(t.sourceDeckId)
+      .where(sql`${t.status} = 'running' and ${t.kind} = 'chaos'`),
   ],
 );
 

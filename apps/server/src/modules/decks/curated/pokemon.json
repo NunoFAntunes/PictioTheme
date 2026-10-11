@@ -1,0 +1,3003 @@
+{
+  "slug": "pokemon",
+  "featuredRank": 5,
+  "title": "Gotta Draw 'Em All",
+  "description": "Pikachu, Snorlax, Team Rocket and Poké Balls: sketch the most famous Pokémon, trainers and moments, from Pallet Town to the legendaries.",
+  "tags": ["pokemon", "anime", "video games", "creatures", "cartoons", "kids"],
+  "cards": [
+    {
+      "text": "Pikachu",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pikachu"]
+    },
+    {
+      "text": "Raichu",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["raichu"]
+    },
+    {
+      "text": "Pichu",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pichu"]
+    },
+    {
+      "text": "Charmander",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["charmander"]
+    },
+    {
+      "text": "Charmeleon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["charmeleon"]
+    },
+    {
+      "text": "Charizard",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["charizard"]
+    },
+    {
+      "text": "Squirtle",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["squirtle"]
+    },
+    {
+      "text": "Wartortle",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["wartortle"]
+    },
+    {
+      "text": "Blastoise",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["blastoise"]
+    },
+    {
+      "text": "Bulbasaur",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["bulbasaur"]
+    },
+    {
+      "text": "Ivysaur",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ivysaur"]
+    },
+    {
+      "text": "Venusaur",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["venusaur"]
+    },
+    {
+      "text": "Caterpie",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["caterpie"]
+    },
+    {
+      "text": "Metapod",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["metapod"]
+    },
+    {
+      "text": "Butterfree",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["butterfree"]
+    },
+    {
+      "text": "Weedle",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["weedle"]
+    },
+    {
+      "text": "Beedrill",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["beedrill"]
+    },
+    {
+      "text": "Pidgey",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pidgey"]
+    },
+    {
+      "text": "Pidgeot",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pidgeot"]
+    },
+    {
+      "text": "Rattata",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["rattata"]
+    },
+    {
+      "text": "Spearow",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["spearow"]
+    },
+    {
+      "text": "Ekans",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ekans"]
+    },
+    {
+      "text": "Arbok",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["arbok"]
+    },
+    {
+      "text": "Sandshrew",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["sandshrew"]
+    },
+    {
+      "text": "Nidoran",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["nidoran"]
+    },
+    {
+      "text": "Clefairy",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["clefairy"]
+    },
+    {
+      "text": "Vulpix",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["vulpix"]
+    },
+    {
+      "text": "Ninetales",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ninetales"]
+    },
+    {
+      "text": "Jigglypuff",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["jigglypuff"]
+    },
+    {
+      "text": "Zubat",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["zubat"]
+    },
+    {
+      "text": "Oddish",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["oddish"]
+    },
+    {
+      "text": "Paras",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["paras"]
+    },
+    {
+      "text": "Diglett",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["diglett"]
+    },
+    {
+      "text": "Dugtrio",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["dugtrio"]
+    },
+    {
+      "text": "Meowth",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["meowth"]
+    },
+    {
+      "text": "Psyduck",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["psyduck"]
+    },
+    {
+      "text": "Golduck",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["golduck"]
+    },
+    {
+      "text": "Mankey",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["mankey"]
+    },
+    {
+      "text": "Growlithe",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["growlithe"]
+    },
+    {
+      "text": "Arcanine",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["arcanine"]
+    },
+    {
+      "text": "Poliwag",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["poliwag"]
+    },
+    {
+      "text": "Abra",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["abra"]
+    },
+    {
+      "text": "Kadabra",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["kadabra"]
+    },
+    {
+      "text": "Alakazam",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["alakazam"]
+    },
+    {
+      "text": "Machop",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["machop"]
+    },
+    {
+      "text": "Machamp",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["machamp"]
+    },
+    {
+      "text": "Bellsprout",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["bellsprout"]
+    },
+    {
+      "text": "Tentacool",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["tentacool"]
+    },
+    {
+      "text": "Tentacruel",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["tentacruel"]
+    },
+    {
+      "text": "Geodude",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["geodude"]
+    },
+    {
+      "text": "Golem",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["golem"]
+    },
+    {
+      "text": "Ponyta",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ponyta"]
+    },
+    {
+      "text": "Rapidash",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["rapidash"]
+    },
+    {
+      "text": "Slowpoke",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["slowpoke"]
+    },
+    {
+      "text": "Slowbro",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["slowbro"]
+    },
+    {
+      "text": "Magnemite",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["magnemite"]
+    },
+    {
+      "text": "Farfetch'd",
+      "kind": "easy",
+      "alternates": ["farfetchd"],
+      "keywords": ["farfetch"]
+    },
+    {
+      "text": "Doduo",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["doduo"]
+    },
+    {
+      "text": "Seel",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["seel"]
+    },
+    {
+      "text": "Grimer",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["grimer"]
+    },
+    {
+      "text": "Muk",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["muk"]
+    },
+    {
+      "text": "Shellder",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["shellder"]
+    },
+    {
+      "text": "Cloyster",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["cloyster"]
+    },
+    {
+      "text": "Gastly",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["gastly"]
+    },
+    {
+      "text": "Haunter",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["haunter"]
+    },
+    {
+      "text": "Gengar",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["gengar"]
+    },
+    {
+      "text": "Onix",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["onix"]
+    },
+    {
+      "text": "Drowzee",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["drowzee"]
+    },
+    {
+      "text": "Krabby",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["krabby"]
+    },
+    {
+      "text": "Voltorb",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["voltorb"]
+    },
+    {
+      "text": "Electrode",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["electrode"]
+    },
+    {
+      "text": "Exeggcute",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["exeggcute"]
+    },
+    {
+      "text": "Exeggutor",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["exeggutor"]
+    },
+    {
+      "text": "Cubone",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["cubone"]
+    },
+    {
+      "text": "Hitmonlee",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["hitmonlee"]
+    },
+    {
+      "text": "Hitmonchan",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["hitmonchan"]
+    },
+    {
+      "text": "Lickitung",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["lickitung"]
+    },
+    {
+      "text": "Koffing",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["koffing"]
+    },
+    {
+      "text": "Weezing",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["weezing"]
+    },
+    {
+      "text": "Rhyhorn",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["rhyhorn"]
+    },
+    {
+      "text": "Rhydon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["rhydon"]
+    },
+    {
+      "text": "Chansey",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["chansey"]
+    },
+    {
+      "text": "Tangela",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["tangela"]
+    },
+    {
+      "text": "Kangaskhan",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["kangaskhan"]
+    },
+    {
+      "text": "Horsea",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["horsea"]
+    },
+    {
+      "text": "Goldeen",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["goldeen"]
+    },
+    {
+      "text": "Staryu",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["staryu"]
+    },
+    {
+      "text": "Starmie",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["starmie"]
+    },
+    {
+      "text": "Mr Mime",
+      "kind": "easy",
+      "alternates": ["mister mime"],
+      "keywords": ["mime"]
+    },
+    {
+      "text": "Scyther",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["scyther"]
+    },
+    {
+      "text": "Electabuzz",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["electabuzz"]
+    },
+    {
+      "text": "Magmar",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["magmar"]
+    },
+    {
+      "text": "Pinsir",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pinsir"]
+    },
+    {
+      "text": "Tauros",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["tauros"]
+    },
+    {
+      "text": "Magikarp",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["magikarp"]
+    },
+    {
+      "text": "Gyarados",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["gyarados"]
+    },
+    {
+      "text": "Lapras",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["lapras"]
+    },
+    {
+      "text": "Ditto",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ditto"]
+    },
+    {
+      "text": "Eevee",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["eevee"]
+    },
+    {
+      "text": "Vaporeon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["vaporeon"]
+    },
+    {
+      "text": "Jolteon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["jolteon"]
+    },
+    {
+      "text": "Flareon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["flareon"]
+    },
+    {
+      "text": "Porygon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["porygon"]
+    },
+    {
+      "text": "Aerodactyl",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["aerodactyl"]
+    },
+    {
+      "text": "Snorlax",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["snorlax"]
+    },
+    {
+      "text": "Articuno",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["articuno"]
+    },
+    {
+      "text": "Zapdos",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["zapdos"]
+    },
+    {
+      "text": "Moltres",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["moltres"]
+    },
+    {
+      "text": "Dratini",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["dratini"]
+    },
+    {
+      "text": "Dragonite",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["dragonite"]
+    },
+    {
+      "text": "Mewtwo",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["mewtwo"]
+    },
+    {
+      "text": "Mew",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["mew"]
+    },
+    {
+      "text": "Togepi",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["togepi"]
+    },
+    {
+      "text": "Chikorita",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["chikorita"]
+    },
+    {
+      "text": "Cyndaquil",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["cyndaquil"]
+    },
+    {
+      "text": "Totodile",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["totodile"]
+    },
+    {
+      "text": "Espeon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["espeon"]
+    },
+    {
+      "text": "Umbreon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["umbreon"]
+    },
+    {
+      "text": "Marill",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["marill"]
+    },
+    {
+      "text": "Sudowoodo",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["sudowoodo"]
+    },
+    {
+      "text": "Wobbuffet",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["wobbuffet"]
+    },
+    {
+      "text": "Steelix",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["steelix"]
+    },
+    {
+      "text": "Scizor",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["scizor"]
+    },
+    {
+      "text": "Heracross",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["heracross"]
+    },
+    {
+      "text": "Hoothoot",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["hoothoot"]
+    },
+    {
+      "text": "Lugia",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["lugia"]
+    },
+    {
+      "text": "Ho-Oh",
+      "kind": "easy",
+      "alternates": ["hooh", "ho oh"],
+      "keywords": ["ho-oh"]
+    },
+    {
+      "text": "Celebi",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["celebi"]
+    },
+    {
+      "text": "Treecko",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["treecko"]
+    },
+    {
+      "text": "Torchic",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["torchic"]
+    },
+    {
+      "text": "Mudkip",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["mudkip"]
+    },
+    {
+      "text": "Kyogre",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["kyogre"]
+    },
+    {
+      "text": "Groudon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["groudon"]
+    },
+    {
+      "text": "Rayquaza",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["rayquaza"]
+    },
+    {
+      "text": "Piplup",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["piplup"]
+    },
+    {
+      "text": "Turtwig",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["turtwig"]
+    },
+    {
+      "text": "Chimchar",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["chimchar"]
+    },
+    {
+      "text": "Lucario",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["lucario"]
+    },
+    {
+      "text": "Garchomp",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["garchomp"]
+    },
+    {
+      "text": "Oshawott",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["oshawott"]
+    },
+    {
+      "text": "Tepig",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["tepig"]
+    },
+    {
+      "text": "Snivy",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["snivy"]
+    },
+    {
+      "text": "Greninja",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["greninja"]
+    },
+    {
+      "text": "Sylveon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["sylveon"]
+    },
+    {
+      "text": "Glaceon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["glaceon"]
+    },
+    {
+      "text": "Leafeon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["leafeon"]
+    },
+    {
+      "text": "Rowlet",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["rowlet"]
+    },
+    {
+      "text": "Litten",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["litten"]
+    },
+    {
+      "text": "Popplio",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["popplio"]
+    },
+    {
+      "text": "Mimikyu",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["mimikyu"]
+    },
+    {
+      "text": "Grookey",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["grookey"]
+    },
+    {
+      "text": "Scorbunny",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["scorbunny"]
+    },
+    {
+      "text": "Sobble",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["sobble"]
+    },
+    {
+      "text": "Ash Ketchum",
+      "kind": "easy",
+      "alternates": ["ash"],
+      "keywords": ["ash"]
+    },
+    {
+      "text": "Misty",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["misty"]
+    },
+    {
+      "text": "Brock",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["brock"]
+    },
+    {
+      "text": "Jessie",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["jessie"]
+    },
+    {
+      "text": "James",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["james"]
+    },
+    {
+      "text": "Team Rocket",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["team", "rocket"]
+    },
+    {
+      "text": "Nurse Joy",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["nurse", "joy"]
+    },
+    {
+      "text": "Professor Oak",
+      "kind": "easy",
+      "alternates": ["prof oak"],
+      "keywords": ["oak"]
+    },
+    {
+      "text": "Officer Jenny",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["jenny"]
+    },
+    {
+      "text": "Poké Ball",
+      "kind": "easy",
+      "alternates": ["pokeball", "poke ball", "pokéball"],
+      "keywords": ["ball"]
+    },
+    {
+      "text": "Master Ball",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["master", "ball"]
+    },
+    {
+      "text": "Great Ball",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["great", "ball"]
+    },
+    {
+      "text": "Ultra Ball",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ultra", "ball"]
+    },
+    {
+      "text": "Potion",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["potion"]
+    },
+    {
+      "text": "Rare Candy",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["rare", "candy"]
+    },
+    {
+      "text": "Pokédex",
+      "kind": "easy",
+      "alternates": ["pokedex"],
+      "keywords": ["pokédex"]
+    },
+    {
+      "text": "Gym badge",
+      "kind": "easy",
+      "alternates": ["badge"],
+      "keywords": ["badge"]
+    },
+    {
+      "text": "Pokémon egg",
+      "kind": "easy",
+      "alternates": ["pokemon egg", "egg"],
+      "keywords": ["egg"]
+    },
+    {
+      "text": "Fire stone",
+      "kind": "easy",
+      "alternates": ["firestone"],
+      "keywords": ["fire", "stone"]
+    },
+    {
+      "text": "Thunder stone",
+      "kind": "easy",
+      "alternates": ["thunderstone"],
+      "keywords": ["thunder", "stone"]
+    },
+    {
+      "text": "Moon stone",
+      "kind": "easy",
+      "alternates": ["moonstone"],
+      "keywords": ["moon", "stone"]
+    },
+    {
+      "text": "Pokémon Center",
+      "kind": "easy",
+      "alternates": ["pokemon center", "pokemon centre"],
+      "keywords": ["center"]
+    },
+    {
+      "text": "Pokémon gym",
+      "kind": "easy",
+      "alternates": ["pokemon gym", "gym"],
+      "keywords": ["gym"]
+    },
+    {
+      "text": "Pikachu refusing the Poké Ball",
+      "kind": "hard",
+      "alternates": ["pikachu refusing the pokeball", "pikachu refusing a poke ball"],
+      "keywords": ["pikachu", "refusing", "ball"]
+    },
+    {
+      "text": "Pikachu riding on Ash's shoulder",
+      "kind": "hard",
+      "alternates": ["pikachu on ash's shoulder"],
+      "keywords": ["pikachu", "shoulder"]
+    },
+    {
+      "text": "Pikachu hugging a ketchup bottle",
+      "kind": "hard",
+      "alternates": ["pikachu hugging ketchup"],
+      "keywords": ["pikachu", "ketchup"]
+    },
+    {
+      "text": "Ash turning his cap backwards",
+      "kind": "hard",
+      "alternates": ["ash turning his hat backwards"],
+      "keywords": ["ash", "backwards"]
+    },
+    {
+      "text": "Ash holding up a badge",
+      "kind": "hard",
+      "alternates": ["ash winning a badge"],
+      "keywords": ["ash", "badge"]
+    },
+    {
+      "text": "Misty fishing with a rod",
+      "kind": "hard",
+      "alternates": ["misty fishing"],
+      "keywords": ["misty", "fishing"]
+    },
+    {
+      "text": "Misty running from a Caterpie",
+      "kind": "hard",
+      "alternates": ["misty running from a bug", "misty scared of caterpie"],
+      "keywords": ["misty", "caterpie"]
+    },
+    {
+      "text": "Misty dragging Brock by the ear",
+      "kind": "hard",
+      "alternates": ["misty pulling brock's ear"],
+      "keywords": ["misty", "brock", "ear"]
+    },
+    {
+      "text": "Brock cooking a big stew",
+      "kind": "hard",
+      "alternates": ["brock cooking"],
+      "keywords": ["brock", "cooking"]
+    },
+    {
+      "text": "Brock swooning over Nurse Joy",
+      "kind": "hard",
+      "alternates": ["brock in love with nurse joy"],
+      "keywords": ["brock", "nurse joy"]
+    },
+    {
+      "text": "Nurse Joy healing Poké Balls",
+      "kind": "hard",
+      "alternates": ["nurse joy healing pokeballs"],
+      "keywords": ["joy", "healing"]
+    },
+    {
+      "text": "Professor Oak handing out starters",
+      "kind": "hard",
+      "alternates": ["professor oak giving starter pokemon"],
+      "keywords": ["oak", "starters"]
+    },
+    {
+      "text": "Muk hugging Professor Oak",
+      "kind": "hard",
+      "alternates": ["muk hugging oak"],
+      "keywords": ["muk", "hugging", "oak"]
+    },
+    {
+      "text": "Officer Jenny riding a motorbike",
+      "kind": "hard",
+      "alternates": ["officer jenny on a motorcycle"],
+      "keywords": ["jenny", "motorbike"]
+    },
+    {
+      "text": "Officer Jenny with her Growlithe",
+      "kind": "hard",
+      "alternates": ["jenny and growlithe"],
+      "keywords": ["jenny", "growlithe"]
+    },
+    {
+      "text": "Team Rocket blasting off again",
+      "kind": "hard",
+      "alternates": ["team rocket blasting off"],
+      "keywords": ["rocket", "blasting"]
+    },
+    {
+      "text": "Team Rocket in a Meowth balloon",
+      "kind": "hard",
+      "alternates": ["team rocket hot air balloon"],
+      "keywords": ["rocket", "balloon"]
+    },
+    {
+      "text": "Team Rocket digging a pitfall trap",
+      "kind": "hard",
+      "alternates": ["team rocket digging a hole"],
+      "keywords": ["rocket", "digging"]
+    },
+    {
+      "text": "Meowth tossing a gold coin",
+      "kind": "hard",
+      "alternates": ["meowth pay day", "meowth throwing coins"],
+      "keywords": ["meowth", "coin"]
+    },
+    {
+      "text": "Meowth walking on two legs",
+      "kind": "hard",
+      "alternates": ["meowth walking upright"],
+      "keywords": ["meowth", "walking"]
+    },
+    {
+      "text": "Snorlax blocking the road",
+      "kind": "hard",
+      "alternates": ["snorlax blocking the path"],
+      "keywords": ["snorlax", "blocking"]
+    },
+    {
+      "text": "Snorlax eating a mountain of food",
+      "kind": "hard",
+      "alternates": ["snorlax eating"],
+      "keywords": ["snorlax", "eating"]
+    },
+    {
+      "text": "Waking Snorlax with a flute",
+      "kind": "hard",
+      "alternates": ["poke flute waking snorlax"],
+      "keywords": ["snorlax", "flute"]
+    },
+    {
+      "text": "Magikarp splashing around",
+      "kind": "hard",
+      "alternates": ["magikarp using splash", "magikarp splashing"],
+      "keywords": ["magikarp", "splashing"]
+    },
+    {
+      "text": "Magikarp evolving into Gyarados",
+      "kind": "hard",
+      "alternates": ["magikarp turning into gyarados"],
+      "keywords": ["magikarp", "gyarados"]
+    },
+    {
+      "text": "Salesman selling a Magikarp",
+      "kind": "hard",
+      "alternates": ["selling a magikarp"],
+      "keywords": ["selling", "magikarp"]
+    },
+    {
+      "text": "Gyarados rising from the sea",
+      "kind": "hard",
+      "alternates": ["gyarados rising out of the water"],
+      "keywords": ["gyarados", "rising"]
+    },
+    {
+      "text": "Psyduck holding its head",
+      "kind": "hard",
+      "alternates": ["psyduck with a headache"],
+      "keywords": ["psyduck", "head"]
+    },
+    {
+      "text": "Psyduck sinking in water",
+      "kind": "hard",
+      "alternates": ["psyduck can't swim", "psyduck drowning"],
+      "keywords": ["psyduck", "sinking"]
+    },
+    {
+      "text": "Jigglypuff singing a lullaby",
+      "kind": "hard",
+      "alternates": ["jigglypuff singing"],
+      "keywords": ["jigglypuff", "singing"]
+    },
+    {
+      "text": "Jigglypuff drawing on sleeping faces",
+      "kind": "hard",
+      "alternates": ["jigglypuff scribbling on faces"],
+      "keywords": ["jigglypuff", "faces"]
+    },
+    {
+      "text": "Charmander waiting in the rain",
+      "kind": "hard",
+      "alternates": ["charmander in the rain"],
+      "keywords": ["charmander", "rain"]
+    },
+    {
+      "text": "Charizard breathing fire",
+      "kind": "hard",
+      "alternates": ["charizard using flamethrower"],
+      "keywords": ["charizard", "fire"]
+    },
+    {
+      "text": "Charizard napping during a battle",
+      "kind": "hard",
+      "alternates": ["charizard sleeping in battle"],
+      "keywords": ["charizard", "napping"]
+    },
+    {
+      "text": "Charizard carrying a trainer",
+      "kind": "hard",
+      "alternates": ["riding charizard", "flying on charizard"],
+      "keywords": ["charizard", "carrying"]
+    },
+    {
+      "text": "Squirtle wearing sunglasses",
+      "kind": "hard",
+      "alternates": ["squirtle squad sunglasses"],
+      "keywords": ["squirtle", "sunglasses"]
+    },
+    {
+      "text": "Squirtle using water gun",
+      "kind": "hard",
+      "alternates": ["squirtle spraying water"],
+      "keywords": ["squirtle", "water"]
+    },
+    {
+      "text": "Bulbasaur using vine whip",
+      "kind": "hard",
+      "alternates": ["bulbasaur vine whip"],
+      "keywords": ["bulbasaur", "vine"]
+    },
+    {
+      "text": "Bulbasaur's bulb blooming",
+      "kind": "hard",
+      "alternates": ["bulbasaur blooming"],
+      "keywords": ["bulbasaur", "blooming"]
+    },
+    {
+      "text": "Venusaur firing solar beam",
+      "kind": "hard",
+      "alternates": ["venusaur solar beam"],
+      "keywords": ["venusaur", "solar"]
+    },
+    {
+      "text": "Blastoise firing water cannons",
+      "kind": "hard",
+      "alternates": ["blastoise water cannons", "blastoise hydro pump"],
+      "keywords": ["blastoise", "cannons"]
+    },
+    {
+      "text": "Caterpie shooting sticky string",
+      "kind": "hard",
+      "alternates": ["caterpie string shot"],
+      "keywords": ["caterpie", "string"]
+    },
+    {
+      "text": "Metapod using harden",
+      "kind": "hard",
+      "alternates": ["metapod hardening"],
+      "keywords": ["metapod", "harden"]
+    },
+    {
+      "text": "Butterfree spreading sleep powder",
+      "kind": "hard",
+      "alternates": ["butterfree sleep powder"],
+      "keywords": ["butterfree", "powder"]
+    },
+    {
+      "text": "Beedrill swarm chasing a trainer",
+      "kind": "hard",
+      "alternates": ["beedrill chasing a trainer", "beedrill swarm"],
+      "keywords": ["beedrill", "chasing"]
+    },
+    {
+      "text": "Spearow flock chasing Ash",
+      "kind": "hard",
+      "alternates": ["spearow chasing ash", "spearows chasing ash"],
+      "keywords": ["spearow", "chasing"]
+    },
+    {
+      "text": "Pidgeot flying over a forest",
+      "kind": "hard",
+      "alternates": ["pidgeot flying"],
+      "keywords": ["pidgeot", "flying"]
+    },
+    {
+      "text": "Rattata gnawing with big teeth",
+      "kind": "hard",
+      "alternates": ["rattata gnawing", "rattata biting"],
+      "keywords": ["rattata", "gnawing"]
+    },
+    {
+      "text": "Arbok coiled around a tree",
+      "kind": "hard",
+      "alternates": ["arbok coiling around a tree"],
+      "keywords": ["arbok", "tree"]
+    },
+    {
+      "text": "Sandshrew curling into a ball",
+      "kind": "hard",
+      "alternates": ["sandshrew rolling into a ball"],
+      "keywords": ["sandshrew", "curling"]
+    },
+    {
+      "text": "Clefairy dancing under the moon",
+      "kind": "hard",
+      "alternates": ["clefairy dancing"],
+      "keywords": ["clefairy", "dancing"]
+    },
+    {
+      "text": "Ninetales guarding a shrine",
+      "kind": "hard",
+      "alternates": ["ninetales at a shrine"],
+      "keywords": ["ninetales", "shrine"]
+    },
+    {
+      "text": "Vulpix curling its six tails",
+      "kind": "hard",
+      "alternates": ["vulpix tails"],
+      "keywords": ["vulpix", "tails"]
+    },
+    {
+      "text": "Zubat flying in a dark cave",
+      "kind": "hard",
+      "alternates": ["zubat in a cave"],
+      "keywords": ["zubat", "cave"]
+    },
+    {
+      "text": "Oddish planted in the ground",
+      "kind": "hard",
+      "alternates": ["oddish in the ground"],
+      "keywords": ["oddish", "planted"]
+    },
+    {
+      "text": "Diglett popping out of the ground",
+      "kind": "hard",
+      "alternates": ["diglett popping up"],
+      "keywords": ["diglett", "popping"]
+    },
+    {
+      "text": "Dugtrio digging tunnels",
+      "kind": "hard",
+      "alternates": ["dugtrio digging"],
+      "keywords": ["dugtrio", "digging"]
+    },
+    {
+      "text": "Mankey stealing a cap",
+      "kind": "hard",
+      "alternates": ["mankey stealing a hat"],
+      "keywords": ["mankey", "stealing"]
+    },
+    {
+      "text": "Arcanine racing through fields",
+      "kind": "hard",
+      "alternates": ["arcanine running"],
+      "keywords": ["arcanine", "racing"]
+    },
+    {
+      "text": "Poliwag hypnotizing with its belly",
+      "kind": "hard",
+      "alternates": ["poliwag hypnotising", "poliwag hypnosis"],
+      "keywords": ["poliwag", "hypnotizing"]
+    },
+    {
+      "text": "Abra teleporting away",
+      "kind": "hard",
+      "alternates": ["abra using teleport"],
+      "keywords": ["abra", "teleporting"]
+    },
+    {
+      "text": "Alakazam bending spoons",
+      "kind": "hard",
+      "alternates": ["alakazam with spoons"],
+      "keywords": ["alakazam", "spoons"]
+    },
+    {
+      "text": "Machop lifting a boulder",
+      "kind": "hard",
+      "alternates": ["machop lifting a rock"],
+      "keywords": ["machop", "lifting"]
+    },
+    {
+      "text": "Machamp punching with four fists",
+      "kind": "hard",
+      "alternates": ["machamp punching"],
+      "keywords": ["machamp", "punching"]
+    },
+    {
+      "text": "Geodude rolling downhill",
+      "kind": "hard",
+      "alternates": ["geodude rolling"],
+      "keywords": ["geodude", "rolling"]
+    },
+    {
+      "text": "Onix tunneling through rock",
+      "kind": "hard",
+      "alternates": ["onix tunnelling", "onix digging"],
+      "keywords": ["onix", "tunneling"]
+    },
+    {
+      "text": "Sprinklers soaking Onix",
+      "kind": "hard",
+      "alternates": ["onix getting soaked", "sprinklers on onix"],
+      "keywords": ["sprinklers", "onix"]
+    },
+    {
+      "text": "Ponyta galloping with a flaming mane",
+      "kind": "hard",
+      "alternates": ["ponyta galloping"],
+      "keywords": ["ponyta", "galloping"]
+    },
+    {
+      "text": "Rapidash racing a train",
+      "kind": "hard",
+      "alternates": ["rapidash vs a train"],
+      "keywords": ["rapidash", "train"]
+    },
+    {
+      "text": "Slowpoke fishing with its tail",
+      "kind": "hard",
+      "alternates": ["slowpoke fishing"],
+      "keywords": ["slowpoke", "fishing"]
+    },
+    {
+      "text": "Shellder biting Slowpoke's tail",
+      "kind": "hard",
+      "alternates": ["shellder biting slowpoke"],
+      "keywords": ["shellder", "slowpoke"]
+    },
+    {
+      "text": "Magnemite clinging to power lines",
+      "kind": "hard",
+      "alternates": ["magnemite on power lines"],
+      "keywords": ["magnemite", "power"]
+    },
+    {
+      "text": "Farfetch'd swinging its leek",
+      "kind": "hard",
+      "alternates": ["farfetchd swinging a leek", "farfetch'd with a leek"],
+      "keywords": ["farfetch", "leek"]
+    },
+    {
+      "text": "Seel swimming under the ice",
+      "kind": "hard",
+      "alternates": ["seel under ice"],
+      "keywords": ["seel", "ice"]
+    },
+    {
+      "text": "Grimer oozing out of a drain",
+      "kind": "hard",
+      "alternates": ["grimer in a drain"],
+      "keywords": ["grimer", "drain"]
+    },
+    {
+      "text": "Cloyster clamping shut",
+      "kind": "hard",
+      "alternates": ["cloyster closing its shell"],
+      "keywords": ["cloyster", "clamping"]
+    },
+    {
+      "text": "Gastly floating through a wall",
+      "kind": "hard",
+      "alternates": ["gastly passing through a wall"],
+      "keywords": ["gastly", "wall"]
+    },
+    {
+      "text": "Haunter licking a trainer",
+      "kind": "hard",
+      "alternates": ["haunter licking"],
+      "keywords": ["haunter", "licking"]
+    },
+    {
+      "text": "Gengar hiding in a shadow",
+      "kind": "hard",
+      "alternates": ["gengar in a shadow"],
+      "keywords": ["gengar", "shadow"]
+    },
+    {
+      "text": "Drowzee swinging a pendulum",
+      "kind": "hard",
+      "alternates": ["drowzee hypnosis pendulum"],
+      "keywords": ["drowzee", "pendulum"]
+    },
+    {
+      "text": "Krabby pinching a toe",
+      "kind": "hard",
+      "alternates": ["krabby pinching"],
+      "keywords": ["krabby", "pinching"]
+    },
+    {
+      "text": "Voltorb disguised as a Poké Ball",
+      "kind": "hard",
+      "alternates": ["voltorb pretending to be a pokeball"],
+      "keywords": ["voltorb", "ball"]
+    },
+    {
+      "text": "Electrode self-destructing",
+      "kind": "hard",
+      "alternates": ["electrode exploding", "electrode blowing up"],
+      "keywords": ["electrode", "exploding"]
+    },
+    {
+      "text": "Exeggcute juggling its eggs",
+      "kind": "hard",
+      "alternates": ["exeggcute eggs"],
+      "keywords": ["exeggcute", "eggs"]
+    },
+    {
+      "text": "Cubone swinging its bone club",
+      "kind": "hard",
+      "alternates": ["cubone with a bone"],
+      "keywords": ["cubone", "bone"]
+    },
+    {
+      "text": "Hitmonlee doing a high kick",
+      "kind": "hard",
+      "alternates": ["hitmonlee kicking"],
+      "keywords": ["hitmonlee", "kick"]
+    },
+    {
+      "text": "Hitmonchan throwing a punch",
+      "kind": "hard",
+      "alternates": ["hitmonchan boxing"],
+      "keywords": ["hitmonchan", "punch"]
+    },
+    {
+      "text": "Lickitung licking a face",
+      "kind": "hard",
+      "alternates": ["lickitung licking"],
+      "keywords": ["lickitung", "licking"]
+    },
+    {
+      "text": "Koffing puffing out smog",
+      "kind": "hard",
+      "alternates": ["koffing smog", "koffing releasing smoke"],
+      "keywords": ["koffing", "smog"]
+    },
+    {
+      "text": "Rhyhorn charging ahead",
+      "kind": "hard",
+      "alternates": ["rhyhorn charging"],
+      "keywords": ["rhyhorn", "charging"]
+    },
+    {
+      "text": "Rhydon drilling with its horn",
+      "kind": "hard",
+      "alternates": ["rhydon horn drill"],
+      "keywords": ["rhydon", "drilling"]
+    },
+    {
+      "text": "Chansey pushing a stretcher",
+      "kind": "hard",
+      "alternates": ["chansey with a stretcher"],
+      "keywords": ["chansey", "stretcher"]
+    },
+    {
+      "text": "Kangaskhan's baby in the pouch",
+      "kind": "hard",
+      "alternates": ["kangaskhan baby in pouch", "kangaskhan with baby"],
+      "keywords": ["kangaskhan", "baby"]
+    },
+    {
+      "text": "Horsea squirting ink",
+      "kind": "hard",
+      "alternates": ["horsea spitting ink"],
+      "keywords": ["horsea", "ink"]
+    },
+    {
+      "text": "Goldeen leaping up a waterfall",
+      "kind": "hard",
+      "alternates": ["goldeen jumping a waterfall"],
+      "keywords": ["goldeen", "waterfall"]
+    },
+    {
+      "text": "Starmie spinning through water",
+      "kind": "hard",
+      "alternates": ["starmie spinning"],
+      "keywords": ["starmie", "spinning"]
+    },
+    {
+      "text": "Mr Mime miming a wall",
+      "kind": "hard",
+      "alternates": ["mister mime miming a wall", "mr mime invisible wall"],
+      "keywords": ["mime", "wall"]
+    },
+    {
+      "text": "Mr Mime sweeping the floor",
+      "kind": "hard",
+      "alternates": ["mister mime sweeping", "mr mime cleaning"],
+      "keywords": ["mime", "sweeping"]
+    },
+    {
+      "text": "Scyther slashing tall grass",
+      "kind": "hard",
+      "alternates": ["scyther cutting grass"],
+      "keywords": ["scyther", "grass"]
+    },
+    {
+      "text": "Electabuzz at a power plant",
+      "kind": "hard",
+      "alternates": ["electabuzz power plant"],
+      "keywords": ["electabuzz", "power"]
+    },
+    {
+      "text": "Magmar bathing in a volcano",
+      "kind": "hard",
+      "alternates": ["magmar in a volcano"],
+      "keywords": ["magmar", "volcano"]
+    },
+    {
+      "text": "Pinsir crushing a log",
+      "kind": "hard",
+      "alternates": ["pinsir pinching a log"],
+      "keywords": ["pinsir", "log"]
+    },
+    {
+      "text": "Tauros stampede",
+      "kind": "hard",
+      "alternates": ["stampeding tauros", "herd of tauros"],
+      "keywords": ["tauros", "stampede"]
+    },
+    {
+      "text": "Riding Lapras across the sea",
+      "kind": "hard",
+      "alternates": ["surfing on lapras", "lapras carrying kids"],
+      "keywords": ["lapras"]
+    },
+    {
+      "text": "Ditto copying a Charmander",
+      "kind": "hard",
+      "alternates": ["ditto transforming into charmander"],
+      "keywords": ["ditto", "charmander"]
+    },
+    {
+      "text": "Ditto with a goofy face",
+      "kind": "hard",
+      "alternates": ["ditto failing to transform"],
+      "keywords": ["ditto", "face"]
+    },
+    {
+      "text": "Eevee surrounded by evolution stones",
+      "kind": "hard",
+      "alternates": ["eevee with evolution stones"],
+      "keywords": ["eevee", "stones"]
+    },
+    {
+      "text": "Vaporeon melting into water",
+      "kind": "hard",
+      "alternates": ["vaporeon turning into water"],
+      "keywords": ["vaporeon", "water"]
+    },
+    {
+      "text": "Jolteon shooting needles",
+      "kind": "hard",
+      "alternates": ["jolteon pin missile", "jolteon spikes"],
+      "keywords": ["jolteon", "needles"]
+    },
+    {
+      "text": "Flareon fluffing its fiery mane",
+      "kind": "hard",
+      "alternates": ["flareon mane", "flareon fur"],
+      "keywords": ["flareon", "mane"]
+    },
+    {
+      "text": "Glaceon freezing a pond",
+      "kind": "hard",
+      "alternates": ["glaceon freezing water"],
+      "keywords": ["glaceon", "freezing"]
+    },
+    {
+      "text": "Umbreon's rings glowing at night",
+      "kind": "hard",
+      "alternates": ["umbreon glowing"],
+      "keywords": ["umbreon", "glowing"]
+    },
+    {
+      "text": "Sylveon tying ribbons",
+      "kind": "hard",
+      "alternates": ["sylveon ribbons"],
+      "keywords": ["sylveon", "ribbons"]
+    },
+    {
+      "text": "Porygon inside a computer",
+      "kind": "hard",
+      "alternates": ["porygon in a computer"],
+      "keywords": ["porygon", "computer"]
+    },
+    {
+      "text": "Aerodactyl revived from amber",
+      "kind": "hard",
+      "alternates": ["aerodactyl from amber", "aerodactyl fossil"],
+      "keywords": ["aerodactyl", "amber"]
+    },
+    {
+      "text": "Articuno making it snow",
+      "kind": "hard",
+      "alternates": ["articuno snowstorm"],
+      "keywords": ["articuno", "snow"]
+    },
+    {
+      "text": "Zapdos striking lightning",
+      "kind": "hard",
+      "alternates": ["zapdos lightning", "zapdos thunderstorm"],
+      "keywords": ["zapdos", "lightning"]
+    },
+    {
+      "text": "Moltres trailing flames",
+      "kind": "hard",
+      "alternates": ["moltres flying with flames"],
+      "keywords": ["moltres", "flames"]
+    },
+    {
+      "text": "Dratini swimming in a lake",
+      "kind": "hard",
+      "alternates": ["dratini swimming"],
+      "keywords": ["dratini", "swimming"]
+    },
+    {
+      "text": "Dragonite delivering a letter",
+      "kind": "hard",
+      "alternates": ["dragonite delivering mail"],
+      "keywords": ["dragonite", "delivering"]
+    },
+    {
+      "text": "Mewtwo floating in a lab tank",
+      "kind": "hard",
+      "alternates": ["mewtwo in a tank"],
+      "keywords": ["mewtwo", "tank"]
+    },
+    {
+      "text": "Mew and Mewtwo clashing",
+      "kind": "hard",
+      "alternates": ["mewtwo vs mew", "mew versus mewtwo"],
+      "keywords": ["mew", "mewtwo"]
+    },
+    {
+      "text": "Mew floating in a bubble",
+      "kind": "hard",
+      "alternates": ["mew in a bubble"],
+      "keywords": ["mew", "bubble"]
+    },
+    {
+      "text": "Togepi hatching from an egg",
+      "kind": "hard",
+      "alternates": ["togepi hatching"],
+      "keywords": ["togepi", "hatching"]
+    },
+    {
+      "text": "Pichu shocking itself",
+      "kind": "hard",
+      "alternates": ["pichu zapping itself"],
+      "keywords": ["pichu", "shocking"]
+    },
+    {
+      "text": "Raichu surfing a wave",
+      "kind": "hard",
+      "alternates": ["surfing raichu"],
+      "keywords": ["raichu", "surfing"]
+    },
+    {
+      "text": "Totodile dancing",
+      "kind": "hard",
+      "alternates": ["totodile dance"],
+      "keywords": ["totodile", "dancing"]
+    },
+    {
+      "text": "Cyndaquil's back bursting into flame",
+      "kind": "hard",
+      "alternates": ["cyndaquil fire back", "cyndaquil flames"],
+      "keywords": ["cyndaquil", "flame"]
+    },
+    {
+      "text": "Chikorita waving its leaf",
+      "kind": "hard",
+      "alternates": ["chikorita leaf"],
+      "keywords": ["chikorita", "leaf"]
+    },
+    {
+      "text": "Marill bouncing on its tail",
+      "kind": "hard",
+      "alternates": ["marill tail ball"],
+      "keywords": ["marill", "bouncing"]
+    },
+    {
+      "text": "Sudowoodo pretending to be a tree",
+      "kind": "hard",
+      "alternates": ["sudowoodo disguised as a tree"],
+      "keywords": ["sudowoodo", "tree"]
+    },
+    {
+      "text": "Wobbuffet saluting",
+      "kind": "hard",
+      "alternates": ["wobbuffet salute"],
+      "keywords": ["wobbuffet", "saluting"]
+    },
+    {
+      "text": "Steelix crushing a boulder",
+      "kind": "hard",
+      "alternates": ["steelix crushing a rock"],
+      "keywords": ["steelix", "crushing"]
+    },
+    {
+      "text": "Heracross drinking tree sap",
+      "kind": "hard",
+      "alternates": ["heracross sipping sap"],
+      "keywords": ["heracross", "sap"]
+    },
+    {
+      "text": "Hoothoot standing on one leg",
+      "kind": "hard",
+      "alternates": ["hoothoot on one leg"],
+      "keywords": ["hoothoot", "leg"]
+    },
+    {
+      "text": "Lugia rising from the ocean",
+      "kind": "hard",
+      "alternates": ["lugia rising out of the sea"],
+      "keywords": ["lugia", "ocean"]
+    },
+    {
+      "text": "Ho-Oh flying over a rainbow",
+      "kind": "hard",
+      "alternates": ["ho oh rainbow", "hooh rainbow"],
+      "keywords": ["ho-oh", "rainbow"]
+    },
+    {
+      "text": "Celebi flying through a forest",
+      "kind": "hard",
+      "alternates": ["celebi in a forest"],
+      "keywords": ["celebi", "forest"]
+    },
+    {
+      "text": "Kyogre flooding the sea",
+      "kind": "hard",
+      "alternates": ["kyogre causing a flood"],
+      "keywords": ["kyogre", "flooding"]
+    },
+    {
+      "text": "Groudon raising a volcano",
+      "kind": "hard",
+      "alternates": ["groudon volcano"],
+      "keywords": ["groudon", "volcano"]
+    },
+    {
+      "text": "Rayquaza soaring above the clouds",
+      "kind": "hard",
+      "alternates": ["rayquaza flying above clouds"],
+      "keywords": ["rayquaza", "clouds"]
+    },
+    {
+      "text": "Treecko chewing a twig",
+      "kind": "hard",
+      "alternates": ["treecko with a twig"],
+      "keywords": ["treecko", "twig"]
+    },
+    {
+      "text": "Mudkip sensing with its fin",
+      "kind": "hard",
+      "alternates": ["mudkip fin"],
+      "keywords": ["mudkip", "fin"]
+    },
+    {
+      "text": "Torchic spitting embers",
+      "kind": "hard",
+      "alternates": ["torchic ember"],
+      "keywords": ["torchic", "embers"]
+    },
+    {
+      "text": "Piplup belly sliding on ice",
+      "kind": "hard",
+      "alternates": ["piplup sliding"],
+      "keywords": ["piplup", "sliding"]
+    },
+    {
+      "text": "Tree growing on Torterra's back",
+      "kind": "hard",
+      "alternates": ["torterra with a tree", "torterra forest"],
+      "keywords": ["torterra", "tree"]
+    },
+    {
+      "text": "Lucario firing an aura sphere",
+      "kind": "hard",
+      "alternates": ["lucario aura sphere"],
+      "keywords": ["lucario", "aura"]
+    },
+    {
+      "text": "Garchomp diving like a jet",
+      "kind": "hard",
+      "alternates": ["garchomp flying"],
+      "keywords": ["garchomp", "jet"]
+    },
+    {
+      "text": "Oshawott swinging its shell",
+      "kind": "hard",
+      "alternates": ["oshawott scalchop"],
+      "keywords": ["oshawott", "shell"]
+    },
+    {
+      "text": "Greninja throwing a water shuriken",
+      "kind": "hard",
+      "alternates": ["greninja shuriken", "greninja throwing stars"],
+      "keywords": ["greninja", "shuriken"]
+    },
+    {
+      "text": "Mimikyu hiding under its costume",
+      "kind": "hard",
+      "alternates": ["mimikyu disguise"],
+      "keywords": ["mimikyu", "costume"]
+    },
+    {
+      "text": "Rowlet napping in a backpack",
+      "kind": "hard",
+      "alternates": ["rowlet sleeping in a backpack"],
+      "keywords": ["rowlet", "backpack"]
+    },
+    {
+      "text": "Popplio blowing a water balloon",
+      "kind": "hard",
+      "alternates": ["popplio bubble"],
+      "keywords": ["popplio", "balloon"]
+    },
+    {
+      "text": "Grookey drumming with its stick",
+      "kind": "hard",
+      "alternates": ["grookey drumming"],
+      "keywords": ["grookey", "drumming"]
+    },
+    {
+      "text": "Scorbunny kicking a fireball",
+      "kind": "hard",
+      "alternates": ["scorbunny pyro ball"],
+      "keywords": ["scorbunny", "kicking"]
+    },
+    {
+      "text": "Sobble crying a puddle",
+      "kind": "hard",
+      "alternates": ["sobble crying"],
+      "keywords": ["sobble", "crying"]
+    },
+    {
+      "text": "Wild Pokémon in tall grass",
+      "kind": "hard",
+      "alternates": ["wild pokemon in tall grass", "wild pokemon in the grass"],
+      "keywords": ["wild", "grass"]
+    },
+    {
+      "text": "Poké Ball shaking on the ground",
+      "kind": "hard",
+      "alternates": ["pokeball wobbling", "poke ball wobbling"],
+      "keywords": ["ball", "shaking"]
+    },
+    {
+      "text": "Pokédex scanning a Caterpie",
+      "kind": "hard",
+      "alternates": ["scanning caterpie with a pokedex", "pokedex scanning caterpie"],
+      "keywords": ["pokédex", "caterpie"]
+    },
+    {
+      "text": "Spraying a Potion on Bulbasaur",
+      "kind": "hard",
+      "alternates": ["using a potion on bulbasaur", "potion on bulbasaur"],
+      "keywords": ["potion", "bulbasaur"]
+    },
+    {
+      "text": "Rattata eating a Rare Candy",
+      "kind": "hard",
+      "alternates": ["rattata rare candy"],
+      "keywords": ["rattata", "rare candy"]
+    },
+    {
+      "text": "Master Ball catching Mewtwo",
+      "kind": "hard",
+      "alternates": ["catching mewtwo with a master ball"],
+      "keywords": ["master ball", "mewtwo"]
+    },
+    {
+      "text": "Eevee glowing while evolving",
+      "kind": "hard",
+      "alternates": ["eevee evolving"],
+      "keywords": ["eevee", "evolving"]
+    },
+    {
+      "text": "Gym leader handing over a badge",
+      "kind": "hard",
+      "alternates": ["winning a gym badge", "gym leader giving a badge"],
+      "keywords": ["leader", "badge"]
+    },
+    {
+      "text": "Trainers battling in a gym",
+      "kind": "hard",
+      "alternates": ["gym battle", "pokemon battle"],
+      "keywords": ["trainers", "gym"]
+    },
+    {
+      "text": "Pikachu charging everyone's phones",
+      "kind": "chaos",
+      "alternates": ["pikachu charging phones", "pikachu as a phone charger"],
+      "keywords": ["pikachu", "charging", "phones"]
+    },
+    {
+      "text": "Pikachu catching Ash",
+      "kind": "chaos",
+      "alternates": ["pikachu catching ash in a poke ball", "pikachu throwing a pokeball at ash"],
+      "keywords": ["pikachu", "catching", "ash"]
+    },
+    {
+      "text": "Pikachu dressed as Mimikyu",
+      "kind": "chaos",
+      "alternates": ["pikachu in a mimikyu costume"],
+      "keywords": ["pikachu", "mimikyu"]
+    },
+    {
+      "text": "Snorlax on a treadmill",
+      "kind": "chaos",
+      "alternates": ["snorlax running on a treadmill"],
+      "keywords": ["snorlax", "treadmill"]
+    },
+    {
+      "text": "Snorlax as a bouncy castle",
+      "kind": "chaos",
+      "alternates": ["snorlax bouncy castle"],
+      "keywords": ["snorlax", "bouncy"]
+    },
+    {
+      "text": "Snorlax getting a parking ticket",
+      "kind": "chaos",
+      "alternates": ["snorlax parking ticket"],
+      "keywords": ["snorlax", "ticket"]
+    },
+    {
+      "text": "Magikarp in a goldfish bowl",
+      "kind": "chaos",
+      "alternates": ["magikarp in a fishbowl"],
+      "keywords": ["magikarp", "bowl"]
+    },
+    {
+      "text": "Magikarp wearing a jetpack",
+      "kind": "chaos",
+      "alternates": ["magikarp with a jetpack"],
+      "keywords": ["magikarp", "jetpack"]
+    },
+    {
+      "text": "Magikarp on a winner's podium",
+      "kind": "chaos",
+      "alternates": ["magikarp winning a trophy", "magikarp on a podium"],
+      "keywords": ["magikarp", "podium"]
+    },
+    {
+      "text": "Psyduck wearing an ice pack",
+      "kind": "chaos",
+      "alternates": ["psyduck with an ice pack"],
+      "keywords": ["psyduck", "ice pack"]
+    },
+    {
+      "text": "Psyduck in swimming armbands",
+      "kind": "chaos",
+      "alternates": ["psyduck wearing armbands", "psyduck with water wings"],
+      "keywords": ["psyduck", "armbands"]
+    },
+    {
+      "text": "Charmander scuba diving",
+      "kind": "chaos",
+      "alternates": ["charmander diving underwater"],
+      "keywords": ["charmander", "diving"]
+    },
+    {
+      "text": "Charmander toasting marshmallows",
+      "kind": "chaos",
+      "alternates": ["charmander roasting marshmallows"],
+      "keywords": ["charmander", "marshmallows"]
+    },
+    {
+      "text": "Charizard as a barbecue grill",
+      "kind": "chaos",
+      "alternates": ["charizard grilling burgers", "charizard barbecue"],
+      "keywords": ["charizard", "barbecue"]
+    },
+    {
+      "text": "Charizard heating a hot air balloon",
+      "kind": "chaos",
+      "alternates": ["charizard powering a hot air balloon"],
+      "keywords": ["charizard", "balloon"]
+    },
+    {
+      "text": "Squirtle as a fire truck",
+      "kind": "chaos",
+      "alternates": ["squirtle fire engine", "squirtle putting out a fire"],
+      "keywords": ["squirtle", "fire truck"]
+    },
+    {
+      "text": "Squirtle sledding on its shell",
+      "kind": "chaos",
+      "alternates": ["squirtle shell sled"],
+      "keywords": ["squirtle", "sledding"]
+    },
+    {
+      "text": "Bulbasaur in a flower pot",
+      "kind": "chaos",
+      "alternates": ["bulbasaur in a plant pot"],
+      "keywords": ["bulbasaur", "pot"]
+    },
+    {
+      "text": "Bulbasaur at a flower show",
+      "kind": "chaos",
+      "alternates": ["bulbasaur winning a flower show"],
+      "keywords": ["bulbasaur", "flower show"]
+    },
+    {
+      "text": "Jigglypuff singing at a rock concert",
+      "kind": "chaos",
+      "alternates": ["jigglypuff rock concert"],
+      "keywords": ["jigglypuff", "concert"]
+    },
+    {
+      "text": "Jigglypuff as a babysitter",
+      "kind": "chaos",
+      "alternates": ["jigglypuff babysitting"],
+      "keywords": ["jigglypuff", "babysitter"]
+    },
+    {
+      "text": "Diglett in a whack-a-mole game",
+      "kind": "chaos",
+      "alternates": ["diglett whack a mole"],
+      "keywords": ["diglett", "whack"]
+    },
+    {
+      "text": "Diglett in a golf hole",
+      "kind": "chaos",
+      "alternates": ["diglett on a golf course"],
+      "keywords": ["diglett", "golf"]
+    },
+    {
+      "text": "Slowpoke running a marathon",
+      "kind": "chaos",
+      "alternates": ["slowpoke in a marathon"],
+      "keywords": ["slowpoke", "marathon"]
+    },
+    {
+      "text": "Slowpoke fishing in a teacup",
+      "kind": "chaos",
+      "alternates": ["slowpoke fishing in a cup"],
+      "keywords": ["slowpoke", "teacup"]
+    },
+    {
+      "text": "Meowth chasing a laser dot",
+      "kind": "chaos",
+      "alternates": ["meowth chasing a laser"],
+      "keywords": ["meowth", "laser"]
+    },
+    {
+      "text": "Meowth swimming in gold coins",
+      "kind": "chaos",
+      "alternates": ["meowth swimming in coins"],
+      "keywords": ["meowth", "coins"]
+    },
+    {
+      "text": "Team Rocket caught in their net",
+      "kind": "chaos",
+      "alternates": ["team rocket in their own net"],
+      "keywords": ["rocket", "net"]
+    },
+    {
+      "text": "Team Rocket balloon hitting a cactus",
+      "kind": "chaos",
+      "alternates": ["team rocket balloon popped by a cactus"],
+      "keywords": ["rocket", "cactus"]
+    },
+    {
+      "text": "Gengar afraid of a flashlight",
+      "kind": "chaos",
+      "alternates": ["gengar scared of a flashlight"],
+      "keywords": ["gengar", "flashlight"]
+    },
+    {
+      "text": "Gengar trick or treating",
+      "kind": "chaos",
+      "alternates": ["gengar trick-or-treating"],
+      "keywords": ["gengar", "trick"]
+    },
+    {
+      "text": "Gastly sucked into a vacuum",
+      "kind": "chaos",
+      "alternates": ["gastly vacuumed up", "gastly in a vacuum cleaner"],
+      "keywords": ["gastly", "vacuum"]
+    },
+    {
+      "text": "Haunter giving a high five",
+      "kind": "chaos",
+      "alternates": ["haunter high five"],
+      "keywords": ["haunter", "high five"]
+    },
+    {
+      "text": "Lickitung licking windows clean",
+      "kind": "chaos",
+      "alternates": ["lickitung cleaning windows", "lickitung washing windows"],
+      "keywords": ["lickitung", "windows"]
+    },
+    {
+      "text": "Lickitung licking a giant lollipop",
+      "kind": "chaos",
+      "alternates": ["lickitung with a lollipop"],
+      "keywords": ["lickitung", "lollipop"]
+    },
+    {
+      "text": "Onix as a roller coaster",
+      "kind": "chaos",
+      "alternates": ["onix roller coaster"],
+      "keywords": ["onix", "roller coaster"]
+    },
+    {
+      "text": "Onix as a playground slide",
+      "kind": "chaos",
+      "alternates": ["onix slide"],
+      "keywords": ["onix", "slide"]
+    },
+    {
+      "text": "Geodude skipping across a pond",
+      "kind": "chaos",
+      "alternates": ["skipping geodude across a pond", "geodude stone skipping"],
+      "keywords": ["geodude", "skipping"]
+    },
+    {
+      "text": "Sandshrew as a bowling ball",
+      "kind": "chaos",
+      "alternates": ["sandshrew bowling"],
+      "keywords": ["sandshrew", "bowling"]
+    },
+    {
+      "text": "Voltorb hiding among Poké Balls",
+      "kind": "chaos",
+      "alternates": ["voltorb hiding in pokeballs", "voltorb in a pile of poke balls"],
+      "keywords": ["voltorb", "hiding"]
+    },
+    {
+      "text": "Voltorb in a gumball machine",
+      "kind": "chaos",
+      "alternates": ["voltorb gumball"],
+      "keywords": ["voltorb", "gumball"]
+    },
+    {
+      "text": "Electrode at a fireworks show",
+      "kind": "chaos",
+      "alternates": ["electrode fireworks"],
+      "keywords": ["electrode", "fireworks"]
+    },
+    {
+      "text": "Exeggcute in an egg carton",
+      "kind": "chaos",
+      "alternates": ["exeggcute egg box"],
+      "keywords": ["exeggcute", "carton"]
+    },
+    {
+      "text": "Exeggutor stuck under a bridge",
+      "kind": "chaos",
+      "alternates": ["exeggutor under a bridge"],
+      "keywords": ["exeggutor", "bridge"]
+    },
+    {
+      "text": "Chansey at an egg hunt",
+      "kind": "chaos",
+      "alternates": ["chansey easter egg hunt"],
+      "keywords": ["chansey", "hunt"]
+    },
+    {
+      "text": "Baby Kangaskhan carrying its mom",
+      "kind": "chaos",
+      "alternates": ["kangaskhan baby carrying its mother"],
+      "keywords": ["kangaskhan", "carrying", "mom"]
+    },
+    {
+      "text": "Kangaskhan's pouch full of groceries",
+      "kind": "chaos",
+      "alternates": ["kangaskhan carrying groceries"],
+      "keywords": ["kangaskhan", "groceries"]
+    },
+    {
+      "text": "Mr Mime hitting a real wall",
+      "kind": "chaos",
+      "alternates": ["mister mime walking into a real wall"],
+      "keywords": ["mime", "real wall"]
+    },
+    {
+      "text": "Scyther slicing bread",
+      "kind": "chaos",
+      "alternates": ["scyther cutting bread"],
+      "keywords": ["scyther", "bread"]
+    },
+    {
+      "text": "Scyther trimming hedges",
+      "kind": "chaos",
+      "alternates": ["scyther cutting a hedge"],
+      "keywords": ["scyther", "hedges"]
+    },
+    {
+      "text": "Tangela at the hairdresser",
+      "kind": "chaos",
+      "alternates": ["tangela getting a haircut"],
+      "keywords": ["tangela", "hairdresser"]
+    },
+    {
+      "text": "Machamp working as a waiter",
+      "kind": "chaos",
+      "alternates": ["machamp waiter", "machamp carrying trays"],
+      "keywords": ["machamp", "waiter"]
+    },
+    {
+      "text": "Machamp moving house alone",
+      "kind": "chaos",
+      "alternates": ["machamp carrying furniture"],
+      "keywords": ["machamp", "moving"]
+    },
+    {
+      "text": "Alakazam eating soup with bent spoons",
+      "kind": "chaos",
+      "alternates": ["alakazam eating soup"],
+      "keywords": ["alakazam", "soup"]
+    },
+    {
+      "text": "Abra playing hide and seek",
+      "kind": "chaos",
+      "alternates": ["abra hide and seek"],
+      "keywords": ["abra", "hide"]
+    },
+    {
+      "text": "Drowzee counting sheep",
+      "kind": "chaos",
+      "alternates": ["drowzee hypnotizing sheep"],
+      "keywords": ["drowzee", "sheep"]
+    },
+    {
+      "text": "Krabby cutting a ribbon",
+      "kind": "chaos",
+      "alternates": ["krabby ribbon cutting"],
+      "keywords": ["krabby", "ribbon"]
+    },
+    {
+      "text": "Seel in a circus act",
+      "kind": "chaos",
+      "alternates": ["seel at the circus"],
+      "keywords": ["seel", "circus"]
+    },
+    {
+      "text": "Lapras pulling water skiers",
+      "kind": "chaos",
+      "alternates": ["lapras water skiing"],
+      "keywords": ["lapras", "skiers"]
+    },
+    {
+      "text": "Gyarados squeezed into a kiddie pool",
+      "kind": "chaos",
+      "alternates": ["gyarados in a kiddie pool", "gyarados in a paddling pool"],
+      "keywords": ["gyarados", "pool"]
+    },
+    {
+      "text": "Ditto copying a toaster",
+      "kind": "chaos",
+      "alternates": ["ditto turning into a toaster"],
+      "keywords": ["ditto", "toaster"]
+    },
+    {
+      "text": "Ditto flattened into a pancake",
+      "kind": "chaos",
+      "alternates": ["ditto as a pancake"],
+      "keywords": ["ditto", "pancake"]
+    },
+    {
+      "text": "Ditto as a beanbag chair",
+      "kind": "chaos",
+      "alternates": ["ditto beanbag"],
+      "keywords": ["ditto", "beanbag"]
+    },
+    {
+      "text": "Eevee trying on evolution costumes",
+      "kind": "chaos",
+      "alternates": ["eevee in costumes"],
+      "keywords": ["eevee", "costumes"]
+    },
+    {
+      "text": "Vaporeon vanishing in a bathtub",
+      "kind": "chaos",
+      "alternates": ["vaporeon disappearing in the bath"],
+      "keywords": ["vaporeon", "bath"]
+    },
+    {
+      "text": "Jolteon as a pincushion",
+      "kind": "chaos",
+      "alternates": ["jolteon pin cushion"],
+      "keywords": ["jolteon", "pincushion"]
+    },
+    {
+      "text": "Flareon as a hair dryer",
+      "kind": "chaos",
+      "alternates": ["flareon blow drying hair", "flareon hairdryer"],
+      "keywords": ["flareon", "dryer"]
+    },
+    {
+      "text": "Glaceon running an ice cream truck",
+      "kind": "chaos",
+      "alternates": ["glaceon ice cream van"],
+      "keywords": ["glaceon", "truck"]
+    },
+    {
+      "text": "Umbreon as a night light",
+      "kind": "chaos",
+      "alternates": ["umbreon nightlight"],
+      "keywords": ["umbreon", "night light"]
+    },
+    {
+      "text": "Leafeon raked up with the leaves",
+      "kind": "chaos",
+      "alternates": ["leafeon in a leaf pile", "leafeon raked up"],
+      "keywords": ["leafeon", "raked"]
+    },
+    {
+      "text": "Sylveon wrapping presents",
+      "kind": "chaos",
+      "alternates": ["sylveon wrapping gifts"],
+      "keywords": ["sylveon", "presents"]
+    },
+    {
+      "text": "Porygon stuck in a printer",
+      "kind": "chaos",
+      "alternates": ["porygon in a printer"],
+      "keywords": ["porygon", "printer"]
+    },
+    {
+      "text": "Aerodactyl in a museum exhibit",
+      "kind": "chaos",
+      "alternates": ["aerodactyl in a museum"],
+      "keywords": ["aerodactyl", "museum"]
+    },
+    {
+      "text": "Articuno inside a freezer",
+      "kind": "chaos",
+      "alternates": ["articuno in a fridge freezer"],
+      "keywords": ["articuno", "freezer"]
+    },
+    {
+      "text": "Articuno as a snow machine",
+      "kind": "chaos",
+      "alternates": ["articuno snow machine"],
+      "keywords": ["articuno", "snow machine"]
+    },
+    {
+      "text": "Zapdos powering a Ferris wheel",
+      "kind": "chaos",
+      "alternates": ["zapdos ferris wheel"],
+      "keywords": ["zapdos", "ferris wheel"]
+    },
+    {
+      "text": "Moltres as a campfire",
+      "kind": "chaos",
+      "alternates": ["moltres campfire"],
+      "keywords": ["moltres", "campfire"]
+    },
+    {
+      "text": "Dragonite delivering pizza",
+      "kind": "chaos",
+      "alternates": ["dragonite pizza delivery"],
+      "keywords": ["dragonite", "pizza"]
+    },
+    {
+      "text": "Dragonite stuck in a mailbox",
+      "kind": "chaos",
+      "alternates": ["dragonite in a mailbox"],
+      "keywords": ["dragonite", "mailbox"]
+    },
+    {
+      "text": "Mewtwo at a photocopier",
+      "kind": "chaos",
+      "alternates": ["mewtwo photocopying", "mewtwo using a copier"],
+      "keywords": ["mewtwo", "photocopier"]
+    },
+    {
+      "text": "Mew blowing bubblegum",
+      "kind": "chaos",
+      "alternates": ["mew bubble gum"],
+      "keywords": ["mew", "bubblegum"]
+    },
+    {
+      "text": "Lugia stuck in a birdbath",
+      "kind": "chaos",
+      "alternates": ["lugia in a bird bath"],
+      "keywords": ["lugia", "birdbath"]
+    },
+    {
+      "text": "Ho-Oh painting a rainbow",
+      "kind": "chaos",
+      "alternates": ["ho oh painting a rainbow", "hooh painting a rainbow"],
+      "keywords": ["ho-oh", "painting"]
+    },
+    {
+      "text": "Rayquaza as a jump rope",
+      "kind": "chaos",
+      "alternates": ["rayquaza skipping rope"],
+      "keywords": ["rayquaza", "rope"]
+    },
+    {
+      "text": "Kyogre in a water park",
+      "kind": "chaos",
+      "alternates": ["kyogre at a waterpark"],
+      "keywords": ["kyogre", "water park"]
+    },
+    {
+      "text": "Groudon in a volcano hot tub",
+      "kind": "chaos",
+      "alternates": ["groudon hot tub"],
+      "keywords": ["groudon", "hot tub"]
+    },
+    {
+      "text": "Lucario playing dodgeball",
+      "kind": "chaos",
+      "alternates": ["lucario dodgeball with aura spheres"],
+      "keywords": ["lucario", "dodgeball"]
+    },
+    {
+      "text": "Greninja throwing pizza dough",
+      "kind": "chaos",
+      "alternates": ["greninja spinning pizza dough"],
+      "keywords": ["greninja", "dough"]
+    },
+    {
+      "text": "Garchomp at an airport",
+      "kind": "chaos",
+      "alternates": ["garchomp on a runway"],
+      "keywords": ["garchomp", "airport"]
+    },
+    {
+      "text": "Togepi in an egg cup",
+      "kind": "chaos",
+      "alternates": ["togepi egg cup"],
+      "keywords": ["togepi", "egg cup"]
+    },
+    {
+      "text": "Sudowoodo running from a watering can",
+      "kind": "chaos",
+      "alternates": ["sudowoodo afraid of a watering can"],
+      "keywords": ["sudowoodo", "watering can"]
+    },
+    {
+      "text": "Totodile dancing ballet",
+      "kind": "chaos",
+      "alternates": ["totodile ballerina", "totodile at the ballet"],
+      "keywords": ["totodile", "ballet"]
+    },
+    {
+      "text": "Treecko chewing a whole log",
+      "kind": "chaos",
+      "alternates": ["treecko chewing a log"],
+      "keywords": ["treecko", "log"]
+    },
+    {
+      "text": "Piplup ice skating",
+      "kind": "chaos",
+      "alternates": ["piplup skating"],
+      "keywords": ["piplup", "skating"]
+    },
+    {
+      "text": "Playground on Torterra's back",
+      "kind": "chaos",
+      "alternates": ["torterra playground"],
+      "keywords": ["torterra", "playground"]
+    },
+    {
+      "text": "Oshawott eating off its shell",
+      "kind": "chaos",
+      "alternates": ["oshawott using its shell as a plate"],
+      "keywords": ["oshawott", "shell"]
+    },
+    {
+      "text": "Popplio making balloon animals",
+      "kind": "chaos",
+      "alternates": ["popplio balloon animals"],
+      "keywords": ["popplio", "balloon animals"]
+    },
+    {
+      "text": "Grookey drumming on Geodude",
+      "kind": "chaos",
+      "alternates": ["grookey drumming on geodudes"],
+      "keywords": ["grookey", "geodude"]
+    },
+    {
+      "text": "Scorbunny scoring a soccer goal",
+      "kind": "chaos",
+      "alternates": ["scorbunny playing soccer", "scorbunny football"],
+      "keywords": ["scorbunny", "goal"]
+    },
+    {
+      "text": "Sobble crying into a bucket",
+      "kind": "chaos",
+      "alternates": ["sobble filling a bucket with tears"],
+      "keywords": ["sobble", "bucket"]
+    },
+    {
+      "text": "Sobble invisible in a lineup",
+      "kind": "chaos",
+      "alternates": ["sobble disappearing in a lineup"],
+      "keywords": ["sobble", "lineup"]
+    },
+    {
+      "text": "Marill floating like a buoy",
+      "kind": "chaos",
+      "alternates": ["marill as a buoy"],
+      "keywords": ["marill", "buoy"]
+    },
+    {
+      "text": "Hoothoot as a cuckoo clock",
+      "kind": "chaos",
+      "alternates": ["hoothoot cuckoo clock"],
+      "keywords": ["hoothoot", "clock"]
+    },
+    {
+      "text": "Heracross pouring syrup on pancakes",
+      "kind": "chaos",
+      "alternates": ["heracross syrup"],
+      "keywords": ["heracross", "syrup"]
+    },
+    {
+      "text": "Cyndaquil roasting chestnuts",
+      "kind": "chaos",
+      "alternates": ["cyndaquil chestnuts"],
+      "keywords": ["cyndaquil", "chestnuts"]
+    },
+    {
+      "text": "Chikorita fanning with its leaf",
+      "kind": "chaos",
+      "alternates": ["chikorita leaf fan"],
+      "keywords": ["chikorita", "fanning"]
+    },
+    {
+      "text": "Clefairy flying a moon rocket",
+      "kind": "chaos",
+      "alternates": ["clefairy rocket to the moon"],
+      "keywords": ["clefairy", "rocket"]
+    },
+    {
+      "text": "Zubat hanging from a chandelier",
+      "kind": "chaos",
+      "alternates": ["zubat on a chandelier"],
+      "keywords": ["zubat", "chandelier"]
+    },
+    {
+      "text": "Oddish pulled up like a carrot",
+      "kind": "chaos",
+      "alternates": ["oddish pulled like a carrot"],
+      "keywords": ["oddish", "carrot"]
+    },
+    {
+      "text": "Bellsprout in a flower vase",
+      "kind": "chaos",
+      "alternates": ["bellsprout in a vase"],
+      "keywords": ["bellsprout", "vase"]
+    },
+    {
+      "text": "Tentacruel directing traffic",
+      "kind": "chaos",
+      "alternates": ["tentacruel traffic police"],
+      "keywords": ["tentacruel", "traffic"]
+    },
+    {
+      "text": "Ponyta as a carousel horse",
+      "kind": "chaos",
+      "alternates": ["ponyta on a carousel"],
+      "keywords": ["ponyta", "carousel"]
+    },
+    {
+      "text": "Arcanine pulling a melting snow sled",
+      "kind": "chaos",
+      "alternates": ["arcanine sled", "arcanine melting a sled"],
+      "keywords": ["arcanine", "sled"]
+    },
+    {
+      "text": "Growlithe fetching a fire hydrant",
+      "kind": "chaos",
+      "alternates": ["growlithe with a fire hydrant"],
+      "keywords": ["growlithe", "hydrant"]
+    },
+    {
+      "text": "Vulpix with tails tied in knots",
+      "kind": "chaos",
+      "alternates": ["vulpix tails in knots"],
+      "keywords": ["vulpix", "knots"]
+    },
+    {
+      "text": "Ninetales dusting with its tails",
+      "kind": "chaos",
+      "alternates": ["ninetales feather duster"],
+      "keywords": ["ninetales", "dusting"]
+    },
+    {
+      "text": "Poliwag mistaken for a lollipop",
+      "kind": "chaos",
+      "alternates": ["poliwag lollipop"],
+      "keywords": ["poliwag", "lollipop"]
+    },
+    {
+      "text": "Mankey smashing a piñata",
+      "kind": "chaos",
+      "alternates": ["mankey hitting a pinata"],
+      "keywords": ["mankey", "piñata"]
+    },
+    {
+      "text": "Pidgey blowing out birthday candles",
+      "kind": "chaos",
+      "alternates": ["pidgey blowing candles"],
+      "keywords": ["pidgey", "candles"]
+    },
+    {
+      "text": "Pidgeot as a leaf blower",
+      "kind": "chaos",
+      "alternates": ["pidgeot leafblower"],
+      "keywords": ["pidgeot", "leaf blower"]
+    },
+    {
+      "text": "Spearow flock chasing a mailman",
+      "kind": "chaos",
+      "alternates": ["spearow chasing a postman"],
+      "keywords": ["spearow", "mailman"]
+    },
+    {
+      "text": "Rattata gnawing a giant cheese",
+      "kind": "chaos",
+      "alternates": ["rattata eating cheese"],
+      "keywords": ["rattata", "cheese"]
+    },
+    {
+      "text": "Master Ball wasted on a Rattata",
+      "kind": "chaos",
+      "alternates": ["master ball on a rattata"],
+      "keywords": ["master ball", "rattata"]
+    },
+    {
+      "text": "Arbok's hood as an umbrella",
+      "kind": "chaos",
+      "alternates": ["arbok umbrella"],
+      "keywords": ["arbok", "umbrella"]
+    },
+    {
+      "text": "Caterpie in a sleeping bag",
+      "kind": "chaos",
+      "alternates": ["caterpie sleeping bag"],
+      "keywords": ["caterpie", "sleeping bag"]
+    },
+    {
+      "text": "Metapod as a punching bag",
+      "kind": "chaos",
+      "alternates": ["metapod punching bag"],
+      "keywords": ["metapod", "punching bag"]
+    },
+    {
+      "text": "Butterfree caught in a butterfly net",
+      "kind": "chaos",
+      "alternates": ["butterfree in a net"],
+      "keywords": ["butterfree", "net"]
+    },
+    {
+      "text": "Beedrill sewing a quilt",
+      "kind": "chaos",
+      "alternates": ["beedrill sewing"],
+      "keywords": ["beedrill", "sewing"]
+    },
+    {
+      "text": "Farfetch'd fencing with a baguette",
+      "kind": "chaos",
+      "alternates": ["farfetchd baguette", "farfetch'd with a baguette"],
+      "keywords": ["farfetch", "baguette"]
+    },
+    {
+      "text": "Grimer clogging a sink",
+      "kind": "chaos",
+      "alternates": ["grimer in a sink"],
+      "keywords": ["grimer", "sink"]
+    },
+    {
+      "text": "Muk going through a car wash",
+      "kind": "chaos",
+      "alternates": ["muk car wash"],
+      "keywords": ["muk", "car wash"]
+    },
+    {
+      "text": "Koffing wearing an air freshener",
+      "kind": "chaos",
+      "alternates": ["koffing air freshener"],
+      "keywords": ["koffing", "freshener"]
+    },
+    {
+      "text": "Shellder as castanets",
+      "kind": "chaos",
+      "alternates": ["shellder castanets"],
+      "keywords": ["shellder", "castanets"]
+    },
+    {
+      "text": "Cloyster as a jewelry box",
+      "kind": "chaos",
+      "alternates": ["cloyster jewellery box"],
+      "keywords": ["cloyster", "jewelry"]
+    },
+    {
+      "text": "Staryu topping a Christmas tree",
+      "kind": "chaos",
+      "alternates": ["staryu christmas tree topper", "staryu on a christmas tree"],
+      "keywords": ["staryu", "christmas"]
+    },
+    {
+      "text": "Starmie as a ceiling fan",
+      "kind": "chaos",
+      "alternates": ["starmie ceiling fan"],
+      "keywords": ["starmie", "fan"]
+    },
+    {
+      "text": "Horsea as a fountain pen",
+      "kind": "chaos",
+      "alternates": ["horsea pen"],
+      "keywords": ["horsea", "pen"]
+    },
+    {
+      "text": "Goldeen popping pool floats",
+      "kind": "chaos",
+      "alternates": ["goldeen popping a pool float"],
+      "keywords": ["goldeen", "floats"]
+    },
+    {
+      "text": "Tauros charging at a red cape",
+      "kind": "chaos",
+      "alternates": ["tauros red cape"],
+      "keywords": ["tauros", "cape"]
+    },
+    {
+      "text": "Rhyhorn in a china shop",
+      "kind": "chaos",
+      "alternates": ["rhyhorn china shop"],
+      "keywords": ["rhyhorn", "china"]
+    },
+    {
+      "text": "Rhydon as a dentist drill",
+      "kind": "chaos",
+      "alternates": ["rhydon dentist"],
+      "keywords": ["rhydon", "dentist"]
+    },
+    {
+      "text": "Electabuzz powering a blender",
+      "kind": "chaos",
+      "alternates": ["electabuzz blender"],
+      "keywords": ["electabuzz", "blender"]
+    },
+    {
+      "text": "Magmar running a pizza oven",
+      "kind": "chaos",
+      "alternates": ["magmar pizza oven"],
+      "keywords": ["magmar", "oven"]
+    },
+    {
+      "text": "Pinsir as a nutcracker",
+      "kind": "chaos",
+      "alternates": ["pinsir cracking nuts"],
+      "keywords": ["pinsir", "nutcracker"]
+    },
+    {
+      "text": "Hitmonlee changing a lightbulb",
+      "kind": "chaos",
+      "alternates": ["hitmonlee changing a light bulb"],
+      "keywords": ["hitmonlee", "lightbulb"]
+    },
+    {
+      "text": "Hitmonchan in oven mitts",
+      "kind": "chaos",
+      "alternates": ["hitmonchan oven gloves"],
+      "keywords": ["hitmonchan", "mitts"]
+    },
+    {
+      "text": "Dog stealing Cubone's bone",
+      "kind": "chaos",
+      "alternates": ["dog running off with cubone's bone"],
+      "keywords": ["dog", "cubone", "bone"]
+    },
+    {
+      "text": "Wobbuffet as a bop bag",
+      "kind": "chaos",
+      "alternates": ["wobbuffet punching clown", "wobbuffet inflatable"],
+      "keywords": ["wobbuffet", "bop"]
+    },
+    {
+      "text": "Steelix as a train",
+      "kind": "chaos",
+      "alternates": ["steelix train"],
+      "keywords": ["steelix", "train"]
+    },
+    {
+      "text": "Magnemite stuck to a fridge",
+      "kind": "chaos",
+      "alternates": ["magnemite fridge magnet"],
+      "keywords": ["magnemite", "fridge"]
+    },
+    {
+      "text": "Tepig as a piggy bank",
+      "kind": "chaos",
+      "alternates": ["tepig piggy bank"],
+      "keywords": ["tepig", "piggy bank"]
+    },
+    {
+      "text": "Doduo's heads pecking each other",
+      "kind": "chaos",
+      "alternates": ["doduo pecking itself"],
+      "keywords": ["doduo", "pecking"]
+    },
+    {
+      "text": "Nurse Joy at a drive-through window",
+      "kind": "chaos",
+      "alternates": ["pokemon center drive through", "nurse joy drive thru"],
+      "keywords": ["joy", "drive"]
+    },
+    {
+      "text": "Golem as a wrecking ball",
+      "kind": "chaos",
+      "alternates": ["golem wrecking ball"],
+      "keywords": ["golem", "wrecking ball"]
+    },
+    {
+      "text": "Rowlet as a hood ornament",
+      "kind": "chaos",
+      "alternates": ["rowlet on a car hood"],
+      "keywords": ["rowlet", "hood ornament"]
+    },
+    {
+      "text": "Blastoise as a lawn sprinkler",
+      "kind": "chaos",
+      "alternates": ["blastoise sprinkler"],
+      "keywords": ["blastoise", "sprinkler"]
+    },
+    {
+      "text": "Raichu jump-starting a car",
+      "kind": "chaos",
+      "alternates": ["raichu jumpstarting a car"],
+      "keywords": ["raichu", "car"]
+    },
+    {
+      "text": "Dugtrio sharing one scarf",
+      "kind": "chaos",
+      "alternates": ["dugtrio scarf"],
+      "keywords": ["dugtrio", "scarf"]
+    }
+  ]
+}

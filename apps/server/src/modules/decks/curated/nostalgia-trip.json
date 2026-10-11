@@ -1,0 +1,2893 @@
+{
+  "slug": "nostalgia-trip",
+  "featuredRank": null,
+  "title": "Nostalgia Trip",
+  "description": "Cassette tapes, Game Boys, Tamagotchis and rotary phones: draw the gadgets, toys and arcade games from the seventies to the noughties.",
+  "tags": ["nostalgia", "retro", "toys", "gadgets", "video games", "eighties", "nineties"],
+  "cards": [
+    {
+      "text": "Cassette tape",
+      "kind": "easy",
+      "alternates": ["tape", "audio cassette", "cassette"],
+      "keywords": ["cassette"]
+    },
+    {
+      "text": "Floppy disk",
+      "kind": "easy",
+      "alternates": ["diskette", "floppy"],
+      "keywords": ["floppy"]
+    },
+    {
+      "text": "VHS tape",
+      "kind": "easy",
+      "alternates": ["videotape", "video cassette", "vhs"],
+      "keywords": ["vhs"]
+    },
+    {
+      "text": "Rotary phone",
+      "kind": "easy",
+      "alternates": ["dial phone", "rotary telephone"],
+      "keywords": ["rotary"]
+    },
+    {
+      "text": "Pager",
+      "kind": "easy",
+      "alternates": ["beeper"],
+      "keywords": ["pager"]
+    },
+    {
+      "text": "Flip phone",
+      "kind": "easy",
+      "alternates": ["clamshell phone", "flip mobile"],
+      "keywords": ["flip", "phone"]
+    },
+    {
+      "text": "Walkman",
+      "kind": "easy",
+      "alternates": ["cassette player", "personal stereo"],
+      "keywords": ["walkman"]
+    },
+    {
+      "text": "Tube TV",
+      "kind": "easy",
+      "alternates": ["crt tv", "old tv", "crt television"],
+      "keywords": ["tv"]
+    },
+    {
+      "text": "Fax machine",
+      "kind": "easy",
+      "alternates": ["fax"],
+      "keywords": ["fax"]
+    },
+    {
+      "text": "Dial-up modem",
+      "kind": "easy",
+      "alternates": ["modem", "dialup modem"],
+      "keywords": ["modem"]
+    },
+    {
+      "text": "Film camera",
+      "kind": "easy",
+      "alternates": ["analog camera", "camera"],
+      "keywords": ["camera"]
+    },
+    {
+      "text": "Polaroid camera",
+      "kind": "easy",
+      "alternates": ["instant camera", "polaroid"],
+      "keywords": ["polaroid"]
+    },
+    {
+      "text": "Game Boy",
+      "kind": "easy",
+      "alternates": ["gameboy"],
+      "keywords": ["game", "boy"]
+    },
+    {
+      "text": "Tamagotchi",
+      "kind": "easy",
+      "alternates": ["virtual pet", "digital pet"],
+      "keywords": ["tamagotchi"]
+    },
+    {
+      "text": "Joystick",
+      "kind": "easy",
+      "alternates": ["arcade stick"],
+      "keywords": ["joystick"]
+    },
+    {
+      "text": "Arcade cabinet",
+      "kind": "easy",
+      "alternates": ["arcade machine", "arcade game"],
+      "keywords": ["arcade"]
+    },
+    {
+      "text": "Yo-yo",
+      "kind": "easy",
+      "alternates": ["yoyo"],
+      "keywords": ["yo"]
+    },
+    {
+      "text": "Rubik's cube",
+      "kind": "easy",
+      "alternates": ["magic cube", "puzzle cube", "rubiks cube"],
+      "keywords": ["cube"]
+    },
+    {
+      "text": "Slinky",
+      "kind": "easy",
+      "alternates": ["spring toy"],
+      "keywords": ["slinky"]
+    },
+    {
+      "text": "Etch A Sketch",
+      "kind": "easy",
+      "alternates": ["etch-a-sketch", "drawing toy"],
+      "keywords": ["etch", "sketch"]
+    },
+    {
+      "text": "Furby",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["furby"]
+    },
+    {
+      "text": "Pogs",
+      "kind": "easy",
+      "alternates": ["pog", "milk caps"],
+      "keywords": ["pogs"]
+    },
+    {
+      "text": "Slap bracelet",
+      "kind": "easy",
+      "alternates": ["snap bracelet"],
+      "keywords": ["slap", "bracelet"]
+    },
+    {
+      "text": "View-Master",
+      "kind": "easy",
+      "alternates": ["viewmaster", "stereo viewer"],
+      "keywords": ["view"]
+    },
+    {
+      "text": "Jukebox",
+      "kind": "easy",
+      "alternates": ["juke box"],
+      "keywords": ["jukebox"]
+    },
+    {
+      "text": "Roller skates",
+      "kind": "easy",
+      "alternates": ["quad skates", "rollerskates"],
+      "keywords": ["skates"]
+    },
+    {
+      "text": "Payphone",
+      "kind": "easy",
+      "alternates": ["pay phone", "phone booth", "telephone booth"],
+      "keywords": ["payphone"]
+    },
+    {
+      "text": "Typewriter",
+      "kind": "easy",
+      "alternates": ["type writer"],
+      "keywords": ["typewriter"]
+    },
+    {
+      "text": "Encyclopedia",
+      "kind": "easy",
+      "alternates": ["encyclopaedia", "encyclopedias"],
+      "keywords": ["encyclopedia"]
+    },
+    {
+      "text": "Boombox",
+      "kind": "easy",
+      "alternates": ["boom box", "stereo"],
+      "keywords": ["boombox"]
+    },
+    {
+      "text": "Record player",
+      "kind": "easy",
+      "alternates": ["turntable", "gramophone"],
+      "keywords": ["record", "player"]
+    },
+    {
+      "text": "Vinyl record",
+      "kind": "easy",
+      "alternates": ["vinyl", "lp", "record album"],
+      "keywords": ["vinyl"]
+    },
+    {
+      "text": "Lava lamp",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["lava", "lamp"]
+    },
+    {
+      "text": "Disco ball",
+      "kind": "easy",
+      "alternates": ["mirror ball", "glitter ball"],
+      "keywords": ["disco", "ball"]
+    },
+    {
+      "text": "Answering machine",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["answering", "machine"]
+    },
+    {
+      "text": "Calculator watch",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["calculator", "watch"]
+    },
+    {
+      "text": "Discman",
+      "kind": "easy",
+      "alternates": ["cd player", "portable cd player"],
+      "keywords": ["discman"]
+    },
+    {
+      "text": "Compact disc",
+      "kind": "easy",
+      "alternates": ["cd", "cd-rom"],
+      "keywords": ["disc"]
+    },
+    {
+      "text": "iPod",
+      "kind": "easy",
+      "alternates": ["music player"],
+      "keywords": ["ipod"]
+    },
+    {
+      "text": "Brick phone",
+      "kind": "easy",
+      "alternates": ["brick mobile", "nokia brick"],
+      "keywords": ["brick", "phone"]
+    },
+    {
+      "text": "Pac-Man",
+      "kind": "easy",
+      "alternates": ["pacman", "pac man"],
+      "keywords": ["pac"]
+    },
+    {
+      "text": "Space invader",
+      "kind": "easy",
+      "alternates": ["space invaders"],
+      "keywords": ["invader"]
+    },
+    {
+      "text": "Tetris",
+      "kind": "easy",
+      "alternates": ["tetris blocks"],
+      "keywords": ["tetris"]
+    },
+    {
+      "text": "Super Mario",
+      "kind": "easy",
+      "alternates": ["mario"],
+      "keywords": ["mario"]
+    },
+    {
+      "text": "Sonic the Hedgehog",
+      "kind": "easy",
+      "alternates": ["sonic"],
+      "keywords": ["sonic"]
+    },
+    {
+      "text": "Donkey Kong",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["donkey", "kong"]
+    },
+    {
+      "text": "Nintendo",
+      "kind": "easy",
+      "alternates": ["nes", "nes console"],
+      "keywords": ["nintendo"]
+    },
+    {
+      "text": "PlayStation",
+      "kind": "easy",
+      "alternates": ["play station", "ps one"],
+      "keywords": ["playstation"]
+    },
+    {
+      "text": "Game cartridge",
+      "kind": "easy",
+      "alternates": ["cartridge", "game cart"],
+      "keywords": ["cartridge"]
+    },
+    {
+      "text": "Light gun",
+      "kind": "easy",
+      "alternates": ["zapper"],
+      "keywords": ["light", "gun"]
+    },
+    {
+      "text": "Game controller",
+      "kind": "easy",
+      "alternates": ["gamepad", "controller"],
+      "keywords": ["controller"]
+    },
+    {
+      "text": "Pinball machine",
+      "kind": "easy",
+      "alternates": ["pinball"],
+      "keywords": ["pinball"]
+    },
+    {
+      "text": "Claw machine",
+      "kind": "easy",
+      "alternates": ["crane game", "claw game"],
+      "keywords": ["claw"]
+    },
+    {
+      "text": "Pong",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pong"]
+    },
+    {
+      "text": "Hula hoop",
+      "kind": "easy",
+      "alternates": ["hoola hoop"],
+      "keywords": ["hula", "hoop"]
+    },
+    {
+      "text": "Pogo stick",
+      "kind": "easy",
+      "alternates": ["pogo"],
+      "keywords": ["pogo"]
+    },
+    {
+      "text": "Rollerblades",
+      "kind": "easy",
+      "alternates": ["inline skates", "roller blades"],
+      "keywords": ["rollerblades"]
+    },
+    {
+      "text": "Troll doll",
+      "kind": "easy",
+      "alternates": ["troll"],
+      "keywords": ["troll"]
+    },
+    {
+      "text": "Care Bear",
+      "kind": "easy",
+      "alternates": ["care bears"],
+      "keywords": ["care", "bear"]
+    },
+    {
+      "text": "Beanie Baby",
+      "kind": "easy",
+      "alternates": ["beanie babies"],
+      "keywords": ["beanie"]
+    },
+    {
+      "text": "Magic eight ball",
+      "kind": "easy",
+      "alternates": ["eight ball"],
+      "keywords": ["eight", "ball"]
+    },
+    {
+      "text": "Spinning top",
+      "kind": "easy",
+      "alternates": ["top"],
+      "keywords": ["top"]
+    },
+    {
+      "text": "Marbles",
+      "kind": "easy",
+      "alternates": ["marble"],
+      "keywords": ["marbles"]
+    },
+    {
+      "text": "Lego brick",
+      "kind": "easy",
+      "alternates": ["lego", "lego block"],
+      "keywords": ["lego"]
+    },
+    {
+      "text": "Mr Potato Head",
+      "kind": "easy",
+      "alternates": ["potato head"],
+      "keywords": ["potato", "head"]
+    },
+    {
+      "text": "Play-Doh",
+      "kind": "easy",
+      "alternates": ["playdough", "play dough", "modelling clay"],
+      "keywords": ["doh"]
+    },
+    {
+      "text": "Walkie-talkie",
+      "kind": "easy",
+      "alternates": ["walkie talkie", "two-way radio"],
+      "keywords": ["walkie"]
+    },
+    {
+      "text": "Tin can telephone",
+      "kind": "easy",
+      "alternates": ["tin can phone", "string phone"],
+      "keywords": ["tin", "can"]
+    },
+    {
+      "text": "Flip clock",
+      "kind": "easy",
+      "alternates": ["flip alarm clock"],
+      "keywords": ["flip", "clock"]
+    },
+    {
+      "text": "Transistor radio",
+      "kind": "easy",
+      "alternates": ["portable radio", "radio"],
+      "keywords": ["radio"]
+    },
+    {
+      "text": "Rabbit ears",
+      "kind": "easy",
+      "alternates": ["tv antenna", "rabbit ear antenna"],
+      "keywords": ["rabbit", "ears"]
+    },
+    {
+      "text": "Slide projector",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["slide", "projector"]
+    },
+    {
+      "text": "Overhead projector",
+      "kind": "easy",
+      "alternates": ["ohp"],
+      "keywords": ["overhead", "projector"]
+    },
+    {
+      "text": "Film reel",
+      "kind": "easy",
+      "alternates": ["movie reel", "reel"],
+      "keywords": ["reel"]
+    },
+    {
+      "text": "Camcorder",
+      "kind": "easy",
+      "alternates": ["video camera", "handycam"],
+      "keywords": ["camcorder"]
+    },
+    {
+      "text": "Disposable camera",
+      "kind": "easy",
+      "alternates": ["single-use camera"],
+      "keywords": ["disposable", "camera"]
+    },
+    {
+      "text": "Roll of film",
+      "kind": "easy",
+      "alternates": ["film roll", "film canister"],
+      "keywords": ["film"]
+    },
+    {
+      "text": "Photo booth",
+      "kind": "easy",
+      "alternates": ["photobooth"],
+      "keywords": ["photo", "booth"]
+    },
+    {
+      "text": "Phone book",
+      "kind": "easy",
+      "alternates": ["phonebook", "yellow pages"],
+      "keywords": ["phone", "book"]
+    },
+    {
+      "text": "Rolodex",
+      "kind": "easy",
+      "alternates": ["card file"],
+      "keywords": ["rolodex"]
+    },
+    {
+      "text": "Palm Pilot",
+      "kind": "easy",
+      "alternates": ["pda", "palmpilot"],
+      "keywords": ["palm"]
+    },
+    {
+      "text": "Desktop computer",
+      "kind": "easy",
+      "alternates": ["old computer", "personal computer", "pc"],
+      "keywords": ["computer"]
+    },
+    {
+      "text": "Video store",
+      "kind": "easy",
+      "alternates": ["video rental store", "rental store"],
+      "keywords": ["video", "store"]
+    },
+    {
+      "text": "Drive-in cinema",
+      "kind": "easy",
+      "alternates": ["drive-in", "drive-in movie", "drive-in theater"],
+      "keywords": ["drive"]
+    },
+    {
+      "text": "Roller rink",
+      "kind": "easy",
+      "alternates": ["roller disco", "skating rink"],
+      "keywords": ["rink"]
+    },
+    {
+      "text": "Road map",
+      "kind": "easy",
+      "alternates": ["paper map", "folding map"],
+      "keywords": ["map"]
+    },
+    {
+      "text": "Mood ring",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["mood", "ring"]
+    },
+    {
+      "text": "Scrunchie",
+      "kind": "easy",
+      "alternates": ["scrunchy", "hair scrunchie"],
+      "keywords": ["scrunchie"]
+    },
+    {
+      "text": "Leg warmers",
+      "kind": "easy",
+      "alternates": ["legwarmers"],
+      "keywords": ["leg", "warmers"]
+    },
+    {
+      "text": "Mullet",
+      "kind": "easy",
+      "alternates": ["mullet haircut"],
+      "keywords": ["mullet"]
+    },
+    {
+      "text": "Sweatband",
+      "kind": "easy",
+      "alternates": ["headband", "wristband"],
+      "keywords": ["sweatband"]
+    },
+    {
+      "text": "BMX bike",
+      "kind": "easy",
+      "alternates": ["bmx"],
+      "keywords": ["bmx"]
+    },
+    {
+      "text": "Kick scooter",
+      "kind": "easy",
+      "alternates": ["scooter", "razor scooter"],
+      "keywords": ["scooter"]
+    },
+    {
+      "text": "Space hopper",
+      "kind": "easy",
+      "alternates": ["hoppity hop", "bouncy hopper"],
+      "keywords": ["hopper"]
+    },
+    {
+      "text": "Glow stick",
+      "kind": "easy",
+      "alternates": ["glowstick", "light stick"],
+      "keywords": ["glow"]
+    },
+    {
+      "text": "Trading cards",
+      "kind": "easy",
+      "alternates": ["trading card", "collectible cards"],
+      "keywords": ["trading", "cards"]
+    },
+    {
+      "text": "Poké Ball",
+      "kind": "easy",
+      "alternates": ["pokeball", "poke ball"],
+      "keywords": ["poké", "ball"]
+    },
+    {
+      "text": "Pikachu",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pikachu"]
+    },
+    {
+      "text": "Lunchbox",
+      "kind": "easy",
+      "alternates": ["lunch box", "metal lunchbox"],
+      "keywords": ["lunchbox"]
+    },
+    {
+      "text": "Gumball machine",
+      "kind": "easy",
+      "alternates": ["gum machine", "gumball dispenser"],
+      "keywords": ["gumball"]
+    },
+    {
+      "text": "Pez dispenser",
+      "kind": "easy",
+      "alternates": ["pez"],
+      "keywords": ["pez"]
+    },
+    {
+      "text": "Snake game",
+      "kind": "easy",
+      "alternates": ["snake"],
+      "keywords": ["snake"]
+    },
+    {
+      "text": "Heelys",
+      "kind": "easy",
+      "alternates": ["wheelie shoes", "wheeled shoes"],
+      "keywords": ["heelys"]
+    },
+    {
+      "text": "Bell-bottoms",
+      "kind": "easy",
+      "alternates": ["flares", "bell bottom jeans", "bell bottoms"],
+      "keywords": ["bell"]
+    },
+    {
+      "text": "Platform shoes",
+      "kind": "easy",
+      "alternates": ["platforms"],
+      "keywords": ["platform", "shoes"]
+    },
+    {
+      "text": "Bean bag chair",
+      "kind": "easy",
+      "alternates": ["beanbag", "bean bag"],
+      "keywords": ["bean"]
+    },
+    {
+      "text": "Hacky sack",
+      "kind": "easy",
+      "alternates": ["footbag"],
+      "keywords": ["hacky"]
+    },
+    {
+      "text": "Spirograph",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["spirograph"]
+    },
+    {
+      "text": "Connect Four",
+      "kind": "easy",
+      "alternates": ["connect four game"],
+      "keywords": ["connect", "four"]
+    },
+    {
+      "text": "Twister",
+      "kind": "easy",
+      "alternates": ["twister mat"],
+      "keywords": ["twister"]
+    },
+    {
+      "text": "Hungry Hippos",
+      "kind": "easy",
+      "alternates": ["hungry hungry hippos"],
+      "keywords": ["hungry", "hippos"]
+    },
+    {
+      "text": "Ball pit",
+      "kind": "easy",
+      "alternates": ["ball pool"],
+      "keywords": ["ball", "pit"]
+    },
+    {
+      "text": "Jack-in-the-box",
+      "kind": "easy",
+      "alternates": ["jack in the box"],
+      "keywords": ["jack", "box"]
+    },
+    {
+      "text": "Wind-up toy",
+      "kind": "easy",
+      "alternates": ["windup toy", "clockwork toy"],
+      "keywords": ["wind"]
+    },
+    {
+      "text": "Tin robot",
+      "kind": "easy",
+      "alternates": ["toy robot", "wind-up robot"],
+      "keywords": ["robot"]
+    },
+    {
+      "text": "Paper fortune teller",
+      "kind": "easy",
+      "alternates": ["cootie catcher", "fortune teller"],
+      "keywords": ["fortune"]
+    },
+    {
+      "text": "Kaleidoscope",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["kaleidoscope"]
+    },
+    {
+      "text": "Dance mat",
+      "kind": "easy",
+      "alternates": ["dance pad"],
+      "keywords": ["dance"]
+    },
+    {
+      "text": "Arcade token",
+      "kind": "easy",
+      "alternates": ["token", "arcade coin"],
+      "keywords": ["token"]
+    },
+    {
+      "text": "Frogger",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["frogger"]
+    },
+    {
+      "text": "Tape recorder",
+      "kind": "easy",
+      "alternates": ["cassette recorder"],
+      "keywords": ["recorder"]
+    },
+    {
+      "text": "Reel-to-reel",
+      "kind": "easy",
+      "alternates": ["reel to reel", "tape reel"],
+      "keywords": ["reel"]
+    },
+    {
+      "text": "Car phone",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["car", "phone"]
+    },
+    {
+      "text": "Ball mouse",
+      "kind": "easy",
+      "alternates": ["computer mouse", "mouse"],
+      "keywords": ["mouse"]
+    },
+    {
+      "text": "CRT monitor",
+      "kind": "easy",
+      "alternates": ["computer monitor", "old monitor"],
+      "keywords": ["monitor"]
+    },
+    {
+      "text": "Dot matrix printer",
+      "kind": "easy",
+      "alternates": ["printer", "dot matrix"],
+      "keywords": ["printer"]
+    },
+    {
+      "text": "Sega Genesis",
+      "kind": "easy",
+      "alternates": ["mega drive", "sega"],
+      "keywords": ["sega"]
+    },
+    {
+      "text": "Atari",
+      "kind": "easy",
+      "alternates": ["atari console"],
+      "keywords": ["atari"]
+    },
+    {
+      "text": "Tape deck",
+      "kind": "easy",
+      "alternates": ["cassette deck"],
+      "keywords": ["deck"]
+    },
+    {
+      "text": "Corded phone",
+      "kind": "easy",
+      "alternates": ["wall phone", "landline", "cord phone"],
+      "keywords": ["corded", "phone"]
+    },
+    {
+      "text": "Milkman",
+      "kind": "easy",
+      "alternates": ["milk man", "milk delivery"],
+      "keywords": ["milkman"]
+    },
+    {
+      "text": "Ice cream van",
+      "kind": "easy",
+      "alternates": ["ice cream truck"],
+      "keywords": ["ice", "cream"]
+    },
+    {
+      "text": "Slot car",
+      "kind": "easy",
+      "alternates": ["slot car track", "scalextric"],
+      "keywords": ["slot"]
+    },
+    {
+      "text": "Toy train set",
+      "kind": "easy",
+      "alternates": ["train set", "model train"],
+      "keywords": ["train"]
+    },
+    {
+      "text": "Rocking horse",
+      "kind": "easy",
+      "alternates": ["hobby horse"],
+      "keywords": ["rocking", "horse"]
+    },
+    {
+      "text": "Tricycle",
+      "kind": "easy",
+      "alternates": ["trike"],
+      "keywords": ["tricycle"]
+    },
+    {
+      "text": "Skip rope",
+      "kind": "easy",
+      "alternates": ["jump rope", "skipping rope"],
+      "keywords": ["rope"]
+    },
+    {
+      "text": "Hopscotch",
+      "kind": "easy",
+      "alternates": ["hopscotch grid"],
+      "keywords": ["hopscotch"]
+    },
+    {
+      "text": "Bubble wand",
+      "kind": "easy",
+      "alternates": ["bubbles", "bubble blower"],
+      "keywords": ["bubble"]
+    },
+    {
+      "text": "Sticker book",
+      "kind": "easy",
+      "alternates": ["sticker album", "stickers"],
+      "keywords": ["sticker"]
+    },
+    {
+      "text": "VCR",
+      "kind": "easy",
+      "alternates": ["video recorder", "video player", "vcr player"],
+      "keywords": ["vcr"]
+    },
+    {
+      "text": "Correction fluid",
+      "kind": "easy",
+      "alternates": ["tippex", "white-out", "liquid paper"],
+      "keywords": ["correction", "fluid"]
+    },
+    {
+      "text": "Bluetooth headset",
+      "kind": "easy",
+      "alternates": ["bluetooth earpiece", "earpiece"],
+      "keywords": ["bluetooth"]
+    },
+    {
+      "text": "Wii remote",
+      "kind": "easy",
+      "alternates": ["wiimote", "wii controller"],
+      "keywords": ["wii"]
+    },
+    {
+      "text": "Guitar controller",
+      "kind": "easy",
+      "alternates": ["plastic guitar", "guitar hero guitar"],
+      "keywords": ["guitar"]
+    },
+    {
+      "text": "Action figure",
+      "kind": "easy",
+      "alternates": ["action figures"],
+      "keywords": ["action", "figure"]
+    },
+    {
+      "text": "Toy soldiers",
+      "kind": "easy",
+      "alternates": ["army men", "plastic soldiers"],
+      "keywords": ["soldiers"]
+    },
+    {
+      "text": "Bouncy ball",
+      "kind": "easy",
+      "alternates": ["super ball", "rubber ball"],
+      "keywords": ["bouncy", "ball"]
+    },
+    {
+      "text": "Toy car",
+      "kind": "easy",
+      "alternates": ["die-cast car", "matchbox car"],
+      "keywords": ["toy", "car"]
+    },
+    {
+      "text": "Tracksuit",
+      "kind": "easy",
+      "alternates": ["shell suit", "track suit"],
+      "keywords": ["tracksuit"]
+    },
+    {
+      "text": "Bucket hat",
+      "kind": "easy",
+      "alternates": ["fishing hat"],
+      "keywords": ["bucket", "hat"]
+    },
+    {
+      "text": "Jelly shoes",
+      "kind": "easy",
+      "alternates": ["jelly sandals", "jellies"],
+      "keywords": ["jelly"]
+    },
+    {
+      "text": "Choker",
+      "kind": "easy",
+      "alternates": ["choker necklace", "tattoo choker"],
+      "keywords": ["choker"]
+    },
+    {
+      "text": "Butterfly clip",
+      "kind": "easy",
+      "alternates": ["butterfly hair clip"],
+      "keywords": ["butterfly", "clip"]
+    },
+    {
+      "text": "Friendship bracelet",
+      "kind": "easy",
+      "alternates": ["friendship band"],
+      "keywords": ["friendship", "bracelet"]
+    },
+    {
+      "text": "Plasma ball",
+      "kind": "easy",
+      "alternates": ["plasma globe", "plasma lamp"],
+      "keywords": ["plasma"]
+    },
+    {
+      "text": "Inflatable chair",
+      "kind": "easy",
+      "alternates": ["blow-up chair", "inflatable armchair"],
+      "keywords": ["inflatable", "chair"]
+    },
+    {
+      "text": "Waterbed",
+      "kind": "easy",
+      "alternates": ["water bed"],
+      "keywords": ["waterbed"]
+    },
+    {
+      "text": "Pinwheel",
+      "kind": "easy",
+      "alternates": ["windmill toy", "whirligig"],
+      "keywords": ["pinwheel"]
+    },
+    {
+      "text": "Chatter teeth",
+      "kind": "easy",
+      "alternates": ["chattering teeth", "wind-up teeth"],
+      "keywords": ["teeth"]
+    },
+    {
+      "text": "Whoopee cushion",
+      "kind": "easy",
+      "alternates": ["whoopie cushion"],
+      "keywords": ["whoopee", "cushion"]
+    },
+    {
+      "text": "Fibre optic lamp",
+      "kind": "easy",
+      "alternates": ["fiber optic lamp", "optic lamp"],
+      "keywords": ["optic"]
+    },
+    {
+      "text": "Rewinding a tape with a pencil",
+      "kind": "hard",
+      "alternates": ["rewinding a cassette with a pencil", "pencil in a cassette"],
+      "keywords": ["rewinding", "tape", "pencil"]
+    },
+    {
+      "text": "Tape deck chewing a cassette",
+      "kind": "hard",
+      "alternates": [
+        "cassette player eating a tape",
+        "walkman eating a tape",
+        "tape player chewing a tape"
+      ],
+      "keywords": ["chewing", "cassette"]
+    },
+    {
+      "text": "Cassette in a car stereo",
+      "kind": "hard",
+      "alternates": ["tape in the car", "car cassette player"],
+      "keywords": ["cassette", "car"]
+    },
+    {
+      "text": "Blowing into a game cartridge",
+      "kind": "hard",
+      "alternates": ["blowing on a cartridge", "blowing into a cartridge"],
+      "keywords": ["blowing", "cartridge"]
+    },
+    {
+      "text": "Shaking a Polaroid photo",
+      "kind": "hard",
+      "alternates": ["shaking a polaroid", "waving a polaroid"],
+      "keywords": ["shaking", "polaroid"]
+    },
+    {
+      "text": "Polaroid photos on a string",
+      "kind": "hard",
+      "alternates": ["polaroids on a string", "polaroid wall"],
+      "keywords": ["polaroid", "string"]
+    },
+    {
+      "text": "Polaroid camera spitting out a photo",
+      "kind": "hard",
+      "alternates": ["polaroid photo coming out"],
+      "keywords": ["polaroid", "photo"]
+    },
+    {
+      "text": "Dialing a rotary phone",
+      "kind": "hard",
+      "alternates": ["dialling a rotary phone", "using a rotary phone"],
+      "keywords": ["dialing", "rotary"]
+    },
+    {
+      "text": "Twirling the phone cord",
+      "kind": "hard",
+      "alternates": ["phone cord around a finger", "twisting the phone cord"],
+      "keywords": ["twirling", "cord"]
+    },
+    {
+      "text": "Fax machine printing a page",
+      "kind": "hard",
+      "alternates": ["fax coming through", "receiving a fax"],
+      "keywords": ["fax", "printing"]
+    },
+    {
+      "text": "Inserting a floppy disk",
+      "kind": "hard",
+      "alternates": ["putting in a floppy disk", "floppy into a computer"],
+      "keywords": ["inserting", "floppy"]
+    },
+    {
+      "text": "Putting a tape in the VCR",
+      "kind": "hard",
+      "alternates": ["inserting a video tape", "tape into the vcr"],
+      "keywords": ["tape", "vcr"]
+    },
+    {
+      "text": "Hitting the side of the TV",
+      "kind": "hard",
+      "alternates": ["smacking the tv", "banging the tv", "thumping the tv"],
+      "keywords": ["hitting", "tv"]
+    },
+    {
+      "text": "Adjusting the TV antenna",
+      "kind": "hard",
+      "alternates": ["adjusting rabbit ears", "moving the antenna"],
+      "keywords": ["adjusting", "antenna"]
+    },
+    {
+      "text": "Tinfoil on the antenna",
+      "kind": "hard",
+      "alternates": ["foil on the rabbit ears", "tin foil antenna"],
+      "keywords": ["tinfoil", "antenna"]
+    },
+    {
+      "text": "Pager clipped to a belt",
+      "kind": "hard",
+      "alternates": ["pager on a belt", "beeper on a belt"],
+      "keywords": ["pager", "belt"]
+    },
+    {
+      "text": "Flipping open a phone",
+      "kind": "hard",
+      "alternates": ["opening a flip phone", "snapping a flip phone open"],
+      "keywords": ["flipping", "open", "phone"]
+    },
+    {
+      "text": "Texting on a flip phone",
+      "kind": "hard",
+      "alternates": ["texting on a nokia", "typing on a flip phone"],
+      "keywords": ["texting", "phone"]
+    },
+    {
+      "text": "Jogging with a Walkman",
+      "kind": "hard",
+      "alternates": ["running with a walkman", "walkman jogger"],
+      "keywords": ["jogging", "walkman"]
+    },
+    {
+      "text": "Taping songs off the radio",
+      "kind": "hard",
+      "alternates": ["recording off the radio", "taping the radio"],
+      "keywords": ["taping", "radio"]
+    },
+    {
+      "text": "Dancing around a boombox",
+      "kind": "hard",
+      "alternates": ["breakdancing by a boombox", "boombox dance"],
+      "keywords": ["dancing", "boombox"]
+    },
+    {
+      "text": "Boombox on the shoulder",
+      "kind": "hard",
+      "alternates": ["carrying a boombox on the shoulder", "shoulder boombox"],
+      "keywords": ["boombox", "shoulder"]
+    },
+    {
+      "text": "Dropping the needle on a record",
+      "kind": "hard",
+      "alternates": ["putting the needle on a record", "needle on vinyl"],
+      "keywords": ["needle", "record"]
+    },
+    {
+      "text": "DJ scratching a record",
+      "kind": "hard",
+      "alternates": ["scratching vinyl", "scratching a record"],
+      "keywords": ["scratching", "record"]
+    },
+    {
+      "text": "Slamming a pog stack",
+      "kind": "hard",
+      "alternates": ["playing pogs", "slamming pogs"],
+      "keywords": ["pog", "stack"]
+    },
+    {
+      "text": "Slap bracelet on a wrist",
+      "kind": "hard",
+      "alternates": ["slapping a bracelet on a wrist", "snap bracelet on a wrist"],
+      "keywords": ["slap", "wrist"]
+    },
+    {
+      "text": "Yo-yo walking the dog",
+      "kind": "hard",
+      "alternates": ["walking the dog with a yo-yo", "yo-yo trick"],
+      "keywords": ["yo", "walking", "dog"]
+    },
+    {
+      "text": "Solving a Rubik's cube",
+      "kind": "hard",
+      "alternates": ["solving a rubiks cube", "solving a cube"],
+      "keywords": ["solving", "cube"]
+    },
+    {
+      "text": "Peeling stickers off a Rubik's cube",
+      "kind": "hard",
+      "alternates": ["peeling stickers off a cube", "cheating at a rubiks cube"],
+      "keywords": ["peeling", "stickers", "cube"]
+    },
+    {
+      "text": "Slinky going down the stairs",
+      "kind": "hard",
+      "alternates": ["slinky on stairs", "slinky walking downstairs"],
+      "keywords": ["slinky", "stairs"]
+    },
+    {
+      "text": "Shaking an Etch A Sketch",
+      "kind": "hard",
+      "alternates": ["erasing an etch a sketch", "shaking an etch-a-sketch"],
+      "keywords": ["shaking", "etch"]
+    },
+    {
+      "text": "Feeding a Tamagotchi",
+      "kind": "hard",
+      "alternates": ["tamagotchi eating", "feeding a virtual pet"],
+      "keywords": ["feeding", "tamagotchi"]
+    },
+    {
+      "text": "Tamagotchi on a keychain",
+      "kind": "hard",
+      "alternates": ["tamagotchi keyring", "tamagotchi on keys"],
+      "keywords": ["tamagotchi", "keychain"]
+    },
+    {
+      "text": "Looking through a View-Master",
+      "kind": "hard",
+      "alternates": ["looking into a viewmaster", "peering into a viewmaster"],
+      "keywords": ["looking", "view"]
+    },
+    {
+      "text": "Coin in a jukebox",
+      "kind": "hard",
+      "alternates": ["putting a coin in a jukebox", "coin into the jukebox"],
+      "keywords": ["coin", "jukebox"]
+    },
+    {
+      "text": "Jukebox in a diner",
+      "kind": "hard",
+      "alternates": ["diner jukebox", "diner with a jukebox"],
+      "keywords": ["jukebox", "diner"]
+    },
+    {
+      "text": "Skating under a disco ball",
+      "kind": "hard",
+      "alternates": ["roller skating under a disco ball", "skating at the roller disco"],
+      "keywords": ["skating", "disco", "ball"]
+    },
+    {
+      "text": "Falling over on roller skates",
+      "kind": "hard",
+      "alternates": ["falling on roller skates", "roller skate fall"],
+      "keywords": ["falling", "skates"]
+    },
+    {
+      "text": "Calling from a payphone",
+      "kind": "hard",
+      "alternates": ["using a payphone", "phone call from a payphone"],
+      "keywords": ["calling", "payphone"]
+    },
+    {
+      "text": "Typing on a typewriter",
+      "kind": "hard",
+      "alternates": ["typewriter typing", "using a typewriter"],
+      "keywords": ["typing", "typewriter"]
+    },
+    {
+      "text": "Ripping paper out of a typewriter",
+      "kind": "hard",
+      "alternates": ["pulling paper out of a typewriter", "tearing paper from a typewriter"],
+      "keywords": ["paper", "typewriter"]
+    },
+    {
+      "text": "Reading an encyclopedia",
+      "kind": "hard",
+      "alternates": ["reading an encyclopaedia", "looking it up in an encyclopedia"],
+      "keywords": ["reading", "encyclopedia"]
+    },
+    {
+      "text": "Hourglass on a computer screen",
+      "kind": "hard",
+      "alternates": ["computer hourglass", "loading hourglass"],
+      "keywords": ["hourglass", "computer"]
+    },
+    {
+      "text": "Cleaning a ball mouse",
+      "kind": "hard",
+      "alternates": ["cleaning the mouse ball", "cleaning a computer mouse"],
+      "keywords": ["cleaning", "mouse"]
+    },
+    {
+      "text": "Paper jam in a printer",
+      "kind": "hard",
+      "alternates": ["printer paper jam", "jammed printer"],
+      "keywords": ["paper", "jam", "printer"]
+    },
+    {
+      "text": "Carrying a huge CRT monitor",
+      "kind": "hard",
+      "alternates": ["lifting a crt monitor", "carrying a computer monitor"],
+      "keywords": ["carrying", "monitor"]
+    },
+    {
+      "text": "Winding a film camera",
+      "kind": "hard",
+      "alternates": ["winding the film", "winding on film"],
+      "keywords": ["winding", "film"]
+    },
+    {
+      "text": "Photos drying in a darkroom",
+      "kind": "hard",
+      "alternates": ["darkroom photos", "developing photos in a darkroom"],
+      "keywords": ["photos", "darkroom"]
+    },
+    {
+      "text": "Friends posing in a photo booth",
+      "kind": "hard",
+      "alternates": ["posing in a photo booth", "photo booth pose"],
+      "keywords": ["posing", "booth"]
+    },
+    {
+      "text": "Renting a video",
+      "kind": "hard",
+      "alternates": ["video rental", "renting a movie", "renting a videotape"],
+      "keywords": ["renting", "video"]
+    },
+    {
+      "text": "Watching a drive-in movie",
+      "kind": "hard",
+      "alternates": ["car at a drive-in", "drive-in movie night"],
+      "keywords": ["watching", "drive"]
+    },
+    {
+      "text": "Playing an arcade game",
+      "kind": "hard",
+      "alternates": ["arcade gaming", "playing at the arcade"],
+      "keywords": ["playing", "arcade"]
+    },
+    {
+      "text": "Pac-Man eating dots",
+      "kind": "hard",
+      "alternates": ["pacman eating dots", "pac-man eating pellets"],
+      "keywords": ["pac", "eating", "dots"]
+    },
+    {
+      "text": "Ghosts chasing Pac-Man",
+      "kind": "hard",
+      "alternates": ["ghosts chasing pacman", "ghost chasing pac-man"],
+      "keywords": ["ghosts", "chasing", "pac"]
+    },
+    {
+      "text": "Mario sliding down a flagpole",
+      "kind": "hard",
+      "alternates": ["mario on a flagpole", "mario grabbing the flagpole"],
+      "keywords": ["mario", "flagpole"]
+    },
+    {
+      "text": "Mario hitting a question block",
+      "kind": "hard",
+      "alternates": ["mario hitting a block", "mario punching a block"],
+      "keywords": ["mario", "block"]
+    },
+    {
+      "text": "Mario grabbing a mushroom",
+      "kind": "hard",
+      "alternates": ["mario eating a mushroom", "mario and a mushroom"],
+      "keywords": ["mario", "mushroom"]
+    },
+    {
+      "text": "Sonic collecting rings",
+      "kind": "hard",
+      "alternates": ["sonic grabbing rings", "sonic and the rings"],
+      "keywords": ["sonic", "rings"]
+    },
+    {
+      "text": "Sonic running through a loop",
+      "kind": "hard",
+      "alternates": ["sonic loop the loop", "sonic in a loop"],
+      "keywords": ["sonic", "loop"]
+    },
+    {
+      "text": "Donkey Kong throwing barrels",
+      "kind": "hard",
+      "alternates": ["donkey kong barrels", "donkey kong rolling barrels"],
+      "keywords": ["donkey", "kong", "barrels"]
+    },
+    {
+      "text": "Tetris block falling into a gap",
+      "kind": "hard",
+      "alternates": ["tetris piece falling", "tetris block dropping"],
+      "keywords": ["tetris", "falling"]
+    },
+    {
+      "text": "Space invaders marching down",
+      "kind": "hard",
+      "alternates": ["space invaders descending", "invaders marching"],
+      "keywords": ["invaders", "marching"]
+    },
+    {
+      "text": "Frog crossing the road",
+      "kind": "hard",
+      "alternates": ["frogger crossing the road", "frogger dodging cars"],
+      "keywords": ["frog", "crossing", "road"]
+    },
+    {
+      "text": "Playing Snake on a brick phone",
+      "kind": "hard",
+      "alternates": ["snake on a nokia", "playing snake on a phone"],
+      "keywords": ["snake", "phone"]
+    },
+    {
+      "text": "Game Boy under the blanket",
+      "kind": "hard",
+      "alternates": ["playing game boy under the covers", "gaming under the blanket"],
+      "keywords": ["game", "boy", "blanket"]
+    },
+    {
+      "text": "Game Boy in the back seat",
+      "kind": "hard",
+      "alternates": ["playing game boy in the car", "gameboy in the back seat"],
+      "keywords": ["game", "boy", "seat"]
+    },
+    {
+      "text": "Claw grabbing a teddy bear",
+      "kind": "hard",
+      "alternates": ["claw machine teddy", "claw grabbing a toy"],
+      "keywords": ["claw", "teddy"]
+    },
+    {
+      "text": "Tilting a pinball machine",
+      "kind": "hard",
+      "alternates": ["shaking a pinball machine", "nudging a pinball machine"],
+      "keywords": ["tilting", "pinball"]
+    },
+    {
+      "text": "Dancing on a dance mat",
+      "kind": "hard",
+      "alternates": ["dance pad dancing", "dancing on a dance pad"],
+      "keywords": ["dancing", "mat"]
+    },
+    {
+      "text": "Rocking out on a plastic guitar",
+      "kind": "hard",
+      "alternates": ["playing guitar hero", "plastic guitar solo"],
+      "keywords": ["plastic", "guitar"]
+    },
+    {
+      "text": "Wii remote through the TV",
+      "kind": "hard",
+      "alternates": ["wiimote smashing the tv", "wii remote breaking the tv"],
+      "keywords": ["wii", "tv"]
+    },
+    {
+      "text": "Tangled controller cables",
+      "kind": "hard",
+      "alternates": ["tangled controller wires", "knotted controller cords"],
+      "keywords": ["tangled", "controller"]
+    },
+    {
+      "text": "Spinning a hula hoop",
+      "kind": "hard",
+      "alternates": ["hula hooping", "twirling a hula hoop"],
+      "keywords": ["spinning", "hula", "hoop"]
+    },
+    {
+      "text": "Bouncing on a pogo stick",
+      "kind": "hard",
+      "alternates": ["pogo stick jumping", "jumping on a pogo stick"],
+      "keywords": ["bouncing", "pogo"]
+    },
+    {
+      "text": "Rollerblading in knee pads",
+      "kind": "hard",
+      "alternates": ["rollerblading with pads", "inline skating in knee pads"],
+      "keywords": ["rollerblading", "pads"]
+    },
+    {
+      "text": "Brushing a troll doll's hair",
+      "kind": "hard",
+      "alternates": ["combing troll hair", "brushing troll hair"],
+      "keywords": ["brushing", "troll", "hair"]
+    },
+    {
+      "text": "Shaking a magic eight ball",
+      "kind": "hard",
+      "alternates": ["shaking an eight ball", "asking a magic eight ball"],
+      "keywords": ["shaking", "eight", "ball"]
+    },
+    {
+      "text": "Spinning a top with a string",
+      "kind": "hard",
+      "alternates": ["launching a spinning top", "pulling a top string"],
+      "keywords": ["spinning", "top", "string"]
+    },
+    {
+      "text": "Playing marbles in a circle",
+      "kind": "hard",
+      "alternates": ["playing marbles", "shooting marbles"],
+      "keywords": ["playing", "marbles"]
+    },
+    {
+      "text": "Stepping on a Lego",
+      "kind": "hard",
+      "alternates": ["treading on a lego", "stepping on a lego brick"],
+      "keywords": ["stepping", "lego"]
+    },
+    {
+      "text": "Building a Lego castle",
+      "kind": "hard",
+      "alternates": ["lego castle", "building a castle with lego"],
+      "keywords": ["lego", "castle"]
+    },
+    {
+      "text": "Mr Potato Head getting a nose",
+      "kind": "hard",
+      "alternates": ["putting a nose on mr potato head", "potato head nose"],
+      "keywords": ["potato", "nose"]
+    },
+    {
+      "text": "Walkie-talkie from a treehouse",
+      "kind": "hard",
+      "alternates": ["walkie talkie in a treehouse", "treehouse walkie-talkie"],
+      "keywords": ["walkie", "treehouse"]
+    },
+    {
+      "text": "Kids talking through tin cans",
+      "kind": "hard",
+      "alternates": ["tin can phone call", "talking through tin cans"],
+      "keywords": ["tin", "cans"]
+    },
+    {
+      "text": "Holiday slideshow on a wall",
+      "kind": "hard",
+      "alternates": ["family slideshow", "slide show on the wall"],
+      "keywords": ["slideshow"]
+    },
+    {
+      "text": "Teacher at an overhead projector",
+      "kind": "hard",
+      "alternates": ["teacher using an overhead projector", "teacher with an overhead"],
+      "keywords": ["teacher", "overhead"]
+    },
+    {
+      "text": "Filming a birthday with a camcorder",
+      "kind": "hard",
+      "alternates": ["camcorder at a party", "camcorder at a birthday party"],
+      "keywords": ["camcorder", "birthday"]
+    },
+    {
+      "text": "Disposable cameras at a wedding",
+      "kind": "hard",
+      "alternates": ["wedding disposable camera", "disposable camera on a wedding table"],
+      "keywords": ["disposable", "wedding"]
+    },
+    {
+      "text": "Kid sitting on a phone book",
+      "kind": "hard",
+      "alternates": ["sitting on a phone book", "booster phone book"],
+      "keywords": ["sitting", "phone", "book"]
+    },
+    {
+      "text": "Flipping through a Rolodex",
+      "kind": "hard",
+      "alternates": ["spinning a rolodex", "turning a rolodex"],
+      "keywords": ["flipping", "rolodex"]
+    },
+    {
+      "text": "Unfolding a map in the car",
+      "kind": "hard",
+      "alternates": ["map in the car", "reading a map in the car"],
+      "keywords": ["map", "car"]
+    },
+    {
+      "text": "Aerobics in leg warmers",
+      "kind": "hard",
+      "alternates": ["aerobics workout in leg warmers", "leg warmer aerobics"],
+      "keywords": ["aerobics", "leg", "warmers"]
+    },
+    {
+      "text": "BMX jump over a ramp",
+      "kind": "hard",
+      "alternates": ["bmx ramp jump", "bmx jumping a ramp"],
+      "keywords": ["bmx", "ramp"]
+    },
+    {
+      "text": "Bouncing on a space hopper",
+      "kind": "hard",
+      "alternates": ["space hopper race", "riding a space hopper"],
+      "keywords": ["bouncing", "hopper"]
+    },
+    {
+      "text": "Cracking a glow stick",
+      "kind": "hard",
+      "alternates": ["snapping a glowstick", "bending a glow stick"],
+      "keywords": ["cracking", "glow"]
+    },
+    {
+      "text": "Swapping trading cards",
+      "kind": "hard",
+      "alternates": ["trading cards at school", "swapping cards"],
+      "keywords": ["swapping", "cards"]
+    },
+    {
+      "text": "Throwing a Poké Ball",
+      "kind": "hard",
+      "alternates": ["throwing a pokeball", "throwing a poke ball"],
+      "keywords": ["throwing", "ball"]
+    },
+    {
+      "text": "Pikachu on a shoulder",
+      "kind": "hard",
+      "alternates": ["pikachu on someone's shoulder", "pikachu riding a shoulder"],
+      "keywords": ["pikachu", "shoulder"]
+    },
+    {
+      "text": "Coin in a gumball machine",
+      "kind": "hard",
+      "alternates": ["gumball coming out", "buying a gumball"],
+      "keywords": ["gumball", "coin"]
+    },
+    {
+      "text": "Pez dispenser popping a candy",
+      "kind": "hard",
+      "alternates": ["pez candy", "pez handing out a candy"],
+      "keywords": ["pez", "candy"]
+    },
+    {
+      "text": "Gliding on Heelys",
+      "kind": "hard",
+      "alternates": ["rolling on heelys", "skating on heelys"],
+      "keywords": ["gliding", "heelys"]
+    },
+    {
+      "text": "Disco dance in bell-bottoms",
+      "kind": "hard",
+      "alternates": ["disco dancing in flares", "disco in bell bottoms"],
+      "keywords": ["disco", "bell"]
+    },
+    {
+      "text": "Flopping onto a bean bag",
+      "kind": "hard",
+      "alternates": ["jumping on a bean bag", "sinking into a bean bag"],
+      "keywords": ["flopping", "bean", "bag"]
+    },
+    {
+      "text": "Kicking a hacky sack",
+      "kind": "hard",
+      "alternates": ["playing hacky sack", "juggling a hacky sack"],
+      "keywords": ["kicking", "hacky"]
+    },
+    {
+      "text": "Drawing with a Spirograph",
+      "kind": "hard",
+      "alternates": ["spirograph pattern", "spirograph drawing"],
+      "keywords": ["drawing", "spirograph"]
+    },
+    {
+      "text": "Dropping a disc in Connect Four",
+      "kind": "hard",
+      "alternates": ["playing connect four", "connect four disc"],
+      "keywords": ["dropping", "connect"]
+    },
+    {
+      "text": "Tangled up playing Twister",
+      "kind": "hard",
+      "alternates": ["playing twister", "twister game"],
+      "keywords": ["playing", "twister"]
+    },
+    {
+      "text": "Hippos gobbling marbles",
+      "kind": "hard",
+      "alternates": ["hungry hippos eating marbles", "hippos eating marbles"],
+      "keywords": ["hippos", "marbles"]
+    },
+    {
+      "text": "Diving into a ball pit",
+      "kind": "hard",
+      "alternates": ["jumping into a ball pit", "ball pit dive"],
+      "keywords": ["diving", "ball", "pit"]
+    },
+    {
+      "text": "Jack-in-the-box popping out",
+      "kind": "hard",
+      "alternates": ["jack in the box springing", "jack in the box popping"],
+      "keywords": ["jack", "popping"]
+    },
+    {
+      "text": "Folding a paper fortune teller",
+      "kind": "hard",
+      "alternates": ["making a cootie catcher", "folding a cootie catcher"],
+      "keywords": ["folding", "fortune"]
+    },
+    {
+      "text": "Peering into a kaleidoscope",
+      "kind": "hard",
+      "alternates": ["looking through a kaleidoscope", "looking into a kaleidoscope"],
+      "keywords": ["peering", "kaleidoscope"]
+    },
+    {
+      "text": "Talking on a car phone",
+      "kind": "hard",
+      "alternates": ["calling from a car phone", "car phone call"],
+      "keywords": ["talking", "car", "phone"]
+    },
+    {
+      "text": "Pulling up a phone antenna",
+      "kind": "hard",
+      "alternates": ["extending the phone antenna", "phone antenna up"],
+      "keywords": ["antenna", "phone"]
+    },
+    {
+      "text": "Toy train around a Christmas tree",
+      "kind": "hard",
+      "alternates": ["train set around the tree", "toy train circling the tree"],
+      "keywords": ["train", "tree"]
+    },
+    {
+      "text": "Double dutch skipping",
+      "kind": "hard",
+      "alternates": ["double dutch", "double dutch jump rope"],
+      "keywords": ["double", "dutch"]
+    },
+    {
+      "text": "Hopping across a hopscotch",
+      "kind": "hard",
+      "alternates": ["playing hopscotch", "hopscotch hopping"],
+      "keywords": ["hopping", "hopscotch"]
+    },
+    {
+      "text": "Blowing a giant bubble",
+      "kind": "hard",
+      "alternates": ["giant bubble", "blowing a huge bubble"],
+      "keywords": ["blowing", "bubble"]
+    },
+    {
+      "text": "Kids chasing an ice cream van",
+      "kind": "hard",
+      "alternates": ["running after the ice cream truck", "chasing an ice cream truck"],
+      "keywords": ["chasing", "ice", "cream"]
+    },
+    {
+      "text": "Milkman leaving bottles on a doorstep",
+      "kind": "hard",
+      "alternates": ["milk bottles on the doorstep", "milkman delivering milk"],
+      "keywords": ["milkman", "bottles"]
+    },
+    {
+      "text": "Bouncy ball ricocheting off walls",
+      "kind": "hard",
+      "alternates": ["bouncy ball bouncing off walls", "bouncy ball bouncing"],
+      "keywords": ["bouncy", "ball", "walls"]
+    },
+    {
+      "text": "Racing toy cars down a ramp",
+      "kind": "hard",
+      "alternates": ["toy car race", "toy cars down a ramp"],
+      "keywords": ["toy", "cars", "racing"]
+    },
+    {
+      "text": "Braiding a friendship bracelet",
+      "kind": "hard",
+      "alternates": ["making a friendship bracelet", "weaving a friendship bracelet"],
+      "keywords": ["braiding", "friendship"]
+    },
+    {
+      "text": "Fingers on a plasma ball",
+      "kind": "hard",
+      "alternates": ["touching a plasma ball", "hand on a plasma globe"],
+      "keywords": ["fingers", "plasma"]
+    },
+    {
+      "text": "Waves on a waterbed",
+      "kind": "hard",
+      "alternates": ["bouncing on a waterbed", "rolling on a waterbed"],
+      "keywords": ["waves", "waterbed"]
+    },
+    {
+      "text": "Pinwheel spinning in the wind",
+      "kind": "hard",
+      "alternates": ["windmill toy spinning", "spinning pinwheel"],
+      "keywords": ["pinwheel", "wind"]
+    },
+    {
+      "text": "Chattering teeth walking across a table",
+      "kind": "hard",
+      "alternates": ["wind-up teeth walking", "chatter teeth walking"],
+      "keywords": ["teeth", "walking"]
+    },
+    {
+      "text": "Sitting on a whoopee cushion",
+      "kind": "hard",
+      "alternates": ["whoopee cushion prank", "sitting on a whoopie cushion"],
+      "keywords": ["whoopee", "cushion"]
+    },
+    {
+      "text": "Blobs rising in a lava lamp",
+      "kind": "hard",
+      "alternates": ["lava lamp bubbles", "blobs in a lava lamp"],
+      "keywords": ["lava", "blobs"]
+    },
+    {
+      "text": "Pressing play on an answering machine",
+      "kind": "hard",
+      "alternates": ["playing an answering machine message", "checking the answering machine"],
+      "keywords": ["pressing", "answering"]
+    },
+    {
+      "text": "Using a CD as a coaster",
+      "kind": "hard",
+      "alternates": ["cd coaster", "compact disc coaster"],
+      "keywords": ["coaster", "cd"]
+    },
+    {
+      "text": "Spinning an iPod click wheel",
+      "kind": "hard",
+      "alternates": ["ipod click wheel", "scrolling an ipod"],
+      "keywords": ["ipod", "wheel"]
+    },
+    {
+      "text": "Scrunchie on a ponytail",
+      "kind": "hard",
+      "alternates": ["ponytail scrunchie", "scrunchie in a ponytail"],
+      "keywords": ["scrunchie", "ponytail"]
+    },
+    {
+      "text": "Cereal in front of the TV",
+      "kind": "hard",
+      "alternates": ["eating cereal watching tv", "cereal and cartoons"],
+      "keywords": ["cereal", "tv"]
+    },
+    {
+      "text": "Static on a TV screen",
+      "kind": "hard",
+      "alternates": ["tv static", "snowy tv screen"],
+      "keywords": ["static", "tv"]
+    },
+    {
+      "text": "Pinball bouncing off bumpers",
+      "kind": "hard",
+      "alternates": ["pinball hitting bumpers", "ball in a pinball machine"],
+      "keywords": ["pinball", "bumpers"]
+    },
+    {
+      "text": "Coins stacked on an arcade cabinet",
+      "kind": "hard",
+      "alternates": ["coins on the arcade machine", "coins on an arcade cabinet"],
+      "keywords": ["coins", "arcade"]
+    },
+    {
+      "text": "Furby eyes glowing at night",
+      "kind": "hard",
+      "alternates": ["furby glowing eyes", "furby in the dark"],
+      "keywords": ["furby", "night"]
+    },
+    {
+      "text": "Rubik's cube in pieces",
+      "kind": "hard",
+      "alternates": ["disassembled rubiks cube", "broken rubiks cube"],
+      "keywords": ["pieces", "cube"]
+    },
+    {
+      "text": "Kids huddled around a Game Boy",
+      "kind": "hard",
+      "alternates": ["crowding around a gameboy", "friends around a game boy"],
+      "keywords": ["huddled", "game", "boy"]
+    },
+    {
+      "text": "Phone booth in the rain",
+      "kind": "hard",
+      "alternates": ["payphone in the rain", "calling from a phone booth in the rain"],
+      "keywords": ["booth", "rain"]
+    },
+    {
+      "text": "Crumpled paper by a typewriter",
+      "kind": "hard",
+      "alternates": ["crumpled pages around a typewriter", "typewriter and crumpled paper"],
+      "keywords": ["crumpled", "typewriter"]
+    },
+    {
+      "text": "Lunchbox at the bus stop",
+      "kind": "hard",
+      "alternates": ["kid with a lunchbox at the bus stop"],
+      "keywords": ["lunchbox", "bus"]
+    },
+    {
+      "text": "Unwrapping a Nintendo at Christmas",
+      "kind": "hard",
+      "alternates": ["nintendo for christmas", "opening a nintendo present"],
+      "keywords": ["nintendo", "christmas"]
+    },
+    {
+      "text": "Racing slot cars",
+      "kind": "hard",
+      "alternates": ["slot car race", "slot car racing"],
+      "keywords": ["slot", "racing"]
+    },
+    {
+      "text": "Film reel spinning on a projector",
+      "kind": "hard",
+      "alternates": ["projector reel spinning", "movie projector reel"],
+      "keywords": ["reel", "projector"]
+    },
+    {
+      "text": "Winding up a tin robot",
+      "kind": "hard",
+      "alternates": ["winding a toy robot", "winding up a robot"],
+      "keywords": ["winding", "robot"]
+    },
+    {
+      "text": "Marbles in a marble run",
+      "kind": "hard",
+      "alternates": ["marble run", "marble track"],
+      "keywords": ["marble", "run"]
+    },
+    {
+      "text": "Sticky notes on a computer",
+      "kind": "hard",
+      "alternates": ["computer covered in sticky notes", "post-its on a monitor"],
+      "keywords": ["sticky", "notes"]
+    },
+    {
+      "text": "Flipping through a photo album",
+      "kind": "hard",
+      "alternates": ["looking at a photo album", "old photo album"],
+      "keywords": ["photo", "album"]
+    },
+    {
+      "text": "Etch A Sketch with a house",
+      "kind": "hard",
+      "alternates": ["drawing a house on an etch a sketch", "etch-a-sketch house"],
+      "keywords": ["etch", "house"]
+    },
+    {
+      "text": "Slinky between two hands",
+      "kind": "hard",
+      "alternates": ["slinky in hands", "stretching a slinky"],
+      "keywords": ["slinky", "hands"]
+    },
+    {
+      "text": "Breakdancing on cardboard",
+      "kind": "hard",
+      "alternates": ["breakdance on cardboard", "breakdancing on a cardboard sheet"],
+      "keywords": ["breakdancing", "cardboard"]
+    },
+    {
+      "text": "Wii bowling in the living room",
+      "kind": "hard",
+      "alternates": ["wii bowling", "bowling on a wii"],
+      "keywords": ["wii", "bowling"]
+    },
+    {
+      "text": "Pikachu shooting lightning",
+      "kind": "hard",
+      "alternates": ["pikachu lightning", "pikachu thunderbolt"],
+      "keywords": ["pikachu", "lightning"]
+    },
+    {
+      "text": "Hugging a Care Bear",
+      "kind": "hard",
+      "alternates": ["cuddling a care bear", "sleeping with a care bear"],
+      "keywords": ["hugging", "care", "bear"]
+    },
+    {
+      "text": "Beanie Babies in a glass case",
+      "kind": "hard",
+      "alternates": ["beanie babies in a display case", "beanie baby collection"],
+      "keywords": ["beanie", "case"]
+    },
+    {
+      "text": "Troll doll on a pencil",
+      "kind": "hard",
+      "alternates": ["troll pencil topper", "pencil troll"],
+      "keywords": ["troll", "pencil"]
+    },
+    {
+      "text": "Returning a tape through a slot",
+      "kind": "hard",
+      "alternates": ["video return slot", "dropping a tape in the return slot"],
+      "keywords": ["returning", "slot"]
+    },
+    {
+      "text": "Cranking down a car window",
+      "kind": "hard",
+      "alternates": ["crank window", "winding down a car window"],
+      "keywords": ["cranking", "window"]
+    },
+    {
+      "text": "Cassette tape unspooling into spaghetti",
+      "kind": "chaos",
+      "alternates": ["cassette spaghetti", "tape spaghetti", "cassette tape spaghetti"],
+      "keywords": ["cassette", "spaghetti"]
+    },
+    {
+      "text": "Cassette tape on pencil crutches",
+      "kind": "chaos",
+      "alternates": ["cassette with pencil crutches", "cassette tape on crutches"],
+      "keywords": ["cassette", "crutches"]
+    },
+    {
+      "text": "Floppy disk in a museum",
+      "kind": "chaos",
+      "alternates": ["floppy disk museum exhibit", "floppy in a museum"],
+      "keywords": ["floppy", "museum"]
+    },
+    {
+      "text": "Floppy disk teaching USB sticks",
+      "kind": "chaos",
+      "alternates": ["floppy disk teaching a usb stick", "floppy teacher"],
+      "keywords": ["floppy", "teaching", "usb"]
+    },
+    {
+      "text": "VHS tape in a rocking chair",
+      "kind": "chaos",
+      "alternates": ["old vhs tape in a rocking chair", "vhs rocking chair"],
+      "keywords": ["vhs", "rocking", "chair"]
+    },
+    {
+      "text": "VCR swallowing a sandwich",
+      "kind": "chaos",
+      "alternates": ["sandwich in the vcr", "vcr eating a sandwich"],
+      "keywords": ["vcr", "sandwich"]
+    },
+    {
+      "text": "Rotary phone in a jeans pocket",
+      "kind": "chaos",
+      "alternates": ["rotary phone in a pocket", "pocket rotary phone"],
+      "keywords": ["rotary", "pocket"]
+    },
+    {
+      "text": "Rotary phone taking a selfie",
+      "kind": "chaos",
+      "alternates": ["rotary selfie", "rotary phone selfie"],
+      "keywords": ["rotary", "selfie"]
+    },
+    {
+      "text": "Pager vibrating off a cliff",
+      "kind": "chaos",
+      "alternates": ["pager falling off a cliff", "beeper vibrating off a cliff"],
+      "keywords": ["pager", "cliff"]
+    },
+    {
+      "text": "Flip phone biting like a crocodile",
+      "kind": "chaos",
+      "alternates": ["flip phone crocodile", "flip phone chomping"],
+      "keywords": ["flip", "phone", "biting"]
+    },
+    {
+      "text": "Flip phone doing a backflip",
+      "kind": "chaos",
+      "alternates": ["flip phone backflip"],
+      "keywords": ["flip", "backflip"]
+    },
+    {
+      "text": "Walkman on a treadmill",
+      "kind": "chaos",
+      "alternates": ["walkman jogging on a treadmill", "walkman running on a treadmill"],
+      "keywords": ["walkman", "treadmill"]
+    },
+    {
+      "text": "Tube TV watching a flat screen",
+      "kind": "chaos",
+      "alternates": ["old tv watching a flat screen", "crt tv watching a flat tv"],
+      "keywords": ["tv", "watching", "flat"]
+    },
+    {
+      "text": "Tube TV stuck in a doorway",
+      "kind": "chaos",
+      "alternates": ["crt tv stuck in a door", "old tv stuck in a doorway"],
+      "keywords": ["tv", "stuck", "doorway"]
+    },
+    {
+      "text": "Fax machine at a job interview",
+      "kind": "chaos",
+      "alternates": ["fax job interview", "fax machine in a job interview"],
+      "keywords": ["fax", "interview"]
+    },
+    {
+      "text": "Fax machine faxing a pizza",
+      "kind": "chaos",
+      "alternates": ["faxing a pizza", "pizza coming out of a fax"],
+      "keywords": ["fax", "pizza"]
+    },
+    {
+      "text": "Modem singing karaoke",
+      "kind": "chaos",
+      "alternates": ["dial-up modem karaoke", "modem at karaoke"],
+      "keywords": ["modem", "karaoke"]
+    },
+    {
+      "text": "Snail racing a modem",
+      "kind": "chaos",
+      "alternates": ["snail beating a modem", "modem losing to a snail"],
+      "keywords": ["snail", "modem"]
+    },
+    {
+      "text": "Polaroid photo shaking itself",
+      "kind": "chaos",
+      "alternates": ["polaroid shaking itself", "polaroid photo shaking by itself"],
+      "keywords": ["polaroid", "itself"]
+    },
+    {
+      "text": "Polaroid camera sticking out its tongue",
+      "kind": "chaos",
+      "alternates": ["polaroid tongue", "polaroid camera tongue"],
+      "keywords": ["polaroid", "tongue"]
+    },
+    {
+      "text": "Game Boy eating batteries",
+      "kind": "chaos",
+      "alternates": ["gameboy eating batteries", "game boy battery buffet"],
+      "keywords": ["game", "boy", "batteries"]
+    },
+    {
+      "text": "Tamagotchi feeding a kid",
+      "kind": "chaos",
+      "alternates": ["tamagotchi feeding a child", "tamagotchi raising a kid"],
+      "keywords": ["tamagotchi", "feeding", "kid"]
+    },
+    {
+      "text": "Tamagotchi at the vet",
+      "kind": "chaos",
+      "alternates": ["tamagotchi vet visit", "tamagotchi at the vets"],
+      "keywords": ["tamagotchi", "vet"]
+    },
+    {
+      "text": "Game cartridge blowing on a kid",
+      "kind": "chaos",
+      "alternates": ["cartridge blowing on a kid", "cartridge blowing into a kid"],
+      "keywords": ["cartridge", "blowing", "kid"]
+    },
+    {
+      "text": "Yo-yo bungee jumping",
+      "kind": "chaos",
+      "alternates": ["yoyo bungee jump", "yo-yo bungee jump"],
+      "keywords": ["yo", "bungee"]
+    },
+    {
+      "text": "Rubik's cube solving a person",
+      "kind": "chaos",
+      "alternates": ["rubiks cube solving a kid", "cube solving a human"],
+      "keywords": ["cube", "solving", "person"]
+    },
+    {
+      "text": "Slinky on an escalator",
+      "kind": "chaos",
+      "alternates": ["slinky going down an escalator", "slinky on escalators"],
+      "keywords": ["slinky", "escalator"]
+    },
+    {
+      "text": "Slinky stretched across a canyon",
+      "kind": "chaos",
+      "alternates": ["slinky bridge", "slinky over a canyon"],
+      "keywords": ["slinky", "canyon"]
+    },
+    {
+      "text": "Etch A Sketch shaking a kid",
+      "kind": "chaos",
+      "alternates": ["etch a sketch shaking a child", "etch-a-sketch shaking a kid"],
+      "keywords": ["etch", "shaking", "kid"]
+    },
+    {
+      "text": "Etch A Sketch in an earthquake",
+      "kind": "chaos",
+      "alternates": ["etch a sketch earthquake", "etch-a-sketch in an earthquake"],
+      "keywords": ["etch", "earthquake"]
+    },
+    {
+      "text": "Furby getting a haircut",
+      "kind": "chaos",
+      "alternates": ["furby haircut", "shaving a furby"],
+      "keywords": ["furby", "haircut"]
+    },
+    {
+      "text": "Furby staring through a window",
+      "kind": "chaos",
+      "alternates": ["creepy furby at the window", "furby at the window at night"],
+      "keywords": ["furby", "window"]
+    },
+    {
+      "text": "Pogs as a stack of pancakes",
+      "kind": "chaos",
+      "alternates": ["pogs as pancakes", "pog pancakes"],
+      "keywords": ["pogs", "pancakes"]
+    },
+    {
+      "text": "Slap bracelet hugging a tree",
+      "kind": "chaos",
+      "alternates": ["slap bracelet wrapped around a tree"],
+      "keywords": ["slap", "bracelet", "tree"]
+    },
+    {
+      "text": "Jukebox in a library",
+      "kind": "chaos",
+      "alternates": ["jukebox at the library"],
+      "keywords": ["jukebox", "library"]
+    },
+    {
+      "text": "Changing clothes in a payphone",
+      "kind": "chaos",
+      "alternates": ["changing in a phone booth", "payphone changing room"],
+      "keywords": ["changing", "payphone"]
+    },
+    {
+      "text": "Phone booth packed with clowns",
+      "kind": "chaos",
+      "alternates": ["clowns in a phone booth", "phone booth full of clowns"],
+      "keywords": ["clowns", "booth"]
+    },
+    {
+      "text": "Typewriter typing on a laptop",
+      "kind": "chaos",
+      "alternates": ["typewriter using a laptop"],
+      "keywords": ["typewriter", "laptop"]
+    },
+    {
+      "text": "Typewriter played like a piano",
+      "kind": "chaos",
+      "alternates": ["typewriter piano", "playing a typewriter like a piano"],
+      "keywords": ["typewriter", "piano"]
+    },
+    {
+      "text": "Encyclopedias as a staircase",
+      "kind": "chaos",
+      "alternates": ["stairs made of encyclopedias", "encyclopedia stairs"],
+      "keywords": ["encyclopedias", "staircase"]
+    },
+    {
+      "text": "Boombox carrying a kid",
+      "kind": "chaos",
+      "alternates": ["boombox carrying a man", "boombox with a kid on its shoulder"],
+      "keywords": ["boombox", "carrying"]
+    },
+    {
+      "text": "Mice riding a record player",
+      "kind": "chaos",
+      "alternates": ["mice on a record player", "record player merry-go-round"],
+      "keywords": ["mice", "record"]
+    },
+    {
+      "text": "Vinyl record as a frisbee",
+      "kind": "chaos",
+      "alternates": ["throwing a record as a frisbee", "vinyl frisbee"],
+      "keywords": ["vinyl", "frisbee"]
+    },
+    {
+      "text": "Cat scratching a record",
+      "kind": "chaos",
+      "alternates": ["cat dj", "cat scratching vinyl"],
+      "keywords": ["cat", "scratching", "record"]
+    },
+    {
+      "text": "Lava lamp erupting like a volcano",
+      "kind": "chaos",
+      "alternates": ["lava lamp volcano", "erupting lava lamp"],
+      "keywords": ["lava", "volcano"]
+    },
+    {
+      "text": "Disco ball as the moon",
+      "kind": "chaos",
+      "alternates": ["disco ball moon", "disco ball in the night sky"],
+      "keywords": ["disco", "moon"]
+    },
+    {
+      "text": "Answering machine answering the door",
+      "kind": "chaos",
+      "alternates": ["answering machine at the door"],
+      "keywords": ["answering", "door"]
+    },
+    {
+      "text": "Calculator watch doing homework",
+      "kind": "chaos",
+      "alternates": ["calculator watch doing math homework"],
+      "keywords": ["calculator", "homework"]
+    },
+    {
+      "text": "Discman skipping rope",
+      "kind": "chaos",
+      "alternates": ["discman jump rope", "discman jumping rope"],
+      "keywords": ["discman", "skipping", "rope"]
+    },
+    {
+      "text": "Compact discs as a scarecrow",
+      "kind": "chaos",
+      "alternates": ["cd scarecrow", "cds scaring birds"],
+      "keywords": ["discs", "scarecrow"]
+    },
+    {
+      "text": "iPod wheel as a steering wheel",
+      "kind": "chaos",
+      "alternates": ["ipod steering wheel", "driving with an ipod"],
+      "keywords": ["ipod", "steering"]
+    },
+    {
+      "text": "Wall built from brick phones",
+      "kind": "chaos",
+      "alternates": ["brick phone wall", "building a wall with brick phones"],
+      "keywords": ["brick", "phones", "wall"]
+    },
+    {
+      "text": "Brick phone used as a hammer",
+      "kind": "chaos",
+      "alternates": ["nokia hammer", "hammering a nail with a brick phone"],
+      "keywords": ["phone", "hammer"]
+    },
+    {
+      "text": "Dropped brick phone cracking the floor",
+      "kind": "chaos",
+      "alternates": ["brick phone cracking the floor", "nokia cracking the floor"],
+      "keywords": ["phone", "cracking", "floor"]
+    },
+    {
+      "text": "Pac-Man at an all-you-can-eat buffet",
+      "kind": "chaos",
+      "alternates": ["pacman at a buffet", "pac-man buffet"],
+      "keywords": ["pac", "buffet"]
+    },
+    {
+      "text": "Pac-Man at the dentist",
+      "kind": "chaos",
+      "alternates": ["pacman at the dentist", "pac-man dentist"],
+      "keywords": ["pac", "dentist"]
+    },
+    {
+      "text": "Space invader at passport control",
+      "kind": "chaos",
+      "alternates": ["space invader at customs", "space invader passport"],
+      "keywords": ["invader", "passport"]
+    },
+    {
+      "text": "Tetris blocks in a car boot",
+      "kind": "chaos",
+      "alternates": ["tetris blocks in a car trunk", "packing a car like tetris"],
+      "keywords": ["tetris", "boot"]
+    },
+    {
+      "text": "Mario fixing a kitchen sink",
+      "kind": "chaos",
+      "alternates": ["mario fixing a sink", "mario the plumber"],
+      "keywords": ["mario", "sink"]
+    },
+    {
+      "text": "Mario headbutting a cupboard",
+      "kind": "chaos",
+      "alternates": ["mario punching a cupboard", "mario hitting a kitchen cupboard"],
+      "keywords": ["mario", "cupboard"]
+    },
+    {
+      "text": "Sonic getting a speeding ticket",
+      "kind": "chaos",
+      "alternates": ["sonic speeding ticket"],
+      "keywords": ["sonic", "ticket"]
+    },
+    {
+      "text": "Sonic in a hamster wheel",
+      "kind": "chaos",
+      "alternates": ["sonic running in a hamster wheel", "sonic hamster wheel"],
+      "keywords": ["sonic", "hamster"]
+    },
+    {
+      "text": "Donkey Kong at a bowling alley",
+      "kind": "chaos",
+      "alternates": ["donkey kong bowling", "donkey kong bowling barrels"],
+      "keywords": ["donkey", "kong", "bowling"]
+    },
+    {
+      "text": "Joystick steering a bus",
+      "kind": "chaos",
+      "alternates": ["bus driven with a joystick", "steering a bus with a joystick"],
+      "keywords": ["joystick", "bus"]
+    },
+    {
+      "text": "Pinball flippers in a soccer goal",
+      "kind": "chaos",
+      "alternates": ["pinball goalkeeper", "pinball flippers as goalkeeper"],
+      "keywords": ["pinball", "goal"]
+    },
+    {
+      "text": "Claw machine grabbing a kid",
+      "kind": "chaos",
+      "alternates": ["kid stuck in a claw machine", "claw grabbing a child"],
+      "keywords": ["claw", "kid"]
+    },
+    {
+      "text": "Claw machine scratching a back",
+      "kind": "chaos",
+      "alternates": ["claw machine back scratcher"],
+      "keywords": ["claw", "back"]
+    },
+    {
+      "text": "Saturn spinning a hula hoop",
+      "kind": "chaos",
+      "alternates": ["saturn with a hula hoop", "planet hula hooping"],
+      "keywords": ["saturn", "hula"]
+    },
+    {
+      "text": "Troll doll hair as a mop",
+      "kind": "chaos",
+      "alternates": ["mopping with a troll doll", "troll doll mop"],
+      "keywords": ["troll", "mop"]
+    },
+    {
+      "text": "Magic eight ball reading the weather",
+      "kind": "chaos",
+      "alternates": ["eight ball weather forecast", "magic eight ball weatherman"],
+      "keywords": ["eight", "ball", "weather"]
+    },
+    {
+      "text": "Magic eight ball as a referee",
+      "kind": "chaos",
+      "alternates": ["eight ball referee", "magic eight ball referee"],
+      "keywords": ["eight", "ball", "referee"]
+    },
+    {
+      "text": "Lego brick stepping on a foot",
+      "kind": "chaos",
+      "alternates": ["lego stepping on a person", "lego stepping on a foot"],
+      "keywords": ["lego", "stepping", "foot"]
+    },
+    {
+      "text": "Lego brick hiding in a carpet",
+      "kind": "chaos",
+      "alternates": ["lego hiding in the carpet", "lego ambush"],
+      "keywords": ["lego", "hiding", "carpet"]
+    },
+    {
+      "text": "Potato Head with ears for eyes",
+      "kind": "chaos",
+      "alternates": ["mr potato head with ears for eyes", "mixed up potato head"],
+      "keywords": ["potato", "ears", "eyes"]
+    },
+    {
+      "text": "Play-Doh sculpting a kid",
+      "kind": "chaos",
+      "alternates": ["playdough sculpting a child", "play-doh sculpting a child"],
+      "keywords": ["doh", "sculpting", "kid"]
+    },
+    {
+      "text": "Tin can phone across the ocean",
+      "kind": "chaos",
+      "alternates": ["tin can telephone across the sea", "tin can phone over the ocean"],
+      "keywords": ["tin", "ocean"]
+    },
+    {
+      "text": "Giant computer on a lap",
+      "kind": "chaos",
+      "alternates": ["desktop computer on a lap", "old computer on someone's lap"],
+      "keywords": ["computer", "lap"]
+    },
+    {
+      "text": "CRT monitor as a fish tank",
+      "kind": "chaos",
+      "alternates": ["crt fish tank", "monitor aquarium", "old monitor fish tank"],
+      "keywords": ["monitor", "fish", "tank"]
+    },
+    {
+      "text": "Road map swallowing the driver",
+      "kind": "chaos",
+      "alternates": ["map swallowing the driver", "map eating the driver"],
+      "keywords": ["map", "driver"]
+    },
+    {
+      "text": "Horse with a scrunchie",
+      "kind": "chaos",
+      "alternates": ["scrunchie on a horse's tail", "horse tail scrunchie"],
+      "keywords": ["horse", "scrunchie"]
+    },
+    {
+      "text": "Centipede in leg warmers",
+      "kind": "chaos",
+      "alternates": ["leg warmers on a centipede"],
+      "keywords": ["centipede", "warmers"]
+    },
+    {
+      "text": "Space hopper in outer space",
+      "kind": "chaos",
+      "alternates": ["space hopper on the moon", "space hopper among planets"],
+      "keywords": ["hopper", "space"]
+    },
+    {
+      "text": "Glow stick in a firefly jar",
+      "kind": "chaos",
+      "alternates": ["glow stick with fireflies", "glow stick and fireflies"],
+      "keywords": ["glow", "fireflies"]
+    },
+    {
+      "text": "Poké Ball catching a whale",
+      "kind": "chaos",
+      "alternates": ["pokeball catching a whale", "poke ball catching a whale"],
+      "keywords": ["ball", "whale"]
+    },
+    {
+      "text": "Pikachu charging a phone",
+      "kind": "chaos",
+      "alternates": ["pikachu phone charger", "pikachu as a phone charger"],
+      "keywords": ["pikachu", "charging", "phone"]
+    },
+    {
+      "text": "Pikachu jump-starting a car",
+      "kind": "chaos",
+      "alternates": ["pikachu jumpstarting a car", "pikachu starting a car"],
+      "keywords": ["pikachu", "car"]
+    },
+    {
+      "text": "Gumball machine full of planets",
+      "kind": "chaos",
+      "alternates": ["gumball machine planets", "planets in a gumball machine"],
+      "keywords": ["gumball", "planets"]
+    },
+    {
+      "text": "Pez dispenser feeding baby birds",
+      "kind": "chaos",
+      "alternates": ["pez feeding baby birds", "pez dispenser and baby birds"],
+      "keywords": ["pez", "birds"]
+    },
+    {
+      "text": "Camping in bell-bottoms",
+      "kind": "chaos",
+      "alternates": ["bell-bottoms as a tent", "bell bottom tent"],
+      "keywords": ["bell", "tent"]
+    },
+    {
+      "text": "Platform shoes reaching the clouds",
+      "kind": "chaos",
+      "alternates": ["towering platform shoes", "platform shoes in the clouds"],
+      "keywords": ["platform", "clouds"]
+    },
+    {
+      "text": "Bean bag swallowing a kid",
+      "kind": "chaos",
+      "alternates": ["beanbag eating a kid", "bean bag chair swallowing a kid"],
+      "keywords": ["bean", "bag", "swallowing"]
+    },
+    {
+      "text": "Connect Four with donuts",
+      "kind": "chaos",
+      "alternates": ["connect four donuts", "doughnuts in connect four"],
+      "keywords": ["connect", "donuts"]
+    },
+    {
+      "text": "Octopus winning at Twister",
+      "kind": "chaos",
+      "alternates": ["octopus playing twister", "octopus twister champion"],
+      "keywords": ["octopus", "twister"]
+    },
+    {
+      "text": "Hungry hippo eating a salad",
+      "kind": "chaos",
+      "alternates": ["hippo eating salad", "hungry hippos eating salad"],
+      "keywords": ["hippo", "salad"]
+    },
+    {
+      "text": "Ball pit full of meatballs",
+      "kind": "chaos",
+      "alternates": ["meatball pit", "ball pit of meatballs"],
+      "keywords": ["meatballs", "pit"]
+    },
+    {
+      "text": "Toaster popping a jack-in-the-box",
+      "kind": "chaos",
+      "alternates": ["jack in the box in a toaster", "toaster jack in the box"],
+      "keywords": ["jack", "toaster"]
+    },
+    {
+      "text": "Wind-up toy stalling near the finish",
+      "kind": "chaos",
+      "alternates": ["wind-up toy at the finish line", "wind-up toy running out before the finish"],
+      "keywords": ["wind", "finish"]
+    },
+    {
+      "text": "Phone cord stretched across the house",
+      "kind": "chaos",
+      "alternates": ["phone cord across the house", "phone cord through the house"],
+      "keywords": ["cord", "house"]
+    },
+    {
+      "text": "Correction fluid on a zebra",
+      "kind": "chaos",
+      "alternates": ["tippex on a zebra", "white-out on a zebra"],
+      "keywords": ["correction", "zebra"]
+    },
+    {
+      "text": "Plastic guitar at a rock concert",
+      "kind": "chaos",
+      "alternates": ["guitar hero guitar at a concert", "plastic guitar on stage"],
+      "keywords": ["plastic", "guitar", "concert"]
+    },
+    {
+      "text": "Toy soldiers guarding a cookie jar",
+      "kind": "chaos",
+      "alternates": ["plastic soldiers guarding cookies", "army men guarding the cookie jar"],
+      "keywords": ["soldiers", "cookie"]
+    },
+    {
+      "text": "Toy car in a parking space",
+      "kind": "chaos",
+      "alternates": ["toy car parked between real cars", "tiny car in a parking space"],
+      "keywords": ["toy", "car", "parking"]
+    },
+    {
+      "text": "Bucket hat used as a bucket",
+      "kind": "chaos",
+      "alternates": ["bucket hat carrying water", "filling a bucket hat with water"],
+      "keywords": ["bucket", "hat", "water"]
+    },
+    {
+      "text": "Inflatable chair floating away",
+      "kind": "chaos",
+      "alternates": ["inflatable chair flying away", "blow-up chair floating away"],
+      "keywords": ["inflatable", "floating"]
+    },
+    {
+      "text": "Surfing on a waterbed",
+      "kind": "chaos",
+      "alternates": ["surfer on a waterbed", "waterbed surfing"],
+      "keywords": ["surfing", "waterbed"]
+    },
+    {
+      "text": "Pinwheel as a wind turbine",
+      "kind": "chaos",
+      "alternates": ["pinwheel wind farm", "pinwheel powering a house"],
+      "keywords": ["pinwheel", "turbine"]
+    },
+    {
+      "text": "Chattering teeth in an igloo",
+      "kind": "chaos",
+      "alternates": ["chattering teeth in the snow", "chatter teeth in an igloo"],
+      "keywords": ["teeth", "igloo"]
+    },
+    {
+      "text": "Whoopee cushion on a throne",
+      "kind": "chaos",
+      "alternates": ["whoopee cushion on the king's throne", "whoopie cushion on a throne"],
+      "keywords": ["whoopee", "throne"]
+    },
+    {
+      "text": "Film reels as bike wheels",
+      "kind": "chaos",
+      "alternates": ["bike with film reel wheels", "film reel bicycle"],
+      "keywords": ["reels", "bike"]
+    },
+    {
+      "text": "TV antenna on a real rabbit",
+      "kind": "chaos",
+      "alternates": ["rabbit with a tv antenna", "rabbit ears antenna on a rabbit"],
+      "keywords": ["rabbit", "antenna"]
+    },
+    {
+      "text": "Spinning top as a ballerina",
+      "kind": "chaos",
+      "alternates": ["top dancing ballet", "spinning top ballerina"],
+      "keywords": ["top", "ballerina"]
+    },
+    {
+      "text": "Turtle on roller skates",
+      "kind": "chaos",
+      "alternates": ["tortoise on roller skates"],
+      "keywords": ["turtle", "skates"]
+    },
+    {
+      "text": "Boombox blowing leaves off a tree",
+      "kind": "chaos",
+      "alternates": ["boombox blasting leaves off a tree", "boombox leaf blower"],
+      "keywords": ["boombox", "leaves"]
+    },
+    {
+      "text": "Arcade cabinet eating a piggy bank",
+      "kind": "chaos",
+      "alternates": ["arcade machine eating a piggy bank"],
+      "keywords": ["arcade", "piggy"]
+    },
+    {
+      "text": "Pinball bouncing around a kitchen",
+      "kind": "chaos",
+      "alternates": ["pinball in the kitchen", "kitchen pinball"],
+      "keywords": ["pinball", "kitchen"]
+    },
+    {
+      "text": "Space invaders invading a picnic",
+      "kind": "chaos",
+      "alternates": ["space invaders at a picnic"],
+      "keywords": ["invaders", "picnic"]
+    },
+    {
+      "text": "Frog holding a stop sign",
+      "kind": "chaos",
+      "alternates": ["frogger crossing guard", "frog lollipop lady"],
+      "keywords": ["frog", "stop", "sign"]
+    },
+    {
+      "text": "Mario climbing out of a drainpipe",
+      "kind": "chaos",
+      "alternates": ["mario in a drainpipe", "mario popping out of a drainpipe"],
+      "keywords": ["mario", "drainpipe"]
+    },
+    {
+      "text": "Controller cable lassoing a cow",
+      "kind": "chaos",
+      "alternates": ["controller lasso", "lassoing a cow with a controller"],
+      "keywords": ["controller", "lasso"]
+    },
+    {
+      "text": "Game cartridge as a harmonica",
+      "kind": "chaos",
+      "alternates": ["playing a cartridge like a harmonica", "cartridge harmonica"],
+      "keywords": ["cartridge", "harmonica"]
+    },
+    {
+      "text": "Yo-yo used as an elevator",
+      "kind": "chaos",
+      "alternates": ["yo-yo lift", "yoyo elevator"],
+      "keywords": ["yo", "elevator"]
+    },
+    {
+      "text": "Kangaroo riding a pogo stick",
+      "kind": "chaos",
+      "alternates": ["kangaroo on a pogo stick", "kangaroo bouncing on a pogo stick"],
+      "keywords": ["kangaroo", "pogo"]
+    },
+    {
+      "text": "Overhead projector shadow puppets",
+      "kind": "chaos",
+      "alternates": ["shadow puppets on an overhead projector"],
+      "keywords": ["overhead", "shadow", "puppets"]
+    },
+    {
+      "text": "Camcorder bigger than the baby",
+      "kind": "chaos",
+      "alternates": ["huge camcorder filming a baby", "giant camcorder and a baby"],
+      "keywords": ["camcorder", "baby"]
+    },
+    {
+      "text": "Giraffe in a photo booth",
+      "kind": "chaos",
+      "alternates": ["giraffe squeezed into a photo booth"],
+      "keywords": ["giraffe", "booth"]
+    },
+    {
+      "text": "Penguins at a roller disco",
+      "kind": "chaos",
+      "alternates": ["penguins roller skating", "penguin roller disco"],
+      "keywords": ["penguins", "disco"]
+    },
+    {
+      "text": "Road map folded into a swan",
+      "kind": "chaos",
+      "alternates": ["origami map swan", "map folded like a swan"],
+      "keywords": ["map", "swan"]
+    },
+    {
+      "text": "Whole turkey in a lunchbox",
+      "kind": "chaos",
+      "alternates": ["lunchbox with a roast turkey", "turkey in a lunch box"],
+      "keywords": ["lunchbox", "turkey"]
+    },
+    {
+      "text": "Chameleon wearing a mood ring",
+      "kind": "chaos",
+      "alternates": ["mood ring on a chameleon"],
+      "keywords": ["chameleon", "ring"]
+    },
+    {
+      "text": "Lion with a mullet",
+      "kind": "chaos",
+      "alternates": ["lion mullet", "mullet on a lion"],
+      "keywords": ["lion", "mullet"]
+    },
+    {
+      "text": "Snowman wearing a sweatband",
+      "kind": "chaos",
+      "alternates": ["snowman in a sweatband", "sweatband on a snowman"],
+      "keywords": ["snowman", "sweatband"]
+    },
+    {
+      "text": "Butterfly clip flying away",
+      "kind": "chaos",
+      "alternates": ["butterfly clips flying off", "butterfly clip flying"],
+      "keywords": ["butterfly", "clip", "flying"]
+    },
+    {
+      "text": "Goldfish in a waterbed",
+      "kind": "chaos",
+      "alternates": ["fish swimming in a waterbed", "goldfish swimming in a waterbed"],
+      "keywords": ["goldfish", "waterbed"]
+    },
+    {
+      "text": "Kaleidoscope as a telescope",
+      "kind": "chaos",
+      "alternates": ["stargazing through a kaleidoscope", "kaleidoscope telescope"],
+      "keywords": ["kaleidoscope", "telescope"]
+    },
+    {
+      "text": "View-Master as sunglasses",
+      "kind": "chaos",
+      "alternates": ["viewmaster sunglasses", "view-master sunglasses"],
+      "keywords": ["view", "sunglasses"]
+    },
+    {
+      "text": "Radio antenna as a fishing rod",
+      "kind": "chaos",
+      "alternates": ["fishing with a radio antenna", "radio fishing rod"],
+      "keywords": ["radio", "fishing"]
+    },
+    {
+      "text": "VHS tapes as dominoes",
+      "kind": "chaos",
+      "alternates": ["vhs dominoes", "dominoes made of vhs tapes"],
+      "keywords": ["vhs", "dominoes"]
+    },
+    {
+      "text": "Desktop computer in a school backpack",
+      "kind": "chaos",
+      "alternates": ["computer in a school bag", "desktop in a backpack"],
+      "keywords": ["computer", "backpack"]
+    },
+    {
+      "text": "iPod earphones as a jellyfish",
+      "kind": "chaos",
+      "alternates": ["ipod jellyfish", "tangled earphones jellyfish"],
+      "keywords": ["ipod", "jellyfish"]
+    },
+    {
+      "text": "Rocking horse at a horse race",
+      "kind": "chaos",
+      "alternates": ["rocking horse racing", "rocking horse at the races"],
+      "keywords": ["rocking", "horse", "race"]
+    },
+    {
+      "text": "Ice cream van in the Arctic",
+      "kind": "chaos",
+      "alternates": ["ice cream truck at the north pole", "ice cream van at the north pole"],
+      "keywords": ["ice", "cream", "arctic"]
+    },
+    {
+      "text": "Milkman delivering to a cow",
+      "kind": "chaos",
+      "alternates": ["milkman delivering milk to a cow", "cow getting milk delivered"],
+      "keywords": ["milkman", "cow"]
+    },
+    {
+      "text": "Tin robot rusting in a bath",
+      "kind": "chaos",
+      "alternates": ["tin robot in a bubble bath", "tin robot in the bath"],
+      "keywords": ["robot", "bath"]
+    },
+    {
+      "text": "Chattering teeth brushing a toothbrush",
+      "kind": "chaos",
+      "alternates": ["chatter teeth brushing a toothbrush"],
+      "keywords": ["teeth", "toothbrush"]
+    },
+    {
+      "text": "Paper fortune teller eating a fly",
+      "kind": "chaos",
+      "alternates": ["cootie catcher eating a fly", "fortune teller catching a fly"],
+      "keywords": ["fortune", "fly"]
+    },
+    {
+      "text": "Bouncy ball bouncing over a city",
+      "kind": "chaos",
+      "alternates": ["giant bouncy ball bouncing through a city"],
+      "keywords": ["bouncy", "ball", "city"]
+    },
+    {
+      "text": "Wii remote on a leash",
+      "kind": "chaos",
+      "alternates": ["walking a wii remote", "wii remote leash"],
+      "keywords": ["wii", "leash"]
+    },
+    {
+      "text": "Tamagotchi in a pram",
+      "kind": "chaos",
+      "alternates": ["tamagotchi in a baby stroller", "tamagotchi in a stroller"],
+      "keywords": ["tamagotchi", "pram"]
+    },
+    {
+      "text": "Slap bracelet swatting a mosquito",
+      "kind": "chaos",
+      "alternates": ["slap bracelet slapping a mosquito"],
+      "keywords": ["slap", "bracelet", "mosquito"]
+    },
+    {
+      "text": "Jack-in-the-box as a cuckoo clock",
+      "kind": "chaos",
+      "alternates": ["jack in the box cuckoo clock"],
+      "keywords": ["jack", "cuckoo"]
+    },
+    {
+      "text": "Spinning top drilling for oil",
+      "kind": "chaos",
+      "alternates": ["spinning top drilling into the ground"],
+      "keywords": ["top", "drilling"]
+    },
+    {
+      "text": "Kick scooter towing a caravan",
+      "kind": "chaos",
+      "alternates": ["scooter pulling a caravan", "scooter towing a caravan"],
+      "keywords": ["scooter", "caravan"]
+    },
+    {
+      "text": "Waiter on Heelys",
+      "kind": "chaos",
+      "alternates": ["waiter wearing heelys", "waiter rolling on heelys"],
+      "keywords": ["waiter", "heelys"]
+    },
+    {
+      "text": "Peacock with trading cards",
+      "kind": "chaos",
+      "alternates": ["trading card peacock tail", "peacock tail of trading cards"],
+      "keywords": ["peacock", "cards"]
+    },
+    {
+      "text": "Ball mouse eating cheese",
+      "kind": "chaos",
+      "alternates": ["computer mouse eating cheese", "ball mouse with cheese"],
+      "keywords": ["mouse", "cheese"]
+    },
+    {
+      "text": "Printer paper unrolling down the street",
+      "kind": "chaos",
+      "alternates": ["printer paper down the street", "endless printer paper"],
+      "keywords": ["printer", "street"]
+    },
+    {
+      "text": "Sunflower facing a disco ball",
+      "kind": "chaos",
+      "alternates": ["sunflower following a disco ball"],
+      "keywords": ["sunflower", "disco", "ball"]
+    },
+    {
+      "text": "Snake game eating a real apple",
+      "kind": "chaos",
+      "alternates": ["nokia snake eating an apple", "snake game eating an apple"],
+      "keywords": ["snake", "apple"]
+    }
+  ]
+}

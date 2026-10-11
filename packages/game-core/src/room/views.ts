@@ -32,15 +32,17 @@ export function publicPlayers(state: RoomState): PublicPlayer[] {
 
 /** What players see of a deck: never its cards. */
 export function roomDeck(deck: DeckInfo): RoomDeck {
-  return { id: deck.id, title: deck.title, coverId: deck.coverId, language: deck.language };
+  return {
+    id: deck.id,
+    title: deck.title,
+    coverId: deck.coverId,
+    language: deck.language,
+    chaosCards: deck.cards.filter((c) => c.kind === 'chaos').length,
+  };
 }
 
-export function toOption(card: {
-  text: string;
-  difficulty: CardOption['difficulty'];
-  silly: boolean;
-}) {
-  return { text: card.text, difficulty: card.difficulty, silly: card.silly };
+export function toOption(card: CardOption): CardOption {
+  return { text: card.text, kind: card.kind };
 }
 
 export function publicPhase(phase: Phase): PublicPhase {

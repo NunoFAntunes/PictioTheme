@@ -41,6 +41,12 @@ const Env = z.object({
   GENERATION_TRANSLATIONS_PER_PLAYER_PER_DAY: z.coerce.number().int().min(0).default(5),
   GENERATION_TRANSLATIONS_PER_IP_PER_DAY: z.coerce.number().int().min(0).default(15),
   /**
+   * Chaos cards one player / one IP can make for existing decks in any 24 hours. Shared like
+   * translations (everyone playing the deck gets them) and cheaper than a deck.
+   */
+  GENERATION_CHAOS_PER_PLAYER_PER_DAY: z.coerce.number().int().min(0).default(5),
+  GENERATION_CHAOS_PER_IP_PER_DAY: z.coerce.number().int().min(0).default(15),
+  /**
    * Theme checks one player / one IP may fail in any 24 hours (a theme in the wrong language, too
    * unclear, or refused). Refused themes never become jobs, so without this cap they'd cost model
    * calls without limit.
@@ -111,6 +117,8 @@ export type GenerationLimits = {
   perIpPerDay: number;
   translationsPerPlayerPerDay: number;
   translationsPerIpPerDay: number;
+  chaosPerPlayerPerDay: number;
+  chaosPerIpPerDay: number;
   refusedChecksPerPlayerPerDay: number;
   refusedChecksPerIpPerDay: number;
   dailyBudgetUsd: number;
@@ -148,6 +156,8 @@ export function loadConfig(env: Record<string, string | undefined> = process.env
             perIpPerDay: e.GENERATION_PER_IP_PER_DAY,
             translationsPerPlayerPerDay: e.GENERATION_TRANSLATIONS_PER_PLAYER_PER_DAY,
             translationsPerIpPerDay: e.GENERATION_TRANSLATIONS_PER_IP_PER_DAY,
+            chaosPerPlayerPerDay: e.GENERATION_CHAOS_PER_PLAYER_PER_DAY,
+            chaosPerIpPerDay: e.GENERATION_CHAOS_PER_IP_PER_DAY,
             refusedChecksPerPlayerPerDay: e.GENERATION_REFUSED_CHECKS_PER_PLAYER_PER_DAY,
             refusedChecksPerIpPerDay: e.GENERATION_REFUSED_CHECKS_PER_IP_PER_DAY,
             dailyBudgetUsd: e.GENERATION_DAILY_BUDGET_USD,

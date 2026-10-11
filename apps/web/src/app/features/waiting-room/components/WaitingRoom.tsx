@@ -5,6 +5,7 @@ import { DrawYourself } from '../../identity';
 import { WaitingRoomMusic } from '../../sound';
 import { DOODLE_BUTTON, WOBBLE } from '../../../ui/hand-drawn';
 import { PANEL, PANEL_HEADING } from '../../../ui/room-frame';
+import { hasChaosCards } from '../chaos';
 import { maxMatchMinutes } from '../match-length';
 import { RoomCard } from './RoomCard';
 import { RoomSettingsForm } from './RoomSettingsForm';
@@ -48,6 +49,7 @@ export function WaitingRoom({ onBack }: { onBack?: () => void } = {}) {
             selectedId={view.settings.deckId}
             currentDeck={view.deck}
             language={view.settings.language}
+            mode={view.settings.mode}
             onSelect={(deckId) => sendToRoom({ t: 'room:settings', settings: { deckId } })}
           />
           <RulesPanel view={view} editable>
@@ -97,7 +99,8 @@ function WaitingForHost() {
 function StartButton({ view, label }: { view: RoomView; label: string }) {
   const connected = view.players.filter((p) => p.connected).length;
   const deckInLanguage = view.deck !== null && view.deck.language === view.settings.language;
-  const canStart = connected >= 2 && deckInLanguage;
+  const needsChaos = view.settings.mode === 'chaos' && !hasChaosCards(view.deck);
+  const canStart = connected >= 2 && deckInLanguage && !needsChaos;
 
   return (
     <div className="mt-4 flex flex-col items-center gap-2 border-t-2 border-dashed border-ink/20 pt-4 dark:border-zinc-600">
@@ -112,9 +115,11 @@ function StartButton({ view, label }: { view: RoomView; label: string }) {
       <p className="text-center font-hand text-lg text-ink/70 dark:text-zinc-300">
         {view.deck && !deckInLanguage
           ? 'Translate the deck, or pick one in the room’s language, to start'
-          : connected < 2
-            ? 'Waiting for at least one more player…'
-            : `${connected} players here, up to ~${maxMatchMinutes(view.settings, connected)} min`}
+          : view.deck && needsChaos
+            ? 'Make the deck’s Chaos cards, or pick another deck, to start'
+            : connected < 2
+              ? 'Waiting for at least one more player…'
+              : `${connected} players here, up to ~${maxMatchMinutes(view.settings, connected)} min`}
       </p>
     </div>
   );

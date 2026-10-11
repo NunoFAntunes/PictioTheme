@@ -82,34 +82,39 @@ export function fakeLlm(
   };
 }
 
-type Pool = 'easy' | 'medium' | 'hard';
+/** "ba", "bb", … "bz", "ca", …: letters only, unique per card. */
+const suffix = (n: number) => String.fromCharCode(98 + Math.floor(n / 26), 97 + (n % 26));
 
 /**
- * A model reply with enough unique, letters-only cards for every requested pool:
- * "easy card ba", "easy card bb", … Silly cards use the first difficulty.
+ * A model reply with enough unique, letters-only easy and hard cards for a deck:
+ * "easy card ba", "easy card bb", … "hard card ba", …
  */
-export function fullDeckOutput(
-  difficulties: Pool[],
-  silly: boolean,
-  title = 'Test Deck',
-): Record<string, unknown> {
-  const make = (prefix: string, difficulty: Pool, count: number, isSilly: boolean) =>
+export function fullDeckOutput(title = 'Test Deck'): Record<string, unknown> {
+  const make = (difficulty: 'easy' | 'hard', count: number) =>
     Array.from({ length: count }, (_, n) => ({
-      text: `${prefix} card ${String.fromCharCode(98 + Math.floor(n / 26), 97 + (n % 26))}`,
+      text: `${difficulty} card ${suffix(n)}`,
       difficulty,
-      silly: isSilly,
       alternates: [],
       keywords: [],
     }));
-  const counts = { easy: 40, medium: 40, hard: 30 };
-  const first = difficulties[0] ?? 'easy';
   return {
     title,
     description: 'A deck for tests.',
     tags: ['test'],
-    cards: [
-      ...difficulties.flatMap((d) => make(d, d, counts[d], false)),
-      ...(silly ? make('silly', first, 40, true) : []),
-    ],
+    cards: [...make('easy', 50), ...make('hard', 40)],
+  };
+}
+
+/** A Chaos call's reply: `count` cards, each with its own subject and twist ("chaos card ba"). */
+export function chaosOutput(count = 50, prefix = 'chaos'): Record<string, unknown> {
+  return {
+    cards: Array.from({ length: count }, (_, n) => ({
+      subject: `${prefix} subject ${suffix(n)}`,
+      hook: 'a trait of the subject',
+      twist: `${prefix} twist ${suffix(n)}`,
+      text: `${prefix} card ${suffix(n)}`,
+      alternates: [],
+      keywords: [],
+    })),
   };
 }

@@ -1,4 +1,9 @@
-import type { DeckLanguage, DeckSummary } from '@pictiotheme/protocol';
+import {
+  CHAOS_MIN_CARDS,
+  type DeckLanguage,
+  type DeckSummary,
+  type GameMode,
+} from '@pictiotheme/protocol';
 import { Fragment, useEffect, useId, useRef, useState } from 'react';
 import { LanguageFlag } from '../../../ui/LanguageFlag';
 import { DeckCover } from '../../deck-cover';
@@ -12,7 +17,8 @@ import { topTags } from '../top-tags';
  * featured (seasonal) curated decks, then the rest, a couple of rows each until "Show all". The
  * category chips (the most shared tags) and the search box match titles and tags across all
  * public decks. Decks come in the room's language when they've been translated into it; the
- * others are marked, and picking one asks to translate it first (DeckChooser).
+ * others are marked, and picking one asks to translate it first (DeckChooser). Decks with Chaos
+ * cards show 🌀; in Chaos mode, the ones without are marked too: picking one asks to make them.
  */
 
 const SEARCH_DEBOUNCE_MS = 250;
@@ -27,6 +33,7 @@ type Props = {
   mine: DeckSummary[];
   /** The room's language. */
   language: DeckLanguage;
+  mode: GameMode;
   selectedId: string | null;
   onSelect: (deck: DeckSummary) => void;
 };
@@ -65,7 +72,7 @@ function CategoryChip({
   );
 }
 
-export function DeckPicker({ curated, mine, language, selectedId, onSelect }: Props) {
+export function DeckPicker({ curated, mine, language, mode, selectedId, onSelect }: Props) {
   const [query, setQuery] = useState('');
   const [tag, setTag] = useState<string | null>(null);
   const [redrawing, setRedrawing] = useState<string | null>(null);
@@ -188,6 +195,7 @@ export function DeckPicker({ curated, mine, language, selectedId, onSelect }: Pr
                         selected={selectedId === deck.id}
                         mine={mineIds.has(deck.id)}
                         needsTranslation={deck.language !== language}
+                        needsChaos={mode === 'chaos' && deck.counts.chaos < CHAOS_MIN_CARDS}
                         onSelect={() => onSelect(deck)}
                         onRedraw={() => setRedrawing(deck.id)}
                       />
@@ -226,6 +234,7 @@ function DeckTile({
   selected,
   mine,
   needsTranslation,
+  needsChaos,
   onSelect,
   onRedraw,
 }: {
@@ -234,6 +243,8 @@ function DeckTile({
   mine: boolean;
   /** Not in the room's language yet: picking it asks to translate it. */
   needsTranslation: boolean;
+  /** Chaos mode, and the deck has no Chaos cards yet: picking it asks to make them. */
+  needsChaos: boolean;
   onSelect: () => void;
   onRedraw: () => void;
 }) {
@@ -267,9 +278,18 @@ function DeckTile({
         <span className="line-clamp-2 text-xs leading-tight font-medium">{deck.title}</span>
         <span className="text-xs text-zinc-500">
           {mine && <span className="text-brand-700 dark:text-brand-500">✨ yours · </span>}
-          {counts.easy + counts.medium + counts.hard + counts.silly} cards
-          {counts.silly > 0 && ' · 🤪'}
+          {counts.easy + counts.hard + counts.chaos} cards
+          {counts.chaos >= CHAOS_MIN_CARDS && ' · 🌀'}
         </span>
+        {needsChaos && !needsTranslation && (
+          <span
+            data-testid="needs-chaos"
+            title="No Chaos cards yet: picking it lets you make them"
+            className="text-xs whitespace-nowrap text-pop-pink"
+          >
+            🌀 to make
+          </span>
+        )}
         {needsTranslation && (
           <span
             data-testid="needs-translation"

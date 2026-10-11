@@ -19,8 +19,8 @@ Decisions not yet made. Each has a **recommendation** to help get started. Chang
 5. **Themes about real people / brands / copyrighted franchises** ("Harry Potter", "Taylor Swift")?
    → *Recommendation: allow well-known public franchises and public figures as general topics (players love them). Block private individuals. Revisit if there are legal concerns.*
 
-6. **Silly prompts: AI-only, or also template-generated?**
-   → *Recommendation: AI-generated silly pool per deck (better quality). Template fallback (`{theme noun} + {random job/activity}`) only for decks that don't have one.*
+6. **Absurd prompts: AI-only, or also template-generated?**
+   → *Decided 2026-10-11: AI-only. Silly cards became Chaos mode (decks.md#chaos-cards). No template fallback: templates make flat cards, the same flaw that sank the silly cards. A deck without Chaos cards gets them made when a host asks.*
 
 7. **Should players be able to suggest/edit cards in someone else's deck?**
    → *Recommendation: not in v1. Card flags + remix later.*

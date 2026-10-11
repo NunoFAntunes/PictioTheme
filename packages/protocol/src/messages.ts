@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { DeckCoverId, Difficulty } from './deck';
+import { CardKind, DeckCoverId } from './deck';
 import { DeckLanguage } from './language';
 import { DrawBegin, DrawFill, Points, Stroke, StrokeId } from './drawing';
 import { ErrorCode } from './errors';
@@ -87,8 +87,7 @@ export type PublicPlayer = z.infer<typeof PublicPlayer>;
 /** A card as shown to the drawer when choosing. Never sent to guessers. */
 export const CardOption = z.object({
   text: z.string(),
-  difficulty: Difficulty,
-  silly: z.boolean(),
+  kind: CardKind,
 });
 export type CardOption = z.infer<typeof CardOption>;
 
@@ -158,6 +157,8 @@ export const RoomDeck = z.object({
   coverId: DeckCoverId.nullable(),
   /** What its cards are written in. Differs from `settings.language` until the host translates it. */
   language: DeckLanguage,
+  /** How many Chaos cards it has. Below `CHAOS_MIN_CARDS`, Chaos mode needs some made first. */
+  chaosCards: z.number().int(),
 });
 export type RoomDeck = z.infer<typeof RoomDeck>;
 

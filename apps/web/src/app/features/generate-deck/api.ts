@@ -1,4 +1,5 @@
 import {
+  AddChaosResponse,
   DeckListResponse,
   DeckSummary,
   GenerationConfigResponse,
@@ -43,6 +44,20 @@ export function useTranslateDeck() {
     mutationFn: async ({ deckId, language }: { deckId: string; language: DeckLanguage }) => {
       await apiPost('/api/session/guest', undefined, GuestSessionResponse);
       return apiPost(`/api/decks/${deckId}/translations`, { language }, TranslateDeckResponse);
+    },
+  });
+}
+
+/**
+ * Chaos cards for a deck without them (decks.md#chaos-cards): ready right away when someone made
+ * them already, otherwise a job to poll with `useGenerationJob`. Rooms playing the deck reload it
+ * by themselves once they're saved.
+ */
+export function useAddChaos() {
+  return useMutation({
+    mutationFn: async (deckId: string) => {
+      await apiPost('/api/session/guest', undefined, GuestSessionResponse);
+      return apiPost(`/api/decks/${deckId}/chaos`, undefined, AddChaosResponse);
     },
   });
 }

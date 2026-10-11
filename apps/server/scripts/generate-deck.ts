@@ -1,7 +1,7 @@
 /**
  * Generates one deck with the real model and prints it as JSON. Run by hand, never in CI:
  *
- *   pnpm --filter @pictiotheme/server deck:generate --theme "pirates" --difficulties easy,medium --silly
+ *   pnpm --filter @pictiotheme/server deck:generate --theme "pirates" --chaos [--language de]
  *
  * Needs OPENROUTER_API_KEY in apps/server/.env. The deck goes to stdout, the log to stderr.
  */
@@ -16,16 +16,16 @@ const { values } = parseArgs({
   options: {
     theme: { type: 'string' },
     notes: { type: 'string', default: '' },
-    difficulties: { type: 'string', default: 'easy,medium,hard' },
-    silly: { type: 'boolean', default: false },
+    chaos: { type: 'boolean', default: false },
+    language: { type: 'string', default: 'en' },
   },
 });
 
 const request = DeckGenerationRequest.safeParse({
   theme: values.theme,
   notes: values.notes,
-  difficulties: values.difficulties.split(',').map((d) => d.trim()),
-  silly: values.silly,
+  chaos: values.chaos,
+  language: values.language,
 });
 if (!request.success) {
   process.stderr.write(`${z.prettifyError(request.error)}\n`);

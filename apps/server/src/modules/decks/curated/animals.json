@@ -1,0 +1,2979 @@
+{
+  "slug": "animals",
+  "featuredRank": 2,
+  "title": "Animal Kingdom",
+  "description": "Pets, farmyard friends, safari giants, sea creatures, creepy crawlies and the nests, hives and webs they call home.",
+  "tags": ["animals", "pets", "farm", "zoo", "ocean", "insects", "birds", "wildlife"],
+  "cards": [
+    {
+      "text": "Dog",
+      "kind": "easy",
+      "alternates": ["puppy", "doggy"],
+      "keywords": ["dog"]
+    },
+    {
+      "text": "Cat",
+      "kind": "easy",
+      "alternates": ["kitten", "kitty"],
+      "keywords": ["cat"]
+    },
+    {
+      "text": "Cow",
+      "kind": "easy",
+      "alternates": ["cattle", "calf"],
+      "keywords": ["cow"]
+    },
+    {
+      "text": "Pig",
+      "kind": "easy",
+      "alternates": ["piglet", "hog"],
+      "keywords": ["pig"]
+    },
+    {
+      "text": "Horse",
+      "kind": "easy",
+      "alternates": ["pony", "stallion"],
+      "keywords": ["horse"]
+    },
+    {
+      "text": "Sheep",
+      "kind": "easy",
+      "alternates": ["lamb", "ewe"],
+      "keywords": ["sheep"]
+    },
+    {
+      "text": "Goat",
+      "kind": "easy",
+      "alternates": ["billy goat", "kid goat"],
+      "keywords": ["goat"]
+    },
+    {
+      "text": "Chicken",
+      "kind": "easy",
+      "alternates": ["hen", "chick"],
+      "keywords": ["chicken"]
+    },
+    {
+      "text": "Rooster",
+      "kind": "easy",
+      "alternates": ["cockerel"],
+      "keywords": ["rooster"]
+    },
+    {
+      "text": "Duck",
+      "kind": "easy",
+      "alternates": ["duckling", "mallard"],
+      "keywords": ["duck"]
+    },
+    {
+      "text": "Goose",
+      "kind": "easy",
+      "alternates": ["geese"],
+      "keywords": ["goose"]
+    },
+    {
+      "text": "Turkey",
+      "kind": "easy",
+      "alternates": ["gobbler"],
+      "keywords": ["turkey"]
+    },
+    {
+      "text": "Rabbit",
+      "kind": "easy",
+      "alternates": ["bunny", "hare"],
+      "keywords": ["rabbit"]
+    },
+    {
+      "text": "Hamster",
+      "kind": "easy",
+      "alternates": ["gerbil"],
+      "keywords": ["hamster"]
+    },
+    {
+      "text": "Guinea pig",
+      "kind": "easy",
+      "alternates": ["cavy"],
+      "keywords": ["guinea pig"]
+    },
+    {
+      "text": "Goldfish",
+      "kind": "easy",
+      "alternates": ["pet fish"],
+      "keywords": ["goldfish"]
+    },
+    {
+      "text": "Parrot",
+      "kind": "easy",
+      "alternates": ["macaw"],
+      "keywords": ["parrot"]
+    },
+    {
+      "text": "Donkey",
+      "kind": "easy",
+      "alternates": ["mule", "burro"],
+      "keywords": ["donkey"]
+    },
+    {
+      "text": "Llama",
+      "kind": "easy",
+      "alternates": ["alpaca"],
+      "keywords": ["llama"]
+    },
+    {
+      "text": "Camel",
+      "kind": "easy",
+      "alternates": ["dromedary"],
+      "keywords": ["camel"]
+    },
+    {
+      "text": "Kangaroo",
+      "kind": "easy",
+      "alternates": ["wallaby"],
+      "keywords": ["kangaroo"]
+    },
+    {
+      "text": "Koala",
+      "kind": "easy",
+      "alternates": ["koala bear"],
+      "keywords": ["koala"]
+    },
+    {
+      "text": "Panda",
+      "kind": "easy",
+      "alternates": ["giant panda", "panda bear"],
+      "keywords": ["panda"]
+    },
+    {
+      "text": "Lion",
+      "kind": "easy",
+      "alternates": ["lioness"],
+      "keywords": ["lion"]
+    },
+    {
+      "text": "Tiger",
+      "kind": "easy",
+      "alternates": ["tigress"],
+      "keywords": ["tiger"]
+    },
+    {
+      "text": "Elephant",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["elephant"]
+    },
+    {
+      "text": "Giraffe",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["giraffe"]
+    },
+    {
+      "text": "Zebra",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["zebra"]
+    },
+    {
+      "text": "Hippo",
+      "kind": "easy",
+      "alternates": ["hippopotamus"],
+      "keywords": ["hippo"]
+    },
+    {
+      "text": "Rhino",
+      "kind": "easy",
+      "alternates": ["rhinoceros"],
+      "keywords": ["rhino"]
+    },
+    {
+      "text": "Monkey",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["monkey"]
+    },
+    {
+      "text": "Gorilla",
+      "kind": "easy",
+      "alternates": ["ape"],
+      "keywords": ["gorilla"]
+    },
+    {
+      "text": "Chimpanzee",
+      "kind": "easy",
+      "alternates": ["chimp"],
+      "keywords": ["chimpanzee"]
+    },
+    {
+      "text": "Orangutan",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["orangutan"]
+    },
+    {
+      "text": "Bear",
+      "kind": "easy",
+      "alternates": ["brown bear", "grizzly bear"],
+      "keywords": ["bear"]
+    },
+    {
+      "text": "Polar bear",
+      "kind": "easy",
+      "alternates": ["white bear"],
+      "keywords": ["polar bear"]
+    },
+    {
+      "text": "Penguin",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["penguin"]
+    },
+    {
+      "text": "Seal",
+      "kind": "easy",
+      "alternates": ["sea lion"],
+      "keywords": ["seal"]
+    },
+    {
+      "text": "Walrus",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["walrus"]
+    },
+    {
+      "text": "Whale",
+      "kind": "easy",
+      "alternates": ["blue whale", "humpback whale"],
+      "keywords": ["whale"]
+    },
+    {
+      "text": "Orca",
+      "kind": "easy",
+      "alternates": ["killer whale"],
+      "keywords": ["orca"]
+    },
+    {
+      "text": "Dolphin",
+      "kind": "easy",
+      "alternates": ["porpoise"],
+      "keywords": ["dolphin"]
+    },
+    {
+      "text": "Shark",
+      "kind": "easy",
+      "alternates": ["great white shark"],
+      "keywords": ["shark"]
+    },
+    {
+      "text": "Octopus",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["octopus"]
+    },
+    {
+      "text": "Squid",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["squid"]
+    },
+    {
+      "text": "Jellyfish",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["jellyfish"]
+    },
+    {
+      "text": "Starfish",
+      "kind": "easy",
+      "alternates": ["sea star"],
+      "keywords": ["starfish"]
+    },
+    {
+      "text": "Crab",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["crab"]
+    },
+    {
+      "text": "Hermit crab",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["hermit crab"]
+    },
+    {
+      "text": "Lobster",
+      "kind": "easy",
+      "alternates": ["crayfish"],
+      "keywords": ["lobster"]
+    },
+    {
+      "text": "Shrimp",
+      "kind": "easy",
+      "alternates": ["prawn"],
+      "keywords": ["shrimp"]
+    },
+    {
+      "text": "Seahorse",
+      "kind": "easy",
+      "alternates": ["sea horse"],
+      "keywords": ["seahorse"]
+    },
+    {
+      "text": "Clownfish",
+      "kind": "easy",
+      "alternates": ["clown fish"],
+      "keywords": ["clownfish"]
+    },
+    {
+      "text": "Pufferfish",
+      "kind": "easy",
+      "alternates": ["blowfish", "puffer fish"],
+      "keywords": ["pufferfish"]
+    },
+    {
+      "text": "Stingray",
+      "kind": "easy",
+      "alternates": ["manta ray", "ray"],
+      "keywords": ["stingray"]
+    },
+    {
+      "text": "Swordfish",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["swordfish"]
+    },
+    {
+      "text": "Anglerfish",
+      "kind": "easy",
+      "alternates": ["angler fish"],
+      "keywords": ["anglerfish"]
+    },
+    {
+      "text": "Eel",
+      "kind": "easy",
+      "alternates": ["electric eel"],
+      "keywords": ["eel"]
+    },
+    {
+      "text": "Piranha",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["piranha"]
+    },
+    {
+      "text": "Narwhal",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["narwhal"]
+    },
+    {
+      "text": "Oyster",
+      "kind": "easy",
+      "alternates": ["clam", "mussel"],
+      "keywords": ["oyster"]
+    },
+    {
+      "text": "Turtle",
+      "kind": "easy",
+      "alternates": ["sea turtle", "terrapin"],
+      "keywords": ["turtle"]
+    },
+    {
+      "text": "Tortoise",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["tortoise"]
+    },
+    {
+      "text": "Snail",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["snail"]
+    },
+    {
+      "text": "Snake",
+      "kind": "easy",
+      "alternates": ["serpent", "python"],
+      "keywords": ["snake"]
+    },
+    {
+      "text": "Crocodile",
+      "kind": "easy",
+      "alternates": ["alligator", "croc"],
+      "keywords": ["crocodile"]
+    },
+    {
+      "text": "Lizard",
+      "kind": "easy",
+      "alternates": ["gecko"],
+      "keywords": ["lizard"]
+    },
+    {
+      "text": "Chameleon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["chameleon"]
+    },
+    {
+      "text": "Frog",
+      "kind": "easy",
+      "alternates": ["toad"],
+      "keywords": ["frog"]
+    },
+    {
+      "text": "Tadpole",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["tadpole"]
+    },
+    {
+      "text": "Salamander",
+      "kind": "easy",
+      "alternates": ["newt", "axolotl"],
+      "keywords": ["salamander"]
+    },
+    {
+      "text": "Butterfly",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["butterfly"]
+    },
+    {
+      "text": "Caterpillar",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["caterpillar"]
+    },
+    {
+      "text": "Moth",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["moth"]
+    },
+    {
+      "text": "Bee",
+      "kind": "easy",
+      "alternates": ["honeybee", "bumblebee"],
+      "keywords": ["bee"]
+    },
+    {
+      "text": "Wasp",
+      "kind": "easy",
+      "alternates": ["hornet"],
+      "keywords": ["wasp"]
+    },
+    {
+      "text": "Ant",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["ant"]
+    },
+    {
+      "text": "Ladybug",
+      "kind": "easy",
+      "alternates": ["ladybird"],
+      "keywords": ["ladybug"]
+    },
+    {
+      "text": "Spider",
+      "kind": "easy",
+      "alternates": ["tarantula"],
+      "keywords": ["spider"]
+    },
+    {
+      "text": "Scorpion",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["scorpion"]
+    },
+    {
+      "text": "Dragonfly",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["dragonfly"]
+    },
+    {
+      "text": "Mosquito",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["mosquito"]
+    },
+    {
+      "text": "Fly",
+      "kind": "easy",
+      "alternates": ["housefly"],
+      "keywords": ["fly"]
+    },
+    {
+      "text": "Grasshopper",
+      "kind": "easy",
+      "alternates": ["cricket", "locust"],
+      "keywords": ["grasshopper"]
+    },
+    {
+      "text": "Beetle",
+      "kind": "easy",
+      "alternates": ["dung beetle", "stag beetle"],
+      "keywords": ["beetle"]
+    },
+    {
+      "text": "Worm",
+      "kind": "easy",
+      "alternates": ["earthworm"],
+      "keywords": ["worm"]
+    },
+    {
+      "text": "Centipede",
+      "kind": "easy",
+      "alternates": ["millipede"],
+      "keywords": ["centipede"]
+    },
+    {
+      "text": "Firefly",
+      "kind": "easy",
+      "alternates": ["glow worm", "lightning bug"],
+      "keywords": ["firefly"]
+    },
+    {
+      "text": "Praying mantis",
+      "kind": "easy",
+      "alternates": ["mantis"],
+      "keywords": ["praying mantis"]
+    },
+    {
+      "text": "Cockroach",
+      "kind": "easy",
+      "alternates": ["roach"],
+      "keywords": ["cockroach"]
+    },
+    {
+      "text": "Owl",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["owl"]
+    },
+    {
+      "text": "Eagle",
+      "kind": "easy",
+      "alternates": ["bald eagle", "hawk"],
+      "keywords": ["eagle"]
+    },
+    {
+      "text": "Flamingo",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["flamingo"]
+    },
+    {
+      "text": "Peacock",
+      "kind": "easy",
+      "alternates": ["peahen"],
+      "keywords": ["peacock"]
+    },
+    {
+      "text": "Swan",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["swan"]
+    },
+    {
+      "text": "Pelican",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pelican"]
+    },
+    {
+      "text": "Toucan",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["toucan"]
+    },
+    {
+      "text": "Ostrich",
+      "kind": "easy",
+      "alternates": ["emu"],
+      "keywords": ["ostrich"]
+    },
+    {
+      "text": "Hummingbird",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["hummingbird"]
+    },
+    {
+      "text": "Woodpecker",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["woodpecker"]
+    },
+    {
+      "text": "Crow",
+      "kind": "easy",
+      "alternates": ["raven", "blackbird"],
+      "keywords": ["crow"]
+    },
+    {
+      "text": "Pigeon",
+      "kind": "easy",
+      "alternates": ["dove"],
+      "keywords": ["pigeon"]
+    },
+    {
+      "text": "Seagull",
+      "kind": "easy",
+      "alternates": ["gull"],
+      "keywords": ["seagull"]
+    },
+    {
+      "text": "Puffin",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["puffin"]
+    },
+    {
+      "text": "Stork",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["stork"]
+    },
+    {
+      "text": "Vulture",
+      "kind": "easy",
+      "alternates": ["buzzard"],
+      "keywords": ["vulture"]
+    },
+    {
+      "text": "Robin",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["robin"]
+    },
+    {
+      "text": "Bat",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["bat"]
+    },
+    {
+      "text": "Squirrel",
+      "kind": "easy",
+      "alternates": ["chipmunk"],
+      "keywords": ["squirrel"]
+    },
+    {
+      "text": "Hedgehog",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["hedgehog"]
+    },
+    {
+      "text": "Porcupine",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["porcupine"]
+    },
+    {
+      "text": "Fox",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["fox"]
+    },
+    {
+      "text": "Wolf",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["wolf"]
+    },
+    {
+      "text": "Deer",
+      "kind": "easy",
+      "alternates": ["stag", "doe"],
+      "keywords": ["deer"]
+    },
+    {
+      "text": "Moose",
+      "kind": "easy",
+      "alternates": ["elk"],
+      "keywords": ["moose"]
+    },
+    {
+      "text": "Reindeer",
+      "kind": "easy",
+      "alternates": ["caribou"],
+      "keywords": ["reindeer"]
+    },
+    {
+      "text": "Raccoon",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["raccoon"]
+    },
+    {
+      "text": "Skunk",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["skunk"]
+    },
+    {
+      "text": "Beaver",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["beaver"]
+    },
+    {
+      "text": "Otter",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["otter"]
+    },
+    {
+      "text": "Mouse",
+      "kind": "easy",
+      "alternates": ["mice"],
+      "keywords": ["mouse"]
+    },
+    {
+      "text": "Rat",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["rat"]
+    },
+    {
+      "text": "Mole",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["mole"]
+    },
+    {
+      "text": "Wild boar",
+      "kind": "easy",
+      "alternates": ["boar"],
+      "keywords": ["boar"]
+    },
+    {
+      "text": "Sloth",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["sloth"]
+    },
+    {
+      "text": "Armadillo",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["armadillo"]
+    },
+    {
+      "text": "Anteater",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["anteater"]
+    },
+    {
+      "text": "Platypus",
+      "kind": "easy",
+      "alternates": ["duck-billed platypus"],
+      "keywords": ["platypus"]
+    },
+    {
+      "text": "Cheetah",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["cheetah"]
+    },
+    {
+      "text": "Leopard",
+      "kind": "easy",
+      "alternates": ["jaguar"],
+      "keywords": ["leopard"]
+    },
+    {
+      "text": "Hyena",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["hyena"]
+    },
+    {
+      "text": "Meerkat",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["meerkat"]
+    },
+    {
+      "text": "Antelope",
+      "kind": "easy",
+      "alternates": ["gazelle", "impala"],
+      "keywords": ["antelope"]
+    },
+    {
+      "text": "Bison",
+      "kind": "easy",
+      "alternates": ["buffalo"],
+      "keywords": ["bison"]
+    },
+    {
+      "text": "Husky",
+      "kind": "easy",
+      "alternates": ["sled dog"],
+      "keywords": ["husky"]
+    },
+    {
+      "text": "Bird nest",
+      "kind": "easy",
+      "alternates": ["nest"],
+      "keywords": ["bird nest"]
+    },
+    {
+      "text": "Beehive",
+      "kind": "easy",
+      "alternates": ["hive"],
+      "keywords": ["beehive"]
+    },
+    {
+      "text": "Spider web",
+      "kind": "easy",
+      "alternates": ["cobweb", "web"],
+      "keywords": ["spider web"]
+    },
+    {
+      "text": "Anthill",
+      "kind": "easy",
+      "alternates": ["ant hill"],
+      "keywords": ["anthill"]
+    },
+    {
+      "text": "Cocoon",
+      "kind": "easy",
+      "alternates": ["chrysalis"],
+      "keywords": ["cocoon"]
+    },
+    {
+      "text": "Egg",
+      "kind": "easy",
+      "alternates": ["eggs"],
+      "keywords": ["egg"]
+    },
+    {
+      "text": "Feather",
+      "kind": "easy",
+      "alternates": ["feathers"],
+      "keywords": ["feather"]
+    },
+    {
+      "text": "Paw print",
+      "kind": "easy",
+      "alternates": ["footprint", "paw"],
+      "keywords": ["paw print"]
+    },
+    {
+      "text": "Dog bone",
+      "kind": "easy",
+      "alternates": ["bone"],
+      "keywords": ["dog bone"]
+    },
+    {
+      "text": "Antlers",
+      "kind": "easy",
+      "alternates": ["antler"],
+      "keywords": ["antlers"]
+    },
+    {
+      "text": "Tusk",
+      "kind": "easy",
+      "alternates": ["tusks"],
+      "keywords": ["tusk"]
+    },
+    {
+      "text": "Seashell",
+      "kind": "easy",
+      "alternates": ["shell"],
+      "keywords": ["seashell"]
+    },
+    {
+      "text": "Pearl",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["pearl"]
+    },
+    {
+      "text": "Birdhouse",
+      "kind": "easy",
+      "alternates": ["bird box"],
+      "keywords": ["birdhouse"]
+    },
+    {
+      "text": "Bird cage",
+      "kind": "easy",
+      "alternates": ["birdcage", "cage"],
+      "keywords": ["bird cage"]
+    },
+    {
+      "text": "Dog house",
+      "kind": "easy",
+      "alternates": ["kennel", "doghouse"],
+      "keywords": ["dog house"]
+    },
+    {
+      "text": "Fishbowl",
+      "kind": "easy",
+      "alternates": ["fish bowl", "aquarium"],
+      "keywords": ["fishbowl"]
+    },
+    {
+      "text": "Hamster wheel",
+      "kind": "easy",
+      "alternates": ["exercise wheel"],
+      "keywords": ["hamster wheel"]
+    },
+    {
+      "text": "Barn",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["barn"]
+    },
+    {
+      "text": "Chicken coop",
+      "kind": "easy",
+      "alternates": ["henhouse", "hen house"],
+      "keywords": ["chicken coop"]
+    },
+    {
+      "text": "Stable",
+      "kind": "easy",
+      "alternates": ["horse stall"],
+      "keywords": ["stable"]
+    },
+    {
+      "text": "Rabbit hole",
+      "kind": "easy",
+      "alternates": ["burrow", "warren"],
+      "keywords": ["rabbit hole"]
+    },
+    {
+      "text": "Beaver dam",
+      "kind": "easy",
+      "alternates": ["dam"],
+      "keywords": ["beaver dam"]
+    },
+    {
+      "text": "Lily pad",
+      "kind": "easy",
+      "alternates": ["lilypad"],
+      "keywords": ["lily pad"]
+    },
+    {
+      "text": "Horseshoe",
+      "kind": "easy",
+      "alternates": ["horse shoe"],
+      "keywords": ["horseshoe"]
+    },
+    {
+      "text": "Saddle",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["saddle"]
+    },
+    {
+      "text": "Dog leash",
+      "kind": "easy",
+      "alternates": ["leash", "lead"],
+      "keywords": ["dog leash"]
+    },
+    {
+      "text": "Dog collar",
+      "kind": "easy",
+      "alternates": ["collar"],
+      "keywords": ["dog collar"]
+    },
+    {
+      "text": "Pet bowl",
+      "kind": "easy",
+      "alternates": ["dog bowl", "food bowl"],
+      "keywords": ["pet bowl"]
+    },
+    {
+      "text": "Bird feeder",
+      "kind": "easy",
+      "alternates": [],
+      "keywords": ["bird feeder"]
+    },
+    {
+      "text": "Scratching post",
+      "kind": "easy",
+      "alternates": ["cat tree"],
+      "keywords": ["scratching post"]
+    },
+    {
+      "text": "Litter box",
+      "kind": "easy",
+      "alternates": ["litter tray"],
+      "keywords": ["litter box"]
+    },
+    {
+      "text": "Hay bale",
+      "kind": "easy",
+      "alternates": ["haystack"],
+      "keywords": ["hay bale"]
+    },
+    {
+      "text": "Dog burying a bone",
+      "kind": "hard",
+      "alternates": ["dog digging up a bone"],
+      "keywords": ["dog", "bone"]
+    },
+    {
+      "text": "Dog chasing its tail",
+      "kind": "hard",
+      "alternates": ["dog spinning after its tail"],
+      "keywords": ["dog", "tail"]
+    },
+    {
+      "text": "Dog's head out a car window",
+      "kind": "hard",
+      "alternates": ["dog with its head out a car window"],
+      "keywords": ["dog", "car", "window"]
+    },
+    {
+      "text": "Cat stuck in a tree",
+      "kind": "hard",
+      "alternates": ["cat up a tree"],
+      "keywords": ["cat", "tree"]
+    },
+    {
+      "text": "Cat playing with yarn",
+      "kind": "hard",
+      "alternates": ["cat with a ball of yarn", "kitten playing with wool"],
+      "keywords": ["cat", "yarn"]
+    },
+    {
+      "text": "Cat knocking over a glass",
+      "kind": "hard",
+      "alternates": ["cat knocking a glass off a table"],
+      "keywords": ["cat", "glass"]
+    },
+    {
+      "text": "Milking a cow",
+      "kind": "hard",
+      "alternates": ["cow being milked", "farmer milking a cow"],
+      "keywords": ["milking", "cow"]
+    },
+    {
+      "text": "Cowboy lassoing a cow",
+      "kind": "hard",
+      "alternates": ["cowboy roping a cow"],
+      "keywords": ["cowboy", "lasso", "cow"]
+    },
+    {
+      "text": "Pig rolling in mud",
+      "kind": "hard",
+      "alternates": ["pig in the mud", "muddy pig"],
+      "keywords": ["pig", "mud"]
+    },
+    {
+      "text": "Pigs eating from a trough",
+      "kind": "hard",
+      "alternates": ["pig at a trough"],
+      "keywords": ["pig", "trough"]
+    },
+    {
+      "text": "Horse jumping a fence",
+      "kind": "hard",
+      "alternates": ["horse jumping over a fence", "show jumping"],
+      "keywords": ["horse", "jumping", "fence"]
+    },
+    {
+      "text": "Horse pulling a cart",
+      "kind": "hard",
+      "alternates": ["horse and cart"],
+      "keywords": ["horse", "cart"]
+    },
+    {
+      "text": "Cowboy riding a horse",
+      "kind": "hard",
+      "alternates": ["cowboy on a horse"],
+      "keywords": ["cowboy", "horse"]
+    },
+    {
+      "text": "Shearing a sheep",
+      "kind": "hard",
+      "alternates": ["sheep shearing", "sheep getting sheared"],
+      "keywords": ["shearing", "sheep"]
+    },
+    {
+      "text": "Counting sheep in bed",
+      "kind": "hard",
+      "alternates": ["counting sheep"],
+      "keywords": ["counting", "sheep"]
+    },
+    {
+      "text": "Sheepdog herding sheep",
+      "kind": "hard",
+      "alternates": ["dog herding sheep"],
+      "keywords": ["herding", "sheep"]
+    },
+    {
+      "text": "Hen sitting on eggs",
+      "kind": "hard",
+      "alternates": ["chicken sitting on eggs", "hen on a nest"],
+      "keywords": ["hen", "eggs"]
+    },
+    {
+      "text": "Chicken crossing the road",
+      "kind": "hard",
+      "alternates": ["chicken crossing a road"],
+      "keywords": ["chicken", "crossing", "road"]
+    },
+    {
+      "text": "Farmer feeding chickens",
+      "kind": "hard",
+      "alternates": ["feeding the chickens"],
+      "keywords": ["feeding", "chickens"]
+    },
+    {
+      "text": "Rooster crowing at sunrise",
+      "kind": "hard",
+      "alternates": ["rooster at dawn"],
+      "keywords": ["rooster", "sunrise"]
+    },
+    {
+      "text": "Rooster on a weather vane",
+      "kind": "hard",
+      "alternates": ["weathervane rooster"],
+      "keywords": ["rooster", "weather vane"]
+    },
+    {
+      "text": "Chick hatching from an egg",
+      "kind": "hard",
+      "alternates": ["egg hatching", "baby chick hatching"],
+      "keywords": ["hatching", "egg"]
+    },
+    {
+      "text": "Ducklings following their mother",
+      "kind": "hard",
+      "alternates": ["ducks in a row", "ducklings following a duck"],
+      "keywords": ["ducklings", "following"]
+    },
+    {
+      "text": "Duck diving underwater",
+      "kind": "hard",
+      "alternates": ["duck dunking its head"],
+      "keywords": ["duck", "underwater"]
+    },
+    {
+      "text": "Feeding ducks at a pond",
+      "kind": "hard",
+      "alternates": ["feeding the ducks"],
+      "keywords": ["feeding", "ducks"]
+    },
+    {
+      "text": "Goose chasing a farmer",
+      "kind": "hard",
+      "alternates": ["goose chasing a man"],
+      "keywords": ["goose", "chasing"]
+    },
+    {
+      "text": "Geese flying in a V",
+      "kind": "hard",
+      "alternates": ["birds flying in a V shape"],
+      "keywords": ["geese", "flying", "v"]
+    },
+    {
+      "text": "Goat eating a tin can",
+      "kind": "hard",
+      "alternates": ["goat eating a can"],
+      "keywords": ["goat", "can"]
+    },
+    {
+      "text": "Goat standing on a cliff",
+      "kind": "hard",
+      "alternates": ["mountain goat on a cliff"],
+      "keywords": ["goat", "cliff"]
+    },
+    {
+      "text": "Rabbit eating a carrot",
+      "kind": "hard",
+      "alternates": ["bunny eating a carrot"],
+      "keywords": ["rabbit", "carrot"]
+    },
+    {
+      "text": "Rabbit coming out of a hat",
+      "kind": "hard",
+      "alternates": ["magician pulling a rabbit from a hat"],
+      "keywords": ["rabbit", "hat"]
+    },
+    {
+      "text": "Hamster running on a wheel",
+      "kind": "hard",
+      "alternates": ["hamster in its wheel"],
+      "keywords": ["hamster", "wheel"]
+    },
+    {
+      "text": "Hamster stuffing its cheeks",
+      "kind": "hard",
+      "alternates": ["hamster with full cheeks"],
+      "keywords": ["hamster", "cheeks"]
+    },
+    {
+      "text": "Goldfish jumping out of its bowl",
+      "kind": "hard",
+      "alternates": ["fish jumping out of a bowl"],
+      "keywords": ["goldfish", "bowl"]
+    },
+    {
+      "text": "Parrot on a pirate's shoulder",
+      "kind": "hard",
+      "alternates": ["pirate with a parrot"],
+      "keywords": ["parrot", "pirate"]
+    },
+    {
+      "text": "Parrot in a cage",
+      "kind": "hard",
+      "alternates": ["bird in a cage"],
+      "keywords": ["parrot", "cage"]
+    },
+    {
+      "text": "Donkey carrying heavy bags",
+      "kind": "hard",
+      "alternates": ["donkey carrying a load"],
+      "keywords": ["donkey", "carrying"]
+    },
+    {
+      "text": "Camel crossing the desert",
+      "kind": "hard",
+      "alternates": ["camel walking in the desert"],
+      "keywords": ["camel", "desert"]
+    },
+    {
+      "text": "Camel drinking at an oasis",
+      "kind": "hard",
+      "alternates": ["camel at an oasis"],
+      "keywords": ["camel", "oasis"]
+    },
+    {
+      "text": "Joey in a kangaroo's pouch",
+      "kind": "hard",
+      "alternates": ["baby kangaroo in a pouch"],
+      "keywords": ["joey", "pouch"]
+    },
+    {
+      "text": "Kangaroo boxing",
+      "kind": "hard",
+      "alternates": ["boxing kangaroo"],
+      "keywords": ["kangaroo", "boxing"]
+    },
+    {
+      "text": "Koala hugging a tree",
+      "kind": "hard",
+      "alternates": ["koala clinging to a tree"],
+      "keywords": ["koala", "tree"]
+    },
+    {
+      "text": "Panda eating bamboo",
+      "kind": "hard",
+      "alternates": ["panda chewing bamboo"],
+      "keywords": ["panda", "bamboo"]
+    },
+    {
+      "text": "Panda rolling down a hill",
+      "kind": "hard",
+      "alternates": ["panda tumbling down a hill"],
+      "keywords": ["panda", "rolling", "hill"]
+    },
+    {
+      "text": "Lion roaring on a rock",
+      "kind": "hard",
+      "alternates": ["lion on pride rock"],
+      "keywords": ["lion", "roaring", "rock"]
+    },
+    {
+      "text": "Lion getting a thorn removed",
+      "kind": "hard",
+      "alternates": ["lion with a thorn in its paw"],
+      "keywords": ["lion", "thorn"]
+    },
+    {
+      "text": "Tiger jumping through a fire hoop",
+      "kind": "hard",
+      "alternates": ["tiger jumping through a ring of fire"],
+      "keywords": ["tiger", "fire"]
+    },
+    {
+      "text": "Elephant spraying water with its trunk",
+      "kind": "hard",
+      "alternates": ["elephant spraying water"],
+      "keywords": ["elephant", "spraying", "trunk"]
+    },
+    {
+      "text": "Elephant balancing on a ball",
+      "kind": "hard",
+      "alternates": ["circus elephant on a ball"],
+      "keywords": ["elephant", "ball"]
+    },
+    {
+      "text": "Elephant scared of a mouse",
+      "kind": "hard",
+      "alternates": ["elephant afraid of a mouse"],
+      "keywords": ["elephant", "mouse"]
+    },
+    {
+      "text": "Giraffe eating from a tall tree",
+      "kind": "hard",
+      "alternates": ["giraffe eating leaves"],
+      "keywords": ["giraffe", "tree"]
+    },
+    {
+      "text": "Giraffe drinking with its legs spread",
+      "kind": "hard",
+      "alternates": ["giraffe drinking water"],
+      "keywords": ["giraffe", "drinking"]
+    },
+    {
+      "text": "Giraffe peeking into a safari jeep",
+      "kind": "hard",
+      "alternates": ["giraffe looking into a jeep"],
+      "keywords": ["giraffe", "jeep"]
+    },
+    {
+      "text": "Hippo opening its huge mouth",
+      "kind": "hard",
+      "alternates": ["hippo yawning"],
+      "keywords": ["hippo", "mouth"]
+    },
+    {
+      "text": "Rhino charging",
+      "kind": "hard",
+      "alternates": ["charging rhino"],
+      "keywords": ["rhino", "charging"]
+    },
+    {
+      "text": "Monkey eating a banana",
+      "kind": "hard",
+      "alternates": ["monkey peeling a banana"],
+      "keywords": ["monkey", "banana"]
+    },
+    {
+      "text": "Monkey swinging from a vine",
+      "kind": "hard",
+      "alternates": ["monkey swinging on vines"],
+      "keywords": ["monkey", "swinging"]
+    },
+    {
+      "text": "Monkeys grooming each other",
+      "kind": "hard",
+      "alternates": ["monkey picking fleas"],
+      "keywords": ["monkeys", "grooming"]
+    },
+    {
+      "text": "Gorilla beating its chest",
+      "kind": "hard",
+      "alternates": ["gorilla pounding its chest"],
+      "keywords": ["gorilla", "chest"]
+    },
+    {
+      "text": "Bear catching a fish",
+      "kind": "hard",
+      "alternates": ["bear catching a salmon"],
+      "keywords": ["bear", "fish"]
+    },
+    {
+      "text": "Bear stealing honey",
+      "kind": "hard",
+      "alternates": ["bear eating honey from a beehive"],
+      "keywords": ["bear", "honey"]
+    },
+    {
+      "text": "Bear sleeping in a cave",
+      "kind": "hard",
+      "alternates": ["bear hibernating in a cave"],
+      "keywords": ["bear", "cave"]
+    },
+    {
+      "text": "Polar bear fishing through the ice",
+      "kind": "hard",
+      "alternates": ["polar bear at an ice hole"],
+      "keywords": ["polar bear", "ice"]
+    },
+    {
+      "text": "Penguin sliding on its belly",
+      "kind": "hard",
+      "alternates": ["penguin belly sliding"],
+      "keywords": ["penguin", "sliding"]
+    },
+    {
+      "text": "Penguin keeping an egg warm",
+      "kind": "hard",
+      "alternates": ["penguin with an egg on its feet"],
+      "keywords": ["penguin", "egg"]
+    },
+    {
+      "text": "Penguins huddling in the snow",
+      "kind": "hard",
+      "alternates": ["penguins huddling together"],
+      "keywords": ["penguins", "huddling"]
+    },
+    {
+      "text": "Seal balancing a ball",
+      "kind": "hard",
+      "alternates": ["seal with a ball on its nose"],
+      "keywords": ["seal", "ball"]
+    },
+    {
+      "text": "Walrus sunbathing on a rock",
+      "kind": "hard",
+      "alternates": ["walrus lying on a rock"],
+      "keywords": ["walrus", "rock"]
+    },
+    {
+      "text": "Whale spouting water",
+      "kind": "hard",
+      "alternates": ["whale blowing water"],
+      "keywords": ["whale", "spouting"]
+    },
+    {
+      "text": "Whale tail diving into the sea",
+      "kind": "hard",
+      "alternates": ["whale tail", "whale diving"],
+      "keywords": ["whale", "tail"]
+    },
+    {
+      "text": "Dolphin leaping out of the waves",
+      "kind": "hard",
+      "alternates": ["dolphin jumping out of the water"],
+      "keywords": ["dolphin", "leaping"]
+    },
+    {
+      "text": "Dolphins swimming beside a boat",
+      "kind": "hard",
+      "alternates": ["dolphins following a boat"],
+      "keywords": ["dolphins", "boat"]
+    },
+    {
+      "text": "Shark fin circling a boat",
+      "kind": "hard",
+      "alternates": ["shark circling a boat"],
+      "keywords": ["shark", "boat"]
+    },
+    {
+      "text": "Octopus squirting ink",
+      "kind": "hard",
+      "alternates": ["octopus spraying ink"],
+      "keywords": ["octopus", "ink"]
+    },
+    {
+      "text": "Octopus hiding in a jar",
+      "kind": "hard",
+      "alternates": ["octopus in a jar"],
+      "keywords": ["octopus", "jar"]
+    },
+    {
+      "text": "Crab pinching a toe",
+      "kind": "hard",
+      "alternates": ["crab pinching a foot"],
+      "keywords": ["crab", "pinching", "toe"]
+    },
+    {
+      "text": "Crab walking sideways",
+      "kind": "hard",
+      "alternates": ["crab scuttling sideways"],
+      "keywords": ["crab", "sideways"]
+    },
+    {
+      "text": "Hermit crab changing shells",
+      "kind": "hard",
+      "alternates": ["hermit crab moving into a new shell"],
+      "keywords": ["hermit crab", "shells"]
+    },
+    {
+      "text": "Clownfish hiding in an anemone",
+      "kind": "hard",
+      "alternates": ["clownfish in a sea anemone"],
+      "keywords": ["clownfish", "anemone"]
+    },
+    {
+      "text": "Pufferfish puffing up",
+      "kind": "hard",
+      "alternates": ["blowfish blowing up"],
+      "keywords": ["pufferfish", "puffing"]
+    },
+    {
+      "text": "Anglerfish with its glowing light",
+      "kind": "hard",
+      "alternates": ["angler fish with a light"],
+      "keywords": ["anglerfish", "light"]
+    },
+    {
+      "text": "Lobster caught in a trap",
+      "kind": "hard",
+      "alternates": ["lobster in a lobster pot"],
+      "keywords": ["lobster", "trap"]
+    },
+    {
+      "text": "Diver finding a pearl",
+      "kind": "hard",
+      "alternates": ["pearl in an oyster"],
+      "keywords": ["diver", "pearl"]
+    },
+    {
+      "text": "Seahorse holding on to seaweed",
+      "kind": "hard",
+      "alternates": ["seahorse in the seaweed"],
+      "keywords": ["seahorse", "seaweed"]
+    },
+    {
+      "text": "Starfish clinging to a rock",
+      "kind": "hard",
+      "alternates": ["starfish on a rock"],
+      "keywords": ["starfish", "rock"]
+    },
+    {
+      "text": "Turtle hiding in its shell",
+      "kind": "hard",
+      "alternates": ["tortoise hiding in its shell"],
+      "keywords": ["turtle", "hiding", "shell"]
+    },
+    {
+      "text": "Baby turtles racing to the sea",
+      "kind": "hard",
+      "alternates": ["turtle hatchlings going to the sea"],
+      "keywords": ["turtles", "sea"]
+    },
+    {
+      "text": "Tortoise racing a hare",
+      "kind": "hard",
+      "alternates": ["the tortoise and the hare"],
+      "keywords": ["tortoise", "hare"]
+    },
+    {
+      "text": "Snail leaving a slimy trail",
+      "kind": "hard",
+      "alternates": ["snail trail"],
+      "keywords": ["snail", "trail"]
+    },
+    {
+      "text": "Snake shedding its skin",
+      "kind": "hard",
+      "alternates": ["snake skin"],
+      "keywords": ["snake", "skin"]
+    },
+    {
+      "text": "Snake swallowing an egg",
+      "kind": "hard",
+      "alternates": ["snake eating an egg"],
+      "keywords": ["snake", "egg"]
+    },
+    {
+      "text": "Crocodile lurking in a river",
+      "kind": "hard",
+      "alternates": ["crocodile eyes poking out of the water"],
+      "keywords": ["crocodile", "river"]
+    },
+    {
+      "text": "Bird cleaning a crocodile's teeth",
+      "kind": "hard",
+      "alternates": ["bird in a crocodile's mouth"],
+      "keywords": ["bird", "crocodile", "teeth"]
+    },
+    {
+      "text": "Chameleon catching a fly",
+      "kind": "hard",
+      "alternates": ["chameleon catching a fly with its tongue"],
+      "keywords": ["chameleon", "fly"]
+    },
+    {
+      "text": "Gecko climbing up a wall",
+      "kind": "hard",
+      "alternates": ["lizard climbing a wall"],
+      "keywords": ["gecko", "wall"]
+    },
+    {
+      "text": "Frog jumping into a pond",
+      "kind": "hard",
+      "alternates": ["frog leaping into a pond"],
+      "keywords": ["frog", "pond"]
+    },
+    {
+      "text": "Frog sitting on a lily pad",
+      "kind": "hard",
+      "alternates": ["frog on a lily pad"],
+      "keywords": ["frog", "lily pad"]
+    },
+    {
+      "text": "Tadpole turning into a frog",
+      "kind": "hard",
+      "alternates": ["tadpole growing legs"],
+      "keywords": ["tadpole", "frog"]
+    },
+    {
+      "text": "Butterfly coming out of a cocoon",
+      "kind": "hard",
+      "alternates": ["butterfly hatching from a cocoon"],
+      "keywords": ["butterfly", "cocoon"]
+    },
+    {
+      "text": "Butterfly landing on a nose",
+      "kind": "hard",
+      "alternates": ["butterfly on someone's nose"],
+      "keywords": ["butterfly", "nose"]
+    },
+    {
+      "text": "Catching a butterfly with a net",
+      "kind": "hard",
+      "alternates": ["butterfly net"],
+      "keywords": ["butterfly", "net"]
+    },
+    {
+      "text": "Caterpillar eating a leaf",
+      "kind": "hard",
+      "alternates": ["caterpillar munching a leaf"],
+      "keywords": ["caterpillar", "leaf"]
+    },
+    {
+      "text": "Bee collecting pollen from a flower",
+      "kind": "hard",
+      "alternates": ["bee on a flower"],
+      "keywords": ["bee", "flower"]
+    },
+    {
+      "text": "Beekeeper holding a honeycomb",
+      "kind": "hard",
+      "alternates": ["beekeeper with bees"],
+      "keywords": ["beekeeper", "honeycomb"]
+    },
+    {
+      "text": "Bees swarming a picnic",
+      "kind": "hard",
+      "alternates": ["bees at a picnic"],
+      "keywords": ["bees", "picnic"]
+    },
+    {
+      "text": "Ants marching in a line",
+      "kind": "hard",
+      "alternates": ["line of ants"],
+      "keywords": ["ants", "line"]
+    },
+    {
+      "text": "Ant carrying a leaf",
+      "kind": "hard",
+      "alternates": ["ant carrying a big leaf"],
+      "keywords": ["ant", "leaf"]
+    },
+    {
+      "text": "Ladybug landing on a finger",
+      "kind": "hard",
+      "alternates": ["ladybird on a finger"],
+      "keywords": ["ladybug", "finger"]
+    },
+    {
+      "text": "Spider spinning a web",
+      "kind": "hard",
+      "alternates": ["spider making a web"],
+      "keywords": ["spider", "web"]
+    },
+    {
+      "text": "Spider dangling from a thread",
+      "kind": "hard",
+      "alternates": ["spider hanging on a thread"],
+      "keywords": ["spider", "dangling"]
+    },
+    {
+      "text": "Fly caught in a spider web",
+      "kind": "hard",
+      "alternates": ["fly stuck in a web"],
+      "keywords": ["fly", "web"]
+    },
+    {
+      "text": "Mosquito biting an arm",
+      "kind": "hard",
+      "alternates": ["mosquito on an arm"],
+      "keywords": ["mosquito", "arm"]
+    },
+    {
+      "text": "Fireflies glowing in a jar",
+      "kind": "hard",
+      "alternates": ["catching fireflies in a jar"],
+      "keywords": ["fireflies", "jar"]
+    },
+    {
+      "text": "Worm coming out of an apple",
+      "kind": "hard",
+      "alternates": ["worm in an apple"],
+      "keywords": ["worm", "apple"]
+    },
+    {
+      "text": "Robin pulling up a worm",
+      "kind": "hard",
+      "alternates": ["bird pulling a worm from the ground"],
+      "keywords": ["robin", "worm"]
+    },
+    {
+      "text": "Bird building a nest",
+      "kind": "hard",
+      "alternates": ["bird making a nest"],
+      "keywords": ["bird", "building", "nest"]
+    },
+    {
+      "text": "Mother bird feeding her chicks",
+      "kind": "hard",
+      "alternates": ["bird feeding babies in a nest"],
+      "keywords": ["bird", "feeding"]
+    },
+    {
+      "text": "Birds sitting on a power line",
+      "kind": "hard",
+      "alternates": ["birds on a wire"],
+      "keywords": ["birds", "wire"]
+    },
+    {
+      "text": "Sparrows splashing in a birdbath",
+      "kind": "hard",
+      "alternates": ["birds in a birdbath"],
+      "keywords": ["birds", "birdbath"]
+    },
+    {
+      "text": "Owl on a branch at night",
+      "kind": "hard",
+      "alternates": ["owl perched on a branch"],
+      "keywords": ["owl", "branch"]
+    },
+    {
+      "text": "Owl turning its head around",
+      "kind": "hard",
+      "alternates": ["owl spinning its head"],
+      "keywords": ["owl", "head"]
+    },
+    {
+      "text": "Eagle catching a fish",
+      "kind": "hard",
+      "alternates": ["eagle grabbing a fish"],
+      "keywords": ["eagle", "fish"]
+    },
+    {
+      "text": "Eagle soaring over mountains",
+      "kind": "hard",
+      "alternates": ["eagle flying over mountains"],
+      "keywords": ["eagle", "mountains"]
+    },
+    {
+      "text": "Flamingo standing on one leg",
+      "kind": "hard",
+      "alternates": ["flamingo on one leg"],
+      "keywords": ["flamingo", "leg"]
+    },
+    {
+      "text": "Peacock spreading its tail",
+      "kind": "hard",
+      "alternates": ["peacock showing its feathers"],
+      "keywords": ["peacock", "tail"]
+    },
+    {
+      "text": "Swans making a heart shape",
+      "kind": "hard",
+      "alternates": ["two swans in love"],
+      "keywords": ["swans", "heart"]
+    },
+    {
+      "text": "Pelican scooping fish in its beak",
+      "kind": "hard",
+      "alternates": ["pelican catching fish"],
+      "keywords": ["pelican", "fish"]
+    },
+    {
+      "text": "Ostrich head in the sand",
+      "kind": "hard",
+      "alternates": ["ostrich burying its head in the sand"],
+      "keywords": ["ostrich", "sand"]
+    },
+    {
+      "text": "Hummingbird drinking from a flower",
+      "kind": "hard",
+      "alternates": ["hummingbird at a flower"],
+      "keywords": ["hummingbird", "flower"]
+    },
+    {
+      "text": "Woodpecker pecking a tree",
+      "kind": "hard",
+      "alternates": ["woodpecker drilling a tree"],
+      "keywords": ["woodpecker", "tree"]
+    },
+    {
+      "text": "Crows sitting on a scarecrow",
+      "kind": "hard",
+      "alternates": ["crow on a scarecrow"],
+      "keywords": ["crow", "scarecrow"]
+    },
+    {
+      "text": "Feeding pigeons in a park",
+      "kind": "hard",
+      "alternates": ["pigeons eating bread"],
+      "keywords": ["pigeons", "feeding"]
+    },
+    {
+      "text": "Seagull stealing a sandwich",
+      "kind": "hard",
+      "alternates": ["seagull stealing food"],
+      "keywords": ["seagull", "stealing"]
+    },
+    {
+      "text": "Puffin with fish in its beak",
+      "kind": "hard",
+      "alternates": ["puffin holding fish"],
+      "keywords": ["puffin", "fish"]
+    },
+    {
+      "text": "Vulture perched on a dead tree",
+      "kind": "hard",
+      "alternates": ["vulture on a branch"],
+      "keywords": ["vulture", "tree"]
+    },
+    {
+      "text": "Bat hanging upside down",
+      "kind": "hard",
+      "alternates": ["bat sleeping upside down"],
+      "keywords": ["bat", "upside down"]
+    },
+    {
+      "text": "Bats flying out of a cave",
+      "kind": "hard",
+      "alternates": ["bats leaving a cave"],
+      "keywords": ["bats", "cave"]
+    },
+    {
+      "text": "Squirrel gathering nuts",
+      "kind": "hard",
+      "alternates": ["squirrel collecting acorns"],
+      "keywords": ["squirrel", "nuts"]
+    },
+    {
+      "text": "Squirrel raiding a bird feeder",
+      "kind": "hard",
+      "alternates": ["squirrel on a bird feeder"],
+      "keywords": ["squirrel", "feeder"]
+    },
+    {
+      "text": "Hedgehog curled into a ball",
+      "kind": "hard",
+      "alternates": ["hedgehog rolled up"],
+      "keywords": ["hedgehog", "ball"]
+    },
+    {
+      "text": "Fox sneaking into a henhouse",
+      "kind": "hard",
+      "alternates": ["fox in the henhouse", "fox in a chicken coop"],
+      "keywords": ["fox", "henhouse"]
+    },
+    {
+      "text": "Wolf howling at the moon",
+      "kind": "hard",
+      "alternates": ["wolf howling"],
+      "keywords": ["wolf", "howling", "moon"]
+    },
+    {
+      "text": "Wolf in sheep's clothing",
+      "kind": "hard",
+      "alternates": ["wolf dressed as a sheep"],
+      "keywords": ["wolf", "sheep"]
+    },
+    {
+      "text": "Deer in headlights",
+      "kind": "hard",
+      "alternates": ["deer in front of a car"],
+      "keywords": ["deer", "headlights"]
+    },
+    {
+      "text": "Reindeer pulling a sleigh",
+      "kind": "hard",
+      "alternates": ["reindeer and sleigh"],
+      "keywords": ["reindeer", "sleigh"]
+    },
+    {
+      "text": "Huskies pulling a sled",
+      "kind": "hard",
+      "alternates": ["sled dogs", "dog sled"],
+      "keywords": ["huskies", "sled"]
+    },
+    {
+      "text": "Raccoon digging through a trash can",
+      "kind": "hard",
+      "alternates": ["raccoon in the bin"],
+      "keywords": ["raccoon", "trash"]
+    },
+    {
+      "text": "Dog running from a skunk",
+      "kind": "hard",
+      "alternates": ["skunk spraying a dog"],
+      "keywords": ["skunk", "dog"]
+    },
+    {
+      "text": "Beaver building a dam",
+      "kind": "hard",
+      "alternates": ["beaver making a dam"],
+      "keywords": ["beaver", "dam"]
+    },
+    {
+      "text": "Beaver chewing a tree",
+      "kind": "hard",
+      "alternates": ["beaver gnawing a tree trunk"],
+      "keywords": ["beaver", "tree"]
+    },
+    {
+      "text": "Otters holding hands",
+      "kind": "hard",
+      "alternates": ["otters floating holding hands"],
+      "keywords": ["otters", "holding hands"]
+    },
+    {
+      "text": "Otter cracking shells on its belly",
+      "kind": "hard",
+      "alternates": ["otter floating on its back"],
+      "keywords": ["otter", "belly"]
+    },
+    {
+      "text": "Mouse nibbling cheese",
+      "kind": "hard",
+      "alternates": ["mouse eating cheese"],
+      "keywords": ["mouse", "cheese"]
+    },
+    {
+      "text": "Mouse in a maze",
+      "kind": "hard",
+      "alternates": ["mouse running through a maze"],
+      "keywords": ["mouse", "maze"]
+    },
+    {
+      "text": "Mole popping out of a molehill",
+      "kind": "hard",
+      "alternates": ["mole coming out of the ground"],
+      "keywords": ["mole", "molehill"]
+    },
+    {
+      "text": "Porcupine raising its quills",
+      "kind": "hard",
+      "alternates": ["porcupine with quills up"],
+      "keywords": ["porcupine", "quills"]
+    },
+    {
+      "text": "Sloth hanging from a branch",
+      "kind": "hard",
+      "alternates": ["sloth hanging from a tree"],
+      "keywords": ["sloth", "hanging"]
+    },
+    {
+      "text": "Anteater licking up ants",
+      "kind": "hard",
+      "alternates": ["anteater eating ants"],
+      "keywords": ["anteater", "ants"]
+    },
+    {
+      "text": "Cheetah chasing an antelope",
+      "kind": "hard",
+      "alternates": ["cheetah chasing a gazelle"],
+      "keywords": ["cheetah", "chasing"]
+    },
+    {
+      "text": "Leopard resting in a tree",
+      "kind": "hard",
+      "alternates": ["leopard lying on a branch"],
+      "keywords": ["leopard", "tree"]
+    },
+    {
+      "text": "Meerkat standing on lookout",
+      "kind": "hard",
+      "alternates": ["meerkat standing guard"],
+      "keywords": ["meerkat", "standing"]
+    },
+    {
+      "text": "Llama spitting",
+      "kind": "hard",
+      "alternates": ["spitting llama"],
+      "keywords": ["llama", "spitting"]
+    },
+    {
+      "text": "Vet examining a hamster",
+      "kind": "hard",
+      "alternates": ["vet checking a hamster"],
+      "keywords": ["vet", "hamster"]
+    },
+    {
+      "text": "Kids at a petting zoo",
+      "kind": "hard",
+      "alternates": ["children petting animals"],
+      "keywords": ["petting zoo"]
+    },
+    {
+      "text": "Zookeeper feeding a seal",
+      "kind": "hard",
+      "alternates": ["zookeeper with a bucket of fish"],
+      "keywords": ["zookeeper", "seal"]
+    },
+    {
+      "text": "Snake coiled around a branch",
+      "kind": "hard",
+      "alternates": ["snake on a branch"],
+      "keywords": ["snake", "branch"]
+    },
+    {
+      "text": "Giraffe in a turtleneck sweater",
+      "kind": "chaos",
+      "alternates": ["giraffe wearing a turtleneck"],
+      "keywords": ["giraffe", "turtleneck"]
+    },
+    {
+      "text": "Giraffe at a limbo contest",
+      "kind": "chaos",
+      "alternates": ["giraffe doing the limbo"],
+      "keywords": ["giraffe", "limbo"]
+    },
+    {
+      "text": "Giraffe changing a light bulb",
+      "kind": "chaos",
+      "alternates": ["giraffe screwing in a light bulb"],
+      "keywords": ["giraffe", "light bulb"]
+    },
+    {
+      "text": "Elephant hiding behind a flower",
+      "kind": "chaos",
+      "alternates": ["elephant hiding behind a tiny flower"],
+      "keywords": ["elephant", "hiding", "flower"]
+    },
+    {
+      "text": "Elephant showering with its trunk",
+      "kind": "chaos",
+      "alternates": ["elephant using its trunk as a shower"],
+      "keywords": ["elephant", "shower", "trunk"]
+    },
+    {
+      "text": "Elephant and mouse on a seesaw",
+      "kind": "chaos",
+      "alternates": ["elephant on a seesaw with a mouse"],
+      "keywords": ["elephant", "seesaw", "mouse"]
+    },
+    {
+      "text": "Snail with a jet engine",
+      "kind": "chaos",
+      "alternates": ["snail with a rocket on its shell"],
+      "keywords": ["snail", "jet"]
+    },
+    {
+      "text": "Snail pulled over for speeding",
+      "kind": "chaos",
+      "alternates": ["police stopping a snail"],
+      "keywords": ["snail", "police"]
+    },
+    {
+      "text": "Cheetah losing to a turtle",
+      "kind": "chaos",
+      "alternates": ["turtle beating a cheetah in a race"],
+      "keywords": ["cheetah", "turtle"]
+    },
+    {
+      "text": "Turtle breakdancing on its shell",
+      "kind": "chaos",
+      "alternates": ["turtle spinning on its shell"],
+      "keywords": ["turtle", "breakdancing"]
+    },
+    {
+      "text": "Tortoise on a skateboard",
+      "kind": "chaos",
+      "alternates": ["turtle on a skateboard"],
+      "keywords": ["tortoise", "skateboard"]
+    },
+    {
+      "text": "Sloth as a firefighter",
+      "kind": "chaos",
+      "alternates": ["sloth firefighter", "slow sloth fireman"],
+      "keywords": ["sloth", "firefighter"]
+    },
+    {
+      "text": "Octopus directing traffic",
+      "kind": "chaos",
+      "alternates": ["octopus traffic cop"],
+      "keywords": ["octopus", "traffic"]
+    },
+    {
+      "text": "Octopus putting on eight socks",
+      "kind": "chaos",
+      "alternates": ["octopus wearing socks"],
+      "keywords": ["octopus", "socks"]
+    },
+    {
+      "text": "Octopus filling fountain pens",
+      "kind": "chaos",
+      "alternates": ["octopus filling pens with ink"],
+      "keywords": ["octopus", "pens"]
+    },
+    {
+      "text": "Kangaroo winning a sack race",
+      "kind": "chaos",
+      "alternates": ["kangaroo in a sack race"],
+      "keywords": ["kangaroo", "sack race"]
+    },
+    {
+      "text": "Kangaroo pouch full of groceries",
+      "kind": "chaos",
+      "alternates": ["kangaroo carrying shopping in its pouch"],
+      "keywords": ["kangaroo", "pouch", "groceries"]
+    },
+    {
+      "text": "Kangaroo on a pogo stick",
+      "kind": "chaos",
+      "alternates": ["kangaroo bouncing on a pogo stick"],
+      "keywords": ["kangaroo", "pogo stick"]
+    },
+    {
+      "text": "Penguin working as a waiter",
+      "kind": "chaos",
+      "alternates": ["penguin waiter"],
+      "keywords": ["penguin", "waiter"]
+    },
+    {
+      "text": "Penguin sunbathing on a beach",
+      "kind": "chaos",
+      "alternates": ["penguin on a sunbed"],
+      "keywords": ["penguin", "sunbathing", "beach"]
+    },
+    {
+      "text": "Penguin flying with balloons",
+      "kind": "chaos",
+      "alternates": ["penguin holding balloons"],
+      "keywords": ["penguin", "balloons"]
+    },
+    {
+      "text": "Polar bear sleeping in a freezer",
+      "kind": "chaos",
+      "alternates": ["polar bear in a fridge"],
+      "keywords": ["polar bear", "freezer"]
+    },
+    {
+      "text": "Polar bear lost in the desert",
+      "kind": "chaos",
+      "alternates": ["polar bear in the desert"],
+      "keywords": ["polar bear", "desert"]
+    },
+    {
+      "text": "Camel drinking from a fire hydrant",
+      "kind": "chaos",
+      "alternates": ["camel at a fire hydrant"],
+      "keywords": ["camel", "hydrant"]
+    },
+    {
+      "text": "Camel humps full of water bottles",
+      "kind": "chaos",
+      "alternates": ["camel storing water bottles in its humps"],
+      "keywords": ["camel", "humps", "bottles"]
+    },
+    {
+      "text": "Flamingo playing hopscotch",
+      "kind": "chaos",
+      "alternates": ["flamingo hopping on one leg"],
+      "keywords": ["flamingo", "hopscotch"]
+    },
+    {
+      "text": "Flamingo meeting a plastic flamingo",
+      "kind": "chaos",
+      "alternates": ["flamingo and a lawn flamingo"],
+      "keywords": ["flamingo", "plastic"]
+    },
+    {
+      "text": "Ostrich head in a birthday cake",
+      "kind": "chaos",
+      "alternates": ["ostrich hiding its head in a cake"],
+      "keywords": ["ostrich", "cake"]
+    },
+    {
+      "text": "Hen sitting on a football",
+      "kind": "chaos",
+      "alternates": ["chicken sitting on a football"],
+      "keywords": ["hen", "football"]
+    },
+    {
+      "text": "Chicken laying a square egg",
+      "kind": "chaos",
+      "alternates": ["hen laying a square egg"],
+      "keywords": ["chicken", "square", "egg"]
+    },
+    {
+      "text": "Cow milking the farmer",
+      "kind": "chaos",
+      "alternates": ["cow milking a man"],
+      "keywords": ["cow", "milking", "farmer"]
+    },
+    {
+      "text": "Cow abducted by a UFO",
+      "kind": "chaos",
+      "alternates": ["cow beamed up by aliens"],
+      "keywords": ["cow", "ufo"]
+    },
+    {
+      "text": "Cow drinking a glass of milk",
+      "kind": "chaos",
+      "alternates": ["cow sipping milk"],
+      "keywords": ["cow", "milk"]
+    },
+    {
+      "text": "Pig relaxing at a mud spa",
+      "kind": "chaos",
+      "alternates": ["pig at a spa"],
+      "keywords": ["pig", "spa"]
+    },
+    {
+      "text": "Pig flying past an airplane",
+      "kind": "chaos",
+      "alternates": ["flying pig", "pig with wings"],
+      "keywords": ["pig", "flying"]
+    },
+    {
+      "text": "Sheep counting people in bed",
+      "kind": "chaos",
+      "alternates": ["sheep counting humans"],
+      "keywords": ["sheep", "counting", "people"]
+    },
+    {
+      "text": "Sheep shrunk in the wash",
+      "kind": "chaos",
+      "alternates": ["sheep shrinking in a washing machine"],
+      "keywords": ["sheep", "washing machine"]
+    },
+    {
+      "text": "Dog playing fetch with its owner",
+      "kind": "chaos",
+      "alternates": ["dog throwing a ball for its owner"],
+      "keywords": ["dog", "fetch", "owner"]
+    },
+    {
+      "text": "Dog burying a dinosaur bone",
+      "kind": "chaos",
+      "alternates": ["dog with a dinosaur bone"],
+      "keywords": ["dog", "dinosaur", "bone"]
+    },
+    {
+      "text": "Mail carrier chasing a dog",
+      "kind": "chaos",
+      "alternates": ["postman chasing a dog"],
+      "keywords": ["postman", "chasing", "dog"]
+    },
+    {
+      "text": "Cat pushing Earth off a table",
+      "kind": "chaos",
+      "alternates": ["cat knocking the planet off a table"],
+      "keywords": ["cat", "earth"]
+    },
+    {
+      "text": "Cat working as a lifeguard",
+      "kind": "chaos",
+      "alternates": ["cat lifeguard"],
+      "keywords": ["cat", "lifeguard"]
+    },
+    {
+      "text": "Cat scared of a cucumber",
+      "kind": "chaos",
+      "alternates": ["cat jumping away from a cucumber"],
+      "keywords": ["cat", "cucumber"]
+    },
+    {
+      "text": "Kitten taming a lion",
+      "kind": "chaos",
+      "alternates": ["kitten lion tamer"],
+      "keywords": ["kitten", "lion"]
+    },
+    {
+      "text": "Mouse living in a cheese house",
+      "kind": "chaos",
+      "alternates": ["mouse in a cheese house"],
+      "keywords": ["mouse", "cheese", "house"]
+    },
+    {
+      "text": "Rabbit pulling magicians from hats",
+      "kind": "chaos",
+      "alternates": ["rabbit pulling a magician out of a hat"],
+      "keywords": ["rabbit", "magician", "hat"]
+    },
+    {
+      "text": "Rabbit flying with its ears",
+      "kind": "chaos",
+      "alternates": ["rabbit using its ears as a helicopter"],
+      "keywords": ["rabbit", "flying", "ears"]
+    },
+    {
+      "text": "Bear stuck in a honey jar",
+      "kind": "chaos",
+      "alternates": ["bear with its head in a honey pot"],
+      "keywords": ["bear", "honey", "jar"]
+    },
+    {
+      "text": "Bear snoozing an alarm clock",
+      "kind": "chaos",
+      "alternates": ["bear hibernating with an alarm clock"],
+      "keywords": ["bear", "alarm clock"]
+    },
+    {
+      "text": "Panda eating its chopsticks",
+      "kind": "chaos",
+      "alternates": ["panda eating bamboo chopsticks"],
+      "keywords": ["panda", "chopsticks"]
+    },
+    {
+      "text": "Panda scrubbing off its eye patches",
+      "kind": "chaos",
+      "alternates": ["panda washing its face"],
+      "keywords": ["panda", "scrubbing"]
+    },
+    {
+      "text": "Koala hugging a lamppost",
+      "kind": "chaos",
+      "alternates": ["koala clinging to a lamppost"],
+      "keywords": ["koala", "lamppost"]
+    },
+    {
+      "text": "Lion with curlers in its mane",
+      "kind": "chaos",
+      "alternates": ["lion with hair curlers"],
+      "keywords": ["lion", "curlers"]
+    },
+    {
+      "text": "Tiger painting on its stripes",
+      "kind": "chaos",
+      "alternates": ["tiger painting stripes"],
+      "keywords": ["tiger", "painting", "stripes"]
+    },
+    {
+      "text": "Zebra used as a piano",
+      "kind": "chaos",
+      "alternates": ["zebra piano", "playing piano on a zebra"],
+      "keywords": ["zebra", "piano"]
+    },
+    {
+      "text": "Zebra as a referee",
+      "kind": "chaos",
+      "alternates": ["zebra referee"],
+      "keywords": ["zebra", "referee"]
+    },
+    {
+      "text": "Hippo in a tutu",
+      "kind": "chaos",
+      "alternates": ["hippo ballerina"],
+      "keywords": ["hippo", "tutu"]
+    },
+    {
+      "text": "Dentist inside a hippo's mouth",
+      "kind": "chaos",
+      "alternates": ["dentist in a hippo mouth"],
+      "keywords": ["dentist", "hippo"]
+    },
+    {
+      "text": "Rhino dressed as a unicorn",
+      "kind": "chaos",
+      "alternates": ["rhino in a unicorn costume"],
+      "keywords": ["rhino", "unicorn"]
+    },
+    {
+      "text": "Crocodile wearing braces",
+      "kind": "chaos",
+      "alternates": ["crocodile with braces"],
+      "keywords": ["crocodile", "braces"]
+    },
+    {
+      "text": "Crocodile used as a nutcracker",
+      "kind": "chaos",
+      "alternates": ["crocodile cracking nuts"],
+      "keywords": ["crocodile", "nuts"]
+    },
+    {
+      "text": "Snake tied in a knot",
+      "kind": "chaos",
+      "alternates": ["snake in a knot"],
+      "keywords": ["snake", "knot"]
+    },
+    {
+      "text": "Snake used as a jump rope",
+      "kind": "chaos",
+      "alternates": ["skipping with a snake"],
+      "keywords": ["snake", "jump rope"]
+    },
+    {
+      "text": "Snake mistaken for a garden hose",
+      "kind": "chaos",
+      "alternates": ["watering plants with a snake"],
+      "keywords": ["snake", "hose"]
+    },
+    {
+      "text": "Owl working in a library",
+      "kind": "chaos",
+      "alternates": ["owl librarian"],
+      "keywords": ["owl", "library"]
+    },
+    {
+      "text": "Owl driving a car in reverse",
+      "kind": "chaos",
+      "alternates": ["owl turning its head to reverse a car"],
+      "keywords": ["owl", "car", "reverse"]
+    },
+    {
+      "text": "Bat sleeping on a coat hanger",
+      "kind": "chaos",
+      "alternates": ["bat hanging on a clothes hanger"],
+      "keywords": ["bat", "hanger"]
+    },
+    {
+      "text": "Bat reading a book upside down",
+      "kind": "chaos",
+      "alternates": ["bat reading upside down"],
+      "keywords": ["bat", "book", "upside down"]
+    },
+    {
+      "text": "Bee chasing a flowery hat",
+      "kind": "chaos",
+      "alternates": ["bee landing on a flower hat"],
+      "keywords": ["bee", "flowery", "hat"]
+    },
+    {
+      "text": "Firefly used as a night light",
+      "kind": "chaos",
+      "alternates": ["firefly nightlight"],
+      "keywords": ["firefly", "night light"]
+    },
+    {
+      "text": "Anglerfish working as a lighthouse",
+      "kind": "chaos",
+      "alternates": ["anglerfish lighthouse"],
+      "keywords": ["anglerfish", "lighthouse"]
+    },
+    {
+      "text": "Ladybug used as a dice",
+      "kind": "chaos",
+      "alternates": ["ladybird dice", "ladybug dice"],
+      "keywords": ["ladybug", "dice"]
+    },
+    {
+      "text": "Electric eel charging a phone",
+      "kind": "chaos",
+      "alternates": ["eel charging a phone"],
+      "keywords": ["eel", "phone"]
+    },
+    {
+      "text": "Piranha eating a salad",
+      "kind": "chaos",
+      "alternates": ["vegetarian piranha"],
+      "keywords": ["piranha", "salad"]
+    },
+    {
+      "text": "Shark wearing armbands",
+      "kind": "chaos",
+      "alternates": ["shark with water wings", "shark wearing floaties"],
+      "keywords": ["shark", "armbands"]
+    },
+    {
+      "text": "Shark in a paddling pool",
+      "kind": "chaos",
+      "alternates": ["shark in a kiddie pool"],
+      "keywords": ["shark", "paddling pool"]
+    },
+    {
+      "text": "Shark scared of a rubber duck",
+      "kind": "chaos",
+      "alternates": ["shark afraid of a rubber duck"],
+      "keywords": ["shark", "rubber duck"]
+    },
+    {
+      "text": "Whale in a fishbowl",
+      "kind": "chaos",
+      "alternates": ["whale in a fish bowl"],
+      "keywords": ["whale", "fishbowl"]
+    },
+    {
+      "text": "Whale spout washing a ship",
+      "kind": "chaos",
+      "alternates": ["whale washing a boat with its spout"],
+      "keywords": ["whale", "washing", "ship"]
+    },
+    {
+      "text": "Dolphin training a human",
+      "kind": "chaos",
+      "alternates": ["dolphin teaching a man to jump through a hoop"],
+      "keywords": ["dolphin", "training", "human"]
+    },
+    {
+      "text": "Seal balancing a house",
+      "kind": "chaos",
+      "alternates": ["seal with a house on its nose"],
+      "keywords": ["seal", "house"]
+    },
+    {
+      "text": "Seal clapping at a concert",
+      "kind": "chaos",
+      "alternates": ["seal clapping its flippers at a concert"],
+      "keywords": ["seal", "clapping", "concert"]
+    },
+    {
+      "text": "Walrus eating noodles with its tusks",
+      "kind": "chaos",
+      "alternates": ["walrus using tusks as chopsticks"],
+      "keywords": ["walrus", "noodles", "tusks"]
+    },
+    {
+      "text": "Narwhal roasting marshmallows",
+      "kind": "chaos",
+      "alternates": ["narwhal toasting marshmallows on its horn"],
+      "keywords": ["narwhal", "marshmallows"]
+    },
+    {
+      "text": "Swordfish in a fencing match",
+      "kind": "chaos",
+      "alternates": ["swordfish fencing"],
+      "keywords": ["swordfish", "fencing"]
+    },
+    {
+      "text": "Swordfish cutting a birthday cake",
+      "kind": "chaos",
+      "alternates": ["swordfish slicing a cake"],
+      "keywords": ["swordfish", "cake"]
+    },
+    {
+      "text": "Pufferfish used as a beach ball",
+      "kind": "chaos",
+      "alternates": ["pufferfish beach ball"],
+      "keywords": ["pufferfish", "beach ball"]
+    },
+    {
+      "text": "Pufferfish inflated by a bike pump",
+      "kind": "chaos",
+      "alternates": ["pumping up a pufferfish"],
+      "keywords": ["pufferfish", "pump"]
+    },
+    {
+      "text": "Jellyfish used as a parachute",
+      "kind": "chaos",
+      "alternates": ["jellyfish parachute"],
+      "keywords": ["jellyfish", "parachute"]
+    },
+    {
+      "text": "Jellyfish as a lampshade",
+      "kind": "chaos",
+      "alternates": ["jellyfish lamp"],
+      "keywords": ["jellyfish", "lamp"]
+    },
+    {
+      "text": "Starfish atop a Christmas tree",
+      "kind": "chaos",
+      "alternates": ["starfish on a Christmas tree"],
+      "keywords": ["starfish", "christmas tree"]
+    },
+    {
+      "text": "Starfish as a sheriff's badge",
+      "kind": "chaos",
+      "alternates": ["sheriff with a starfish badge"],
+      "keywords": ["starfish", "sheriff", "badge"]
+    },
+    {
+      "text": "Crab working as a hairdresser",
+      "kind": "chaos",
+      "alternates": ["crab cutting hair"],
+      "keywords": ["crab", "hairdresser"]
+    },
+    {
+      "text": "Hermit crab living in a teapot",
+      "kind": "chaos",
+      "alternates": ["hermit crab in a teapot"],
+      "keywords": ["hermit crab", "teapot"]
+    },
+    {
+      "text": "Hermit crab with a moving truck",
+      "kind": "chaos",
+      "alternates": ["hermit crab moving house"],
+      "keywords": ["hermit crab", "truck"]
+    },
+    {
+      "text": "Seahorse at a rodeo",
+      "kind": "chaos",
+      "alternates": ["cowboy riding a seahorse"],
+      "keywords": ["seahorse", "rodeo"]
+    },
+    {
+      "text": "Clownfish wearing a clown nose",
+      "kind": "chaos",
+      "alternates": ["clownfish with a red nose"],
+      "keywords": ["clownfish", "clown nose"]
+    },
+    {
+      "text": "Duck hiding under an umbrella",
+      "kind": "chaos",
+      "alternates": ["duck holding an umbrella in the rain"],
+      "keywords": ["duck", "umbrella"]
+    },
+    {
+      "text": "Goose guarding a bank vault",
+      "kind": "chaos",
+      "alternates": ["goose security guard"],
+      "keywords": ["goose", "guarding"]
+    },
+    {
+      "text": "Swan riding a swan pedal boat",
+      "kind": "chaos",
+      "alternates": ["swan in a swan pedalo"],
+      "keywords": ["swan", "pedal boat"]
+    },
+    {
+      "text": "Peacock fanning itself",
+      "kind": "chaos",
+      "alternates": ["peacock using its tail as a fan"],
+      "keywords": ["peacock", "fan"]
+    },
+    {
+      "text": "Peacock on a fashion catwalk",
+      "kind": "chaos",
+      "alternates": ["peacock at a fashion show"],
+      "keywords": ["peacock", "catwalk"]
+    },
+    {
+      "text": "Pelican used as a mailbox",
+      "kind": "chaos",
+      "alternates": ["pelican postbox"],
+      "keywords": ["pelican", "mailbox"]
+    },
+    {
+      "text": "Pelican scooping up a submarine",
+      "kind": "chaos",
+      "alternates": ["pelican with a submarine in its beak"],
+      "keywords": ["pelican", "submarine"]
+    },
+    {
+      "text": "Stork delivering a pizza",
+      "kind": "chaos",
+      "alternates": ["stork pizza delivery"],
+      "keywords": ["stork", "pizza"]
+    },
+    {
+      "text": "Woodpecker hammering in nails",
+      "kind": "chaos",
+      "alternates": ["woodpecker carpenter"],
+      "keywords": ["woodpecker", "nails"]
+    },
+    {
+      "text": "Eagle at the eye doctor",
+      "kind": "chaos",
+      "alternates": ["eagle getting glasses", "eagle having an eye test"],
+      "keywords": ["eagle", "glasses"]
+    },
+    {
+      "text": "Crow scaring a scarecrow",
+      "kind": "chaos",
+      "alternates": ["scarecrow afraid of a crow"],
+      "keywords": ["crow", "scarecrow"]
+    },
+    {
+      "text": "Pigeon delivering a sofa",
+      "kind": "chaos",
+      "alternates": ["carrier pigeon carrying a couch"],
+      "keywords": ["pigeon", "sofa"]
+    },
+    {
+      "text": "Seagull stealing an ice cream truck",
+      "kind": "chaos",
+      "alternates": ["seagull driving off with an ice cream van"],
+      "keywords": ["seagull", "ice cream truck"]
+    },
+    {
+      "text": "Farmer waking up a rooster",
+      "kind": "chaos",
+      "alternates": ["farmer with an alarm waking a rooster"],
+      "keywords": ["farmer", "rooster"]
+    },
+    {
+      "text": "Horse giving a cowboy a piggyback",
+      "kind": "chaos",
+      "alternates": ["horse carrying a cowboy"],
+      "keywords": ["horse", "cowboy", "piggyback"]
+    },
+    {
+      "text": "Horse on roller skates",
+      "kind": "chaos",
+      "alternates": ["horse wearing roller skates"],
+      "keywords": ["horse", "roller skates"]
+    },
+    {
+      "text": "Donkey carrying an elephant",
+      "kind": "chaos",
+      "alternates": ["elephant riding a donkey"],
+      "keywords": ["donkey", "elephant"]
+    },
+    {
+      "text": "Goat climbing a skyscraper",
+      "kind": "chaos",
+      "alternates": ["goat on a skyscraper"],
+      "keywords": ["goat", "skyscraper"]
+    },
+    {
+      "text": "Goat munching a car tyre",
+      "kind": "chaos",
+      "alternates": ["goat eating a tire"],
+      "keywords": ["goat", "tyre"]
+    },
+    {
+      "text": "Hamster wheel powering a city",
+      "kind": "chaos",
+      "alternates": ["hamster powering a city"],
+      "keywords": ["hamster", "city"]
+    },
+    {
+      "text": "Hamster stuffing a pineapple",
+      "kind": "chaos",
+      "alternates": ["hamster with a pineapple in its cheeks"],
+      "keywords": ["hamster", "pineapple"]
+    },
+    {
+      "text": "Goldfish astronaut",
+      "kind": "chaos",
+      "alternates": ["goldfish with its bowl as a space helmet"],
+      "keywords": ["goldfish", "astronaut"]
+    },
+    {
+      "text": "Parrot carrying a pirate",
+      "kind": "chaos",
+      "alternates": ["parrot giving a pirate a ride"],
+      "keywords": ["parrot", "carrying", "pirate"]
+    },
+    {
+      "text": "Squirrel filling a piggy bank",
+      "kind": "chaos",
+      "alternates": ["squirrel saving nuts in a piggy bank"],
+      "keywords": ["squirrel", "piggy bank"]
+    },
+    {
+      "text": "Beaver sharpening pencils with its teeth",
+      "kind": "chaos",
+      "alternates": ["beaver pencil sharpener"],
+      "keywords": ["beaver", "pencils"]
+    },
+    {
+      "text": "Beaver dam in a bathtub",
+      "kind": "chaos",
+      "alternates": ["beaver building a dam in a bath"],
+      "keywords": ["beaver", "bathtub"]
+    },
+    {
+      "text": "Raccoon washing dishes",
+      "kind": "chaos",
+      "alternates": ["raccoon doing the dishes"],
+      "keywords": ["raccoon", "dishes"]
+    },
+    {
+      "text": "Raccoon bandit with a swag bag",
+      "kind": "chaos",
+      "alternates": ["raccoon robber"],
+      "keywords": ["raccoon", "bandit"]
+    },
+    {
+      "text": "Skunk selling perfume",
+      "kind": "chaos",
+      "alternates": ["skunk perfume shop"],
+      "keywords": ["skunk", "perfume"]
+    },
+    {
+      "text": "Hedgehog used as a pincushion",
+      "kind": "chaos",
+      "alternates": ["hedgehog pin cushion"],
+      "keywords": ["hedgehog", "pincushion"]
+    },
+    {
+      "text": "Hedgehog hugging a balloon",
+      "kind": "chaos",
+      "alternates": ["hedgehog with a balloon"],
+      "keywords": ["hedgehog", "balloon"]
+    },
+    {
+      "text": "Hedgehog used as a hairbrush",
+      "kind": "chaos",
+      "alternates": ["brushing hair with a hedgehog"],
+      "keywords": ["hedgehog", "hairbrush"]
+    },
+    {
+      "text": "Fox guarding the henhouse",
+      "kind": "chaos",
+      "alternates": ["fox guarding the chickens"],
+      "keywords": ["fox", "guarding", "henhouse"]
+    },
+    {
+      "text": "Fox in a chicken costume",
+      "kind": "chaos",
+      "alternates": ["fox dressed as a chicken"],
+      "keywords": ["fox", "costume"]
+    },
+    {
+      "text": "Wolf howling at a ceiling lamp",
+      "kind": "chaos",
+      "alternates": ["wolf howling at a lamp"],
+      "keywords": ["wolf", "lamp"]
+    },
+    {
+      "text": "Deer used as a coat rack",
+      "kind": "chaos",
+      "alternates": ["coats hanging on antlers"],
+      "keywords": ["deer", "coat rack"]
+    },
+    {
+      "text": "Lobster used as a clothes peg",
+      "kind": "chaos",
+      "alternates": ["lobster pegging out washing"],
+      "keywords": ["lobster", "peg"]
+    },
+    {
+      "text": "Mole playing whack-a-mole",
+      "kind": "chaos",
+      "alternates": ["mole at a whack-a-mole game"],
+      "keywords": ["mole", "whack-a-mole"]
+    },
+    {
+      "text": "Mole wearing a miner's helmet",
+      "kind": "chaos",
+      "alternates": ["mole with a headlamp"],
+      "keywords": ["mole", "helmet"]
+    },
+    {
+      "text": "Gorilla playing bongos on its chest",
+      "kind": "chaos",
+      "alternates": ["gorilla drumming on its chest"],
+      "keywords": ["gorilla", "bongos"]
+    },
+    {
+      "text": "Monkey hanging from a ceiling fan",
+      "kind": "chaos",
+      "alternates": ["monkey on a ceiling fan"],
+      "keywords": ["monkey", "ceiling fan"]
+    },
+    {
+      "text": "Leopard playing connect the dots",
+      "kind": "chaos",
+      "alternates": ["leopard connecting its spots"],
+      "keywords": ["leopard", "dots"]
+    },
+    {
+      "text": "Hyena laughing at a comedy show",
+      "kind": "chaos",
+      "alternates": ["hyena at a comedy club"],
+      "keywords": ["hyena", "comedy"]
+    },
+    {
+      "text": "Meerkat as a submarine periscope",
+      "kind": "chaos",
+      "alternates": ["meerkat periscope"],
+      "keywords": ["meerkat", "periscope"]
+    },
+    {
+      "text": "Chameleon on a chessboard",
+      "kind": "chaos",
+      "alternates": ["chameleon on a checkerboard"],
+      "keywords": ["chameleon", "chessboard"]
+    },
+    {
+      "text": "Frog in a long jump contest",
+      "kind": "chaos",
+      "alternates": ["frog doing the long jump"],
+      "keywords": ["frog", "long jump"]
+    },
+    {
+      "text": "Armadillo used as a bowling ball",
+      "kind": "chaos",
+      "alternates": ["bowling with an armadillo"],
+      "keywords": ["armadillo", "bowling"]
+    },
+    {
+      "text": "Anteater eating ants with a straw",
+      "kind": "chaos",
+      "alternates": ["anteater drinking ants through a straw"],
+      "keywords": ["anteater", "straw"]
+    },
+    {
+      "text": "Fly swatting a man",
+      "kind": "chaos",
+      "alternates": ["fly chasing a man with a swatter"],
+      "keywords": ["fly", "swatting", "man"]
+    },
+    {
+      "text": "Dragonfly as a helicopter",
+      "kind": "chaos",
+      "alternates": ["dragonfly helicopter"],
+      "keywords": ["dragonfly", "helicopter"]
+    },
+    {
+      "text": "Centipede at a shoe shop",
+      "kind": "chaos",
+      "alternates": ["centipede buying shoes"],
+      "keywords": ["centipede", "shoes"]
+    },
+    {
+      "text": "Worm using a fish as bait",
+      "kind": "chaos",
+      "alternates": ["worm fishing with a fish"],
+      "keywords": ["worm", "fish", "bait"]
+    },
+    {
+      "text": "Worm living in an apple house",
+      "kind": "chaos",
+      "alternates": ["worm with a door in an apple"],
+      "keywords": ["worm", "apple", "house"]
+    },
+    {
+      "text": "Caterpillar zipping into a sleeping bag",
+      "kind": "chaos",
+      "alternates": ["caterpillar in a sleeping bag"],
+      "keywords": ["caterpillar", "sleeping bag"]
+    },
+    {
+      "text": "Butterfly catching a boy",
+      "kind": "chaos",
+      "alternates": ["butterfly catching a boy in a net"],
+      "keywords": ["butterfly", "catching", "boy"]
+    },
+    {
+      "text": "Moth eating a sweater",
+      "kind": "chaos",
+      "alternates": ["moth munching a jumper"],
+      "keywords": ["moth", "sweater"]
+    },
+    {
+      "text": "Ant carrying a watermelon",
+      "kind": "chaos",
+      "alternates": ["ant lifting a watermelon"],
+      "keywords": ["ant", "watermelon"]
+    },
+    {
+      "text": "Ant lifting a dumbbell",
+      "kind": "chaos",
+      "alternates": ["ant lifting weights"],
+      "keywords": ["ant", "dumbbell"]
+    },
+    {
+      "text": "Spider napping in a web hammock",
+      "kind": "chaos",
+      "alternates": ["spider web hammock"],
+      "keywords": ["spider", "hammock"]
+    },
+    {
+      "text": "Spider web catching an airplane",
+      "kind": "chaos",
+      "alternates": ["airplane stuck in a spider web"],
+      "keywords": ["spider web", "airplane"]
+    },
+    {
+      "text": "Spider knitting a sweater",
+      "kind": "chaos",
+      "alternates": ["spider knitting with its legs"],
+      "keywords": ["spider", "knitting"]
+    },
+    {
+      "text": "Toucan with a banana beak",
+      "kind": "chaos",
+      "alternates": ["toucan with a banana for a beak"],
+      "keywords": ["toucan", "banana"]
+    },
+    {
+      "text": "Llama getting a poodle haircut",
+      "kind": "chaos",
+      "alternates": ["llama with a poodle cut"],
+      "keywords": ["llama", "poodle"]
+    },
+    {
+      "text": "Platypus assembled from spare parts",
+      "kind": "chaos",
+      "alternates": ["platypus made of a duck and a beaver"],
+      "keywords": ["platypus", "parts"]
+    }
+  ]
+}

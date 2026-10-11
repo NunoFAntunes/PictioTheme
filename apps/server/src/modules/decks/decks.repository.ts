@@ -31,6 +31,14 @@ export type NewDeck = {
   sourceDeckId?: string | null;
 };
 
+const cardRow = (deckId: string, c: Card) => ({
+  deckId,
+  text: c.text,
+  kind: c.kind,
+  alternates: c.alternates,
+  keywords: c.keywords,
+});
+
 export async function insertDeck(
   db: DbExecutor,
   deck: NewDeck,
@@ -38,19 +46,17 @@ export async function insertDeck(
 ): Promise<string> {
   const [row] = await db.insert(decks).values(deck).returning({ id: decks.id });
   if (!row) throw new Error('insertDeck returned no row');
-  if (deckCards.length > 0) {
-    await db.insert(cards).values(
-      deckCards.map((c) => ({
-        deckId: row.id,
-        text: c.text,
-        difficulty: c.difficulty,
-        isSilly: c.silly,
-        alternates: c.alternates,
-        keywords: c.keywords,
-      })),
-    );
-  }
+  await insertCards(db, row.id, deckCards);
   return row.id;
+}
+
+/** Adds cards to a deck (Chaos cards made later). A card whose text the deck has is skipped. */
+export async function insertCards(db: DbExecutor, deckId: string, deckCards: Card[]) {
+  if (deckCards.length === 0) return;
+  await db
+    .insert(cards)
+    .values(deckCards.map((c) => cardRow(deckId, c)))
+    .onConflictDoNothing();
 }
 
 /** The deck with its cards, or null. `id` must be a uuid. */
@@ -80,8 +86,7 @@ export async function findDeckWithCards(
     ...deck,
     cards: rows.map((c) => ({
       text: c.text,
-      difficulty: c.difficulty as Card['difficulty'],
-      silly: c.isSilly,
+      kind: c.kind as Card['kind'],
       alternates: c.alternates,
       keywords: c.keywords,
     })),
@@ -118,10 +123,9 @@ export async function deckSummaries(db: DbExecutor, ids: string[]): Promise<Deck
           and (f.id = coalesce(${decks.sourceDeckId}, ${decks.id})
             or f.source_deck_id = coalesce(${decks.sourceDeckId}, ${decks.id}))
         order by f.source_deck_id nulls first, f.language)`,
-      easy: count(sql`not ${cards.isSilly} and ${cards.difficulty} = 'easy'`),
-      medium: count(sql`not ${cards.isSilly} and ${cards.difficulty} = 'medium'`),
-      hard: count(sql`not ${cards.isSilly} and ${cards.difficulty} = 'hard'`),
-      silly: count(sql`${cards.isSilly}`),
+      easy: count(sql`${cards.kind} = 'easy'`),
+      hard: count(sql`${cards.kind} = 'hard'`),
+      chaos: count(sql`${cards.kind} = 'chaos'`),
     })
     .from(decks)
     .leftJoin(cards, eq(cards.deckId, decks.id))
@@ -136,7 +140,7 @@ export async function deckSummaries(db: DbExecutor, ids: string[]): Promise<Deck
     featured: r.featuredRank !== null,
     language: r.language as DeckLanguage,
     languages: r.languages,
-    counts: { easy: r.easy, medium: r.medium, hard: r.hard, silly: r.silly },
+    counts: { easy: r.easy, hard: r.hard, chaos: r.chaos },
   }));
 }
 
@@ -291,9 +295,15 @@ const cardKey = (text: string) => text.toLowerCase();
  * Makes a deck's cards match `wanted`, matching by text (case-insensitive, like the unique
  * index): a kept card keeps its id, stats and votes, a changed one is updated, a removed one is
  * deleted (with its votes), and a new one is inserted. Unchanged cards cost no writes.
+ * A file without Chaos cards leaves the deck's alone: ones a host made for a curated deck survive
+ * a re-seed.
  */
 async function syncCards(db: DbExecutor, deckId: string, wanted: Card[]): Promise<void> {
-  const current = await db.select().from(cards).where(eq(cards.deckId, deckId));
+  const kinds: Card['kind'][] = wanted.some((c) => c.kind === 'chaos')
+    ? ['easy', 'hard', 'chaos']
+    : ['easy', 'hard'];
+  const inKinds = and(eq(cards.deckId, deckId), inArray(cards.kind, kinds));
+  const current = await db.select().from(cards).where(inKinds);
   const byKey = new Map(current.map((c) => [cardKey(c.text), c]));
   const kept: string[] = [];
   const added: Card[] = [];
@@ -306,8 +316,7 @@ async function syncCards(db: DbExecutor, deckId: string, wanted: Card[]): Promis
     kept.push(row.id);
     const same =
       row.text === card.text &&
-      row.difficulty === card.difficulty &&
-      row.isSilly === card.silly &&
+      row.kind === card.kind &&
       JSON.stringify(row.alternates) === JSON.stringify(card.alternates) &&
       JSON.stringify(row.keywords) === JSON.stringify(card.keywords);
     if (!same) {
@@ -315,8 +324,7 @@ async function syncCards(db: DbExecutor, deckId: string, wanted: Card[]): Promis
         .update(cards)
         .set({
           text: card.text,
-          difficulty: card.difficulty,
-          isSilly: card.silly,
+          kind: card.kind,
           alternates: card.alternates,
           keywords: card.keywords,
         })
@@ -325,23 +333,8 @@ async function syncCards(db: DbExecutor, deckId: string, wanted: Card[]): Promis
   }
   await db
     .delete(cards)
-    .where(
-      kept.length > 0
-        ? and(eq(cards.deckId, deckId), notInArray(cards.id, kept))
-        : eq(cards.deckId, deckId),
-    );
-  if (added.length > 0) {
-    await db.insert(cards).values(
-      added.map((c) => ({
-        deckId,
-        text: c.text,
-        difficulty: c.difficulty,
-        isSilly: c.silly,
-        alternates: c.alternates,
-        keywords: c.keywords,
-      })),
-    );
-  }
+    .where(kept.length > 0 ? and(inKinds, notInArray(cards.id, kept)) : inKinds);
+  if (added.length > 0) await db.insert(cards).values(added.map((c) => cardRow(deckId, c)));
 }
 
 // ── Card stats and votes (docs/technical/data-model.md#metrics) ──
@@ -426,8 +419,7 @@ export async function setCardVote(
 export type CardQuality = {
   deckTitle: string;
   text: string;
-  difficulty: string;
-  silly: boolean;
+  kind: string;
   offered: number;
   picked: number;
   drawn: number;
@@ -446,8 +438,7 @@ export async function cardQuality(db: DbExecutor): Promise<CardQuality[]> {
     .select({
       deckTitle: decks.title,
       text: cards.text,
-      difficulty: cards.difficulty,
-      silly: cards.isSilly,
+      kind: cards.kind,
       offered: cards.timesOffered,
       picked: cards.timesPicked,
       drawn: cards.timesDrawn,
@@ -569,10 +560,15 @@ export type TranslationSource = {
   cards: Card[];
 };
 
-/** A visible original deck with everything a translation needs. `id` must be a uuid. */
+/**
+ * A visible deck with its metadata and cards: what a translation or new Chaos cards are made
+ * from. `originalOnly`: null for a translation (translations are made from the original).
+ * `id` must be a uuid.
+ */
 export async function findTranslationSource(
   db: DbExecutor,
   id: string,
+  originalOnly = true,
 ): Promise<TranslationSource | null> {
   const [deck] = await db
     .select({
@@ -584,7 +580,7 @@ export async function findTranslationSource(
       coverId: shownCoverId,
     })
     .from(decks)
-    .where(and(eq(decks.id, id), isNull(decks.sourceDeckId), visible))
+    .where(and(eq(decks.id, id), originalOnly ? isNull(decks.sourceDeckId) : undefined, visible))
     .limit(1);
   if (!deck) return null;
   const withCards = await findDeckWithCards(db, id);

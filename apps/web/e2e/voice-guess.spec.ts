@@ -69,10 +69,7 @@ test('a guesser holds the mic to say a guess, then leaves it open and says guess
   await followInvite(guest, code, 'Bo');
   await host.getByRole('button', { name: /start game/i }).click();
   await host.getByText('Choose what to draw').waitFor();
-  await host
-    .getByRole('button', { name: /×1|silly/i })
-    .first()
-    .click();
+  await host.getByRole('button', { name: /×1/ }).first().click();
   const word =
     (await host.getByTestId('current-word').textContent())?.replace('✏️', '').trim() ?? '';
   expect(word.length).toBeGreaterThan(0);
