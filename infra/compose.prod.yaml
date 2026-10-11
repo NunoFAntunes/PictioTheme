@@ -57,6 +57,20 @@ services:
       start_period: 10s
       retries: 6
 
+  # Read-only database browser. Bound to the VM's loopback only, so it isn't reachable from the internet.
+  # Open it through an SSH tunnel: `ssh -L 8081:127.0.0.1:8081 ubuntu@<vm-ip>`, then http://localhost:8081.
+  db-viewer:
+    image: sosedoff/pgweb:0.17.0
+    restart: unless-stopped
+    command: ['--readonly', '--bind=0.0.0.0', '--listen=8081', '--skip-open']
+    environment:
+      PGWEB_DATABASE_URL: postgres://pictio:${POSTGRES_PASSWORD:?}@postgres:5432/pictiotheme?sslmode=disable
+    ports:
+      - '127.0.0.1:8081:8081'
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   web:
     image: ghcr.io/nunofantunes/pictiotheme-web:${IMAGE_TAG:?set by deploy.sh}
     restart: unless-stopped

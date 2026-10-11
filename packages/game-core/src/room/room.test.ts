@@ -604,6 +604,17 @@ describe('drawing', () => {
     expect(receivedOfType(fx, 'p2', 'error')[0]?.code).toBe('NOT_DRAWER');
   });
 
+  it('quietly drops strokes that arrive after the turn ended', () => {
+    const h = createHarness();
+    h.startWith();
+    h.chooseFirst();
+    h.send('p1', { t: 'room:skipTurn' });
+    expect(h.state.phase.kind).toBe('reveal');
+    const fx = h.send('p1', { t: 'draw:pts', id: 's1', pts: [1, 2, 0.5] });
+    expect(received(fx, 'p1')).toEqual([]);
+    expect(received(fx, 'p2')).toEqual([]);
+  });
+
   it('gives late joiners the current drawing', () => {
     const h = createHarness({ settings: { maxPlayers: 4 } });
     h.startWith();

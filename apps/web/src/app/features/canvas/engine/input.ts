@@ -82,8 +82,21 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
     };
   };
 
+  /** Forgets the stroke without sending anything more, e.g. the turn ended mid-stroke. */
+  const abandon = () => {
+    strokeId = null;
+    last = null;
+    pending = [];
+    clearInterval(flushTimer);
+  };
+
   const flush = () => {
-    if (!strokeId || pending.length === 0) return;
+    if (!strokeId) return;
+    if (!deps.isEnabled()) {
+      abandon();
+      return;
+    }
+    if (pending.length === 0) return;
     deps.emit({ t: 'draw:pts', id: strokeId, pts: pending });
     pending = [];
   };
@@ -91,10 +104,8 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
   const finish = () => {
     if (!strokeId) return;
     flush();
-    deps.emit({ t: 'draw:end', id: strokeId });
-    strokeId = null;
-    last = null;
-    clearInterval(flushTimer);
+    if (strokeId) deps.emit({ t: 'draw:end', id: strokeId });
+    abandon();
   };
 
   const sampleAt = (e: { clientX: number; clientY: number }) => {
@@ -240,6 +251,10 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
     altHeld = e.altKey;
     if (!strokeId) updatePreview();
     if (!strokeId || !last || !gate.owns(e)) return;
+    if (!deps.isEnabled()) {
+      abandon();
+      return;
+    }
     const events = e.getCoalescedEvents?.() ?? [e];
     for (const ev of events.length > 0 ? events : [e]) {
       const p = toLogical(ev);

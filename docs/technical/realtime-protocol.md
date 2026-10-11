@@ -104,7 +104,7 @@ type Stroke =
 - **Undo/redo** are operations (`draw:undo`). Each client removes the last stroke and redraws from a cached bitmap checkpoint (snapshot every ~20 strokes) to avoid replaying hundreds of strokes.
 - **Fill** runs on each client's rasterized canvas. Because everyone replays the same operations in the same order on the same logical resolution, the result is deterministic. Do the flood fill on an offscreen canvas at logical resolution, not device resolution, to keep it deterministic.
 - **Late joiners / reconnects** get the stroke list in `room:snapshot` and replay it.
-- **Server validation**: only the current drawer can send `draw:*`. Points are clamped to canvas bounds, and there are caps on points per message and per turn (e.g. 100k points) to stop bandwidth abuse.
+- **Server validation**: only the current drawer can send `draw:*`. Outside a live (unpaused) drawing phase, `draw:*` is dropped silently: those are batches that were in flight when the turn ended. The drawer's client also abandons a stroke still held down when its turn ends. Points are clamped to canvas bounds, and there are caps on points per message and per turn (e.g. 100k points) to stop bandwidth abuse.
 
 ### Bandwidth estimate
 

@@ -38,6 +38,8 @@ docker compose restart server     # after editing .env
 
 **Rollbacks:** migrations only go forward. Rolling back to an image older than the last migration only works if that image still runs against the new schema.
 
+**Browse the production database:** the `db-viewer` service (pgweb, read-only) listens on the VM's loopback only. From your machine, run `ssh -L 8081:127.0.0.1:8081 ubuntu@<vm-ip>` and open http://localhost:8081. It's not reachable from the internet. It goes live with the next deploy, since `compose.prod.yaml` is copied on every release.
+
 **Restore a backup:** `docker compose exec -T postgres pg_restore -U pictio -d pictiotheme --clean --if-exists < backups/<file>.dump`.
 
 ## TLS and domain

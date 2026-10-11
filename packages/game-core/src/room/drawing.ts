@@ -57,10 +57,9 @@ function lastLineStroke(strokes: Stroke[], id: string) {
 export function onDraw(c: Ctx, playerId: PlayerId, msg: DrawMessage): void {
   const { state } = c;
   const { phase } = state;
-  if (phase.kind !== 'drawing' || state.paused) {
-    sendError(c, playerId, 'WRONG_PHASE', 'You can only draw during your turn');
-    return;
-  }
+  // Strokes still in flight when the turn ends (or the game pauses) arrive here: drop them quietly
+  // rather than greeting the drawer with an error per batch.
+  if (phase.kind !== 'drawing' || state.paused) return;
   if (phase.drawerId !== playerId) {
     sendError(c, playerId, 'NOT_DRAWER', 'Only the drawer can draw');
     return;
