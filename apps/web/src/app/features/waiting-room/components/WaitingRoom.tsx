@@ -10,13 +10,14 @@ import { hasChaosCards } from '../chaos';
 import { maxMatchMinutes } from '../match-length';
 import { RoomCard } from './RoomCard';
 import { RoomSettingsForm } from './RoomSettingsForm';
+import { ToysAround } from './ToysAround';
 
 /**
  * Before a match (user-flows.md §5, screens.md §3): the room's card on top (name, public or
  * private, deck, rules, the code to share), then the host's workspace: the deck library (a notebook
  * lying open, most of the width, scrolling inside) beside the house rules (a spiral notepad), with
  * Start at the foot of the rules. Players see the rules read-only, under "Waiting for the host to
- * start…".
+ * start…", in the middle of toys to play with while they wait.
  *
  * After a match the host gets the same screen from the results ("Change deck & settings"), with
  * `onBack` to return to them and Start reading "Play again".
@@ -61,9 +62,9 @@ export function WaitingRoom({ onBack }: { onBack?: () => void } = {}) {
           </RulesPanel>
         </div>
       ) : (
-        <div className="mx-auto w-full max-w-3xl">
+        <ToysAround>
           <RulesPanel view={view} editable={false} />
-        </div>
+        </ToysAround>
       )}
     </div>
   );

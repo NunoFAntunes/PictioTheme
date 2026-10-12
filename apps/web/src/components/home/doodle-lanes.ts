@@ -1,4 +1,4 @@
-import { DOODLES, type DoodleTheme } from './doodles';
+import { DOODLES, type DoodleTheme } from '../../app/features/desk-toys';
 
 /** A doodle placed in a lane. Sizes and gaps are in rem, so they grow with the fluid root. */
 export type PlacedDoodle = {

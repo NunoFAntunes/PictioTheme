@@ -24,6 +24,8 @@ import type { Rng } from '../rng';
 
 export const TIMINGS = {
   chooseMs: 10_000,
+  /** With one card (no "pick from 3"): long enough for the deck to shuffle and deal it. */
+  dealOneMs: 3_500,
   revealMs: 5_000,
   /** A disconnected player is removed after this. */
   playerGraceMs: 120_000,

@@ -5,6 +5,7 @@ import { createBrushCursor, type BrushCursor } from '../engine/brush-cursor';
 import { attachDrawingInput } from '../engine/input';
 import { createRenderer } from '../engine/renderer';
 import type { ToolSettings } from '../tools';
+import type { ColorPopoverState, ToggleColorPopover } from '../use-color-popover';
 import { ColorPopover } from './ColorPopover';
 
 type Props = {
@@ -18,8 +19,9 @@ type Props = {
   onLiveColor: (color: string) => void;
   /** The toolbar's 💧 is armed: the next press on the canvas picks up a colour. */
   picking?: boolean;
-  /** The `C` colour popover. */
-  colorPopoverOpen: boolean;
+  /** The colour popover (`C`, a middle-click, a long-press or the toolbar's wheel). */
+  colorPopover: ColorPopoverState | null;
+  onToggleColorPopover: ToggleColorPopover;
   onCloseColorPopover: () => void;
   /** Overlays (choosing, reveal, paused) shown on top of the canvas. */
   children?: ReactNode;
@@ -46,7 +48,8 @@ export function DrawingBoard({
   onToolChange,
   onPickColor,
   onLiveColor,
-  colorPopoverOpen,
+  colorPopover,
+  onToggleColorPopover,
   onCloseColorPopover,
   children,
   pad,
@@ -63,7 +66,9 @@ export function DrawingBoard({
   const onToolChangeRef = useRef(onToolChange);
   const onPickColorRef = useRef(onPickColor);
   const pickingRef = useRef(picking);
+  const onToggleColorPopoverRef = useRef(onToggleColorPopover);
   useEffect(() => {
+    onToggleColorPopoverRef.current = onToggleColorPopover;
     pickingRef.current = picking;
     toolRef.current = tool;
     canDrawRef.current = canDraw;
@@ -89,6 +94,7 @@ export function DrawingBoard({
       pickColor: (color) => onPickColorRef.current(color),
       isEnabled: () => canDrawRef.current,
       isPicking: () => pickingRef.current,
+      toggleColors: (opening) => onToggleColorPopoverRef.current(opening),
       cursor,
     });
     return () => {
@@ -102,14 +108,18 @@ export function DrawingBoard({
   useEffect(() => cursorRef.current?.setTool(tool), [tool]);
   useEffect(() => cursorRef.current?.setEnabled(canDraw), [canDraw]);
 
-  // Show the real size whenever a setting changes, however it was changed.
+  // Show the real size whenever a setting changes, however it was changed, and the hex code
+  // when it was the colour.
   const settingsKey = `${tool.tool}|${tool.color}|${tool.size}|${tool.opacity}|${tool.fillTolerance}`;
   const shownKey = useRef(settingsKey);
+  const shownColor = useRef(tool.color);
   useEffect(() => {
     if (shownKey.current === settingsKey) return;
     shownKey.current = settingsKey;
-    cursorRef.current?.flash();
-  }, [settingsKey]);
+    const colorChanged = shownColor.current !== tool.color && tool.tool !== 'eraser';
+    shownColor.current = tool.color;
+    cursorRef.current?.flash(colorChanged ? tool.color : undefined);
+  }, [settingsKey, tool.color, tool.tool]);
 
   return (
     <div
@@ -124,10 +134,11 @@ export function DrawingBoard({
       />
       <div ref={cursorLayerRef} className="pointer-events-none absolute inset-0" />
       {children}
-      {canDraw && colorPopoverOpen && (
+      {canDraw && colorPopover && (
         <ColorPopover
           tool={tool}
-          anchor={() => cursorRef.current?.pointerAt() ?? null}
+          anchor={() => colorPopover.at ?? cursorRef.current?.pointerAt() ?? null}
+          hold={colorPopover.hold}
           onLive={onLiveColor}
           onPick={(color) => {
             onPickColor(color);

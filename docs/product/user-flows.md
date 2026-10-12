@@ -70,7 +70,7 @@ Creating takes one click (§3): the room starts private (or public, via Quick pl
    - Not found → "Generate a deck for *'pirate cooking'*" (logged-in users only. Guests see a sign-up prompt).
 3. **Length**: `⚡ Quick` (2 rounds × 60s), `🎲 Classic` (3 × 80s, default) or `🐢 Long` (5 × 120s), with the longest the match can take for the players in the room.
 4. **Cards**: one of `Easy`, `Mixed` (default: the deck's easy and hard cards), `Hard` or `🌀 Chaos` (only the absurd cards). This sets the mode and the difficulties together. See [game-rules.md](game-rules.md#card-pool).
-5. **Rules**, as on/off chips: `⚡ Rush` (off by default), `💡 Hints`, `👀 Show guesses` (guess visibility) and `🃏 Pick from 3` (word choice: pick 1 of 3, or the first card), all on by default.
+5. **Rules**, as on/off chips: `⚡ Rush` (off by default), `💡 Hints`, `👀 Show guesses` (guess visibility) and `🃏 Pick from 3` (word choice: pick 1 of 3, or one card, still dealt from the deck), all on by default.
 6. **Fine-tune** (folded away): rounds (1–10), draw time (30–180s) and max players (2–16, default 10).
 
 When the room is created, the server generates a unique code and the host lands on the **waiting room** screen.

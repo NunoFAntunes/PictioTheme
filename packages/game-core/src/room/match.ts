@@ -104,22 +104,19 @@ function startTurn(c: Ctx, drawerId: PlayerId): void {
 
   const taken = takeOptions(state.pool, state.settings.wordChoice, c.rng);
   state.pool = taken.pool;
-  const [first] = taken.options;
-  if (!first) {
+  if (taken.options.length === 0) {
     finishMatch(c);
     return;
   }
   if (taken.reshuffled) sendToAll(c, { t: 'room:notice', code: 'pool_reshuffled' });
 
-  if (state.settings.wordChoice === 1) {
-    beginDrawing(c, drawerId, first, taken.options, false);
-    return;
-  }
+  // With one card there's nothing to pick, but the deck still shuffles and deals it: a short
+  // choosing phase the drawer can cut short by tapping the card.
   state.phase = {
     kind: 'choosing',
     drawerId,
     options: taken.options,
-    endsAt: c.now + TIMINGS.chooseMs,
+    endsAt: c.now + (taken.options.length > 1 ? TIMINGS.chooseMs : TIMINGS.dealOneMs),
   };
   schedule(c, 'phase', state.phase.endsAt);
   announcePhase(c);
@@ -131,7 +128,8 @@ export function chooseCard(c: Ctx, index: number, byDrawer = true): void {
   if (phase.kind !== 'choosing') return;
   const card = phase.options[index];
   if (!card) return;
-  beginDrawing(c, phase.drawerId, card, phase.options, byDrawer);
+  // Tapping the only card isn't a pick.
+  beginDrawing(c, phase.drawerId, card, phase.options, byDrawer && phase.options.length > 1);
 }
 
 function beginDrawing(

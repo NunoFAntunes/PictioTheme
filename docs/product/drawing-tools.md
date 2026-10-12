@@ -19,7 +19,7 @@ The canvas is half the game, so it needs to feel responsive and capable without 
 |---|---|
 | **Brush** | Round brush, smooth lines. Size 1–64 px (slider + presets S/M/L/XL). Opacity 5–100% |
 | **Colour palette** | 24 preset swatches (good contrast, includes skin tones and black/white/greys) |
-| **Colour picker** | Full HSV picker with hex input. The last 8 picked colours are kept as "recent" swatches (in the [`C` popover](#picking-and-sampling-colours)) |
+| **Colour picker** | A colour wheel (hue ring around a saturation/brightness square) with a hex field, in the [colour popover](#picking-and-sampling-colours). The last 8 picked colours are kept there as "recent" swatches. The system picker stays one click away in the popover |
 | **Eyedropper** | Pick up a colour from the canvas: `Alt`+click or a right-click. See [below](#picking-and-sampling-colours) |
 | **Eraser** | Same size control. Erases to transparent/background |
 | **Fill bucket** | Flood fill with tolerance, grown 1 px so it tucks under a stroke's soft edge. Runs on the rasterized canvas (see technical notes) |
@@ -59,7 +59,7 @@ Drag on the canvas to change the brush without reaching for the toolbar (Photosh
 - A press that never reaches those 6 px (and lasts < 300 ms) is a click, not a drag: it [samples the colour](#picking-and-sampling-colours) instead.
 - Size is exponential: it doubles every 50 px, so small sizes are easy to fine-tune and the full 1–64 range is ~300 px. Opacity sweeps 5–100% over 200 px.
 - On **Fill**, the horizontal drag changes tolerance (0–255) instead, and the toolbar shows a tolerance slider.
-- Applies to Brush and Eraser (eraser opacity = partial erase). Touch has no right button: a long-press popover is a later option.
+- Applies to Brush and Eraser (eraser opacity = partial erase). Touch has no right button: the toolbar's sliders do it (a long-press opens the colours instead).
 - The context menu is blocked on the canvas only while it's your turn to draw.
 
 ## Picking and sampling colours
@@ -84,11 +84,16 @@ Two jobs, two gestures, both without leaving the canvas.
 | Key | Effect |
 |---|---|
 | **`X`** | Swap to the previous colour (and back again). Outline in black, fill in colour, back to black |
-| **`C`** | Open the colours at the pointer (or the board's centre): the 24 swatches, the last 8 recent colours and the full picker. A swatch picks and closes it. `C` again, `Esc` or a click elsewhere closes it without drawing |
+| **`C`**, a **middle-click**, a **long-press** (touch and pen), or the toolbar's wheel button | Open the colours, with the wheel centred on the pointer (or the board's centre): the colour wheel with the last 8 recent colours on a ring around it, a hex field, the screen eyedropper (Chromium), the system picker, 7 shades of the current colour and the 24 swatches. A swatch, or a hex code and `Enter`, picks and closes it. `C` again, another middle-click or a click elsewhere closes it without drawing, keeping a colour set on the wheel. `Esc` closes it and puts the colour back as it was |
+| **Hold** `C`, the middle button or the long-press, move, let go | What's under the pointer previews; letting go over it picks it and closes. Over the wheel, the **direction** from its centre picks the **hue** (anywhere from 16 px out to just past the recent colours, over the square too, which dims and sits out), keeping the colour's saturation and brightness, but lifted to 60% when the colour is too grey or dark for a hue to show (black flicked toward red gives a red). A recent colour, shade or swatch under the pointer is that colour. Letting go in the 16 px centre or off the popover closes it unchanged. Letting go without moving (under 10 px) leaves it open, as a click; fine-tune saturation and brightness on the square then |
 
-Every way of picking a colour (palette, popover, eyedropper, `X`, the full picker when it closes) adds it to the recent colours, and the ring flashes with the new ink. Dragging inside the full picker previews live without filling the recent list.
+Every way of picking a colour (palette, popover, eyedropper, `X`, the wheel when the popover closes, the system picker when it closes) adds it to the recent colours, and the ring flashes with the new ink and its hex code. Dragging on the wheel or the system picker previews live without filling the recent list.
 
-Touch has no `Alt` or right button: long-press to sample is a later option, with the same popover reused for a mobile colour sheet.
+The wheel: drag the ring for the hue (red at the top, clockwise) and the square for saturation (left to right) and brightness (bottom to top). Each part is also a keyboard slider (arrow keys, `Shift` for bigger steps). Dragging through greys or black keeps the hue. Where the board is narrow (the deck cover pad) the swatches sit under the wheel instead of beside it, and the popover scrolls if it still doesn't fit. While a hold is previewing, the shades stay those of the colour it opened with, so they don't shift under the pointer. Swatches are 36 px on touch screens.
+
+The middle button is free on the canvas for now, so a middle-click mirrors `C`. Many people have no middle button (Mac trackpads, the Magic Mouse, pens), so it's only a quicker way in. Its defaults (autoscroll on Windows, pasting on Linux) are blocked over the canvas. If zoom and pan arrive, a middle *drag* should pan and a middle *click* keep opening the colours, the same click/drag split the right button uses.
+
+Touch has no `Alt` or right button, so a **long-press** (500 ms without moving) opens the colours under the finger or pen, and the toolbar's 💧 samples. So that holding still never leaves a mark, a finger or pen stroke only starts once it moves a few pixels (10 px for a finger, 4 px for a pen) and is drawn from where it landed; a tap still draws a dot (or fills).
 
 ## Cursor preview
 
@@ -108,7 +113,7 @@ Size and opacity keys match the **physical key**, so they work on any layout (on
 | `1`–`9`, `0` | Opacity 10%–90%, 100% (number row or numpad) |
 | `Alt` (hold) + click | Eyedropper. A quick right-click also samples |
 | `X` | Swap to the previous colour |
-| `C` | Colour popover at the pointer |
+| `C` (or middle-click) | Colour popover at the pointer |
 | `Ctrl/Cmd+Z`, `Ctrl/Cmd+Shift+Z` | Undo / Redo |
 | `Shift` + drag | Straight line (planned) |
 

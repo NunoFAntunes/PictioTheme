@@ -22,8 +22,11 @@ const SHUFFLE_MS = 600; // 2 × --animate-deck-riffle-*
 const DEAL_GAP_MS = 120;
 const DEAL_MS = 450; // --animate-card-deal
 const PICK_MS = 300; // --animate-card-pick
-/** Joining (or reconnecting) late in the phase skips the show and goes straight to the cards. */
-const MIN_TIME_FOR_INTRO_MS = 5000;
+/**
+ * Joining (or reconnecting) late in the phase skips the show and goes straight to the cards. A
+ * single card (no "pick from 3") has a short phase, just long enough for its deal.
+ */
+const minTimeForIntroMs = (count: number) => (count > 1 ? 5000 : 2000);
 
 const KIND_LABEL = { easy: 'Easy', hard: 'Hard', chaos: '🌀 Chaos' } as const;
 /** Cards land slightly askew, like they were tossed onto a table. */
@@ -55,8 +58,10 @@ type Props = {
 };
 
 export function CardTable({ endsAt, deck, cards, header, footer }: Props) {
+  const options = 'options' in cards ? cards.options : null;
+  const count = options ? options.length : 'count' in cards ? cards.count : 0;
   const [intro] = useState(
-    () => !prefersReducedMotion() && endsAt - serverNow() > MIN_TIME_FOR_INTRO_MS,
+    () => !prefersReducedMotion() && endsAt - serverNow() > minTimeForIntroMs(count),
   );
   const [dealt, setDealt] = useState(!intro);
   const [picked, setPicked] = useState<number | null>(null);
@@ -64,9 +69,6 @@ export function CardTable({ endsAt, deck, cards, header, footer }: Props) {
   const deckRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const pickTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
-
-  const options = 'options' in cards ? cards.options : null;
-  const count = options ? options.length : 'count' in cards ? cards.count : 0;
 
   // Each card deals out of the deck: give it the offset from its own spot back to the deck.
   useLayoutEffect(() => {

@@ -3,13 +3,13 @@ import { useEffect } from 'react';
 import { drawAndSend, type DrawOp } from '../../../realtime';
 import { applyShortcut, shortcutFor } from '../shortcuts';
 import { PALETTE, SIZE_PRESETS, withColor, type Tool, type ToolSettings } from '../tools';
-import { CustomColorInput } from './CustomColorInput';
+import type { ToggleColorPopover } from '../use-color-popover';
 
 type Props = {
   tool: ToolSettings;
   onChange: (next: ToolSettings) => void;
-  /** `C`: open or close the colour popover on the canvas. */
-  onToggleColorPopover: () => void;
+  /** `C` (held: release over a colour to pick it) or the wheel button: the colour popover. */
+  onToggleColorPopover: ToggleColorPopover;
   /** Where undo/redo/clear go. Defaults to the room; a cover pad applies them locally. */
   emit?: (op: DrawOp) => void;
   /** Labels the toolbar. */
@@ -27,7 +27,7 @@ const TOOLS: { tool: Tool; label: string; icon: string; key: string }[] = [
 
 const IS_MAC = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.userAgent);
 const DRAG_HINT = `Right-drag or ${IS_MAC ? '⌘' : 'Ctrl'}-drag on the canvas: ↔ size, ↕ opacity`;
-const COLOR_HINT = `${IS_MAC ? '⌥' : 'Alt'}+click or right-click the canvas to pick up a colour. X swaps to the last colour, C opens colours at the pointer`;
+const COLOR_HINT = `${IS_MAC ? '⌥' : 'Alt'}+click or right-click the canvas to pick up a colour. X swaps to the last colour, C or a middle-click opens the colour wheel at the pointer`;
 
 function isTyping(target: EventTarget | null): boolean {
   return (
@@ -57,7 +57,7 @@ export function Toolbar({
         return;
       }
       if (shortcut.kind === 'color-popover') {
-        onToggleColorPopover();
+        if (!e.repeat) onToggleColorPopover({ hold: 'key' });
         return;
       }
       onChange(applyShortcut(tool, shortcut));
@@ -173,15 +173,20 @@ export function Toolbar({
             💧
           </button>
         )}
-        <label className="ml-1" title="Custom colour">
-          <span className="sr-only">Custom colour</span>
-          <CustomColorInput
-            value={tool.color}
-            onLive={(color) => onChange({ ...tool, color })}
-            onCommit={(color) => onChange(withColor(tool, color))}
-            className="size-6 cursor-pointer pointer-coarse:size-9"
+        <button
+          type="button"
+          title="More colours: wheel, hex and recent (C or middle-click)"
+          aria-label="More colours"
+          onClick={() => onToggleColorPopover()}
+          className="ml-1 flex size-6 items-center justify-center rounded-full border border-zinc-300 pointer-coarse:size-9"
+          style={{ background: 'conic-gradient(red, yellow, lime, cyan, blue, magenta, red)' }}
+        >
+          <span
+            aria-hidden="true"
+            className="size-3 rounded-full border border-white pointer-coarse:size-5"
+            style={{ backgroundColor: tool.color }}
           />
-        </label>
+        </button>
       </div>
 
       <div className="ml-auto flex gap-1">

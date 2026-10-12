@@ -1,5 +1,6 @@
 /**
- * The silly doodles that drift across the desk behind the home page's paper (DoodleDesk.astro).
+ * The silly doodles that drift across the desk behind the home page's paper
+ * (components/home/DoodleDesk.astro), and that the desk's crayons scribble (Crayon.tsx).
  * Hand-drawn as single strokes on a 64×64 grid: no fills, round caps, coloured by `currentColor`.
  */
 export type Doodle = { id: string; paths: string[] };

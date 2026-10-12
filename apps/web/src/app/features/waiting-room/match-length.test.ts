@@ -8,9 +8,9 @@ describe('maxMatchMinutes', () => {
     expect(maxMatchMinutes({ rounds: 3, drawSeconds: 80, wordChoice: 3 }, 4)).toBe(19);
   });
 
-  it('skips the choosing time when the drawer gets one card', () => {
-    // 2 × 2 × (60 + 5) s = 4.3 min.
-    expect(maxMatchMinutes({ rounds: 2, drawSeconds: 60, wordChoice: 1 }, 2)).toBe(4);
+  it('counts only the deal when the drawer gets one card', () => {
+    // 2 × 2 × (3.5 s dealing + 60 + 5) s = 4.6 min.
+    expect(maxMatchMinutes({ rounds: 2, drawSeconds: 60, wordChoice: 1 }, 2)).toBe(5);
   });
 
   it('assumes at least two players, since a match needs them', () => {

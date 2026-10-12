@@ -114,6 +114,25 @@ describe('starting a match', () => {
     expect(receivedOfType(fx, 'p2', 'phase:choosing')[0]?.options).toBeUndefined();
   });
 
+  it('still deals the one card when "pick from 3" is off, then draws it', () => {
+    const h = createHarness({ settings: { wordChoice: 1 } });
+    const fx = h.startWith();
+    expect(receivedOfType(fx, 'p1', 'phase:choosing')[0]?.options).toHaveLength(1);
+    if (h.state.phase.kind !== 'choosing') throw new Error(h.state.phase.kind);
+    expect(h.state.phase.endsAt - h.now).toBe(TIMINGS.dealOneMs);
+
+    h.advance(TIMINGS.dealOneMs + 10);
+    expect(h.state.phase.kind).toBe('drawing');
+  });
+
+  it('starts drawing the one card when the drawer taps it, without counting it as a pick', () => {
+    const h = createHarness({ settings: { wordChoice: 1 } });
+    h.startWith();
+    const fx = h.send('p1', { t: 'turn:choose', index: 0 });
+    expect(h.state.phase.kind).toBe('drawing');
+    expect(fx.find((e) => e.kind === 'cardsDealt')).toMatchObject({ pickedByDrawer: false });
+  });
+
   it('spreads the 3 options across difficulties', () => {
     const h = createHarness();
     h.startWith();

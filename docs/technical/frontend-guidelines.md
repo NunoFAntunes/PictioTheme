@@ -47,6 +47,8 @@ apps/web/
         avatar/  identity/ (incl. useEnsureIdentity)  join-room/  lobby/ (create, quick play, RoomNotes)  server-status/
         deck-picker/ (DeckChooser, DeckPicker)  phone-gate/  generate-deck/ (incl. RedrawCoverPanel)  deck-cover/ (DeckCover with the default cover, CoverPad, PNG export)
         report-deck/        ReportDeckButton (🚩 report a deck's cover or content)
+        desk-toys/          the toys on the home page's desk and around the waiting room's house rules
+                            (Prop places them; paper-ball.ts is the throwable ball's physics), doodles.ts
         canvas/             engine/ (flood-fill, paint, renderer, input, adjust, brush-cursor),
                             shortcuts.ts + DrawingBoard, Toolbar (both also drive the cover pad), SketchPad (avatar pad)
         player-list/  guess-feed/  room-header/  turn-overlays/  waiting-room/  results/

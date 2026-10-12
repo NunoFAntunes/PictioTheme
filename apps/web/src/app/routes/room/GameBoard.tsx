@@ -1,5 +1,11 @@
-import { useCallback, useState } from 'react';
-import { DEFAULT_TOOL, DrawingBoard, Toolbar, withColor } from '../../features/canvas';
+import { useState } from 'react';
+import {
+  DEFAULT_TOOL,
+  DrawingBoard,
+  Toolbar,
+  useColorPopover,
+  withColor,
+} from '../../features/canvas';
 import { LikeButton } from '../../features/likes';
 import { TurnOverlay } from '../../features/turn-overlays';
 import { drawerIdOf, useRoomStore } from '../../realtime';
@@ -11,10 +17,8 @@ import { drawerIdOf, useRoomStore } from '../../realtime';
 export function GameBoard({ bare = false }: { bare?: boolean }) {
   const view = useRoomStore((s) => s.view);
   const [tool, setTool] = useState(DEFAULT_TOOL);
-  const [colorPopoverOpen, setColorPopoverOpen] = useState(false);
+  const { colorPopover, toggleColorPopover, closeColorPopover } = useColorPopover();
   const [picking, setPicking] = useState(false);
-  const toggleColorPopover = useCallback(() => setColorPopoverOpen((open) => !open), []);
-  const closeColorPopover = useCallback(() => setColorPopoverOpen(false), []);
   const canDraw =
     !!view &&
     drawerIdOf(view.phase) === view.you &&
@@ -25,7 +29,7 @@ export function GameBoard({ bare = false }: { bare?: boolean }) {
   if (hadCanvas !== canDraw) {
     setHadCanvas(canDraw);
     if (!canDraw) {
-      setColorPopoverOpen(false);
+      closeColorPopover();
       setPicking(false);
     }
   }
@@ -44,7 +48,8 @@ export function GameBoard({ bare = false }: { bare?: boolean }) {
         }}
         picking={picking}
         onLiveColor={(color) => setTool((t) => ({ ...t, color }))}
-        colorPopoverOpen={colorPopoverOpen}
+        colorPopover={colorPopover}
+        onToggleColorPopover={toggleColorPopover}
         onCloseColorPopover={closeColorPopover}
       >
         <TurnOverlay />

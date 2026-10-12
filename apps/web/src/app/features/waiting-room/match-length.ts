@@ -11,7 +11,7 @@ export function maxMatchMinutes(
   players: number,
 ): number {
   const turnMs =
-    (settings.wordChoice === 1 ? 0 : TIMINGS.chooseMs) +
+    (settings.wordChoice === 1 ? TIMINGS.dealOneMs : TIMINGS.chooseMs) +
     settings.drawSeconds * 1_000 +
     TIMINGS.revealMs;
   const turns = settings.rounds * Math.max(2, players);

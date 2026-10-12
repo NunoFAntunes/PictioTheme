@@ -5,7 +5,7 @@
 - A **match** has `R` rounds (default 3).
 - In each **round**, every player draws once, in join order (rotated each round so the first drawer changes).
 - Each **turn**:
-  1. **Choose** (10s): the drawer sees 3 cards drawn from the active pool and picks one. If the timer runs out, a random one is used. The host can turn this off so the drawer always gets a single random card.
+  1. **Choose** (10s): the drawer sees 3 cards drawn from the active pool and picks one. If the timer runs out, a random one is used. The host can turn this off so the drawer always gets a single random card: it's still shuffled and dealt from the deck (a 3.5s phase), and drawing starts when the deal ends or the drawer taps the card.
   2. **Draw** (default 80s): the drawer draws and the others guess.
   3. **Reveal** (5s): the answer is shown with the scores earned this turn.
 - A turn ends early when **every guesser has guessed correctly**, or, in [rush mode](#rush), when the rush window after the first correct guess runs out.

@@ -1,6 +1,7 @@
 import { MAX_POINTS_PER_MESSAGE } from '@pictiotheme/protocol';
 import type { DrawOp } from '../../../realtime';
 import type { ToolSettings } from '../tools';
+import type { ColorPopoverState } from '../use-color-popover';
 import { adjustByDrag, lockAxis, type AdjustPatch, type Axis } from './adjust';
 import type { BrushCursor } from './brush-cursor';
 import { createPointerGate, pointPressure } from './pointer-gate';
@@ -20,6 +21,11 @@ import { sampleCanvas } from './sample';
  * Ctrl/Cmd+click) that doesn't move far enough to start an adjust drag samples too. On touch,
  * where there's no Alt or right button, the toolbar's 💧 arms a pick: the next press samples.
  *
+ * A middle-click opens the colours at the pointer, like `C`. Its defaults (autoscroll on Windows,
+ * pasting on Linux) are blocked over the canvas. On touch and pen, a long-press opens them: a
+ * finger or pen stroke only starts once it moves a few pixels (a tap still draws a dot), so
+ * holding still never leaves a mark.
+ *
  * Tablets: one pointer draws at a time, a palm is rejected once a pen has been seen, and only a
  * pen's pressure is recorded (pointer-gate.ts).
  */
@@ -28,6 +34,10 @@ const FLUSH_MS = 33;
 const MIN_DISTANCE = 1.5;
 /** A right press released sooner than this, before the adjust drag picked an axis, samples. */
 const TAP_MS = 300;
+/** A finger or pen held this long without moving opens the colours. */
+const LONG_PRESS_MS = 500;
+/** How far (client px) a finger or pen moves before it's a stroke rather than a press. */
+const slopFor = (pointerType: string) => (pointerType === 'pen' ? 4 : 10);
 
 export type DrawingInputDeps = {
   /** Apply locally and send. */
@@ -39,6 +49,8 @@ export type DrawingInputDeps = {
   isEnabled(): boolean;
   /** The toolbar's eyedropper is armed: a primary press samples instead of drawing. */
   isPicking?(): boolean;
+  /** Middle-click or long-press: open (or close) the colour popover, held by that pointer. */
+  toggleColors?(opening: Required<ColorPopoverState>): void;
   cursor: BrushCursor;
 };
 
@@ -67,6 +79,14 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
     at: number;
   } | null = null;
   let sampling: { pointerId: number } | null = null;
+  /** A finger or pen down that hasn't moved yet: a tap, a stroke or a long-press. */
+  let pressing: {
+    pointerId: number;
+    clientX: number;
+    clientY: number;
+    slop: number;
+    timer: ReturnType<typeof setTimeout>;
+  } | null = null;
   let altHeld = false;
   const gate = createPointerGate();
 
@@ -136,7 +156,14 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
     if (canvas.hasPointerCapture(pointerId)) canvas.releasePointerCapture(pointerId);
   };
 
+  const endPress = () => {
+    if (!pressing) return;
+    clearTimeout(pressing.timer);
+    pressing = null;
+  };
+
   const end = () => {
+    endPress();
     if (adjust) endAdjust();
     else if (sampling) endSampling();
     else finish();
@@ -150,6 +177,12 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
 
   const onUp = (e: PointerEvent) => {
     if (!gate.owns(e)) return;
+    // A tap: draw the dot (or fill) where it landed.
+    if (pressing?.pointerId === e.pointerId) {
+      const at = pressing;
+      endPress();
+      startAt(at, e.pointerId);
+    }
     // A quick right-click that never became a drag samples where it was pressed.
     if (adjust && adjust.pointerId === e.pointerId && adjust.axis === null) {
       if (performance.now() - adjust.at < TAP_MS) {
@@ -161,7 +194,15 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
   };
 
   const onDown = (e: PointerEvent) => {
-    if (!deps.isEnabled() || strokeId || adjust || sampling) return;
+    if (!deps.isEnabled() || strokeId || adjust || sampling || pressing) return;
+    if (e.button === 1) {
+      e.preventDefault();
+      deps.toggleColors?.({
+        at: { x: e.clientX, y: e.clientY },
+        hold: { pointerId: e.pointerId },
+      });
+      return;
+    }
     if (!gate.claim(e)) return;
     const picking = e.button === 0 && (deps.isPicking?.() ?? false);
     if (picking || (e.button === 0 && e.altKey && !e.ctrlKey && !e.metaKey)) {
@@ -192,8 +233,31 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
       return;
     }
     e.preventDefault();
+    if ((e.pointerType === 'touch' || e.pointerType === 'pen') && deps.toggleColors) {
+      canvas.setPointerCapture(e.pointerId);
+      const { pointerId, clientX, clientY } = e;
+      pressing = {
+        pointerId,
+        clientX,
+        clientY,
+        slop: slopFor(e.pointerType),
+        timer: setTimeout(() => {
+          pressing = null;
+          if (!deps.isEnabled()) return;
+          navigator.vibrate?.(10);
+          deps.toggleColors?.({ at: { x: clientX, y: clientY }, hold: { pointerId } });
+        }, LONG_PRESS_MS),
+      };
+      return;
+    }
+    startAt(e, e.pointerId);
+  };
+
+  /** Fill, or begin a stroke, at a point where a primary press landed. */
+  const startAt = (at: { clientX: number; clientY: number }, pointerId: number) => {
+    if (!deps.isEnabled()) return;
     const tool = deps.getTool();
-    const p = toLogical(e);
+    const p = toLogical(at);
     if (tool.tool === 'fill') {
       deps.emit({
         t: 'draw:fill',
@@ -206,7 +270,7 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
       gate.release();
       return;
     }
-    canvas.setPointerCapture(e.pointerId);
+    if (!canvas.hasPointerCapture(pointerId)) canvas.setPointerCapture(pointerId);
     strokeId = newStrokeId();
     last = p;
     deps.emit({
@@ -243,6 +307,12 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
       onAdjustMove(e);
       return;
     }
+    if (pressing?.pointerId === e.pointerId) {
+      const at = pressing;
+      if (Math.hypot(e.clientX - at.clientX, e.clientY - at.clientY) < at.slop) return;
+      endPress();
+      startAt(at, e.pointerId);
+    }
     if (sampling) {
       if (e.pointerId !== sampling.pointerId) return;
       const color = sampleAt(e);
@@ -277,6 +347,10 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
     if (deps.isEnabled()) e.preventDefault();
   };
 
+  const onMiddle = (e: MouseEvent) => {
+    if (e.button === 1 && deps.isEnabled()) e.preventDefault();
+  };
+
   // Alt alone would show Firefox's menu bar on Windows (on release) while it's the eyedropper.
   const onAlt = (e: KeyboardEvent) => {
     if (e.key !== 'Alt') return;
@@ -305,6 +379,8 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
   canvas.addEventListener('lostpointercapture', onCancel);
   canvas.addEventListener('pointerleave', onLeave);
   canvas.addEventListener('contextmenu', onContextMenu);
+  canvas.addEventListener('mousedown', onMiddle);
+  canvas.addEventListener('auxclick', onMiddle);
   window.addEventListener('keydown', onKey);
   window.addEventListener('keyup', onAlt);
   window.addEventListener('blur', onBlur);
@@ -318,6 +394,8 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
     canvas.removeEventListener('lostpointercapture', onCancel);
     canvas.removeEventListener('pointerleave', onLeave);
     canvas.removeEventListener('contextmenu', onContextMenu);
+    canvas.removeEventListener('mousedown', onMiddle);
+    canvas.removeEventListener('auxclick', onMiddle);
     window.removeEventListener('keydown', onKey);
     window.removeEventListener('keyup', onAlt);
     window.removeEventListener('blur', onBlur);

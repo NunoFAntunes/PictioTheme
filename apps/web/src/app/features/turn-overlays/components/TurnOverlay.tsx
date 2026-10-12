@@ -31,6 +31,25 @@ function CardChoice({
   endsAt: number;
 }) {
   const seconds = useSecondsLeft(endsAt);
+  const onPick = (index: number) => sendToRoom({ t: 'turn:choose', index });
+  // "Pick from 3" is off: the one card is dealt anyway, and tapping it starts the drawing.
+  if (options.length === 1) {
+    return (
+      <Shell>
+        <CardTable
+          endsAt={endsAt}
+          deck={deck}
+          cards={{ options, onPick }}
+          header={<h2 className="text-xl font-semibold">Your card</h2>}
+          footer={
+            <p className="text-sm text-zinc-500 tabular-nums">
+              Drawing starts in {seconds}s, or tap the card
+            </p>
+          }
+        />
+      </Shell>
+    );
+  }
   return (
     <Shell>
       <CardTable
@@ -38,7 +57,7 @@ function CardChoice({
         deck={deck}
         cards={{
           options,
-          onPick: (index) => sendToRoom({ t: 'turn:choose', index }),
+          onPick,
           onVote: (index, vote) => sendToRoom({ t: 'turn:vote', index, vote }),
         }}
         header={<h2 className="text-xl font-semibold">Choose what to draw</h2>}
@@ -118,7 +137,8 @@ export function TurnOverlay() {
           cards={{ count: view.settings.wordChoice }}
           header={
             <p className="text-xl">
-              <strong>{playerName(view, phase.drawerId)}</strong> is choosing a card…
+              <strong>{playerName(view, phase.drawerId)}</strong>{' '}
+              {view.settings.wordChoice > 1 ? 'is choosing a card…' : 'is dealt a card…'}
             </p>
           }
         />

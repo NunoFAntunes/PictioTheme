@@ -46,13 +46,20 @@ async function pen(
   });
 }
 
-async function touch(cdp: CDPSession, path: Point[], id = 7) {
+async function touch(
+  cdp: CDPSession,
+  path: Point[],
+  id = 7,
+  { holdMs = 0, onHeld }: { holdMs?: number; onHeld?: () => Promise<void> } = {},
+) {
   const [first, ...rest] = path;
   if (!first) return;
   await cdp.send('Input.dispatchTouchEvent', {
     type: 'touchStart',
     touchPoints: [{ ...first, id }],
   });
+  if (holdMs) await new Promise((resolve) => setTimeout(resolve, holdMs));
+  await onHeld?.();
   for (const p of rest) {
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ ...p, id }] });
   }
@@ -178,4 +185,67 @@ test('without a pen, a finger draws (on the cover pad)', async ({ browser }) => 
   await expect.poll(inked).toBe(true);
   // The pad is sized up for touch.
   expect(box.width).toBeGreaterThan(300);
+});
+
+test('a long-press opens the colours under the finger, and a slide picks one', async ({
+  browser,
+}) => {
+  const page = await newPlayerPage(browser, IPAD);
+  const deck = {
+    id: '0190a000-0000-7000-8000-0000000000ab',
+    title: 'Pirate Party',
+    description: '',
+    tags: ['p'],
+    coverId: null,
+    featured: false,
+    language: 'en',
+    languages: ['en'],
+    counts: { easy: 2, hard: 0, chaos: 0 },
+  };
+  await page.route('**/api/decks/mine*', (route) => route.fulfill({ json: { decks: [deck] } }));
+  await hostRoom(page, 'Ana');
+  await page.getByRole('button', { name: 'Redraw the cover of Pirate Party' }).click();
+
+  const pad = page.getByLabel('Deck cover drawing pad');
+  await pad.scrollIntoViewIfNeeded();
+  const box = await pad.boundingBox();
+  if (!box) throw new Error('no pad');
+  const at = (fx: number, fy: number) => ({
+    x: box.x + box.width * fx,
+    y: box.y + box.height * fy,
+  });
+  const inked = () =>
+    pad.evaluate((canvas: HTMLCanvasElement) => {
+      const data = canvas.getContext('2d')?.getImageData(0, 0, canvas.width, canvas.height).data;
+      return !!data && data.some((v, i) => i % 4 === 3 && v !== 0);
+    });
+  const cdp = await page.context().newCDPSession(page);
+  const popover = page.getByRole('dialog', { name: 'Colours' });
+  const toolbar = page.getByRole('toolbar', { name: 'Deck cover tools' });
+
+  // Holding still opens the colours and draws nothing; lifting without moving leaves them open.
+  await touch(cdp, [at(0.5, 0.4)], 7, { holdMs: 800 });
+  await expect(popover).toBeVisible();
+  if (process.env.SCREENSHOTS)
+    await page.screenshot({ path: `${process.env.SCREENSHOTS}/cover-pad.png` });
+  expect(await inked()).toBe(false);
+  // Where Violet is: a long-press at the same point opens it in the same place.
+  const b = await popover.getByRole('button', { name: 'Violet', exact: true }).boundingBox();
+  if (!b) throw new Error('no violet');
+  const violet = { x: b.x + b.width / 2, y: b.y + b.height / 2 };
+  await page.keyboard.press('Escape');
+  await expect(popover).toBeHidden();
+
+  // Long-press, slide onto a swatch, lift: picked.
+  await touch(cdp, [at(0.5, 0.4), violet], 8, { holdMs: 800 });
+  await expect(popover).toBeHidden();
+  await expect(toolbar.getByRole('button', { name: 'Violet', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  expect(await inked()).toBe(false);
+
+  // A quick tap still draws a dot.
+  await touch(cdp, [at(0.3, 0.3)], 10);
+  await expect.poll(inked).toBe(true);
 });

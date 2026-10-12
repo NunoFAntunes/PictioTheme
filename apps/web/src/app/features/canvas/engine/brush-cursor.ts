@@ -29,8 +29,8 @@ export type BrushCursor = {
   unpin(): void;
   /** Eyedropper preview: show this colour at the pointer, or null to go back to the brush. */
   preview(color: string | null): void;
-  /** Emphasise briefly after a setting changed. */
-  flash(): void;
+  /** Emphasise briefly after a setting changed, with this label (default: size and opacity). */
+  flash(label?: string): void;
   destroy(): void;
 };
 
@@ -69,6 +69,7 @@ export function createBrushCursor(canvas: HTMLCanvasElement, host: HTMLElement):
   let pinned: { x: number; y: number } | null = null;
   let flashTimer: ReturnType<typeof setTimeout> | undefined;
   let flashing = false;
+  let flashLabel: string | undefined;
   let previewColor: string | null = null;
 
   const render = () => {
@@ -116,7 +117,7 @@ export function createBrushCursor(canvas: HTMLCanvasElement, host: HTMLElement):
 
     label.hidden = !emphasised;
     if (emphasised) {
-      label.textContent = cursorLabel(tool);
+      label.textContent = (!pinned && flashLabel) || cursorLabel(tool);
       placeLabel(x, y, radius, hostRect);
     }
   };
@@ -167,11 +168,13 @@ export function createBrushCursor(canvas: HTMLCanvasElement, host: HTMLElement):
       previewColor = color;
       render();
     },
-    flash() {
+    flash(text) {
       flashing = true;
+      flashLabel = text;
       clearTimeout(flashTimer);
       flashTimer = setTimeout(() => {
         flashing = false;
+        flashLabel = undefined;
         render();
       }, FLASH_MS);
       render();

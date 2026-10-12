@@ -70,7 +70,7 @@ export const SOUNDS = {
   emoteBoing: { files: ['poke-boing.mp3'], group: 'room', volume: 0.45, minGapMs: 100 },
   emoteThump: { files: ['podium-thump.mp3'], group: 'room', volume: 0.6, minGapMs: 100 },
   emoteSlap: { files: ['paper-kick.mp3'], group: 'room', volume: 0.6, minGapMs: 100 },
-  emoteSplat: { files: ['fill-glug-1.mp3', 'fill-glug-2.mp3'], group: 'room', volume: 0.6 },
+  emoteSplat: { files: ['splat-1.mp3', 'splat-2.mp3'], group: 'room', volume: 0.6 },
   emoteSob: { files: ['player-leave.mp3'], group: 'room', volume: 0.5 },
 } as const satisfies Record<string, SoundDef>;
 

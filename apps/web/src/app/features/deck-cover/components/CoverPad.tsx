@@ -1,6 +1,6 @@
-import { useCallback, useState, type ReactNode, type RefObject } from 'react';
+import { useState, type ReactNode, type RefObject } from 'react';
 import { createStrokeModel, type DrawOp } from '../../../realtime';
-import { DEFAULT_TOOL, DrawingBoard, Toolbar, withColor } from '../../canvas';
+import { DEFAULT_TOOL, DrawingBoard, Toolbar, useColorPopover, withColor } from '../../canvas';
 
 /**
  * The 3:4 pad for drawing a deck's back cover, with the game's full drawing toolbar (sizes,
@@ -23,10 +23,8 @@ export function CoverPad({
 }) {
   const [model] = useState(createStrokeModel);
   const [tool, setTool] = useState({ ...DEFAULT_TOOL, size: 16 });
-  const [colorPopoverOpen, setColorPopoverOpen] = useState(false);
+  const { colorPopover, toggleColorPopover, closeColorPopover } = useColorPopover();
   const [picking, setPicking] = useState(false);
-  const toggleColorPopover = useCallback(() => setColorPopoverOpen((open) => !open), []);
-  const closeColorPopover = useCallback(() => setColorPopoverOpen(false), []);
   const [pad] = useState(() => ({
     model,
     emit: (op: DrawOp) => model.apply(op),
@@ -52,7 +50,8 @@ export function CoverPad({
             }}
             picking={picking}
             onLiveColor={(color) => setTool((t) => ({ ...t, color }))}
-            colorPopoverOpen={colorPopoverOpen}
+            colorPopover={colorPopover}
+            onToggleColorPopover={toggleColorPopover}
             onCloseColorPopover={closeColorPopover}
             pad={pad}
           />

@@ -4,10 +4,13 @@ import { DOODLE_BUTTON, WOBBLE } from '../../../ui/hand-drawn';
 import { BoilFilters } from '../../player-list';
 import { DeckCover } from '../../deck-cover';
 import { ReportDeckButton } from '../../report-deck';
-import { WaitingRoom } from '../../waiting-room';
+import { ToysAround, WaitingRoom } from '../../waiting-room';
 import { PodiumCeremony } from './PodiumCeremony';
 
-/** End of match: the podium ceremony, then play again (screens.md §6). */
+/**
+ * End of match: the podium ceremony, then play again (screens.md §6). Players who aren't the host
+ * get the waiting room's toys under it while the host sets up the next one.
+ */
 export function ResultsPanel() {
   const view = useRoomStore((s) => s.view);
   const [editing, setEditing] = useState(false);
@@ -24,7 +27,7 @@ export function ResultsPanel() {
   });
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-4 py-2">
+    <div className="@container mx-auto flex w-full max-w-3xl flex-col items-center gap-4 py-2">
       {/* The figures boil through these (the player list has them too, but not on every layout). */}
       <BoilFilters />
       <div className="flex items-center gap-3 self-start">
@@ -71,7 +74,14 @@ export function ResultsPanel() {
           Lobby
         </a>
       </div>
-      {!host && <p className="font-hand text-lg text-ink/70">The host can start another match.</p>}
+      {!host && (
+        <>
+          <p className="font-hand text-lg text-ink/70">The host can start another match.</p>
+          <div className="w-full">
+            <ToysAround />
+          </div>
+        </>
+      )}
     </div>
   );
 }

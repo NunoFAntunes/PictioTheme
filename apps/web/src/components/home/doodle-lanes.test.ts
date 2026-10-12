@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { MIN_COPY_WIDTH, layOutLanes } from './doodle-lanes';
-import { DOODLES } from './doodles';
+import { DOODLES } from '../../app/features/desk-toys';
 
 const knownIds = new Set(Object.values(DOODLES).flatMap((set) => set.map((d) => d.id)));
 
