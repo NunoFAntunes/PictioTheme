@@ -154,7 +154,9 @@ Tool, size and colour-slot keys match the **physical key**, so they work on any 
 
 ## Other pads
 
-The **deck cover pad** (a local 600×800 canvas) and the **avatar pad** (a local 512×512 canvas) use this same toolbar, shortcuts and canvas input: colour wheel, eyedropper, drag to change size and opacity, and all. When the avatar editor opens over a turn in progress, its shortcuts go to the avatar pad, not the room's board.
+The **deck cover pad** (a local 600×800 canvas) and the **avatar pad** (a local 512×512 canvas) use this same toolbar, shortcuts and canvas input: colour wheel, eyedropper, drag to change size and opacity, and all (`DrawingPad`). There the toolbar is a **panel**: a ~22rem column of full-width trays beside the pad (tools, colour and slots, the palette in two bands of 7, brush, history), with the owner's buttons under it. Where the space is under 42rem the panel goes under the pad instead.
+
+Both open in a **paper popup** (`ui/PaperDialog`): a taped sheet with a marker outline and a ✕ sticker. Esc and a click outside don't close it (Esc already cancels a drag or closes the colour wheel), so a drawing isn't lost by accident. The cover popup opens by itself when a deck starts generating; closing it keeps the drawing, and the generate panel can reopen it or go without a cover. When the avatar editor opens over a turn in progress, its shortcuts go to the avatar pad, not the room's board, and a hidden pad's toolbar ignores the keyboard.
 
 ## Touch screens
 

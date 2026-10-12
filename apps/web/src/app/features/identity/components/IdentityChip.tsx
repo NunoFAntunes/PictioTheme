@@ -1,6 +1,7 @@
-import { useId, useRef, useState, type CSSProperties } from 'react';
+import { useId, useState, type CSSProperties } from 'react';
 import type { Identity } from '../../../lib/identity';
 import { MARKER_BORDER, WOBBLE } from '../../../ui/hand-drawn';
+import { PaperDialog } from '../../../ui/PaperDialog';
 import { IdentityForm } from './IdentityForm';
 import { IntroduceYourself } from './IntroduceYourself';
 
@@ -45,8 +46,6 @@ export function IdentityChip({
   nudge?: boolean;
   onSaved?: (identity: Identity) => void;
 }) {
-  const dialog = useRef<HTMLDialogElement>(null);
-  // The form only exists while open, so the page never has a second name field or pad.
   const [open, setOpen] = useState(false);
   const nudgeId = useId();
   const look = compact ? LOOKS.room : LOOKS.home;
@@ -55,10 +54,7 @@ export function IdentityChip({
     <div className="flex items-start gap-3">
       <button
         type="button"
-        onClick={() => {
-          setOpen(true);
-          dialog.current?.showModal();
-        }}
+        onClick={() => setOpen(true)}
         aria-label={`Playing as ${identity.displayName}: change name or drawing`}
         aria-describedby={nudge ? nudgeId : undefined}
         className={`group relative flex max-w-[16rem] items-center text-ink transition hover:-translate-y-0.5 hover:rotate-0 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-dashed focus-visible:outline-ink active:translate-y-0.5 active:shadow-[1px_1px_0_var(--color-ink)] ${look.sticker}`}
@@ -98,26 +94,23 @@ export function IdentityChip({
         </span>
       </button>
       {nudge && <IntroduceYourself id={nudgeId} />}
-      {/* data-paper: always light, like the paper it opens over. */}
-      <dialog
-        ref={dialog}
-        data-paper
-        aria-label="Your name and avatar"
+      <PaperDialog
+        open={open}
+        guarded
         onClose={() => setOpen(false)}
-        className="m-auto rounded-2xl bg-white p-0 text-ink shadow-xl backdrop:bg-ink/40"
-        onClick={(e) => {
-          // A click on the backdrop (the dialog element itself, outside the form) closes it.
-          if (e.target === e.currentTarget) dialog.current?.close();
-        }}
+        className="w-[52rem]"
+        title="Your name and avatar"
       >
+        {/* Only while open, so the page never has a second name field or pad. */}
         {open && (
           <IdentityForm
             submitLabel="Save"
+            framed={false}
             onSaved={onSaved}
-            onDone={() => dialog.current?.close()}
+            onDone={() => setOpen(false)}
           />
         )}
-      </dialog>
+      </PaperDialog>
     </div>
   );
 }

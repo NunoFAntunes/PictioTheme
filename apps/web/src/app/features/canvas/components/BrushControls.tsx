@@ -21,14 +21,17 @@ function opacityTrack(color: string): string {
 
 /**
  * Size (dots at their relative size, and a slider) and opacity for the brush and eraser.
- * On Fill, tolerance takes size's place: fill has no size.
+ * On Fill, tolerance takes size's place: fill has no size (the panel keeps the presets' room).
  */
 export function BrushControls({
   tool,
   onChange,
+  panel = false,
 }: {
   tool: ToolSettings;
   onChange: (next: ToolSettings) => void;
+  /** Full width: dots over the sliders, whose tracks stretch (the toolbar's panel layout). */
+  panel?: boolean;
 }) {
   const opacity = (
     <Slider
@@ -46,8 +49,10 @@ export function BrushControls({
 
   if (tool.tool === 'fill')
     return (
-      <Zone label="Fill">
-        <SliderStack>
+      <Zone label="Fill" className={panel ? 'flex-col items-stretch gap-2 py-2' : ''}>
+        {/* Holds the size presets' row, so switching tools doesn't resize the panel. */}
+        {panel && <div aria-hidden="true" className="h-8 pointer-coarse:h-11" />}
+        <SliderStack wide={panel}>
           <Slider
             label="Tolerance"
             ariaLabel="Fill tolerance"
@@ -66,8 +71,8 @@ export function BrushControls({
     );
 
   return (
-    <Zone label="Brush">
-      <div className="flex items-center">
+    <Zone label="Brush" className={panel ? 'flex-col items-stretch gap-2 py-2' : ''}>
+      <div className={`flex items-center ${panel ? 'justify-around' : ''}`}>
         {SIZE_PRESETS.map((p, i) => {
           const active = tool.size === p.size;
           return (
@@ -93,7 +98,7 @@ export function BrushControls({
           );
         })}
       </div>
-      <SliderStack>
+      <SliderStack wide={panel}>
         <Slider
           label="Size"
           ariaLabel="Brush size"

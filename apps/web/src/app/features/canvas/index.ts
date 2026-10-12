@@ -1,4 +1,5 @@
 export { DrawingBoard } from './components/DrawingBoard';
+export { DrawingPad } from './components/DrawingPad';
 export { isBlank } from './is-blank';
 export { Toolbar } from './components/Toolbar';
 export { createRenderer } from './engine/renderer';

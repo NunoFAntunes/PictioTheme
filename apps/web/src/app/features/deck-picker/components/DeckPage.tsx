@@ -152,9 +152,7 @@ export function DeckSection({
               onRedraw={() => setRedrawing(deck.id)}
             />
             {redrawing === deck.id && (
-              <div className="col-span-full">
-                <RedrawCoverPanel deck={deck} onClose={() => setRedrawing(null)} />
-              </div>
+              <RedrawCoverPanel deck={deck} onClose={() => setRedrawing(null)} />
             )}
           </Fragment>
         ))}

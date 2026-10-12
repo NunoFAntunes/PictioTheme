@@ -11,10 +11,13 @@ const LONG_PRESS_MS = 500;
 export function ColorSlots({
   color,
   onUse,
+  fill = false,
 }: {
   /** The current colour, saved by a right-click or long-press. */
   color: string;
   onUse: (color: string) => void;
+  /** Stretch to the space it's given (the toolbar's panel layout). */
+  fill?: boolean;
 }) {
   const slots = useColorSlots((s) => s.slots);
   const setSlot = useColorSlots((s) => s.setSlot);
@@ -25,7 +28,7 @@ export function ColorSlots({
 
   return (
     <div
-      className="flex items-center gap-1.5 rounded-xl bg-zinc-100 px-2 py-1 dark:bg-zinc-800/70"
+      className={`flex items-center gap-1.5 rounded-xl bg-zinc-100 px-2 py-1 dark:bg-zinc-800/70 ${fill ? 'min-w-48 flex-1' : ''}`}
       role="group"
       aria-label="Colour slots"
     >
@@ -65,7 +68,7 @@ export function ColorSlots({
             }
             onUse(slot);
           }}
-          className={`relative h-14 w-9 rounded-lg select-none [-webkit-touch-callout:none] pointer-coarse:w-11 ${color === slot ? 'ring-2 ring-ink ring-offset-1 dark:ring-zinc-100 dark:ring-offset-zinc-900' : 'ring-1 ring-black/15 ring-inset'}`}
+          className={`relative h-14 rounded-lg select-none [-webkit-touch-callout:none] ${fill ? 'flex-1' : 'w-9 pointer-coarse:w-11'} ${color === slot ? 'ring-2 ring-ink ring-offset-1 dark:ring-zinc-100 dark:ring-offset-zinc-900' : 'ring-1 ring-black/15 ring-inset'}`}
           style={{ backgroundColor: slot }}
         >
           <span

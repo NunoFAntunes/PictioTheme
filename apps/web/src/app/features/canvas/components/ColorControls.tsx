@@ -69,16 +69,19 @@ export function PaletteGrid({
   swatch,
   wrapAt,
   tight = false,
+  fill = false,
 }: {
   swatch: (s: Swatch) => ReactNode;
   wrapAt?: number;
   /** Closer swatches (the toolbar's single row); they stay apart on touch screens. */
   tight?: boolean;
+  /** Bands stretch to the full width, their swatches sharing it. */
+  fill?: boolean;
 }) {
   const band = (columns: (readonly [Swatch, Swatch])[], key: string) => (
     <div
       key={key}
-      className={`grid grid-flow-col grid-rows-2 ${tight ? 'gap-0.5 pointer-coarse:gap-1' : 'gap-1'}`}
+      className={`grid grid-flow-col grid-rows-2 ${fill ? 'w-full auto-cols-fr' : ''} ${tight ? 'gap-0.5 pointer-coarse:gap-1' : 'gap-1'}`}
     >
       {columns.flat().map(swatch)}
     </div>
@@ -88,7 +91,7 @@ export function PaletteGrid({
     const bands = [];
     for (let i = 0; i < columns.length; i += wrapAt)
       bands.push(band(columns.slice(i, i + wrapAt), String(i)));
-    return <div className="flex flex-col gap-1">{bands}</div>;
+    return <div className={`flex flex-col gap-1 ${fill ? 'w-full py-1' : ''}`}>{bands}</div>;
   }
   return (
     <div className={`flex items-center ${tight ? 'gap-1.5' : 'gap-2'}`}>

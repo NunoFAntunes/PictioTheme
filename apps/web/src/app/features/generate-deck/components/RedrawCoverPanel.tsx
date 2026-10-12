@@ -1,15 +1,15 @@
 import type { DeckSummary } from '@pictiotheme/protocol';
-import { useId, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { PaperDialog } from '../../../ui/PaperDialog';
 import { isBlank } from '../../canvas';
 import { CoverPad, DeckCover, drawingToCover } from '../../deck-cover';
 import { useRedrawCover } from '../api';
 
-/** Redraw the back cover of a deck you generated (decks.md, "Back cover"). */
+/** Redraw the back cover of a deck you generated (decks.md, "Back cover"), in a popup. */
 export function RedrawCoverPanel({ deck, onClose }: { deck: DeckSummary; onClose: () => void }) {
   const redraw = useRedrawCover();
   const [error, setError] = useState<string | null>(null);
   const padRef = useRef<HTMLCanvasElement>(null);
-  const headingId = useId();
   const message = error ?? (redraw.isError ? redraw.error.message : null);
 
   function save() {
@@ -29,22 +29,19 @@ export function RedrawCoverPanel({ deck, onClose }: { deck: DeckSummary; onClose
   }
 
   return (
-    <div
-      role="group"
-      aria-labelledby={headingId}
-      className="flex flex-col gap-3 rounded-lg border border-brand-600/40 p-4"
+    <PaperDialog
+      open
+      guarded
+      onClose={onClose}
+      className="w-[50rem]"
+      title={`Redraw the cover of “${deck.title}”`}
+      subtitle={
+        <span className="flex items-center gap-3">
+          <DeckCover deck={deck} size="sm" />
+          The current cover. Saving replaces it everywhere the deck appears.
+        </span>
+      }
     >
-      <div className="flex items-center gap-3 text-sm">
-        <DeckCover deck={deck} size="sm" />
-        <div className="min-w-0">
-          <h3 id={headingId} className="font-semibold">
-            Redraw the cover of “{deck.title}”
-          </h3>
-          <p className="text-zinc-500">
-            The current cover. Saving replaces it everywhere the deck appears.
-          </p>
-        </div>
-      </div>
       <CoverPad canvasRef={padRef}>
         {message && (
           <p className="text-sm text-close" role="alert">
@@ -56,7 +53,7 @@ export function RedrawCoverPanel({ deck, onClose }: { deck: DeckSummary; onClose
             type="button"
             onClick={onClose}
             disabled={redraw.isPending}
-            className="rounded-lg px-4 py-2 hover:bg-zinc-100"
+            className="rounded-lg px-4 py-2 hover:bg-ink/5"
           >
             Cancel
           </button>
@@ -70,6 +67,6 @@ export function RedrawCoverPanel({ deck, onClose }: { deck: DeckSummary; onClose
           </button>
         </div>
       </CoverPad>
-    </div>
+    </PaperDialog>
   );
 }

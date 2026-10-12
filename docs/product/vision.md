@@ -2,7 +2,6 @@
 
 ## Pitch
 
-> **Draw it. Guess it. Theme it.**
 > A multiplayer drawing game where every match has a theme, with endless AI-generated decks and a Chaos mode that makes everyone laugh.
 
 Existing drawing games (skribbl.io, Gartic Phone, Drawasaurus) mostly use generic word lists or custom lists typed in by hand. DoodleWhirl!’s angle is **themed, curated, shareable decks**, generated on demand by AI and improved by the community over time. A Halloween party gets Halloween prompts. A team offsite gets office-themed prompts. A family night gets an easy deck the kids can draw.

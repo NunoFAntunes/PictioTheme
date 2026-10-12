@@ -28,8 +28,8 @@ import { PlayingDeck } from './PlayingDeck';
  * and categories, and their own decks after a ✨ Generate a deck tile (when the server allows it).
  * The second is the library, taped in: our featured decks, and over the page the community's
  * (LibraryPages). Each page scrolls on its own (give the spread its height with `className`).
- * Without room for two pages it folds, the first on top. Generating turns to a fresh page: a notepad that grows to fit the form and the cover pad, so
- * drawing never scrolls inside a box. A generated deck is chosen as soon as it's ready.
+ * Without room for two pages it folds, the first on top. Generating turns to a fresh page: a notepad that grows to fit the form and its progress (the
+ * cover is drawn in a popup). A generated deck is chosen as soon as it's ready.
  *
  * Decks are shown in the room's language. A deck that isn't in it yet (picked from the library,
  * or the room's own deck after the host changed the language) gets the translate panel on the

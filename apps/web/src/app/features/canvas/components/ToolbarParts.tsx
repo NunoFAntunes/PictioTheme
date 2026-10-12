@@ -62,9 +62,18 @@ const RANGE = [
 ].join(' ');
 
 /** Sliders stacked in one grid, so their captions, tracks and values line up. */
-export function SliderStack({ children }: { children: ReactNode }) {
+export function SliderStack({
+  children,
+  wide = false,
+}: {
+  children: ReactNode;
+  /** Tracks take the width left over, rather than a fixed 6rem (8rem on touch screens). */
+  wide?: boolean;
+}) {
   return (
-    <div className="grid grid-cols-[auto_auto_auto] items-center gap-x-2 gap-y-4 px-1.5">
+    <div
+      className={`grid items-center gap-x-2 gap-y-4 px-1.5 ${wide ? 'w-full grid-cols-[auto_minmax(0,1fr)_auto]' : 'grid-cols-[auto_6rem_auto] pointer-coarse:grid-cols-[auto_8rem_auto]'}`}
+    >
       {children}
     </div>
   );
@@ -118,7 +127,7 @@ export function Slider({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className={`${RANGE} w-24 pointer-coarse:w-32`}
+        className={`${RANGE} w-full`}
         style={{ background: track }}
       />
       <span className="w-11 text-right text-[11px] leading-none font-semibold text-zinc-700 tabular-nums dark:text-zinc-200">

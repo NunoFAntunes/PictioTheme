@@ -9,7 +9,7 @@ import DoodleDesk from '../components/home/DoodleDesk.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="DoodleWhirl! · Draw it. Guess it. Theme it." fluidRoot>
+<BaseLayout fluidRoot>
   <!-- Preload only Latin: the font's ~50 Japanese chunks download only if such text appears. -->
   <Font slot="head" cssVariable="--font-cherry-bomb" preload={[{ subset: 'latin' }]} />
   <!-- The handwriting of the "you" sticker and its "introduce yourself" note. -->

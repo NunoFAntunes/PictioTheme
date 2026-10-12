@@ -11,13 +11,15 @@ import {
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { LanguageFlag } from '../../../ui/LanguageFlag';
+import { PaperDialog } from '../../../ui/PaperDialog';
 import { isBlank } from '../../canvas';
 import { CoverPad, DeckCover, drawingToCover } from '../../deck-cover';
 import { useGenerationConfig, useGenerationJob, useSetCover, useStartGeneration } from '../api';
 
 /**
  * "Generate a deck" (user-flows.md §8, without the review step for now): a short form, then,
- * while the server makes the deck (~1 minute), the creator draws the deck's back cover. The new
+ * while the server makes the deck (~1 minute), the creator draws the deck's back cover in a popup
+ * (it opens by itself; closing it keeps the drawing, and the panel reopens it). The new
  * deck is handed back once it's published and the cover is saved or skipped. The deck is in the
  * room's language, and the theme must be written in it: the server checks the theme first and
  * refuses one in another language, or one too unclear for a deck (ai-deck-pipeline.md#theme-check).
@@ -114,6 +116,7 @@ export function GenerateDeckPanel({
   const [jobId, setJobId] = useState<string | null>(null);
   const [cover, setCover] = useState<CoverState>({ step: 'drawing' });
   const [coverError, setCoverError] = useState<string | null>(null);
+  const [coverOpen, setCoverOpen] = useState(false);
   const padRef = useRef<HTMLCanvasElement>(null);
   const handedBack = useRef(false);
   const job = useGenerationJob(jobId);
@@ -184,6 +187,7 @@ export function GenerateDeckPanel({
       {
         onSuccess: (started) => {
           setJobId(started.id);
+          if (cover.step === 'drawing') setCoverOpen(true);
           // A retry after a failure: the cover already drawn goes to the new job.
           if (cover.step === 'saved') upload(started.id, cover.image);
         },
@@ -233,40 +237,35 @@ export function GenerateDeckPanel({
         )}
         {cover.step !== 'skipped' && (
           <div className="flex flex-col gap-3 border-t border-zinc-200 pt-3">
-            <div className="text-sm">
-              <h4 className="font-medium">
-                🎨 Draw the back cover of your deck{status === 'running' && ' while you wait'}
-              </h4>
-              <p className="text-zinc-500">
-                Everyone sees it when they pick your deck. Skip it and your deck gets a plain cover.
-              </p>
-            </div>
             {drawing ? (
-              <CoverPad canvasRef={padRef}>
-                {coverError && (
-                  <p className="text-sm text-close" role="alert">
-                    {coverError}
+              <div className="flex flex-wrap items-center gap-3 text-sm">
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-medium">
+                    🎨 Draw the back cover of your deck{status === 'running' && ' while you wait'}
+                  </h4>
+                  <p className="text-zinc-500">
+                    Everyone sees it when they pick your deck. Skip it and your deck gets a plain
+                    cover.
                   </p>
-                )}
-                <div className="flex justify-end gap-2 text-sm">
+                </div>
+                <div className="flex gap-2">
                   <button
                     type="button"
                     onClick={skipCover}
                     disabled={cover.step === 'saving'}
-                    className="rounded-lg px-4 py-2 hover:bg-zinc-100"
+                    className="rounded-lg px-3 py-2 hover:bg-zinc-100"
                   >
-                    Skip
+                    No cover
                   </button>
                   <button
                     type="button"
-                    onClick={finishCover}
-                    disabled={cover.step === 'saving'}
-                    className="rounded-lg bg-brand-600 px-4 py-2 font-semibold text-white hover:bg-brand-700 disabled:opacity-50"
+                    onClick={() => setCoverOpen(true)}
+                    className="rounded-lg bg-brand-600 px-4 py-2 font-semibold text-white hover:bg-brand-700"
                   >
-                    {cover.step === 'saving' ? 'Saving…' : 'Save cover ✓'}
+                    Draw the cover
                   </button>
                 </div>
-              </CoverPad>
+              </div>
             ) : (
               <div className="flex items-center gap-4 text-sm">
                 <DeckCover
@@ -280,6 +279,49 @@ export function GenerateDeckPanel({
               </div>
             )}
           </div>
+        )}
+        {/* Mounted for as long as the cover is being drawn, so closing it keeps the drawing. */}
+        {drawing && (
+          <PaperDialog
+            open={coverOpen}
+            guarded
+            onClose={() => setCoverOpen(false)}
+            className="w-[50rem]"
+            title="Draw your deck’s back cover"
+            subtitle={
+              failure !== null
+                ? 'Your deck ran into a problem: close this to see what happened.'
+                : status === 'published'
+                  ? `Your deck “${deck?.title ?? theme.trim()}” is ready! Save the cover, or skip it.`
+                  : `Your “${theme.trim()}” deck is brewing while you draw. Everyone sees this cover when they pick it.`
+            }
+          >
+            <CoverPad canvasRef={padRef}>
+              {coverError && (
+                <p className="text-sm text-close" role="alert">
+                  {coverError}
+                </p>
+              )}
+              <div className="flex justify-end gap-2 text-sm">
+                <button
+                  type="button"
+                  onClick={skipCover}
+                  disabled={cover.step === 'saving'}
+                  className="rounded-lg px-4 py-2 hover:bg-ink/5"
+                >
+                  Skip
+                </button>
+                <button
+                  type="button"
+                  onClick={finishCover}
+                  disabled={cover.step === 'saving'}
+                  className="rounded-lg bg-brand-600 px-4 py-2 font-semibold text-white hover:bg-brand-700 disabled:opacity-50"
+                >
+                  {cover.step === 'saving' ? 'Saving…' : 'Save cover ✓'}
+                </button>
+              </div>
+            </CoverPad>
+          </PaperDialog>
         )}
         {cover.step === 'skipped' && status === 'running' && (
           <p className="text-sm text-zinc-500">No cover: your deck gets a plain one.</p>

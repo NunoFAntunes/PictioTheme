@@ -14,8 +14,11 @@ export function IdentityForm({
   submitLabel = 'Continue',
   onDone,
   onSaved,
+  framed = true,
 }: {
   submitLabel?: string;
+  /** Its own outlined box; off where something already frames it (the paper popup). */
+  framed?: boolean;
   onDone?: () => void;
   onSaved?: (identity: Identity) => void;
 }) {
@@ -58,51 +61,55 @@ export function IdentityForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex w-full max-w-sm flex-col gap-4 rounded-2xl border border-zinc-200 p-5 dark:border-zinc-800"
+      className={`flex w-full max-w-3xl flex-col gap-4 ${framed ? 'rounded-2xl border border-zinc-200 p-5 dark:border-zinc-800' : ''}`}
       noValidate
     >
       <div className="flex flex-col gap-1">
-        <label htmlFor={nameId} className="text-sm font-medium">
-          Your name
-        </label>
-        <input
-          id={nameId}
-          value={name}
-          maxLength={20}
-          autoComplete="nickname"
-          onChange={(e) => {
-            setName(e.target.value);
-            setError(null);
-          }}
-          placeholder="e.g. Ana"
-          className="rounded-lg border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700"
-        />
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <label htmlFor={nameId} className="text-sm font-medium">
+            Your name
+          </label>
+          <input
+            id={nameId}
+            value={name}
+            maxLength={20}
+            autoComplete="nickname"
+            onChange={(e) => {
+              setName(e.target.value);
+              setError(null);
+            }}
+            placeholder="e.g. Ana"
+            className="w-full max-w-xs rounded-lg border border-zinc-300 bg-white/60 px-3 py-2 dark:border-zinc-700 dark:bg-transparent"
+          />
+        </div>
         {error && (
           <p className="text-sm text-close" role="alert">
             {error}
           </p>
         )}
       </div>
-      <fieldset className="flex flex-col gap-2">
-        <legend className="mb-1 text-sm font-medium">Draw your avatar</legend>
-        <AvatarPad canvasRef={padRef} />
-        <p className="flex items-center justify-center gap-2 text-xs text-zinc-500">
-          {identity ? (
-            <>
-              <Avatar src={identity.avatar} size="sm" alt="Your current avatar" />
-              Leave it blank to keep your current one.
-            </>
-          ) : (
-            'Leave it blank to use your initial.'
-          )}
-        </p>
+      <fieldset>
+        <legend className="sr-only">Draw your avatar</legend>
+        {/* The note and Save sit under the tools, so the form is no taller than the pad. */}
+        <AvatarPad canvasRef={padRef}>
+          <p className="flex items-center gap-2 text-xs text-zinc-500">
+            {identity ? (
+              <>
+                <Avatar src={identity.avatar} size="sm" alt="Your current avatar" />
+                Leave the pad blank to keep your current one.
+              </>
+            ) : (
+              'Leave the pad blank to use your initial.'
+            )}
+          </p>
+          <button
+            type="submit"
+            className="self-end rounded-lg bg-brand-600 px-6 py-2 font-semibold text-white hover:bg-brand-700"
+          >
+            {submitLabel}
+          </button>
+        </AvatarPad>
       </fieldset>
-      <button
-        type="submit"
-        className="rounded-lg bg-brand-600 px-4 py-2 font-semibold text-white hover:bg-brand-700"
-      >
-        {submitLabel}
-      </button>
     </form>
   );
 }
