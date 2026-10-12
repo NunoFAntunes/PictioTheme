@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { hexToHsv, holdColor, holdHue, parseHex, shadesOf } from '../engine/color';
-import { PALETTE, RECENT_COLORS, type ToolSettings } from '../tools';
+import { RECENT_COLORS, type ToolSettings } from '../tools';
 import type { ColorHold } from '../use-color-popover';
+import { PaletteGrid } from './ColorControls';
 import { ColorWheel } from './ColorWheel';
 import { CustomColorInput } from './CustomColorInput';
 
@@ -344,7 +345,7 @@ export function ColorPopover({ tool, anchor, hold, onLive, onPick, onClose }: Pr
               swatch(hex, `${SHADE_NAMES[i] ?? 'Shade'} ${hex}`, i === 3 && tool.color === hex),
             )}
           </div>
-          <div className="grid grid-cols-8 gap-1">{PALETTE.map((c) => swatch(c.hex, c.label))}</div>
+          <PaletteGrid wrapAt={7} swatch={(c) => swatch(c.hex, c.label)} />
         </div>
       </div>
     </div>

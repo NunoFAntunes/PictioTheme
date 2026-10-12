@@ -14,6 +14,8 @@ export type StrokeModel = {
   readonly openId: string | null;
   /** Bumped whenever history is rewritten (reset, undo), so renderers repaint from scratch. */
   readonly epoch: number;
+  /** There's an undone operation to redo. */
+  readonly canRedo: boolean;
   reset(strokes: readonly Stroke[]): void;
   apply(op: DrawOp): void;
   subscribe(listener: () => void): () => void;
@@ -39,6 +41,9 @@ export function createStrokeModel(): StrokeModel {
     },
     get epoch() {
       return epoch;
+    },
+    get canRedo() {
+      return redo.length > 0;
     },
 
     reset(next) {

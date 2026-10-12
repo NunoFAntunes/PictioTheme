@@ -47,6 +47,8 @@ export const DrawFill = z.object({
   y: Y,
   color: Color,
   tolerance: Tolerance,
+  /** Missing on fills from before fills had opacity: solid. */
+  opacity: Opacity.optional(),
 });
 export type DrawFill = z.infer<typeof DrawFill>;
 
@@ -68,6 +70,7 @@ export const Stroke = z.discriminatedUnion('tool', [
     y: Y,
     color: Color,
     tolerance: Tolerance,
+    opacity: Opacity.optional(),
   }),
 ]);
 export type Stroke = z.infer<typeof Stroke>;

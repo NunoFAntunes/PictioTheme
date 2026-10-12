@@ -50,7 +50,7 @@ apps/web/
         desk-toys/          the toys on the home page's desk and around the waiting room's house rules
                             (Prop places them; paper-ball.ts is the throwable ball's physics), doodles.ts
         canvas/             engine/ (flood-fill, paint, renderer, input, adjust, brush-cursor),
-                            shortcuts.ts + DrawingBoard, Toolbar (both also drive the cover pad), SketchPad (avatar pad)
+                            shortcuts.ts + DrawingBoard, Toolbar (both also drive the cover and avatar pads)
         player-list/  guess-feed/  room-header/  turn-overlays/  waiting-room/  results/
         sound/              Web Audio engine, sound catalog + groups, saved volume settings,
                             RoomSounds (message → sound, turn clock),

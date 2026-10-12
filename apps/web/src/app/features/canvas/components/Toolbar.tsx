@@ -1,54 +1,121 @@
-import { MAX_BRUSH_SIZE, MAX_FILL_TOLERANCE, MIN_BRUSH_SIZE } from '@pictiotheme/protocol';
-import { useEffect } from 'react';
-import { drawAndSend, type DrawOp } from '../../../realtime';
-import { applyShortcut, shortcutFor } from '../shortcuts';
-import { PALETTE, SIZE_PRESETS, withColor, type Tool, type ToolSettings } from '../tools';
+import { useCallback, useEffect, useRef, useSyncExternalStore, type ComponentType } from 'react';
+import { drawAndSend, strokeModel, type DrawOp, type StrokeModel } from '../../../realtime';
+import { useColorSlots } from '../color-slots';
+import { ALT, MOD, useKeyLabel, useShortcutHints } from '../shortcut-hints';
+import { applyShortcut, shortcutFor, TOOL_KEY_CODES } from '../shortcuts';
+import { withColor, type Tool, type ToolSettings } from '../tools';
 import type { ToggleColorPopover } from '../use-color-popover';
+import { BrushControls } from './BrushControls';
+import { ColorSlots } from './ColorSlots';
+import { InkWell, PaletteGrid } from './ColorControls';
+import {
+  BucketIcon,
+  DropperIcon,
+  EraserIcon,
+  KeyboardIcon,
+  PencilIcon,
+  RedoIcon,
+  TrashIcon,
+  UndoIcon,
+} from './ToolIcons';
+import { ToolbarHelp } from './ToolbarHelp';
+import { Keycap, Zone } from './ToolbarParts';
 
 type Props = {
   tool: ToolSettings;
   onChange: (next: ToolSettings) => void;
-  /** `C` (held: release over a colour to pick it) or the wheel button: the colour popover. */
+  /** `C` (held: release over a colour to pick it) or the ink well: the colour popover. */
   onToggleColorPopover: ToggleColorPopover;
-  /** Where undo/redo/clear go. Defaults to the room; a cover pad applies them locally. */
+  /** Where undo/redo/clear go. Defaults to the room; a pad applies them locally. */
   emit?: (op: DrawOp) => void;
+  /** The drawing `emit` changes, so undo and redo know when there's nothing to do. */
+  model?: StrokeModel;
   /** Labels the toolbar. */
   label?: string;
-  /** The 💧 eyedropper is armed (the way to pick up a colour on touch, without Alt). */
+  /** The eyedropper is armed (the way to pick up a colour on touch, without Alt). */
   picking?: boolean;
   onTogglePicking?: () => void;
 };
 
-const TOOLS: { tool: Tool; label: string; icon: string; key: string }[] = [
-  { tool: 'brush', label: 'Brush', icon: '✏️', key: 'b' },
-  { tool: 'eraser', label: 'Eraser', icon: '🧽', key: 'e' },
-  { tool: 'fill', label: 'Fill', icon: '🪣', key: 'f' },
+/** In the order of their keys, Q W E. */
+const TOOLS: {
+  tool: Tool;
+  label: string;
+  Icon: ComponentType<{ className?: string; ink?: string }>;
+}[] = [
+  { tool: 'brush', label: 'Brush', Icon: PencilIcon },
+  { tool: 'fill', label: 'Fill', Icon: BucketIcon },
+  { tool: 'eraser', label: 'Eraser', Icon: EraserIcon },
 ];
 
-const IS_MAC = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.userAgent);
-const DRAG_HINT = `Right-drag or ${IS_MAC ? '⌘' : 'Ctrl'}-drag on the canvas: ↔ size, ↕ opacity`;
-const COLOR_HINT = `${IS_MAC ? '⌥' : 'Alt'}+click or right-click the canvas to pick up a colour. X swaps to the last colour, C or a middle-click opens the colour wheel at the pointer`;
+const UNDO_KEYS = `${MOD}${MOD === 'Ctrl' ? ' ' : ''}Z`;
+const REDO_KEYS = MOD === 'Ctrl' ? 'Ctrl ⇧Z' : '⇧⌘Z';
+
+/** Inputs that take no typing: a slider just used keeps the focus, and Q or 2 must still work. */
+const NOT_TYPED = ['range', 'checkbox', 'radio', 'button', 'submit', 'reset', 'color'];
 
 function isTyping(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false;
+  if (target instanceof HTMLInputElement) return !NOT_TYPED.includes(target.type);
+  return target.isContentEditable || ['TEXTAREA', 'SELECT'].includes(target.tagName);
+}
+
+/** A modal dialog over this toolbar (the avatar editor, opened mid-turn) takes the shortcuts. */
+function isBehindModal(toolbar: HTMLElement | null): boolean {
+  const modal = document.querySelector('dialog:modal');
+  return modal !== null && !(toolbar && modal.contains(toolbar));
+}
+
+function ToolButton({
+  tool,
+  label,
+  Icon,
+  active,
+  color,
+  onSelect,
+}: (typeof TOOLS)[number] & { active: boolean; color: string; onSelect: () => void }) {
+  const key = useKeyLabel(TOOL_KEY_CODES[tool]);
   return (
-    target instanceof HTMLElement &&
-    (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName))
+    <button
+      type="button"
+      title={`${label} (${key})`}
+      aria-label={label}
+      aria-pressed={active}
+      aria-keyshortcuts={key}
+      onClick={onSelect}
+      className={`relative grid size-11 place-items-center rounded-xl border-2 transition pointer-coarse:size-12 ${active ? '-translate-y-0.5 -rotate-3 border-ink bg-pop-sun text-ink shadow-[2px_3px_0_var(--color-ink)] motion-safe:animate-choice-wiggle' : 'border-transparent hover:-rotate-2 hover:bg-white dark:hover:bg-zinc-700'}`}
+    >
+      <Icon className="size-8" ink={color} />
+      <Keycap>{key}</Keycap>
+    </button>
   );
 }
 
-/** Drawer-only tools. Shortcuts: docs/product/drawing-tools.md#keyboard-shortcuts. */
+/** Drawer-only tools, in four zones. Shortcuts: docs/product/drawing-tools.md#keyboard-shortcuts. */
 export function Toolbar({
   tool,
   onChange,
   onToggleColorPopover,
   emit = drawAndSend,
+  model = strokeModel,
   label = 'Drawing tools',
   picking = false,
   onTogglePicking,
 }: Props) {
+  const ref = useRef<HTMLDivElement>(null);
+  const hintsShown = useShortcutHints((s) => s.shown);
+  const toggleHints = useShortcutHints((s) => s.toggle);
+  const subscribe = useCallback((onChange: () => void) => model.subscribe(onChange), [model]);
+  const canUndo = useSyncExternalStore(subscribe, () => model.strokes.length > 0);
+  const canRedo = useSyncExternalStore(subscribe, () => model.canRedo);
+  const blank = useSyncExternalStore(subscribe, () => {
+    const last = model.strokes.at(-1);
+    return !last || last.tool === 'clear';
+  });
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (isTyping(e.target)) return;
+      if (isTyping(e.target) || isBehindModal(ref.current)) return;
       const shortcut = shortcutFor(e);
       if (!shortcut) return;
       e.preventDefault();
@@ -60,6 +127,13 @@ export function Toolbar({
         if (!e.repeat) onToggleColorPopover({ hold: 'key' });
         return;
       }
+      if (shortcut.kind === 'slot') {
+        const { slots, setSlot } = useColorSlots.getState();
+        const slot = slots[shortcut.slot];
+        if (shortcut.save) setSlot(shortcut.slot, tool.color);
+        else if (slot) onChange(withColor(tool, slot));
+        return;
+      }
       onChange(applyShortcut(tool, shortcut));
     };
     window.addEventListener('keydown', onKey);
@@ -67,161 +141,129 @@ export function Toolbar({
   }, [tool, onChange, onToggleColorPopover, emit]);
 
   // Touch screens get finger-sized targets (44 px, rule W15); mouse users keep the compact bar.
-  const button = (active: boolean) =>
-    `rounded-md px-2 py-1 text-sm pointer-coarse:min-h-11 pointer-coarse:min-w-11 pointer-coarse:px-3 ${active ? 'bg-brand-600 text-white' : 'hover:bg-zinc-200 dark:hover:bg-zinc-800'}`;
+  const iconButton =
+    'relative grid size-10 place-items-center rounded-xl transition pointer-coarse:size-11 enabled:hover:bg-white disabled:opacity-35 dark:enabled:hover:bg-zinc-700';
 
   return (
     <div
-      className="flex max-w-full min-w-0 flex-wrap items-center gap-3 rounded-xl border border-zinc-200 p-2 dark:border-zinc-800"
+      ref={ref}
+      className="flex max-w-full min-w-0 flex-col gap-2 rounded-2xl border border-zinc-200 bg-white p-2 text-ink shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100"
       role="toolbar"
       aria-label={label}
     >
-      <div className="flex flex-wrap gap-1">
-        {TOOLS.map((t) => (
+      <div className="flex flex-wrap items-center gap-2">
+        <Zone label="Tools">
+          {TOOLS.map((t) => (
+            <ToolButton
+              key={t.tool}
+              {...t}
+              active={tool.tool === t.tool}
+              color={tool.color}
+              onSelect={() => onChange({ ...tool, tool: t.tool })}
+            />
+          ))}
+        </Zone>
+
+        <BrushControls tool={tool} onChange={onChange} />
+
+        <div className="ml-auto flex items-center gap-2">
+          <Zone label="History">
+            <button
+              type="button"
+              title={`Undo (${UNDO_KEYS})`}
+              aria-label="Undo"
+              aria-keyshortcuts="Control+Z Meta+Z"
+              disabled={!canUndo}
+              onClick={() => emit({ t: 'draw:undo' })}
+              className={iconButton}
+            >
+              <UndoIcon className="size-7" />
+              <Keycap>{UNDO_KEYS}</Keycap>
+            </button>
+            <button
+              type="button"
+              title={`Redo (${REDO_KEYS})`}
+              aria-label="Redo"
+              aria-keyshortcuts="Control+Shift+Z Meta+Shift+Z"
+              disabled={!canRedo}
+              onClick={() => emit({ t: 'draw:redo' })}
+              className={iconButton}
+            >
+              <RedoIcon className="size-7" />
+              <Keycap>{REDO_KEYS}</Keycap>
+            </button>
+          </Zone>
           <button
-            key={t.tool}
             type="button"
-            title={`${t.label} (${t.key.toUpperCase()})`}
-            aria-pressed={tool.tool === t.tool}
-            onClick={() => onChange({ ...tool, tool: t.tool })}
-            className={button(tool.tool === t.tool)}
+            title="Clear the whole drawing"
+            aria-label="Clear canvas"
+            disabled={blank}
+            onClick={() => {
+              if (window.confirm('Clear the whole drawing? You can undo this.'))
+                emit({ t: 'draw:clear' });
+            }}
+            className={`${iconButton} enabled:hover:bg-red-50 dark:enabled:hover:bg-red-950`}
           >
-            <span aria-hidden="true">{t.icon}</span>{' '}
-            <span className="sr-only sm:not-sr-only">{t.label}</span>
+            <TrashIcon className="size-7" />
           </button>
-        ))}
-      </div>
-
-      <div className="flex flex-wrap items-center gap-1">
-        {SIZE_PRESETS.map((p) => (
           <button
-            key={p.label}
             type="button"
-            title={`Size ${p.size} ([ and ] to step)`}
-            aria-pressed={tool.size === p.size}
-            onClick={() => onChange({ ...tool, size: p.size })}
-            className={button(tool.size === p.size)}
+            title={hintsShown ? 'Hide the keys on the buttons' : 'Show the keys on the buttons'}
+            aria-label="Show shortcut keys"
+            aria-pressed={hintsShown}
+            onClick={toggleHints}
+            className={`grid size-9 place-items-center rounded-full pointer-coarse:hidden ${hintsShown ? 'text-ink dark:text-zinc-100' : 'text-zinc-400'} hover:bg-zinc-100 dark:hover:bg-zinc-800`}
           >
-            {p.label}
+            <KeyboardIcon className="size-6" />
           </button>
-        ))}
-        <label className="ml-1 flex items-center gap-1 text-xs text-zinc-500" title={DRAG_HINT}>
-          <span className="sr-only">Brush size</span>
-          <input
-            type="range"
-            min={MIN_BRUSH_SIZE}
-            max={MAX_BRUSH_SIZE}
-            value={tool.size}
-            onChange={(e) => onChange({ ...tool, size: Number(e.target.value) })}
-            className="w-20 pointer-coarse:w-28"
-          />
-          {tool.size}
-        </label>
+          <ToolbarHelp />
+        </div>
       </div>
 
-      <label className="flex items-center gap-1 text-xs text-zinc-500" title={DRAG_HINT}>
-        Opacity
-        <input
-          type="range"
-          min={5}
-          max={100}
-          step={5}
-          value={Math.round(tool.opacity * 100)}
-          onChange={(e) => onChange({ ...tool, opacity: Number(e.target.value) / 100 })}
-          className="w-20 pointer-coarse:w-28"
-        />
-        {Math.round(tool.opacity * 100)}%
-      </label>
+      <div className="flex flex-wrap items-center gap-2">
+        <Zone label="Colour" className="gap-2 pr-2">
+          <InkWell
+            tool={tool}
+            onOpen={() => onToggleColorPopover()}
+            onSwap={() => onChange(applyShortcut(tool, { kind: 'swap-color' }))}
+          />
+          {onTogglePicking && (
+            <button
+              type="button"
+              title={`Pick up a colour from the drawing (or ${ALT}+click)`}
+              aria-label="Pick up a colour from the drawing"
+              aria-pressed={picking}
+              onClick={onTogglePicking}
+              className={`relative grid size-10 place-items-center rounded-xl border-2 transition pointer-coarse:size-11 ${picking ? 'border-ink bg-pop-sun text-ink shadow-[2px_3px_0_var(--color-ink)]' : 'border-transparent hover:bg-white dark:hover:bg-zinc-700'}`}
+            >
+              <DropperIcon className="size-7" ink={tool.color} />
+              <Keycap>{`${ALT}+click`}</Keycap>
+            </button>
+          )}
+        </Zone>
 
-      {tool.tool === 'fill' && (
-        <label className="flex items-center gap-1 text-xs text-zinc-500" title={DRAG_HINT}>
-          Tolerance
-          <input
-            type="range"
-            min={0}
-            max={MAX_FILL_TOLERANCE}
-            value={tool.fillTolerance}
-            onChange={(e) => onChange({ ...tool, fillTolerance: Number(e.target.value) })}
-            className="w-20 pointer-coarse:w-28"
-          />
-          {tool.fillTolerance}
-        </label>
-      )}
+        <ColorSlots color={tool.color} onUse={(color) => onChange(withColor(tool, color))} />
 
-      <div className="flex flex-wrap items-center gap-0.5" aria-label="Colours" title={COLOR_HINT}>
-        {PALETTE.map((c) => (
-          <button
-            key={c.hex}
-            type="button"
-            title={c.label}
-            aria-label={c.label}
-            aria-pressed={tool.color === c.hex}
-            onClick={() => onChange(withColor(tool, c.hex))}
-            className={`size-5 rounded border pointer-coarse:size-9 ${tool.color === c.hex ? 'ring-2 ring-brand-600 ring-offset-1' : 'border-zinc-300'}`}
-            style={{ backgroundColor: c.hex }}
+        <Zone label="Palette" className="px-2 py-1.5">
+          <PaletteGrid
+            swatch={(c) => {
+              const active = tool.color === c.hex;
+              return (
+                <button
+                  key={c.hex}
+                  type="button"
+                  title={c.label}
+                  aria-label={c.label}
+                  aria-pressed={active}
+                  onClick={() => onChange(withColor(tool, c.hex))}
+                  className={`size-5 rounded-[5px] transition hover:scale-115 pointer-coarse:size-9 ${active ? 'relative z-10 scale-115 ring-2 ring-ink ring-offset-1 dark:ring-zinc-100 dark:ring-offset-zinc-900' : 'ring-1 ring-black/15 ring-inset'}`}
+                  style={{ backgroundColor: c.hex }}
+                />
+              );
+            }}
           />
-        ))}
-        {onTogglePicking && (
-          <button
-            type="button"
-            title="Pick up a colour from the drawing (or Alt+click)"
-            aria-label="Pick up a colour from the drawing"
-            aria-pressed={picking}
-            onClick={onTogglePicking}
-            className={`ml-1 ${button(picking)}`}
-          >
-            💧
-          </button>
-        )}
-        <button
-          type="button"
-          title="More colours: wheel, hex and recent (C or middle-click)"
-          aria-label="More colours"
-          onClick={() => onToggleColorPopover()}
-          className="ml-1 flex size-6 items-center justify-center rounded-full border border-zinc-300 pointer-coarse:size-9"
-          style={{ background: 'conic-gradient(red, yellow, lime, cyan, blue, magenta, red)' }}
-        >
-          <span
-            aria-hidden="true"
-            className="size-3 rounded-full border border-white pointer-coarse:size-5"
-            style={{ backgroundColor: tool.color }}
-          />
-        </button>
+        </Zone>
       </div>
-
-      <div className="ml-auto flex gap-1">
-        <button
-          type="button"
-          title="Undo (Ctrl+Z)"
-          onClick={() => emit({ t: 'draw:undo' })}
-          className={button(false)}
-        >
-          ↶ <span className="sr-only">Undo</span>
-        </button>
-        <button
-          type="button"
-          title="Redo (Ctrl+Shift+Z)"
-          onClick={() => emit({ t: 'draw:redo' })}
-          className={button(false)}
-        >
-          ↷ <span className="sr-only">Redo</span>
-        </button>
-        <button
-          type="button"
-          title="Clear canvas"
-          onClick={() => {
-            if (window.confirm('Clear the whole drawing? You can undo this.'))
-              emit({ t: 'draw:clear' });
-          }}
-          className={button(false)}
-        >
-          🗑 <span className="sr-only">Clear</span>
-        </button>
-      </div>
-
-      <p className="hidden w-full text-xs text-zinc-500 sm:block pointer-coarse:hidden">
-        Tip: {DRAG_HINT}. Esc cancels. {COLOR_HINT}.
-      </p>
     </div>
   );
 }

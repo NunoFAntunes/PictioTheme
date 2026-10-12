@@ -19,7 +19,7 @@ import { sampleCanvas } from './sample';
  * The eyedropper (drawing-tools.md#picking-and-sampling-colours): hold Alt and click or drag to
  * sample, with the colour under the pointer previewed while Alt is held. A right-click (or
  * Ctrl/Cmd+click) that doesn't move far enough to start an adjust drag samples too. On touch,
- * where there's no Alt or right button, the toolbar's 💧 arms a pick: the next press samples.
+ * where there's no Alt or right button, the toolbar's dropper arms a pick: the next press samples.
  *
  * A middle-click opens the colours at the pointer, like `C`. Its defaults (autoscroll on Windows,
  * pasting on Linux) are blocked over the canvas. On touch and pen, a long-press opens them: a
@@ -266,6 +266,7 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
         y: p.y,
         color: tool.color,
         tolerance: tool.fillTolerance,
+        opacity: tool.opacity,
       });
       gate.release();
       return;

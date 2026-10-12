@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ReactNode, type RefObject } from 'react';
 import { drawAndSend, strokeModel, type DrawOp, type StrokeModel } from '../../../realtime';
+import { useColorSlots } from '../color-slots';
 import type { AdjustPatch } from '../engine/adjust';
 import { createBrushCursor, type BrushCursor } from '../engine/brush-cursor';
 import { attachDrawingInput } from '../engine/input';
@@ -17,7 +18,7 @@ type Props = {
   onPickColor: (color: string) => void;
   /** The custom picker is being dragged: preview without committing. */
   onLiveColor: (color: string) => void;
-  /** The toolbar's 💧 is armed: the next press on the canvas picks up a colour. */
+  /** The toolbar's dropper is armed: the next press on the canvas picks up a colour. */
   picking?: boolean;
   /** The colour popover (`C`, a middle-click, a long-press or the toolbar's wheel). */
   colorPopover: ColorPopoverState | null;
@@ -120,6 +121,16 @@ export function DrawingBoard({
     shownColor.current = tool.color;
     cursorRef.current?.flash(colorChanged ? tool.color : undefined);
   }, [settingsKey, tool.color, tool.tool]);
+
+  // Saving a colour slot (Shift+digit, right-click or long-press on it) says so on the ring.
+  const slots = useColorSlots((s) => s.slots);
+  const shownSlots = useRef(slots);
+  useEffect(() => {
+    const before = shownSlots.current;
+    shownSlots.current = slots;
+    const saved = slots.findIndex((c, i) => c !== before[i]);
+    if (saved >= 0) cursorRef.current?.flash(`Saved to ${saved + 1}`);
+  }, [slots]);
 
   return (
     <div

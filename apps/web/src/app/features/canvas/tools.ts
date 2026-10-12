@@ -50,30 +50,86 @@ export const SIZE_PRESETS = [
   { label: 'XL', size: 32 },
 ] as const;
 
-/** 24 swatches with good contrast, including skin tones and greys. Labels are for tooltips. */
-export const PALETTE: { hex: string; label: string }[] = [
-  { hex: '#000000', label: 'Black' },
-  { hex: '#4b5563', label: 'Dark grey' },
-  { hex: '#9ca3af', label: 'Grey' },
-  { hex: '#ffffff', label: 'White' },
-  { hex: '#7f1d1d', label: 'Dark red' },
-  { hex: '#dc2626', label: 'Red' },
-  { hex: '#f97316', label: 'Orange' },
-  { hex: '#facc15', label: 'Yellow' },
-  { hex: '#fef08a', label: 'Light yellow' },
-  { hex: '#84cc16', label: 'Lime' },
-  { hex: '#16a34a', label: 'Green' },
-  { hex: '#14532d', label: 'Dark green' },
-  { hex: '#06b6d4', label: 'Cyan' },
-  { hex: '#3b82f6', label: 'Blue' },
-  { hex: '#1e3a8a', label: 'Navy' },
-  { hex: '#8b5cf6', label: 'Violet' },
-  { hex: '#d946ef', label: 'Magenta' },
-  { hex: '#f9a8d4', label: 'Pink' },
-  { hex: '#78350f', label: 'Brown' },
-  { hex: '#b45309', label: 'Light brown' },
-  { hex: '#ffe0bd', label: 'Skin light' },
-  { hex: '#e0ac69', label: 'Skin medium' },
-  { hex: '#a0662f', label: 'Skin tan' },
-  { hex: '#5c3a21', label: 'Skin dark' },
+export type Swatch = { hex: string; label: string };
+
+/**
+ * The preset swatches as a hue grid (drawing-tools.md#colour-palette): columns of a colour over a
+ * darker one, in three groups: neutrals, the colour wheel from red round to pink, and skin and earth
+ * tones. Labels are for tooltips and screen readers.
+ */
+export const PALETTE_GROUPS: { label: string; columns: (readonly [Swatch, Swatch])[] }[] = [
+  {
+    label: 'Neutrals',
+    columns: [
+      [
+        { hex: '#ffffff', label: 'White' },
+        { hex: '#000000', label: 'Black' },
+      ],
+      [
+        { hex: '#9ca3af', label: 'Grey' },
+        { hex: '#4b5563', label: 'Dark grey' },
+      ],
+    ],
+  },
+  {
+    label: 'Colours',
+    columns: [
+      [
+        { hex: '#dc2626', label: 'Red' },
+        { hex: '#7f1d1d', label: 'Dark red' },
+      ],
+      [
+        { hex: '#f97316', label: 'Orange' },
+        { hex: '#c2410c', label: 'Dark orange' },
+      ],
+      [
+        { hex: '#facc15', label: 'Yellow' },
+        { hex: '#ca8a04', label: 'Mustard' },
+      ],
+      [
+        { hex: '#84cc16', label: 'Lime' },
+        { hex: '#4d7c0f', label: 'Olive' },
+      ],
+      [
+        { hex: '#16a34a', label: 'Green' },
+        { hex: '#14532d', label: 'Dark green' },
+      ],
+      [
+        { hex: '#06b6d4', label: 'Cyan' },
+        { hex: '#0f766e', label: 'Teal' },
+      ],
+      [
+        { hex: '#3b82f6', label: 'Blue' },
+        { hex: '#1e3a8a', label: 'Navy' },
+      ],
+      [
+        { hex: '#8b5cf6', label: 'Violet' },
+        { hex: '#5b21b6', label: 'Purple' },
+      ],
+      [
+        { hex: '#f9a8d4', label: 'Pink' },
+        { hex: '#c026d3', label: 'Magenta' },
+      ],
+    ],
+  },
+  {
+    label: 'Skin and earth',
+    columns: [
+      [
+        { hex: '#ffe0bd', label: 'Skin light' },
+        { hex: '#a0662f', label: 'Skin tan' },
+      ],
+      [
+        { hex: '#e0ac69', label: 'Skin medium' },
+        { hex: '#5c3a21', label: 'Skin dark' },
+      ],
+      [
+        { hex: '#b45309', label: 'Light brown' },
+        { hex: '#78350f', label: 'Brown' },
+      ],
+    ],
+  },
 ];
+
+/** Every preset swatch, column by column. */
+export const PALETTE: Swatch[] = PALETTE_GROUPS.flatMap((g) => g.columns.flat());

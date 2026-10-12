@@ -36,11 +36,14 @@ describe('stroke model', () => {
     const model = createStrokeModel();
     model.apply({ t: 'draw:fill', id: 'f1', x: 1, y: 1, color: '#ff0000', tolerance: 0 });
     const epoch = model.epoch;
+    expect(model.canRedo).toBe(false);
     model.apply({ t: 'draw:undo' });
     expect(model.strokes).toHaveLength(0);
     expect(model.epoch).toBe(epoch + 1);
+    expect(model.canRedo).toBe(true);
     model.apply({ t: 'draw:redo' });
     expect(model.strokes.map((s) => s.tool)).toEqual(['fill']);
+    expect(model.canRedo).toBe(false);
   });
 
   it('a new operation clears the redo stack', () => {
@@ -48,6 +51,7 @@ describe('stroke model', () => {
     model.apply({ t: 'draw:fill', id: 'f1', x: 1, y: 1, color: '#ff0000', tolerance: 0 });
     model.apply({ t: 'draw:undo' });
     model.apply({ t: 'draw:clear' });
+    expect(model.canRedo).toBe(false);
     model.apply({ t: 'draw:redo' });
     expect(model.strokes.map((s) => s.tool)).toEqual(['clear']);
   });

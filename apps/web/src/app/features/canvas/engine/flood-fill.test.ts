@@ -56,6 +56,16 @@ describe('floodFill', () => {
     expect(pixel(data, 4, 2)).toEqual([0, 0, 0, 0]);
   });
 
+  it('lays a see-through fill over what is there', () => {
+    // Transparent left half: the fill is half see-through. The ink it grows into shows through.
+    const data = new Uint8ClampedArray(5 * 5 * 4);
+    for (let y = 0; y < 5; y++) data.set([0, 0, 255, 255], (y * 5 + 2) * 4);
+    floodFill(data, 5, 5, 0, 0, [255, 0, 0, 255], 0, 0.5);
+    expect(pixel(data, 0, 0)).toEqual([255, 0, 0, 128]);
+    expect(pixel(data, 2, 0)).toEqual([128, 0, 128, 255]); // red half over blue
+    expect(pixel(data, 3, 0)).toEqual([0, 0, 0, 0]);
+  });
+
   it('parses hex colours', () => {
     expect(hexToRgba('#ff8000')).toEqual([255, 128, 0, 255]);
   });

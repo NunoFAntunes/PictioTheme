@@ -61,15 +61,44 @@ test('drawer adjusts the brush by dragging and with the keyboard', async ({ brow
   await host.mouse.up({ button: 'right' });
   await expect(size).toHaveValue('16');
 
-  // Keyboard: ] steps up, Shift+[ halves, digits set opacity. Each change shows the ring.
+  // Keyboard: ] steps up, Shift+[ halves. Each change shows the ring.
   await host.mouse.move(box.x + 10, box.y + 10);
   await host.keyboard.press(']');
   await expect(size).toHaveValue('19');
   await expect(label).toHaveText('19 px · 62%');
   await host.keyboard.press('Shift+BracketLeft');
   await expect(size).toHaveValue('10');
-  await host.keyboard.press('4');
-  await expect(label).toHaveText('10 px · 40%');
+  await expect(label).toHaveText('10 px · 62%');
+
+  // Using a slider leaves it focused (Firefox): the tool and slot keys still work.
+  const toolbar = host.getByRole('toolbar');
+  const opacity = toolbar.getByRole('slider', { name: 'Opacity' });
+  const track = await opacity.boundingBox();
+  if (!track) throw new Error('no opacity slider');
+  await host.mouse.click(track.x + track.width * 0.8, track.y + track.height / 2);
+  await expect(opacity).toBeFocused();
+  await host.keyboard.press('e');
+  await expect(toolbar.getByRole('button', { name: 'Eraser' })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  await host.keyboard.press('2');
+  await expect(toolbar.getByRole('button', { name: 'Colour slot 2' })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  await host.keyboard.press('q');
+
+  // On Fill, dragging down lowers opacity too (fills are see-through below 100%).
+  await host.keyboard.press('w');
+  const before = Number(await opacity.inputValue());
+  await host.mouse.move(cx, cy);
+  await host.mouse.down({ button: 'right' });
+  await host.mouse.move(cx, cy + 80, { steps: 5 });
+  await expect(label).toHaveText(/^Tolerance \d+ · \d+%$/);
+  await host.mouse.up({ button: 'right' });
+  expect(Number(await opacity.inputValue())).toBeLessThan(before);
+  await host.keyboard.press('q');
 
   // None of that drew anything, and the context menu never opened.
   expect(await canvasHasInk(host)).toBe(false);

@@ -62,6 +62,7 @@ export function CoverPad({
             onChange={setTool}
             onToggleColorPopover={toggleColorPopover}
             emit={pad.emit}
+            model={pad.model}
             picking={picking}
             onTogglePicking={() => setPicking((p) => !p)}
             label="Deck cover tools"

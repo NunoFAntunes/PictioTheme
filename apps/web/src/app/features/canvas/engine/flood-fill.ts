@@ -14,7 +14,7 @@ export function hexToRgba(hex: string): Rgba {
 /**
  * Fills the region connected to (x, y) whose colour is within `tolerance` (0–255 per channel),
  * then grows it by 1 px (8-neighbourhood) so no unfilled ring is left at a stroke's anti-aliased
- * edge.
+ * edge. Below full `opacity` the fill is laid over what's there (source-over), like a stroke.
  */
 export function floodFill(
   data: Uint8ClampedArray,
@@ -24,6 +24,7 @@ export function floodFill(
   startY: number,
   fill: Rgba,
   tolerance: number,
+  opacity = 1,
 ): void {
   const x0 = Math.min(width - 1, Math.max(0, Math.round(startX)));
   const y0 = Math.min(height - 1, Math.max(0, Math.round(startY)));
@@ -50,12 +51,22 @@ export function floodFill(
   let maxX = x0;
   let minY = y0;
   let maxY = y0;
+  const alpha = (fill[3] / 255) * opacity;
   const setFill = (pixel: number) => {
     const i = pixel * 4;
-    data[i] = fill[0];
-    data[i + 1] = fill[1];
-    data[i + 2] = fill[2];
-    data[i + 3] = fill[3];
+    if (alpha >= 1) {
+      data[i] = fill[0];
+      data[i + 1] = fill[1];
+      data[i + 2] = fill[2];
+      data[i + 3] = fill[3];
+      return;
+    }
+    // Straight (not premultiplied) alpha, as ImageData stores it.
+    const under = ((data[i + 3] ?? 0) / 255) * (1 - alpha);
+    const out = alpha + under;
+    for (let c = 0; c < 3; c++)
+      data[i + c] = Math.round(((fill[c] ?? 0) * alpha + (data[i + c] ?? 0) * under) / out);
+    data[i + 3] = Math.round(out * 255);
   };
   const paint = (pixel: number) => {
     setFill(pixel);

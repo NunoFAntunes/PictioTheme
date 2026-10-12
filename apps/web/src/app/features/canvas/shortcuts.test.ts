@@ -28,14 +28,19 @@ describe('shortcutFor', () => {
     });
   });
 
-  it('sets opacity from digits, including AZERTY (Shift) and the numpad', () => {
-    expect(shortcutFor(key('5', 'Digit5'))).toEqual({ kind: 'opacity', opacity: 0.5 });
-    expect(shortcutFor(key('3', 'Digit3', { shiftKey: true }))).toEqual({
-      kind: 'opacity',
-      opacity: 0.3,
+  it('uses colour slots 1–5 by physical key, and saves to them with Shift', () => {
+    expect(shortcutFor(key('1', 'Digit1'))).toEqual({ kind: 'slot', slot: 0, save: false });
+    // AZERTY: the unshifted key types "&" but is still Digit1; Shift types "1" and saves.
+    expect(shortcutFor(key('&', 'Digit1'))).toEqual({ kind: 'slot', slot: 0, save: false });
+    expect(shortcutFor(key('5', 'Digit5', { shiftKey: true }))).toEqual({
+      kind: 'slot',
+      slot: 4,
+      save: true,
     });
-    expect(shortcutFor(key('à', 'Digit0'))).toEqual({ kind: 'opacity', opacity: 1 });
-    expect(shortcutFor(key('7', 'Numpad7'))).toEqual({ kind: 'opacity', opacity: 0.7 });
+    expect(shortcutFor(key('3', 'Numpad3'))).toEqual({ kind: 'slot', slot: 2, save: false });
+    // 6–9 and 0 do nothing (they used to set opacity: drag on the canvas for that now).
+    expect(shortcutFor(key('6', 'Digit6'))).toBeNull();
+    expect(shortcutFor(key('0', 'Digit0'))).toBeNull();
   });
 
   it('ignores AltGr combinations (which is how some layouts type [ and ])', () => {
@@ -43,9 +48,16 @@ describe('shortcutFor', () => {
     expect(shortcutFor(key('[', 'Digit8', { altKey: true }))).toBeNull();
   });
 
-  it('picks tools by the printed letter', () => {
-    expect(shortcutFor(key('b', 'KeyB'))).toEqual({ kind: 'tool', tool: 'brush' });
+  it('picks tools with Q W E by physical key, keeping B and F by the printed letter', () => {
+    expect(shortcutFor(key('q', 'KeyQ'))).toEqual({ kind: 'tool', tool: 'brush' });
+    expect(shortcutFor(key('w', 'KeyW'))).toEqual({ kind: 'tool', tool: 'fill' });
     expect(shortcutFor(key('E', 'KeyE'))).toEqual({ kind: 'tool', tool: 'eraser' });
+    // AZERTY: the same three keys print A, Z, E.
+    expect(shortcutFor(key('a', 'KeyQ'))).toEqual({ kind: 'tool', tool: 'brush' });
+    expect(shortcutFor(key('z', 'KeyW'))).toEqual({ kind: 'tool', tool: 'fill' });
+    expect(shortcutFor(key('b', 'KeyB'))).toEqual({ kind: 'tool', tool: 'brush' });
+    expect(shortcutFor(key('f', 'KeyF'))).toEqual({ kind: 'tool', tool: 'fill' });
+    expect(shortcutFor(key('Q', 'KeyQ', { shiftKey: true }))).toBeNull();
   });
 
   it('swaps colours with X and opens the colour popover with C', () => {

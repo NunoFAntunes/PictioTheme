@@ -68,6 +68,24 @@ test('drawer samples, swaps and picks colours with shortcuts', async ({ browser 
   await host.mouse.click(box.x + 20, box.y + box.height - 20);
   await expect(popover).toBeHidden();
   await expect(swatch('Green')).toHaveAttribute('aria-pressed', 'true');
+
+  // Colour slots: 1–5 switch to them (black, red, blue, green, yellow to start), Shift+digit saves
+  // the current colour there and the ring says so, and a right-click on a slot saves too.
+  const slot = (n: number) => toolbar.getByRole('button', { name: `Colour slot ${n}` });
+  await host.keyboard.press('2');
+  await expect(swatch('Red')).toHaveAttribute('aria-pressed', 'true');
+  await expect(slot(2)).toHaveAttribute('aria-pressed', 'true');
+  await swatch('Violet').click();
+  await host.keyboard.press('Shift+Digit1');
+  await expect(label).toHaveText('Saved to 1');
+  await host.keyboard.press('3');
+  await expect(swatch('Blue')).toHaveAttribute('aria-pressed', 'true');
+  await host.keyboard.press('1');
+  await expect(swatch('Violet')).toHaveAttribute('aria-pressed', 'true');
+  await slot(5).click({ button: 'right' });
+  await expect(slot(5)).toHaveCSS('background-color', 'rgb(139, 92, 246)');
+  await slot(2).click();
+  await expect(swatch('Red')).toHaveAttribute('aria-pressed', 'true');
 });
 
 test('drawer picks colours on the wheel, opened with a middle-click or the toolbar', async ({
@@ -108,7 +126,7 @@ test('drawer picks colours on the wheel, opened with a middle-click or the toolb
   await expect(popover).toBeHidden();
   await expect(swatch('Green')).toHaveAttribute('aria-pressed', 'true');
 
-  // The toolbar's wheel button opens it too; a hex code and Enter picks and closes.
+  // The toolbar's ink well opens it too; a hex code and Enter picks and closes.
   await toolbar.getByRole('button', { name: 'More colours' }).click();
   await expect(popover).toBeVisible();
   await hex.fill('3b82f6');

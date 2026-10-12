@@ -109,7 +109,7 @@ Every deck has a back cover: a drawing shown wherever the deck appears, like the
 
 #### How it fits the existing code
 
-- **Canvas:** the cover pad is the game's `DrawingBoard` and `Toolbar` on its own local stroke model at 600×800, and exports a 300×400 PNG. The avatar pad (`features/canvas/SketchPad`) keeps its reduced toolbar.
+- **Canvas:** the cover pad is the game's `DrawingBoard` and `Toolbar` on its own local stroke model at 600×800, and exports a 300×400 PNG. The avatar pad later moved onto the same `DrawingBoard` and `Toolbar` (512×512).
 - **Storage:** a `deck_covers` table using the same content-addressed PNG pattern as avatars, with nullable `cover_id` columns on `decks` and `generation_jobs` ([decisions.md](../technical/decisions.md) D7).
 - **API:** the cover is attached to the **generation job**, so it can be uploaded before the deck exists: `PUT /api/decks/generations/:id/cover`, owner only, rate-limited, size-checked like avatars. The job copies it to the deck when it completes, or when the cover arrives after completion. Covers are served by `GET /api/decks/covers/:id` (immutable, long cache). `PUT /api/decks/:id/cover` redraws a published deck's cover; the owner is whoever's generation job made the deck, and anyone else gets a 404.
 - **Where it shows:** deck picker and library tiles, the waiting room's deck summary, the **card-choice screen** (the drawer's 3 cards shown face down with the deck's back, then flipped, which is a nice moment to animate), the results screen, and `og:image` for shared deck links.

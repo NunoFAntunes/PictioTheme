@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_TOOL, RECENT_COLORS, previousColor, withColor } from './tools';
+import {
+  DEFAULT_TOOL,
+  PALETTE,
+  PALETTE_GROUPS,
+  RECENT_COLORS,
+  previousColor,
+  withColor,
+} from './tools';
 
 describe('withColor', () => {
   it('puts the colour first in the recent list, without duplicates', () => {
@@ -26,5 +33,19 @@ describe('previousColor', () => {
     const tool = { ...withColor(DEFAULT_TOOL, '#dc2626'), color: '#123456' };
     expect(previousColor(tool)).toBe('#dc2626');
     expect(previousColor(DEFAULT_TOOL)).toBeNull();
+  });
+});
+
+describe('PALETTE', () => {
+  it('has unique, lowercase hex swatches with unique labels', () => {
+    expect(PALETTE.every((c) => /^#[0-9a-f]{6}$/.test(c.hex))).toBe(true);
+    expect(new Set(PALETTE.map((c) => c.hex)).size).toBe(PALETTE.length);
+    expect(new Set(PALETTE.map((c) => c.label)).size).toBe(PALETTE.length);
+  });
+
+  it('is every group, column by column, top swatch first', () => {
+    expect(PALETTE[0]?.label).toBe('White');
+    expect(PALETTE[1]?.label).toBe('Black');
+    expect(PALETTE).toHaveLength(PALETTE_GROUPS.reduce((n, g) => n + g.columns.length * 2, 0));
   });
 });

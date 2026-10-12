@@ -10,7 +10,7 @@ import type { ToolSettings } from '../tools';
  * Brush-setting maths for the adjust drag and the keyboard steps
  * (drawing-tools.md#adjusting-size-and-opacity). Distances are in screen pixels.
  *
- * Drag right/left changes size (or fill tolerance); drag up/down changes opacity. The gesture
+ * Drag right/left changes size (or fill tolerance); drag up/down changes opacity (fill too). The gesture
  * locks to one axis once the pointer has moved far enough, so a size change never nudges opacity.
  */
 
@@ -61,7 +61,7 @@ export function adjustByDrag(
     }
     return { size: clampSize(start.size * 2 ** (dx / SIZE_DOUBLING_PX)) };
   }
-  if (axis === 'vertical' && start.tool !== 'fill') {
+  if (axis === 'vertical') {
     return { opacity: clampOpacity(start.opacity - (dy / OPACITY_RANGE_PX) * (1 - MIN_OPACITY)) };
   }
   return {};

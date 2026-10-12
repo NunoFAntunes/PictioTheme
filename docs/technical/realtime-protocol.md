@@ -25,7 +25,7 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 | `draw:begin` | `id, tool, color, size, opacity, x, y` | drawer | Starts a stroke |
 | `draw:pts` | `id, pts: [x,y,(p)]…` | drawer | Batched every ~33ms |
 | `draw:end` | `id` | drawer | |
-| `draw:fill` | `x, y, color, tolerance` | drawer | |
+| `draw:fill` | `x, y, color, tolerance, opacity?` | drawer | `opacity` missing means solid (fills from before 2026-10-12) |
 | `draw:undo` / `draw:redo` / `draw:clear` | — | drawer | |
 | `guess` | `text` (≤ 60 chars) | guessers | 3/s. From a player who already solved, it becomes a solvers-only `chat` |
 | `chat` | `text` (≤ 200 chars) | anyone, not drawing | Not during drawing, except solvers (solvers-only channel) |
@@ -96,7 +96,7 @@ Messages from players who have already solved are sent only to the drawer and to
 ```ts
 type Stroke =
   | { id; tool: 'brush' | 'eraser'; color; size; opacity; pts: number[] }   // flat [x,y,p, x,y,p, …]
-  | { id; tool: 'fill'; x; y; color; tolerance }
+  | { id; tool: 'fill'; x; y; color; tolerance; opacity? }
   | { id; tool: 'clear' }                                                 // draw:clear, stored so it can be undone
   | { id; tool: 'shape'; kind: 'line'|'rect'|'ellipse'; from; to; color; size; opacity; filled }
 ```

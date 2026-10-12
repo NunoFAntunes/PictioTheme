@@ -59,7 +59,16 @@ export function paintOp(ctx: CanvasRenderingContext2D, op: Stroke): void {
       return;
     case 'fill': {
       const image = ctx.getImageData(0, 0, width, height);
-      floodFill(image.data, width, height, op.x, op.y, hexToRgba(op.color), op.tolerance);
+      floodFill(
+        image.data,
+        width,
+        height,
+        op.x,
+        op.y,
+        hexToRgba(op.color),
+        op.tolerance,
+        op.opacity ?? 1,
+      );
       ctx.putImageData(image, 0, 0);
       return;
     }

@@ -44,11 +44,13 @@ describe('adjustByDrag', () => {
     expect(adjustByDrag(eraser, 'horizontal', 50, 0)).toEqual({ size: 16 });
   });
 
-  it('changes fill tolerance horizontally and nothing vertically', () => {
+  it('changes fill tolerance horizontally and opacity vertically', () => {
     const fill = { ...brush, tool: 'fill' as const, fillTolerance: 32 };
     expect(adjustByDrag(fill, 'horizontal', 40, 0)).toEqual({ fillTolerance: 72 });
     expect(adjustByDrag(fill, 'horizontal', -400, 0)).toEqual({ fillTolerance: 0 });
-    expect(adjustByDrag(fill, 'vertical', 0, -100)).toEqual({});
+    expect(adjustByDrag({ ...fill, opacity: 0.5 }, 'vertical', 0, -100).opacity).toBeGreaterThan(
+      0.5,
+    );
   });
 });
 

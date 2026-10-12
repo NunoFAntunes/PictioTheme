@@ -41,7 +41,8 @@ const LABEL_HALF_WIDTH = 48;
 const PREVIEW_DIAMETER = 28;
 
 export function cursorLabel(tool: ToolSettings): string {
-  if (tool.tool === 'fill') return `Tolerance ${tool.fillTolerance}`;
+  if (tool.tool === 'fill')
+    return `Tolerance ${tool.fillTolerance} · ${Math.round(tool.opacity * 100)}%`;
   return `${tool.size} px · ${Math.round(tool.opacity * 100)}%`;
 }
 
