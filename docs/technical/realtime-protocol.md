@@ -21,6 +21,7 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 | `turn:choose` | `index` (0–2) | drawer | Choosing phase |
 | `turn:vote` | `index` (0–2), `vote` (`up`, `down` or `null` to take it back) | drawer | Choosing phase. Rates an option without picking it (card quality metrics) |
 | `turn:like` | `liked` | anyone but the drawer | Drawing and reveal phases. ❤️ the current drawing or take it back (game-rules.md, likes) |
+| `emote` | `emote`, `target?` | any | Any phase. Solo emotes (`dance`, `taunt`, `flex`, `cry`) have no `target`; targeted ones (`squish`, `slap`, `tomato`, `hug`) need another connected player (`VALIDATION` otherwise). Uses one of the player's charges: `RATE_LIMITED` when they're out or within the gap after the last one ([game-rules.md](../product/game-rules.md#emotes)) |
 | `draw:begin` | `id, tool, color, size, opacity, x, y` | drawer | Starts a stroke |
 | `draw:pts` | `id, pts: [x,y,(p)]…` | drawer | Batched every ~33ms |
 | `draw:end` | `id` | drawer | |
@@ -37,6 +38,8 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 | `room:snapshot` | full sanitized room state, current strokes, `deck`, `paused`, and `secret` (options/word only for those allowed) | On connect/reconnect |
 | `room:players` | player list | On join/leave/score change, and when a player changes their name or avatar (`PUT /api/rooms/:code/me`, below) |
 | `turn:likes` | `likers` | After every like or unlike. Cleared by the client at the next turn; the snapshot carries `likers` too |
+| `emote` | `playerId, emote, target?` | To everyone, including the player who played it. The client animates it and adds a feed line |
+| `emote:charges` | `charges: { left, refillAt, readyAt }` | To the player who played an emote: their charges after it. `refillAt` is when the next one comes back (null when full), `readyAt` the end of the gap. The snapshot carries them as `emoteCharges` |
 | `cover:request` | `turn` | To the drawer only, as the reveal ends, when their drawing has strictly more likes than the room's cover. The client paints the stroke model off screen right away (before the next turn clears it), cuts it out and sends it: `PUT /api/rooms/:code/cover` with `{ turn, image }` (320×240 PNG). Stale uploads get `{ accepted: false }` |
 | `room:details` | `name, isPublic` | After the host renames the room or switches public/private |
 | `room:settings` | `settings, deck` | `deck` (`{ id, title, coverId, language, chaosCards }`, `coverId` null for the default cover) is `null` while a newly picked deck loads. `room:start` answers `DECK_LANGUAGE_MISMATCH` while `deck.language` differs from `settings.language`. Also sent when the deck gets Chaos cards (`POST /api/decks/:id/chaos`, decks.md#chaos-cards): every room playing it reloads it |

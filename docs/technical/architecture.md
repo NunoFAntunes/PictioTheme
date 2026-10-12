@@ -95,6 +95,7 @@ All components below are **modules inside the one server process**. Their bounda
   - `POST /api/rooms/:code/join` → validates, returns `{joinToken}`. Create and join both carry the drawn avatar as a PNG data URL; the server stores it and puts only its id in the token
   - `GET /api/avatars/:id` → the avatar PNG (`immutable` cache: ids are content hashes)
   - `GET /api/decks` → the curated decks, featured first; `?q=halloween` searches titles and tags of all public decks (`pg_trgm`, typo-tolerant, 30 results)
+  - `GET /api/decks/community?language=&offset=` → `{decks, nextOffset}`: public generated originals with a drawn cover, newest first, 48 a page ([decks.md](../product/decks.md#community-decks))
   - `GET /api/decks/generations/config` → `{enabled, daily}`: whether this server lets players generate decks (`DECK_GENERATION`, the kill switch), and the player's daily allowance (`{limit, remaining, nextAt}`, null without limits or a session)
   - `POST /api/decks/generations` → starts a generation job (202 + the job). Later it also reserves a credit
   - `GET /api/decks/generations/:id` → the job, polled every 2s until `published` or `failed` (SSE progress replaces polling once calls stream)

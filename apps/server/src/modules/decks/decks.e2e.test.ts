@@ -44,6 +44,16 @@ describe('deck reports over HTTP', () => {
       payload,
     });
 
+  it('lists community decks a page at a time', async () => {
+    const res = await app.inject({ method: 'GET', url: '/api/decks/community?language=en' });
+    expect(res.statusCode).toBe(200);
+    const body = res.json<{ decks: unknown[]; nextOffset: number | null }>();
+    expect(Array.isArray(body.decks)).toBe(true);
+    expect(body.nextOffset === null || body.nextOffset === 48).toBe(true);
+    const bad = await app.inject({ method: 'GET', url: '/api/decks/community?offset=-1' });
+    expect(bad.statusCode).toBe(400);
+  });
+
   it('takes a report from a player with a session', async () => {
     const res = await report(deckId, { reason: 'content' });
     expect(res.statusCode).toBe(200);

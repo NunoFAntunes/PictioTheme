@@ -57,7 +57,7 @@ export function ChaosCardsPanel({ deck }: { deck: Pick<RoomDeck, 'id' | 'title' 
         </div>
         <div className="flex min-w-0 shrink-0 grow basis-32 flex-col gap-0.5">
           <h3 className="truncate font-hand text-xl leading-tight">{deck.title}</h3>
-          <p className="text-sm text-ink/70 dark:text-zinc-300">No 🌀 Chaos cards yet</p>
+          <p className="text-sm text-ink/70">No 🌀 Chaos cards yet</p>
         </div>
         {running ? (
           <span role="status" className="ml-auto flex items-center gap-2 font-hand text-lg">

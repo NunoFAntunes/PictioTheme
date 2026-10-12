@@ -5,6 +5,7 @@ import type {
   CardVote,
   ClientMessage,
   DeckLanguage,
+  EmoteCharges,
   PauseReason,
   PlayerId,
   RoomSettings,
@@ -131,6 +132,8 @@ export type RoomState = {
   pendingCover: { turn: number; likes: number; drawerId: PlayerId } | null;
   /** This match's most-liked drawing, for the crowd favourite award. A tie keeps the older one. */
   favourite: { drawerId: PlayerId; likes: number } | null;
+  /** Emote charges of players who've used one (emotes.ts). Kept when they leave, so rejoining doesn't refill them. */
+  emoteCharges: Map<PlayerId, EmoteCharges>;
 };
 
 export type TimerId =

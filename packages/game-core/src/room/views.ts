@@ -10,6 +10,7 @@ import type {
 } from '@pictiotheme/protocol';
 import { cardMultiplier, rushPoints } from '../scoring';
 import { buildMask } from '../word-mask';
+import { emoteCharges } from './emote-charges';
 import type { DeckInfo, DrawingPhase, Phase, RoomState } from './types';
 
 /**
@@ -74,7 +75,7 @@ export function knowsWord(state: RoomState, playerId: PlayerId): boolean {
   );
 }
 
-export function snapshotFor(state: RoomState, playerId: PlayerId): ServerMessage {
+export function snapshotFor(state: RoomState, playerId: PlayerId, now: number): ServerMessage {
   const { phase } = state;
   const secret: { options?: CardOption[]; word?: string } = {};
   if (phase.kind === 'choosing' && phase.drawerId === playerId) {
@@ -96,6 +97,7 @@ export function snapshotFor(state: RoomState, playerId: PlayerId): ServerMessage
     deck: state.deck ? roomDeck(state.deck) : null,
     strokes: state.strokes,
     likers: [...(state.likes?.likers ?? [])],
+    emoteCharges: emoteCharges(state, playerId, now),
     secret,
   };
 }

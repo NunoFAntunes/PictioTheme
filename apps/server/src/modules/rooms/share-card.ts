@@ -1,9 +1,7 @@
 import { readFileSync } from 'node:fs';
-import { readFile } from 'node:fs/promises';
-import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import type { Difficulty, GameMode } from '@pictiotheme/protocol';
-import { initWasm, Resvg } from '@resvg/resvg-wasm';
+import { renderSvg } from '../../lib/svg';
 import { readFontMetrics, type FontMetrics } from './font-metrics';
 
 /**
@@ -387,8 +385,6 @@ let ready: Promise<{ fonts: ShareCardFonts; buffers: Uint8Array[] }> | null = nu
 
 function prepare() {
   ready ??= (async () => {
-    const wasm = createRequire(import.meta.url).resolve('@resvg/resvg-wasm/index_bg.wasm');
-    await initWasm(await readFile(wasm));
     const logo = readFileSync(fileURLToPath(new URL('CherryBombOne-Regular.ttf', FONT_FOLDER)));
     const hand = readFileSync(fileURLToPath(new URL('GochiHand-Regular.ttf', FONT_FOLDER)));
     return {
@@ -402,14 +398,7 @@ function prepare() {
 /** The share card as a PNG. Takes ~100 ms of CPU: cache the result (RoomRuntime.shareCard). */
 export async function renderShareCard(input: ShareCardInput): Promise<Buffer> {
   const { fonts, buffers } = await prepare();
-  const resvg = new Resvg(shareCardSvg(input, fonts), {
-    font: { fontBuffers: buffers, loadSystemFonts: false, defaultFontFamily: HAND_FONT },
-  });
-  const image = resvg.render();
-  const png = Buffer.from(image.asPng());
-  image.free();
-  resvg.free();
-  return png;
+  return renderSvg(shareCardSvg(input, fonts), { buffers, defaultFamily: HAND_FONT });
 }
 
 /** Fonts for tests that build the SVG without rendering it. */

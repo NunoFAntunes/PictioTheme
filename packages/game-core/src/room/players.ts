@@ -35,7 +35,7 @@ export function onJoin(c: Ctx, joining: JoiningPlayer): void {
     cancel(c, `grace:${existing.id}`);
     if (state.hostId === existing.id) cancel(c, 'host-grace');
     if (currentDrawerId(c) === existing.id) cancel(c, 'drawer-grace');
-    send(c, existing.id, snapshotFor(state, existing.id));
+    send(c, existing.id, snapshotFor(state, existing.id, c.now));
     broadcastPlayers(c);
     checkPlayerCount(c);
     return;
@@ -67,7 +67,7 @@ export function onJoin(c: Ctx, joining: JoiningPlayer): void {
   // creator never shows up, host passes on after the grace period.
   if (joining.id === state.hostId) cancel(c, 'host-grace');
   else if (!isConnected(c, state.hostId)) schedule(c, 'host-grace', c.now + TIMINGS.hostGraceMs);
-  send(c, joining.id, snapshotFor(state, joining.id));
+  send(c, joining.id, snapshotFor(state, joining.id, c.now));
   broadcastPlayers(c);
   checkPlayerCount(c);
 }

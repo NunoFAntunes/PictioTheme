@@ -99,6 +99,141 @@
     }
   }
 
+  /*
+   * The house rules' choices (features/waiting-room RoomSettingsForm): a marker loop draws itself
+   * round the chosen one while the last one's loop is wiped off, and the chosen word gives a little
+   * wiggle. A rule's tick draws itself in the same way.
+   */
+  --animate-loop-draw: swirl-draw 420ms cubic-bezier(0.45, 0, 0.2, 1) backwards;
+  --animate-loop-erase: loop-erase 200ms ease-in forwards;
+  --animate-choice-wiggle: choice-wiggle 450ms ease-out;
+
+  @keyframes loop-erase {
+    to {
+      stroke-dashoffset: -1;
+      opacity: 0;
+    }
+  }
+  @keyframes choice-wiggle {
+    30% {
+      rotate: -4deg;
+      scale: 1.08;
+    }
+    60% {
+      rotate: 3deg;
+    }
+  }
+
+  /*
+   * The deck notebook's page turning over the coil (features/deck-picker LibraryPages), hinged on
+   * its left edge. The leaf is the page itself (its back hidden), so it shows until it stands up;
+   * its underside, blank paper, takes over for the other half, fading as it nears the page it lands
+   * on (so that page shows through: it keeps what's on it).
+   * Folded (no coil), the pages just fade.
+   */
+  --animate-page-turn-over: page-turn-over 700ms cubic-bezier(0.45, 0, 0.3, 1) forwards;
+  --animate-page-turn-back: page-turn-back 700ms cubic-bezier(0.45, 0, 0.3, 1) forwards;
+  --animate-page-underside-over: page-underside-over 700ms cubic-bezier(0.45, 0, 0.3, 1) forwards;
+  --animate-page-underside-back: page-underside-back 700ms cubic-bezier(0.45, 0, 0.3, 1) forwards;
+  --animate-page-fade-out: page-fade 300ms ease-in reverse forwards;
+  --animate-page-fade-in: page-fade 300ms ease-out forwards;
+  /*
+   * Its ribbon bookmark (Ribbon), hung from its top: a new one flips over around its length and
+   * swings as it lands; the first one sways a little, a moment in, to be noticed.
+   */
+  --animate-ribbon-flip: ribbon-flip 900ms ease-out backwards;
+  --animate-ribbon-sway: ribbon-sway 1400ms ease-in-out 1s backwards;
+
+  @keyframes page-turn-over {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(-180deg);
+    }
+  }
+  @keyframes page-turn-back {
+    from {
+      transform: rotateY(-180deg);
+    }
+    to {
+      transform: rotateY(0deg);
+    }
+  }
+  /* Only `transform` is at the ends, so it's eased as one turn while the opacity steps. */
+  @keyframes page-underside-over {
+    0% {
+      transform: rotateY(0deg);
+      opacity: 0;
+    }
+    49.9% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.95;
+    }
+    100% {
+      transform: rotateY(-180deg);
+      opacity: 0;
+    }
+  }
+  @keyframes page-underside-back {
+    0% {
+      transform: rotateY(-180deg);
+      opacity: 0;
+    }
+    49.9% {
+      opacity: 0.95;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      transform: rotateY(0deg);
+      opacity: 0;
+    }
+  }
+  @keyframes page-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes ribbon-flip {
+    0% {
+      transform: perspective(300px) rotateY(-180deg) rotate(0deg);
+    }
+    45% {
+      transform: perspective(300px) rotateY(0deg) rotate(9deg);
+    }
+    65% {
+      transform: perspective(300px) rotateY(0deg) rotate(-6deg);
+    }
+    82% {
+      transform: perspective(300px) rotateY(0deg) rotate(3deg);
+    }
+    100% {
+      transform: perspective(300px) rotateY(0deg) rotate(0deg);
+    }
+  }
+  @keyframes ribbon-sway {
+    0%,
+    100% {
+      rotate: 0deg;
+    }
+    25% {
+      rotate: 5deg;
+    }
+    55% {
+      rotate: -3.5deg;
+    }
+    80% {
+      rotate: 1.5deg;
+    }
+  }
+
   /* A confirm note (ui/ConfirmNote) is slapped down under its button. */
   --animate-note-drop: note-drop 260ms cubic-bezier(0.34, 1.5, 0.64, 1) backwards;
 

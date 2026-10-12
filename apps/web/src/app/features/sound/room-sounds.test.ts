@@ -33,6 +33,8 @@ function view(overrides: Partial<RoomView> = {}): RoomView {
     likes: null,
     feed: [],
     bubbles: {},
+    emotes: {},
+    emoteCharges: { left: 3, refillAt: null, readyAt: 0 },
     restarting: false,
     nextFeedId: 1,
     ...overrides,

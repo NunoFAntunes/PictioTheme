@@ -1,6 +1,7 @@
 import { randomBytes } from 'node:crypto';
 import type { DeckInfo } from '@pictiotheme/game-core';
 import {
+  COMMUNITY_PAGE_SIZE,
   DECK_COVER_HEIGHT_PX,
   DECK_COVER_MAX_BYTES,
   DECK_COVER_WIDTH_PX,
@@ -96,6 +97,23 @@ export function createDecksService(deps: { db: Db }) {
           ? await repo.curatedDeckIds(deps.db)
           : await repo.searchDeckIds(deps.db, query, SEARCH_LIMIT);
       return summaries(await inLanguage(ids, language));
+    },
+
+    /**
+     * A page of community decks (decks.md#community-decks), each in `language` when translated
+     * into it, and where the next page starts (null on the last one).
+     */
+    async listCommunity(
+      offset: number,
+      language?: DeckLanguage,
+    ): Promise<{ decks: DeckSummary[]; nextOffset: number | null }> {
+      // One more than a page, to know whether there's another.
+      const ids = await repo.communityDeckIds(deps.db, offset, COMMUNITY_PAGE_SIZE + 1);
+      const more = ids.length > COMMUNITY_PAGE_SIZE;
+      return {
+        decks: await summaries(await inLanguage(ids.slice(0, COMMUNITY_PAGE_SIZE), language)),
+        nextOffset: more ? offset + COMMUNITY_PAGE_SIZE : null,
+      };
     },
 
     summaries,

@@ -128,6 +128,16 @@ Awards don't score points.
 - A drawing replaces the cover only with **strictly more** likes: a tie keeps the older one. A drawing nobody liked never becomes the cover.
 - The picture comes from the drawer's browser as the reveal ends (the server keeps strokes, not images). If the drawer has left by then, the cover stays as it was.
 
+## Emotes
+
+Just for fun: players taunt each other with animated actions. They never change the game.
+
+- **Click a character** in the margin to open the emote wheel around it. Your own character offers **solo** emotes: 💃 Dance, 😜 Taunt, 💪 Flex, 😭 Cry (your character acts them out). Anyone else's offers **targeted** ones: 🥞 Squish (you leap over and flatten them), 🖐️ Slap (you walk over and slap them; they see stars), 🍅 Tomato (you throw one and it splats on them), 🤗 Hug.
+- Everyone sees the animation, and the feed says so ("Ana slapped Bo!", "Bo busted a move!").
+- Any phase, the drawer included. Not at players who are away.
+- **Against spam**, each player has **3 charges** (⚡, shown on the wheel). An emote uses one; they come back **one every 20 s**, and there are **2.5 s** between two emotes. Leaving and rejoining doesn't refill them. The constants are `EMOTE_*` in `packages/protocol/src/emote.ts`.
+- With reduced motion there's no animation, only the sound and the feed line.
+
 ## Host controls
 
 | Control | When |

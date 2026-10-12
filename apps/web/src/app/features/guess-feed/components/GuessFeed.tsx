@@ -2,6 +2,7 @@ import type { NoticeCode, PlayerId } from '@pictiotheme/protocol';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { playerName, useRoomStore, type FeedItem, type RoomView } from '../../../realtime';
 import { WOBBLE } from '../../../ui/hand-drawn';
+import { Doodle, EMOTES } from '../../emotes';
 import { nameFont } from '../../player-list';
 
 const REDACTED = '██████';
@@ -24,15 +25,15 @@ function noticeText(view: RoomView, item: Extract<FeedItem, { kind: 'notice' }>)
   return texts[item.code];
 }
 
-/** A player's name in the hand the player list writes it in. */
-function HandName({ view, id }: { view: RoomView; id: PlayerId }) {
+/** A player's name in the hand the player list writes it in. `you`: how to say it's you. */
+function HandName({ view, id, you = 'You' }: { view: RoomView; id: PlayerId; you?: string }) {
   const font = nameFont(id, view.code);
   return (
     <span
       className="text-ink"
       style={{ fontFamily: font.family, fontSize: `${font.scale}em`, lineHeight: 1 }}
     >
-      {id === view.you ? 'You' : playerName(view, id)}
+      {id === view.you ? you : playerName(view, id)}
     </span>
   );
 }
@@ -56,7 +57,7 @@ function SystemLine({
   className,
   children,
 }: {
-  icon: string;
+  icon: ReactNode;
   className: string;
   children: ReactNode;
 }) {
@@ -152,6 +153,24 @@ function FeedLine({ item, view }: { item: FeedItem; view: RoomView }) {
           )}
         </div>
       );
+    case 'emote': {
+      const info = EMOTES[item.emote];
+      return (
+        <SystemLine
+          icon={<Doodle name={info.icon} className="inline size-4 self-center" />}
+          className="border border-pop-pink/60 bg-pop-pink/15 text-ink"
+        >
+          <HandName view={view} id={item.playerId} /> {info.verb}
+          {item.target && (
+            <>
+              {' '}
+              <HandName view={view} id={item.target} you="you" />
+            </>
+          )}
+          !
+        </SystemLine>
+      );
+    }
     case 'matchOver':
       return (
         <Divider>

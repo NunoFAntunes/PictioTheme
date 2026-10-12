@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { CardKind, DeckCoverId } from './deck';
 import { DeckLanguage } from './language';
 import { DrawBegin, DrawFill, Points, Stroke, StrokeId } from './drawing';
+import { Emote, EmoteCharges } from './emote';
 import { ErrorCode } from './errors';
 import {
   AvatarId,
@@ -57,6 +58,11 @@ export const ClientMessage = z.discriminatedUnion('t', [
   }),
   /** ❤️ the current drawing (or take it back). Not the drawer; while drawing and at the reveal. */
   z.object({ t: z.literal('turn:like'), liked: z.boolean() }),
+  /**
+   * An animated emote (game-rules.md#emotes): solo ones on yourself (no `target`), targeted ones at
+   * another player. Any phase. Uses one of the player's emote charges.
+   */
+  z.object({ t: z.literal('emote'), emote: Emote, target: PlayerId.optional() }),
   z.object({ t: z.literal('draw:begin'), ...DrawBegin.shape }),
   z.object({ t: z.literal('draw:pts'), id: StrokeId, pts: Points }),
   z.object({ t: z.literal('draw:end'), id: StrokeId }),
@@ -178,6 +184,8 @@ export const ServerMessage = z.discriminatedUnion('t', [
     strokes: z.array(Stroke),
     /** Who ❤️ the current drawing. */
     likers: z.array(PlayerId),
+    /** Your emote charges. */
+    emoteCharges: EmoteCharges,
     /** Only for the drawer (options while choosing, word while drawing) or players who solved. */
     secret: z.object({ options: z.array(CardOption).optional(), word: z.string().optional() }),
   }),
@@ -195,6 +203,15 @@ export const ServerMessage = z.discriminatedUnion('t', [
    * picture of it (`PUT /api/rooms/:code/cover`). Sent as the reveal ends, before the canvas clears.
    */
   z.object({ t: z.literal('cover:request'), turn: z.number().int() }),
+  /** Someone played an emote: everyone animates it and adds a line to the feed. */
+  z.object({
+    t: z.literal('emote'),
+    playerId: PlayerId,
+    emote: Emote,
+    target: PlayerId.optional(),
+  }),
+  /** To the player who played an emote: their charges after it. */
+  z.object({ t: z.literal('emote:charges'), charges: EmoteCharges }),
   z.object({ t: z.literal('room:paused'), paused: PauseReason.nullable() }),
   z.object({
     t: z.literal('room:notice'),

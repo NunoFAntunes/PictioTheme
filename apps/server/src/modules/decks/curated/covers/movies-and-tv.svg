@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <!-- Back cover of the curated deck "movies-and-tv" (docs/product/decks.md#back-cover). Rendered to PNG by db:migrate. -->
+  <defs>
+    <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7"/>
+      <feDisplacementMap in="SourceGraphic" scale="3.5"/>
+    </filter>
+    <pattern id="stripes" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="20" fill="#ffffff" opacity="0.12"/>
+    </pattern>
+  </defs>
+  <rect width="300" height="400" fill="#fcfaf1"/>
+  <g filter="url(#wobble)">
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="#c22f4c"/>
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="url(#stripes)"/>
+    <rect x="24" y="24" width="252" height="352" rx="10" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="1 9" stroke-linecap="round" opacity="0.7"/>
+    <g fill="none" stroke="#ffffff" color="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6">
+    <g transform="translate(56 58) rotate(-14) scale(1.35) translate(-12 -12)"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 9 h20 M2 15 h20 M7 5 v4 M12 5 v4 M17 5 v4"/></g>
+    <g transform="translate(150 52) rotate(8) scale(1.35) translate(-12 -12)"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 9 h20 M2 15 h20 M7 5 v4 M12 5 v4 M17 5 v4"/></g>
+    <g transform="translate(244 58) rotate(16) scale(1.35) translate(-12 -12)"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 9 h20 M2 15 h20 M7 5 v4 M12 5 v4 M17 5 v4"/></g>
+    <g transform="translate(44 150) rotate(10) scale(1.35) translate(-12 -12)"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 9 h20 M2 15 h20 M7 5 v4 M12 5 v4 M17 5 v4"/></g>
+    <g transform="translate(256 150) rotate(-10) scale(1.35) translate(-12 -12)"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 9 h20 M2 15 h20 M7 5 v4 M12 5 v4 M17 5 v4"/></g>
+    <g transform="translate(44 262) rotate(-8) scale(1.35) translate(-12 -12)"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 9 h20 M2 15 h20 M7 5 v4 M12 5 v4 M17 5 v4"/></g>
+    <g transform="translate(256 262) rotate(12) scale(1.35) translate(-12 -12)"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 9 h20 M2 15 h20 M7 5 v4 M12 5 v4 M17 5 v4"/></g>
+    <g transform="translate(56 344) rotate(14) scale(1.35) translate(-12 -12)"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 9 h20 M2 15 h20 M7 5 v4 M12 5 v4 M17 5 v4"/></g>
+    <g transform="translate(150 350) rotate(-6) scale(1.35) translate(-12 -12)"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 9 h20 M2 15 h20 M7 5 v4 M12 5 v4 M17 5 v4"/></g>
+    <g transform="translate(244 344) rotate(-16) scale(1.35) translate(-12 -12)"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 9 h20 M2 15 h20 M7 5 v4 M12 5 v4 M17 5 v4"/></g>
+    </g>
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="none" stroke="#1f1c31" stroke-width="5"/>
+    <circle cx="155" cy="206" r="92" fill="#1f1c31"/>
+    <circle cx="150" cy="200" r="92" fill="#fcfaf1" stroke="#1f1c31" stroke-width="5"/>
+    <g transform="translate(78 128) scale(1.44)" fill="none" stroke="#1f1c31" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <g transform="rotate(-16 14 40)">
+        <rect x="14" y="28" width="72" height="13" rx="2" fill="#ffffff"/>
+        <path d="M24 28 L18 41 M38 28 L32 41 M52 28 L46 41 M66 28 L60 41 M80 28 L74 41" stroke-width="5"/>
+      </g>
+      <rect x="14" y="42" width="72" height="48" rx="3" fill="#3a3350"/>
+      <rect x="14" y="42" width="72" height="12" fill="#ffffff"/>
+      <path d="M24 42 L18 54 M38 42 L32 54 M52 42 L46 54 M66 42 L60 54 M80 42 L74 54" stroke-width="5"/>
+      <path d="M24 66 H62 M24 77 H48" stroke="#ffffff" stroke-width="3"/>
+      <circle cx="14" cy="41" r="3" fill="#ffc921"/>
+    </g>
+  </g>
+</svg>

@@ -1,5 +1,5 @@
 import type { PublicPlayer } from '@pictiotheme/protocol';
-import { useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import {
   amHost,
   drawerIdOf,
@@ -9,6 +9,7 @@ import {
   type Bubble,
   type RoomView,
 } from '../../../realtime';
+import { EmoteWheel } from '../../emotes';
 import { rankByScore } from '../leaderboard';
 import { useLeaderboardMotion } from '../use-leaderboard-motion';
 import { BoilFilters } from './BoilFilters';
@@ -88,6 +89,12 @@ export function PlayerList({ layout = 'column' }: { layout?: 'column' | 'grid' }
   const view = useRoomStore((s) => s.view);
   const now = useNow(500);
   const list = useRef<HTMLUListElement>(null);
+  const [wheel, setWheel] = useState<{
+    playerId: string;
+    anchor: HTMLElement;
+    rect: DOMRect;
+  } | null>(null);
+  const closeWheel = useCallback(() => setWheel(null), []);
   const inGame = view !== null && view.phase.kind !== 'waiting';
   // A sorted copy: the drawing order is the server's turnOrder and is never derived from this.
   const ranked = view
@@ -100,6 +107,9 @@ export function PlayerList({ layout = 'column' }: { layout?: 'column' | 'grid' }
   const drawerId = drawerIdOf(view.phase);
   const size = sizeFor(view.players.length);
   const reveal = view.phase.kind === 'reveal' ? view.phase : null;
+  // Emotes go at yourself or at anyone who's here.
+  const canEmote = (p: PublicPlayer) => p.id === view.you || p.connected;
+  const wheelPlayer = wheel && view.players.find((p) => p.id === wheel.playerId);
 
   return (
     <>
@@ -140,11 +150,31 @@ export function PlayerList({ layout = 'column' }: { layout?: 'column' | 'grid' }
                     : null
                 }
                 actions={<PlayerActions player={p} view={view} />}
+                onEmotes={
+                  canEmote(p)
+                    ? (anchor) =>
+                        setWheel(
+                          wheel?.playerId === p.id
+                            ? null
+                            : { playerId: p.id, anchor, rect: anchor.getBoundingClientRect() },
+                        )
+                    : null
+                }
+                emotesOpen={wheel?.playerId === p.id}
               />
             </li>
           );
         })}
       </ul>
+      {wheel && wheelPlayer && canEmote(wheelPlayer) && (
+        <EmoteWheel
+          player={wheelPlayer}
+          you={wheelPlayer.id === view.you}
+          anchor={wheel.anchor}
+          rect={wheel.rect}
+          onClose={closeWheel}
+        />
+      )}
     </>
   );
 }

@@ -56,6 +56,7 @@ export function createRoomState(input: {
     cover: null,
     pendingCover: null,
     favourite: null,
+    emoteCharges: new Map(),
   };
 }
 

@@ -1,5 +1,5 @@
-import { DeckListResponse, type DeckLanguage } from '@pictiotheme/protocol';
-import { useQuery } from '@tanstack/react-query';
+import { CommunityDecksResponse, DeckListResponse, type DeckLanguage } from '@pictiotheme/protocol';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { apiGet } from '../../lib/api';
 
 /** The curated decks, featured first, each in `language` when it's been translated into it. */
@@ -29,5 +29,23 @@ export function useDeckSearch(q: string, language: DeckLanguage) {
     enabled: query !== '',
     staleTime: 60_000,
     placeholderData: (previous) => previous,
+  });
+}
+
+/**
+ * The community decks (public decks players generated, newest first), a page at a time, each in
+ * `language` when translated into it. Loaded with the library, so turning to them is instant.
+ */
+export function useCommunityDecks(language: DeckLanguage) {
+  return useInfiniteQuery({
+    queryKey: ['decks', 'community', language],
+    queryFn: async ({ pageParam }) =>
+      apiGet(
+        `/api/decks/community?language=${language}&offset=${pageParam}`,
+        CommunityDecksResponse,
+      ),
+    initialPageParam: 0,
+    getNextPageParam: (last) => last.nextOffset,
+    staleTime: 60_000,
   });
 }

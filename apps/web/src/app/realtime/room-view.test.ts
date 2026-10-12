@@ -36,6 +36,7 @@ function snapshot(overrides: Partial<Extract<ServerMessage, { t: 'room:snapshot'
     deck: { id: 'd', title: 'Deck', coverId: null, language: 'en', chaosCards: 0 },
     strokes: [],
     likers: [],
+    emoteCharges: { left: 3, refillAt: null, readyAt: 0 },
     secret: {},
     ...overrides,
   } as const satisfies ServerMessage;
@@ -157,5 +158,24 @@ describe('room view reducer', () => {
     expect(
       startsNewDrawing(mid, { t: 'phase:choosing', drawerId: 'p2', round: 1, endsAt: 1 }),
     ).toBe(true);
+  });
+
+  it('animates emotes, adds them to the feed and tracks your charges', () => {
+    let view = viewFromSnapshot(snapshot(), null);
+    view = apply(
+      view,
+      { t: 'emote', playerId: 'p1', emote: 'slap', target: 'p2' },
+      { t: 'emote:charges', charges: { left: 2, refillAt: 21_000, readyAt: 3_500 } },
+    );
+    expect(view.emotes.p1).toEqual({ id: 1, emote: 'slap', target: 'p2', at: 1000 });
+    expect(view.feed).toEqual([
+      { id: 1, kind: 'emote', playerId: 'p1', emote: 'slap', target: 'p2' },
+    ]);
+    expect(view.emoteCharges.left).toBe(2);
+
+    // The same emote again restarts the animation (a new id); a reconnect doesn't replay it.
+    view = apply(view, { t: 'emote', playerId: 'p1', emote: 'slap', target: 'p2' });
+    expect(view.emotes.p1?.id).toBe(2);
+    expect(applyServerMessage(view, snapshot(), 2000).emotes).toEqual({});
   });
 });

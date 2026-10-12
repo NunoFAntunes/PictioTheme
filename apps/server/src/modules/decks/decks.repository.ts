@@ -4,7 +4,19 @@ import {
   type DeckLanguage,
   type DeckSummary,
 } from '@pictiotheme/protocol';
-import { and, asc, count, eq, inArray, isNull, ne, notInArray, sql } from 'drizzle-orm';
+import {
+  and,
+  asc,
+  count,
+  desc,
+  eq,
+  inArray,
+  isNotNull,
+  isNull,
+  ne,
+  notInArray,
+  sql,
+} from 'drizzle-orm';
 import { alias } from 'drizzle-orm/pg-core';
 import type { DbExecutor } from '../../db/client';
 import { cardVotes, cards, deckCovers, deckReports, decks } from '../../db/schema';
@@ -459,6 +471,34 @@ export async function curatedDeckIds(db: DbExecutor): Promise<string[]> {
     .from(decks)
     .where(and(eq(decks.source, 'curated'), visible))
     .orderBy(sql`${decks.featuredRank} asc nulls last`, asc(decks.title));
+  return rows.map((r) => r.id);
+}
+
+/**
+ * Ids of the community decks (decks.md#community-decks): public decks players generated, newest
+ * first. Only originals (translations come through `familyMembersIn`) with a drawn cover that
+ * reports haven't hidden. `limit` from `offset`.
+ */
+export async function communityDeckIds(
+  db: DbExecutor,
+  offset: number,
+  limit: number,
+): Promise<string[]> {
+  const rows = await db
+    .select({ id: decks.id })
+    .from(decks)
+    .where(
+      and(
+        eq(decks.visibility, 'public'),
+        inArray(decks.source, ['ai', 'remix']),
+        isNull(decks.sourceDeckId),
+        isNotNull(decks.coverId),
+        eq(decks.coverHidden, false),
+      ),
+    )
+    .orderBy(desc(decks.createdAt), desc(decks.id))
+    .offset(offset)
+    .limit(limit);
   return rows.map((r) => r.id);
 }
 

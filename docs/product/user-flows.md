@@ -68,9 +68,10 @@ Creating takes one click (§3): the room starts private (or public, via Quick pl
 1. **Language** (built 2026-10-07): the flag on the room card; the host types a language and picks it. Decks not in it are marked, and the room's deck must be translated (or another picked) before Start works. See [decks.md](decks.md#languages).
 2. **Deck**: search box → results show deck title, theme tags, card counts per kind, play count, rating, and 🌀 if it has Chaos cards. In Chaos mode, decks without them are marked "🌀 to make". A "Preview" button shows 5 sample cards.
    - Not found → "Generate a deck for *'pirate cooking'*" (logged-in users only. Guests see a sign-up prompt).
-3. **Mode**: chips `Normal` ("The deck's easy and hard cards") and `🌀 Chaos` ("Only the absurd cards"). See [game-rules.md](game-rules.md#card-pool).
-4. **Difficulty** (Normal mode only, hidden in Chaos mode): multi-select chips `Easy` `Hard` (at least one).
-5. **Game settings**: rounds (1–10, default 3), draw time (30–180s, default 80s), max players (2–16, default 10), **guess visibility** (`Show guesses` / `Hide guesses`), hints on/off, and word choice (pick 1 of 3, or a single random card).
+3. **Length**: `⚡ Quick` (2 rounds × 60s), `🎲 Classic` (3 × 80s, default) or `🐢 Long` (5 × 120s), with the longest the match can take for the players in the room.
+4. **Cards**: one of `Easy`, `Mixed` (default: the deck's easy and hard cards), `Hard` or `🌀 Chaos` (only the absurd cards). This sets the mode and the difficulties together. See [game-rules.md](game-rules.md#card-pool).
+5. **Rules**, as on/off chips: `⚡ Rush` (off by default), `💡 Hints`, `👀 Show guesses` (guess visibility) and `🃏 Pick from 3` (word choice: pick 1 of 3, or the first card), all on by default.
+6. **Fine-tune** (folded away): rounds (1–10), draw time (30–180s) and max players (2–16, default 10).
 
 When the room is created, the server generates a unique code and the host lands on the **waiting room** screen.
 

@@ -139,6 +139,26 @@ export const DeckListQuery = z.object({
 export type DeckListQuery = z.infer<typeof DeckListQuery>;
 export type DeckListResponse = z.infer<typeof DeckListResponse>;
 
+/** Community decks per page. */
+export const COMMUNITY_PAGE_SIZE = 48;
+
+/**
+ * `GET /api/decks/community?language=&offset=`: public decks players generated, newest first, a
+ * page at a time (decks.md#community-decks). Only originals with a drawn cover; each comes in
+ * `language` when it has been translated into it.
+ */
+export const CommunityDecksQuery = z.object({
+  language: DeckLanguage.optional(),
+  offset: z.coerce.number().int().min(0).max(10_000).default(0),
+});
+export const CommunityDecksResponse = z.object({
+  decks: z.array(DeckSummary),
+  /** Where the next page starts, or null on the last one. */
+  nextOffset: z.number().int().nullable(),
+});
+export type CommunityDecksQuery = z.infer<typeof CommunityDecksQuery>;
+export type CommunityDecksResponse = z.infer<typeof CommunityDecksResponse>;
+
 // ── Deck generation ──
 
 /**

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <!-- Back cover of the curated deck "nostalgia-trip" (docs/product/decks.md#back-cover). Rendered to PNG by db:migrate. -->
+  <defs>
+    <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="13"/>
+      <feDisplacementMap in="SourceGraphic" scale="3.5"/>
+    </filter>
+    <pattern id="stripes" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="20" fill="#ffffff" opacity="0.12"/>
+    </pattern>
+  </defs>
+  <rect width="300" height="400" fill="#fcfaf1"/>
+  <g filter="url(#wobble)">
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="#b4532a"/>
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="url(#stripes)"/>
+    <rect x="24" y="24" width="252" height="352" rx="10" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="1 9" stroke-linecap="round" opacity="0.7"/>
+    <g fill="none" stroke="#ffffff" color="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6">
+    <g transform="translate(56 58) rotate(-14) scale(1.35) translate(-12 -12)"><ellipse cx="7" cy="18.5" rx="3.5" ry="2.8"/><ellipse cx="18" cy="15.5" rx="3.5" ry="2.8"/><path d="M10.5 18.5 V5 L21.5 2 V15.5"/></g>
+    <g transform="translate(150 52) rotate(8) scale(1.35) translate(-12 -12)"><ellipse cx="7" cy="18.5" rx="3.5" ry="2.8"/><ellipse cx="18" cy="15.5" rx="3.5" ry="2.8"/><path d="M10.5 18.5 V5 L21.5 2 V15.5"/></g>
+    <g transform="translate(244 58) rotate(16) scale(1.35) translate(-12 -12)"><ellipse cx="7" cy="18.5" rx="3.5" ry="2.8"/><ellipse cx="18" cy="15.5" rx="3.5" ry="2.8"/><path d="M10.5 18.5 V5 L21.5 2 V15.5"/></g>
+    <g transform="translate(44 150) rotate(10) scale(1.35) translate(-12 -12)"><ellipse cx="7" cy="18.5" rx="3.5" ry="2.8"/><ellipse cx="18" cy="15.5" rx="3.5" ry="2.8"/><path d="M10.5 18.5 V5 L21.5 2 V15.5"/></g>
+    <g transform="translate(256 150) rotate(-10) scale(1.35) translate(-12 -12)"><ellipse cx="7" cy="18.5" rx="3.5" ry="2.8"/><ellipse cx="18" cy="15.5" rx="3.5" ry="2.8"/><path d="M10.5 18.5 V5 L21.5 2 V15.5"/></g>
+    <g transform="translate(44 262) rotate(-8) scale(1.35) translate(-12 -12)"><ellipse cx="7" cy="18.5" rx="3.5" ry="2.8"/><ellipse cx="18" cy="15.5" rx="3.5" ry="2.8"/><path d="M10.5 18.5 V5 L21.5 2 V15.5"/></g>
+    <g transform="translate(256 262) rotate(12) scale(1.35) translate(-12 -12)"><ellipse cx="7" cy="18.5" rx="3.5" ry="2.8"/><ellipse cx="18" cy="15.5" rx="3.5" ry="2.8"/><path d="M10.5 18.5 V5 L21.5 2 V15.5"/></g>
+    <g transform="translate(56 344) rotate(14) scale(1.35) translate(-12 -12)"><ellipse cx="7" cy="18.5" rx="3.5" ry="2.8"/><ellipse cx="18" cy="15.5" rx="3.5" ry="2.8"/><path d="M10.5 18.5 V5 L21.5 2 V15.5"/></g>
+    <g transform="translate(150 350) rotate(-6) scale(1.35) translate(-12 -12)"><ellipse cx="7" cy="18.5" rx="3.5" ry="2.8"/><ellipse cx="18" cy="15.5" rx="3.5" ry="2.8"/><path d="M10.5 18.5 V5 L21.5 2 V15.5"/></g>
+    <g transform="translate(244 344) rotate(-16) scale(1.35) translate(-12 -12)"><ellipse cx="7" cy="18.5" rx="3.5" ry="2.8"/><ellipse cx="18" cy="15.5" rx="3.5" ry="2.8"/><path d="M10.5 18.5 V5 L21.5 2 V15.5"/></g>
+    </g>
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="none" stroke="#1f1c31" stroke-width="5"/>
+    <circle cx="155" cy="206" r="92" fill="#1f1c31"/>
+    <circle cx="150" cy="200" r="92" fill="#fcfaf1" stroke="#1f1c31" stroke-width="5"/>
+    <g transform="translate(78 128) scale(1.44)" fill="none" stroke="#1f1c31" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="6" y="24" width="88" height="58" rx="6" fill="#fe7bb3"/>
+      <rect x="15" y="31" width="70" height="30" rx="3" fill="#ffffff"/>
+      <path d="M21 38 H58" stroke="#fb5b40" stroke-width="3"/>
+      <rect x="29" y="44" width="42" height="13" rx="6.5" fill="#1f1c31"/>
+      <circle cx="38" cy="50.5" r="5" fill="#ffffff" stroke-width="2"/>
+      <circle cx="62" cy="50.5" r="5" fill="#ffffff" stroke-width="2"/>
+      <path d="M25 82 L30 68 L70 68 L75 82" fill="#e86ea6"/>
+      <circle cx="38" cy="75" r="2" fill="#1f1c31"/>
+      <circle cx="62" cy="75" r="2" fill="#1f1c31"/>
+    </g>
+  </g>
+</svg>

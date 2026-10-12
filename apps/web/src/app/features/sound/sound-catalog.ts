@@ -61,6 +61,17 @@ export const SOUNDS = {
   // The host closing the room: it's crumpled into a ball and kicked away (features/close-room).
   paperCrumple: { files: ['paper-crumple.mp3'], group: 'room', volume: 0.6 },
   paperKick: { files: ['paper-kick.mp3'], group: 'room', volume: 0.6 },
+  // The host circling or ticking a house rule (features/waiting-room), heard by everyone.
+  ruleMark: { files: ['sticker-pop.mp3'], group: 'room', volume: 0.35, minGapMs: 80 },
+  // The host turning the deck notebook's page (Featured ⇄ Community, features/deck-picker).
+  pageTurn: { files: ['card-flip.mp3'], group: 'room', volume: 0.45, minGapMs: 200 },
+  // Emotes (features/emotes), reusing clips from above under Chat & players.
+  emotePop: { files: ['sticker-pop.mp3'], group: 'room', volume: 0.45, minGapMs: 100 },
+  emoteBoing: { files: ['poke-boing.mp3'], group: 'room', volume: 0.45, minGapMs: 100 },
+  emoteThump: { files: ['podium-thump.mp3'], group: 'room', volume: 0.6, minGapMs: 100 },
+  emoteSlap: { files: ['paper-kick.mp3'], group: 'room', volume: 0.6, minGapMs: 100 },
+  emoteSplat: { files: ['fill-glug-1.mp3', 'fill-glug-2.mp3'], group: 'room', volume: 0.6 },
+  emoteSob: { files: ['player-leave.mp3'], group: 'room', volume: 0.5 },
 } as const satisfies Record<string, SoundDef>;
 
 export type SoundId = keyof typeof SOUNDS;

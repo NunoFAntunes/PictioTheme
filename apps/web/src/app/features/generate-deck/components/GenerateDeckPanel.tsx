@@ -232,7 +232,7 @@ export function GenerateDeckPanel({
           </div>
         )}
         {cover.step !== 'skipped' && (
-          <div className="flex flex-col gap-3 border-t border-zinc-200 pt-3 dark:border-zinc-800">
+          <div className="flex flex-col gap-3 border-t border-zinc-200 pt-3">
             <div className="text-sm">
               <h4 className="font-medium">
                 🎨 Draw the back cover of your deck{status === 'running' && ' while you wait'}
@@ -253,7 +253,7 @@ export function GenerateDeckPanel({
                     type="button"
                     onClick={skipCover}
                     disabled={cover.step === 'saving'}
-                    className="rounded-lg px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-900"
+                    className="rounded-lg px-4 py-2 hover:bg-zinc-100"
                   >
                     Skip
                   </button>
@@ -300,10 +300,10 @@ export function GenerateDeckPanel({
       </h3>
       <p
         data-testid="generation-language"
-        className="flex flex-wrap items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-300"
+        className="flex flex-wrap items-center gap-1.5 text-sm text-zinc-600"
       >
         Cards in <LanguageFlag language={language} className="h-3.5" label={false} />
-        <span className="font-medium text-ink dark:text-zinc-100">{languageInfo.native}</span>
+        <span className="font-medium text-ink">{languageInfo.native}</span>
         {language !== 'en' && <span>· write the theme in {languageInfo.name} too</span>}
       </p>
       <label htmlFor={themeId} className="flex flex-col gap-1 text-sm font-medium">
@@ -314,7 +314,7 @@ export function GenerateDeckPanel({
           maxLength={DECK_THEME_MAX}
           placeholder="e.g. pirates, the 1990s, camping trip"
           onChange={(e) => setTheme(e.target.value)}
-          className="rounded-lg border border-zinc-300 bg-transparent px-3 py-2 font-normal dark:border-zinc-700"
+          className="rounded-lg border border-zinc-300 bg-transparent px-3 py-2 font-normal"
         />
       </label>
       <label htmlFor={notesId} className="flex flex-col gap-1 text-sm font-medium">
@@ -328,7 +328,7 @@ export function GenerateDeckPanel({
           maxLength={DECK_NOTES_MAX}
           placeholder="e.g. for a family party with kids aged 6+"
           onChange={(e) => setNotes(e.target.value)}
-          className="rounded-lg border border-zinc-300 bg-transparent px-3 py-2 font-normal dark:border-zinc-700"
+          className="rounded-lg border border-zinc-300 bg-transparent px-3 py-2 font-normal"
         />
       </label>
       <label className="flex items-start gap-2 text-sm">

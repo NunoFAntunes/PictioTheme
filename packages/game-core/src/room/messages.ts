@@ -23,6 +23,7 @@ import {
   startRush,
 } from './match';
 import { broadcastPlayers, connectedIds, send, sendError, sendToAll } from './output';
+import { onEmote } from './emotes';
 import { onLike } from './likes';
 import { kick, transferHost } from './players';
 import type { Ctx, DrawingPhase } from './types';
@@ -97,6 +98,9 @@ export function onMessage(c: Ctx, playerId: PlayerId, msg: ClientMessage): void 
     }
     case 'turn:like':
       onLike(c, playerId, msg.liked);
+      return;
+    case 'emote':
+      onEmote(c, playerId, msg.emote, msg.target);
       return;
     case 'turn:vote': {
       const { phase } = c.state;

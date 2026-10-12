@@ -59,7 +59,7 @@ function RuleSticker({ label, index }: { label: string; index: number }) {
 function DeckOnCard({ view }: { view: RoomView }) {
   if (!view.deck) {
     return (
-      <div className="grid aspect-[3/4] w-24 shrink-0 place-items-center font-hand text-ink/60">
+      <div className="grid aspect-[3/4] w-20 shrink-0 place-items-center font-hand text-ink/60">
         Loading the deck…
       </div>
     );
@@ -68,7 +68,7 @@ function DeckOnCard({ view }: { view: RoomView }) {
     <div
       data-testid="room-deck"
       title={view.deck.title}
-      className="relative w-24 shrink-0 -rotate-3 @3xl:w-28"
+      className="relative w-20 shrink-0 -rotate-3 @3xl:w-24"
     >
       <div className="overflow-hidden rounded-xl border-[3px] border-ink shadow-[5px_6px_0_var(--color-ink)] [&>*]:w-full [&>*]:rounded-none [&>*]:border-0 [&>*]:text-base [&>*]:shadow-none">
         <DeckCover deck={view.deck} size="fill" />
@@ -107,7 +107,7 @@ function Stub({ code }: { code: string }) {
   return (
     <div
       aria-live="polite"
-      className="flex flex-col items-center justify-center gap-2 border-t-[5px] border-dotted border-ink/80 px-4 py-4 text-center @2xl:border-t-0 @2xl:border-l-[5px] [background:color-mix(in_oklch,var(--color-pop-sun)_22%,var(--color-paper))]"
+      className="flex flex-col items-center justify-center gap-1.5 border-t-[5px] border-dotted border-ink/80 px-3 py-3 text-center @2xl:border-t-0 @2xl:border-l-[5px] [background:color-mix(in_oklch,var(--color-pop-sun)_22%,var(--color-paper))]"
     >
       <p className="font-hand text-lg leading-none text-ink/70">room code</p>
       <button
@@ -116,10 +116,10 @@ function Stub({ code }: { code: string }) {
         title="Copy the invite link"
         aria-label={`Room code ${code}: copy the invite link`}
         data-testid="room-code"
-        className="flex items-center font-logo text-4xl leading-none tracking-wide transition hover:-rotate-2"
+        className="flex items-center font-logo text-[2rem] leading-none tracking-wide whitespace-nowrap transition hover:-rotate-2"
       >
         {code.split('-').map((half, h) => (
-          <span key={h} className="flex items-center">
+          <span key={h} className="flex shrink-0 items-center">
             {/* The dash stays in the text (it's what people type), drawn as a short stroke. */}
             {h > 0 && (
               <span className="mx-1.5 h-1.5 w-4 overflow-hidden rounded-full bg-ink text-[0]">
@@ -183,21 +183,22 @@ export function RoomCard({ view, host }: { view: RoomView; host: boolean }) {
       <div
         className={`relative grid overflow-hidden ${WOBBLE[0]} border-ink border-[3px_4px_4.5px_3px] bg-paper text-ink shadow-[6px_7px_0_var(--color-ink)] @2xl:grid-cols-[minmax(0,1fr)_14rem]`}
       >
-        <div className="flex min-w-0 flex-col items-center gap-5 p-4 [background:repeating-linear-gradient(to_bottom,transparent_0_2.6rem,color-mix(in_oklch,var(--color-paper-line)_60%,transparent)_2.6rem_calc(2.6rem+2px))] @xl:flex-row @xl:items-center @xl:p-5 @xl:pl-7">
+        <div className="flex min-w-0 flex-col items-center gap-5 p-4 [background:repeating-linear-gradient(to_bottom,transparent_0_2.6rem,color-mix(in_oklch,var(--color-paper-line)_60%,transparent)_2.6rem_calc(2.6rem+2px))] @xl:flex-row @xl:items-center @xl:px-5 @xl:py-3.5 @xl:pl-7">
           <DeckOnCard view={view} />
-          <div className="flex w-full min-w-0 flex-col gap-2">
-            <p className="font-hand text-lg leading-none text-ink/70">
+          <div className="flex w-full min-w-0 flex-col gap-1.5">
+            <p className="font-hand text-base leading-none text-ink/70">
               Come draw &amp; guess with us in
             </p>
             <RoomTitle name={view.name} isPublic={view.isPublic} editable={host} align="start" />
-            {view.deck && (
-              <p className="flex min-w-0 items-baseline gap-2 font-hand">
-                <span className="text-lg text-ink/70">Deck:</span>
-                <span className="truncate text-2xl leading-tight">{view.deck.title}</span>
-              </p>
-            )}
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="font-hand text-lg text-ink/70">Cards in:</span>
+            {/* The deck and the language its cards are in, on one line. */}
+            <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 font-hand">
+              {view.deck && (
+                <p className="flex min-w-0 items-baseline gap-2">
+                  <span className="text-lg text-ink/70">Deck:</span>
+                  <span className="truncate text-2xl leading-tight">{view.deck.title}</span>
+                </p>
+              )}
+              <span className="text-lg text-ink/70">in</span>
               <LanguagePicker
                 language={view.settings.language}
                 deckId={view.settings.deckId}
@@ -233,7 +234,7 @@ export function RoomCard({ view, host }: { view: RoomView; host: boolean }) {
                   </span>
                 )}
             </div>
-            <ul aria-label="Rules" className="mt-1 flex flex-wrap gap-2.5">
+            <ul aria-label="Rules" className="mt-0.5 flex flex-wrap gap-2.5">
               {rulesOf(view).map((label, i) => (
                 <RuleSticker key={label} label={label} index={i} />
               ))}

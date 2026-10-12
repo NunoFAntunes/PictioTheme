@@ -95,7 +95,7 @@ export function RoomTitle({
   const [editing, setEditing] = useState(false);
   const letters = [...name.replace(/\s+/g, '')].length;
   // On the card the name shares its line with the privacy switch, so it stays smaller.
-  const max = align === 'start' ? '3.25rem' : '4rem';
+  const max = align === 'start' ? '3rem' : '4rem';
   const items = align === 'start' ? 'items-start' : 'items-center';
 
   if (editing) {
@@ -114,7 +114,7 @@ export function RoomTitle({
       <div className={`flex min-w-0 flex-col ${items}`}>
         <div className="flex min-w-0 items-center gap-2">
           <h1
-            className="min-w-0 font-logo leading-tight font-normal text-ink"
+            className="min-w-0 font-logo leading-[1.1] font-normal text-ink"
             style={sizeFor(name, max, align === 'start' ? 95 : 170)}
           >
             <span className="sr-only">{name}</span>

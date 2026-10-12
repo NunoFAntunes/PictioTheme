@@ -2,6 +2,7 @@ import { normalizeRoomCode } from '@pictiotheme/game-core';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useParams } from 'react-router';
 import { CrumpleStage, resetCrumple, useCrumpling } from '../../features/close-room';
+import { EmoteStage } from '../../features/emotes';
 import { GuessBar, GuessFeed } from '../../features/guess-feed';
 import { useEnsureIdentity } from '../../features/identity';
 import { PlayerList } from '../../features/player-list';
@@ -74,6 +75,7 @@ function RoomSession({ code }: { code: string }) {
     // The page itself never scrolls (no rubber-banding mid-drawing): each area scrolls inside.
     <CrumpleStage className="flex h-dvh flex-col overflow-hidden overscroll-none">
       <RoomSounds />
+      <EmoteStage />
       <CoverUploader />
       <RoomMetrics />
       <RoomHeader />

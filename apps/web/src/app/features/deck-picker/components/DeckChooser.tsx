@@ -5,7 +5,7 @@ import {
   type GameMode,
   type RoomDeck,
 } from '@pictiotheme/protocol';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ChaosCardsPanel,
   GenerateDeckPanel,
@@ -13,24 +13,44 @@ import {
   useGenerationConfig,
   useMyDecks,
 } from '../../generate-deck';
-import { PANEL, PANEL_HEADING } from '../../../ui/room-frame';
-import { useDecks } from '../api';
-import { DeckPicker } from './DeckPicker';
+import { Notebook, NotebookSpread } from '../../../ui/Notebook';
+import { PANEL_HEADING } from '../../../ui/room-frame';
+import { useCommunityDecks, useDecks, useDeckSearch } from '../api';
+import { topTags } from '../top-tags';
+import { DeckFilters } from './DeckFilters';
+import { DeckSection, NewDeckTile, type TileContext } from './DeckPage';
+import { LibraryPages, type SearchResults } from './LibraryPages';
+import { PlayingDeck } from './PlayingDeck';
 
 /**
- * Choosing a room's deck (user-flows.md §4): a panel of its own with search, categories and the
- * cover grid, and ✨ Generate a deck when the server allows it. The library keeps its height (give
- * it one with `className`) and scrolls inside, however many decks there are. While generating,
- * the panel grows to fit the form and the cover pad instead, so drawing never scrolls inside a
- * box. A generated deck is chosen as soon as it's ready.
+ * Choosing a room's deck (user-flows.md §4, screens.md §3): a notebook lying open beside the house
+ * rules' notepad, the coil in the middle. The first page is the host's: the room's deck, the search
+ * and categories, and their own decks after a ✨ Generate a deck tile (when the server allows it).
+ * The second is the library, taped in: our featured decks, and over the page the community's
+ * (LibraryPages). Each page scrolls on its own (give the spread its height with `className`).
+ * Without room for two pages it folds, the first on top. Generating turns to a fresh page: a notepad that grows to fit the form and the cover pad, so
+ * drawing never scrolls inside a box. A generated deck is chosen as soon as it's ready.
  *
  * Decks are shown in the room's language. A deck that isn't in it yet (picked from the library,
- * or the room's own deck after the host changed the language) gets the translate panel on top:
- * the room switches to the translation once it's ready (decks.md#languages).
+ * or the room's own deck after the host changed the language) gets the translate panel on the
+ * first page: the room switches to the translation once it's ready (decks.md#languages).
  *
- * In Chaos mode, a room deck without Chaos cards gets the Chaos panel on top instead: any host can
+ * In Chaos mode, a room deck without Chaos cards gets the Chaos panel there instead: any host can
  * have them made, and the room reloads the deck once they're saved (decks.md#chaos-cards).
  */
+
+const SEARCH_DEBOUNCE_MS = 250;
+const CATEGORY_COUNT = 6;
+
+function useDebounced(value: string, ms: number): string {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(value), ms);
+    return () => clearTimeout(timer);
+  }, [value, ms]);
+  return debounced;
+}
+
 export function DeckChooser({
   selectedId,
   currentDeck,
@@ -50,8 +70,12 @@ export function DeckChooser({
 }) {
   const decks = useDecks(language);
   const myDecks = useMyDecks(language);
+  const community = useCommunityDecks(language);
   const generationEnabled = useGenerationConfig().data?.enabled === true;
   const [generating, setGenerating] = useState(false);
+  const [query, setQuery] = useState('');
+  const [tag, setTag] = useState<string | null>(null);
+  const search = useDeckSearch(useDebounced(tag ?? query, tag ? 0 : SEARCH_DEBOUNCE_MS), language);
   /** A deck picked from the library that isn't in the room's language. */
   const [toTranslate, setToTranslate] = useState<DeckSummary | null>(null);
   const untranslated: Pick<RoomDeck, 'id' | 'title' | 'coverId' | 'language'> | null =
@@ -62,6 +86,33 @@ export function DeckChooser({
     currentDeck !== null &&
     currentDeck.chaosCards < CHAOS_MIN_CARDS;
 
+  const curated = decks.data ?? [];
+  const mine = myDecks.data ?? [];
+  const searching = tag !== null || query.trim() !== '';
+  const results: SearchResults | null = searching
+    ? {
+        title: tag ? `#${tag}` : 'Results',
+        decks: search.data ?? [],
+        empty:
+          search.isSuccess && search.data.length === 0
+            ? tag
+              ? `No decks tagged #${tag} yet.`
+              : `No decks match “${query.trim()}”.`
+            : null,
+      }
+    : null;
+  const playing = currentDeck
+    ? [...mine, ...curated, ...(search.data ?? [])].find((d) => d.id === currentDeck.id)
+    : undefined;
+
+  const context: TileContext = {
+    language,
+    mode,
+    selectedId,
+    mineIds: new Set(mine.map((d) => d.id)),
+    onSelect: pick,
+  };
+
   function pick(deck: DeckSummary) {
     if (deck.language === language) {
       setToTranslate(null);
@@ -71,26 +122,17 @@ export function DeckChooser({
     }
   }
 
-  return (
-    <section
-      aria-labelledby="deck-heading"
-      className={`flex min-h-0 flex-col gap-3 ${PANEL} ${generating ? '' : className}`}
-    >
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 id="deck-heading" className={PANEL_HEADING}>
-          Pick a deck
-        </h2>
-        {generationEnabled && !generating && (
-          <button
-            type="button"
-            onClick={() => setGenerating(true)}
-            className="rounded-full border-2 border-dashed border-brand-600/60 px-3 py-1 text-sm font-medium text-brand-700 hover:bg-brand-600/5 dark:text-brand-500"
-          >
-            ✨ Generate a deck
-          </button>
-        )}
-      </div>
-      {generating ? (
+  const heading = (
+    // The heading sits over the page's red header line, like the house rules'.
+    <h2 id="deck-heading" className={`border-b-2 border-pop-tomato/50 pb-1 ${PANEL_HEADING}`}>
+      {generating ? 'A new deck' : 'Pick a deck'}
+    </h2>
+  );
+
+  if (generating) {
+    return (
+      <Notebook aria-labelledby="deck-heading" className="flex flex-col gap-3">
+        {heading}
         <GenerateDeckPanel
           language={language}
           onCancel={() => setGenerating(false)}
@@ -99,8 +141,18 @@ export function DeckChooser({
             setGenerating(false);
           }}
         />
-      ) : (
+      </Notebook>
+    );
+  }
+
+  return (
+    <NotebookSpread
+      aria-labelledby="deck-heading"
+      className={className}
+      first={
         <>
+          {heading}
+          <PlayingDeck deck={currentDeck} summary={playing} />
           {untranslated && (
             <TranslateDeckPanel
               // A new panel per deck and language, so one's progress never shows on another.
@@ -115,18 +167,36 @@ export function DeckChooser({
             />
           )}
           {needsChaos && <ChaosCardsPanel key={currentDeck.id} deck={currentDeck} />}
-          {decks.isPending && <p className="text-sm text-zinc-500">Loading decks…</p>}
-          {decks.isError && <p className="text-sm text-close">Couldn’t load decks.</p>}
-          <DeckPicker
-            curated={decks.data ?? []}
-            mine={myDecks.data ?? []}
-            language={language}
-            mode={mode}
-            selectedId={selectedId}
-            onSelect={pick}
+          <DeckFilters
+            query={query}
+            tag={tag}
+            categories={topTags([...mine, ...curated], CATEGORY_COUNT)}
+            onQuery={(q) => {
+              setQuery(q);
+              setTag(null);
+            }}
+            onTag={(t) => {
+              setTag(t);
+              setQuery('');
+            }}
+          />
+          <DeckSection
+            title="Your decks"
+            decks={mine}
+            leading={generationEnabled && <NewDeckTile onClick={() => setGenerating(true)} />}
+            context={context}
           />
         </>
-      )}
-    </section>
+      }
+      second={
+        <LibraryPages
+          curated={{ decks: curated, pending: decks.isPending, error: decks.isError }}
+          community={community}
+          results={results}
+          scrollKey={`${tag ?? ''}|${query}`}
+          context={context}
+        />
+      }
+    />
   );
 }

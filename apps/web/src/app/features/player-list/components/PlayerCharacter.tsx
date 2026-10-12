@@ -1,6 +1,7 @@
 import type { PublicPlayer } from '@pictiotheme/protocol';
 import type { ReactNode } from 'react';
 import { avatarUrl } from '../../avatar';
+import { FIGURE_ATTR } from '../../emotes';
 import { nameFont, playerHash } from '../name-font';
 import { ScoreSticker, type StickerSize } from './ScoreSticker';
 
@@ -28,6 +29,9 @@ type Props = {
   /** Shown during a match. */
   score: { rank: number; gained: number; turnKey: string } | null;
   actions: ReactNode;
+  /** Opens the emote wheel around the character (null: no emotes at them, e.g. they're away). */
+  onEmotes: ((anchor: HTMLElement) => void) | null;
+  emotesOpen: boolean;
 };
 
 export function PlayerCharacter({
@@ -39,6 +43,8 @@ export function PlayerCharacter({
   bubble,
   score,
   actions,
+  onEmotes,
+  emotesOpen,
 }: Props) {
   const seed = playerHash(p.id, roomCode);
   const font = nameFont(p.id, roomCode);
@@ -62,19 +68,33 @@ export function PlayerCharacter({
             {bubble}
           </div>
         )}
-        <div className={`size-full ${p.guessedThisTurn ? 'motion-safe:animate-hop' : ''}`}>
-          <div className="size-full motion-safe:animate-sway" style={delay}>
-            <div className={`size-full ${drawing ? 'motion-safe:animate-draw-wiggle' : ''}`}>
-              <img
-                src={avatarUrl(p.avatar)}
-                alt={`${p.name}'s avatar`}
-                draggable={false}
-                className={`size-full object-contain ${p.connected ? 'motion-safe:animate-boil' : ''}`}
-                style={delay}
-              />
+        {/* Emotes (features/emotes) animate this wrapper, so they don't fight the other motions. */}
+        <div {...{ [FIGURE_ATTR]: p.id }} className="size-full origin-bottom">
+          <div className={`size-full ${p.guessedThisTurn ? 'motion-safe:animate-hop' : ''}`}>
+            <div className="size-full motion-safe:animate-sway" style={delay}>
+              <div className={`size-full ${drawing ? 'motion-safe:animate-draw-wiggle' : ''}`}>
+                <img
+                  src={avatarUrl(p.avatar)}
+                  alt={`${p.name}'s avatar`}
+                  draggable={false}
+                  className={`size-full object-contain ${p.connected ? 'motion-safe:animate-boil' : ''}`}
+                  style={delay}
+                />
+              </div>
             </div>
           </div>
         </div>
+        {onEmotes && (
+          <button
+            type="button"
+            aria-haspopup="menu"
+            aria-expanded={emotesOpen}
+            aria-label={you ? 'Your emotes' : `Emotes at ${p.name}`}
+            title={you ? 'Dance, taunt…' : `Squish, slap… ${p.name}`}
+            onClick={(e) => onEmotes(e.currentTarget)}
+            className="absolute inset-0 cursor-pointer rounded-full outline-ink/30 hover:outline-2 hover:outline-offset-2 hover:outline-dashed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink focus-visible:outline-dashed aria-expanded:outline-2 aria-expanded:outline-offset-2 aria-expanded:outline-ink aria-expanded:outline-dashed"
+          />
+        )}
         {p.isHost && (
           <span
             className="absolute -top-3 -left-2 -rotate-20 text-lg"

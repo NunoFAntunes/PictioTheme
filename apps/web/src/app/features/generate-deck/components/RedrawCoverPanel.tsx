@@ -56,7 +56,7 @@ export function RedrawCoverPanel({ deck, onClose }: { deck: DeckSummary; onClose
             type="button"
             onClick={onClose}
             disabled={redraw.isPending}
-            className="rounded-lg px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-900"
+            className="rounded-lg px-4 py-2 hover:bg-zinc-100"
           >
             Cancel
           </button>

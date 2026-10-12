@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <!-- Back cover of the curated deck "actions-and-expressions" (docs/product/decks.md#back-cover). Rendered to PNG by db:migrate. -->
+  <defs>
+    <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="9"/>
+      <feDisplacementMap in="SourceGraphic" scale="3.5"/>
+    </filter>
+    <pattern id="stripes" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="20" fill="#ffffff" opacity="0.12"/>
+    </pattern>
+  </defs>
+  <rect width="300" height="400" fill="#fcfaf1"/>
+  <g filter="url(#wobble)">
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="#f2862a"/>
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="url(#stripes)"/>
+    <rect x="24" y="24" width="252" height="352" rx="10" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="1 9" stroke-linecap="round" opacity="0.7"/>
+    <g fill="none" stroke="#ffffff" color="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6">
+    <g transform="translate(56 58) rotate(-14) scale(1.35) translate(-12 -12)"><path d="M3 15 Q8 5 13 12 Q18 19 21 9"/><path d="M17 8 L21 9 L21.5 13"/></g>
+    <g transform="translate(150 52) rotate(8) scale(1.35) translate(-12 -12)"><path d="M3 15 Q8 5 13 12 Q18 19 21 9"/><path d="M17 8 L21 9 L21.5 13"/></g>
+    <g transform="translate(244 58) rotate(16) scale(1.35) translate(-12 -12)"><path d="M3 15 Q8 5 13 12 Q18 19 21 9"/><path d="M17 8 L21 9 L21.5 13"/></g>
+    <g transform="translate(44 150) rotate(10) scale(1.35) translate(-12 -12)"><path d="M3 15 Q8 5 13 12 Q18 19 21 9"/><path d="M17 8 L21 9 L21.5 13"/></g>
+    <g transform="translate(256 150) rotate(-10) scale(1.35) translate(-12 -12)"><path d="M3 15 Q8 5 13 12 Q18 19 21 9"/><path d="M17 8 L21 9 L21.5 13"/></g>
+    <g transform="translate(44 262) rotate(-8) scale(1.35) translate(-12 -12)"><path d="M3 15 Q8 5 13 12 Q18 19 21 9"/><path d="M17 8 L21 9 L21.5 13"/></g>
+    <g transform="translate(256 262) rotate(12) scale(1.35) translate(-12 -12)"><path d="M3 15 Q8 5 13 12 Q18 19 21 9"/><path d="M17 8 L21 9 L21.5 13"/></g>
+    <g transform="translate(56 344) rotate(14) scale(1.35) translate(-12 -12)"><path d="M3 15 Q8 5 13 12 Q18 19 21 9"/><path d="M17 8 L21 9 L21.5 13"/></g>
+    <g transform="translate(150 350) rotate(-6) scale(1.35) translate(-12 -12)"><path d="M3 15 Q8 5 13 12 Q18 19 21 9"/><path d="M17 8 L21 9 L21.5 13"/></g>
+    <g transform="translate(244 344) rotate(-16) scale(1.35) translate(-12 -12)"><path d="M3 15 Q8 5 13 12 Q18 19 21 9"/><path d="M17 8 L21 9 L21.5 13"/></g>
+    </g>
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="none" stroke="#1f1c31" stroke-width="5"/>
+    <circle cx="155" cy="206" r="92" fill="#1f1c31"/>
+    <circle cx="150" cy="200" r="92" fill="#fcfaf1" stroke="#1f1c31" stroke-width="5"/>
+    <g transform="translate(78 128) scale(1.44)" fill="none" stroke="#1f1c31" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M50.0 8.0 L58.3 21.1 L72.0 13.9 L72.6 29.4 L88.1 30.0 L80.9 43.7 L94.0 52.0 L80.9 60.3 L88.1 74.0 L72.6 74.6 L72.0 90.1 L58.3 82.9 L50.0 96.0 L41.7 82.9 L28.0 90.1 L27.4 74.6 L11.9 74.0 L19.1 60.3 L6.0 52.0 L19.1 43.7 L11.9 30.0 L27.4 29.4 L28.0 13.9 L41.7 21.1 Z" fill="#ffc921" stroke-width="2.5"/>
+      <circle cx="50" cy="22" r="10" fill="#ffffff"/>
+      <circle cx="46.5" cy="20" r="1.5" fill="#1f1c31"/>
+      <circle cx="53.5" cy="20" r="1.5" fill="#1f1c31"/>
+      <path d="M45.5 24.5 Q50 29 54.5 24.5" stroke-width="2.5"/>
+      <path d="M50 32 L50 58 M50 39 L32 22 M50 39 L69 24 M50 58 L36 76 L29 72 M50 58 L64 75 L72 70" stroke-width="5.5"/>
+      <path d="M12 56 Q8 64 12 72 M88 56 Q92 64 88 72 M38 90 H62 M43 96 H57" stroke-width="3"/>
+    </g>
+  </g>
+</svg>

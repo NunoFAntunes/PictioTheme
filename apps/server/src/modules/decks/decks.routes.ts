@@ -1,4 +1,6 @@
 import {
+  CommunityDecksQuery,
+  CommunityDecksResponse,
   DeckCoverId,
   DeckLanguage,
   DeckListQuery,
@@ -26,6 +28,12 @@ export const decksRoutes: FastifyPluginAsyncZod<{ decks: DecksService }> = async
     async (request) => ({
       decks: await decks.listDecks(request.query.q, request.query.language),
     }),
+  );
+
+  app.get(
+    '/community',
+    { schema: { querystring: CommunityDecksQuery, response: { 200: CommunityDecksResponse } } },
+    async (request) => decks.listCommunity(request.query.offset, request.query.language),
   );
 
   // The deck in another language, if it's been translated into it (404 otherwise). Asked when

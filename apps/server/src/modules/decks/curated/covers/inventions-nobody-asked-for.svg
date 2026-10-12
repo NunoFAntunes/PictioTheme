@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <!-- Back cover of the curated deck "inventions-nobody-asked-for" (docs/product/decks.md#back-cover). Rendered to PNG by db:migrate. -->
+  <defs>
+    <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="11"/>
+      <feDisplacementMap in="SourceGraphic" scale="3.5"/>
+    </filter>
+    <pattern id="stripes" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="20" fill="#ffffff" opacity="0.12"/>
+    </pattern>
+  </defs>
+  <rect width="300" height="400" fill="#fcfaf1"/>
+  <g filter="url(#wobble)">
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="#8a55ee"/>
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="url(#stripes)"/>
+    <rect x="24" y="24" width="252" height="352" rx="10" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="1 9" stroke-linecap="round" opacity="0.7"/>
+    <g fill="none" stroke="#ffffff" color="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6">
+    <g transform="translate(56 58) rotate(-14) scale(1.35) translate(-12 -12)"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></g>
+    <g transform="translate(150 52) rotate(8) scale(1.35) translate(-12 -12)"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></g>
+    <g transform="translate(244 58) rotate(16) scale(1.35) translate(-12 -12)"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></g>
+    <g transform="translate(44 150) rotate(10) scale(1.35) translate(-12 -12)"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></g>
+    <g transform="translate(256 150) rotate(-10) scale(1.35) translate(-12 -12)"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></g>
+    <g transform="translate(44 262) rotate(-8) scale(1.35) translate(-12 -12)"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></g>
+    <g transform="translate(256 262) rotate(12) scale(1.35) translate(-12 -12)"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></g>
+    <g transform="translate(56 344) rotate(14) scale(1.35) translate(-12 -12)"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></g>
+    <g transform="translate(150 350) rotate(-6) scale(1.35) translate(-12 -12)"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></g>
+    <g transform="translate(244 344) rotate(-16) scale(1.35) translate(-12 -12)"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></g>
+    </g>
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="none" stroke="#1f1c31" stroke-width="5"/>
+    <circle cx="155" cy="206" r="92" fill="#1f1c31"/>
+    <circle cx="150" cy="200" r="92" fill="#fcfaf1" stroke="#1f1c31" stroke-width="5"/>
+    <g transform="translate(78 128) scale(1.44)" fill="none" stroke="#1f1c31" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M50 22 C32 22 24 38 28 52 C31 62 38 64 40 74 L60 74 Q62 64 72 52 C76 38 68 22 50 22 Z" fill="#fff3a6"/>
+      <path d="M42 54 L46 46 L50 56 L54 46 L58 54" stroke-width="2.5"/>
+      <path d="M40 74 L60 74 L59 88 L41 88 Z" fill="#b8bcc6"/>
+      <path d="M40 80 H60" stroke-width="2.5"/>
+      <path d="M45 88 Q50 95 55 88" fill="#1f1c31"/>
+      <path d="M50 22 V12"/>
+      <path d="M50 11 Q38 3 28 8 Q38 15 50 11 Z M50 11 Q62 19 72 14 Q62 7 50 11 Z" fill="#fb5b40"/>
+      <path d="M24 36 Q12 30 8 38 Q14 44 26 42 M76 36 Q88 30 92 38 Q86 44 74 42" fill="#ffffff"/>
+    </g>
+  </g>
+</svg>

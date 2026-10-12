@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <!-- Back cover of the curated deck "halloween" (docs/product/decks.md#back-cover). Rendered to PNG by db:migrate. -->
+  <defs>
+    <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1"/>
+      <feDisplacementMap in="SourceGraphic" scale="3.5"/>
+    </filter>
+    <pattern id="stripes" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="20" fill="#ffffff" opacity="0.12"/>
+    </pattern>
+  </defs>
+  <rect width="300" height="400" fill="#fcfaf1"/>
+  <g filter="url(#wobble)">
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="#5a2d91"/>
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="url(#stripes)"/>
+    <rect x="24" y="24" width="252" height="352" rx="10" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="1 9" stroke-linecap="round" opacity="0.7"/>
+    <g fill="none" stroke="#ffffff" color="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6">
+    <g transform="translate(56 58) rotate(-14) scale(1.35) translate(-12 -12)"><path d="M2 12 Q6 6 10 9 Q11 5 12 8 Q13 5 14 9 Q18 6 22 12 Q18 10 16 14 Q14 11 12 15 Q10 11 8 14 Q6 10 2 12 Z"/></g>
+    <g transform="translate(150 52) rotate(8) scale(1.35) translate(-12 -12)"><path d="M2 12 Q6 6 10 9 Q11 5 12 8 Q13 5 14 9 Q18 6 22 12 Q18 10 16 14 Q14 11 12 15 Q10 11 8 14 Q6 10 2 12 Z"/></g>
+    <g transform="translate(244 58) rotate(16) scale(1.35) translate(-12 -12)"><path d="M2 12 Q6 6 10 9 Q11 5 12 8 Q13 5 14 9 Q18 6 22 12 Q18 10 16 14 Q14 11 12 15 Q10 11 8 14 Q6 10 2 12 Z"/></g>
+    <g transform="translate(44 150) rotate(10) scale(1.35) translate(-12 -12)"><path d="M2 12 Q6 6 10 9 Q11 5 12 8 Q13 5 14 9 Q18 6 22 12 Q18 10 16 14 Q14 11 12 15 Q10 11 8 14 Q6 10 2 12 Z"/></g>
+    <g transform="translate(256 150) rotate(-10) scale(1.35) translate(-12 -12)"><path d="M2 12 Q6 6 10 9 Q11 5 12 8 Q13 5 14 9 Q18 6 22 12 Q18 10 16 14 Q14 11 12 15 Q10 11 8 14 Q6 10 2 12 Z"/></g>
+    <g transform="translate(44 262) rotate(-8) scale(1.35) translate(-12 -12)"><path d="M2 12 Q6 6 10 9 Q11 5 12 8 Q13 5 14 9 Q18 6 22 12 Q18 10 16 14 Q14 11 12 15 Q10 11 8 14 Q6 10 2 12 Z"/></g>
+    <g transform="translate(256 262) rotate(12) scale(1.35) translate(-12 -12)"><path d="M2 12 Q6 6 10 9 Q11 5 12 8 Q13 5 14 9 Q18 6 22 12 Q18 10 16 14 Q14 11 12 15 Q10 11 8 14 Q6 10 2 12 Z"/></g>
+    <g transform="translate(56 344) rotate(14) scale(1.35) translate(-12 -12)"><path d="M2 12 Q6 6 10 9 Q11 5 12 8 Q13 5 14 9 Q18 6 22 12 Q18 10 16 14 Q14 11 12 15 Q10 11 8 14 Q6 10 2 12 Z"/></g>
+    <g transform="translate(150 350) rotate(-6) scale(1.35) translate(-12 -12)"><path d="M2 12 Q6 6 10 9 Q11 5 12 8 Q13 5 14 9 Q18 6 22 12 Q18 10 16 14 Q14 11 12 15 Q10 11 8 14 Q6 10 2 12 Z"/></g>
+    <g transform="translate(244 344) rotate(-16) scale(1.35) translate(-12 -12)"><path d="M2 12 Q6 6 10 9 Q11 5 12 8 Q13 5 14 9 Q18 6 22 12 Q18 10 16 14 Q14 11 12 15 Q10 11 8 14 Q6 10 2 12 Z"/></g>
+    </g>
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="none" stroke="#1f1c31" stroke-width="5"/>
+    <circle cx="155" cy="206" r="92" fill="#1f1c31"/>
+    <circle cx="150" cy="200" r="92" fill="#fcfaf1" stroke="#1f1c31" stroke-width="5"/>
+    <g transform="translate(78 128) scale(1.44)" fill="none" stroke="#1f1c31" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M50 28 C28 26 12 40 14 60 C16 80 34 88 50 86 C66 88 84 80 86 60 C88 40 72 26 50 28 Z" fill="#ff8a1f"/>
+      <path d="M50 30 C38 45 38 72 50 86 M50 30 C62 45 62 72 50 86" stroke-width="2.5" opacity="0.6"/>
+      <path d="M46 29 L44 15 Q50 11 55 14 L54 29 Z" fill="#4f8a2b"/>
+      <path d="M55 17 Q66 10 71 19"/>
+      <path d="M28 52 L41 52 L35 41 Z M59 52 L72 52 L65 41 Z" fill="#1f1c31"/>
+      <path d="M27 63 Q50 82 73 63 L66 66 L61 60 L56 68 L50 62 L44 68 L39 60 L34 66 Z" fill="#1f1c31"/>
+    </g>
+  </g>
+</svg>

@@ -4,12 +4,16 @@ import { fileURLToPath } from 'node:url';
 import { Card } from '@pictiotheme/protocol';
 import { z } from 'zod';
 import type { Db } from '../../db/client';
+import { contentIdOf } from '../../lib/png';
+import { renderSvg } from '../../lib/svg';
 import * as repo from './decks.repository';
 
 /**
  * Curated decks: hand-checked decks kept in the repo as JSON (one file per deck, named by slug)
  * and seeded into the `decks`/`cards` tables by `db:migrate` (docs/product/decks.md#curated-decks).
  * Editing a file and migrating again updates that deck in place: same id, same cover.
+ * A deck's back cover is `covers/<slug>.svg` (300×400, no text so it suits translations too),
+ * rendered to PNG when seeding. It replaces the deck's cover; without one the cover is left alone.
  */
 
 /** Next to this file in development; copied next to the bundle in production (scripts/build.mjs). */
@@ -49,11 +53,34 @@ export async function loadCuratedDecks(folder = CURATED_FOLDER): Promise<Curated
   );
 }
 
-/** Inserts or updates every curated deck, in one transaction. Returns how many were seeded. */
+/** The deck's back cover as a PNG, or null when it has no `covers/<slug>.svg`. */
+export async function renderCuratedCover(
+  slug: string,
+  folder = CURATED_FOLDER,
+): Promise<Buffer | null> {
+  let svg: string;
+  try {
+    svg = await readFile(join(folder, 'covers', `${slug}.svg`), 'utf8');
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return null;
+    throw error;
+  }
+  return renderSvg(svg);
+}
+
+/** Inserts or updates every curated deck and its cover, in one transaction. Returns the count. */
 export async function seedCuratedDecks(db: Db, folder = CURATED_FOLDER): Promise<number> {
   const decks = await loadCuratedDecks(folder);
+  const covers = await Promise.all(decks.map((d) => renderCuratedCover(d.slug, folder)));
   await db.transaction(async (tx) => {
-    for (const deck of decks) await repo.upsertCuratedDeck(tx, deck);
+    for (const [i, deck] of decks.entries()) {
+      const id = await repo.upsertCuratedDeck(tx, deck);
+      const cover = covers[i];
+      if (!cover) continue;
+      const coverId = contentIdOf(cover);
+      await repo.insertCover(tx, coverId, cover);
+      await repo.setDeckCover(tx, id, coverId);
+    }
   });
   return decks.length;
 }

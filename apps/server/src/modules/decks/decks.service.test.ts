@@ -93,6 +93,28 @@ describe('decks service', () => {
     expect((await decks.listDecks('  '))[0]?.featured).toBe(true); // blank: the curated list
   });
 
+  it('lists community decks newest first: generated originals with a drawn cover', async () => {
+    const save = async (title: string, cover: boolean) => {
+      const id = await decks.saveGeneratedDeck(
+        { ...generated, title },
+        { theme: title, model: null, coverId: null, language: 'en' },
+      );
+      if (cover) await decks.setCover(id, await decks.storeCover(testCover([10, 200, 90])));
+      return id;
+    };
+    const older = await save('Community older', true);
+    const newer = await save('Community newer', true);
+    const uncovered = await save('Community uncovered', false);
+
+    const page = await decks.listCommunity(0, 'en');
+    const ids = page.decks.map((d) => d.id);
+    expect(ids).toContain(older);
+    expect(ids.indexOf(newer)).toBeLessThan(ids.indexOf(older));
+    expect(ids).not.toContain(uncovered); // no cover drawn
+    expect(page.decks.some((d) => d.featured || d.title === 'Halloween Night')).toBe(false);
+    expect(page.decks.length).toBeLessThanOrEqual(48);
+  });
+
   it('treats unknown and malformed ids as missing, without a database error', async () => {
     const unknown = '0190a000-0000-7000-8000-000000000000';
     expect(await decks.exists(unknown)).toBe(false);

@@ -1,5 +1,7 @@
 import type {
   CardOption,
+  Emote,
+  EmoteCharges,
   GuessKind,
   NoticeCode,
   PauseReason,
@@ -34,6 +36,8 @@ export type FeedItem =
   /** `drawerId` is null when the reveal came without a turn we watched (a snapshot mid-reveal). */
   | { id: number; kind: 'reveal'; word: string; drawerId: PlayerId | null }
   | { id: number; kind: 'matchOver' }
+  /** An emote (game-rules.md#emotes): "Ana slapped Bo!". */
+  | { id: number; kind: 'emote'; playerId: PlayerId; emote: Emote; target?: PlayerId }
   /** The match paused (with why) or resumed (null). */
   | { id: number; kind: 'pause'; reason: PauseReason | null }
   | {
@@ -47,6 +51,12 @@ export type FeedItem =
   | { id: number; kind: 'error'; message: string };
 
 type NewFeedItem = FeedItem extends infer T ? (T extends FeedItem ? Omit<T, 'id'> : never) : never;
+
+/**
+ * The latest emote a player played, for the characters to animate. `at` is when it arrived
+ * (server clock); `id` is unique per emote, so an animation restarts when the same one comes again.
+ */
+export type PlayedEmote = { id: number; emote: Emote; target?: PlayerId; at: number };
 
 /** The latest guess shown under a player's name (fades out in the UI). */
 export type Bubble = { kind: GuessKind; text?: string; at: number };
@@ -76,6 +86,10 @@ export type RoomView = {
   likes: { drawerId: PlayerId | null; likers: PlayerId[] } | null;
   feed: FeedItem[];
   bubbles: Record<PlayerId, Bubble>;
+  /** Each player's latest emote. Not kept across a reconnect: a snapshot doesn't replay them. */
+  emotes: Record<PlayerId, PlayedEmote>;
+  /** Your own emote charges, from the server. */
+  emoteCharges: EmoteCharges;
   restarting: boolean;
   nextFeedId: number;
 };
@@ -109,6 +123,8 @@ export function viewFromSnapshot(
           : null,
     feed: keep?.feed ?? [],
     bubbles: {},
+    emotes: {},
+    emoteCharges: msg.emoteCharges,
     restarting: false,
     nextFeedId: keep?.nextFeedId ?? 1,
   };
@@ -229,6 +245,25 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
         text: msg.text,
         solvedChannel: msg.solvedChannel ?? false,
       });
+    case 'emote': {
+      const played: PlayedEmote = {
+        id: view.nextFeedId,
+        emote: msg.emote,
+        ...(msg.target !== undefined && { target: msg.target }),
+        at: now,
+      };
+      return addFeed(
+        { ...view, emotes: { ...view.emotes, [msg.playerId]: played } },
+        {
+          kind: 'emote',
+          playerId: msg.playerId,
+          emote: msg.emote,
+          ...(msg.target !== undefined && { target: msg.target }),
+        },
+      );
+    }
+    case 'emote:charges':
+      return { ...view, emoteCharges: msg.charges };
     case 'turn:solved':
       return addFeed(view, { kind: 'solved', playerId: msg.playerId, order: msg.order });
     case 'phase:reveal':

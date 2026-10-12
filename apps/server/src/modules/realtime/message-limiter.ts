@@ -26,6 +26,8 @@ export function createMessageLimiter(now: () => number = Date.now) {
     guess: tokenBucket(3, 5, now), // game-rules.md: ~3 guesses per second
     chat: tokenBucket(2, 5, now),
     'vote:kick': tokenBucket(0.5, 3, now),
+    // game-core limits emotes much tighter (game-rules.md#emotes); this only stops floods.
+    emote: tokenBucket(1, 3, now),
   };
   return {
     allow(type: ClientMessageType): boolean {

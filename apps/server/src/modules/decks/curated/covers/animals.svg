@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <!-- Back cover of the curated deck "animals" (docs/product/decks.md#back-cover). Rendered to PNG by db:migrate. -->
+  <defs>
+    <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="2"/>
+      <feDisplacementMap in="SourceGraphic" scale="3.5"/>
+    </filter>
+    <pattern id="stripes" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="20" fill="#ffffff" opacity="0.12"/>
+    </pattern>
+  </defs>
+  <rect width="300" height="400" fill="#fcfaf1"/>
+  <g filter="url(#wobble)">
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="#3d9a4c"/>
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="url(#stripes)"/>
+    <rect x="24" y="24" width="252" height="352" rx="10" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="1 9" stroke-linecap="round" opacity="0.7"/>
+    <g fill="none" stroke="#ffffff" color="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6">
+    <g transform="translate(56 58) rotate(-14) scale(1.35) translate(-12 -12)"><path d="M6 17 Q12 9 18 17 Q18 22 12 21 Q6 22 6 17 Z"/><circle cx="5" cy="10" r="2.3"/><circle cx="12" cy="5.5" r="2.3"/><circle cx="19" cy="10" r="2.3"/></g>
+    <g transform="translate(150 52) rotate(8) scale(1.35) translate(-12 -12)"><path d="M6 17 Q12 9 18 17 Q18 22 12 21 Q6 22 6 17 Z"/><circle cx="5" cy="10" r="2.3"/><circle cx="12" cy="5.5" r="2.3"/><circle cx="19" cy="10" r="2.3"/></g>
+    <g transform="translate(244 58) rotate(16) scale(1.35) translate(-12 -12)"><path d="M6 17 Q12 9 18 17 Q18 22 12 21 Q6 22 6 17 Z"/><circle cx="5" cy="10" r="2.3"/><circle cx="12" cy="5.5" r="2.3"/><circle cx="19" cy="10" r="2.3"/></g>
+    <g transform="translate(44 150) rotate(10) scale(1.35) translate(-12 -12)"><path d="M6 17 Q12 9 18 17 Q18 22 12 21 Q6 22 6 17 Z"/><circle cx="5" cy="10" r="2.3"/><circle cx="12" cy="5.5" r="2.3"/><circle cx="19" cy="10" r="2.3"/></g>
+    <g transform="translate(256 150) rotate(-10) scale(1.35) translate(-12 -12)"><path d="M6 17 Q12 9 18 17 Q18 22 12 21 Q6 22 6 17 Z"/><circle cx="5" cy="10" r="2.3"/><circle cx="12" cy="5.5" r="2.3"/><circle cx="19" cy="10" r="2.3"/></g>
+    <g transform="translate(44 262) rotate(-8) scale(1.35) translate(-12 -12)"><path d="M6 17 Q12 9 18 17 Q18 22 12 21 Q6 22 6 17 Z"/><circle cx="5" cy="10" r="2.3"/><circle cx="12" cy="5.5" r="2.3"/><circle cx="19" cy="10" r="2.3"/></g>
+    <g transform="translate(256 262) rotate(12) scale(1.35) translate(-12 -12)"><path d="M6 17 Q12 9 18 17 Q18 22 12 21 Q6 22 6 17 Z"/><circle cx="5" cy="10" r="2.3"/><circle cx="12" cy="5.5" r="2.3"/><circle cx="19" cy="10" r="2.3"/></g>
+    <g transform="translate(56 344) rotate(14) scale(1.35) translate(-12 -12)"><path d="M6 17 Q12 9 18 17 Q18 22 12 21 Q6 22 6 17 Z"/><circle cx="5" cy="10" r="2.3"/><circle cx="12" cy="5.5" r="2.3"/><circle cx="19" cy="10" r="2.3"/></g>
+    <g transform="translate(150 350) rotate(-6) scale(1.35) translate(-12 -12)"><path d="M6 17 Q12 9 18 17 Q18 22 12 21 Q6 22 6 17 Z"/><circle cx="5" cy="10" r="2.3"/><circle cx="12" cy="5.5" r="2.3"/><circle cx="19" cy="10" r="2.3"/></g>
+    <g transform="translate(244 344) rotate(-16) scale(1.35) translate(-12 -12)"><path d="M6 17 Q12 9 18 17 Q18 22 12 21 Q6 22 6 17 Z"/><circle cx="5" cy="10" r="2.3"/><circle cx="12" cy="5.5" r="2.3"/><circle cx="19" cy="10" r="2.3"/></g>
+    </g>
+    <rect x="12" y="12" width="276" height="376" rx="18" fill="none" stroke="#1f1c31" stroke-width="5"/>
+    <circle cx="155" cy="206" r="92" fill="#1f1c31"/>
+    <circle cx="150" cy="200" r="92" fill="#fcfaf1" stroke="#1f1c31" stroke-width="5"/>
+    <g transform="translate(78 128) scale(1.44)" fill="none" stroke="#1f1c31" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 42 L20 14 L40 28 Q50 25 60 28 L80 14 L78 42 Q88 60 76 74 Q50 92 24 74 Q12 60 22 42 Z" fill="#ffb55e"/>
+      <path d="M26 23 L28 35 M74 23 L72 35" stroke-width="2.5"/>
+      <ellipse cx="38" cy="50" rx="3.5" ry="5.5" fill="#1f1c31"/>
+      <ellipse cx="62" cy="50" rx="3.5" ry="5.5" fill="#1f1c31"/>
+      <path d="M45 60 L55 60 L50 66 Z" fill="#fe7bb3"/>
+      <path d="M50 66 Q46 72 41 69 M50 66 Q54 72 59 69"/>
+      <path d="M4 56 L28 61 M4 68 L28 65 M96 56 L72 61 M96 68 L72 65" stroke-width="2.5"/>
+    </g>
+  </g>
+</svg>

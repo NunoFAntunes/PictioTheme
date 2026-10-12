@@ -53,9 +53,11 @@ test('Chaos mode asks for the deck’s Chaos cards before the match can start', 
     }),
   );
 
-  await host.getByRole('group', { name: 'Mode' }).getByRole('button', { name: /Chaos/ }).click();
-  // Chaos has no difficulties, and everyone sees it on the room card.
-  await expect(host.getByRole('group', { name: 'Difficulty' })).toHaveCount(0);
+  const cards = host.getByRole('radiogroup', { name: 'Cards' });
+  await cards.getByRole('radio', { name: /Chaos/ }).click();
+  // Chaos replaces the difficulties, and everyone sees it on the room card.
+  await expect(cards.getByRole('radio', { name: /Chaos/ })).toBeChecked();
+  await expect(cards.getByRole('radio', { name: 'Mixed' })).not.toBeChecked();
   await expect(bo.getByRole('list', { name: 'Rules' }).getByText('Chaos mode!')).toBeVisible();
   await expect(bo.getByText('Needs Chaos cards')).toBeVisible();
   await expect(start).toBeDisabled();
@@ -64,10 +66,10 @@ test('Chaos mode asks for the deck’s Chaos cards before the match can start', 
   const panel = host.getByTestId('chaos-cards');
   await panel.getByRole('button', { name: /Make Chaos cards/ }).click();
   await expect(panel.getByRole('status')).toHaveText(/Making Chaos cards/);
-  expect(asked).toMatch(/^\/api\/decks\/[0-9a-f-]{36}\/chaos$/);
+  await expect.poll(() => asked).toMatch(/^\/api\/decks\/[0-9a-f-]{36}\/chaos$/);
 
   // Back to normal: the deck's easy and hard cards are enough.
-  await host.getByRole('group', { name: 'Mode' }).getByRole('button', { name: 'Normal' }).click();
+  await cards.getByRole('radio', { name: 'Mixed' }).click();
   await expect(host.getByTestId('chaos-cards')).toHaveCount(0);
   await expect(start).toBeEnabled();
 });
