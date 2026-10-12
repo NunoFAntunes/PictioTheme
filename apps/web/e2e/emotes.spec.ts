@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { followInvite, hostRoom, newPlayerPage } from './support';
+import { expect } from '@playwright/test';
+import { followInvite, hostRoom, newPlayerPage, test } from './support';
 
 /** Emotes: click a character in the margin, pick from the wheel; everyone sees it and the feed says so. */
 

@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { startTurn } from './support';
+import { expect } from '@playwright/test';
+import { startTurn, test } from './support';
 
 /** After a match the host sets up the next one on the waiting room's screen: deck library and rules. */
 

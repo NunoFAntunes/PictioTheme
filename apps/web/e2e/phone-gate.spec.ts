@@ -1,4 +1,5 @@
-import { devices, expect, test } from '@playwright/test';
+import { devices, expect } from '@playwright/test';
+import { test } from './support';
 
 /** Phones get a "bigger screen" page instead of the app; tablets go straight in. */
 

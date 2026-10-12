@@ -1,6 +1,6 @@
 import { CANVAS_WIDTH } from '@pictiotheme/protocol';
-import { devices, expect, test, type CDPSession, type Page } from '@playwright/test';
-import { followInvite, hostRoom, newPlayerPage } from './support';
+import { devices, expect, type CDPSession, type Page } from '@playwright/test';
+import { followInvite, hostRoom, newPlayerPage, test } from './support';
 
 /**
  * Tablets (drawing-tools.md#touch-and-stylus, screens.md §4): the portrait layout, pen pressure,
@@ -175,14 +175,18 @@ test('without a pen, a finger draws (on the cover pad)', async ({ browser }) => 
     y: box.y + box.height * fy,
   });
   const cdp = await page.context().newCDPSession(page);
-  await touch(cdp, [at(0.2, 0.2), at(0.4, 0.4), at(0.6, 0.6), at(0.8, 0.7)]);
-
   const inked = () =>
     pad.evaluate((canvas: HTMLCanvasElement) => {
       const data = canvas.getContext('2d')?.getImageData(0, 0, canvas.width, canvas.height).data;
       return !!data && data.some((v, i) => i % 4 === 3 && v !== 0);
     });
-  await expect.poll(inked).toBe(true);
+  // A busy runner can take over 500ms to deliver the first move, which reads as a long-press
+  // (the colours open, nothing is drawn): close them and draw again.
+  await expect(async () => {
+    await page.keyboard.press('Escape');
+    await touch(cdp, [at(0.2, 0.2), at(0.4, 0.4), at(0.6, 0.6), at(0.8, 0.7)]);
+    await expect.poll(inked, { timeout: 1000 }).toBe(true);
+  }).toPass();
   // The pad is sized up for touch.
   expect(box.width).toBeGreaterThan(300);
 });

@@ -1,6 +1,6 @@
 import type { DeckSummary, GenerationJob } from '@pictiotheme/protocol';
-import { expect, test, type Page } from '@playwright/test';
-import { hostRoom } from './support';
+import { expect, type Page } from '@playwright/test';
+import { hostRoom, test } from './support';
 
 /**
  * Generating a deck from the host's deck picker in the waiting room. CI never calls OpenRouter,

@@ -1,5 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
-import { DRAWER, followInvite, hostRoom, newPlayerPage } from './support';
+import { expect, type Page } from '@playwright/test';
+import { DRAWER, followInvite, hostRoom, newPlayerPage, test } from './support';
 
 /**
  * Guessing out loud. Browsers in tests have no speech recogniser that hears anything, so the

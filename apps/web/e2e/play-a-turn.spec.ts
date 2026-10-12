@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { DRAWER, canvasHasInk, followInvite, hostRoom, newPlayerPage } from './support';
+import { expect } from '@playwright/test';
+import { DRAWER, canvasHasInk, followInvite, hostRoom, newPlayerPage, test } from './support';
 
 /** Two players in separate browser contexts play one turn through the real UI. */
 

@@ -1,6 +1,6 @@
 import type { DeckSummary, GenerationJob } from '@pictiotheme/protocol';
-import { expect, test, type Page } from '@playwright/test';
-import { hostRoom } from './support';
+import { expect, type Page } from '@playwright/test';
+import { hostRoom, test } from './support';
 
 /**
  * The room's language (decks.md#languages): the host types a language on the room card, the

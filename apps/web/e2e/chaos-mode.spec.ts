@@ -1,6 +1,6 @@
 import type { AddChaosResponse, GenerationJob } from '@pictiotheme/protocol';
-import { expect, test } from '@playwright/test';
-import { followInvite, hostRoom, newPlayerPage } from './support';
+import { expect } from '@playwright/test';
+import { followInvite, hostRoom, newPlayerPage, test } from './support';
 
 /**
  * Chaos mode (game-rules.md#card-pool): a room deck without Chaos cards can't start a Chaos match

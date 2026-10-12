@@ -1,6 +1,6 @@
 import type { DeckSummary } from '@pictiotheme/protocol';
-import { expect, test } from '@playwright/test';
-import { hostRoom, newPlayerPage } from './support';
+import { expect } from '@playwright/test';
+import { hostRoom, newPlayerPage, test } from './support';
 
 /** The host's deck picker in the waiting room, over the seeded curated decks (db:migrate seeds them). */
 
@@ -60,8 +60,13 @@ test('turn the page to the community decks and back', async ({ browser }) => {
   await expect(community.getByRole('radio', { name: /Robot Picnic/ })).toBeVisible();
   await expect(featured).toBeHidden();
 
-  await page.getByRole('button', { name: 'Turn back to the featured decks' }).click();
-  await expect(featured.getByRole('radio', { name: /Halloween Night/ })).toBeVisible();
+  // The ribbon does nothing while a page is still turning (700ms), which a slow runner can hit.
+  await expect(async () => {
+    await page.getByRole('button', { name: 'Turn back to the featured decks' }).click();
+    await expect(featured.getByRole('radio', { name: /Halloween Night/ })).toBeVisible({
+      timeout: 1000,
+    });
+  }).toPass();
   await expect(community).toBeHidden();
 
   // Pulling the ribbon down and letting go turns the page too (once the last turn has finished).

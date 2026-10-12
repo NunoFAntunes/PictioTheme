@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { canvasHasInk, followInvite, hostRoom, newPlayerPage } from './support';
+import { expect } from '@playwright/test';
+import { canvasHasInk, followInvite, hostRoom, newPlayerPage, test } from './support';
 
 /** ❤️ likes: the room's most-liked drawing becomes its cover on the home page's room note. */
 

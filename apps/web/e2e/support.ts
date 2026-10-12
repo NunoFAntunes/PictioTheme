@@ -1,6 +1,33 @@
-import { expect, type Browser, type BrowserContextOptions, type Page } from '@playwright/test';
+import {
+  test as base,
+  expect,
+  type Browser,
+  type BrowserContextOptions,
+  type Page,
+} from '@playwright/test';
 
 /** Shared steps for the e2e specs. */
+
+/**
+ * Playwright's `test`, closing the contexts each test opens on the shared `browser` when it ends.
+ * Left open, every earlier test's players stay in the room (games still ticking) for the rest of
+ * the worker, and on CI the load slowed input enough for a quick touch to read as a long-press.
+ */
+export const test = base.extend<{ closeContexts: void }>({
+  closeContexts: [
+    async ({ browser }, use) => {
+      const before = new Set(browser.contexts());
+      await use();
+      await Promise.all(
+        browser
+          .contexts()
+          .filter((c) => !before.has(c))
+          .map((c) => c.close()),
+      );
+    },
+    { auto: true },
+  ],
+});
 
 /**
  * A player in their own browser context. Hides the Astro dev toolbar, which sits over the bottom

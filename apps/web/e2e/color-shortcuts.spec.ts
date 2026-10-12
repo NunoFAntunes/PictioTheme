@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { startTurn } from './support';
+import { expect } from '@playwright/test';
+import { startTurn, test } from './support';
 
 /**
  * The drawer samples colours from the canvas and switches colours from the keyboard

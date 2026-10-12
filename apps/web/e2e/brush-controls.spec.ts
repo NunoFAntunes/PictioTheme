@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { canvasHasInk, startTurn } from './support';
+import { expect } from '@playwright/test';
+import { canvasHasInk, startTurn, test } from './support';
 
 /**
  * The drawer adjusts size and opacity by dragging on the canvas and from the keyboard

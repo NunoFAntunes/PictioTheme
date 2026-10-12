@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { followInvite, hostRoom, newPlayerPage, startTurn } from './support';
+import { expect } from '@playwright/test';
+import { followInvite, hostRoom, newPlayerPage, startTurn, test } from './support';
 
 test('players waiting for the host get toys around the house rules; the host gets the deck library', async ({
   browser,

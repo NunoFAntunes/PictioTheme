@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { DRAWER, followInvite, hostRoom, newPlayerPage } from './support';
+import { expect } from '@playwright/test';
+import { DRAWER, followInvite, hostRoom, newPlayerPage, test } from './support';
 
 /** Rush mode: the first correct guess starts a draining bar for everyone (game-rules.md#rush). */
 

@@ -1,5 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
-import { newPlayerPage } from './support';
+import { expect, type Page } from '@playwright/test';
+import { newPlayerPage, test } from './support';
 
 /** The landing hero: the logo is a toy (grab, fling, springs home) and the CTA leads to the lobby. */
 

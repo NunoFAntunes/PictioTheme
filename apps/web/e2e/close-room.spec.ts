@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { followInvite, hostRoom, newPlayerPage } from './support';
+import { expect } from '@playwright/test';
+import { followInvite, hostRoom, newPlayerPage, test } from './support';
 
 test('the host closes the room for everyone', async ({ browser }) => {
   const host = await newPlayerPage(browser);

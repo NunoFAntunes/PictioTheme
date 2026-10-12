@@ -1,5 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
-import { followInvite, nameOnHome, newPlayerPage, startTurn } from './support';
+import { expect, type Page } from '@playwright/test';
+import { followInvite, nameOnHome, newPlayerPage, startTurn, test } from './support';
 
 /** Drawn avatars: draw on the pad, and everyone in the room sees the image. */
 
