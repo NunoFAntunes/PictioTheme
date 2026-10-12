@@ -83,9 +83,9 @@ function ToolButton({
       aria-pressed={active}
       aria-keyshortcuts={key}
       onClick={onSelect}
-      className={`relative grid size-11 place-items-center rounded-xl border-2 transition pointer-coarse:size-12 ${active ? '-translate-y-0.5 -rotate-3 border-ink bg-pop-sun text-ink shadow-[2px_3px_0_var(--color-ink)] motion-safe:animate-choice-wiggle' : 'border-transparent hover:-rotate-2 hover:bg-white dark:hover:bg-zinc-700'}`}
+      className={`relative grid h-16 w-14 place-items-center rounded-xl border-2 transition ${active ? '-translate-y-0.5 -rotate-3 border-ink bg-pop-sun text-ink shadow-[2px_3px_0_var(--color-ink)] motion-safe:animate-choice-wiggle' : 'border-transparent hover:-rotate-2 hover:bg-white dark:hover:bg-zinc-700'}`}
     >
-      <Icon className="size-8" ink={color} />
+      <Icon className="size-10" ink={color} />
       <Keycap>{key}</Keycap>
     </button>
   );
@@ -142,16 +142,18 @@ export function Toolbar({
 
   // Touch screens get finger-sized targets (44 px, rule W15); mouse users keep the compact bar.
   const iconButton =
-    'relative grid size-10 place-items-center rounded-xl transition pointer-coarse:size-11 enabled:hover:bg-white disabled:opacity-35 dark:enabled:hover:bg-zinc-700';
+    'relative grid place-items-center rounded-lg transition enabled:hover:bg-white disabled:opacity-35 dark:enabled:hover:bg-zinc-700';
 
   return (
     <div
       ref={ref}
-      className="flex max-w-full min-w-0 flex-col gap-2 rounded-2xl border border-zinc-200 bg-white p-2 text-ink shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100"
+      className="@container flex max-w-full min-w-0 flex-wrap items-stretch gap-2 rounded-2xl border border-zinc-200 bg-white p-2 text-ink shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100"
       role="toolbar"
       aria-label={label}
     >
-      <div className="flex flex-wrap items-center gap-2">
+      {/* Tools and colours on the left, settings on the right. One row where it fits; where it
+          doesn't, the settings wrap under as a whole. Trays in a line stretch to one height. */}
+      <div className="flex min-w-0 flex-wrap items-stretch gap-2">
         <Zone label="Tools">
           {TOOLS.map((t) => (
             <ToolButton
@@ -164,63 +166,6 @@ export function Toolbar({
           ))}
         </Zone>
 
-        <BrushControls tool={tool} onChange={onChange} />
-
-        <div className="ml-auto flex items-center gap-2">
-          <Zone label="History">
-            <button
-              type="button"
-              title={`Undo (${UNDO_KEYS})`}
-              aria-label="Undo"
-              aria-keyshortcuts="Control+Z Meta+Z"
-              disabled={!canUndo}
-              onClick={() => emit({ t: 'draw:undo' })}
-              className={iconButton}
-            >
-              <UndoIcon className="size-7" />
-              <Keycap>{UNDO_KEYS}</Keycap>
-            </button>
-            <button
-              type="button"
-              title={`Redo (${REDO_KEYS})`}
-              aria-label="Redo"
-              aria-keyshortcuts="Control+Shift+Z Meta+Shift+Z"
-              disabled={!canRedo}
-              onClick={() => emit({ t: 'draw:redo' })}
-              className={iconButton}
-            >
-              <RedoIcon className="size-7" />
-              <Keycap>{REDO_KEYS}</Keycap>
-            </button>
-          </Zone>
-          <button
-            type="button"
-            title="Clear the whole drawing"
-            aria-label="Clear canvas"
-            disabled={blank}
-            onClick={() => {
-              if (window.confirm('Clear the whole drawing? You can undo this.'))
-                emit({ t: 'draw:clear' });
-            }}
-            className={`${iconButton} enabled:hover:bg-red-50 dark:enabled:hover:bg-red-950`}
-          >
-            <TrashIcon className="size-7" />
-          </button>
-          <button
-            type="button"
-            title={hintsShown ? 'Hide the keys on the buttons' : 'Show the keys on the buttons'}
-            aria-label="Show shortcut keys"
-            aria-pressed={hintsShown}
-            onClick={toggleHints}
-            className={`grid size-9 place-items-center rounded-full pointer-coarse:hidden ${hintsShown ? 'text-ink dark:text-zinc-100' : 'text-zinc-400'} hover:bg-zinc-100 dark:hover:bg-zinc-800`}
-          >
-            <KeyboardIcon className="size-6" />
-          </button>
-          <ToolbarHelp />
-        </div>
-      </div>
-
-      <div className="flex flex-wrap items-center gap-2">
         <Zone label="Colour" className="gap-2 pr-2">
           <InkWell
             tool={tool}
@@ -234,9 +179,9 @@ export function Toolbar({
               aria-label="Pick up a colour from the drawing"
               aria-pressed={picking}
               onClick={onTogglePicking}
-              className={`relative grid size-10 place-items-center rounded-xl border-2 transition pointer-coarse:size-11 ${picking ? 'border-ink bg-pop-sun text-ink shadow-[2px_3px_0_var(--color-ink)]' : 'border-transparent hover:bg-white dark:hover:bg-zinc-700'}`}
+              className={`relative grid h-16 w-11 place-items-center rounded-xl border-2 transition ${picking ? 'border-ink bg-pop-sun text-ink shadow-[2px_3px_0_var(--color-ink)]' : 'border-transparent hover:bg-white dark:hover:bg-zinc-700'}`}
             >
-              <DropperIcon className="size-7" ink={tool.color} />
+              <DropperIcon className="size-8" ink={tool.color} />
               <Keycap>{`${ALT}+click`}</Keycap>
             </button>
           )}
@@ -244,8 +189,9 @@ export function Toolbar({
 
         <ColorSlots color={tool.color} onUse={(color) => onChange(withColor(tool, color))} />
 
-        <Zone label="Palette" className="px-2 py-1.5">
+        <Zone label="Palette" className="px-2">
           <PaletteGrid
+            tight
             swatch={(c) => {
               const active = tool.color === c.hex;
               return (
@@ -256,12 +202,77 @@ export function Toolbar({
                   aria-label={c.label}
                   aria-pressed={active}
                   onClick={() => onChange(withColor(tool, c.hex))}
-                  className={`size-5 rounded-[5px] transition hover:scale-115 pointer-coarse:size-9 ${active ? 'relative z-10 scale-115 ring-2 ring-ink ring-offset-1 dark:ring-zinc-100 dark:ring-offset-zinc-900' : 'ring-1 ring-black/15 ring-inset'}`}
+                  className={`h-7 w-5 rounded-[5px] transition hover:scale-115 pointer-coarse:size-9 ${active ? 'relative z-10 scale-115 ring-2 ring-ink ring-offset-1 dark:ring-zinc-100 dark:ring-offset-zinc-900' : 'ring-1 ring-black/15 ring-inset'}`}
                   style={{ backgroundColor: c.hex }}
                 />
               );
             }}
           />
+        </Zone>
+      </div>
+
+      <div className="ml-auto flex flex-wrap items-stretch gap-2">
+        <BrushControls tool={tool} onChange={onChange} />
+
+        {/* Undo and redo big on top, clear and the help buttons small underneath: short enough
+            for the single row. Where the bar wraps anyway (under ~1380 px, about what the row
+            needs) and on touch screens, they sit in a line. */}
+        <Zone
+          label="History"
+          className="flex-col gap-0.5 @max-[86rem]:flex-row @max-[86rem]:gap-1 pointer-coarse:flex-row"
+        >
+          <div className="flex gap-1">
+            <button
+              type="button"
+              title={`Undo (${UNDO_KEYS})`}
+              aria-label="Undo"
+              aria-keyshortcuts="Control+Z Meta+Z"
+              disabled={!canUndo}
+              onClick={() => emit({ t: 'draw:undo' })}
+              className={`${iconButton} h-8 w-11 pointer-coarse:size-11`}
+            >
+              <UndoIcon className="size-6" />
+              <Keycap className="-top-1.5 -right-1">{UNDO_KEYS}</Keycap>
+            </button>
+            <button
+              type="button"
+              title={`Redo (${REDO_KEYS})`}
+              aria-label="Redo"
+              aria-keyshortcuts="Control+Shift+Z Meta+Shift+Z"
+              disabled={!canRedo}
+              onClick={() => emit({ t: 'draw:redo' })}
+              className={`${iconButton} h-8 w-11 pointer-coarse:size-11`}
+            >
+              <RedoIcon className="size-6" />
+              <Keycap className="-top-1.5 -right-1">{REDO_KEYS}</Keycap>
+            </button>
+          </div>
+          <div className="flex justify-between gap-1">
+            <button
+              type="button"
+              title="Clear the whole drawing"
+              aria-label="Clear canvas"
+              disabled={blank}
+              onClick={() => {
+                if (window.confirm('Clear the whole drawing? You can undo this.'))
+                  emit({ t: 'draw:clear' });
+              }}
+              className={`${iconButton} size-7 enabled:hover:bg-red-50 pointer-coarse:size-11 dark:enabled:hover:bg-red-950`}
+            >
+              <TrashIcon className="size-5 pointer-coarse:size-7" />
+            </button>
+            <button
+              type="button"
+              title={hintsShown ? 'Hide the keys on the buttons' : 'Show the keys on the buttons'}
+              aria-label="Show shortcut keys"
+              aria-pressed={hintsShown}
+              onClick={toggleHints}
+              className={`${iconButton} size-7 pointer-coarse:hidden ${hintsShown ? 'text-ink dark:text-zinc-100' : 'text-zinc-400'}`}
+            >
+              <KeyboardIcon className="size-5" />
+            </button>
+            <ToolbarHelp />
+          </div>
         </Zone>
       </div>
     </div>

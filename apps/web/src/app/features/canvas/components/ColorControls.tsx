@@ -27,7 +27,7 @@ export function InkWell({
 }) {
   const previous = previousColor(tool);
   return (
-    <div className="relative size-14 shrink-0 pointer-coarse:size-16">
+    <div className="relative size-16 shrink-0">
       {previous && (
         <button
           type="button"
@@ -35,7 +35,7 @@ export function InkWell({
           aria-label={`Swap to previous colour ${previous}`}
           aria-keyshortcuts="X"
           onClick={onSwap}
-          className="absolute right-0 bottom-0 size-7 rounded-lg border-2 border-white shadow-sm ring-1 ring-zinc-400 transition hover:scale-110 pointer-coarse:size-8 dark:border-zinc-900"
+          className="absolute right-0 bottom-0 size-8 rounded-lg border-2 border-white shadow-sm ring-1 ring-zinc-400 transition hover:scale-110 dark:border-zinc-900"
           style={{ backgroundColor: previous }}
         >
           <Keycap className="-right-2 -bottom-2">X</Keycap>
@@ -47,7 +47,7 @@ export function InkWell({
         aria-label={`Current colour ${tool.color}. More colours`}
         aria-keyshortcuts="C"
         onClick={onOpen}
-        className="absolute top-0 left-0 size-10 rounded-xl border-[3px] border-ink shadow-[2px_3px_0_var(--color-ink)] transition hover:-translate-y-0.5 hover:shadow-[3px_4px_0_var(--color-ink)] pointer-coarse:size-12 dark:border-zinc-100"
+        className="absolute top-0 left-0 size-12 rounded-xl border-[3px] border-ink shadow-[2px_3px_0_var(--color-ink)] transition hover:-translate-y-0.5 hover:shadow-[3px_4px_0_var(--color-ink)] dark:border-zinc-100"
         style={{ background: inkOverChecker(tool.color, tool.opacity) }}
       >
         <span
@@ -68,12 +68,18 @@ export function InkWell({
 export function PaletteGrid({
   swatch,
   wrapAt,
+  tight = false,
 }: {
   swatch: (s: Swatch) => ReactNode;
   wrapAt?: number;
+  /** Closer swatches (the toolbar's single row); they stay apart on touch screens. */
+  tight?: boolean;
 }) {
   const band = (columns: (readonly [Swatch, Swatch])[], key: string) => (
-    <div key={key} className="grid grid-flow-col grid-rows-2 gap-1">
+    <div
+      key={key}
+      className={`grid grid-flow-col grid-rows-2 ${tight ? 'gap-0.5 pointer-coarse:gap-1' : 'gap-1'}`}
+    >
       {columns.flat().map(swatch)}
     </div>
   );
@@ -85,7 +91,7 @@ export function PaletteGrid({
     return <div className="flex flex-col gap-1">{bands}</div>;
   }
   return (
-    <div className="flex items-center gap-2">
+    <div className={`flex items-center ${tight ? 'gap-1.5' : 'gap-2'}`}>
       {PALETTE_GROUPS.map((g) => band(g.columns, g.label))}
     </div>
   );

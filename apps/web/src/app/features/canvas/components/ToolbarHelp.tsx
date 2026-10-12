@@ -72,7 +72,7 @@ export function ToolbarHelp() {
         aria-expanded={open}
         aria-controls={id}
         onClick={() => setOpen((o) => !o)}
-        className={`grid size-9 place-items-center rounded-full font-logo text-lg pointer-coarse:size-11 ${open ? 'bg-ink text-white dark:bg-zinc-100 dark:text-ink' : 'hover:bg-zinc-200 dark:hover:bg-zinc-700'}`}
+        className={`grid size-7 place-items-center rounded-lg font-logo text-base pointer-coarse:size-11 ${open ? 'bg-ink text-white dark:bg-zinc-100 dark:text-ink' : 'hover:bg-white dark:hover:bg-zinc-700'}`}
       >
         ?
       </button>

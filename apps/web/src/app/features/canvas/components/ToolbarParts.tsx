@@ -51,7 +51,7 @@ export function Keycap({
 
 // Spelled out in full: Tailwind only finds class names written literally.
 const RANGE = [
-  'h-2.5 w-full cursor-pointer appearance-none rounded-full ring-1 ring-zinc-300 ring-inset dark:ring-zinc-600',
+  'h-2.5 cursor-pointer appearance-none rounded-full ring-1 ring-zinc-300 ring-inset dark:ring-zinc-600',
   'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600',
   '[&::-webkit-slider-runnable-track]:h-2.5 [&::-webkit-slider-runnable-track]:bg-transparent',
   '[&::-webkit-slider-thumb]:-mt-1 [&::-webkit-slider-thumb]:box-border [&::-webkit-slider-thumb]:size-[18px] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-[3px] [&::-webkit-slider-thumb]:border-ink [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-[1px_2px_0_var(--color-ink)]',
@@ -61,7 +61,16 @@ const RANGE = [
   'pointer-coarse:[&::-webkit-slider-thumb]:size-[26px] pointer-coarse:[&::-webkit-slider-thumb]:-mt-2 pointer-coarse:[&::-moz-range-thumb]:size-[26px]',
 ].join(' ');
 
-/** A labelled range with its value, over a track that shows what it does. */
+/** Sliders stacked in one grid, so their captions, tracks and values line up. */
+export function SliderStack({ children }: { children: ReactNode }) {
+  return (
+    <div className="grid grid-cols-[auto_auto_auto] items-center gap-x-2 gap-y-4 px-1.5">
+      {children}
+    </div>
+  );
+}
+
+/** One line of a `SliderStack`: caption, a track that shows what it does, the value. */
 export function Slider({
   label,
   ariaLabel = label,
@@ -75,7 +84,7 @@ export function Slider({
   keys,
   onChange,
 }: {
-  /** The caption over the track. */
+  /** The caption before the track. */
   label: string;
   ariaLabel?: string;
   value: number;
@@ -92,20 +101,16 @@ export function Slider({
   onChange: (value: number) => void;
 }) {
   return (
-    <label
-      className="relative flex w-32 flex-col justify-center gap-1.5 px-1.5 py-0.5 pointer-coarse:w-36"
-      title={hint}
-    >
-      <span className="flex items-baseline justify-between text-[11px] leading-none">
-        <span className="font-semibold tracking-wide text-zinc-500 uppercase dark:text-zinc-400">
-          {label}
-          {keys && <Keycap inline>{keys}</Keycap>}
-        </span>
-        <span className="font-semibold text-zinc-700 tabular-nums dark:text-zinc-200">
-          {display}
-        </span>
+    <label className="contents">
+      <span
+        title={hint}
+        className="flex items-center text-[11px] leading-none font-semibold tracking-wide text-zinc-500 uppercase dark:text-zinc-400"
+      >
+        {label}
+        {keys && <Keycap inline>{keys}</Keycap>}
       </span>
       <input
+        title={hint}
         type="range"
         aria-label={ariaLabel}
         min={min}
@@ -113,9 +118,12 @@ export function Slider({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className={RANGE}
+        className={`${RANGE} w-24 pointer-coarse:w-32`}
         style={{ background: track }}
       />
+      <span className="w-11 text-right text-[11px] leading-none font-semibold text-zinc-700 tabular-nums dark:text-zinc-200">
+        {display}
+      </span>
     </label>
   );
 }

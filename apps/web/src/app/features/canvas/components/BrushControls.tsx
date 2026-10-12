@@ -1,7 +1,7 @@
 import { MAX_BRUSH_SIZE, MAX_FILL_TOLERANCE, MIN_BRUSH_SIZE } from '@pictiotheme/protocol';
 import { MOD } from '../shortcut-hints';
 import { SIZE_PRESETS, type ToolSettings } from '../tools';
-import { Slider, Zone } from './ToolbarParts';
+import { Slider, SliderStack, Zone } from './ToolbarParts';
 
 const DRAG_HINT = `Or right-drag / ${MOD}-drag on the canvas: ↔ size, ↕ opacity`;
 
@@ -47,19 +47,21 @@ export function BrushControls({
   if (tool.tool === 'fill')
     return (
       <Zone label="Fill">
-        <Slider
-          label="Tolerance"
-          ariaLabel="Fill tolerance"
-          value={tool.fillTolerance}
-          min={0}
-          max={MAX_FILL_TOLERANCE}
-          display={String(tool.fillTolerance)}
-          track={TOLERANCE}
-          hint={`How alike colours must be to fill together ([ and ] step it). ${DRAG_HINT}`}
-          keys="[ ]"
-          onChange={(v) => onChange({ ...tool, fillTolerance: v })}
-        />
-        {opacity}
+        <SliderStack>
+          <Slider
+            label="Tolerance"
+            ariaLabel="Fill tolerance"
+            value={tool.fillTolerance}
+            min={0}
+            max={MAX_FILL_TOLERANCE}
+            display={String(tool.fillTolerance)}
+            track={TOLERANCE}
+            hint={`How alike colours must be to fill together ([ and ] step it). ${DRAG_HINT}`}
+            keys="[ ]"
+            onChange={(v) => onChange({ ...tool, fillTolerance: v })}
+          />
+          {opacity}
+        </SliderStack>
       </Zone>
     );
 
@@ -91,19 +93,21 @@ export function BrushControls({
           );
         })}
       </div>
-      <Slider
-        label="Size"
-        ariaLabel="Brush size"
-        value={tool.size}
-        min={MIN_BRUSH_SIZE}
-        max={MAX_BRUSH_SIZE}
-        display={`${tool.size} px`}
-        track={WEDGE}
-        hint={`[ and ] step the size, Shift doubles. ${DRAG_HINT}`}
-        keys="[ ]"
-        onChange={(v) => onChange({ ...tool, size: v })}
-      />
-      {opacity}
+      <SliderStack>
+        <Slider
+          label="Size"
+          ariaLabel="Brush size"
+          value={tool.size}
+          min={MIN_BRUSH_SIZE}
+          max={MAX_BRUSH_SIZE}
+          display={`${tool.size} px`}
+          track={WEDGE}
+          hint={`[ and ] step the size, Shift doubles. ${DRAG_HINT}`}
+          keys="[ ]"
+          onChange={(v) => onChange({ ...tool, size: v })}
+        />
+        {opacity}
+      </SliderStack>
     </Zone>
   );
 }

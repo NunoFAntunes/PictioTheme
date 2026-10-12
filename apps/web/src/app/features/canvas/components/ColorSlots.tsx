@@ -25,7 +25,7 @@ export function ColorSlots({
 
   return (
     <div
-      className="flex items-center gap-1.5 rounded-xl bg-zinc-100 px-2 py-1.5 dark:bg-zinc-800/70"
+      className="flex items-center gap-1.5 rounded-xl bg-zinc-100 px-2 py-1 dark:bg-zinc-800/70"
       role="group"
       aria-label="Colour slots"
     >
@@ -65,7 +65,7 @@ export function ColorSlots({
             }
             onUse(slot);
           }}
-          className={`relative size-7 rounded-lg select-none [-webkit-touch-callout:none] pointer-coarse:size-10 ${color === slot ? 'ring-2 ring-ink ring-offset-1 dark:ring-zinc-100 dark:ring-offset-zinc-900' : 'ring-1 ring-black/15 ring-inset'}`}
+          className={`relative h-14 w-9 rounded-lg select-none [-webkit-touch-callout:none] pointer-coarse:w-11 ${color === slot ? 'ring-2 ring-ink ring-offset-1 dark:ring-zinc-100 dark:ring-offset-zinc-900' : 'ring-1 ring-black/15 ring-inset'}`}
           style={{ backgroundColor: slot }}
         >
           <span

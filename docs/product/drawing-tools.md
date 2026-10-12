@@ -4,18 +4,20 @@ The canvas is half the game, so it needs to feel responsive and capable without 
 
 ## Toolbar
 
-Under the canvas, in two rows of trays (`Toolbar.tsx`), so each kind of control lives in one place:
+Under the canvas, one row of trays (`Toolbar.tsx`): tools and colours on the left, brush settings and history on the right.
 
 ```
-┌────────────────────────────────────────────────────────────────────────────────┐
-│ [✏️Q 🪣W 🧽E]  [• ● ⬤ ⬤  SIZE [ ] ━━●━ 8 px  OPACITY ▒▒━━● 100%]   [↶ ↷] 🗑 ⌨ ? │
-│ [■C ▪X  💧]    [① ② ③ ④ ⑤]    [▦▦ ▦▦▦▦▦▦▦▦▦ ▦▦▦]  (neutrals · hues · skin & earth) │
-└────────────────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────────────────┐
+│ [✏️Q 🪣W 🧽E] [■C ▪X 💧] [①②③④⑤] [▦▦ ▦▦▦▦▦▦▦▦▦ ▦▦▦]      [• ● ⬤ ⬤ SIZE [ ] ━━●━ 8 px ] [ ↶   ↷ ] │
+│                                                       [         OPACITY ▒▒━━● 100%] [🗑 ⌨ ?] │
+└──────────────────────────────────────────────────────────────────────────────────────────┘
 ```
+
+Every tray in a line is the same height (72 px in the single row): the tools, the colour slots (tall paint chips) and the palette swatches grow to fill it. It needs about 1380 px, which a 1080p screen (or 4K at 150–200%) gives the board. Where the board is narrower (laptops) the right-hand group wraps under as a whole, and clear, ⌨ and ? line up beside undo and redo instead of under them, so the bar stays short.
 
 - **Tools** (Q W E): hand-drawn pencil, bucket and eraser. The pencil's lead and the bucket's spill are the current colour. The chosen tool is a sticker: yellow, outlined, lifted and tilted, with a wiggle when picked (not with reduced motion).
-- **Brush**: four size dots drawn at their relative size (dashed on the eraser), then sliders for size (a thin-to-thick track) and opacity (the current colour from clear to solid over a checkerboard), each with its value. On Fill, tolerance replaces the size controls.
-- **History**: big undo and redo arrows, greyed out when there's nothing to undo or redo. Clear (🗑) sits apart, greyed out on a blank canvas, and asks first.
+- **Brush**: four size dots drawn at their relative size (dashed on the eraser), then size (a thin-to-thick track) and opacity stacked (the current colour from clear to solid over a checkerboard), each with its value. On Fill, tolerance replaces the size controls.
+- **History**: big undo and redo arrows, greyed out when there's nothing to undo or redo. Clear (🗑), ⌨ and ? sit small under them. Clear is greyed out on a blank canvas, and asks first.
 - **Colour**: the **ink well** is the current colour, big, at the current opacity, with the previous colour tucked behind it. Clicking the front opens the [colour popover](#picking-and-sampling-colours), and clicking the back swaps to it (as `X` does). Then the eyedropper, the [colour slots](#colour-slots) and the [palette](#colour-palette).
 - **Keys on the buttons**: every control with a shortcut has a small keycap on its corner (Q, `[ ]`, C, X, 1–5, Ctrl Z…). ⌨ hides or shows them, remembered in this browser. **?** opens a short card with the canvas gestures that have no button (right-drag, Alt+click, holding C…). Touch screens get no keycaps or ⌨, and ? lists the touch gestures instead.
 
