@@ -4,7 +4,7 @@ import { followInvite, hostRoom, newPlayerPage } from './support';
 
 /**
  * Chaos mode (game-rules.md#card-pool): a room deck without Chaos cards can't start a Chaos match
- * until a host has them made (decks.md#chaos-cards). The curated decks have none yet.
+ * until a host has them made (decks.md#chaos-cards). Most curated decks have them; this one doesn't.
  */
 
 test('Chaos mode asks for the deck’s Chaos cards before the match can start', async ({
@@ -16,6 +16,12 @@ test('Chaos mode asks for the deck’s Chaos cards before the match can start', 
   await followInvite(bo, code, 'Bo');
   const start = host.getByRole('button', { name: /start game/i });
   await expect(start).toBeEnabled();
+  await host.getByLabel('Search decks').fill('inventions');
+  await host.getByRole('region', { name: 'Results' }).getByRole('radio').click({ force: true });
+  await expect(host.getByTestId('room-deck')).toHaveAttribute(
+    'title',
+    /Inventions Nobody Asked For/,
+  );
 
   let asked: string | null = null;
   await host.route('**/api/decks/*/chaos', async (route) => {

@@ -13,10 +13,13 @@ test('change the deck from the results and play again', async ({ browser }) => {
 
   await host.getByRole('button', { name: 'Change deck & settings' }).click();
   await expect(host.getByRole('heading', { name: /House rules/ })).toBeVisible();
-  await host.getByLabel('Search decks').fill('dinosaur');
+  await host.getByLabel('Search decks').fill('inventions');
   const found = host.getByRole('region', { name: 'Results' });
   await found.getByRole('radio').click({ force: true });
-  await expect(host.getByTestId('room-deck')).toHaveAttribute('title', /Dinosaur/);
+  await expect(host.getByTestId('room-deck')).toHaveAttribute(
+    'title',
+    /Inventions Nobody Asked For/,
+  );
 
   await host.getByRole('button', { name: '← Back to results' }).click();
   await expect(host.getByRole('heading', { name: 'Results' })).toBeVisible();
