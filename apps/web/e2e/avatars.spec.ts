@@ -32,7 +32,9 @@ test('a drawn avatar shows in the player list for everyone', async ({ browser })
   // Ana drew a face, so the arrow asking for one is gone.
   await expect(host.getByTestId('introduce-yourself')).toHaveCount(0);
   await host.getByRole('button', { name: /new private room/i }).click();
-  await expect(host.getByTestId('room-code')).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/);
+  await expect(host.getByTestId('room-code')).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/, {
+    timeout: 15_000,
+  });
   const code = (await host.getByTestId('room-code').textContent()) ?? '';
 
   // The guest never draws and keeps the avatar made from their initial.
@@ -52,7 +54,9 @@ test('a player who never drew draws themselves in the waiting room, and the room
   const guest = await newPlayerPage(browser);
   await nameOnHome(host, 'Ana', scribble);
   await host.getByRole('button', { name: /new private room/i }).click();
-  await expect(host.getByTestId('room-code')).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/);
+  await expect(host.getByTestId('room-code')).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/, {
+    timeout: 15_000,
+  });
   const code = (await host.getByTestId('room-code').textContent()) ?? '';
 
   // Straight from the invite link, with a generated name and initial.

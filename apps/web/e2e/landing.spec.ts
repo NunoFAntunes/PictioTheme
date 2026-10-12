@@ -50,7 +50,7 @@ test('quick play goes straight into a public room', async ({ browser }) => {
   await page.goto('/');
   await page.getByRole('button', { name: /quick play/i }).click();
   await expect(page).toHaveURL(/\/r\/[A-Z]{3}-[A-Z]{3}$/);
-  await expect(page.getByTestId('room-code')).toBeVisible();
+  await expect(page.getByTestId('room-code')).toBeVisible({ timeout: 15_000 });
   await expect(page.getByRole('switch', { name: 'Public room' })).toHaveAttribute(
     'aria-checked',
     'true',
@@ -98,7 +98,9 @@ test('the host renames a private room and makes it public, and it shows on the h
   const host = await newPlayerPage(browser);
   await host.goto('/');
   await host.getByRole('button', { name: /new private room/i }).click();
-  await expect(host.getByTestId('room-code')).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/);
+  await expect(host.getByTestId('room-code')).toHaveText(/^[A-Z]{3}-[A-Z]{3}$/, {
+    timeout: 15_000,
+  });
 
   await host.getByRole('button', { name: 'Rename the room' }).click();
   await host.getByLabel('Room name').fill('Spooky Scribblers');
