@@ -21,9 +21,13 @@ test('the host closes the room for everyone', async ({ browser }) => {
   await host.getByRole('button', { name: /close room/i }).click();
   await note.getByRole('button', { name: /crumple it up/i }).click();
 
-  // The room is crumpled into a ball and kicked away, and the host is back home.
-  await expect(host).toHaveURL(/\/$/);
-  await expect(guest.getByRole('heading', { name: 'The host closed this room.' })).toBeVisible();
+  // The room is crumpled into a ball and kicked away, and the host is back home. The crumple is
+  // ~2s of chained animations under a full-page SVG filter, playing on both pages at once: on a
+  // CI runner without a GPU, frames are slow enough for it to outlast the default 5s.
+  await expect(host).toHaveURL(/\/$/, { timeout: 15_000 });
+  await expect(guest.getByRole('heading', { name: 'The host closed this room.' })).toBeVisible({
+    timeout: 15_000,
+  });
   // The room is gone: following the invite again doesn't get back in.
   await guest.goto(`/r/${code}`);
   await expect(guest.getByRole('heading', { name: 'The host closed this room.' })).toHaveCount(0);
