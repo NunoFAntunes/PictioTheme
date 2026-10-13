@@ -50,14 +50,19 @@ export type GuessVisibility = z.infer<typeof GuessVisibility>;
 export const GameMode = z.enum(['normal', 'chaos']);
 export type GameMode = z.infer<typeof GameMode>;
 
+/** What the host can set the match's length and the room's size to. */
+export const ROUNDS_RANGE = { min: 1, max: 10 } as const;
+export const DRAW_SECONDS_RANGE = { min: 20, max: 260 } as const;
+export const MAX_PLAYERS_RANGE = { min: 2, max: 16 } as const;
+
 export const RoomSettings = z.object({
   deckId: z.string().min(1),
   mode: GameMode,
   /** Normal mode only: which difficulties to deal. */
   difficulties: z.array(Difficulty).min(1).max(2),
-  rounds: z.number().int().min(1).max(10),
-  drawSeconds: z.number().int().min(30).max(180),
-  maxPlayers: z.number().int().min(2).max(16),
+  rounds: z.number().int().min(ROUNDS_RANGE.min).max(ROUNDS_RANGE.max),
+  drawSeconds: z.number().int().min(DRAW_SECONDS_RANGE.min).max(DRAW_SECONDS_RANGE.max),
+  maxPlayers: z.number().int().min(MAX_PLAYERS_RANGE.min).max(MAX_PLAYERS_RANGE.max),
   guessVisibility: GuessVisibility,
   hints: z.boolean(),
   /** Rush: after the first correct guess the clock drops to a short window and points drain. */

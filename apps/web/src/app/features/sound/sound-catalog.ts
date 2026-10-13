@@ -62,6 +62,8 @@ export const SOUNDS = {
   paperCrumple: { files: ['paper-crumple.mp3'], group: 'room', volume: 0.6 },
   paperKick: { files: ['paper-kick.mp3'], group: 'room', volume: 0.6 },
   // The host circling or ticking a house rule (features/waiting-room), heard by everyone.
+  // The custom-length ruler's marker clicking onto a mark.
+  rulerTick: { files: ['clock-tick.mp3'], group: 'room', volume: 0.2, minGapMs: 35 },
   ruleMark: { files: ['sticker-pop.mp3'], group: 'room', volume: 0.35, minGapMs: 80 },
   // The host turning the deck notebook's page (Featured ⇄ Community, features/deck-picker).
   pageTurn: { files: ['card-flip.mp3'], group: 'room', volume: 0.45, minGapMs: 200 },

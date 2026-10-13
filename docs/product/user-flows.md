@@ -64,14 +64,13 @@ Joining an in-progress public game is allowed. The player joins as a guesser and
 
 Creating takes one click (§3): the room starts private (or public, via Quick play) with the default deck and settings. **The choices below are made in the waiting room**, by the host, while friends arrive. Picking the theme together is part of the fun, not a form to get through.
 
-1. **Room name** (pre-filled, e.g. "Nuno's room") and **Public / Private** toggle.
+1. **Room name** (pre-filled, e.g. "Nuno's room"), **max players** (2–16, default 10: a person and the number, with up/down arrows) and the **Public / Private** toggle.
 1. **Language** (built 2026-10-07): the flag on the room card; the host types a language and picks it. Decks not in it are marked, and the room's deck must be translated (or another picked) before Start works. See [decks.md](decks.md#languages).
 2. **Deck**: search box → results show deck title, theme tags, card counts per kind, play count, rating, and 🌀 if it has Chaos cards. In Chaos mode, decks without them are marked "🌀 to make". A "Preview" button shows 5 sample cards.
    - Not found → "Generate a deck for *'pirate cooking'*" (logged-in users only. Guests see a sign-up prompt).
-3. **Length**: `⚡ Quick` (2 rounds × 60s), `🎲 Classic` (3 × 80s, default) or `🐢 Long` (5 × 120s), with the longest the match can take for the players in the room.
+3. **Length**: `⚡ Quick` (2 rounds × 60s), `🎲 Classic` (3 × 80s, default), `🐢 Long` (5 × 120s) or `📏 Custom`, with the longest the match can take for the players in the room. Custom slides a ruler over the choices: rounds (1–10) along its top edge, seconds to draw (20–260, in steps of 10) along the bottom, a marker on each to slide. Its ✓ sends both to the room (nothing changes for the others until then) and Custom then shows them under it ("4 rounds · 90s"). Numbers that match a preset circle that preset.
 4. **Cards**: one of `Easy`, `Mixed` (default: the deck's easy and hard cards), `Hard` or `🌀 Chaos` (only the absurd cards). This sets the mode and the difficulties together. See [game-rules.md](game-rules.md#card-pool).
 5. **Rules**, as on/off chips: `⚡ Rush` (off by default), `💡 Hints`, `👀 Show guesses` (guess visibility) and `🃏 Pick from 3` (word choice: pick 1 of 3, or one card, still dealt from the deck), all on by default.
-6. **Fine-tune** (folded away): rounds (1–10), draw time (30–180s) and max players (2–16, default 10).
 
 When the room is created, the server generates a unique code and the host lands on the **waiting room** screen.
 

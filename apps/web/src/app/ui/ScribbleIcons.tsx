@@ -82,6 +82,36 @@ export function GlobeIcon({ className = '', fill = 'var(--color-pop-teal)' }: Ic
   );
 }
 
+/** A person: a round head on a pair of shoulders. */
+export function PersonIcon({ className = '', fill = 'var(--color-pop-purple)' }: IconProps) {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true" className={className}>
+      <path
+        d="M33 9C40.5 9.5 44.5 15 44 22 43.5 29 38 33 31.5 32.5 25 32 20.5 27 21 20 21.5 13.5 26 9 33 9Z"
+        fill={fill}
+      />
+      <path d="M13 54C13.5 43 21 37.5 32 37.5 43 37.5 51 43 51.5 54Z" fill={fill} />
+      <path
+        {...STROKE}
+        d="M31 7C39.5 6.5 45 12.5 44.5 20.5 44 28.5 38.5 33.5 31.5 33 24 32.5 19 27 19.5 19.5 20 12 25 7.5 33.5 7.5"
+      />
+      <path
+        {...STROKE}
+        d="M10.5 56.5C10 44 19 36 32 36 45.5 36 54 44 53.5 55.5 40 57 24 57.5 12 56"
+      />
+    </svg>
+  );
+}
+
+/** A chevron for steppers, pointing up (turn it for down). */
+export function ChevronIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 16" aria-hidden="true" className={`overflow-visible ${className}`}>
+      <path {...STROKE} strokeWidth={3.5} d="M3.5 13C7 9 9.5 6 12.5 2.5 15 6 17.5 9.5 21 13.5" />
+    </svg>
+  );
+}
+
 /** A microphone: a capsule with its grille, on a stand. */
 export function MicIcon({ className = '', fill = 'var(--color-pop-pink)' }: IconProps) {
   return (

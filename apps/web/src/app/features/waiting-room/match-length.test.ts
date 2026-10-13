@@ -1,6 +1,6 @@
 import { DEFAULT_ROOM_SETTINGS } from '@pictiotheme/protocol';
 import { describe, expect, it } from 'vitest';
-import { maxMatchMinutes, paceOf } from './match-length';
+import { lengthLabel, maxMatchMinutes, paceOf } from './match-length';
 
 describe('maxMatchMinutes', () => {
   it('counts every player drawing once a round, with the choosing and reveal time', () => {
@@ -26,5 +26,12 @@ describe('paceOf', () => {
 
   it('is null for hand-tuned settings', () => {
     expect(paceOf({ rounds: 4, drawSeconds: 80 })).toBeNull();
+  });
+});
+
+describe('lengthLabel', () => {
+  it('writes the rounds and the draw time, one round without the plural', () => {
+    expect(lengthLabel({ rounds: 4, drawSeconds: 90 })).toBe('4 rounds · 90s');
+    expect(lengthLabel({ rounds: 1, drawSeconds: 20 })).toBe('1 round · 20s');
   });
 });

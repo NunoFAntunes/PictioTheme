@@ -18,6 +18,11 @@ export function maxMatchMinutes(
   return Math.max(1, Math.round((turns * turnMs) / 60_000));
 }
 
+/** "4 rounds · 90s": a length, as the house rules write it. */
+export function lengthLabel({ rounds, drawSeconds }: Pick<RoomSettings, 'rounds' | 'drawSeconds'>) {
+  return `${rounds} round${rounds === 1 ? '' : 's'} · ${drawSeconds}s`;
+}
+
 /** One-click pace presets for rounds and draw time. */
 export const PACES = [
   { id: 'quick', label: '⚡ Quick', rounds: 2, drawSeconds: 60 },

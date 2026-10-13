@@ -189,7 +189,13 @@ export function RoomCard({ view, host }: { view: RoomView; host: boolean }) {
             <p className="font-hand text-base leading-none text-ink/70">
               Come draw &amp; guess with us in
             </p>
-            <RoomTitle name={view.name} isPublic={view.isPublic} editable={host} align="start" />
+            <RoomTitle
+              name={view.name}
+              isPublic={view.isPublic}
+              maxPlayers={view.settings.maxPlayers}
+              editable={host}
+              align="start"
+            />
             {/* The deck and the language its cards are in, on one line. */}
             <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 font-hand">
               {view.deck && (

@@ -1,26 +1,31 @@
 import { rushWindowMs } from '@pictiotheme/game-core';
 import type { RoomSettings } from '@pictiotheme/protocol';
-import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type ReactNode,
+} from 'react';
 import { sendToRoom, type RoomView } from '../../../realtime';
 import { DOUBLE_LOOP, loopAt, MarkerLoop } from '../../../ui/MarkerLoop';
 import { playSound } from '../../sound';
 import { CARD_POOLS, cardPoolOf, cardPoolSettings } from '../card-pool';
-import { maxMatchMinutes, paceOf, PACES } from '../match-length';
+import { lengthLabel, maxMatchMinutes, paceOf, PACES } from '../match-length';
+import { LengthRuler } from './LengthRuler';
 
 /**
- * The house rules, as three quick choices: how long the match runs (a preset), which cards come
- * up, and which rules are on (ticked boxes). "Fine-tune" folds away the exact rounds, draw time
- * and room size. Editable by the host; everyone else sees them read-only. The deck is chosen
- * beside them (WaitingRoom); the room's name and public/private sit on top (RoomTitle).
+ * The house rules, as three quick choices: how long the match runs (a preset, or Custom: the
+ * exact rounds and draw time, set on a ruler, LengthRuler), which cards come up, and which rules
+ * are on (ticked boxes). Editable by the host; everyone else sees them read-only. The deck is
+ * chosen beside them (WaitingRoom); the room's name, public/private and size sit on top
+ * (RoomTitle).
  *
  * They're written on a notepad (WaitingRoom's Notebook): a choice is circled in marker, and a rule
  * is ticked. The loop and the tick draw themselves when the setting changes, so the players
  * watch the host's pen too.
  */
-
-const ROUNDS = Array.from({ length: 10 }, (_, i) => i + 1);
-const DRAW_SECONDS = [30, 45, 60, 80, 100, 120, 150, 180];
-const MAX_PLAYERS = Array.from({ length: 15 }, (_, i) => i + 2);
 
 /** The on/off rules, each a tick box: what it's called, whether it's on, and what turning it on does. */
 const RULES: {
@@ -84,8 +89,8 @@ function useMarkSound(value: unknown) {
 const ARROWS: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
 
 /**
- * One of a few choices, circled in marker. A radio group: the arrow keys move the pen. `value` is
- * null when none of them fits (a custom length).
+ * One of a few choices, circled in marker. A radio group: the arrow keys move the pen. A choice's
+ * `note` is written small under it.
  */
 function Choices<T extends string>({
   label,
@@ -96,7 +101,7 @@ function Choices<T extends string>({
   className,
 }: {
   label: string;
-  choices: readonly { id: T; label: string; wild?: boolean }[];
+  choices: readonly { id: T; label: string; wild?: boolean; note?: string }[];
   value: T | null;
   editable: boolean;
   onChange: (id: T) => void;
@@ -137,12 +142,13 @@ function Choices<T extends string>({
             }}
             type="button"
             role="radio"
+            data-choice={c.id}
             aria-checked={on}
             tabIndex={on || (chosen === -1 && i === 0) ? 0 : -1}
             disabled={!editable}
             onClick={() => onChange(c.id)}
             onKeyDown={(e) => onKeyDown(e, i)}
-            className="group flex justify-center rounded-md px-2 py-1.5 font-hand text-lg leading-tight whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink focus-visible:outline-dashed disabled:cursor-default pointer-coarse:min-h-11"
+            className="group flex flex-col items-center rounded-md px-2 py-1.5 font-hand text-lg leading-tight whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink focus-visible:outline-dashed disabled:cursor-default pointer-coarse:min-h-11"
           >
             <span
               className={`relative inline-block ${on ? 'text-ink motion-safe:animate-choice-wiggle' : 'text-ink/60 group-enabled:group-hover:text-ink'}`}
@@ -161,6 +167,7 @@ function Choices<T extends string>({
                 editable && <MarkerLoop key="preview" loop={loop} state="preview" />
               )}
             </span>
+            {c.note && <span className="mt-2 text-sm leading-none text-ink/70">{c.note}</span>}
           </button>
         );
       })}
@@ -176,68 +183,6 @@ function Group({ title, children }: { title: string; children: ReactNode }) {
       </legend>
       <div className="@container flex flex-col gap-1.5">{children}</div>
     </fieldset>
-  );
-}
-
-function Row({ label, hint, children }: { label: string; hint?: string; children: ReactNode }) {
-  return (
-    <div className="flex items-center justify-between gap-3 py-2">
-      <span className="flex min-w-0 flex-col text-sm font-medium">
-        {label}
-        {hint && <span className="text-xs font-normal text-zinc-500">{hint}</span>}
-      </span>
-      <div className="flex shrink-0 items-center gap-2 text-sm">{children}</div>
-    </div>
-  );
-}
-
-/** − value +, stepping through `options`. */
-function Stepper({
-  label,
-  value,
-  options,
-  format = String,
-  disabled,
-  onChange,
-}: {
-  label: string;
-  value: number;
-  options: readonly number[];
-  format?: (n: number) => string;
-  disabled: boolean;
-  onChange: (n: number) => void;
-}) {
-  const index = options.indexOf(value);
-  const step = (by: number) => {
-    const next = options[index + by];
-    if (next !== undefined) onChange(next);
-  };
-  const button =
-    'size-7 rounded-full border-2 border-ink bg-white text-base leading-none hover:bg-pop-sun/40 disabled:opacity-40 disabled:hover:bg-white';
-  return (
-    <div role="group" aria-label={label} className="flex items-center gap-1.5">
-      <button
-        type="button"
-        aria-label={`Less: ${label}`}
-        disabled={disabled || index <= 0}
-        onClick={() => step(-1)}
-        className={button}
-      >
-        −
-      </button>
-      <output aria-live="polite" className="w-12 text-center font-semibold tabular-nums">
-        {format(value)}
-      </output>
-      <button
-        type="button"
-        aria-label={`More: ${label}`}
-        disabled={disabled || index === -1 || index >= options.length - 1}
-        onClick={() => step(1)}
-        className={button}
-      >
-        +
-      </button>
-    </div>
   );
 }
 
@@ -347,64 +292,85 @@ function Rules({
   );
 }
 
-/** The exact numbers behind the Length preset, and the room's size. Open when they're custom. */
-function FineTune({
+/**
+ * How long the match runs: a preset, or Custom. Pressing Custom slides the ruler over the choices
+ * (the host only); its ✓ sends the numbers, and Custom then notes them under it. Numbers that match
+ * a preset circle that preset.
+ */
+function Length({
   settings,
+  players,
   editable,
   update,
 }: {
   settings: RoomSettings;
+  players: number;
   editable: boolean;
   update: (patch: Partial<RoomSettings>) => void;
 }) {
-  const [open, setOpen] = useState(() => paceOf(settings) === null);
+  const [ruler, setRuler] = useState<'closed' | 'open' | 'closing'>('closed');
+  const box = useRef<HTMLDivElement>(null);
+  const pace = paceOf(settings);
+  const minutes = maxMatchMinutes(settings, players);
+  const choices = [
+    ...PACES,
+    {
+      id: 'custom',
+      label: '📏 Custom',
+      note: pace === null ? lengthLabel(settings) : undefined,
+    },
+  ] as const;
+
+  const putAway = useCallback(() => setRuler((r) => (r === 'open' ? 'closing' : r)), []);
+  const closed = () => {
+    setRuler('closed');
+    box.current
+      ?.querySelector<HTMLElement>('[data-choice="custom"]')
+      ?.focus({ preventScroll: true });
+  };
+
   return (
-    <details
-      open={open}
-      onToggle={(e) => setOpen(e.currentTarget.open)}
-      className="group border-t-2 border-dashed border-ink/20"
-    >
-      <summary className="flex cursor-pointer list-none items-center gap-2 py-2 text-sm font-medium [&::-webkit-details-marker]:hidden">
-        <span aria-hidden="true" className="text-zinc-500 transition group-open:rotate-90">
-          ▸
-        </span>
-        Fine-tune
-        <span className="ml-auto truncate text-xs font-normal text-zinc-500">
-          {settings.rounds} round{settings.rounds === 1 ? '' : 's'} · {settings.drawSeconds}s ·{' '}
-          {settings.maxPlayers} players
-        </span>
-      </summary>
-      <div className="flex flex-col divide-y divide-dashed divide-ink/15">
-        <Row label="Rounds" hint="Everyone draws once a round">
-          <Stepper
-            label="Rounds"
-            value={settings.rounds}
-            options={ROUNDS}
-            disabled={!editable}
-            onChange={(rounds) => update({ rounds })}
+    <Group title="Length">
+      <div ref={box} className="relative flex flex-col gap-1.5">
+        <Choices
+          label="Length"
+          choices={choices}
+          value={pace ?? 'custom'}
+          editable={editable}
+          onChange={(id) => {
+            if (id === 'custom') {
+              setRuler('open');
+              return;
+            }
+            const p = PACES.find((x) => x.id === id);
+            if (p) update({ rounds: p.rounds, drawSeconds: p.drawSeconds });
+          }}
+          className="grid grid-cols-2 gap-x-1 gap-y-1.5 @[19.5rem]:grid-cols-4"
+        />
+        <p className="text-xs text-zinc-500">
+          Up to ~{minutes} min with {Math.max(2, players)} players
+        </p>
+        {editable && ruler !== 'closed' && (
+          <LengthRuler
+            initial={settings}
+            players={players}
+            wordChoice={settings.wordChoice}
+            closing={ruler === 'closing'}
+            onConfirm={(length) => {
+              if (
+                length.rounds !== settings.rounds ||
+                length.drawSeconds !== settings.drawSeconds
+              ) {
+                update(length);
+              }
+              putAway();
+            }}
+            onCancel={putAway}
+            onClosed={closed}
           />
-        </Row>
-        <Row label="Draw time">
-          <Stepper
-            label="Draw time"
-            value={settings.drawSeconds}
-            options={DRAW_SECONDS}
-            format={(n) => `${n}s`}
-            disabled={!editable}
-            onChange={(drawSeconds) => update({ drawSeconds })}
-          />
-        </Row>
-        <Row label="Max players">
-          <Stepper
-            label="Max players"
-            value={settings.maxPlayers}
-            options={MAX_PLAYERS}
-            disabled={!editable}
-            onChange={(maxPlayers) => update({ maxPlayers })}
-          />
-        </Row>
+        )}
       </div>
-    </details>
+    </Group>
   );
 }
 
@@ -414,32 +380,14 @@ export function RoomSettingsForm({ view, editable }: { view: RoomView; editable:
   const s = view.settings;
   const update = (patch: Partial<RoomSettings>) =>
     sendToRoom({ t: 'room:settings', settings: patch });
-  const pace = paceOf(s);
   const pool = cardPoolOf(s);
   const players = view.players.filter((p) => p.connected).length;
-  const minutes = maxMatchMinutes(s, players);
 
   return (
     // Two columns when there's room (read-only for players, on results), else one.
     <div className="@container">
       <div className="grid gap-x-6 gap-y-2.5 @xl:grid-cols-2">
-        <Group title="Length">
-          <Choices
-            label="Length"
-            choices={PACES}
-            value={pace}
-            editable={editable}
-            onChange={(id) => {
-              const p = PACES.find((x) => x.id === id);
-              if (p) update({ rounds: p.rounds, drawSeconds: p.drawSeconds });
-            }}
-            className="grid grid-cols-3 gap-2"
-          />
-          <p className="text-xs text-zinc-500">
-            Up to ~{minutes} min with {Math.max(2, players)} players
-            {pace === null && ' · custom length'}
-          </p>
-        </Group>
+        <Length settings={s} players={players} editable={editable} update={update} />
 
         <Group title="Cards">
           {/* Four in a row when they fit, else two by two. */}
@@ -455,9 +403,6 @@ export function RoomSettingsForm({ view, editable }: { view: RoomView; editable:
         </Group>
 
         <Rules settings={s} editable={editable} update={update} />
-        <div className="@xl:pt-5">
-          <FineTune settings={s} editable={editable} update={update} />
-        </div>
       </div>
     </div>
   );

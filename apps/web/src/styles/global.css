@@ -114,6 +114,35 @@
       opacity: 0;
     }
   }
+  /*
+   * The custom-length ruler (features/waiting-room LengthRuler) sliding in over the Length choices
+   * from the left, settling with a little tilt, and sliding back out. With reduced motion it fades.
+   */
+  --animate-ruler-in: ruler-in 520ms cubic-bezier(0.34, 1.25, 0.64, 1) backwards;
+  --animate-ruler-out: ruler-out 300ms cubic-bezier(0.5, 0, 0.75, 0) forwards;
+  --animate-ruler-fade-in: page-fade 150ms ease-out backwards;
+  --animate-ruler-fade-out: page-fade 150ms ease-in reverse forwards;
+
+  @keyframes ruler-in {
+    from {
+      translate: -70% 4px;
+      rotate: -5deg;
+      opacity: 0;
+    }
+    35% {
+      opacity: 1;
+    }
+    75% {
+      rotate: 0.5deg;
+    }
+  }
+  @keyframes ruler-out {
+    to {
+      translate: -70% 4px;
+      rotate: -5deg;
+      opacity: 0;
+    }
+  }
   @keyframes choice-wiggle {
     30% {
       rotate: -4deg;

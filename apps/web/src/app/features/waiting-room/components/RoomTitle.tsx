@@ -2,12 +2,14 @@ import { RoomName } from '@pictiotheme/protocol';
 import { useRef, useState, type CSSProperties } from 'react';
 import { sendToRoom } from '../../../realtime';
 import { StickerLetters, type StickerAlign } from '../../../ui/StickerLetters';
+import { PlayerLimit } from './PlayerLimit';
 import { PrivacyToggle } from './PrivacyToggle';
 
 /**
  * The room's name, as sticker letters like the logo's: they pop on one by one, again after every
  * rename, and hop when you point at them. The host renames the room in place (click the name or
- * ✏️); Enter or leaving the field saves, Escape cancels. Beside it, whether the room is public.
+ * ✏️); Enter or leaving the field saves, Escape cancels. Beside it, whether the room is public
+ * and, when `maxPlayers` is given, how many can join.
  * On the waiting room's card (RoomCard) it's left-aligned; on results, centred.
  */
 
@@ -84,11 +86,13 @@ function RenameField({ name, max, onDone }: { name: string; max: string; onDone:
 export function RoomTitle({
   name,
   isPublic,
+  maxPlayers,
   editable,
   align = 'center',
 }: {
   name: string;
   isPublic: boolean;
+  maxPlayers?: number;
   editable: boolean;
   align?: Align;
 }) {
@@ -150,7 +154,10 @@ export function RoomTitle({
         </div>
         <Squiggle key={name} delayMs={letters * 45 + 250} align={align} />
       </div>
-      <PrivacyToggle isPublic={isPublic} editable={editable} />
+      <div className="flex shrink-0 items-center gap-4">
+        {maxPlayers !== undefined && <PlayerLimit maxPlayers={maxPlayers} editable={editable} />}
+        <PrivacyToggle isPublic={isPublic} editable={editable} />
+      </div>
     </div>
   );
 }
