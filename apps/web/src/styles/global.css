@@ -99,6 +99,18 @@
     }
   }
 
+  /* A player's deck-vote paddle (features/deck-votes): raised from below with a little wave. */
+  --animate-paddle-raise: paddle-raise 600ms cubic-bezier(0.34, 1.5, 0.64, 1) backwards;
+
+  @keyframes paddle-raise {
+    from {
+      translate: 0 60%;
+      rotate: -25deg;
+      scale: 0.5;
+      opacity: 0;
+    }
+  }
+
   /*
    * The house rules' choices (features/waiting-room RoomSettingsForm): a marker loop draws itself
    * round the chosen one while the last one's loop is wiped off, and the chosen word gives a little
@@ -141,6 +153,21 @@
       translate: -70% 4px;
       rotate: -5deg;
       opacity: 0;
+    }
+  }
+  /*
+   * The house rules flipping between the simple view and all the rules (features/waiting-room
+   * HouseRulesView): the notepad's page flips down over its coil and lands with a little bounce.
+   */
+  --animate-rules-flip: rules-flip 480ms cubic-bezier(0.34, 1.35, 0.64, 1) backwards;
+
+  @keyframes rules-flip {
+    from {
+      transform: perspective(60rem) rotateX(-75deg);
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
     }
   }
   @keyframes choice-wiggle {
@@ -296,6 +323,8 @@
   --animate-card-flip: card-flip 400ms ease-in-out backwards;
   --animate-card-pick: card-pick 300ms ease-out forwards;
   --animate-card-discard: card-discard 300ms ease-in forwards;
+  /* Matches SHOW_MS in features/turn-overlays ChosenCard. */
+  --animate-chosen-card: chosen-card 2200ms ease-in-out forwards;
 
   @keyframes deck-riffle-left {
     40%,
@@ -407,6 +436,29 @@
     to {
       translate: 0 40%;
       scale: 0.8;
+      opacity: 0;
+    }
+  }
+  /* Pops in, holds long enough to read, then flies up towards the word in the header. */
+  @keyframes chosen-card {
+    0% {
+      scale: 0.6;
+      rotate: -4deg;
+      opacity: 0;
+    }
+    12% {
+      scale: 1.05;
+      rotate: 0deg;
+      opacity: 1;
+    }
+    18%,
+    80% {
+      scale: 1;
+      opacity: 1;
+    }
+    to {
+      translate: 0 -60%;
+      scale: 0.3;
       opacity: 0;
     }
   }

@@ -1,7 +1,8 @@
 import type { CardOption, RoomDeck } from '@pictiotheme/protocol';
-import type { ReactNode } from 'react';
+import { useCallback, useState, type ReactNode } from 'react';
 import {
   amHost,
+  drawerIdOf,
   playerName,
   sendToRoom,
   useRoomStore,
@@ -10,6 +11,7 @@ import {
 } from '../../../realtime';
 import { CardDeck } from './CardDeck';
 import { CardTable } from './CardTable';
+import { ChosenCard } from './ChosenCard';
 
 /** Overlays on the canvas between and around turns (screens.md §5). */
 
@@ -104,6 +106,17 @@ function Reveal({
 
 export function TurnOverlay() {
   const view = useRoomStore((s) => s.view);
+  // The drawer's card, shown large as choosing turns into drawing (not when joining mid-turn).
+  const kind = view?.phase.kind;
+  const [prevKind, setPrevKind] = useState(kind);
+  const [chosen, setChosen] = useState<string | null>(null);
+  const hideChosen = useCallback(() => setChosen(null), []);
+  if (prevKind !== kind) {
+    setPrevKind(kind);
+    const word = view?.secret.word;
+    const isDrawer = view && drawerIdOf(view.phase) === view.you;
+    setChosen(prevKind === 'choosing' && kind === 'drawing' && isDrawer && word ? word : null);
+  }
   if (!view) return null;
   const { phase } = view;
 
@@ -147,5 +160,6 @@ export function TurnOverlay() {
   }
   if (phase.kind === 'reveal')
     return <Reveal view={view} word={phase.word} deltas={phase.deltas} />;
+  if (phase.kind === 'drawing' && chosen) return <ChosenCard word={chosen} onDone={hideChosen} />;
   return null;
 }

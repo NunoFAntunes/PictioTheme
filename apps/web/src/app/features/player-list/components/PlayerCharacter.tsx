@@ -28,6 +28,8 @@ type Props = {
   bubble: ReactNode;
   /** Shown during a match. */
   score: { rank: number; gained: number; turnKey: string } | null;
+  /** Their deck-vote paddle, held up beside them between matches. */
+  paddle?: ReactNode;
   actions: ReactNode;
   /** Opens the emote wheel around the character (null: no emotes at them, e.g. they're away). */
   onEmotes: ((anchor: HTMLElement) => void) | null;
@@ -42,6 +44,7 @@ export function PlayerCharacter({
   drawing,
   bubble,
   score,
+  paddle,
   actions,
   onEmotes,
   emotesOpen,
@@ -119,6 +122,7 @@ export function PlayerCharacter({
             ✅
           </span>
         )}
+        {paddle && <div className="absolute -top-3 -right-7 z-10">{paddle}</div>}
         {score && (
           <div className="absolute -right-7 -bottom-2">
             <ScoreSticker

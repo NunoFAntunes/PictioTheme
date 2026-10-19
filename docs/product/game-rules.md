@@ -5,8 +5,8 @@
 - A **match** has `R` rounds (default 3).
 - In each **round**, every player draws once, in join order (rotated each round so the first drawer changes).
 - Each **turn**:
-  1. **Choose** (10s): the drawer sees 3 cards drawn from the active pool and picks one. If the timer runs out, a random one is used. The host can turn this off so the drawer always gets a single random card: it's still shuffled and dealt from the deck (a 3.5s phase), and drawing starts when the deal ends or the drawer taps the card.
-  2. **Draw** (default 80s): the drawer draws and the others guess.
+  1. **Choose** (10s): the drawer sees 3 cards drawn from the active pool and picks one, then sees it large on the canvas for a moment as the drawing starts. If the timer runs out, a random one is used, after a 1.5s grace (`chooseGraceMs`) so a last-second pick still counts. The host can turn this off so the drawer always gets a single random card: it's still shuffled and dealt from the deck (a 3.5s phase), and drawing starts when the deal ends or the drawer taps the card.
+  2. **Draw** (default 120s): the drawer draws and the others guess.
   3. **Reveal** (5s): the answer is shown with the scores earned this turn.
 - A turn ends early when **every guesser has guessed correctly**, or, in [rush mode](#rush), when the rush window after the first correct guess runs out.
 
@@ -14,7 +14,7 @@
 
 A room plays in one of two **modes**, set by the host:
 
-- **Normal** (default): the deck's easy and/or hard cards. The host picks one or both difficulties (default both).
+- **Normal** (default): the deck's easy and/or hard cards. The host picks one or both difficulties (default easy only).
 - **🌀 Chaos**: only the deck's Chaos cards, the absurd ones ([decks.md](decks.md#chaos-cards)). Difficulties don't apply. The deck needs at least 10 Chaos cards; until it has them the match can't start, and the host can make them from the waiting room.
 
 The active pool is built when the game starts:
@@ -110,11 +110,24 @@ Ties at the end are broken by the number of correct guesses, then by total guess
 
 Awards don't score points.
 
+## Game styles
+
+The house rules open on a **simple view** (built 2026-10-19): four ready-made games that set the length, the cards and every rule at once. A room starts as the **Easy game**.
+
+| Style | Length | Cards | Rush | Hints, show guesses, pick from 3 |
+|---|---|---|---|---|
+| 🐣 Quick and easy | Quick (2 × 60s) | Easy | Off | On |
+| 🎈 Easy game | Classic (3 × 120s) | Easy | Off | On |
+| 🎯 Standard game | 3 × 120s | Mixed | On | On |
+| 🌀 Chaos mode | 3 × 180s | Chaos (needs the deck's [Chaos cards](decks.md#chaos-cards)) | On | On |
+
+The styles are a web shortcut, not a setting: the server only sees the settings they write. Settings changed in **All rules** (the full view, a switch beside the heading) match no style. Each player flips between the two views for themselves.
+
 ## Rush
 
 **Rush** is a host setting, off by default. It can be changed during a match and takes effect from the next turn. When the first correct guess comes in:
 
-- **The clock drops** to the rush window: a quarter of the draw time, between 15 and 30 seconds (20s at the default 80s). If less time than that is left, the clock stays as it is.
+- **The clock drops** to the rush window: a quarter of the draw time, between 15 and 30 seconds (30s at the default 120s). If less time than that is left, the clock stays as it is.
 - **Points drain** over the window. A guess is worth what the first guesser's speed points were at the start of the window, falling to 100 when the window ends. The order bonus and card multiplier apply as usual. The first guesser gets the normal points.
 - **Everyone sees a bar** under the word that drains with the time left. Players who haven't guessed also see what a guess is worth right now. The feed says "⚡ Rush! 20 seconds left to guess."
 - If nobody has seen a hint yet, **one letter is revealed** as the rush starts, so slower players still have a chance. Later hints still show if their time comes before the window ends.
@@ -127,6 +140,15 @@ Awards don't score points.
 - Likes don't score points. They pick the **room's cover**: the drawing with the most likes so far, cut out of the white background, shown (gently boiling, like the players) on the room's note on the home page.
 - A drawing replaces the cover only with **strictly more** likes: a tie keeps the older one. A drawing nobody liked never becomes the cover.
 - The picture comes from the drawer's browser as the reveal ends (the server keeps strokes, not images). If the drawer has left by then, the cover stays as it was.
+
+## Deck votes
+
+The host picks the deck, but everyone else can say what they'd like to play next.
+
+- **Before a match and at its results**, players see **🙋 Vote for the next deck!**. It opens the deck library the host picks from (search, categories, featured, community and their own decks). Tapping a deck **holds it up on a paddle** beside their doodle in the player list, for everyone to see. Tapping another changes it; "Put my paddle down" takes it back.
+- Under the button, everyone sees **the votes so far**: each voted deck with how many votes and who voted, most voted first. The host's deck library shows the count on each voted deck's cover (🙋 2).
+- **The host decides**: nothing is picked automatically. The host can play a voted deck straight from a player's paddle or with **Play it** in the votes, or ignore them. The host doesn't get the vote button (they pick directly), though a player who becomes host keeps their paddle.
+- Votes are **for the next match**: they all go down when it starts. A player who leaves the room takes their paddle with them; a reconnect keeps it.
 
 ## Emotes
 

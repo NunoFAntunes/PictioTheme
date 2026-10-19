@@ -115,44 +115,51 @@ export function RoomTitle({
     <div
       className={`@container flex w-full flex-wrap items-center gap-x-5 gap-y-2 ${align === 'start' ? 'justify-between' : 'justify-center'}`}
     >
-      <div className={`flex min-w-0 flex-col ${items}`}>
-        <div className="flex min-w-0 items-center gap-2">
-          <h1
-            className="min-w-0 font-logo leading-[1.1] font-normal text-ink"
-            style={sizeFor(name, max, align === 'start' ? 95 : 170)}
-          >
-            <span className="sr-only">{name}</span>
-            {/* Keyed by the name, so the letters pop on again after a rename. */}
-            {editable ? (
-              // A shortcut for the pointer: keyboards and screen readers get the ✏️ button.
-              <button
-                key={name}
-                type="button"
-                tabIndex={-1}
-                aria-hidden="true"
-                onClick={() => setEditing(true)}
-                title="Rename the room"
-                className="cursor-text rounded-xl text-left"
-              >
-                <StickerLetters name={name} align={align} />
-              </button>
-            ) : (
-              <StickerLetters key={name} name={name} align={align} />
-            )}
-          </h1>
-          {editable && (
-            <button
-              type="button"
-              onClick={() => setEditing(true)}
-              aria-label="Rename the room"
-              title="Rename the room"
-              className="shrink-0 rotate-6 rounded-full border-2 border-ink bg-white px-2 py-1 text-sm shadow-[2px_2px_0_var(--color-ink)] transition hover:rotate-0"
+      {/* On the card the name takes what the switches leave it (its own size container, so its
+          size follows that space), and they only move under it when that's under 17rem. */}
+      <div
+        className={`flex min-w-0 flex-col ${items} ${align === 'start' ? '@container grow basis-68' : ''}`}
+      >
+        {/* As wide as the name, so the squiggle under it is too. */}
+        <div className={`flex max-w-full flex-col ${items}`}>
+          <div className="flex min-w-0 items-center gap-2">
+            <h1
+              className="min-w-0 font-logo leading-[1.1] font-normal text-ink"
+              style={sizeFor(name, max, align === 'start' ? 150 : 170)}
             >
-              ✏️
-            </button>
-          )}
+              <span className="sr-only">{name}</span>
+              {/* Keyed by the name, so the letters pop on again after a rename. */}
+              {editable ? (
+                // A shortcut for the pointer: keyboards and screen readers get the ✏️ button.
+                <button
+                  key={name}
+                  type="button"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  onClick={() => setEditing(true)}
+                  title="Rename the room"
+                  className="cursor-text rounded-xl text-left"
+                >
+                  <StickerLetters name={name} align={align} />
+                </button>
+              ) : (
+                <StickerLetters key={name} name={name} align={align} />
+              )}
+            </h1>
+            {editable && (
+              <button
+                type="button"
+                onClick={() => setEditing(true)}
+                aria-label="Rename the room"
+                title="Rename the room"
+                className="shrink-0 rotate-6 rounded-full border-2 border-ink bg-white px-2 py-1 text-sm shadow-[2px_2px_0_var(--color-ink)] transition hover:rotate-0"
+              >
+                ✏️
+              </button>
+            )}
+          </div>
+          <Squiggle key={name} delayMs={letters * 45 + 250} align={align} />
         </div>
-        <Squiggle key={name} delayMs={letters * 45 + 250} align={align} />
       </div>
       <div className="flex shrink-0 items-center gap-4">
         {maxPlayers !== undefined && <PlayerLimit maxPlayers={maxPlayers} editable={editable} />}

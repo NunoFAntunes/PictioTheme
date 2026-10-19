@@ -1,4 +1,5 @@
 import type { AvatarId, PlayerId } from '@pictiotheme/protocol';
+import { dropDeckVote } from './deck-votes';
 import { checkAllSolved, checkPlayerCount, currentDrawerId, endTurn } from './match';
 import { broadcastPlayers, cancel, schedule, send, sendError, sendToAll } from './output';
 import { TIMINGS, type Ctx, type JoiningPlayer, type RoomState } from './types';
@@ -116,6 +117,7 @@ export function removePlayer(c: Ctx, playerId: PlayerId): void {
   cancel(c, `grace:${playerId}`);
   state.kickVotes.delete(playerId);
   for (const voters of state.kickVotes.values()) voters.delete(playerId);
+  dropDeckVote(c, playerId);
 
   if (state.players.size === 0) {
     c.fx.push({ kind: 'close' });

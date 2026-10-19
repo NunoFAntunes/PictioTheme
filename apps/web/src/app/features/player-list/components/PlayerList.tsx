@@ -9,6 +9,7 @@ import {
   type Bubble,
   type RoomView,
 } from '../../../realtime';
+import { DeckPaddle } from '../../deck-votes';
 import { EmoteWheel } from '../../emotes';
 import { rankByScore } from '../leaderboard';
 import { useLeaderboardMotion } from '../use-leaderboard-motion';
@@ -96,6 +97,8 @@ export function PlayerList({ layout = 'column' }: { layout?: 'column' | 'grid' }
   } | null>(null);
   const closeWheel = useCallback(() => setWheel(null), []);
   const inGame = view !== null && view.phase.kind !== 'waiting';
+  // Deck votes are held up between matches (game-rules.md#deck-votes).
+  const voting = view !== null && (view.phase.kind === 'waiting' || view.phase.kind === 'results');
   // A sorted copy: the drawing order is the server's turnOrder and is never derived from this.
   const ranked = view
     ? inGame
@@ -131,6 +134,7 @@ export function PlayerList({ layout = 'column' }: { layout?: 'column' | 'grid' }
             (view.settings.guessVisibility === 'show' ||
               p.id === view.you ||
               bubble.kind === 'correct');
+          const vote = voting ? view.deckVotes[p.id] : undefined;
           return (
             <li key={p.id} data-player-id={p.id} className="w-full max-w-44 px-2">
               <PlayerCharacter
@@ -148,6 +152,20 @@ export function PlayerList({ layout = 'column' }: { layout?: 'column' | 'grid' }
                         turnKey: reveal ? String(reveal.endsAt) : '',
                       }
                     : null
+                }
+                paddle={
+                  vote && (
+                    <DeckPaddle
+                      deck={vote}
+                      voterName={p.name}
+                      playing={vote.id === view.settings.deckId}
+                      onPick={
+                        amHost(view)
+                          ? () => sendToRoom({ t: 'room:settings', settings: { deckId: vote.id } })
+                          : undefined
+                      }
+                    />
+                  )
                 }
                 actions={<PlayerActions player={p} view={view} />}
                 onEmotes={

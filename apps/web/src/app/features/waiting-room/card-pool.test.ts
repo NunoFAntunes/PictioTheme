@@ -3,8 +3,8 @@ import { describe, expect, it } from 'vitest';
 import { CARD_POOLS, cardPoolOf, cardPoolSettings } from './card-pool';
 
 describe('cardPoolOf', () => {
-  it('recognises the default settings as Mixed', () => {
-    expect(cardPoolOf(DEFAULT_ROOM_SETTINGS)).toBe('mixed');
+  it('recognises the default settings as Easy', () => {
+    expect(cardPoolOf(DEFAULT_ROOM_SETTINGS)).toBe('easy');
   });
 
   it('is Chaos whatever the difficulties', () => {

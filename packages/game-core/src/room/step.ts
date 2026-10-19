@@ -1,4 +1,5 @@
 import type { PlayerId, RoomSettings } from '@pictiotheme/protocol';
+import { onDeckVoteFound } from './deck-votes';
 import { onCoverStored } from './likes';
 import { finishMatch, onHintTimer, onPhaseTimer } from './match';
 import { deckRef, onMessage } from './messages';
@@ -56,6 +57,8 @@ export function createRoomState(input: {
     cover: null,
     pendingCover: null,
     favourite: null,
+    deckVotes: new Map(),
+    deckVoteLookups: new Map(),
     emoteCharges: new Map(),
   };
 }
@@ -91,6 +94,9 @@ export function step(state: RoomState, event: RoomEvent, ctx: StepContext): Effe
         state.deck = event.deck;
         sendToAll(c, { t: 'room:settings', settings: state.settings, deck: deckRef(c) });
       }
+      break;
+    case 'deckVoteFound':
+      onDeckVoteFound(c, event.playerId, event.deckId, event.deck);
       break;
     case 'coverStored':
       onCoverStored(c, event.turn);

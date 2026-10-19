@@ -4,6 +4,7 @@ import { prepareCard } from '../guess/classify';
 import { randomInt } from '../rng';
 import { drawerMultiplier, drawerPoints, rushWindowMs } from '../scoring';
 import { buildMask, hintFraction, maxHints, pickHintIndex } from '../word-mask';
+import { clearDeckVotes } from './deck-votes';
 import { considerCover, considerFavourite, startLikes } from './likes';
 import { broadcastPlayers, cancel, connectedIds, schedule, send, sendToAll } from './output';
 import {
@@ -54,6 +55,7 @@ export function startMatch(c: Ctx, pool: CardPool): void {
   // A drawing left over from a match ended mid-turn still counts for the cover, not the awards.
   considerCover(c);
   state.favourite = null;
+  clearDeckVotes(c);
   state.pool = pool;
   state.round = 1;
   state.turnOrder = turnOrderFor(c, 1);
@@ -118,8 +120,14 @@ function startTurn(c: Ctx, drawerId: PlayerId): void {
     options: taken.options,
     endsAt: c.now + (taken.options.length > 1 ? TIMINGS.chooseMs : TIMINGS.dealOneMs),
   };
-  schedule(c, 'phase', state.phase.endsAt);
+  schedule(c, 'phase', phaseTimerAt(state.phase));
   announcePhase(c);
+}
+
+/** When the phase timer fires: at `endsAt`, except a choice of cards, which allows a late pick. */
+function phaseTimerAt(phase: RoomState['phase'] & { endsAt: number }): number {
+  const choice = phase.kind === 'choosing' && phase.options.length > 1;
+  return choice ? phase.endsAt + TIMINGS.chooseGraceMs : phase.endsAt;
 }
 
 /** `byDrawer`: the drawer tapped it, rather than time running out (a card-quality signal). */
@@ -447,7 +455,7 @@ export function resume(c: Ctx): void {
   const { phase } = state;
   if ('endsAt' in phase && paused.phaseRemainingMs !== null) {
     phase.endsAt = c.now + paused.phaseRemainingMs;
-    schedule(c, 'phase', phase.endsAt);
+    schedule(c, 'phase', phaseTimerAt(phase));
   }
   if (phase.kind === 'drawing' && paused.hintRemainingMs !== null) {
     phase.nextHintAt = c.now + paused.hintRemainingMs;

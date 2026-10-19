@@ -37,8 +37,11 @@ export function PrivacyToggle({ isPublic, editable }: { isPublic: boolean; edita
           />
         </span>
       </button>
-      <span className="font-logo text-base text-ink" aria-hidden="true">
-        {isPublic ? 'Public' : 'Private'}
+      {/* Both words in one cell, the other one hidden, so the label is always as wide as the
+          wider: switching never pushes the line around. */}
+      <span className="grid font-logo text-base text-ink" aria-hidden="true">
+        <span className={`col-start-1 row-start-1 ${isPublic ? '' : 'invisible'}`}>Public</span>
+        <span className={`col-start-1 row-start-1 ${isPublic ? 'invisible' : ''}`}>Private</span>
       </span>
       <span id="privacy-hint" className="sr-only">
         {hint}

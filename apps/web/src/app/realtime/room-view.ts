@@ -1,5 +1,6 @@
 import type {
   CardOption,
+  DeckVotes,
   Emote,
   EmoteCharges,
   GuessKind,
@@ -84,6 +85,8 @@ export type RoomView = {
    * null only after reconnecting mid-reveal, when the reveal doesn't say who drew.
    */
   likes: { drawerId: PlayerId | null; likers: PlayerId[] } | null;
+  /** The deck each player voted to play next (their paddle), between matches. */
+  deckVotes: DeckVotes;
   feed: FeedItem[];
   bubbles: Record<PlayerId, Bubble>;
   /** Each player's latest emote. Not kept across a reconnect: a snapshot doesn't replay them. */
@@ -121,6 +124,7 @@ export function viewFromSnapshot(
         : msg.phase.kind === 'reveal'
           ? { drawerId: null, likers: msg.likers }
           : null,
+    deckVotes: msg.deckVotes,
     feed: keep?.feed ?? [],
     bubbles: {},
     emotes: {},
@@ -154,6 +158,8 @@ export function applyServerMessage(view: RoomView, msg: ServerMessage, now: numb
       return { ...view, players: msg.players };
     case 'room:settings':
       return { ...view, settings: msg.settings, deck: msg.deck };
+    case 'deck:votes':
+      return { ...view, deckVotes: msg.votes };
     case 'turn:likes':
       return view.likes ? { ...view, likes: { ...view.likes, likers: msg.likers } } : view;
     case 'room:details':

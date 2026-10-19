@@ -26,8 +26,8 @@ export function lengthLabel({ rounds, drawSeconds }: Pick<RoomSettings, 'rounds'
 /** One-click pace presets for rounds and draw time. */
 export const PACES = [
   { id: 'quick', label: '⚡ Quick', rounds: 2, drawSeconds: 60 },
-  { id: 'classic', label: '🎲 Classic', rounds: 3, drawSeconds: 80 },
-  { id: 'long', label: '🐢 Long', rounds: 5, drawSeconds: 120 },
+  { id: 'classic', label: '🎲 Classic', rounds: 3, drawSeconds: 120 },
+  { id: 'long', label: '🐢 Long', rounds: 5, drawSeconds: 180 },
 ] as const;
 
 export type PaceId = (typeof PACES)[number]['id'];

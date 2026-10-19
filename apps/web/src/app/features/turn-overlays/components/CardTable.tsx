@@ -21,7 +21,6 @@ import { CardBack, CardDeck } from './CardDeck';
 const SHUFFLE_MS = 600; // 2 × --animate-deck-riffle-*
 const DEAL_GAP_MS = 120;
 const DEAL_MS = 450; // --animate-card-deal
-const PICK_MS = 300; // --animate-card-pick
 /**
  * Joining (or reconnecting) late in the phase skips the show and goes straight to the cards. A
  * single card (no "pick from 3") has a short phase, just long enough for its deal.
@@ -68,7 +67,6 @@ export function CardTable({ endsAt, deck, cards, header, footer }: Props) {
   const [votes, setVotes] = useState<Record<number, CardVote>>({});
   const deckRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
-  const pickTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   // Each card deals out of the deck: give it the offset from its own spot back to the deck.
   useLayoutEffect(() => {
@@ -86,8 +84,6 @@ export function CardTable({ endsAt, deck, cards, header, footer }: Props) {
       card.style.setProperty('--from-y', `${dy}px`);
     }
   }, [intro]);
-
-  useEffect(() => () => clearTimeout(pickTimer.current), []);
 
   // Sounds follow the same timeline as the animation: shuffle, a slide per card, the flips.
   const faceUp = options !== null;
@@ -108,9 +104,9 @@ export function CardTable({ endsAt, deck, cards, header, footer }: Props) {
     if (!options || picked !== null) return;
     setPicked(index);
     playSound('cardPick');
-    // Let the chosen card pop before the phase ends and the overlay goes away.
-    const onPick = 'onPick' in cards ? cards.onPick : null;
-    pickTimer.current = setTimeout(() => onPick?.(index), prefersReducedMotion() ? 0 : PICK_MS);
+    // Sent right away, not after the pop: a last-second pick must reach the server in time. The
+    // drawer then sees the chosen card large (ChosenCard).
+    if ('onPick' in cards) cards.onPick(index);
   };
 
   // Each slot is a container, so the face's padding and gap scale with the card, not the board.

@@ -31,6 +31,13 @@ export function soundsForMessage(
       return before.phase.kind === 'drawing' && before.phase.mask !== msg.mask ? ['hint'] : [];
     case 'phase:reveal':
       return before.phase.kind === 'drawing' ? ['timeUp'] : [];
+    case 'deck:votes': {
+      // A paddle goes up (a new or changed vote); putting one down is silent.
+      const raised = Object.entries(after.deckVotes).some(
+        ([id, deck]) => before.deckVotes[id]?.id !== deck.id,
+      );
+      return raised ? ['stickerPop'] : [];
+    }
     // The results screen plays its own ceremony sounds (features/results).
     case 'room:players': {
       const had = new Set(before.players.map((p) => p.id));

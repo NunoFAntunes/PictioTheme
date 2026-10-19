@@ -64,6 +64,7 @@ export function createHarness(options: { settings?: Partial<RoomSettings>; seed?
     settings: {
       ...DEFAULT_ROOM_SETTINGS,
       difficulties: ['easy', 'hard'],
+      drawSeconds: 80,
       deckId: TEST_DECK.id,
       ...options.settings,
     },

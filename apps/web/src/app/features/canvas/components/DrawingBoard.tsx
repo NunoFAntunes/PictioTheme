@@ -39,6 +39,8 @@ type Props = {
     frameClassName: string;
     label: string;
     canvasRef?: RefObject<HTMLCanvasElement | null>;
+    /** A picture to start from (its URL), drawn over like paint, filling `fit` of the pad. */
+    background?: { src: string; fit: number };
   };
 };
 
@@ -83,7 +85,18 @@ export function DrawingBoard({
     if (!canvas || !layer) return;
     // The pad is fixed for the board's lifetime: mount a new board to draw something else.
     const target = padRef.current;
-    const stopRenderer = createRenderer(canvas, target?.model ?? strokeModel, target?.size);
+    let background: { image: HTMLImageElement; fit: number } | undefined;
+    if (target?.background) {
+      const image = new Image();
+      image.src = target.background.src;
+      background = { image, fit: target.background.fit };
+    }
+    const stopRenderer = createRenderer(
+      canvas,
+      target?.model ?? strokeModel,
+      target?.size,
+      background,
+    );
     const cursor = createBrushCursor(canvas, layer);
     cursor.setTool(toolRef.current);
     cursor.setEnabled(canDrawRef.current);

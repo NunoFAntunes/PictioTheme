@@ -44,6 +44,13 @@ export type TileContext = {
   /** The host's own (generated) decks, which get ✏️ to redraw their cover. */
   mineIds: ReadonlySet<string>;
   onSelect: (deck: DeckSummary) => void;
+  /** How many players voted for each deck (deck-votes), shown on its cover. */
+  votes?: ReadonlyMap<string, number> | undefined;
+  /**
+   * A player voting for the next deck (DeckVoteDialog), not the host picking: the selected deck is
+   * their vote, and there are no translate or Chaos hints (the host deals with those).
+   */
+  voting?: boolean;
 };
 
 /**
@@ -108,7 +115,7 @@ export function DeckSection({
   more?: { onClick: () => void; loading: boolean } | null;
   context: TileContext;
 }) {
-  const { language, mode, selectedId, mineIds, onSelect } = context;
+  const { language, mode, selectedId, mineIds, onSelect, votes, voting = false } = context;
   const [redrawing, setRedrawing] = useState<string | null>(null);
   const [limit, setLimit] = useState(COLLAPSED_COUNT);
   if (decks.length === 0 && !leading) return null;
@@ -146,8 +153,10 @@ export function DeckSection({
               deck={deck}
               selected={selectedId === deck.id}
               mine={mineIds.has(deck.id)}
-              needsTranslation={deck.language !== language}
-              needsChaos={mode === 'chaos' && deck.counts.chaos < CHAOS_MIN_CARDS}
+              votes={votes?.get(deck.id) ?? 0}
+              voting={voting}
+              needsTranslation={!voting && deck.language !== language}
+              needsChaos={!voting && mode === 'chaos' && deck.counts.chaos < CHAOS_MIN_CARDS}
               onSelect={() => onSelect(deck)}
               onRedraw={() => setRedrawing(deck.id)}
             />
@@ -202,6 +211,8 @@ function DeckTile({
   deck,
   selected,
   mine,
+  votes,
+  voting,
   needsTranslation,
   needsChaos,
   onSelect,
@@ -210,6 +221,10 @@ function DeckTile({
   deck: DeckSummary;
   selected: boolean;
   mine: boolean;
+  /** Players who voted for it. */
+  votes: number;
+  /** A player voting: the selected deck is their vote. */
+  voting: boolean;
   /** Not in the room's language yet: picking it asks to translate it. */
   needsTranslation: boolean;
   /** Chaos mode, and the deck has no Chaos cards yet: picking it asks to make them. */
@@ -227,7 +242,7 @@ function DeckTile({
       >
         <input
           type="radio"
-          name="deck"
+          name={voting ? 'deck-vote' : 'deck'}
           value={deck.id}
           checked={selected}
           onChange={onSelect}
@@ -253,9 +268,18 @@ function DeckTile({
                 className="-top-2 -left-2.5 h-[calc(100%+1rem)] w-[calc(100%+1.25rem)]"
               />
               <span className="absolute -bottom-1.5 -left-1.5 -rotate-6 rounded-full border-2 border-ink bg-pop-sun px-1.5 text-xs font-semibold text-ink shadow-[1px_1px_0_var(--color-ink)]">
-                ✓ Playing
+                {voting ? '✓ Your vote' : '✓ Playing'}
               </span>
             </>
+          )}
+          {votes > 0 && (
+            <span
+              data-testid="deck-votes"
+              title={`${votes} ${votes === 1 ? 'vote' : 'votes'} to play it next`}
+              className="absolute -right-1.5 -bottom-1.5 rotate-6 rounded-full border-2 border-ink bg-pop-pink px-1.5 text-xs font-semibold text-white shadow-[1px_1px_0_var(--color-ink)]"
+            >
+              🙋 {votes}
+            </span>
           )}
         </span>
         <span className="mt-1 line-clamp-2 font-hand text-base leading-tight text-ink">

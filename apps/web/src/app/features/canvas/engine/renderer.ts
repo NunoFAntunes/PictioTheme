@@ -6,11 +6,15 @@ import { paintOp } from './paint';
  * Renders the stroke model onto a display canvas.
  * Finished operations are painted once onto an offscreen "base" layer; the stroke still being
  * drawn is repainted on top each frame. History rewrites (undo, reset) repaint the base.
+ *
+ * `background` (a picture to draw over, such as your current avatar) is the base's bottom layer,
+ * so the eraser, fills and clearing treat it like paint: `fit` places it on the canvas.
  */
 export function createRenderer(
   display: HTMLCanvasElement,
   model: StrokeModel,
   size: { width: number; height: number } = { width: CANVAS_WIDTH, height: CANVAS_HEIGHT },
+  background?: { image: HTMLImageElement; fit: number },
 ): () => void {
   const { width, height } = size;
   display.width = width;
@@ -35,6 +39,7 @@ export function createRenderer(
 
     if (epoch !== model.epoch || painted > committed) {
       baseCtx.clearRect(0, 0, width, height);
+      if (background) paintBackground(baseCtx, background, width, height);
       painted = 0;
       epoch = model.epoch;
     }
@@ -52,10 +57,32 @@ export function createRenderer(
     if (!frame) frame = requestAnimationFrame(render);
   };
   const unsubscribe = model.subscribe(schedule);
+  // Repaint from scratch once the background has loaded.
+  const onBackground = () => {
+    epoch = -1;
+    schedule();
+  };
+  background?.image.addEventListener('load', onBackground);
   render();
 
   return () => {
+    background?.image.removeEventListener('load', onBackground);
     unsubscribe();
     if (frame) cancelAnimationFrame(frame);
   };
+}
+
+/** The background scaled to fit `fit` of the canvas, centred. Nothing until it has loaded. */
+function paintBackground(
+  ctx: CanvasRenderingContext2D,
+  { image, fit }: { image: HTMLImageElement; fit: number },
+  width: number,
+  height: number,
+) {
+  if (!image.complete || !image.naturalWidth) return;
+  const scale = Math.min((width * fit) / image.naturalWidth, (height * fit) / image.naturalHeight);
+  const w = image.naturalWidth * scale;
+  const h = image.naturalHeight * scale;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(image, (width - w) / 2, (height - h) / 2, w, h);
 }

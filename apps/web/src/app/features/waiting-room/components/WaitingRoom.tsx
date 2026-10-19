@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { amHost, sendToRoom, useRoomStore, type RoomView } from '../../../realtime';
 import { DeckChooser } from '../../deck-picker';
+import { DeckVotes, voteCounts } from '../../deck-votes';
 import { DrawYourself } from '../../identity';
 import { WaitingRoomMusic } from '../../sound';
 import { DOODLE_BUTTON, WOBBLE } from '../../../ui/hand-drawn';
@@ -9,7 +10,7 @@ import { PANEL_HEADING } from '../../../ui/room-frame';
 import { hasChaosCards } from '../chaos';
 import { maxMatchMinutes } from '../match-length';
 import { RoomCard } from './RoomCard';
-import { RoomSettingsForm } from './RoomSettingsForm';
+import { HouseRules, RulesViewToggle } from './HouseRules';
 import { ToysAround } from './ToysAround';
 
 /**
@@ -29,7 +30,7 @@ export function WaitingRoom({ onBack }: { onBack?: () => void } = {}) {
   const afterMatch = onBack !== undefined;
 
   return (
-    <div className="@container mx-auto flex w-full max-w-6xl flex-col gap-4">
+    <div className="@container mx-auto flex min-h-full w-full max-w-6xl flex-col gap-4">
       {afterMatch ? (
         <button
           type="button"
@@ -43,12 +44,14 @@ export function WaitingRoom({ onBack }: { onBack?: () => void } = {}) {
       )}
       <RoomCard view={view} host={host} />
       {!host && <WaitingForHost />}
+      <DeckVotes />
       {!afterMatch && <DrawYourself roomCode={view.code} startFolded={host} />}
 
       {host ? (
-        // Side by side, the deck notebook is as tall as the house rules (it scrolls inside), and
-        // its ribbon bookmark dangles into the room left under them.
-        <div className="grid gap-4 pb-5 @[46rem]:grid-cols-[minmax(0,1fr)_23rem]">
+        // Side by side, the deck notebook and the house rules fill the rest of the screen (up to
+        // 48rem), and never less than the rules' taller side: flipping the rules resizes neither.
+        // The notebook scrolls inside, and its ribbon bookmark dangles into the room left under it.
+        <div className="grid flex-1 gap-4 pb-5 @[46rem]:grid-cols-[minmax(0,1fr)_23rem] @[46rem]:max-h-[49.25rem] @[46rem]:grid-rows-[minmax(min-content,1fr)]">
           <DeckChooser
             className="h-[min(42rem,80dvh)] @[46rem]:h-auto @[46rem]:[contain:size]"
             selectedId={view.settings.deckId}
@@ -56,6 +59,7 @@ export function WaitingRoom({ onBack }: { onBack?: () => void } = {}) {
             language={view.settings.language}
             mode={view.settings.mode}
             onSelect={(deckId) => sendToRoom({ t: 'room:settings', settings: { deckId } })}
+            votes={voteCounts(view.deckVotes)}
           />
           <RulesPanel view={view} editable>
             <StartButton view={view} label={afterMatch ? 'Play again ▶' : 'Start game ▶'} />
@@ -81,15 +85,15 @@ function RulesPanel({
 }) {
   return (
     // A notepad: the heading sits over the pad's red header line, the rules on the ruled lines.
-    <Notebook aria-labelledby="rules-heading">
-      <h2
-        id="rules-heading"
-        className={`mb-2 border-b-2 border-pop-tomato/50 pb-1 ${PANEL_HEADING}`}
-      >
-        House rules{' '}
-        {!editable && <span className="font-sans text-sm text-zinc-500">(the host decides)</span>}
-      </h2>
-      <RoomSettingsForm view={view} editable={editable} />
+    <Notebook aria-labelledby="rules-heading" className="flex flex-col">
+      <div className="mb-2 flex flex-wrap items-end justify-between gap-x-3 gap-y-1 border-b-2 border-pop-tomato/50 pb-1">
+        <h2 id="rules-heading" className={PANEL_HEADING}>
+          House rules{' '}
+          {!editable && <span className="font-sans text-sm text-zinc-500">(the host decides)</span>}
+        </h2>
+        <RulesViewToggle />
+      </div>
+      <HouseRules view={view} editable={editable} />
       {children}
     </Notebook>
   );
@@ -112,24 +116,27 @@ function StartButton({ view, label }: { view: RoomView; label: string }) {
   const canStart = connected >= 2 && deckInLanguage && !needsChaos;
 
   return (
-    <div className="mt-3 flex flex-col items-center gap-1.5 border-t-2 border-dashed border-ink/20 pt-3 dark:border-zinc-600">
-      <button
-        type="button"
-        disabled={!canStart}
-        onClick={() => sendToRoom({ t: 'room:start' })}
-        className={`${DOODLE_BUTTON} ${WOBBLE[1]} -rotate-1 bg-pop-purple px-8 py-2 text-2xl text-white`}
-      >
-        {label}
-      </button>
-      <p className="text-center font-hand text-base text-ink/70 dark:text-zinc-300">
-        {view.deck && !deckInLanguage
-          ? 'Translate the deck, or pick one in the room’s language, to start'
-          : view.deck && needsChaos
-            ? 'Make the deck’s Chaos cards, or pick another deck, to start'
-            : connected < 2
-              ? 'Waiting for at least one more player…'
-              : `${connected} players here, up to ~${maxMatchMinutes(view.settings, connected)} min`}
-      </p>
+    // At the foot of the pad, however tall the row makes it.
+    <div className="mt-auto pt-3">
+      <div className="flex flex-col items-center gap-1.5 border-t-2 border-dashed border-ink/20 pt-3 dark:border-zinc-600">
+        <button
+          type="button"
+          disabled={!canStart}
+          onClick={() => sendToRoom({ t: 'room:start' })}
+          className={`${DOODLE_BUTTON} ${WOBBLE[1]} -rotate-1 bg-pop-purple px-8 py-2 text-2xl text-white`}
+        >
+          {label}
+        </button>
+        <p className="text-center font-hand text-base text-ink/70 dark:text-zinc-300">
+          {view.deck && !deckInLanguage
+            ? 'Translate the deck, or pick one in the room’s language, to start'
+            : view.deck && needsChaos
+              ? 'Make the deck’s Chaos cards, or pick another deck, to start'
+              : connected < 2
+                ? 'Waiting for at least one more player…'
+                : `${connected} players here, up to ~${maxMatchMinutes(view.settings, connected)} min`}
+        </p>
+      </div>
     </div>
   );
 }

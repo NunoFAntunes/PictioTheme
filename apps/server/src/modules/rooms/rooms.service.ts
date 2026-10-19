@@ -162,6 +162,12 @@ export function createRoomsService(deps: {
         {
           transport: deps.transport,
           loadDeck: (id) => deps.decks.getPlayableDeck(id),
+          findDeck: async (id) => {
+            const [deck] = await deps.decks.summaries([id]);
+            return deck
+              ? { id: deck.id, title: deck.title, coverId: deck.coverId, language: deck.language }
+              : null;
+          },
           onMetric: (roomCode, effect) => {
             if (effect.kind === 'matchEnded') log.info({ summary: effect.summary }, 'match ended');
             deps.metrics.onRoomEffect(roomCode, effect);

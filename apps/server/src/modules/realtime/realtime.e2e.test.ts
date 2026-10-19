@@ -106,6 +106,29 @@ describe('realtime, end to end', () => {
     again.close();
   });
 
+  it('a deck vote shows the deck on everyone’s paddle; an unknown deck is refused', async () => {
+    const ana = player();
+    const bo = player();
+    await ana.startSession();
+    const boId = await bo.startSession();
+    const { code, joinToken } = await ana.createRoom('Ana');
+    const anaSocket = await ana.connect(joinToken);
+    const boSocket = await bo.connect((await bo.joinRoom(code, 'Bo')).joinToken);
+    await anaSocket.next('room:players', (m) => m.players.length === 2);
+
+    const { body } = await bo.request('GET', '/api/decks');
+    const deck = (body as { decks: { id: string; title: string }[] }).decks[0];
+    if (!deck) throw new Error('no curated decks');
+    boSocket.send({ t: 'deck:vote', deckId: deck.id });
+    const votes = await anaSocket.next('deck:votes');
+    expect(votes.votes[boId]).toMatchObject({ id: deck.id, title: deck.title });
+
+    boSocket.send({ t: 'deck:vote', deckId: '00000000-0000-7000-8000-000000000000' });
+    expect(await boSocket.next('error')).toMatchObject({ code: 'NOT_FOUND' });
+    anaSocket.close();
+    boSocket.close();
+  });
+
   it('rejects an invalid join token before the upgrade', async () => {
     await expect(player().connect('not-a-token')).rejects.toThrow('upgrade rejected: 401');
   });

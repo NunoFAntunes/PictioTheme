@@ -56,6 +56,11 @@ export const ClientMessage = z.discriminatedUnion('t', [
     index: z.number().int().min(0).max(2),
     vote: CardVote.nullable(),
   }),
+  /**
+   * Hold up a deck you'd like to play next (or put your paddle down with `null`). Anyone, before a
+   * match and at its results; the host decides (game-rules.md#deck-votes).
+   */
+  z.object({ t: z.literal('deck:vote'), deckId: z.string().min(1).max(64).nullable() }),
   /** ❤️ the current drawing (or take it back). Not the drawer; while drawing and at the reveal. */
   z.object({ t: z.literal('turn:like'), liked: z.boolean() }),
   /**
@@ -168,6 +173,14 @@ export const RoomDeck = z.object({
 });
 export type RoomDeck = z.infer<typeof RoomDeck>;
 
+/** A deck a player voted to play next: what their paddle shows. */
+export const VotedDeck = RoomDeck.pick({ id: true, title: true, coverId: true, language: true });
+export type VotedDeck = z.infer<typeof VotedDeck>;
+
+/** Each voter's deck, by player. */
+export const DeckVotes = z.record(PlayerId, VotedDeck);
+export type DeckVotes = z.infer<typeof DeckVotes>;
+
 export const ServerMessage = z.discriminatedUnion('t', [
   z.object({
     t: z.literal('room:snapshot'),
@@ -184,6 +197,8 @@ export const ServerMessage = z.discriminatedUnion('t', [
     strokes: z.array(Stroke),
     /** Who ❤️ the current drawing. */
     likers: z.array(PlayerId),
+    /** The decks players voted to play next. */
+    deckVotes: DeckVotes,
     /** Your emote charges. */
     emoteCharges: EmoteCharges,
     /** Only for the drawer (options while choosing, word while drawing) or players who solved. */
@@ -196,6 +211,8 @@ export const ServerMessage = z.discriminatedUnion('t', [
     deck: RoomDeck.nullable(),
   }),
   z.object({ t: z.literal('room:details'), name: z.string(), isPublic: z.boolean() }),
+  /** The decks players voted to play next, after every change. Cleared when a match starts. */
+  z.object({ t: z.literal('deck:votes'), votes: DeckVotes }),
   /** Who ❤️ the current drawing, after every change. Cleared at the next turn. */
   z.object({ t: z.literal('turn:likes'), likers: z.array(PlayerId) }),
   /**

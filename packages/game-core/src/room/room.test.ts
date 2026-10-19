@@ -165,7 +165,31 @@ describe('starting a match', () => {
   it('picks a card automatically when the drawer does not choose in time', () => {
     const h = createHarness();
     h.startWith();
-    h.advance(TIMINGS.chooseMs);
+    h.advance(TIMINGS.chooseMs + TIMINGS.chooseGraceMs);
+    expect(h.state.phase.kind).toBe('drawing');
+  });
+
+  it('still takes a pick that arrives just after the countdown ends', () => {
+    const h = createHarness();
+    h.startWith();
+    const drawer = h.drawerId();
+    const options = h.state.phase.kind === 'choosing' ? h.state.phase.options : [];
+    h.advance(TIMINGS.chooseMs + TIMINGS.chooseGraceMs - 100);
+    expect(h.state.phase.kind).toBe('choosing');
+    h.send(drawer, { t: 'turn:choose', index: 2 });
+    expect(h.state.phase).toMatchObject({ kind: 'drawing', card: options[2] });
+  });
+
+  it('keeps the late-pick window after a pause during choosing', () => {
+    const h = createHarness();
+    h.startWith();
+    h.advance(TIMINGS.chooseMs - 1_000);
+    h.send('p1', { t: 'room:pause' });
+    h.advance(60_000);
+    h.send('p1', { t: 'room:resume' });
+    h.advance(1_000 + TIMINGS.chooseGraceMs - 100);
+    expect(h.state.phase.kind).toBe('choosing');
+    h.advance(200);
     expect(h.state.phase.kind).toBe('drawing');
   });
 });

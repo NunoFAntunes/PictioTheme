@@ -31,6 +31,7 @@ function view(overrides: Partial<RoomView> = {}): RoomView {
     round: 1,
     secret: {},
     likes: null,
+    deckVotes: {},
     feed: [],
     bubbles: {},
     emotes: {},
@@ -75,6 +76,18 @@ describe('room sounds', () => {
     expect(sounds(msg, view(), view({ players: [player('me')] }))).toEqual(['playerLeave']);
     // Score or connection updates are not joins.
     expect(sounds(msg, view(), view())).toEqual([]);
+  });
+
+  it('pops when a deck-vote paddle goes up, not when one goes down', () => {
+    const space = { id: 'space', title: 'Space', coverId: null, language: 'en' } as const;
+    const ocean = { ...space, id: 'ocean', title: 'Ocean' };
+    const votes = (deckVotes: RoomView['deckVotes']) => view({ deckVotes });
+    const msg = (v: RoomView['deckVotes']) => ({ t: 'deck:votes', votes: v }) as const;
+    expect(sounds(msg({ ana: space }), votes({}), votes({ ana: space }))).toEqual(['stickerPop']);
+    expect(sounds(msg({ ana: ocean }), votes({ ana: space }), votes({ ana: ocean }))).toEqual([
+      'stickerPop',
+    ]);
+    expect(sounds(msg({}), votes({ ana: space }), votes({}))).toEqual([]);
   });
 
   it('plays the hint and time-up cues only on real changes', () => {

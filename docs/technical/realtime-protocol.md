@@ -20,6 +20,7 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 | `vote:kick` | `playerId` | any | |
 | `turn:choose` | `index` (0–2) | drawer | Choosing phase |
 | `turn:vote` | `index` (0–2), `vote` (`up`, `down` or `null` to take it back) | drawer | Choosing phase. Rates an option without picking it (card quality metrics) |
+| `deck:vote` | `deckId` (or `null` to take the vote back) | any | Waiting and results phases (`WRONG_PHASE` otherwise). Holds up the deck the player would like to play next; the server looks the deck up first (`NOT_FOUND` if there's no such visible deck) and only the latest vote counts. 1/s, burst 4 ([game-rules.md](../product/game-rules.md#deck-votes)) |
 | `turn:like` | `liked` | anyone but the drawer | Drawing and reveal phases. ❤️ the current drawing or take it back (game-rules.md, likes) |
 | `emote` | `emote`, `target?` | any | Any phase. Solo emotes (`dance`, `taunt`, `flex`, `cry`) have no `target`; targeted ones (`squish`, `slap`, `tomato`, `hug`) need another connected player (`VALIDATION` otherwise). Uses one of the player's charges: `RATE_LIMITED` when they're out or within the gap after the last one ([game-rules.md](../product/game-rules.md#emotes)) |
 | `draw:begin` | `id, tool, color, size, opacity, x, y` | drawer | Starts a stroke |
@@ -37,6 +38,7 @@ The join token lives 60 seconds, so **every connection, including a reconnect, f
 |---|---|---|
 | `room:snapshot` | full sanitized room state, current strokes, `deck`, `paused`, and `secret` (options/word only for those allowed) | On connect/reconnect |
 | `room:players` | player list | On join/leave/score change, and when a player changes their name or avatar (`PUT /api/rooms/:code/me`, below) |
+| `deck:votes` | `votes: { [playerId]: { id, title, coverId, language } }` | After every deck vote change: a vote, a change of mind, a voter leaving, and `{}` when a match starts. The snapshot carries them as `deckVotes` |
 | `turn:likes` | `likers` | After every like or unlike. Cleared by the client at the next turn; the snapshot carries `likers` too |
 | `emote` | `playerId, emote, target?` | To everyone, including the player who played it. The client animates it and adds a feed line |
 | `emote:charges` | `charges: { left, refillAt, readyAt }` | To the player who played an emote: their charges after it. `refillAt` is when the next one comes back (null when full), `readyAt` the end of the gap. The snapshot carries them as `emoteCharges` |

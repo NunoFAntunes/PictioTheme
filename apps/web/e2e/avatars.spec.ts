@@ -75,6 +75,38 @@ test('a player who never drew draws themselves in the waiting room, and the room
   expect(await after.getAttribute('src')).not.toBe(beforeSrc);
 });
 
+test('editing a drawn avatar starts from it, and "Start over" gives a blank pad', async ({
+  browser,
+}) => {
+  const page = await newPlayerPage(browser);
+  await nameOnHome(page, 'Ana', scribble);
+  await page.getByRole('button', { name: /^Playing as Ana/ }).click();
+
+  // The current drawing is on the pad, ready to draw over.
+  const pad = page.getByLabel('Avatar drawing pad');
+  await expect.poll(() => padHasInk(page)).toBe(true);
+  await page.getByRole('button', { name: 'Start over' }).click();
+  await expect.poll(() => padHasInk(page)).toBe(false);
+  await page.getByRole('button', { name: 'Edit it instead' }).click();
+  await expect.poll(() => padHasInk(page)).toBe(true);
+
+  // Adding to it saves a new drawing.
+  await scribble(page);
+  await page.getByRole('button', { name: 'Save' }).click();
+  await expect(pad).toHaveCount(0);
+});
+
+/** True when the avatar pad has any non-transparent pixel. */
+function padHasInk(page: Page): Promise<boolean> {
+  return page.getByLabel('Avatar drawing pad').evaluate((canvas: HTMLCanvasElement) => {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return false;
+    const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    for (let i = 3; i < data.length; i += 4) if (data[i] !== 0) return true;
+    return false;
+  });
+}
+
 test('mid-match, a player renames themselves from the room header', async ({ browser }) => {
   const { host, guest } = await startTurn(browser); // Ana draws, Bo guesses
   await guest.getByRole('button', { name: /^Playing as Bo: change name or drawing/ }).click();

@@ -3,6 +3,7 @@ import { amHost, playerById, sendToRoom, useRoomStore } from '../../../realtime'
 import { DOODLE_BUTTON, WOBBLE } from '../../../ui/hand-drawn';
 import { BoilFilters } from '../../player-list';
 import { DeckCover } from '../../deck-cover';
+import { DeckVotes } from '../../deck-votes';
 import { ReportDeckButton } from '../../report-deck';
 import { ToysAround, WaitingRoom } from '../../waiting-room';
 import { PodiumCeremony } from './PodiumCeremony';
@@ -74,6 +75,7 @@ export function ResultsPanel() {
           Lobby
         </a>
       </div>
+      <DeckVotes />
       {!host && (
         <>
           <p className="font-hand text-lg text-ink/70">The host can start another match.</p>

@@ -8,6 +8,8 @@ import { defaultCoverStyle } from '../cover-image';
 
 const SIZES = {
   sm: 'w-9 rounded-md text-base',
+  /** On a player's deck-vote paddle (features/deck-votes). */
+  paddle: 'w-11 rounded-md text-xl',
   md: 'w-24 rounded-lg text-sm',
   lg: 'w-40 rounded-xl text-lg',
   /** Beside the waiting room's code: about as tall as it, so the page doesn't grow. */
@@ -52,7 +54,9 @@ export function DeckCover({ deck, size = 'md', src }: Props) {
         aria-hidden
         className="line-clamp-4 rounded bg-black/20 px-1 py-0.5 hyphens-auto break-words"
       >
-        {size === 'sm' ? ([...deck.title.trim()][0]?.toUpperCase() ?? '?') : deck.title}
+        {size === 'sm' || size === 'paddle'
+          ? ([...deck.title.trim()][0]?.toUpperCase() ?? '?')
+          : deck.title}
       </span>
     </span>
   );

@@ -72,6 +72,13 @@ export async function hostRoom(page: Page, name: string): Promise<string> {
   return (await codeButton.textContent()) ?? '';
 }
 
+/** Flips the house rules from the simple view (the default) to all the rules. */
+export async function showAllRules(page: Page) {
+  const toggle = page.getByRole('switch', { name: 'All rules' });
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-checked', 'true');
+}
+
 /** Follows an invite link as `name` (invite links skip the name form). */
 export async function followInvite(page: Page, code: string, name: string) {
   await nameOnHome(page, name);

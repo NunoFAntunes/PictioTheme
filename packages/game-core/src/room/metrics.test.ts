@@ -35,7 +35,7 @@ describe('metric effects', () => {
   it('marks a card picked at random when time runs out as not picked by the drawer', () => {
     const h = createHarness();
     h.startWith();
-    const fx = h.advance(TIMINGS.chooseMs + 10);
+    const fx = h.advance(TIMINGS.chooseMs + TIMINGS.chooseGraceMs + 10);
     expect(ofKind(fx, 'cardsDealt')[0]).toMatchObject({ pickedByDrawer: false });
   });
 

@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { followInvite, hostRoom, newPlayerPage, test } from './support';
+import { followInvite, hostRoom, newPlayerPage, showAllRules, test } from './support';
 
 /**
  * The house rules' Custom length (a ruler the host slides over the Length choices) and the room's
@@ -26,14 +26,16 @@ test('the host sets a custom length on the ruler, and the room size', async ({ b
   await expect(limit).toHaveAttribute('aria-valuenow', '9');
   await expect(bo.getByTitle('Up to 9 players')).toBeVisible();
 
-  // Custom slides the ruler in, starting from the current length (Classic: 3 × 80s).
+  // Custom slides the ruler in, starting from the current length (Classic: 3 × 120s).
+  await showAllRules(host);
+  await showAllRules(bo);
   await host.getByRole('radio', { name: /Custom/ }).click();
   const ruler = host.getByRole('group', { name: 'Custom length' });
   const rounds = ruler.getByRole('slider', { name: 'Rounds' });
   const seconds = ruler.getByRole('slider', { name: 'Seconds to draw' });
   await expect(rounds).toBeFocused();
   await expect(rounds).toHaveAttribute('aria-valuenow', '3');
-  await expect(seconds).toHaveAttribute('aria-valuenow', '80');
+  await expect(seconds).toHaveAttribute('aria-valuenow', '120');
   // Let it finish sliding in before measuring it.
   await ruler.evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)));
   if (SHOTS) await host.screenshot({ path: `${SHOTS}/2-ruler.png` });
@@ -49,7 +51,7 @@ test('the host sets a custom length on the ruler, and the room size', async ({ b
   await expect(rounds).toHaveAttribute('aria-valuenow', '10');
   await seconds.press('ArrowLeft');
   await seconds.press('ArrowLeft');
-  await expect(seconds).toHaveAttribute('aria-valuenow', '60');
+  await expect(seconds).toHaveAttribute('aria-valuenow', '100');
   if (SHOTS) await ruler.screenshot({ path: `${SHOTS}/3-dragged.png` });
 
   // Nothing has reached the room yet.
@@ -59,7 +61,7 @@ test('the host sets a custom length on the ruler, and the room size', async ({ b
   await expect(ruler).toHaveCount(0);
   const custom = bo.getByRole('radio', { name: /Custom/ });
   await expect(custom).toHaveAttribute('aria-checked', 'true');
-  await expect(custom).toContainText('10 rounds · 60s');
+  await expect(custom).toContainText('10 rounds · 100s');
   if (SHOTS) {
     await host.getByRole('radio', { name: /Custom/ }).scrollIntoViewIfNeeded();
     await host.screenshot({ path: `${SHOTS}/4-custom.png` });
@@ -71,5 +73,5 @@ test('the host sets a custom length on the ruler, and the room size', async ({ b
   await rounds.press('Home');
   await rounds.press('Escape');
   await expect(ruler).toHaveCount(0);
-  await expect(host.getByRole('radio', { name: /Custom/ })).toContainText('10 rounds · 60s');
+  await expect(host.getByRole('radio', { name: /Custom/ })).toContainText('10 rounds · 100s');
 });

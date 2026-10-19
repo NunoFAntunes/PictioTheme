@@ -25,7 +25,7 @@ describe('paceOf', () => {
   });
 
   it('is null for hand-tuned settings', () => {
-    expect(paceOf({ rounds: 4, drawSeconds: 80 })).toBeNull();
+    expect(paceOf({ rounds: 4, drawSeconds: 120 })).toBeNull();
   });
 });
 

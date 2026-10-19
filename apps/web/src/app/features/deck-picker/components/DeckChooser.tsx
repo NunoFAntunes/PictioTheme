@@ -5,7 +5,7 @@ import {
   type GameMode,
   type RoomDeck,
 } from '@pictiotheme/protocol';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   ChaosCardsPanel,
   GenerateDeckPanel,
@@ -17,6 +17,7 @@ import { Notebook, NotebookSpread } from '../../../ui/Notebook';
 import { PANEL_HEADING } from '../../../ui/room-frame';
 import { useCommunityDecks, useDecks, useDeckSearch } from '../api';
 import { topTags } from '../top-tags';
+import { useDebounced } from '../use-debounced';
 import { DeckFilters } from './DeckFilters';
 import { DeckSection, NewDeckTile, type TileContext } from './DeckPage';
 import { LibraryPages, type SearchResults } from './LibraryPages';
@@ -42,21 +43,13 @@ import { PlayingDeck } from './PlayingDeck';
 const SEARCH_DEBOUNCE_MS = 250;
 const CATEGORY_COUNT = 6;
 
-function useDebounced(value: string, ms: number): string {
-  const [debounced, setDebounced] = useState(value);
-  useEffect(() => {
-    const timer = setTimeout(() => setDebounced(value), ms);
-    return () => clearTimeout(timer);
-  }, [value, ms]);
-  return debounced;
-}
-
 export function DeckChooser({
   selectedId,
   currentDeck,
   language,
   mode,
   onSelect,
+  votes,
   className = '',
 }: {
   selectedId: string | null;
@@ -66,6 +59,8 @@ export function DeckChooser({
   language: DeckLanguage;
   mode: GameMode;
   onSelect: (deckId: string) => void;
+  /** How many players voted for each deck to play next. */
+  votes?: ReadonlyMap<string, number>;
   className?: string;
 }) {
   const decks = useDecks(language);
@@ -111,6 +106,7 @@ export function DeckChooser({
     selectedId,
     mineIds: new Set(mine.map((d) => d.id)),
     onSelect: pick,
+    votes,
   };
 
   function pick(deck: DeckSummary) {

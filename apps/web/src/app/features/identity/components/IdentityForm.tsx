@@ -7,8 +7,9 @@ import { hasGeneratedAvatar } from '../generated-avatar';
 
 /**
  * "Pick a name and draw your avatar" (user-flows.md §2). Guests need nothing else to play.
- * Leaving the pad blank keeps the current avatar, or makes one from your initial. `onSaved` gets
- * the saved identity.
+ * A drawn avatar starts on the pad to edit, or you start over on a blank one. Leaving it untouched
+ * (or blank) keeps the current avatar, or makes one from your initial. `onSaved` gets the saved
+ * identity.
  */
 export function IdentityForm({
   submitLabel = 'Continue',
@@ -27,6 +28,11 @@ export function IdentityForm({
   const [error, setError] = useState<string | null>(null);
   const padRef = useRef<HTMLCanvasElement>(null);
   const nameId = useId();
+  // A drawn avatar is put on the pad to edit; a generated initial isn't worth drawing over.
+  const editable = identity !== null && !hasGeneratedAvatar(identity);
+  const [startOver, setStartOver] = useState(false);
+  const [edited, setEdited] = useState(false);
+  const fromCurrent = editable && !startOver;
 
   function onSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -36,7 +42,8 @@ export function IdentityForm({
       return;
     }
     const pad = padRef.current;
-    const drawn = pad && !isBlank(pad);
+    // An untouched copy of the current avatar keeps the original, rather than re-cutting it.
+    const drawn = pad && !(fromCurrent && !edited) && !isBlank(pad);
     // A generated initial follows a new name; a drawn avatar is kept.
     const keptInitial = identity && hasGeneratedAvatar(identity);
     const avatar = drawn
@@ -56,6 +63,11 @@ export function IdentityForm({
     setIdentity(saved);
     onSaved?.(saved);
     onDone?.();
+  }
+
+  function switchPad(over: boolean) {
+    setStartOver(over);
+    setEdited(false);
   }
 
   return (
@@ -91,9 +103,28 @@ export function IdentityForm({
       <fieldset>
         <legend className="sr-only">Draw your avatar</legend>
         {/* The note and Save sit under the tools, so the form is no taller than the pad. */}
-        <AvatarPad canvasRef={padRef}>
-          <p className="flex items-center gap-2 text-xs text-zinc-500">
-            {identity ? (
+        <AvatarPad
+          // Starting over (or back) mounts a fresh pad.
+          key={fromCurrent ? 'current' : 'blank'}
+          canvasRef={padRef}
+          startFrom={fromCurrent ? identity.avatar : undefined}
+          onDraw={() => setEdited(true)}
+        >
+          <p className="flex flex-wrap items-center gap-2 text-xs text-zinc-500">
+            {editable ? (
+              fromCurrent ? (
+                <>
+                  Draw over your avatar to change it, or
+                  <PadSwitch onClick={() => switchPad(true)}>Start over</PadSwitch>
+                </>
+              ) : (
+                <>
+                  <Avatar src={identity.avatar} size="sm" alt="Your current avatar" />
+                  Leave the pad blank to keep your current one, or
+                  <PadSwitch onClick={() => switchPad(false)}>Edit it instead</PadSwitch>
+                </>
+              )
+            ) : identity ? (
               <>
                 <Avatar src={identity.avatar} size="sm" alt="Your current avatar" />
                 Leave the pad blank to keep your current one.
@@ -111,5 +142,17 @@ export function IdentityForm({
         </AvatarPad>
       </fieldset>
     </form>
+  );
+}
+
+function PadSwitch({ onClick, children }: { onClick: () => void; children: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="rounded-full border border-zinc-300 px-2.5 py-0.5 font-medium text-zinc-700 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+    >
+      {children}
+    </button>
   );
 }

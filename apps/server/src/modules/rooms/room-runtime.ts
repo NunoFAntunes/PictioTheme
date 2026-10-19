@@ -9,7 +9,7 @@ import {
   type Rng,
   type TimerId,
 } from '@pictiotheme/game-core';
-import { CloseCode, type PublicRoomSummary } from '@pictiotheme/protocol';
+import { CloseCode, type PublicRoomSummary, type VotedDeck } from '@pictiotheme/protocol';
 import type { Logger } from '../../lib/logger';
 import type { RoomTransport } from './room-transport';
 
@@ -21,6 +21,8 @@ import type { RoomTransport } from './room-transport';
 export type RoomRuntimeDeps = {
   transport: RoomTransport;
   loadDeck(deckId: string): Promise<DeckInfo>;
+  /** A deck a player voted for, or null when there's no such (visible) deck. */
+  findDeck(deckId: string): Promise<VotedDeck | null>;
   /** Metric effects (match start/end, cards dealt, turn results, card votes). Best-effort. */
   onMetric(roomCode: string, effect: MetricEffect): void;
   onClosed(roomCode: string): void;
@@ -154,6 +156,16 @@ export class RoomRuntime {
           },
         );
         return;
+      case 'lookupDeckVote': {
+        const { playerId, deckId } = effect;
+        const found = (deck: VotedDeck | null) =>
+          this.handle({ type: 'deckVoteFound', playerId, deckId, deck });
+        deps.findDeck(deckId).then(found, (err: unknown) => {
+          deps.log.warn({ err, deckId, roomCode: this.code }, 'voted deck failed to load');
+          found(null);
+        });
+        return;
+      }
       case 'disconnect':
         deps.transport.disconnect(
           this.code,

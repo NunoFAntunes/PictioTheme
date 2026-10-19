@@ -9,8 +9,12 @@ test('the first correct guess starts the rush meter', async ({ browser }) => {
   const cy = await newPlayerPage(browser);
 
   const code = await hostRoom(host, 'Ana');
-  await host.getByRole('switch', { name: 'Rush' }).click();
-  await expect(host.getByRole('switch', { name: 'Rush' })).toHaveAttribute('aria-checked', 'true');
+  // The Standard game plays with rush.
+  await host.getByRole('radio', { name: /Standard game/ }).click();
+  await expect(host.getByRole('radio', { name: /Standard game/ })).toHaveAttribute(
+    'aria-checked',
+    'true',
+  );
   await followInvite(bo, code, 'Bo');
   await followInvite(cy, code, 'Cy');
   await expect(host.getByRole('list', { name: 'Players' }).getByText('Cy')).toBeVisible();

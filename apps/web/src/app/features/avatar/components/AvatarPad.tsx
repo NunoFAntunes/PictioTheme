@@ -4,13 +4,18 @@ import { DrawingPad } from '../../canvas';
 /**
  * The square pad for drawing your avatar, with the game's full drawing toolbar beside it. The
  * strokes stay local: the identity form exports the canvas (avatar-image.ts). `children` (the
- * form's note and Save) sit under the tools.
+ * form's note and Save) sit under the tools. `startFrom` (your current avatar) puts that drawing on
+ * the pad to edit, with room around it to add to; it's fixed once mounted.
  */
 export function AvatarPad({
   canvasRef,
+  startFrom,
+  onDraw,
   children,
 }: {
   canvasRef: RefObject<HTMLCanvasElement | null>;
+  startFrom?: string;
+  onDraw?: () => void;
   children?: ReactNode;
 }) {
   return (
@@ -21,6 +26,8 @@ export function AvatarPad({
       label="Avatar drawing pad"
       toolsLabel="Avatar tools"
       canvasRef={canvasRef}
+      background={startFrom ? { src: startFrom, fit: 0.7 } : undefined}
+      onDraw={onDraw}
     >
       {children}
     </DrawingPad>

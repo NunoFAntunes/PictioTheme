@@ -11,6 +11,7 @@ import type {
   RoomSettings,
   ServerMessage,
   Stroke,
+  VotedDeck,
 } from '@pictiotheme/protocol';
 import type { CardPool } from '../card-pool';
 import type { PreparedCard } from '../guess/classify';
@@ -26,6 +27,11 @@ export const TIMINGS = {
   chooseMs: 10_000,
   /** With one card (no "pick from 3"): long enough for the deck to shuffle and deal it. */
   dealOneMs: 3_500,
+  /**
+   * The random pick waits this long past the choosing countdown, so a card tapped in the last
+   * moment still counts after its trip over the network.
+   */
+  chooseGraceMs: 1_500,
   revealMs: 5_000,
   /** A disconnected player is removed after this. */
   playerGraceMs: 120_000,
@@ -134,6 +140,10 @@ export type RoomState = {
   pendingCover: { turn: number; likes: number; drawerId: PlayerId } | null;
   /** This match's most-liked drawing, for the crowd favourite award. A tie keeps the older one. */
   favourite: { drawerId: PlayerId; likes: number } | null;
+  /** The deck each voter would like to play next (deck-votes.ts). Cleared when a match starts. */
+  deckVotes: Map<PlayerId, VotedDeck>;
+  /** The deck id each voter asked for last, while the shell looks it up. */
+  deckVoteLookups: Map<PlayerId, string>;
   /** Emote charges of players who've used one (emotes.ts). Kept when they leave, so rejoining doesn't refill them. */
   emoteCharges: Map<PlayerId, EmoteCharges>;
 };
@@ -163,6 +173,8 @@ export type RoomEvent =
   | { type: 'timer'; timer: TimerId }
   | { type: 'deckLoaded'; deck: DeckInfo }
   | { type: 'deckFailed'; deckId: string }
+  /** The shell looked up a deck a player voted for (`lookupDeckVote`); null: no such deck. */
+  | { type: 'deckVoteFound'; playerId: PlayerId; deckId: string; deck: VotedDeck | null }
   /** The shell stored the picture for the pending cover (`PUT /api/rooms/:code/cover`). */
   | { type: 'coverStored'; turn: number };
 
@@ -196,6 +208,8 @@ export type Effect =
   | { kind: 'schedule'; timer: TimerId; at: number }
   | { kind: 'cancel'; timer: TimerId }
   | { kind: 'loadDeck'; deckId: string }
+  /** Find the deck a player voted for; answer with a `deckVoteFound` event. */
+  | { kind: 'lookupDeckVote'; playerId: PlayerId; deckId: string }
   | { kind: 'disconnect'; playerId: PlayerId; reason: DisconnectReason }
   | { kind: 'matchEnded'; summary: MatchSummary }
   // Metrics (docs/technical/data-model.md#metrics): the shell records these, nothing else changes.

@@ -1,11 +1,14 @@
 import type { NoticeCode, PlayerId } from '@pictiotheme/protocol';
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { playerName, useRoomStore, type FeedItem, type RoomView } from '../../../realtime';
 import { WOBBLE } from '../../../ui/hand-drawn';
 import { Doodle, EMOTES } from '../../emotes';
 import { nameFont } from '../../player-list';
 
 const REDACTED = '██████';
+
+/** How close to the bottom (px) still counts as reading the latest messages. */
+const STICK_SLACK = 32;
 
 /*
  * The feed mixes what players type with what the game says. Players' lines are left-aligned with
@@ -202,29 +205,109 @@ function FeedLine({ item, view }: { item: FeedItem; view: RoomView }) {
   }
 }
 
-/** Guesses, chat and events (screens.md §4, right column). */
+/** Lines the viewer wrote or earned themselves: those always bring the feed back to the bottom. */
+function isOwn(item: FeedItem, view: RoomView): boolean {
+  if (item.kind === 'guess') return item.self;
+  if (item.kind === 'chat' || item.kind === 'solved') return item.playerId === view.you;
+  return false;
+}
+
+/**
+ * Guesses, chat and events (screens.md §4, right column). The feed sticks to the latest line while
+ * the reader is at the bottom. Scrolling up unsticks it and shows "Jump to latest".
+ */
 export function GuessFeed() {
   const view = useRoomStore((s) => s.view);
   const listRef = useRef<HTMLDivElement>(null);
-  const count = view?.feed.length ?? 0;
+  // A ref, so new lines can read it without waiting for a render; the state drives the button.
+  const stuckRef = useRef(true);
+  const lastTopRef = useRef(0);
+  const [stuck, setStuck] = useState(true);
+  const [unread, setUnread] = useState(false);
+  const last = view?.feed.at(-1);
+  // The feed is capped (oldest lines drop off), so its length stops changing: follow the last id.
+  const lastId = last?.id;
+  const ownLast = last && view ? isOwn(last, view) : false;
 
+  const hasView = view !== null;
+
+  const stick = useCallback((value: boolean) => {
+    stuckRef.current = value;
+    setStuck(value);
+    if (value) setUnread(false);
+  }, []);
+
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!list || lastId === undefined) return;
+    if (stuckRef.current || ownLast) {
+      list.scrollTop = list.scrollHeight;
+      lastTopRef.current = list.scrollTop;
+      if (!stuckRef.current) stick(true);
+    } else {
+      setUnread(true);
+    }
+  }, [lastId, ownLast, stick]);
+
+  // The column changes height (window resize, the guess bar's notes): stay on the latest line.
   useEffect(() => {
     const list = listRef.current;
-    if (list) list.scrollTop = list.scrollHeight;
-  }, [count]);
+    if (!list) return;
+    const observer = new ResizeObserver(() => {
+      if (stuckRef.current) list.scrollTop = list.scrollHeight;
+    });
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [hasView]);
+
+  const onScroll = () => {
+    const list = listRef.current;
+    if (!list) return;
+    const top = list.scrollTop;
+    const atBottom = list.scrollHeight - top - list.clientHeight <= STICK_SLACK;
+    // Only the reader scrolling up unsticks it, not the content moving under it.
+    if (atBottom) {
+      if (!stuckRef.current) stick(true);
+    } else if (top < lastTopRef.current && stuckRef.current) {
+      stick(false);
+    }
+    lastTopRef.current = top;
+  };
+
+  const jumpToLatest = () => {
+    const list = listRef.current;
+    if (!list) return;
+    stick(true);
+    list.scrollTo({ top: list.scrollHeight, behavior: 'smooth' });
+  };
 
   if (!view) return null;
   return (
-    <div
-      ref={listRef}
-      className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto px-1 text-sm"
-      role="log"
-      aria-live="polite"
-      aria-label="Guesses and chat"
-    >
-      {view.feed.map((item) => (
-        <FeedLine key={item.id} item={item} view={view} />
-      ))}
+    <div className="relative flex min-h-0 flex-1 flex-col">
+      <div
+        ref={listRef}
+        onScroll={onScroll}
+        className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto px-1 text-sm"
+        role="log"
+        aria-live="polite"
+        aria-label="Guesses and chat"
+      >
+        {view.feed.map((item) => (
+          <FeedLine key={item.id} item={item} view={view} />
+        ))}
+      </div>
+      {!stuck && (
+        <button
+          type="button"
+          onClick={jumpToLatest}
+          className={`absolute bottom-2 left-1/2 flex -translate-x-1/2 -rotate-1 items-center gap-1.5 border-2 border-ink bg-white px-3 py-1 text-xs font-medium whitespace-nowrap text-ink shadow-[2px_2px_0_var(--color-ink)] transition hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dashed focus-visible:outline-ink active:translate-y-0.5 active:shadow-none pointer-coarse:py-2.5 ${WOBBLE[2]}`}
+        >
+          {unread && <span aria-hidden="true" className="size-2 rounded-full bg-pop-tomato" />}
+          Jump to latest
+          {unread && <span className="sr-only">(new messages)</span>}
+          <span aria-hidden="true">↓</span>
+        </button>
+      )}
     </div>
   );
 }

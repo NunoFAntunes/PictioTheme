@@ -73,11 +73,12 @@ export const RoomSettings = z.object({
 });
 export type RoomSettings = z.infer<typeof RoomSettings>;
 
+/** A new room plays an easy game: Classic length, easy cards, no rush (the web's "Easy game"). */
 export const DEFAULT_ROOM_SETTINGS: Omit<RoomSettings, 'deckId'> = {
   mode: 'normal',
-  difficulties: ['easy', 'hard'],
+  difficulties: ['easy'],
   rounds: 3,
-  drawSeconds: 80,
+  drawSeconds: 120,
   maxPlayers: 10,
   guessVisibility: 'show',
   hints: true,

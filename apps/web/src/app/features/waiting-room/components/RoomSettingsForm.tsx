@@ -1,7 +1,9 @@
 import { rushWindowMs } from '@pictiotheme/game-core';
 import type { RoomSettings } from '@pictiotheme/protocol';
 import {
+  createContext,
   useCallback,
+  useContext,
   useEffect,
   useRef,
   useState,
@@ -16,7 +18,7 @@ import { lengthLabel, maxMatchMinutes, paceOf, PACES } from '../match-length';
 import { LengthRuler } from './LengthRuler';
 
 /**
- * The house rules, as three quick choices: how long the match runs (a preset, or Custom: the
+ * All the house rules (the simple view's four games are HouseRules), as three quick choices: how long the match runs (a preset, or Custom: the
  * exact rounds and draw time, set on a ruler, LengthRuler), which cards come up, and which rules
  * are on (ticked boxes). Editable by the host; everyone else sees them read-only. The deck is
  * chosen beside them (WaitingRoom); the room's name, public/private and size sit on top
@@ -76,14 +78,21 @@ const BOX =
   'M4 5C9 3.5 17 4 21.5 4.5 21.8 10 21.2 16 20.8 21.5 14 21.8 8 21.2 3.6 20.8 3.2 14 3.5 9 4.6 3.5';
 const TICK = 'M6.5 12.5C8.5 14.5 10 17 11.5 19.5 14.5 12.5 18.5 6 25.5 0.5';
 
+/**
+ * Choices on a page that isn't showing (HouseRules keeps the other side mounted, to hold its
+ * height) stay quiet, so the pen is only heard once.
+ */
+export const QuietMarks = createContext(false);
+
 /** A little pop when a setting changes (for everyone in the room), as the pen marks it. */
 function useMarkSound(value: unknown) {
+  const quiet = useContext(QuietMarks);
   const last = useRef(value);
   useEffect(() => {
     if (last.current === value) return;
     last.current = value;
-    playSound('ruleMark');
-  }, [value]);
+    if (!quiet) playSound('ruleMark');
+  }, [value, quiet]);
 }
 
 const ARROWS: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
@@ -92,7 +101,7 @@ const ARROWS: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft:
  * One of a few choices, circled in marker. A radio group: the arrow keys move the pen. A choice's
  * `note` is written small under it.
  */
-function Choices<T extends string>({
+export function Choices<T extends string>({
   label,
   choices,
   value,
@@ -175,7 +184,7 @@ function Choices<T extends string>({
   );
 }
 
-function Group({ title, children }: { title: string; children: ReactNode }) {
+export function Group({ title, children }: { title: string; children: ReactNode }) {
   return (
     <fieldset className="flex min-w-0 flex-col gap-1">
       <legend className="mb-0.5 text-xs font-semibold tracking-wide text-ink/50 uppercase">

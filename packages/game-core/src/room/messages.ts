@@ -23,6 +23,7 @@ import {
   startRush,
 } from './match';
 import { broadcastPlayers, connectedIds, send, sendError, sendToAll } from './output';
+import { onDeckVote } from './deck-votes';
 import { onEmote } from './emotes';
 import { onLike } from './likes';
 import { kick, transferHost } from './players';
@@ -98,6 +99,9 @@ export function onMessage(c: Ctx, playerId: PlayerId, msg: ClientMessage): void 
     }
     case 'turn:like':
       onLike(c, playerId, msg.liked);
+      return;
+    case 'deck:vote':
+      onDeckVote(c, playerId, msg.deckId);
       return;
     case 'emote':
       onEmote(c, playerId, msg.emote, msg.target);

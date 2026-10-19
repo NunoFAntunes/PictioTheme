@@ -39,7 +39,7 @@ Home (/)
 ### Identity without a gate
 
 - On the first visit the player gets a **generated silly name** ("Sneaky Pickle", "Wobbly Crayon"): an adjective plus a doodle-ish noun, always 2–20 characters and passing the profanity filter. Until they draw one, their avatar is their initial in colour with an ink outline on a transparent background (not a filled square). Both are remembered in localStorage like chosen ones.
-- A **"Playing as 🥒 Sneaky Pickle ✏️" chip** in the home header opens a small editor at any time: a name field (2–20 chars, profanity-filtered) and a small square pad to **draw your own avatar** (brush, eraser, fill, three sizes, a short palette, undo, start over; the doodle is cut out of its background). Leaving the pad blank keeps the current avatar. Nothing ever *requires* it.
+- A **"Playing as 🥒 Sneaky Pickle ✏️" chip** in the home header opens a small editor at any time: a name field (2–20 chars, profanity-filtered) and a small square pad to **draw your own avatar** (brush, eraser, fill, three sizes, a short palette, undo, start over; the doodle is cut out of its background). A drawn avatar opens **on the pad to edit**, with room around it to add to; **Start over** swaps to a blank pad (and "Edit it instead" back). Saving an untouched or blank pad keeps the current avatar. Nothing ever *requires* it.
 - Players who still have the generated initial avatar are invited to **draw themselves in the waiting room**, which is dead time anyway (see §5).
 - Registered users (Phase 3) use their saved name and avatar instead.
 
@@ -68,8 +68,9 @@ Creating takes one click (§3): the room starts private (or public, via Quick pl
 1. **Language** (built 2026-10-07): the flag on the room card; the host types a language and picks it. Decks not in it are marked, and the room's deck must be translated (or another picked) before Start works. See [decks.md](decks.md#languages).
 2. **Deck**: search box → results show deck title, theme tags, card counts per kind, play count, rating, and 🌀 if it has Chaos cards. In Chaos mode, decks without them are marked "🌀 to make". A "Preview" button shows 5 sample cards.
    - Not found → "Generate a deck for *'pirate cooking'*" (logged-in users only. Guests see a sign-up prompt).
-3. **Length**: `⚡ Quick` (2 rounds × 60s), `🎲 Classic` (3 × 80s, default), `🐢 Long` (5 × 120s) or `📏 Custom`, with the longest the match can take for the players in the room. Custom slides a ruler over the choices: rounds (1–10) along its top edge, seconds to draw (20–260, in steps of 10) along the bottom, a marker on each to slide. Its ✓ sends both to the room (nothing changes for the others until then) and Custom then shows them under it ("4 rounds · 90s"). Numbers that match a preset circle that preset.
-4. **Cards**: one of `Easy`, `Mixed` (default: the deck's easy and hard cards), `Hard` or `🌀 Chaos` (only the absurd cards). This sets the mode and the difficulties together. See [game-rules.md](game-rules.md#card-pool).
+   The house rules open on the **simple view**: pick one of four games (🐣 Quick and easy, 🎈 Easy game (default), 🎯 Standard game, 🌀 Chaos mode; [game-rules.md](game-rules.md#game-styles)). A **🎈 Simple / 🔧 All rules** switch beside the heading flips to the choices below; each player picks their own view.
+3. **Length**: `⚡ Quick` (2 rounds × 60s), `🎲 Classic` (3 × 120s, default), `🐢 Long` (5 × 180s) or `📏 Custom`, with the longest the match can take for the players in the room. Custom slides a ruler over the choices: rounds (1–10) along its top edge, seconds to draw (20–260, in steps of 10) along the bottom, a marker on each to slide. Its ✓ sends both to the room (nothing changes for the others until then) and Custom then shows them under it ("4 rounds · 90s"). Numbers that match a preset circle that preset.
+4. **Cards**: one of `Easy` (default), `Mixed` (the deck's easy and hard cards), `Hard` or `🌀 Chaos` (only the absurd cards). This sets the mode and the difficulties together. See [game-rules.md](game-rules.md#card-pool).
 5. **Rules**, as on/off chips: `⚡ Rush` (off by default), `💡 Hints`, `👀 Show guesses` (guess visibility) and `🃏 Pick from 3` (word choice: pick 1 of 3, or one card, still dealt from the deck), all on by default.
 
 When the room is created, the server generates a unique code and the host lands on the **waiting room** screen.
@@ -81,6 +82,7 @@ When the room is created, the server generates a unique code and the host lands 
 - **"Draw yourself!"**: players still on their generated initial (§2) get the name field and avatar pad here, open to start with ("Not now" folds it to a one-line "Draw yourself" prompt). The host gets the prompt from the start, so the deck and rules stay in view. Saving updates their entry in everyone's player list at once, without leaving the room. Once they've drawn, the prompt is gone: the header's "you" sticker is where to change it.
 - Any time, even mid-match, everyone can change their name or drawing with their "you" sticker (avatar, name, ✏️) in the room header.
 - Chat is active.
+- Players who aren't the host can **vote for the next deck** ([game-rules.md](game-rules.md#deck-votes)): a paddle with the deck beside their doodle; the host sees the votes and decides.
 - Host actions: **Start game** (needs ≥ 2 players), kick player, transfer host, change settings, **rename the room and switch public/private** (any time; a public room shows up on the home page's room notes).
 - If the host leaves, host passes to the longest-present player.
 
@@ -97,6 +99,7 @@ See [game-rules.md](game-rules.md) for the rules and [../design/screens.md](../d
 - A podium with the top 3, the full score table, and fun awards ("Fastest guesser", "Best near-miss").
 - Optional **drawing gallery**: a replay or thumbnail of every drawing in the match, which players can download as PNG.
 - Buttons: **Play again** (same room, same players), **Change deck** (host), **Back to lobby**.
+- **Vote for the next deck!** (everyone but the host) and the votes so far, as in the waiting room ([game-rules.md](game-rules.md#deck-votes)).
 - Registered users: "Rate this deck 👍 / 👎".
 
 ## 8. Deck generation (logged-in)

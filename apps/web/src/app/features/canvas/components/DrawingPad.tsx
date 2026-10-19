@@ -1,4 +1,4 @@
-import { useState, type ReactNode, type RefObject } from 'react';
+import { useEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { createStrokeModel, type DrawOp } from '../../../realtime';
 import { DEFAULT_TOOL, withColor } from '../tools';
 import { useColorPopover } from '../use-color-popover';
@@ -18,6 +18,8 @@ export function DrawingPad({
   label,
   toolsLabel,
   canvasRef,
+  background,
+  onDraw,
   children,
 }: {
   /** Logical resolution. */
@@ -27,19 +29,31 @@ export function DrawingPad({
   label: string;
   toolsLabel: string;
   canvasRef: RefObject<HTMLCanvasElement | null>;
+  /** A picture to start from, drawn over like paint (see DrawingBoard). Fixed once mounted. */
+  background?: { src: string; fit: number };
+  /** Something was drawn, undone or cleared. */
+  onDraw?: () => void;
   children?: ReactNode;
 }) {
   const [model] = useState(createStrokeModel);
   const [tool, setTool] = useState({ ...DEFAULT_TOOL, size: 16 });
   const { colorPopover, toggleColorPopover, closeColorPopover } = useColorPopover();
   const [picking, setPicking] = useState(false);
+  const onDrawRef = useRef(onDraw);
+  useEffect(() => {
+    onDrawRef.current = onDraw;
+  });
   const [pad] = useState(() => ({
     model,
-    emit: (op: DrawOp) => model.apply(op),
+    emit: (op: DrawOp) => {
+      model.apply(op);
+      onDrawRef.current?.();
+    },
     size,
     frameClassName,
     label,
     canvasRef,
+    background,
   }));
 
   return (

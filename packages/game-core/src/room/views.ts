@@ -97,6 +97,7 @@ export function snapshotFor(state: RoomState, playerId: PlayerId, now: number): 
     deck: state.deck ? roomDeck(state.deck) : null,
     strokes: state.strokes,
     likers: [...(state.likes?.likers ?? [])],
+    deckVotes: Object.fromEntries(state.deckVotes),
     emoteCharges: emoteCharges(state, playerId, now),
     secret,
   };

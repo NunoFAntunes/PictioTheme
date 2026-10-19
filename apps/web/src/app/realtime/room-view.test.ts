@@ -36,6 +36,7 @@ function snapshot(overrides: Partial<Extract<ServerMessage, { t: 'room:snapshot'
     deck: { id: 'd', title: 'Deck', coverId: null, language: 'en', chaosCards: 0 },
     strokes: [],
     likers: [],
+    deckVotes: {},
     emoteCharges: { left: 3, refillAt: null, readyAt: 0 },
     secret: {},
     ...overrides,

@@ -1,6 +1,6 @@
 import type { AddChaosResponse, GenerationJob } from '@pictiotheme/protocol';
 import { expect } from '@playwright/test';
-import { followInvite, hostRoom, newPlayerPage, test } from './support';
+import { followInvite, hostRoom, newPlayerPage, showAllRules, test } from './support';
 
 /**
  * Chaos mode (game-rules.md#card-pool): a room deck without Chaos cards can't start a Chaos match
@@ -53,13 +53,14 @@ test('Chaos mode asks for the deck’s Chaos cards before the match can start', 
     }),
   );
 
+  await showAllRules(host);
   const cards = host.getByRole('radiogroup', { name: 'Cards' });
   await cards.getByRole('radio', { name: /Chaos/ }).click();
   // Chaos replaces the difficulties, and everyone sees it on the room card.
   await expect(cards.getByRole('radio', { name: /Chaos/ })).toBeChecked();
   await expect(cards.getByRole('radio', { name: 'Mixed' })).not.toBeChecked();
   await expect(bo.getByRole('list', { name: 'Rules' }).getByText('Chaos mode!')).toBeVisible();
-  await expect(bo.getByText('Needs Chaos cards')).toBeVisible();
+  await expect(bo.getByText('Needs Chaos cards', { exact: true })).toBeVisible();
   await expect(start).toBeDisabled();
   await expect(host.getByText(/Make the deck’s Chaos cards/)).toBeVisible();
 

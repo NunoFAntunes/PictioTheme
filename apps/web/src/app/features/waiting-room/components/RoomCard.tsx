@@ -6,14 +6,14 @@ import { DeckCover } from '../../deck-cover';
 import { ReportDeckButton } from '../../report-deck';
 import { LanguagePicker } from '../../room-language';
 import { hasChaosCards } from '../chaos';
-import { copyShareCardImage } from '../share-card';
 import { RoomTitle } from './RoomTitle';
 
 /**
  * The room's card at the top of the waiting room (screens.md §3): a ticket drawn in ink on ruled
  * paper, with the deck's cover on the left, the room's name (and public/private) on top, the rules
- * as little stickers, and a tear-off stub with the code. Kept short so the host's workspace fits. It's what an invite looks like: the server
- * draws the same card for link previews and "Copy as image" (apps/server share-card.ts).
+ * as little stickers, and a tear-off stub with the code. Kept short so the host's workspace fits.
+ * It's what an invite looks like: the server draws the same card for link previews (apps/server
+ * share-card.ts).
  */
 
 const POPS = ['pop-sun', 'pop-teal', 'pop-pink', 'pop-purple', 'pop-tomato'] as const;
@@ -78,9 +78,9 @@ function DeckOnCard({ view }: { view: RoomView }) {
   );
 }
 
-/** The code, in sticker letters; clicking it copies the invite link. */
+/** The code, in big sticker letters, three over three; clicking it copies the invite link. */
 function Stub({ code }: { code: string }) {
-  const [copied, setCopied] = useState<'link' | 'image' | 'opened' | 'failed' | null>(null);
+  const [copied, setCopied] = useState<'link' | 'failed' | null>(null);
 
   function flash(what: typeof copied) {
     setCopied(what);
@@ -91,14 +91,6 @@ function Stub({ code }: { code: string }) {
     try {
       await navigator.clipboard.writeText(`${location.origin}/r/${code}`);
       flash('link');
-    } catch {
-      flash('failed');
-    }
-  }
-
-  async function copyImage() {
-    try {
-      flash((await copyShareCardImage(code)) === 'copied' ? 'image' : 'opened');
     } catch {
       flash('failed');
     }
@@ -116,16 +108,12 @@ function Stub({ code }: { code: string }) {
         title="Copy the invite link"
         aria-label={`Room code ${code}: copy the invite link`}
         data-testid="room-code"
-        className="flex items-center font-logo text-[2rem] leading-none tracking-wide whitespace-nowrap transition hover:-rotate-2"
+        className="flex flex-col items-center font-logo text-[2.75rem] leading-[1.05] tracking-wider whitespace-nowrap transition hover:-rotate-2"
       >
         {code.split('-').map((half, h) => (
           <span key={h} className="flex shrink-0 items-center">
-            {/* The dash stays in the text (it's what people type), drawn as a short stroke. */}
-            {h > 0 && (
-              <span className="mx-1.5 h-1.5 w-4 overflow-hidden rounded-full bg-ink text-[0]">
-                -
-              </span>
-            )}
+            {/* The dash stays in the text (it's what people type and copy), but takes no room. */}
+            {h > 0 && <span className="sr-only">-</span>}
             <span>
               {[...half].map((char, i) => (
                 <span
@@ -143,31 +131,17 @@ function Stub({ code }: { code: string }) {
           </span>
         ))}
       </button>
-      <div className="flex flex-col items-center gap-1">
-        <button
-          type="button"
-          onClick={() => void copyLink()}
-          className={`${WOBBLE[0]} border-2 border-ink bg-paper px-3 py-1 text-sm font-semibold text-ink shadow-[2px_3px_0_var(--color-ink)] transition hover:-translate-y-0.5 active:translate-y-0 active:shadow-none`}
-        >
-          {copied === 'link'
-            ? '✓ Link copied'
-            : copied === 'failed'
-              ? "Couldn't copy. Try again?"
-              : 'Copy invite link'}
-        </button>
-        <button
-          type="button"
-          onClick={() => void copyImage()}
-          title="Copy this card as a picture"
-          className="font-hand text-base text-ink/70 underline decoration-wavy decoration-pop-purple/60 underline-offset-4 hover:text-ink"
-        >
-          {copied === 'image'
-            ? '✓ Card copied'
-            : copied === 'opened'
-              ? 'Opened in a new tab'
-              : 'or copy it as a picture'}
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={() => void copyLink()}
+        className={`${WOBBLE[0]} border-2 border-ink bg-paper px-3 py-1 text-sm font-semibold text-ink shadow-[2px_3px_0_var(--color-ink)] transition hover:-translate-y-0.5 active:translate-y-0 active:shadow-none`}
+      >
+        {copied === 'link'
+          ? '✓ Link copied'
+          : copied === 'failed'
+            ? "Couldn't copy. Try again?"
+            : 'Copy invite link'}
+      </button>
     </div>
   );
 }
@@ -176,12 +150,12 @@ export function RoomCard({ view, host }: { view: RoomView; host: boolean }) {
   return (
     <section
       aria-label="Room card"
-      className="@container relative mx-auto w-full max-w-5xl scheme-light"
+      className="@container relative mx-auto w-full max-w-6xl scheme-light"
     >
       <Tape className="-top-3 -left-4 -rotate-[30deg] bg-pop-sun" />
       <Tape className="-top-2 -right-5 rotate-[26deg] bg-pop-teal" />
       <div
-        className={`relative grid overflow-hidden ${WOBBLE[0]} border-ink border-[3px_4px_4.5px_3px] bg-paper text-ink shadow-[6px_7px_0_var(--color-ink)] @2xl:grid-cols-[minmax(0,1fr)_14rem]`}
+        className={`relative grid overflow-hidden ${WOBBLE[0]} border-ink border-[3px_4px_4.5px_3px] bg-paper text-ink shadow-[6px_7px_0_var(--color-ink)] @2xl:grid-cols-[minmax(0,1fr)_11rem]`}
       >
         <div className="flex min-w-0 flex-col items-center gap-5 p-4 [background:repeating-linear-gradient(to_bottom,transparent_0_2.6rem,color-mix(in_oklch,var(--color-paper-line)_60%,transparent)_2.6rem_calc(2.6rem+2px))] @xl:flex-row @xl:items-center @xl:px-5 @xl:py-3.5 @xl:pl-7">
           <DeckOnCard view={view} />
