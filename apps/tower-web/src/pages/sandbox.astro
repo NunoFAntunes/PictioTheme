@@ -1,0 +1,12 @@
+---
+import { Sandbox } from '../app/features/sandbox';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<!-- Phase 0 (docs/tower/planning/roadmap.md): draw, build a piece, place it, tune the physics.
+     Single player, no server. -->
+<BaseLayout title="Sandbox · Doodle Tower">
+  <Sandbox client:only="react">
+    <p slot="fallback" class="p-10 font-display text-chalk-dim">Raising the crane…</p>
+  </Sandbox>
+</BaseLayout>

@@ -3,6 +3,7 @@
 
 const SERVER = '^apps/server/src';
 const WEB_APP = '^apps/web/src/app';
+const TOWER_APP = '^apps/tower-web/src/app';
 
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
@@ -22,9 +23,10 @@ module.exports = {
       to: { path: '^apps/' },
     },
     {
-      name: 'server-and-web-are-separate',
+      name: 'apps-are-separate',
+      comment: 'Apps share code only through packages/ (DoodleWhirl and Doodle Tower included).',
       severity: 'error',
-      from: { path: '^apps/(server|web)/' },
+      from: { path: '^apps/([^/]+)/' },
       to: { path: '^apps/', pathNot: '^apps/$1/' },
     },
 
@@ -54,6 +56,40 @@ module.exports = {
       to: {
         dependencyTypes: ['npm', 'npm-dev', 'core', 'local'],
         pathNot: ['^packages/protocol/', 'node_modules/(zod|vitest)/'],
+      },
+    },
+
+    {
+      name: 'canvas-engine-allowed-dependencies',
+      comment: 'The shared drawing engine: protocol types and perfect-freehand, no game rules.',
+      severity: 'error',
+      from: { path: '^packages/canvas-engine/' },
+      to: {
+        dependencyTypes: ['npm', 'npm-dev', 'core', 'local'],
+        pathNot: ['^packages/(canvas-engine|protocol)/', 'node_modules/(perfect-freehand|vitest)/'],
+      },
+    },
+    {
+      name: 'doodle-shape-is-pure',
+      comment: 'B6 for Doodle Tower: drawing → piece is deterministic, no I/O.',
+      severity: 'error',
+      from: { path: '^packages/doodle-shape/' },
+      to: {
+        dependencyTypes: ['npm', 'npm-dev', 'core', 'local'],
+        pathNot: [
+          '^packages/(doodle-shape|protocol)/',
+          'node_modules/(poly-decomp-es|zod|vitest)/',
+        ],
+      },
+    },
+    {
+      name: 'tower-physics-allowed-dependencies',
+      comment: 'Rapier only; it knows nothing about drawings or rooms.',
+      severity: 'error',
+      from: { path: '^packages/tower-physics/' },
+      to: {
+        dependencyTypes: ['npm', 'npm-dev', 'core', 'local'],
+        pathNot: ['^packages/tower-physics/', 'node_modules/(@dimforge|vitest)/'],
       },
     },
 
@@ -132,6 +168,24 @@ module.exports = {
       severity: 'error',
       from: { path: `${WEB_APP}/realtime/` },
       to: { path: `${WEB_APP}/(features|routes)/` },
+    },
+    // ── Doodle Tower web: the same layering as DoodleWhirl's (W1) ──
+    {
+      name: 'tower-feature-boundaries',
+      comment: "W1: features import each other only through the other feature's index.ts.",
+      severity: 'error',
+      from: { path: `${TOWER_APP}/features/([^/]+)/` },
+      to: {
+        path: `${TOWER_APP}/features/`,
+        pathNot: [`${TOWER_APP}/features/$1/`, `${TOWER_APP}/features/[^/]+/index\\.ts$`],
+      },
+    },
+    {
+      name: 'tower-ui-and-lib-are-leaves',
+      comment: 'W1: ui/ and lib/ import nothing from features.',
+      severity: 'error',
+      from: { path: `${TOWER_APP}/(ui|lib)/` },
+      to: { path: `${TOWER_APP}/features/` },
     },
   ],
   options: {

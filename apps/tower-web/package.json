@@ -1,0 +1,36 @@
+{
+  "name": "@pictiotheme/tower-web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --port 4322",
+    "dev:foreground": "astro dev --port 4322 --ignore-lock",
+    "build": "astro build",
+    "preview": "astro preview --port 4322",
+    "typecheck": "astro check",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@astrojs/react": "^7.0.0",
+    "@pictiotheme/canvas-engine": "workspace:*",
+    "@pictiotheme/doodle-shape": "workspace:*",
+    "@pictiotheme/protocol": "workspace:*",
+    "@pictiotheme/tower-physics": "workspace:*",
+    "astro": "^7.3.5",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@playwright/test": "~1.63.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.3"
+  }
+}

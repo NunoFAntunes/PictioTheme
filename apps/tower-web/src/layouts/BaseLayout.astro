@@ -1,0 +1,31 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+
+type Props = { title?: string; description?: string };
+
+const {
+  title = 'Doodle Tower',
+  description = 'Two crews race to build a tower out of their own drawings.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta property="og:site_name" content="Doodle Tower" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    <Font cssVariable="--font-bungee" preload />
+    <Font cssVariable="--font-space-grotesk" />
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -166,7 +166,7 @@ Touch has no Alt key or right button, so everything they do has a visible contro
 
 ## Touch and stylus
 
-Tablets send several pointers at once (a pen, a palm resting on the glass, a second finger), so the canvas keeps one in charge (`engine/pointer-gate.ts`):
+Tablets send several pointers at once (a pen, a palm resting on the glass, a second finger), so the canvas keeps one in charge (`pointer-gate.ts` in `packages/canvas-engine`, shared with Doodle Tower):
 
 - **One pointer draws at a time.** Another pointer landing, moving or lifting mid-stroke is ignored, so a palm can't add points to a stroke or end it.
 - **Palm rejection.** Once a pen has been seen on the page (a press, or Apple Pencil hovering above the glass), touches no longer draw. Fingers still work on everything else. Without a pen, fingers draw normally.

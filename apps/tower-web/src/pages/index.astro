@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<!-- Placeholder until Phase 1 brings rooms: the logo and the way into the sandbox. -->
+<BaseLayout>
+  <main class="mx-auto flex min-h-dvh max-w-3xl flex-col items-center justify-center gap-10 px-6 text-center">
+    <div class="hazard-stripes h-4 w-64 rounded-sm" aria-hidden="true"></div>
+    <h1 class="font-display text-6xl leading-none tracking-wide text-chalk sm:text-7xl">
+      Doodle<br /><span class="text-hazard">Tower</span>
+    </h1>
+    <p class="max-w-md text-lg text-chalk-dim">
+      Two crews. Two towers. One line to reach. Every block is something you drew.
+    </p>
+    <div class="plywood rounded-lg px-6 py-4">
+      <p class="font-display text-sm tracking-widest text-ink/70">Site under construction</p>
+      <a
+        href="/sandbox"
+        class="mt-3 inline-block rounded-md bg-safety px-6 py-3 font-display text-lg text-ink shadow-[0_3px_0_var(--color-safety-dark)] transition hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none"
+      >
+        Open the sandbox
+      </a>
+    </div>
+  </main>
+</BaseLayout>

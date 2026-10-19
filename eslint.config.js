@@ -10,7 +10,7 @@ const TEST_FILES = ['**/*.test.ts', '**/*.test.tsx', '**/test-support/**'];
 const DEFAULT_EXPORT_ALLOWED = [
   '**/*.config.{js,mjs,ts}',
   '**/test-support/global-setup.ts',
-  'apps/web/src/pages/**',
+  'apps/{web,tower-web}/src/pages/**',
 ];
 
 export default tseslint.config(
@@ -66,9 +66,14 @@ export default tseslint.config(
     },
   },
 
-  // ── game-core: deterministic, no I/O (B6). Time and randomness are passed in. ──
+  // ── game-core, doodle-shape, tower-physics: deterministic, no I/O (B6). Time and randomness
+  //    are passed in. ──
   {
-    files: ['packages/game-core/src/**/*.ts'],
+    files: [
+      'packages/game-core/src/**/*.ts',
+      'packages/doodle-shape/src/**/*.ts',
+      'packages/tower-physics/src/**/*.ts',
+    ],
     ignores: TEST_FILES,
     rules: {
       'no-restricted-properties': [
@@ -90,13 +95,13 @@ export default tseslint.config(
     },
   },
 
-  // ── Web ──
+  // ── Web (DoodleWhirl and Doodle Tower) and the browser-side canvas engine ──
   {
-    files: ['apps/web/src/**/*.{ts,tsx}'],
+    files: ['apps/{web,tower-web}/src/**/*.{ts,tsx}', 'packages/canvas-engine/src/**/*.ts'],
     languageOptions: { globals: { ...globals.browser } },
   },
   {
-    files: ['apps/web/src/**/*.tsx'],
+    files: ['apps/{web,tower-web}/src/**/*.tsx'],
     ...reactHooks.configs.flat['recommended-latest'],
   },
 );

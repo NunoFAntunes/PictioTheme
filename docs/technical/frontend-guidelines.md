@@ -40,7 +40,8 @@ apps/web/
         connection.ts       connectRoom(), sendToRoom(), drawAndSend(), reconnect, clock sync
         room-view.ts        pure reducer: ServerMessage → RoomView (unit-tested)
         room-store.ts       Zustand store: view, connection state, clockOffset
-        stroke-model.ts     the current drawing, outside React (rule W9)
+        (the stroke model)  the current drawing, outside React (rule W9): from packages/canvas-engine,
+                            re-exported here because the connection feeds it
         selectors.ts        read helpers + useSecondsLeft / useNow hooks
         index.ts            public API for features and routes
       features/             one folder per product piece, each with components/ and index.ts
@@ -49,7 +50,8 @@ apps/web/
         report-deck/        ReportDeckButton (🚩 report a deck's cover or content)
         desk-toys/          the toys on the home page's desk and around the waiting room's house rules
                             (Prop places them; paper-ball.ts is the throwable ball's physics), doodles.ts
-        canvas/             engine/ (flood-fill, paint, renderer, input, adjust, brush-cursor),
+        canvas/             engine/ (input, adjust, brush-cursor, colour, eyedropper; the renderer,
+                            painting, flood fill and pointer gate are in packages/canvas-engine),
                             shortcuts.ts + DrawingBoard, Toolbar (both also drive the cover and avatar pads)
         player-list/  guess-feed/  room-header/  turn-overlays/  waiting-room/  results/
         sound/              Web Audio engine, sound catalog + groups, saved volume settings,
@@ -68,6 +70,8 @@ apps/web/
 5. Countdowns use `useSecondsLeft(endsAt)`, which reads the server clock (`Date.now() + clockOffset`, measured with ping/pong every 10s).
 
 ### Canvas engine
+
+The parts Doodle Tower shares live in **`packages/canvas-engine`**: the stroke model, `renderer.ts`, `paint.ts`, `flood-fill.ts` and `pointer-gate.ts`. Input, the adjust drag, the brush cursor and colour maths are DoodleWhirl's own and stay in `features/canvas/engine/`.
 
 - `renderer.ts`: finished operations are painted once onto an offscreen **base** canvas. The stroke still in progress is repainted on top each frame. An undo or reset bumps the model's `epoch`, which repaints the base from scratch. There are no checkpoints yet (see [status.md](../planning/status.md)).
 - `paint.ts`: strokes are perfect-freehand outlines filled once, with `globalAlpha` (so opacity is even) and `destination-out` for the eraser. Fill is `flood-fill.ts` on the base canvas pixels.
@@ -93,7 +97,7 @@ apps/web/
 
 ### Canvas
 
-- **W8** The drawing engine in `features/canvas/engine/` is **plain TypeScript with no React**: renderer, painting, flood fill, input. The stroke model lives in `realtime/` because the connection feeds it. React wraps the engine through a ref and passes settings in.
+- **W8** The drawing engine (`packages/canvas-engine` plus `features/canvas/engine/`) is **plain TypeScript with no React**: renderer, painting, flood fill, input. The stroke model comes from `packages/canvas-engine` and is re-exported by `realtime/`, because the connection feeds it. React wraps the engine through a ref and passes settings in.
 - **W9** **Strokes never go into React state.** Pointer events feed the engine directly. Rendering runs on `requestAnimationFrame`. Only toolbar settings (tool, colour, size, opacity) are React state.
 - **W10** The engine draws at the fixed logical resolution (1200×900) and scales to the element. Flood fill runs offscreen at logical resolution so it is deterministic ([realtime-protocol.md](realtime-protocol.md#drawing-sync)).
 - **W11** Pure logic has Vitest unit tests: flood fill, the stroke model, the room-view reducer. Anything that needs a real browser (canvas rendering, sockets, the full flow) is covered by Playwright in `e2e/`.

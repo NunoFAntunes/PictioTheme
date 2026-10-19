@@ -4,7 +4,7 @@ import type { ToolSettings } from '../tools';
 import type { ColorPopoverState } from '../use-color-popover';
 import { adjustByDrag, lockAxis, type AdjustPatch, type Axis } from './adjust';
 import type { BrushCursor } from './brush-cursor';
-import { createPointerGate, pointPressure } from './pointer-gate';
+import { createPointerGate, pointPressure } from '@pictiotheme/canvas-engine';
 import { sampleCanvas } from './sample';
 
 /**

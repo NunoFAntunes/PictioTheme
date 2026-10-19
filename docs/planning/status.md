@@ -63,9 +63,9 @@
 | Game rules | `packages/game-core/src/room/` | `step(state, event, ctx) → effects`. Pure, simulated in `room.test.ts`. `test-harness.ts` drives it with a fake clock |
 | Guess matching | `packages/game-core/src/guess/classify.ts` | The test table follows [guess-matching.md](../technical/guess-matching.md) |
 | Server | `apps/server/src/modules/` | `system`, `auth` (guests + join tokens), `decks` (curated + generated decks, seeding, search, covers, reports), `generation` (AI decks: pipeline, jobs, routes), `rooms` (`RoomRuntime` per room), `realtime` (WebSocket transport). Wiring is in `app.ts` |
-| Web socket layer | `apps/web/src/app/realtime/` | `connection.ts`, `room-view.ts` (reducer), `stroke-model.ts` |
+| Web socket layer | `apps/web/src/app/realtime/` | `connection.ts`, `room-view.ts` (reducer); the stroke model is in `packages/canvas-engine` |
 | Web UI | `apps/web/src/app/features/`, `routes/` (`deck-cover` for covers, `report-deck` for 🚩; the cover pad and the avatar pad are both `canvas/DrawingPad`: `DrawingBoard` + `Toolbar` in its panel layout) | See the layout in [frontend-guidelines.md](../technical/frontend-guidelines.md#layout) |
-| Canvas | `apps/web/src/app/features/canvas/engine/` | renderer, paint (perfect-freehand), flood fill, pointer input |
+| Canvas | `packages/canvas-engine/src/` (shared with Doodle Tower) and `apps/web/src/app/features/canvas/engine/` | Shared: stroke model, renderer, paint (perfect-freehand), flood fill, pointer gate. DoodleWhirl's own: pointer input, adjust drag, brush cursor, colours |
 
 ## How to run and verify
 

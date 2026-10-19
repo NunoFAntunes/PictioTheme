@@ -4,7 +4,7 @@ import { useColorSlots } from '../color-slots';
 import type { AdjustPatch } from '../engine/adjust';
 import { createBrushCursor, type BrushCursor } from '../engine/brush-cursor';
 import { attachDrawingInput } from '../engine/input';
-import { createRenderer } from '../engine/renderer';
+import { createRenderer } from '@pictiotheme/canvas-engine';
 import type { ToolSettings } from '../tools';
 import type { ColorPopoverState, ToggleColorPopover } from '../use-color-popover';
 import { ColorPopover } from './ColorPopover';

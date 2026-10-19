@@ -52,7 +52,7 @@ export default defineConfig({
         '@tanstack/react-query',
         'zustand',
         'zod',
-        'perfect-freehand',
+        '@pictiotheme/canvas-engine > perfect-freehand',
         'pluralize',
       ],
     },

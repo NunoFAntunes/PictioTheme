@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "pnpm --parallel --filter @pictiotheme/server --filter @pictiotheme/web dev",
+    "dev:tower": "pnpm --filter @pictiotheme/tower-web dev",
     "build": "pnpm -r --if-present build",
     "typecheck": "pnpm -r --if-present typecheck",
     "lint": "eslint .",

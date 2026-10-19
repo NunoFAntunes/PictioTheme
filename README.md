@@ -11,8 +11,12 @@ guidelines before writing code. Current state and next tasks: [docs/planning/sta
 ```
 apps/server       Fastify modular monolith (REST API, WebSocket rooms, jobs). Owns the DB schema
 apps/web          Astro static site + React app
+apps/tower-web    Doodle Tower: its own Astro + React site (docs in docs/tower/)
 packages/protocol zod schemas shared by server and web (messages, DTOs, deck schema, error codes)
 packages/game-core Pure game logic: guess matching, scoring, card pool, room codes, word masks
+packages/canvas-engine  The drawing engine both games share: stroke model, renderer, painting, flood fill
+packages/doodle-shape   Doodle Tower, pure: a drawing → a normalized, convex-decomposed physics piece
+packages/tower-physics  Doodle Tower: one tower's Rapier world (placing, fumbles, height)
 infra/            Docker Compose and deployment files
 docs/             Product, design and technical documentation
 ```
@@ -37,6 +41,7 @@ same-origin like in production.
 | Command                                         | What it does                                                  |
 | ----------------------------------------------- | ------------------------------------------------------------- |
 | `pnpm dev`                                      | Run server and web in watch mode                              |
+| `pnpm dev:tower`                                | Run Doodle Tower's site on :4322 (the sandbox is `/sandbox`)  |
 | `pnpm check`                                    | Everything CI runs: typecheck, lint, import boundaries, tests |
 | `pnpm test`                                     | Unit and integration tests (server tests need `pnpm db:up`)   |
 | `pnpm deps:check`                               | Enforce the module boundaries from the guidelines             |

@@ -63,7 +63,7 @@ The goal is to be good enough to post on r/WebGames and in Discord communities i
 | # | Item | Size | Notes |
 |---|---|---|---|
 | 1.13 | **Juice**: score "+180" animation, sounds (turn start, correct guess, timer low), with a mute toggle | M | Makes a game feel finished. Cheap compared to the effect it has |
-| 1.14 | **Fill edge ring fix** in `flood-fill.ts` (grow by 1 px, deterministic, with a test) | S | Visible on every fill |
+| 1.14 | **Fill edge ring fix** in `flood-fill.ts` (`packages/canvas-engine`) (grow by 1 px, deterministic, with a test) | S | Visible on every fill |
 | 1.15 | 🚧 **"🚩 Unfair card" on the reveal overlay + 👍/👎 per deck on results** (built instead: the drawer's 👍/👎 per card while choosing, plus picked/offered counts per card; per-deck votes and the unfair-card flag are still open) (store only; nothing uses them yet) | S | Starts collecting the quality data M2 needs |
 | 1.16 | **Share a deck**: a "Play this deck" link with the cover as its social preview image (`og:image`) | S | A drawn cover makes a shared link look like something worth clicking |
 | 1.17 | **Load test** (e.g. 50–100 simulated rooms against the deployed host) | S | Know the ceiling before a Reddit spike, especially on free or home hardware |

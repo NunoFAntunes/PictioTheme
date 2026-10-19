@@ -1,5 +1,5 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '@pictiotheme/protocol';
-import type { StrokeModel } from '../../../realtime';
+import type { StrokeModel } from './stroke-model';
 import { paintOp } from './paint';
 
 /**

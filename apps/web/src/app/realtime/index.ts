@@ -8,7 +8,7 @@ export {
 } from './connection';
 export { serverNow, useRoomStore, type CloseReason, type ConnectionState } from './room-store';
 export type { Bubble, FeedItem, PlayedEmote, RoomView } from './room-view';
-export { createStrokeModel, type DrawOp, type StrokeModel } from './stroke-model';
+export { createStrokeModel, type DrawOp, type StrokeModel } from '@pictiotheme/canvas-engine';
 export {
   amHost,
   drawerIdOf,

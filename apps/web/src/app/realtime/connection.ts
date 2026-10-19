@@ -10,7 +10,7 @@ import { ApiError, apiPost } from '../lib/api';
 import { serverNow, useRoomStore, type CloseReason } from './room-store';
 import { amHost } from './selectors';
 import { applyServerMessage, startsNewDrawing, viewFromSnapshot, type RoomView } from './room-view';
-import { createStrokeModel, type DrawOp } from './stroke-model';
+import { createStrokeModel, type DrawOp } from '@pictiotheme/canvas-engine';
 
 /**
  * The only code that touches the WebSocket (rule W5). One room per tab.
