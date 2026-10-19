@@ -35,6 +35,7 @@ DoodleWhirl! is a browser-based, real-time drawing-and-guessing game (in the spi
 | ↳ [next-features.md](planning/next-features.md) | What to build next (Oct 2026): milestones to a Halloween launch and beyond | decide what to work on |
 | ↳ [open-questions.md](planning/open-questions.md) | Decisions not yet made | help make decisions |
 | ↳ [status.md](planning/status.md) | **Current state, how to verify, prioritized next tasks** | pick up the work |
+| **[tower/](tower/README.md)** | **Doodle Tower**, the second game in this repo (Pictionary meets Tricky Towers), with its own docs in the same sections | work on Doodle Tower |
 
 ## The idea in one paragraph
 
