@@ -7,8 +7,13 @@ One WebSocket per player: `wss://<tower-domain>/ws/tower?token=<joinToken>`. The
 ## Joining
 
 1. `POST /api/session/guest`: the guest cookie (shared with DoodleWhirl's API).
-2. `POST /api/tower/rooms` (create, body: `displayName` and `avatar`) or `POST /api/tower/rooms/:code/join` → `{ code, joinToken }`. `GET /api/tower/rooms/:code` checks a code exists.
+2. One of these → `{ code, joinToken }`:
+   - `POST /api/tower/rooms`: create a lobby (body: `displayName`, `avatar`, and `isPublic`, false by default).
+   - `POST /api/tower/rooms/quick-play` (body: `displayName`, `avatar`): Quick game. The public room with space that is waiting and has the most connected players; failing that, the fullest public match with space (newcomers join the smaller crew); failing that, a new public room hosted by the player.
+   - `POST /api/tower/rooms/:code/join`. `GET /api/tower/rooms/:code` checks a code exists first.
 3. Open the socket with the token. Tower tokens have their own audience (`doodletower:ws`), so a DoodleWhirl token can't open a tower room and the other way round.
+
+Sharing a room: `GET /api/tower/rooms/:code/card.png` is its share card (1200×630, `apps/server/src/modules/tower/tower-share-card.ts`), cached forever when asked for with `?v=<version>`, `no-cache` without it. `GET /api/tower/rooms/:code/embed` is the Open Graph page link-preview bots get for `/r/CODE` (Caddy sends known bots' user agents there), so an invite link pasted in Discord, Slack or WhatsApp unfurls into the card. Rooms have no name of their own: they're "<host>'s tower".
 
 The server sends a `room:snapshot`, then a `tower:frame` per tower with every body's pose.
 
@@ -19,7 +24,7 @@ The server sends a `room:snapshot`, then a `tower:frame` per tower with every bo
 | `crew:join` | `{team}` | anyone, while waiting | |
 | `crew:move` | `{playerId, team}` | host, while waiting | |
 | `crew:shuffle` | — | host, while waiting | |
-| `settings:update` | `{settings}` (partial `TowerSettings`) | host, while waiting | `roundSeconds`, `line`, `dazeSeconds`, `steals` |
+| `settings:update` | `{settings}` (partial `TowerSettings`) | host, while waiting | `roundSeconds`, `line`, `dazeSeconds`, `steals`, `isPublic` (whether Quick game can bring people in) |
 | `match:start` | — | host | ≥ 2 connected per crew, crews one apart at most, words loaded |
 | `match:rematch` | — | host, at the results | back to the waiting room, same crews |
 | `draw:begin / pts / end / fill / undo / redo / clear` | as DoodleWhirl's | the drawer | points batched every 33 ms. The server keeps every fill (it can't see pixels); clients only send fills inside a closed shape, and every client skips one that would reach the canvas's edge |

@@ -41,12 +41,16 @@ describe('Doodle Tower, end to end', () => {
   let baseUrl: string;
   const player = () => new TestPlayer(baseUrl, TOWER_ORIGIN);
 
+  /** Creates a room, joins `code`, or (`'quick-play'`) lets Quick game choose. */
   async function enter(p: TestPlayer, name: string, code?: string): Promise<Socket> {
     await p.startSession();
     const body = { displayName: name, avatar: testAvatar([240, 120, 40]) };
-    const res = code
-      ? await p.request('POST', `/api/tower/rooms/${code}/join`, body)
-      : await p.request('POST', '/api/tower/rooms', body);
+    const res =
+      code === 'quick-play'
+        ? await p.request('POST', '/api/tower/rooms/quick-play', body)
+        : code
+          ? await p.request('POST', `/api/tower/rooms/${code}/join`, body)
+          : await p.request('POST', '/api/tower/rooms', body);
     expect(res.status).toBe(200);
     const { joinToken } = res.body as JoinRoomResponse;
     return p.connect<TowerServerMessage, TowerClientMessage>(joinToken, '/ws/tower');
@@ -83,6 +87,60 @@ describe('Doodle Tower, end to end', () => {
     await p.startSession();
     const { joinToken } = await p.createRoom('Ana');
     await expect(p.connect(joinToken, '/ws/tower')).rejects.toThrow(/upgrade rejected: 401/);
+  });
+
+  it('Quick game skips private lobbies, makes a public room, then fills it', async () => {
+    const lobby = await enter(player(), 'Pri');
+    const { code: privateCode, settings } = await lobby.next('room:snapshot');
+    expect(settings.isPublic).toBe(false);
+
+    const first = await enter(player(), 'Quin', 'quick-play');
+    const made = await first.next('room:snapshot');
+    expect(made.code).not.toBe(privateCode);
+    expect(made.settings.isPublic).toBe(true);
+    expect(made.hostId).toBe(made.you);
+
+    const second = await enter(player(), 'Quill', 'quick-play');
+    expect((await second.next('room:snapshot')).code).toBe(made.code);
+
+    // The host makes the lobby public: now Quick game can find it too.
+    lobby.send({ t: 'settings:update', settings: { isPublic: true } });
+    await lobby.next('room:settings', (m) => m.settings.isPublic);
+    const third = await enter(player(), 'Quip', 'quick-play');
+    // The fuller waiting room wins.
+    expect((await third.next('room:snapshot')).code).toBe(made.code);
+    for (const s of [lobby, first, second, third]) s.close();
+  });
+
+  it("serves the room's share card and the page link previews unfurl", async () => {
+    const host = await enter(player(), 'Ana');
+    const { code } = await host.next('room:snapshot');
+
+    const embed = await fetch(`${baseUrl}/api/tower/rooms/${code}/embed`);
+    expect(embed.status).toBe(200);
+    expect(embed.headers.get('content-type')).toContain('text/html');
+    const html = await embed.text();
+    expect(html).toContain('Ana&#39;s tower');
+    expect(html).toContain(`${TOWER_ORIGIN}/r/${code}`);
+    const image = /og:image" content="([^"]+)"/.exec(html)?.[1] ?? '';
+    expect(image).toMatch(new RegExp(`/api/tower/rooms/${code}/card\\.png\\?v=\\w+$`));
+
+    const card = await fetch(`${baseUrl}${new URL(image).pathname}${new URL(image).search}`);
+    expect(card.status).toBe(200);
+    expect(card.headers.get('content-type')).toBe('image/png');
+    expect(card.headers.get('cache-control')).toContain('immutable');
+    const latest = await fetch(`${baseUrl}/api/tower/rooms/${code}/card.png`);
+    expect(latest.headers.get('cache-control')).toBe('no-cache');
+
+    // A rule on the card changes: so does its version.
+    host.send({ t: 'settings:update', settings: { line: 'tall' } });
+    await host.next('room:settings', (m) => m.settings.line === 'tall');
+    const after = await (await fetch(`${baseUrl}/api/tower/rooms/${code}/embed`)).text();
+    expect(/og:image" content="([^"]+)"/.exec(after)?.[1]).not.toBe(image);
+
+    expect((await fetch(`${baseUrl}/api/tower/rooms/ZZZ-ZZZ/embed`)).status).toBe(404);
+    expect((await fetch(`${baseUrl}/api/tower/rooms/ZZZ-ZZZ/card.png`)).status).toBe(404);
+    host.close();
   });
 
   it('four players play a round: draw, guess, build, place, and the tower grows', async () => {

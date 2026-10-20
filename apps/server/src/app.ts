@@ -147,6 +147,7 @@ export async function buildApp(config: Config, overrides: { llm?: LlmClient | nu
     transport: towerConnections,
     physics,
     log: app.log,
+    publicOrigin: config.towerPublicOrigin,
   });
 
   // Tell players and close rooms before the server stops accepting connections.

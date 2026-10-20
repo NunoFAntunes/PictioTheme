@@ -8,12 +8,12 @@ import {
   type TowerPlayer,
   type TowerSettings,
 } from '@pictiotheme/protocol/tower';
-import { useState } from 'react';
 import { sendToRoom, type RoomView } from '../../../realtime';
 import { Avatar } from '../../../ui/Avatar';
 import { Button } from '../../../ui/Button';
 import { CREW_BG, CREW_NAME } from '../../../ui/CrewBadge';
 import { Panel } from '../../../ui/Panel';
+import { InviteCard } from './InviteCard';
 
 function startProblem(view: RoomView): string | null {
   const count = (team: Team) => view.players.filter((p) => p.connected && p.team === team).length;
@@ -120,23 +120,12 @@ function Choice<T extends string | number | boolean>({
   );
 }
 
-/** Before a match: crews, the host's settings, the invite link. */
+/** Before a match: the invite card, the crews, the host's settings. */
 export function WaitingRoom({ view }: { view: RoomView }) {
   const isHost = view.hostId === view.you;
   const problem = startProblem(view);
-  const [copied, setCopied] = useState(false);
   const set = (settings: Partial<TowerSettings>) => sendToRoom({ t: 'settings:update', settings });
   const s = view.settings;
-
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(`${location.origin}/r/${view.code}`);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      setCopied(false);
-    }
-  };
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col gap-5 px-5 py-6">
@@ -144,19 +133,9 @@ export function WaitingRoom({ view }: { view: RoomView }) {
         <a href="/" className="title-outline font-display text-3xl tracking-wide">
           Doodle <span className="text-sun">Tower</span>
         </a>
-        <div className="ml-auto flex items-center gap-2">
-          <span className="text-sm font-semibold text-dusk-900">Room</span>
-          <span
-            className="title-outline font-display text-2xl tracking-[0.2em]"
-            data-testid="room-code"
-          >
-            {view.code}
-          </span>
-          <Button variant="soft" onClick={() => void copyLink()}>
-            {copied ? 'Copied!' : 'Copy invite link'}
-          </Button>
-        </div>
       </header>
+
+      <InviteCard view={view} />
 
       <div className="grid gap-4 md:grid-cols-2">
         {TEAMS.map((team) => (

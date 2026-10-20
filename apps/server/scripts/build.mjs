@@ -29,3 +29,7 @@ await cp('src/db/migrations', 'dist/migrations', { recursive: true });
 await cp('src/modules/decks/curated', 'dist/curated', { recursive: true });
 // The share card's fonts (src/modules/rooms/share-card.ts).
 await cp('src/modules/rooms/share-card-fonts', 'dist/share-card-fonts', { recursive: true });
+// Doodle Tower's share card's font (src/modules/tower/tower-share-card.ts).
+await cp('src/modules/tower/tower-share-card-fonts', 'dist/tower-share-card-fonts', {
+  recursive: true,
+});

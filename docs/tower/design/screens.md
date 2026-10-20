@@ -4,13 +4,30 @@ Layout only. The look is in [visual-identity.md](visual-identity.md). Target: 12
 
 ## 1. Home
 
-Logo, **Create room**, **Join with code** (`ABC-DEF`, same format and rules as DoodleWhirl), name and avatar. The avatar is drawn, like in DoodleWhirl, but the editor is restyled.
+Logo, your name, then the three ways into a game side by side (2026-10-20):
+
+```
+                         DOODLE TOWER
+                     [ Your name: Ana     ]
+┌──────────────────┐ ┌──────────────────────┐ ┌──────────────────┐
+│ ⚡ Quick game     │ │ 🔑 Join a private game│ │ 🏗️ Create a lobby │
+│ any open game, or│ │ [ ABC-DEF          ] │ │ private, share   │
+│ start a public   │ │ (code or pasted link)│ │ the invite card  │
+│ [ QUICK GAME ]   │ │ [ JOIN ]             │ │ [ CREATE A LOBBY ]│
+└──────────────────┘ └──────────────────────┘ └──────────────────┘
+```
+
+Codes are `ABC-DEF`, same format and rules as DoodleWhirl; a pasted invite link becomes its code. Opening an invite link (`/r/ABC-DEF`) goes straight to the room (asking for a name first if there isn't one). The avatar is a generated bobble hat for now; a drawn one is Phase 2.
 
 ## 2. Waiting room
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│  ROOM ABC-DEF   [copy invite link]                       ⚙ settings │
+│  INVITE YOUR FRIENDS                                                │
+│  ┌──────────────┐  Room code [ABC-DEF]                              │
+│  │ the share    │  [Copy invite link] [Copy the card]               │
+│  │ card preview │  Who can join: (🔒 Friends with the link) (🌍 Anyone)│
+│  └──────────────┘                                                   │
 ├──────────────────────────┬──────────────────────────────────────────┤
 │  🟠 ORANGE CREW (3)      │  🔵 TEAL CREW (2)                        │
 │  ┌──┐ Ana (host)         │  ┌──┐ Rui                                │
@@ -23,7 +40,7 @@ Logo, **Create room**, **Join with code** (`ABC-DEF`, same format and rules as D
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-The host can drag players between crews.
+The invite card shows the share card exactly as chat apps unfurl the link. Lobbies start private; the host can open them to Quick game. The host can move players between crews.
 
 ## 3. Game: guesser
 

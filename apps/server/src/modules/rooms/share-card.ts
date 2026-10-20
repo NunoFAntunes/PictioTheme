@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import type { Difficulty, GameMode } from '@pictiotheme/protocol';
 import { renderSvg } from '../../lib/svg';
-import { readFontMetrics, type FontMetrics } from './font-metrics';
+import { readFontMetrics, type FontMetrics } from '../../lib/font-metrics';
 
 /**
  * The room's share card (screens.md §3): the waiting room's card as a 1200×630 picture, for link

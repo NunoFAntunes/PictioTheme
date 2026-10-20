@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { DrawBegin, DrawFill, Points, Stroke, StrokeId } from '../drawing';
 import { ErrorCode } from '../errors';
+import { PlayerIdentity } from '../http';
 import { GUESS_MAX_LENGTH, AvatarId, PlayerId, RoomCode } from '../room';
 
 /**
@@ -27,6 +28,8 @@ export const TowerSettings = z.object({
   /** The fumble daze, in seconds (0: off). */
   dazeSeconds: z.number().int().min(0).max(10),
   steals: z.boolean(),
+  /** Public rooms can be joined by Quick game; private ones only with the code or the link. */
+  isPublic: z.boolean(),
 });
 export type TowerSettings = z.infer<typeof TowerSettings>;
 
@@ -35,7 +38,14 @@ export const DEFAULT_TOWER_SETTINGS: TowerSettings = {
   line: 'medium',
   dazeSeconds: 5,
   steals: true,
+  isPublic: false,
 };
+
+// ── HTTP (`/api/tower/rooms`) ─────────────────────────────────────────────────
+
+/** "Create a lobby" makes a private room; Quick game makes a public one when none has space. */
+export const CreateTowerRoomRequest = PlayerIdentity.extend({ isPublic: z.boolean().optional() });
+export type CreateTowerRoomRequest = z.infer<typeof CreateTowerRoomRequest>;
 
 export const TOWER_MIN_PER_CREW = 2;
 export const TOWER_MAX_PER_CREW = 6;

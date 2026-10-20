@@ -45,7 +45,7 @@ test('four players play a round: draw, guess, build, place', async ({ browser })
   const host = await newPlayer(browser);
   await host.goto('/');
   await nameAndGo(host, 'Ana');
-  await host.getByRole('button', { name: 'Create a room' }).click();
+  await host.getByRole('button', { name: 'Create a lobby' }).click();
   await expect(host).toHaveURL(/\/r\/[A-Z]{3}-[A-Z]{3}$/);
   const code = (await host.getByTestId('room-code').textContent()) ?? '';
 

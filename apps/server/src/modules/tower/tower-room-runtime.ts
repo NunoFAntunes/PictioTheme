@@ -37,6 +37,10 @@ export type TowerRoomRuntimeDeps = {
 
 export class TowerRoomRuntime {
   readonly state: TowerRoomState;
+  /** Who made the room: its name until the host is in it (the room is named after its host). */
+  readonly creatorName: string;
+  /** The share card, drawn on demand and kept until what it shows changes. */
+  shareCard: { version: string; png: Buffer } | null = null;
   private readonly deps: TowerRoomRuntimeDeps;
   private readonly timers = new Map<TimerId, NodeJS.Timeout>();
   private readonly queue: TowerEvent[] = [];
@@ -49,8 +53,9 @@ export class TowerRoomRuntime {
     teal: new Map(),
   };
 
-  constructor(state: TowerRoomState, deps: TowerRoomRuntimeDeps) {
+  constructor(state: TowerRoomState, creatorName: string, deps: TowerRoomRuntimeDeps) {
     this.state = state;
+    this.creatorName = creatorName;
     this.deps = deps;
     this.worlds = {
       orange: deps.physics.createWorld((e) => this.onWorldEvent('orange', e)),

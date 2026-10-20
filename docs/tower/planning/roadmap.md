@@ -29,4 +29,6 @@ Picking a single deck, public rooms and a lobby list, accounts when DoodleWhirl'
 
 ## Phase 4: Depth (only after playtests)
 
-Showing the category to unlock more decks, a timed mode, power-ups (glue, wind, a "steady" spell), ink colour as material (blue ice, grey heavy stone), spectators.
+Showing the category to unlock more decks, a timed mode, perks for your own crew (glue, a "steady" spell), ink colour as material (blue ice, grey heavy stone), spectators.
+
+The attacking power-ups (curses and spells) were brought forward: they have their own staged plan in [power-ups.md](power-ups.md).
