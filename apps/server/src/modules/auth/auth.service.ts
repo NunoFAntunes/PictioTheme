@@ -10,6 +10,8 @@ import { z } from 'zod';
  */
 
 const AUDIENCE = 'pictiotheme:ws';
+/** Doodle Tower's join tokens, so one game's token never opens the other game's room. */
+export const TOWER_AUDIENCE = 'doodletower:ws';
 const JOIN_TOKEN_TTL = '60s';
 
 export const JoinClaims = z.object({
@@ -29,21 +31,21 @@ export function createAuthService(deps: { secret: string }) {
       return randomUUID();
     },
 
-    async issueJoinToken(claims: JoinClaims): Promise<string> {
+    async issueJoinToken(claims: JoinClaims, audience: string = AUDIENCE): Promise<string> {
       return new SignJWT(claims)
         .setProtectedHeader({ alg: 'HS256' })
-        .setAudience(AUDIENCE)
+        .setAudience(audience)
         .setIssuedAt()
         .setExpirationTime(JOIN_TOKEN_TTL)
         .sign(key);
     },
 
     /** The claims, or null for anything invalid, expired, or signed with another key. */
-    async verifyJoinToken(token: string): Promise<JoinClaims | null> {
+    async verifyJoinToken(token: string, audience: string = AUDIENCE): Promise<JoinClaims | null> {
       try {
         const { payload } = await jwtVerify(token, key, {
           algorithms: ['HS256'],
-          audience: AUDIENCE,
+          audience,
         });
         const parsed = JoinClaims.safeParse(payload);
         return parsed.success ? parsed.data : null;

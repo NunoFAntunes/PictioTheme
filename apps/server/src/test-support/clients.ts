@@ -10,10 +10,9 @@ function rawToString(data: RawData): string {
 
 /** HTTP and WebSocket clients for end-to-end tests against a listening app. */
 
-type Msg<T extends ServerMessage['t']> = Extract<ServerMessage, { t: T }>;
-
-export class TestSocket {
-  readonly received: ServerMessage[] = [];
+/** A WebSocket client for one game's messages: DoodleWhirl's by default, or Doodle Tower's. */
+export class TestSocket<S extends { t: string } = ServerMessage, C = ClientMessage> {
+  readonly received: S[] = [];
   private consumed = new Set<number>();
   private listeners: (() => void)[] = [];
   readonly closed: Promise<{ code: number; reason: string }>;
@@ -22,7 +21,7 @@ export class TestSocket {
   constructor(socket: WebSocket) {
     this.socket = socket;
     socket.on('message', (data) => {
-      this.received.push(JSON.parse(rawToString(data)) as ServerMessage);
+      this.received.push(JSON.parse(rawToString(data)) as S);
       for (const l of this.listeners) l();
     });
     this.closed = new Promise((resolve) =>
@@ -30,25 +29,25 @@ export class TestSocket {
     );
   }
 
-  send(msg: ClientMessage): void {
+  send(msg: C): void {
     this.socket.send(JSON.stringify(msg));
   }
 
   /** The next not-yet-consumed message of this type (optionally matching), waiting if needed. */
-  next<T extends ServerMessage['t']>(
+  next<T extends S['t']>(
     t: T,
-    match: (m: Msg<T>) => boolean = () => true,
+    match: (m: Extract<S, { t: T }>) => boolean = () => true,
     timeoutMs = 2_000,
-  ): Promise<Msg<T>> {
+  ): Promise<Extract<S, { t: T }>> {
     return new Promise((resolve, reject) => {
       const check = () => {
         const index = this.received.findIndex(
-          (m, i) => !this.consumed.has(i) && m.t === t && match(m as Msg<T>),
+          (m, i) => !this.consumed.has(i) && m.t === t && match(m as Extract<S, { t: T }>),
         );
         if (index === -1) return false;
         this.consumed.add(index);
         cleanup();
-        resolve(this.received[index] as Msg<T>);
+        resolve(this.received[index] as Extract<S, { t: T }>);
         return true;
       };
       const timer = setTimeout(() => {
@@ -140,10 +139,13 @@ export class TestPlayer {
     return res.body as JoinRoomResponse;
   }
 
-  connect(token: string): Promise<TestSocket> {
-    const url = `${this.baseUrl.replace('http', 'ws')}/ws?token=${encodeURIComponent(token)}`;
+  connect<S extends { t: string } = ServerMessage, C = ClientMessage>(
+    token: string,
+    path = '/ws',
+  ): Promise<TestSocket<S, C>> {
+    const url = `${this.baseUrl.replace('http', 'ws')}${path}?token=${encodeURIComponent(token)}`;
     const socket = new WebSocket(url, { headers: { origin: this.origin } });
-    const client = new TestSocket(socket);
+    const client = new TestSocket<S, C>(socket);
     return new Promise((resolve, reject) => {
       socket.once('open', () => resolve(client));
       socket.once('unexpected-response', (_req, res) =>

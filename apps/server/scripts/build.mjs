@@ -9,7 +9,12 @@ const external = Object.keys(pkg.dependencies).filter((name) => !name.startsWith
 
 await rm('dist', { recursive: true, force: true });
 await build({
-  entryPoints: ['src/main.ts', 'src/migrate.ts'],
+  // Doodle Tower's physics worker is its own entry: app.ts loads ./physics.worker.js at runtime.
+  entryPoints: {
+    main: 'src/main.ts',
+    migrate: 'src/migrate.ts',
+    'physics.worker': 'src/modules/tower/physics/physics.worker.ts',
+  },
   outdir: 'dist',
   bundle: true,
   platform: 'node',

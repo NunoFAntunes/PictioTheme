@@ -1,6 +1,7 @@
 import { createDb } from '../db/client';
 import { runMigrations } from '../db/migrate';
 import { seedCuratedDecks } from '../modules/decks';
+import { seedTowerDecks } from '../modules/tower';
 import { TEST_DATABASE_URL } from './test-config';
 
 /** Runs once before the test suite: bring the test database to the latest schema and decks. */
@@ -10,6 +11,7 @@ export default async function setup() {
     const { db, pool } = createDb(TEST_DATABASE_URL);
     try {
       await seedCuratedDecks(db);
+      await seedTowerDecks(db);
     } finally {
       await pool.end();
     }

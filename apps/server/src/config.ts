@@ -17,6 +17,10 @@ const Env = z.object({
   DATABASE_URL: z.url(),
   /** The site origin. Mutating requests must come from it (rule F12). */
   PUBLIC_ORIGIN: z.url().default('http://localhost:4321'),
+  /** Doodle Tower's site origin (its own domain): also allowed to make requests (rule F12). */
+  TOWER_PUBLIC_ORIGIN: z.url().default('http://localhost:4322'),
+  /** Physics worker threads for Doodle Tower's towers. 0: one less than the CPU count (min 1). */
+  TOWER_PHYSICS_WORKERS: z.coerce.number().int().min(0).max(32).default(0),
   /** Comma-separated proxy IPs/CIDRs to trust for X-Forwarded-For (rule F10). Empty: trust none. */
   TRUST_PROXY: z.string().default(''),
   /** Signs guest cookies and WebSocket join tokens. At least 32 random characters. */
@@ -92,6 +96,8 @@ export type Config = {
   logLevel: LogLevel;
   databaseUrl: string;
   publicOrigin: string;
+  towerPublicOrigin: string;
+  towerPhysicsWorkers: number;
   trustProxy: string[];
   sessionSecret: string;
   /** Cookies get the Secure flag outside development and tests. */
@@ -144,6 +150,8 @@ export function loadConfig(env: Record<string, string | undefined> = process.env
     logLevel: e.LOG_LEVEL,
     databaseUrl: e.DATABASE_URL,
     publicOrigin: e.PUBLIC_ORIGIN,
+    towerPublicOrigin: e.TOWER_PUBLIC_ORIGIN,
+    towerPhysicsWorkers: e.TOWER_PHYSICS_WORKERS,
     trustProxy: splitList(e.TRUST_PROXY),
     sessionSecret: e.SESSION_SECRET,
     secureCookies: e.NODE_ENV === 'production',

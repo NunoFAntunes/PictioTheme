@@ -66,13 +66,14 @@ export default tseslint.config(
     },
   },
 
-  // ── game-core, doodle-shape, tower-physics: deterministic, no I/O (B6). Time and randomness
-  //    are passed in. ──
+  // ── game-core, doodle-shape, tower-physics, tower-core: deterministic, no I/O (B6). Time and
+  //    randomness are passed in. ──
   {
     files: [
       'packages/game-core/src/**/*.ts',
       'packages/doodle-shape/src/**/*.ts',
       'packages/tower-physics/src/**/*.ts',
+      'packages/tower-core/src/**/*.ts',
     ],
     ignores: TEST_FILES,
     rules: {

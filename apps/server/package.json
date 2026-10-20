@@ -18,11 +18,15 @@
     "metrics:report": "tsx --env-file-if-exists=.env scripts/metrics-report.ts"
   },
   "dependencies": {
+    "@dimforge/rapier2d-deterministic-compat": "0.21.0",
     "@fastify/cookie": "^11.1.2",
     "@fastify/rate-limit": "^11.2.0",
     "@fastify/websocket": "~11.3.1",
+    "@pictiotheme/doodle-shape": "workspace:*",
     "@pictiotheme/game-core": "workspace:*",
     "@pictiotheme/protocol": "workspace:*",
+    "@pictiotheme/tower-core": "workspace:*",
+    "@pictiotheme/tower-physics": "workspace:*",
     "@resvg/resvg-wasm": "2.6.2",
     "close-with-grace": "^2.5.0",
     "drizzle-orm": "^0.45.3",

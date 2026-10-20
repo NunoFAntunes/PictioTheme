@@ -1,4 +1,5 @@
 import type { ClientMessageType } from '@pictiotheme/protocol';
+import type { TowerClientMessage } from '@pictiotheme/protocol/tower';
 
 /** Token buckets per connection (rule R5): an overall cap plus tighter caps on guesses and chat. */
 
@@ -33,6 +34,25 @@ export function createMessageLimiter(now: () => number = Date.now) {
   };
   return {
     allow(type: ClientMessageType): boolean {
+      const specific = perType[type];
+      return all.take() && (specific ? specific.take() : true);
+    },
+  };
+}
+
+/**
+ * Doodle Tower's: the same overall cap, guesses as in DoodleWhirl, and the placer's steering,
+ * which the client sends up to 20 times a second.
+ */
+export function createTowerMessageLimiter(now: () => number = Date.now) {
+  const all = tokenBucket(60, 120, now);
+  const perType: Partial<Record<TowerClientMessage['t'], Bucket>> = {
+    guess: tokenBucket(3, 5, now),
+    'place:steer': tokenBucket(25, 30, now),
+    'crew:join': tokenBucket(2, 5, now),
+  };
+  return {
+    allow(type: TowerClientMessage['t']): boolean {
       const specific = perType[type];
       return all.take() && (specific ? specific.take() : true);
     },

@@ -85,6 +85,13 @@
       "when": 1791688300588,
       "tag": "0011_chaos_mode",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1792454171480,
+      "tag": "0012_tower",
+      "breakpoints": true
     }
   ]
 }

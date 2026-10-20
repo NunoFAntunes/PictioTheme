@@ -144,6 +144,27 @@ describe('stacking', () => {
   });
 });
 
+describe('ids and frames', () => {
+  it('spawns with the id it is given, above the tower, and encodes frames in mm and mrad', () => {
+    const world = createTowerWorld();
+    place(world, box(2, 1));
+    expect(world.spawnAbove(box(1, 1), 3, 42)).toBe(42);
+    const active = world.bodies().find((b) => b.id === 42);
+    // The tower is 1 high: 3 above it, plus the box's radius (√0.5).
+    expect(active?.y).toBeCloseTo(1 + 3 + Math.SQRT1_2, 3);
+    const frame = world.frame(false);
+    expect(frame).toHaveLength(8);
+    expect(frame.slice(4)).toEqual([42, 0, Math.round((active?.y ?? 0) * 1000), 0]);
+    // The brick has gone to sleep: only the falling piece is "moving".
+    run(world, 0.1);
+    expect(world.frame(true).filter((_, i) => i % 4 === 0)).toEqual([42]);
+    // The next id the world picks itself doesn't collide.
+    world.drop();
+    expect(world.spawnAbove(box(1, 1), 3)).toBe(43);
+    world.free();
+  });
+});
+
 describe('fumbles', () => {
   it('reports a piece that falls off exactly once, and removes it', () => {
     const world = createTowerWorld();

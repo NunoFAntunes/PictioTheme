@@ -196,6 +196,9 @@ importers:
 
   apps/server:
     dependencies:
+      '@dimforge/rapier2d-deterministic-compat':
+        specifier: 0.21.0
+        version: 0.21.0
       '@fastify/cookie':
         specifier: ^11.1.2
         version: 11.1.2
@@ -205,12 +208,21 @@ importers:
       '@fastify/websocket':
         specifier: ~11.3.1
         version: 11.3.1
+      '@pictiotheme/doodle-shape':
+        specifier: workspace:*
+        version: link:../../packages/doodle-shape
       '@pictiotheme/game-core':
         specifier: workspace:*
         version: link:../../packages/game-core
       '@pictiotheme/protocol':
         specifier: workspace:*
         version: link:../../packages/protocol
+      '@pictiotheme/tower-core':
+        specifier: workspace:*
+        version: link:../../packages/tower-core
+      '@pictiotheme/tower-physics':
+        specifier: workspace:*
+        version: link:../../packages/tower-physics
       '@resvg/resvg-wasm':
         specifier: 2.6.2
         version: 2.6.2
@@ -451,6 +463,25 @@ importers:
       zod:
         specifier: ^4.6.5
         version: 4.6.5
+    devDependencies:
+      typescript:
+        specifier: ~6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/node@24.19.1)(vite@8.3.2(@types/node@24.19.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
+
+  packages/tower-core:
+    dependencies:
+      '@pictiotheme/doodle-shape':
+        specifier: workspace:*
+        version: link:../doodle-shape
+      '@pictiotheme/game-core':
+        specifier: workspace:*
+        version: link:../game-core
+      '@pictiotheme/protocol':
+        specifier: workspace:*
+        version: link:../protocol
     devDependencies:
       typescript:
         specifier: ~6.0.3

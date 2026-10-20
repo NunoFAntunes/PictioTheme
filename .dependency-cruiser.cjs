@@ -83,6 +83,19 @@ module.exports = {
       },
     },
     {
+      name: 'tower-core-allowed-dependencies',
+      comment: 'B6 for Doodle Tower: the match state machine is pure, like game-core.',
+      severity: 'error',
+      from: { path: '^packages/tower-core/' },
+      to: {
+        dependencyTypes: ['npm', 'npm-dev', 'core', 'local'],
+        pathNot: [
+          '^packages/(tower-core|game-core|doodle-shape|protocol)/',
+          'node_modules/vitest/',
+        ],
+      },
+    },
+    {
       name: 'tower-physics-allowed-dependencies',
       comment: 'Rapier only; it knows nothing about drawings or rooms.',
       severity: 'error',

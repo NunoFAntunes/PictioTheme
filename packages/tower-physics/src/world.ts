@@ -174,8 +174,11 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
   };
 
   return {
-    /** Spawns a piece to be placed, at (x, y). Fails (null) while another one is being placed. */
-    spawn(geometry: PieceGeometry, x: number, y: number, angle = 0): PieceId | null {
+    /**
+     * Spawns a piece to be placed, at (x, y). Fails (null) while another one is being placed.
+     * `id` lets the caller choose the piece's id (the match owns ids); otherwise the next free one.
+     */
+    spawn(geometry: PieceGeometry, x: number, y: number, angle = 0, id?: PieceId): PieceId | null {
       if (active) return null;
       const body = world.createRigidBody(
         RAPIER.RigidBodyDesc.dynamic()
@@ -201,7 +204,8 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
         world.removeRigidBody(body);
         return null;
       }
-      const entry: Entry = { id: nextId++, body, geometry, colliders };
+      const entry: Entry = { id: id ?? nextId++, body, geometry, colliders };
+      nextId = Math.max(nextId, entry.id + 1);
       entries.set(entry.id, entry);
       for (const c of colliders) byCollider.set(c.handle, entry);
       active = { entry, targetX: x, targetAngle: angle, fast: false };
@@ -296,6 +300,39 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
         if (entry !== active?.entry) top = Math.max(top, topOf(entry));
       }
       return top;
+    },
+
+    /**
+     * Spawns a piece above everything on the tower: `gap` over its top, plus the piece's own
+     * radius, centred over the platform.
+     */
+    spawnAbove(geometry: PieceGeometry, gap: number, id?: PieceId): PieceId | null {
+      let radius = 0;
+      const o = geometry.outline;
+      for (let i = 0; i + 1 < o.length; i += 2) {
+        radius = Math.max(radius, Math.hypot(o[i] as number, o[i + 1] as number));
+      }
+      return this.spawn(geometry, 0, this.top() + gap + radius, 0, id);
+    },
+
+    /**
+     * The bodies for a network frame, flat `[id, x, y, angle, …]` in millimetres and
+     * milliradians. `movingOnly` leaves out bodies that are asleep (they haven't moved since the
+     * last frame that had them).
+     */
+    frame(movingOnly: boolean): number[] {
+      const out: number[] = [];
+      for (const entry of entries.values()) {
+        if (movingOnly && entry.body.isSleeping()) continue;
+        const { x, y } = entry.body.translation();
+        out.push(
+          entry.id,
+          Math.round(x * 1000),
+          Math.round(y * 1000),
+          Math.round(entry.body.rotation() * 1000),
+        );
+      }
+      return out;
     },
 
     bodies(): BodyState[] {
