@@ -5,18 +5,15 @@ import {
   drawCloud,
   drawHills,
   drawProp,
-  drawVillager,
-  makeVillagers,
   MEADOW,
   seeded,
   wrap,
 } from '../meadow';
 import { onSpriteLoad, preloadScenery, PROPS, propSprite } from '../sprites';
+import { createBackdropVillage, stepVillage, VILLAGER_HEIGHT, type Village } from '../village';
+import { drawVillageProps, drawVillagers, type VillageView } from '../village-draw';
 
 type Decor = { sprite: string; at: number; height: number; flip: boolean };
-
-/** Villagers standing about the meadow, at fractions of the width. */
-const VILLAGERS = makeVillagers(7, [0.09, 0.31, 0.54, 0.77, 0.93]);
 
 /** Trees, bushes and houses along the horizon, at fractions of the width. Stable per load. */
 function makeDecor(): Decor[] {
@@ -48,8 +45,9 @@ const CLOUDS = (() => {
 
 /**
  * The page behind every screen: a sunny sky with clouds drifting by, rolling hills, a meadow
- * with trees and a village of little houses, and villagers standing about along the bottom. One canvas, fixed behind
- * the content, drawn every frame (once only with reduced motion).
+ * with trees and a village of little houses, and villagers busy with their jobs along the bottom
+ * (`village.ts`; nothing falls on them here). One canvas, fixed behind the content, drawn every
+ * frame (once only with reduced motion, villagers frozen mid-job).
  */
 export function SceneBackdrop() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -62,10 +60,14 @@ export function SceneBackdrop() {
     const still = window.matchMedia('(prefers-reduced-motion: reduce)');
     const t0 = performance.now();
     let frame = 0;
+    let last = t0;
+    let village: Village | null = null;
 
     const render = (now: number) => {
       if (!still.matches) frame = requestAnimationFrame(render);
       const t = still.matches ? 40 : (now - t0) / 1000 + 40;
+      const dt = Math.min(0.1, (now - last) / 1000);
+      last = now;
       const dpr = window.devicePixelRatio || 1;
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
@@ -168,9 +170,27 @@ export function SceneBackdrop() {
       ctx.fillStyle = MEADOW.grassLight;
       ctx.fillRect(0, horizon, width, 5);
 
-      // Villagers, standing about.
+      // Villagers, busy. Built for the window's width (again if it changes much), in units of
+      // their own height.
       const feet = horizon + ground * 0.62;
-      for (const v of VILLAGERS) drawVillager(ctx, v, v.x * width, feet, ground * 0.78);
+      const unitPx = (ground * 0.78) / VILLAGER_HEIGHT;
+      const halfSpan = width / 2 / unitPx;
+      if (!village || Math.abs(village.halfSpan - halfSpan) > halfSpan * 0.1) {
+        village = createBackdropVillage(7, halfSpan, 0);
+        // Start mid-afternoon rather than with everyone fresh on their marks.
+        for (let i = 0; i < 60; i++) stepVillage(village, 0.1);
+      }
+      if (!still.matches) stepVillage(village, dt);
+      const view: VillageView = {
+        S: (x, y) => ({ x: width / 2 + x * unitPx, y: feet - y * unitPx }),
+        unit: unitPx,
+        feet: 0,
+        minX: -halfSpan,
+        maxX: halfSpan,
+        cheering: false,
+      };
+      drawVillageProps(ctx, village, view);
+      drawVillagers(ctx, village, view);
     };
 
     // One loop at a time: a redraw replaces the pending frame (and restarts the loop).

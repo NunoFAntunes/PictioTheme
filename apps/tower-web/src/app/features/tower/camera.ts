@@ -41,6 +41,8 @@ export const HEADROOM = 9;
 export const SIDE_MARGIN = 2;
 /** The meadow the plinth stands in, in world units under the platform's top. */
 export const GROUND = -2.2;
+/** The village lane in front of the plinth: where the villagers stand and fallen pieces lie. */
+export const LANE = GROUND - 0.45;
 /**
  * How much is shown under the platform's top at the start: the plinth, and enough meadow below
  * it for the villagers standing there.

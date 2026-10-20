@@ -173,7 +173,8 @@ export function Sandbox() {
             SANDBOX
           </span>
         </span>
-        <div className="ml-auto flex items-center gap-2">
+        {/* Stops short on the right for the sound control. */}
+        <div className="mr-12 ml-auto flex items-center gap-2">
           <Stat label="Height" value={`${hud.height.toFixed(1)} / ${hud.line} m`} />
           <Stat label="Placed" value={String(hud.placed)} />
           <Stat label="Fumbles" value={String(hud.fumbles)} />

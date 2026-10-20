@@ -13,7 +13,39 @@ export const CHARACTERS = [
 ] as const;
 export type Character = (typeof CHARACTERS)[number];
 
-export type Pose = 'idle' | 'cheer0' | 'cheer1';
+/** The frames the villagers use (the pack has more). */
+export const POSES = [
+  'idle',
+  'cheer0',
+  'cheer1',
+  'walk0',
+  'walk1',
+  'walk2',
+  'walk3',
+  'walk4',
+  'walk5',
+  'walk6',
+  'walk7',
+  'run0',
+  'run1',
+  'run2',
+  'talk',
+  'think',
+  'hold',
+  'interact',
+  'switch0',
+  'switch1',
+  'attack0',
+  'attack1',
+  'attack2',
+  'jump',
+  'duck',
+  'hurt',
+  'down',
+  'show',
+  'behindBack',
+] as const;
+export type Pose = (typeof POSES)[number];
 
 export const PROPS = {
   cloud: ['cloud1', 'cloud2', 'cloud3', 'cloud4', 'cloud5', 'cloud6', 'cloud7', 'cloud8'],
@@ -61,10 +93,6 @@ export function propSprite(name: string): HTMLImageElement | null {
 
 /** Starts loading everything, so the first frames already have their sprites. */
 export function preloadScenery(): void {
-  for (const c of CHARACTERS) {
-    characterSprite(c, 'idle');
-    characterSprite(c, 'cheer0');
-    characterSprite(c, 'cheer1');
-  }
+  for (const c of CHARACTERS) for (const pose of POSES) characterSprite(c, pose);
   for (const names of Object.values(PROPS)) for (const n of names) propSprite(n);
 }

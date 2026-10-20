@@ -42,7 +42,7 @@ Fully client-side lockstep was considered and rejected for v1. It uses less band
 |---|---|---|
 | Platform width / thickness | 6 / 0.35 | Can you place 3–4 average pieces side by side? |
 | Height lines (short / medium / tall) | 6 / 10 / 15 | Matches of about 4 / 7 / 10 minutes |
-| `A_target` / `L_max` / `t_min` | 1.0 / 3.0 / 0.2 | Pieces feel equal in weight but different in shape |
+| `A_target` / `L_max` / `t_min` | 1.2 / 3.3 / 0.2 | Pieces feel equal in weight but different in shape |
 | Friction | 0.8 | Slanted pieces slide, flat ones stay |
 | Lowering speed / spawn height | 0.8 u/s / 6 u | Enough time to aim within 15s |
 | Gravity | 9.81 | With 1 m pieces things tumble about 30% faster than with the first 3 m² ones; lower it if stacking feels twitchy |

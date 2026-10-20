@@ -1,0 +1,157 @@
+import { DEFAULT_TOWER_SETTINGS, type TowerServerMessage } from '@pictiotheme/protocol/tower';
+import { describe, expect, it } from 'vitest';
+import { type RoomView } from '../../realtime';
+import { applyServerMessage, viewFromSnapshot } from '../../realtime/room-view';
+import { countdownCue, roomCues } from './room-cues';
+
+const crew = {
+  round: null,
+  queue: [],
+  placing: null,
+  dazedUntil: null,
+  height: 0,
+  toppingUntil: null,
+};
+
+const start = (phase: RoomView['phase'] = 'playing') =>
+  viewFromSnapshot(
+    {
+      t: 'room:snapshot',
+      you: 'p1',
+      code: 'ABC-DEF',
+      hostId: 'p1',
+      settings: DEFAULT_TOWER_SETTINGS,
+      phase,
+      players: [
+        { id: 'p1', name: 'Ana', avatar: '0'.repeat(32), connected: true, team: 'orange' },
+        { id: 'p2', name: 'Bo', avatar: '1'.repeat(32), connected: true, team: 'teal' },
+      ],
+      crews: { orange: crew, teal: crew },
+      pieces: [],
+      deciding: [],
+      matchEndsAt: phase === 'playing' ? 2_000_000 : null,
+      results: null,
+      serverTime: 1_000_000,
+    },
+    null,
+  );
+
+/** The cues of applying `msg` to `view`. */
+const cues = (view: RoomView, msg: TowerServerMessage) =>
+  roomCues(view, applyServerMessage(view, msg, 1_000_000));
+
+const round = (id: number, drawerId: string) => ({
+  id,
+  drawerId,
+  startedAt: 0,
+  endsAt: 60_000,
+  mask: '______',
+  strokes: [],
+});
+
+describe('room cues', () => {
+  it('stays quiet on the first view and on another room', () => {
+    expect(roomCues(null, start())).toEqual([]);
+    expect(roomCues({ ...start(), code: 'XYZ-XYZ' }, start())).toEqual([]);
+  });
+
+  it('starts the match and ends it from where you stand', () => {
+    const waiting = start('waiting');
+    expect(roomCues(waiting, { ...waiting, phase: 'playing' })).toEqual(['start']);
+    const results = (winner: 'orange' | 'teal' | null) => ({
+      t: 'match:end' as const,
+      results: {
+        winner,
+        reason: 'time' as const,
+        heights: { orange: 1, teal: 1 },
+        players: [],
+        awards: [],
+      },
+    });
+    expect(cues(start(), results('orange'))).toEqual(['win']);
+    expect(cues(start(), results('teal'))).toEqual(['lose']);
+    expect(cues(start(), results(null))).toEqual(['draw']);
+  });
+
+  it('pops when someone joins the waiting room', () => {
+    const waiting = start('waiting');
+    const joined = {
+      ...waiting,
+      players: [
+        ...waiting.players,
+        { id: 'p3', name: 'Cy', avatar: '2'.repeat(32), connected: true, team: null },
+      ],
+    };
+    expect(roomCues(waiting, joined)).toEqual(['join']);
+  });
+
+  it('calls you to draw and to place, not someone else', () => {
+    expect(cues(start(), { t: 'round:start', team: 'orange', round: round(1, 'p1') })).toEqual([
+      'draw-turn',
+    ]);
+    expect(cues(start(), { t: 'round:start', team: 'orange', round: round(1, 'p3') })).toEqual([]);
+    const place = (placerId: string) => ({
+      t: 'place:start' as const,
+      tower: 'orange' as const,
+      placing: { pieceId: 7, placerId, endsAt: 1_015_000 },
+    });
+    expect(cues(start(), place('p1'))).toEqual(['place-turn']);
+    expect(cues(start(), place('p3'))).toEqual([]);
+  });
+
+  it('answers your guesses and your crew’s solves and steals', () => {
+    const guess = (result: 'wrong' | 'close' | 'correct', target: 'own' | 'steal' = 'own') =>
+      cues(start(), { t: 'guess:result', target, text: 'bucket', result });
+    expect(guess('wrong')).toEqual(['wrong']);
+    expect(guess('close')).toEqual(['close']);
+    expect(guess('correct')).toEqual(['correct']);
+    expect(guess('correct', 'steal')).toEqual(['stole']);
+    const feed = (target: 'own' | 'steal') =>
+      cues(start(), { t: 'crew:feed', playerId: 'p3', target, solved: true });
+    expect(feed('own')).toEqual(['crew-solved']);
+    expect(feed('steal')).toEqual(['stole']);
+    expect(cues(start(), { t: 'crew:feed', playerId: 'p3', target: 'own', text: 'pail' })).toEqual(
+      [],
+    );
+  });
+
+  it('sounds the blows to your tower only', () => {
+    const end = (team: 'orange' | 'teal', outcome: 'stolen' | 'expired') =>
+      cues(start(), { t: 'round:end', team, roundId: 1, outcome, word: 'Bucket' });
+    expect(end('orange', 'stolen')).toEqual(['robbed']);
+    expect(end('teal', 'stolen')).toEqual([]);
+    expect(end('orange', 'expired')).toEqual(['expired']);
+  });
+
+  it('thuds a piece let go on your tower, but a fumble is a fumble', () => {
+    const placing = applyServerMessage(
+      start(),
+      {
+        t: 'place:start',
+        tower: 'orange',
+        placing: { pieceId: 7, placerId: 'p3', endsAt: 1_015_000 },
+      },
+      1_000_000,
+    );
+    expect(cues(placing, { t: 'place:end', tower: 'orange', pieceId: 7 })).toEqual(['placed']);
+    expect(
+      cues(placing, { t: 'tower:fumble', tower: 'orange', pieceIds: [7], dazedUntil: null }),
+    ).toEqual(['fumble']);
+  });
+
+  it('shimmers when your tower goes over the line, and warns when theirs does', () => {
+    const over = (tower: 'orange' | 'teal') =>
+      cues(start(), { t: 'tower:height', tower, height: 10.2, toppingUntil: 1_005_000 });
+    expect(over('orange')).toEqual(['topping']);
+    expect(over('teal')).toEqual(['rival-topping']);
+  });
+});
+
+describe('countdown cue', () => {
+  it('ticks the last seconds, sharper for the last three', () => {
+    expect(countdownCue(11, 10)).toBeNull();
+    expect(countdownCue(10, 10)).toBe('tick');
+    expect(countdownCue(3, 10)).toBe('tick-last');
+    expect(countdownCue(0, 10)).toBeNull();
+  });
+});

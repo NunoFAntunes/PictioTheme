@@ -1,9 +1,10 @@
-import { characterSprite, CHARACTERS, propSprite, type Character } from './sprites';
+import { propSprite } from './sprites';
 
 /**
- * The sunny meadow both the page backdrop and the tower views are drawn in: villagers, clouds,
- * birds and balloons, in screen px. Everything is a pure function of time and a seed, so it
- * needs no state between frames and every tower gets its own, stable scenery.
+ * The sunny meadow both the page backdrop and the tower views are drawn in: clouds, birds,
+ * balloons and hills, in screen px. Everything is a pure function of time and a seed, so it needs
+ * no state between frames and every tower gets its own, stable scenery. The villagers, who do
+ * keep state, are `village.ts`.
  */
 
 export const MEADOW = {
@@ -48,65 +49,6 @@ export function seeded(seed: number): () => number {
 /** Wraps `v` into [0, span). */
 export function wrap(v: number, span: number): number {
   return ((v % span) + span) % span;
-}
-
-// ── Villagers ──
-
-export type Villager = {
-  character: Character;
-  /** Where they stand: world units in a tower view, a fraction of the width on the backdrop. */
-  x: number;
-  /** 1 faces right, −1 left. */
-  facing: number;
-  /** Offsets the cheering hop so villagers don't jump in sync. */
-  phase: number;
-};
-
-/**
- * Villagers standing at `spots`, each a different character where possible, facing `towards`
- * (a tower) or either way when it's left out. They stay put: no wandering about under the tower.
- */
-export function makeVillagers(
-  seed: number,
-  spots: readonly number[],
-  towards?: number,
-): Villager[] {
-  const rnd = seeded(seed);
-  const pool = [...CHARACTERS].sort(() => rnd() - 0.5);
-  return spots.map((x, i) => ({
-    character: pool[i % pool.length] as Character,
-    x,
-    facing: towards === undefined ? (rnd() < 0.5 ? -1 : 1) : x < towards ? 1 : -1,
-    phase: rnd() * Math.PI * 2,
-  }));
-}
-
-/**
- * Draws a villager standing on (`x`, `y`), `height` px tall: still, or jumping with arms up
- * when `cheering`.
- */
-export function drawVillager(
-  ctx: CanvasRenderingContext2D,
-  villager: Villager,
-  x: number,
-  y: number,
-  height: number,
-  cheering = false,
-  t = 0,
-): void {
-  const beat = t * 6 + villager.phase;
-  const pose = cheering ? (Math.sin(beat) > 0 ? 'cheer1' : 'cheer0') : 'idle';
-  const img = characterSprite(villager.character, pose);
-  if (!img) return;
-  const width = height * (img.naturalWidth / img.naturalHeight);
-  // The frames leave a little air under the feet.
-  const hop = cheering ? Math.abs(Math.sin(beat)) * height * 0.12 : 0;
-  const bottom = y + height * 0.04 - hop;
-  ctx.save();
-  ctx.translate(x, bottom);
-  ctx.scale(villager.facing, 1);
-  ctx.drawImage(img, -width / 2, -height, width, height);
-  ctx.restore();
 }
 
 // ── Clouds ──

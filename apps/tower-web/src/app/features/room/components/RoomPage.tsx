@@ -6,6 +6,7 @@ import { Panel } from '../../../ui/Panel';
 import { GameScreen } from '../../game';
 import { NameField } from '../../home';
 import { Results } from '../../results';
+import { useRoomSounds } from '../../sound';
 import { WaitingRoom } from '../../waiting';
 
 /** `/r/ABC-DEF` → `ABC-DEF`. */
@@ -73,6 +74,7 @@ export function RoomPage() {
   const view = useRoomStore((s) => s.view);
   const connection = useRoomStore((s) => s.connection);
   const hasIdentity = identity !== null;
+  useRoomSounds(view);
 
   useEffect(() => {
     if (!hasIdentity) return;

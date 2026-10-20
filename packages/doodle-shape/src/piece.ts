@@ -73,8 +73,8 @@ export const DEFAULT_SHAPE_CONFIG: ShapeConfig = {
   smoothing: [1, 2, 3, 4, 6, 8],
   maxVertices: 64,
   maxParts: 16,
-  targetArea: 1,
-  maxLength: 3,
+  targetArea: 1.2,
+  maxLength: 3.3,
   minThickness: 0.2,
 };
 

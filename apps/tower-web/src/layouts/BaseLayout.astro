@@ -1,6 +1,7 @@
 ---
 import { Font } from 'astro:assets';
 import { SceneBackdrop } from '../app/features/scenery';
+import { SoundControl } from '../app/features/sound';
 import '../styles/global.css';
 
 type Props = { title?: string; description?: string };
@@ -29,5 +30,6 @@ const {
   <body>
     <SceneBackdrop client:only="react" />
     <slot />
+    <SoundControl client:only="react" />
   </body>
 </html>

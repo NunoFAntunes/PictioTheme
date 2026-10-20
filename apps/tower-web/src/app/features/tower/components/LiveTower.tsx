@@ -4,7 +4,9 @@ import { DEFAULT_TUNING, type BodyState } from '@pictiotheme/tower-physics';
 import { useEffect, useRef } from 'react';
 import { serverNow, towerFrames, useRoomStore } from '../../../realtime';
 import { renderPieceBitmap } from '../../piece';
+import { playVillageCue } from '../../sound';
 import { easeCamera, targetCamera, type Camera } from '../camera';
+import { createTowerLife, updateTowerLife } from '../fallout';
 import { drawTower, worldExtent, type PieceLook } from '../renderer';
 
 /** The server's worlds use the default tuning (docs/tower/technical/physics.md). */
@@ -27,7 +29,9 @@ function lookOf(piece: TowerPiece): PieceLook {
 /**
  * One crew's tower, live: the server's frames, interpolated, drawn on every animation frame
  * outside React. For the placer, `predict` gives where they're steering the piece, so it moves
- * the moment they press a key instead of a round trip later.
+ * the moment they press a key instead of a round trip later. Its village lives here too (this
+ * player's own: pieces that fall land in it), and its sounds play at `volume`, panned by where
+ * along the lane they happen, whether or not the ground is in view.
  */
 export function LiveTower({
   team,
@@ -35,17 +39,22 @@ export function LiveTower({
   insetBottom = 0,
   fit = 'platform',
   predict,
+  volume = 1,
 }: {
   team: Team;
   insetTop?: number;
   insetBottom?: number;
   fit?: 'reach' | 'platform';
   predict?: () => { x: number; angle: number } | null;
+  /** How loud this tower's village is (the other crew's is quieter). */
+  volume?: number;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const predictRef = useRef(predict);
+  const volumeRef = useRef(volume);
   useEffect(() => {
     predictRef.current = predict;
+    volumeRef.current = volume;
   });
 
   useEffect(() => {
@@ -53,6 +62,9 @@ export function LiveTower({
     const ctx = canvas?.getContext('2d');
     if (!canvas || !ctx) return;
     const looks = new Map<number, PieceLook>();
+    const seed = team === 'orange' ? 1 : 2;
+    const life = createTowerLife(seed * 7 + 1, platformWidth);
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)');
     let camera: Camera | null = null;
     let last = performance.now();
     let frame = 0;
@@ -101,6 +113,13 @@ export function LiveTower({
         targetCamera({ ...size, platformWidth, reach, towerTop, line, insetTop, insetBottom, fit }),
         dt,
       );
+      for (const cue of updateTowerLife(life, bodies, looks, dt, still.matches)) {
+        const half = size.width / 2 / camera.ppu;
+        playVillageCue(cue, {
+          volume: volumeRef.current,
+          pan: ((cue.x - camera.centerX) / half) * 0.6,
+        });
+      }
       const topping =
         crew.toppingUntil === null
           ? null
@@ -116,7 +135,8 @@ export function LiveTower({
         insetTop,
         showColliders: false,
         time: now / 1000,
-        seed: team === 'orange' ? 1 : 2,
+        seed,
+        life,
       });
     };
     frame = requestAnimationFrame(render);

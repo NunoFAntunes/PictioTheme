@@ -1,31 +1,34 @@
-import type { Piece } from '@pictiotheme/doodle-shape';
 import type { BodyState, PieceId } from '@pictiotheme/tower-physics';
-import type { PieceBitmap } from '../piece';
 import {
+  displayFont,
   drawBalloon,
   drawBird,
   drawCloud,
+  drawCrumbs,
   drawHills,
   drawProp,
-  drawVillager,
-  makeVillagers,
+  drawVillageProps,
+  drawVillagers,
   MEADOW,
   PROPS,
   seeded,
   wrap,
-  type Villager,
+  type VillageView,
 } from '../scenery';
-import { GROUND, toScreen, type Camera } from './camera';
+import { GROUND, LANE, toScreen, type Camera } from './camera';
+import { drawFallout, type TowerLife } from './fallout';
+import { paintPiece, type PieceLook } from './piece-look';
+
+export type { PieceLook };
 
 /**
  * Draws one tower with Canvas 2D (docs/tower/technical/architecture.md#frontend) in the sunny
  * meadow (docs/tower/design/visual-identity.md): a sky that deepens with height, clouds the tower
- * climbs past, hills, the village at its foot and its villagers, the grassy stone plinth, a height
- * ruler, the topping-out bunting, the pieces as paper cut-outs, and the bunch of balloons
- * carrying the piece being placed. Plain TypeScript, called once per animation frame.
+ * climbs past, hills, the village at its foot and its villagers (`fallout.ts`: busy, and in the
+ * way of pieces falling off), the grassy stone plinth, a height ruler, the topping-out bunting,
+ * the pieces as paper cut-outs, and the bunch of balloons carrying the piece being placed. Plain
+ * TypeScript, called once per animation frame.
  */
-
-export type PieceLook = { piece: Piece; bitmap: PieceBitmap };
 
 export type TowerScene = {
   bodies: readonly BodyState[];
@@ -42,8 +45,10 @@ export type TowerScene = {
   showColliders: boolean;
   /** Seconds, for everything that moves on its own (clouds, birds, balloons). */
   time: number;
-  /** Picks this tower's own scenery (which houses and trees where, who's watching). */
+  /** Picks this tower's own scenery (which houses and trees where). */
   seed: number;
+  /** The village at its foot and the pieces that fell into it. */
+  life: TowerLife;
 };
 
 const COLORS = {
@@ -75,16 +80,6 @@ const COLORS = {
     '#ff3d6e',
   ],
 };
-
-let displayFont = '';
-function fontFamily(): string {
-  if (!displayFont) {
-    displayFont =
-      getComputedStyle(document.documentElement).getPropertyValue('--font-lilita').trim() ||
-      'system-ui, sans-serif';
-  }
-  return displayFont;
-}
 
 /** Text in white with a soft dark outline, readable on any sky. */
 function outlinedText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number): void {
@@ -121,14 +116,12 @@ export function worldExtent(body: BodyState, outline: readonly number[]) {
 
 type Decor = { sprite: string; x: number; height: number; flip: boolean };
 type SkyCloud = { sprite: string; alt: number; start: number; speed: number; width: number };
-type Scenery = { far: Decor[]; near: Decor[]; clouds: SkyCloud[]; villagers: Villager[] };
+type Scenery = { far: Decor[]; near: Decor[]; clouds: SkyCloud[] };
 
 /** How far out the village goes on each side, for the widest views. */
 const VILLAGE_REACH = 20;
 /** Where the far row of cottages stands, up on the hill behind (world units). */
 const FAR_ROW = GROUND + 1;
-/** Where the villagers stand: on the lane in front of the plinth. */
-const LANE = GROUND - 0.45;
 
 const sceneries = new Map<string, Scenery>();
 
@@ -182,14 +175,6 @@ function sceneryFor(seed: number, halfW: number): Scenery {
       flip: rnd() < 0.5,
     });
   }
-  // A few villagers near the plinth, looking up at the tower, and more further along the lane.
-  const spots = [
-    -(halfW * 0.62 + 0.7 + rnd() * 0.5),
-    halfW * 0.62 + 0.7 + rnd() * 0.8,
-    (rnd() < 0.5 ? -1 : 1) * (halfW + 1.6 + rnd() * 1.5),
-    -(halfW + 6 + rnd() * 3),
-    halfW + 7 + rnd() * 3,
-  ];
   // Clouds every few metres up, so a growing tower keeps passing them.
   const clouds: SkyCloud[] = [];
   for (let alt = 3 + rnd() * 1.5; alt < 60; alt += 2.6 + rnd() * 2.4) {
@@ -204,7 +189,7 @@ function sceneryFor(seed: number, halfW: number): Scenery {
       });
     }
   }
-  scenery = { far, near, clouds, villagers: makeVillagers(seed * 7 + 1, spots, 0) };
+  scenery = { far, near, clouds };
   sceneries.set(key, scenery);
   return scenery;
 }
@@ -366,15 +351,26 @@ export function drawTower(
     ctx.fillRect(0, lane, width, laneH);
     ctx.fillStyle = MEADOW.laneEdge;
     ctx.fillRect(0, lane + laneH - Math.max(1.5, 0.05 * ppu), width, Math.max(1.5, 0.05 * ppu));
-    for (const v of scenery.villagers) {
-      if (Math.abs(v.x) > viewHalf + 1) continue;
-      const feet = S(v.x, LANE);
-      drawVillager(ctx, v, feet.x, feet.y, 1.25 * ppu, cheering, t);
-    }
+    // The village's props, anyone pinned under a fallen piece, the fallen pieces, then everyone
+    // else in front.
+    const village = scene.life.village;
+    const view: VillageView = {
+      S,
+      unit: ppu,
+      feet: LANE,
+      minX: camera.centerX - viewHalf,
+      maxX: camera.centerX + viewHalf,
+      cheering,
+    };
+    drawVillageProps(ctx, village, view);
+    drawVillagers(ctx, village, view, 'under');
+    drawFallout(ctx, scene.life, S, ppu);
+    drawVillagers(ctx, village, view, 'over');
+    drawCrumbs(ctx, village, view);
   }
 
   // ── Height ruler on the left edge ──
-  ctx.font = `12px ${fontFamily()}`;
+  ctx.font = `12px ${displayFont()}`;
   ctx.textBaseline = 'middle';
   ctx.strokeStyle = COLORS.ruler;
   ctx.lineWidth = 2;
@@ -418,7 +414,7 @@ export function drawTower(
     }
     // The label: a white tag above the bunting.
     const label = `TOP OUT · ${scene.line} m`;
-    ctx.font = `13px ${fontFamily()}`;
+    ctx.font = `13px ${displayFont()}`;
     const tw = ctx.measureText(label).width;
     const lx = width - tw - 22;
     ctx.fillStyle = cheering ? COLORS.gold : 'oklch(1 0 0 / 0.92)';
@@ -437,7 +433,7 @@ export function drawTower(
 
   // ── The line's out of sight (above the view, or under the HUD): say where it is ──
   if (!lineVisible) {
-    ctx.font = `13px ${fontFamily()}`;
+    ctx.font = `13px ${displayFont()}`;
     ctx.textAlign = 'right';
     const ty = scene.insetTop + 18;
     outlinedText(ctx, `TOP OUT AT ${scene.line} m`, width - 26, ty);
@@ -494,23 +490,14 @@ export function drawTower(
   for (const body of scene.bodies) {
     const look = scene.looks.get(body.id);
     if (!look) continue;
-    const { piece, bitmap } = look;
     const at = S(body.x, body.y);
     ctx.save();
     ctx.translate(at.x, at.y);
     ctx.rotate(-body.angle);
-    // Logical px are y-down like the screen: no flip, just the piece's scale.
-    ctx.scale(piece.scale * ppu, piece.scale * ppu);
     ctx.shadowColor = COLORS.shadow;
     ctx.shadowBlur = 8;
     ctx.shadowOffsetY = 4;
-    ctx.drawImage(
-      bitmap.canvas,
-      bitmap.x - piece.origin.x,
-      bitmap.y - piece.origin.y,
-      bitmap.width,
-      bitmap.height,
-    );
+    paintPiece(ctx, look, ppu);
     ctx.restore();
   }
 

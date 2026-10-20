@@ -72,6 +72,7 @@ export function TowerPanel({
           team={team}
           fit="reach"
           predict={placingHere && controls ? () => controls.target() : undefined}
+          volume={mine ? 1 : 0.4}
         />
         {children}
         {dazed && (

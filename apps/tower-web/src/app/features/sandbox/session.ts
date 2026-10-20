@@ -8,7 +8,17 @@ import {
   type TowerWorld,
 } from '@pictiotheme/tower-physics';
 import type { PieceBitmap } from '../piece';
-import { drawTower, easeCamera, targetCamera, type Camera, type PieceLook } from '../tower';
+import { playVillageCue } from '../sound';
+import {
+  createTowerLife,
+  drawTower,
+  easeCamera,
+  targetCamera,
+  updateTowerLife,
+  type Camera,
+  type PieceLook,
+  type TowerLife,
+} from '../tower';
 import {
   DEFAULT_DAZE,
   fumble,
@@ -173,6 +183,9 @@ export function createSandboxSession(initialTuning: Partial<PhysicsTuning> = {})
   // ── Loop ──
   let canvas: HTMLCanvasElement | null = null;
   let camera: Camera | null = null;
+  /** The village at the tower's foot, rebuilt if the platform's width is tuned. */
+  let life: TowerLife | null = null;
+  let lifeWidth = 0;
   let frame = 0;
   let last = 0;
   let acc = 0;
@@ -205,8 +218,18 @@ export function createSandboxSession(initialTuning: Partial<PhysicsTuning> = {})
       }),
       dt,
     );
+    if (!life || lifeWidth !== platformWidth) {
+      life = createTowerLife(8, platformWidth);
+      lifeWidth = platformWidth;
+    }
+    const bodies = world.bodies();
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    for (const cue of updateTowerLife(life, bodies, looks, dt, still)) {
+      const half = size.width / 2 / camera.ppu;
+      playVillageCue(cue, { pan: ((cue.x - camera.centerX) / half) * 0.6 });
+    }
     drawTower(ctx, size, dpr, camera, {
-      bodies: world.bodies(),
+      bodies,
       looks,
       platformWidth,
       platformThickness: world.tuning.platformThickness,
@@ -217,6 +240,7 @@ export function createSandboxSession(initialTuning: Partial<PhysicsTuning> = {})
       showColliders,
       time: performance.now() / 1000,
       seed: 1,
+      life,
     });
   }
 
