@@ -27,8 +27,8 @@ packages/
   canvas-engine/          ✅ stroke model, renderer, painting, flood fill, pointer gate (taken out of apps/web).
                           Each app keeps its own pointer input and toolbar
   doodle-shape/           ✅ pure: strokes → filled silhouette → normalized polygon → convex parts
-  tower-core/             Phase 1, pure: the match state machine (crews, rounds, queue, placement, fumbles, win)
-  tower-physics/          ✅ a Rapier wrapper: one world per tower, placing, fumbles, height (frames come in Phase 1)
+  tower-core/             ✅ pure: the match state machine (crews, rounds, queue, placement, fumbles, win)
+  tower-physics/          ✅ a Rapier wrapper: one world per tower, placing, fumbles, height, network frames
 ```
 
 - `doodle-shape` and `tower-core` follow the `game-core` rules: **no I/O, no `Date.now`, no `Math.random`**. Whole matches can be simulated in unit tests.
@@ -38,22 +38,27 @@ packages/
 
 ## Server: the `tower` module
 
-- It's like `rooms` + `realtime`: `Map<roomCode, TowerRoomRuntime>`. Each runtime wraps the pure `tower-core` state machine and runs its effects (functional core, imperative shell).
-- WebSocket endpoint: `/ws/tower?token=<joinToken>`. REST under `/api/tower/*` (create, join, look up a room, list the allowed decks, share card).
-- It reads cards **through the `decks` module's public service**, never from the tables directly, and avatars through `avatars`.
-- **Physics runs off the main thread.** A pool of `worker_threads` (cores − 1, at least 1) owns the Rapier worlds. Rooms are assigned to workers. The main thread sends placement inputs and new pieces. Workers send back frames and events (`settled`, `fumbled`, `height`). This way a busy physics step can never delay DoodleWhirl's rooms or the HTTP API. See [physics.md](physics.md).
-- Room codes come from the same generator but a separate registry. A Doodle Tower code doesn't open a DoodleWhirl room.
+`apps/server/src/modules/tower/`:
+
+- `tower.service.ts`: `Map<roomCode, TowerRoomRuntime>`; create, join, look up, shutdown. Tower Mix words are cached for 10 minutes.
+- `tower-room-runtime.ts`: the shell around the pure `tower-core` state machine (functional core, imperative shell), like DoodleWhirl's `RoomRuntime`. It owns the room's timers and its two physics worlds. Physics events go into the state machine; frames go straight to the players, and the runtime keeps the last pose of every body for players who (re)join.
+- `tower.routes.ts`: `POST /api/tower/rooms`, `GET /api/tower/rooms/:code`, `POST /api/tower/rooms/:code/join`.
+- `tower.repository.ts`: Tower Mix (the easy cards of enabled `tower_decks`, read-only join into the decks module's tables, rule B5) and match results. `tower-decks.ts` seeds the allowlist from `db:migrate`.
+- **Physics runs off the main thread** (`physics/`): a pool of `worker_threads` (`TOWER_PHYSICS_WORKERS`, default cores − 1, at least 1). Each world lives on the worker with the fewest. Workers step at 60 Hz and send back frames (20/s, moving bodies; all bodies once a second), releases, fumbles and heights (10/s). In dev and tests the worker runs from TypeScript through `tsx`; the build bundles it as `dist/physics.worker.js` (`scripts/build.mjs`). A busy physics step can never delay DoodleWhirl's rooms or the HTTP API. See [physics.md](physics.md).
+- The WebSocket endpoint `/ws/tower` lives in the `realtime` module next to `/ws`, sharing the heartbeat and the socket handling. Tower sockets have a connection registry of their own, and tower join tokens their own audience: a code or a token from one game never opens the other's room.
 
 ## Frontend
 
 - `apps/tower-web`: Astro (static) + React SPA, Tailwind with **its own tokens**, its own component set. It doesn't import any DoodleWhirl UI component.
-- **Behaviour is reused, skins aren't**: stroke rendering and pointer input come from `packages/canvas-engine`, the realtime client pattern (reconnect, snapshot) is copied or extracted, `zustand` stores and React Query as in DoodleWhirl.
+- **Behaviour is reused, skins aren't**: stroke rendering and the pointer gate come from `packages/canvas-engine`; the realtime client follows DoodleWhirl's pattern (one socket module, reconnect with a fresh token, snapshot, a pure view reducer, a zustand store).
+- Layout of `src/app`: `realtime/` (connection, view reducer, frame interpolation), `lib/` (API client, identity, the generated hard-hat avatar), `ui/`, and features: `home`, `room` (connects, picks the screen), `waiting`, `game` (screen, drawing stage and spy window, guess box, crew feed, Build-or-Send card, tower panels, placement controls, batched stroke sending), `results`, plus `drawing`, `piece`, `tower` and `sandbox` from Phase 0.
+- Pages: `/` (home), `/r/CODE` (the room: `src/middleware.ts` in dev, Caddy in production, rewrite it to `/room`), `/sandbox`.
 - Tower panels are drawn with **Canvas 2D**. Each piece's doodle is cached once as a bitmap and drawn at the body's position and angle every frame. Switch to PixiJS only if profiling shows Canvas 2D is too slow.
 
 ## Domain and deployment
 
-- Its own domain (to be chosen). Caddy gets a second site block: `{$TOWER_SITE_ADDRESS}` serves the `tower-web` build and proxies `/api` and `/ws/tower` to the same `server:3000`. Each site stays same-origin, so there's still no CORS.
-- The `origin-check` plugin accepts both origins. Tower routes only accept the tower origin.
+- Its own domain (to be chosen). `infra/Caddyfile` has a second site block, `{$TOWER_SITE_ADDRESS}` (with `TOWER_TLS_DIRECTIVE`), serving the `tower-web` build from `/srv/tower` and proxying `/api` and `/ws/tower` to the same server. Each site stays same-origin, so there's still no CORS. Until `TOWER_SITE_ADDRESS` is set it answers on `tower.localhost` only.
+- The server gets `TOWER_PUBLIC_ORIGIN` (set from `TOWER_SITE_ADDRESS` in `compose.prod.yaml`). The `origin-check` plugin accepts both origins.
 - Cookies are per domain, so a guest in DoodleWhirl and in Doodle Tower are different guests. Shared accounts come with Better Auth later ([open-questions.md](../planning/open-questions.md)).
 - `infra/web.Dockerfile` builds both static sites into the Caddy image.
 - Cloudflare: a second zone on the free plan.

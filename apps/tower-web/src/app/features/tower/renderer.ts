@@ -63,7 +63,7 @@ function fontFamily(): string {
 }
 
 /** Highest and lowest points and horizontal extent of a body's outline, in world units. */
-function worldExtent(body: BodyState, outline: readonly number[]) {
+export function worldExtent(body: BodyState, outline: readonly number[]) {
   const sin = Math.sin(body.angle);
   const cos = Math.cos(body.angle);
   let top = -Infinity;

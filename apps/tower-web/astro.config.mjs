@@ -27,12 +27,22 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    // The API and the tower socket, same-origin in dev like in production. TOWER_API_PORT points
+    // at a server on another port when 3000 is taken.
+    server: {
+      proxy: {
+        '/api': `http://localhost:${process.env.TOWER_API_PORT ?? 3000}`,
+        '/ws': { target: `ws://localhost:${process.env.TOWER_API_PORT ?? 3000}`, ws: true },
+      },
+    },
     // Pre-bundle at startup so the island doesn't fail once on a re-optimize (see apps/web).
     optimizeDeps: {
       include: [
         'react',
         'react-dom/client',
         'react/jsx-dev-runtime',
+        'zustand',
+        'zod',
         '@pictiotheme/canvas-engine > perfect-freehand',
         '@pictiotheme/doodle-shape > poly-decomp-es',
         '@pictiotheme/tower-physics > @dimforge/rapier2d-deterministic-compat',

@@ -22,6 +22,11 @@ describe('targetCamera', () => {
     expect(right.x).toBeLessThan(base.width);
   });
 
+  it('fits just the platform for a tower that is only being watched', () => {
+    const camera = targetCamera({ ...base, fit: 'platform' });
+    expect(camera.ppu).toBeCloseTo(700 / (10 + 2));
+  });
+
   it('shows a minimum height in a wide, short view', () => {
     const camera = targetCamera({ ...base, width: 1600, height: 390 });
     expect(390 / camera.ppu).toBeGreaterThanOrEqual(MIN_VIEW_HEIGHT - 1e-9);

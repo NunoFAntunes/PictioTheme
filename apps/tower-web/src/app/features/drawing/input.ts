@@ -1,9 +1,11 @@
-import { createPointerGate, pointPressure, type StrokeModel } from '@pictiotheme/canvas-engine';
+import { createPointerGate, pointPressure } from '@pictiotheme/canvas-engine';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '@pictiotheme/protocol';
+import type { TowerDrawOp } from '@pictiotheme/protocol/tower';
 import { ERASER_SIZE, type DrawSettings } from './tools';
 
 /**
- * Pointer input → stroke operations, applied straight to the stroke model. Plain TypeScript, no
+ * Pointer input → stroke operations, handed to `emit` (which applies them to the stroke model, and
+ * in a match also sends them). Plain TypeScript, no
  * React: strokes never go through React state. Points are in the fixed 1200×900 logical canvas
  * whatever size the canvas is on screen. One pointer draws at a time and palms are rejected once
  * a pen is seen (the shared pointer gate).
@@ -12,7 +14,7 @@ import { ERASER_SIZE, type DrawSettings } from './tools';
 const MIN_DISTANCE = 1.5;
 
 export type DrawingInputDeps = {
-  model: StrokeModel;
+  emit(op: TowerDrawOp): void;
   getSettings(): DrawSettings;
   isEnabled(): boolean;
 };
@@ -43,7 +45,7 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
     strokeCounter += 1;
     strokeId = `t${strokeCounter}`;
     last = { x, y };
-    deps.model.apply({
+    deps.emit({
       t: 'draw:begin',
       id: strokeId,
       tool: settings.tool,
@@ -65,12 +67,12 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
       pts.push(p.x, p.y, pointPressure(event));
       last = p;
     }
-    if (pts.length) deps.model.apply({ t: 'draw:pts', id: strokeId, pts });
+    if (pts.length) deps.emit({ t: 'draw:pts', id: strokeId, pts });
   };
 
   const onUp = (e: PointerEvent) => {
     if (!strokeId || !gate.owns(e)) return;
-    deps.model.apply({ t: 'draw:end', id: strokeId });
+    deps.emit({ t: 'draw:end', id: strokeId });
     strokeId = null;
     last = null;
     gate.release();

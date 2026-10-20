@@ -1,6 +1,7 @@
 import { createRenderer, type StrokeModel } from '@pictiotheme/canvas-engine';
 import type { ShapePreview } from '@pictiotheme/doodle-shape';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '@pictiotheme/protocol';
+import type { TowerDrawOp } from '@pictiotheme/protocol/tower';
 import { useEffect, useRef } from 'react';
 import { attachDrawingInput } from '../input';
 import type { DrawSettings } from '../tools';
@@ -8,27 +9,37 @@ import type { DrawSettings } from '../tools';
 /**
  * Tracing paper on a clipboard. The drawing canvas, with the live piece overlay under the ink:
  * what will be solid in orange, ink too far from the piece to be part of it hatched in grey.
+ * `onOp` gets each stroke operation the player draws (by default it's applied to the model);
+ * `plain` drops the clipboard, for small watch-only views like the spy window.
  */
 export function DrawingBoard({
   model,
   settings,
-  preview,
-  showSilhouette,
+  preview = null,
+  showSilhouette = false,
   disabled = false,
+  onOp,
+  plain = false,
+  label = 'Drawing canvas',
 }: {
   model: StrokeModel;
   settings: DrawSettings;
-  preview: ShapePreview | null;
-  showSilhouette: boolean;
+  preview?: ShapePreview | null;
+  showSilhouette?: boolean;
   disabled?: boolean;
+  onOp?: (op: TowerDrawOp) => void;
+  plain?: boolean;
+  label?: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const overlayRef = useRef<HTMLCanvasElement>(null);
   const settingsRef = useRef(settings);
   const disabledRef = useRef(disabled);
+  const onOpRef = useRef(onOp);
   useEffect(() => {
     settingsRef.current = settings;
     disabledRef.current = disabled;
+    onOpRef.current = onOp;
   });
 
   useEffect(() => {
@@ -36,7 +47,7 @@ export function DrawingBoard({
     if (!canvas) return;
     const stopRenderer = createRenderer(canvas, model);
     const stopInput = attachDrawingInput(canvas, {
-      model,
+      emit: (op) => (onOpRef.current ? onOpRef.current(op) : model.apply(op)),
       getSettings: () => settingsRef.current,
       isEnabled: () => !disabledRef.current,
     });
@@ -79,12 +90,14 @@ export function DrawingBoard({
   }, [preview, showSilhouette]);
 
   return (
-    <div className="relative rounded-lg bg-ply-dark p-3 pt-6 shadow-panel">
+    <div className={plain ? 'relative' : 'relative rounded-lg bg-ply-dark p-3 pt-6 shadow-panel'}>
       {/* The clipboard's clip. */}
-      <div
-        aria-hidden="true"
-        className="absolute -top-2 left-1/2 h-6 w-28 -translate-x-1/2 rounded-md bg-gradient-to-b from-steel to-steel-dark shadow-md"
-      />
+      {!plain && (
+        <div
+          aria-hidden="true"
+          className="absolute -top-2 left-1/2 h-6 w-28 -translate-x-1/2 rounded-md bg-gradient-to-b from-steel to-steel-dark shadow-md"
+        />
+      )}
       <div
         className="relative aspect-[4/3] w-full overflow-hidden rounded-sm bg-tracing shadow-inner"
         style={{
@@ -96,8 +109,8 @@ export function DrawingBoard({
         <canvas ref={overlayRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
         <canvas
           ref={canvasRef}
-          aria-label="Drawing canvas"
-          className={`absolute inset-0 h-full w-full touch-none ${disabled ? 'cursor-not-allowed' : 'cursor-crosshair'}`}
+          aria-label={label}
+          className={`absolute inset-0 h-full w-full touch-none ${disabled ? 'cursor-default' : 'cursor-crosshair'}`}
         />
       </div>
     </div>

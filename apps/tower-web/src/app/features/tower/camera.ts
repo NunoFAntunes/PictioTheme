@@ -28,6 +28,11 @@ export type CameraInput = {
    */
   insetTop?: number;
   insetBottom?: number;
+  /**
+   * What must fit across: the placer's whole reach (when placing, and in the sandbox), or just
+   * the platform with a metre either side (watching a tower in a narrow panel).
+   */
+  fit?: 'reach' | 'platform';
 };
 
 /** World units of air kept above the tower for the next piece (it spawns 3.5 above the top). */
@@ -50,9 +55,10 @@ export function targetCamera({
   line,
   insetTop = 0,
   insetBottom = 0,
+  fit = 'reach',
 }: CameraInput): Camera {
   const clear = Math.max(1, height - insetTop - insetBottom);
-  const viewWidth = platformWidth + 2 * (reach + SIDE_MARGIN);
+  const viewWidth = fit === 'reach' ? platformWidth + 2 * (reach + SIDE_MARGIN) : platformWidth + 2;
   const ppu = Math.max(1, Math.min(width / viewWidth, clear / MIN_VIEW_HEIGHT));
   const viewHeight = clear / ppu;
   // Show the line too when the tower is getting close to it.

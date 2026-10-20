@@ -10,6 +10,7 @@ x-server: &server
     NODE_ENV: production
     DATABASE_URL: postgres://pictio:${POSTGRES_PASSWORD:?}@postgres:5432/pictiotheme
     PUBLIC_ORIGIN: https://${SITE_ADDRESS:?}
+    TOWER_PUBLIC_ORIGIN: https://${TOWER_SITE_ADDRESS:-tower.localhost}
     # Only Caddy can reach the server, over the private Docker network.
     TRUST_PROXY: uniquelocal
   depends_on:
@@ -77,6 +78,8 @@ services:
     environment:
       SITE_ADDRESS: ${SITE_ADDRESS:?}
       TLS_DIRECTIVE: ${TLS_DIRECTIVE:-}
+      TOWER_SITE_ADDRESS: ${TOWER_SITE_ADDRESS:-tower.localhost}
+      TOWER_TLS_DIRECTIVE: ${TOWER_TLS_DIRECTIVE:-}
     ports:
       - '80:80'
       - '443:443'

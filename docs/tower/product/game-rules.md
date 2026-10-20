@@ -97,3 +97,15 @@ This is the timeout you suggested. Whether it should also pause guessing is open
 ## What players see after the match
 
 The results screen shows both towers side by side, with each piece labelled with its word and its drawer. It gives out a few awards: Best steal, Meanest send, Most pieces placed, Fastest guess. The host can start a rematch with the same crews, or with shuffled crews.
+
+## Details settled while building (Phase 1)
+
+These follow from the rules above, and `packages/tower-core` tests each of them.
+
+- **Newcomers** join the smaller crew (orange on a tie) and can switch in the waiting room. Someone joining mid-match joins the smaller crew too, and can be its next drawer or placer straight away.
+- **The drawer rotation skips whoever is placing.** Otherwise a crew of two would stall: its only guesser can't draw and place at once. The rotation picks them up again next time.
+- **A solver who becomes the next drawer** still makes the Build-or-Send choice.
+- **Close guesses** show only to the guesser, never in the crew feed.
+- **A blank drawing** (nothing solid to build) still ends the round when guessed, but makes no piece.
+- **Leaving:** a drawer who disconnects ends their drawing (no piece); a placer who disconnects drops the piece where it is; a solver who disconnects gets Build. A player is removed after 2 minutes away. Host rights pass on after 30 seconds away.
+- **The match clock** is 15 minutes. Then the taller tower wins, or it's a draw if they're equal.

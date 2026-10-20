@@ -42,7 +42,10 @@ tower_match_players (
   pk(match_id, player_id)
 )
 
-tower_pieces (                     -- for the results screen, the share image and later galleries
+-- Built (migration 0012): tower_decks, tower_matches (with height_orange / height_teal),
+-- tower_match_players. Not yet: tower_pieces, tower_card_stats.
+
+tower_pieces (                     -- later: the share image and galleries
   id            uuid pk,
   match_id      uuid fk tower_matches on delete cascade,
   card_id       uuid null fk cards on delete set null,

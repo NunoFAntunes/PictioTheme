@@ -38,15 +38,15 @@ same-origin like in production.
 
 ## Commands
 
-| Command                                         | What it does                                                  |
-| ----------------------------------------------- | ------------------------------------------------------------- |
-| `pnpm dev`                                      | Run server and web in watch mode                              |
-| `pnpm dev:tower`                                | Run Doodle Tower's site on :4322 (the sandbox is `/sandbox`)  |
-| `pnpm check`                                    | Everything CI runs: typecheck, lint, import boundaries, tests |
-| `pnpm test`                                     | Unit and integration tests (server tests need `pnpm db:up`)   |
-| `pnpm deps:check`                               | Enforce the module boundaries from the guidelines             |
-| `pnpm format`                                   | Format with Prettier                                          |
-| `pnpm build`                                    | Build the server bundle and the static site                   |
-| `pnpm --filter @pictiotheme/web test:e2e`       | Browser test: two Chrome windows play a turn (needs `db:up`)  |
-| `pnpm --filter @pictiotheme/server db:generate` | Generate a migration after changing `src/db/schema/`          |
-| `pnpm --filter @pictiotheme/server db:migrate`  | Apply migrations                                              |
+| Command                                         | What it does                                                                             |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `pnpm dev`                                      | Run server and web in watch mode                                                         |
+| `pnpm dev:tower`                                | Doodle Tower's site on :4322 (with `pnpm dev`'s API; `TOWER_API_PORT` if it's elsewhere) |
+| `pnpm check`                                    | Everything CI runs: typecheck, lint, import boundaries, tests                            |
+| `pnpm test`                                     | Unit and integration tests (server tests need `pnpm db:up`)                              |
+| `pnpm deps:check`                               | Enforce the module boundaries from the guidelines                                        |
+| `pnpm format`                                   | Format with Prettier                                                                     |
+| `pnpm build`                                    | Build the server bundle and the static site                                              |
+| `pnpm --filter @pictiotheme/web test:e2e`       | Browser test: two Chrome windows play a turn (needs `db:up`)                             |
+| `pnpm --filter @pictiotheme/server db:generate` | Generate a migration after changing `src/db/schema/`                                     |
+| `pnpm --filter @pictiotheme/server db:migrate`  | Apply migrations                                                                         |

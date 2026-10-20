@@ -5,6 +5,9 @@
 #                  Let's Encrypt certificate for it automatically.
 #   TLS_DIRECTIVE  empty for Let's Encrypt. Behind the Cloudflare proxy with a Cloudflare Origin
 #                  certificate: `tls /certs/origin.pem /certs/origin.key`.
+#   TOWER_SITE_ADDRESS, TOWER_TLS_DIRECTIVE   the same for Doodle Tower's own domain
+#                  (docs/tower/technical/architecture.md#domain-and-deployment). Until it has one,
+#                  the site answers on tower.localhost only.
 {
 	servers {
 		# Cloudflare's ranges (https://www.cloudflare.com/ips/). Only requests from these may set
@@ -21,15 +24,19 @@
 	}
 }
 
-{$SITE_ADDRESS} {
-	{$TLS_DIRECTIVE}
-
+(security_headers) {
 	header {
 		X-Content-Type-Options nosniff
 		Referrer-Policy strict-origin-when-cross-origin
 		X-Frame-Options DENY
 		-Server
 	}
+}
+
+{$SITE_ADDRESS} {
+	{$TLS_DIRECTIVE}
+
+	import security_headers
 
 	# Link previews: a chat app's bot unfurling an invite link gets a page of Open Graph tags whose
 	# image is the room's share card (apps/server/src/modules/rooms/share-card.ts). People get the app.
@@ -62,6 +69,32 @@
 		rewrite @app /app/index.html
 
 		# Astro's hashed bundles never change.
+		header /_astro/* Cache-Control "public, max-age=31536000, immutable"
+		file_server
+	}
+}
+
+# Doodle Tower: its own site on its own domain, the same server behind it. Its socket is /ws/tower.
+{$TOWER_SITE_ADDRESS:tower.localhost} {
+	{$TOWER_TLS_DIRECTIVE}
+
+	import security_headers
+
+	handle /api/* {
+		import to_server
+	}
+	handle /ws/tower {
+		import to_server
+	}
+
+	handle {
+		encode zstd gzip
+		root * /srv/tower
+
+		# Invite links are served by the room page. Keep in sync with apps/tower-web/src/middleware.ts.
+		@room path /r/*
+		rewrite @room /room/index.html
+
 		header /_astro/* Cache-Control "public, max-age=31536000, immutable"
 		file_server
 	}
