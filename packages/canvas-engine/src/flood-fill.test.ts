@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { floodFill, hexToRgba } from './flood-fill';
+import { enclosedRegion, floodFill, hexToRgba, isEnclosed } from './flood-fill';
 
 /** A 5×5 transparent image with a black vertical wall at x = 2. */
 function imageWithWall(): Uint8ClampedArray {
@@ -68,5 +68,55 @@ describe('floodFill', () => {
 
   it('parses hex colours', () => {
     expect(hexToRgba('#ff8000')).toEqual([255, 128, 0, 255]);
+  });
+
+  describe('enclosed only', () => {
+    /** A 7×7 transparent image with a closed black square ring from (1,1) to (5,5). */
+    function ring(): Uint8ClampedArray {
+      const data = new Uint8ClampedArray(7 * 7 * 4);
+      for (let i = 1; i <= 5; i++) {
+        for (const [x, y] of [
+          [i, 1],
+          [i, 5],
+          [1, i],
+          [5, i],
+        ] as const) {
+          data.set([0, 0, 0, 255], (y * 7 + x) * 4);
+        }
+      }
+      return data;
+    }
+    const at = (data: Uint8ClampedArray, x: number, y: number) => [
+      ...data.slice((y * 7 + x) * 4, (y * 7 + x) * 4 + 4),
+    ];
+
+    it('fills inside a closed shape', () => {
+      const data = ring();
+      expect(isEnclosed(data, 7, 7, 3, 3, 0)).toBe(true);
+      expect(floodFill(data, 7, 7, 3, 3, [255, 0, 0, 255], 0, 1, true)).toBe(true);
+      expect(at(data, 3, 3)).toEqual([255, 0, 0, 255]);
+      expect(at(data, 0, 0)).toEqual([0, 0, 0, 0]);
+    });
+
+    it('leaves the background alone', () => {
+      const data = ring();
+      expect(isEnclosed(data, 7, 7, 0, 3, 0)).toBe(false);
+      expect(floodFill(data, 7, 7, 0, 3, [255, 0, 0, 255], 0, 1, true)).toBe(false);
+      expect(at(data, 0, 3)).toEqual([0, 0, 0, 0]);
+    });
+
+    it('leaves a shape with a gap alone', () => {
+      const data = ring();
+      data.set([0, 0, 0, 0], (1 * 7 + 3) * 4); // a hole in the top edge
+      expect(isEnclosed(data, 7, 7, 3, 3, 0)).toBe(false);
+      expect(floodFill(data, 7, 7, 3, 3, [255, 0, 0, 255], 0, 1, true)).toBe(false);
+      expect(at(data, 3, 3)).toEqual([0, 0, 0, 0]);
+    });
+
+    it('measures the closed shape', () => {
+      const region = enclosedRegion(ring(), 7, 7, 3, 3, 0);
+      expect(region).toMatchObject({ minX: 2, maxX: 4, minY: 2, maxY: 4, size: 9 });
+      expect(enclosedRegion(ring(), 7, 7, 0, 3, 0)).toBeNull();
+    });
   });
 });

@@ -1,5 +1,6 @@
 ---
 import { Font } from 'astro:assets';
+import { SceneBackdrop } from '../app/features/scenery';
 import '../styles/global.css';
 
 type Props = { title?: string; description?: string };
@@ -21,11 +22,12 @@ const {
     <meta property="og:description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
-    <Font cssVariable="--font-bungee" preload />
-    <Font cssVariable="--font-space-grotesk" />
+    <Font cssVariable="--font-lilita" preload />
+    <Font cssVariable="--font-fredoka" />
     <slot name="head" />
   </head>
   <body>
+    <SceneBackdrop client:only="react" />
     <slot />
   </body>
 </html>

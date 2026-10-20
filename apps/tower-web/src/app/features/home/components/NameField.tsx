@@ -23,8 +23,8 @@ export function NameField({
         autoComplete="nickname"
         autoFocus={autoFocus}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="Site foreman"
-        className="h-11 w-full rounded-md border-2 border-ink/20 bg-tracing px-3 text-lg font-medium text-ink outline-none focus:border-safety"
+        placeholder="Captain Doodle"
+        className="h-11 w-full rounded-xl border-2 border-ink/15 bg-paper px-3 text-lg font-medium text-ink outline-none focus:border-coral"
       />
     </div>
   );

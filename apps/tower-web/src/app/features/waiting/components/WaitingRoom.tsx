@@ -33,7 +33,7 @@ function CrewColumn({ team, view }: { team: Team; view: RoomView }) {
   return (
     <section
       aria-label={`${CREW_NAME[team]} crew`}
-      className="flex min-h-72 flex-col rounded-lg border-2 border-blueprint-700 bg-blueprint-950/50"
+      className="flex min-h-72 flex-col overflow-hidden rounded-3xl border-4 border-white bg-dusk-900 shadow-panel"
     >
       <header
         className={`flex items-center justify-between rounded-t-md px-4 py-2 ${CREW_BG[team]}`}
@@ -47,15 +47,15 @@ function CrewColumn({ team, view }: { team: Team; view: RoomView }) {
         {members.map((p: TowerPlayer) => (
           <li
             key={p.id}
-            className={`flex items-center gap-3 rounded-md bg-blueprint-900/80 px-3 py-2 ${p.connected ? '' : 'opacity-50'}`}
+            className={`flex items-center gap-3 rounded-xl bg-dusk-800 px-3 py-2 ${p.connected ? '' : 'opacity-50'}`}
           >
             <Avatar id={p.avatar} name={p.name} />
             <span className="min-w-0 flex-1 truncate font-semibold">
               {p.name}
-              {p.id === view.you && <span className="ml-2 text-xs text-chalk-dim">(you)</span>}
+              {p.id === view.you && <span className="ml-2 text-xs text-cloud-dim">(you)</span>}
             </span>
             {p.id === view.hostId && (
-              <span className="rounded bg-hazard px-1.5 py-0.5 font-display text-[10px] text-ink">
+              <span className="rounded-lg bg-sun px-1.5 py-0.5 font-display text-[10px] text-ink">
                 HOST
               </span>
             )}
@@ -63,7 +63,7 @@ function CrewColumn({ team, view }: { team: Team; view: RoomView }) {
               <button
                 type="button"
                 onClick={() => sendToRoom({ t: 'crew:move', playerId: p.id, team: other })}
-                className="rounded px-2 py-1 text-xs text-chalk-dim hover:bg-white/10"
+                className="rounded-lg px-2 py-1 text-xs text-cloud-dim hover:bg-white/10"
                 aria-label={`Move ${p.name} to the ${CREW_NAME[other]} crew`}
               >
                 Move ⇄
@@ -141,15 +141,18 @@ export function WaitingRoom({ view }: { view: RoomView }) {
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col gap-5 px-5 py-6">
       <header className="flex flex-wrap items-center gap-4">
-        <a href="/" className="font-display text-2xl tracking-wide">
-          Doodle <span className="text-hazard">Tower</span>
+        <a href="/" className="title-outline font-display text-3xl tracking-wide">
+          Doodle <span className="text-sun">Tower</span>
         </a>
         <div className="ml-auto flex items-center gap-2">
-          <span className="text-sm text-chalk-dim">Room</span>
-          <span className="font-display text-2xl tracking-[0.2em]" data-testid="room-code">
+          <span className="text-sm font-semibold text-dusk-900">Room</span>
+          <span
+            className="title-outline font-display text-2xl tracking-[0.2em]"
+            data-testid="room-code"
+          >
             {view.code}
           </span>
-          <Button variant="ply" onClick={() => void copyLink()}>
+          <Button variant="soft" onClick={() => void copyLink()}>
             {copied ? 'Copied!' : 'Copy invite link'}
           </Button>
         </div>
@@ -161,7 +164,7 @@ export function WaitingRoom({ view }: { view: RoomView }) {
         ))}
       </div>
 
-      <Panel title={isHost ? 'Site rules' : 'Site rules (set by the host)'}>
+      <Panel title={isHost ? 'Game rules' : 'Game rules (set by the host)'}>
         <div className="space-y-2 px-2">
           <Choice
             label="Height line"
@@ -203,10 +206,10 @@ export function WaitingRoom({ view }: { view: RoomView }) {
       <div className="flex flex-wrap items-center justify-end gap-3">
         {isHost ? (
           <>
-            {problem && <span className="text-sm text-chalk-dim">{problem}</span>}
+            {problem && <span className="text-sm text-cloud-dim">{problem}</span>}
             <Button onClick={() => sendToRoom({ t: 'crew:shuffle' })}>Shuffle crews</Button>
             <Button
-              variant="safety"
+              variant="primary"
               className="h-14 px-8 text-lg"
               disabled={problem !== null}
               onClick={() => sendToRoom({ t: 'match:start' })}
@@ -215,7 +218,7 @@ export function WaitingRoom({ view }: { view: RoomView }) {
             </Button>
           </>
         ) : (
-          <span className="font-display text-chalk-dim">Waiting for the host to start…</span>
+          <span className="font-display text-cloud-dim">Waiting for the host to start…</span>
         )}
       </div>
     </main>

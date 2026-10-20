@@ -3,9 +3,9 @@ import type { PlayerId } from '@pictiotheme/protocol';
 import { TEAMS, TOWER_MAX_PER_CREW, TowerSettings, type Team } from '@pictiotheme/protocol/tower';
 import {
   finishMatch,
+  onDeciderLeft,
   onDrawerLeft,
   onPlacerLeft,
-  onSolverLeft,
   resumeIdleCrews,
   tryStartPlacement,
 } from './match';
@@ -50,7 +50,6 @@ export function onJoin(c: Ctx, joining: JoiningPlayer): void {
       joinedAt: c.now,
       team: smallerCrew(c),
       stats: emptyStats(),
-      stealCooldownUntil: 0,
     });
   }
   cancel(c, 'empty');
@@ -74,7 +73,7 @@ export function onDisconnect(c: Ctx, playerId: PlayerId): void {
   if (state.phase === 'playing') {
     onDrawerLeft(c, playerId);
     onPlacerLeft(c, playerId);
-    onSolverLeft(c, playerId);
+    onDeciderLeft(c, playerId);
   }
   if (connectedIds(c).length === 0) schedule(c, 'empty', c.now + TIMINGS.emptyMs);
   broadcastPlayers(c);

@@ -2,8 +2,8 @@ import { DEFAULT_TUNING } from '@pictiotheme/tower-physics';
 import { sendToRoom } from '../../realtime';
 
 /**
- * The placer's controls (game-rules.md#placing): ←/→ or A/D move, Q/E rotate 15°, ↓ or S lowers
- * faster, Space drops. The target is kept here and sent at most 20 times a second; the tower view
+ * The placer's controls (game-rules.md#placing): ←/→ or A/D move, ↑ or W rotates 15° clockwise
+ * (Q/E: either way), ↓ or S lowers faster, Space drops. The target is kept here and sent at most 20 times a second; the tower view
  * draws the piece at it straight away (`target()`), and the server's frames catch up.
  */
 
@@ -20,6 +20,9 @@ const HOLD: Record<string, 'left' | 'right' | 'fast'> = {
   ArrowDown: 'fast',
   KeyS: 'fast',
 };
+
+/** Positive angles turn the piece anticlockwise (the physics' y axis points up). */
+const ROTATE: Record<string, 1 | -1> = { ArrowUp: -1, KeyW: -1, KeyE: -1, KeyQ: 1 };
 
 function isTyping(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false;
@@ -91,15 +94,16 @@ export function createPlacementController() {
         if (!active || isTyping(e.target) || e.ctrlKey || e.metaKey || e.altKey) return;
         const down = e.type === 'keydown';
         const hold = HOLD[e.code];
+        const turn = ROTATE[e.code];
         if (hold) {
           e.preventDefault();
           controller.hold(hold, down);
         } else if (e.code === 'Space') {
           e.preventDefault();
           if (down && !e.repeat) controller.drop();
-        } else if (down && (e.code === 'KeyQ' || e.code === 'KeyE')) {
+        } else if (turn) {
           e.preventDefault();
-          controller.rotate(e.code === 'KeyQ' ? 1 : -1);
+          if (down) controller.rotate(turn);
         }
       };
       const onBlur = () => {

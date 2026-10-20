@@ -36,11 +36,14 @@ import { decidingOf, pieceView, roundView, snapshotFor } from './views';
 
 /**
  * A match (docs/tower/product/game-rules.md): both crews' rounds run side by side and nonstop;
- * a solved drawing becomes a piece, its solver builds with it or sends it, and the crew whose
+ * a solved drawing becomes a piece, its drawer builds with it or sends it, and the crew whose
  * tower it's for places it. The first tower to stay above the line for 3s wins.
  */
 
-/** Each crew's drawing shows this many hint letters at most (at a third and two thirds). */
+/**
+ * Each crew's drawing shows this many hint letters at most, at a third and two thirds of the
+ * round. Before the first, the crew doesn't even see the mask: the drawer draws first.
+ */
 const MAX_HINTS = 2;
 
 const lineHeight = (c: Ctx) => LINE_HEIGHTS[c.state.settings.line];
@@ -97,10 +100,7 @@ export function startMatch(c: Ctx): void {
   };
   state.phase = 'playing';
   state.results = null;
-  for (const p of state.players.values()) {
-    p.stats = emptyStats();
-    p.stealCooldownUntil = 0;
-  }
+  for (const p of state.players.values()) p.stats = emptyStats();
   cancel(c, 'idle');
   schedule(c, 'match', state.match.endsAt);
   for (const team of TEAMS) {
@@ -248,7 +248,6 @@ export function startRound(c: Ctx, team: Team, announce = true): void {
   const card = drawerId ? dealCard(c, m, team) : null;
   if (!drawerId || !card) return;
   const roundMs = c.state.settings.roundSeconds * 1000;
-  const hints = Math.min(MAX_HINTS, maxHints(card.text));
   const round: Round = {
     id: m.nextRoundId++,
     drawerId,
@@ -256,8 +255,9 @@ export function startRound(c: Ctx, team: Team, announce = true): void {
     prepared: prepareCard(card),
     startedAt: c.now,
     endsAt: c.now + roundMs,
+    maskShown: false,
     revealed: new Set(),
-    nextHintAt: hints > 0 ? c.now + roundMs / (MAX_HINTS + 1) : null,
+    nextHintAt: c.now + roundMs / (MAX_HINTS + 1),
     strokes: [],
     redo: [],
     points: 0,
@@ -267,7 +267,7 @@ export function startRound(c: Ctx, team: Team, announce = true): void {
   const drawer = c.state.players.get(drawerId);
   if (drawer) drawer.stats.drawings += 1;
   schedule(c, `round:${team}`, round.endsAt);
-  if (round.nextHintAt !== null) schedule(c, `hint:${team}`, round.nextHintAt);
+  schedule(c, `hint:${team}`, round.nextHintAt ?? round.endsAt);
   if (announce) announceRound(c, team, round);
 }
 
@@ -302,15 +302,18 @@ export function onRoundTimer(c: Ctx, team: Team): void {
 export function onHintTimer(c: Ctx, team: Team): void {
   const round = match(c)?.crews[team].round;
   if (!round) return;
-  const index = pickHintIndex(round.card.text, round.revealed, c.rng);
-  if (index !== null) round.revealed.add(index);
+  const total = Math.min(MAX_HINTS, maxHints(round.card.text));
+  round.maskShown = true;
+  if (round.revealed.size < total) {
+    const index = pickHintIndex(round.card.text, round.revealed, c.rng);
+    if (index !== null) round.revealed.add(index);
+  }
   send(c, crewIds(c, team), {
     t: 'round:hint',
     team,
     roundId: round.id,
     mask: buildMask(round.card.text, round.revealed),
   });
-  const total = Math.min(MAX_HINTS, maxHints(round.card.text));
   if (round.revealed.size < total) {
     const roundMs = round.endsAt - round.startedAt;
     round.nextHintAt = round.startedAt + (roundMs * (round.revealed.size + 1)) / (MAX_HINTS + 1);
@@ -341,15 +344,11 @@ export function resumeIdleCrews(c: Ctx): void {
 
 // ── Guessing ─────────────────────────────────────────────────────────────────
 
-export function onGuess(c: Ctx, playerId: PlayerId, text: string, target: 'own' | 'steal'): void {
+export function onGuess(c: Ctx, playerId: PlayerId, text: string): void {
   const m = match(c);
   const player = c.state.players.get(playerId);
   if (!m || !player?.team) {
     sendError(c, playerId, 'WRONG_PHASE', 'There is nothing to guess right now');
-    return;
-  }
-  if (target === 'steal' && !c.state.settings.steals) {
-    sendError(c, playerId, 'FORBIDDEN', 'Steals are off in this room');
     return;
   }
   const own = m.crews[player.team];
@@ -361,47 +360,30 @@ export function onGuess(c: Ctx, playerId: PlayerId, text: string, target: 'own' 
     sendError(c, playerId, 'WRONG_PHASE', 'Place your piece first');
     return;
   }
-  const team = target === 'own' ? player.team : otherTeam(player.team);
-  const round = m.crews[team].round;
-  if (!round) {
-    sendError(c, playerId, 'WRONG_PHASE', 'That crew has no drawing right now');
+  const rival = otherTeam(player.team);
+  const stealable = c.state.settings.steals ? m.crews[rival].round : null;
+  if (!own.round && !stealable) {
+    sendError(c, playerId, 'WRONG_PHASE', 'There is no drawing right now');
     return;
   }
-  if (target === 'steal' && c.now < player.stealCooldownUntil) {
-    send(c, playerId, {
-      t: 'guess:result',
-      target,
-      text,
-      result: 'wrong',
-      cooldownUntil: player.stealCooldownUntil,
-    });
-    return;
-  }
-
-  let result = classifyGuess(round.prepared, text);
-  // A steal gets no "so close": that help is for the home crew.
-  if (target === 'steal' && result === 'close') result = 'wrong';
   const teammates = crewIds(c, player.team).filter((id) => id !== playerId);
-
-  if (result === 'correct') {
-    send(c, playerId, { t: 'guess:result', target, text, result });
+  const solved = (team: Team, round: Round, target: 'own' | 'steal') => {
+    send(c, playerId, { t: 'guess:result', target, text, result: 'correct' });
     send(c, teammates, { t: 'crew:feed', playerId, target, solved: true });
     solveRound(c, team, playerId, round, target === 'steal');
-    return;
+  };
+
+  // One guess line for both drawings: your crew's first, then the other crew's (a steal, which
+  // gets no "so close": that help is for the home crew).
+  const home = own.round ? classifyGuess(own.round.prepared, text) : 'wrong';
+  if (home === 'correct' && own.round) return solved(player.team, own.round, 'own');
+  if (stealable && classifyGuess(stealable.prepared, text) === 'correct') {
+    return solved(rival, stealable, 'steal');
   }
-  if (result === 'wrong' && target === 'steal') {
-    player.stealCooldownUntil = c.now + TIMINGS.stealCooldownMs;
-  }
-  send(c, playerId, {
-    t: 'guess:result',
-    target,
-    text,
-    result,
-    ...(target === 'steal' && result === 'wrong' && { cooldownUntil: player.stealCooldownUntil }),
-  });
+  send(c, playerId, { t: 'guess:result', target: 'own', text, result: home });
   // Close guesses aren't shown to teammates: they'd give the answer away to nobody useful.
-  if (result === 'wrong') {
-    send(c, teammates, { t: 'crew:feed', playerId, target, text: maskProfanity(text) });
+  if (home === 'wrong') {
+    send(c, teammates, { t: 'crew:feed', playerId, target: 'own', text: maskProfanity(text) });
   }
 }
 
@@ -435,6 +417,9 @@ function solveRound(c: Ctx, team: Team, solverId: PlayerId, round: Round, stolen
     team,
     drawnBy: round.drawerId,
     solvedBy: solverId,
+    // The drawer chooses, and places it if they keep it, while the solver starts drawing. A
+    // stolen piece is the thief's: the drawer is on the other crew.
+    deciderId: stolen ? solverId : round.drawerId,
     stolen,
     tower: null,
     sent: false,
@@ -461,8 +446,8 @@ function solveRound(c: Ctx, team: Team, solverId: PlayerId, round: Round, stolen
 export function onDecide(c: Ctx, playerId: PlayerId, pieceId: number, choice: PieceChoice): void {
   const piece = match(c)?.pieces.get(pieceId);
   if (!piece || piece.decideBy === null) return; // already decided (or timed out): ignore quietly
-  if (piece.solvedBy !== playerId) {
-    sendError(c, playerId, 'FORBIDDEN', 'Only the player who guessed it decides');
+  if (piece.deciderId !== playerId) {
+    sendError(c, playerId, 'FORBIDDEN', 'Only the drawer (or the thief) decides');
     return;
   }
   decide(c, piece, choice);
@@ -473,16 +458,16 @@ export function onDecideTimer(c: Ctx, pieceId: number): void {
   if (piece && piece.decideBy !== null) decide(c, piece, 'build');
 }
 
-/** The solver's crew: the drawing's crew, or the other one for a steal. */
-const solverTeamOf = (piece: PieceState): Team =>
+/** The decider's crew: the drawing's crew, or the other one for a steal. */
+const deciderTeamOf = (piece: PieceState): Team =>
   piece.stolen ? otherTeam(piece.team) : piece.team;
 
-/** A piece the solver's choosing for, if the solver just left: it's built. */
-export function onSolverLeft(c: Ctx, playerId: PlayerId): void {
+/** A piece this player is choosing for, if they just left: it's built. */
+export function onDeciderLeft(c: Ctx, playerId: PlayerId): void {
   const m = match(c);
   if (!m) return;
   for (const piece of m.pieces.values()) {
-    if (piece.decideBy !== null && piece.solvedBy === playerId) decide(c, piece, 'build');
+    if (piece.decideBy !== null && piece.deciderId === playerId) decide(c, piece, 'build');
   }
 }
 
@@ -491,14 +476,14 @@ function decide(c: Ctx, piece: PieceState, choice: PieceChoice): void {
   if (!m) return;
   cancel(c, `decide:${piece.id}`);
   piece.decideBy = null;
-  const solverTeam = solverTeamOf(piece);
-  const tower = choice === 'build' ? solverTeam : otherTeam(solverTeam);
+  const deciderTeam = deciderTeamOf(piece);
+  const tower = choice === 'build' ? deciderTeam : otherTeam(deciderTeam);
   piece.tower = tower;
   piece.sent = choice === 'send';
-  const solver = c.state.players.get(piece.solvedBy);
-  if (piece.sent && solver) solver.stats.sends += 1;
-  // A built piece is placed by its solver if they're free; a sent one by the receiving crew.
-  m.crews[tower].queue.push({ pieceId: piece.id, placer: piece.sent ? null : piece.solvedBy });
+  const decider = c.state.players.get(piece.deciderId);
+  if (piece.sent && decider) decider.stats.sends += 1;
+  // A built piece is placed by its decider if they're free; a sent one by the receiving crew.
+  m.crews[tower].queue.push({ pieceId: piece.id, placer: piece.sent ? null : piece.deciderId });
   sendToAll(c, { t: 'piece:queued', pieceId: piece.id, tower, sent: piece.sent });
   tryStartPlacement(c, tower);
 }

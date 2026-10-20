@@ -52,7 +52,6 @@ export type RoomView = {
   results: MatchResults | null;
   /** Your crew's guesses (and your own), newest last. */
   feed: FeedEntry[];
-  stealCooldownUntil: number;
   events: RoomEvent[];
   /** The last error the server sent you. */
   error: { key: number; message: string } | null;
@@ -79,7 +78,6 @@ export function viewFromSnapshot(msg: TowerSnapshot, previous: RoomView | null):
     results: msg.results,
     // A reconnect mid-match keeps what you'd already seen.
     feed: previous?.code === msg.code && msg.phase === 'playing' ? previous.feed : [],
-    stealCooldownUntil: 0,
     events: [],
     error: null,
     restarting: false,
@@ -133,15 +131,13 @@ export function applyServerMessage(view: RoomView, msg: TowerServerMessage, now:
         target: msg.target,
         text: msg.solved ? null : (msg.text ?? ''),
       });
-    case 'guess:result': {
-      const next = pushFeed(view, {
+    case 'guess:result':
+      return pushFeed(view, {
         playerId: view.you,
         target: msg.target,
         text: msg.result === 'correct' ? null : msg.text,
         result: msg.result,
       });
-      return msg.cooldownUntil ? { ...next, stealCooldownUntil: msg.cooldownUntil } : next;
-    }
     case 'piece:made':
       return {
         ...view,

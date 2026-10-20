@@ -2,8 +2,8 @@ import { expect, test, type Browser, type Page } from '@playwright/test';
 
 /**
  * A real match against the real server (Phase 1, docs/tower/planning/roadmap.md): four players in
- * two crews; the orange drawer draws, a teammate guesses it, builds with it, and the piece is
- * placed on the orange tower. Needs the API server (TOWER_API_PORT, default 3000) and Postgres.
+ * two crews; the orange drawer draws and colours it in, a teal player steals it from their own
+ * guess line, builds with it, and the piece is placed on the teal tower. Needs the API server (TOWER_API_PORT, default 3000) and Postgres.
  * `SCREENSHOTS=<dir>` saves pictures of each stage.
  */
 
@@ -66,44 +66,65 @@ test('four players play a round: draw, guess, build, place', async ({ browser })
     await expect(page.getByRole('region', { name: 'Orange tower' })).toBeVisible();
   }
 
-  // The orange drawer is the one who sees the word on their board.
+  // The orange drawer is the one whose orange board is theirs to draw on.
   let drawer: Page | null = null;
   for (const page of players) {
-    if (await page.getByLabel('Your drawing').count()) {
-      const stage = page.getByTestId('stage-orange');
-      if (await stage.count()) drawer = page;
-    }
+    if (await page.getByTestId('stage-orange').getByLabel('Your drawing').count()) drawer = page;
   }
   if (!drawer) throw new Error('no orange drawer');
   const word = (await drawer.getByTestId('word').textContent()) ?? '';
   expect(word.length).toBeGreaterThan(1);
   await drawRectangle(drawer);
   await expect(drawer.getByText(/corners? · 1 part/)).toBeVisible();
+  const board = drawer.getByLabel('Your drawing');
+  const centrePixel = () =>
+    board.evaluate((canvas: HTMLCanvasElement) => [
+      ...(canvas.getContext('2d')?.getImageData(600, 450, 1, 1).data ?? []),
+    ]);
+
+  // Closing the rectangle offers colours for it: one tap colours it in.
+  await drawer.getByRole('button', { name: 'Fill with Yellow' }).click();
+  await expect(drawer.getByRole('group', { name: 'Colour in this shape' })).toHaveCount(0);
+  await expect.poll(centrePixel).toEqual([255, 212, 59, 255]);
+
+  // The bucket colours the inside of the rectangle, but not the background.
+  await drawer.getByRole('button', { name: 'Paint bucket' }).click();
+  await board.click({ position: { x: 8, y: 8 } });
+  await expect(drawer.getByText('The bucket only fills closed shapes')).toBeVisible();
+  const box = await board.boundingBox();
+  if (!box) throw new Error('no board');
+  await board.click({ position: { x: box.width / 2, y: box.height / 2 } });
+  await expect.poll(centrePixel).toEqual([27, 36, 51, 255]);
   await shot(drawer, '2-drawer');
 
-  // An orange guesser: someone whose own stage is orange and who has the guess box.
+  // A teal guesser (not drawing): they steal it, typing in their usual guess line.
   let guesser: Page | null = null;
   for (const page of players) {
-    if (page === drawer) continue;
-    const guess = page.getByLabel('Guess', { exact: true });
-    if ((await guess.count()) && (await page.getByTestId('stage-orange').count())) guesser = page;
+    const teal = page.getByTestId('stage-teal');
+    if (
+      (await teal.getByText('YOUR CREW').count()) &&
+      !(await teal.getByLabel('Your drawing').count())
+    )
+      guesser = page;
   }
-  if (!guesser) throw new Error('no orange guesser');
+  if (!guesser) throw new Error('no teal guesser');
   await shot(guesser, '3-guesser');
   await guesser.getByLabel('Guess', { exact: true }).fill(word);
   await guesser.keyboard.press('Enter');
 
   const decide = guesser.getByRole('dialog', { name: 'Build or send' });
   await expect(decide).toBeVisible();
+  await expect(decide).toContainText('Stolen!');
   await shot(guesser, '4-decide');
-  await decide.getByRole('button', { name: /Build ours/ }).click();
+  await decide.getByRole('button', { name: /Keep/ }).click();
 
-  // Whoever places it sees their controls; they drop it.
+  // The thief keeps it, so they place it: their controls light up, and they drop it.
   let placer: Page | null = null;
   await expect
     .poll(async () => {
       for (const page of players) {
-        if (await page.getByRole('button', { name: 'Drop' }).count()) {
+        // Everyone has the controls on their play card; only the placer's are live.
+        if (await page.getByRole('button', { name: 'Drop', disabled: false }).count()) {
           placer = page;
           return true;
         }
@@ -113,11 +134,12 @@ test('four players play a round: draw, guess, build, place', async ({ browser })
     .toBe(true);
   const placing = placer as Page | null;
   if (!placing) throw new Error('no placer');
+  expect(placing).toBe(guesser);
   await placing.waitForTimeout(600);
   await shot(placing, '5-placing');
   await placing.keyboard.press('Space');
 
-  await expect(host.getByTestId('height-orange')).not.toHaveText('0.0 m', { timeout: 10_000 });
+  await expect(host.getByTestId('height-teal')).not.toHaveText('0.0 m', { timeout: 10_000 });
   await host.waitForTimeout(1500);
   await shot(host, '6-host');
   for (const page of players) await page.context().close();

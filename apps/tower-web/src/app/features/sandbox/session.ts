@@ -49,13 +49,13 @@ export type Hud = {
 };
 
 /** CSS px of the tower view covered by the HUD bar (top) and the controls (bottom). */
-export const HUD_INSET = { top: 76, bottom: 72 };
+export const HUD_INSET = { top: 48, bottom: 72 };
 
 /**
  * Spawn a new piece this far above the tower, plus its own radius: at the lowering speed
- * (0.8 m/s), about 4–5 seconds to aim and rotate before it touches anything.
+ * (0.8 m/s), about 7–8 seconds to aim and rotate before it touches anything.
  */
-const SPAWN_GAP = 3.5;
+const SPAWN_GAP = 6;
 
 export type SandboxSession = ReturnType<typeof createSandboxSession>;
 
@@ -215,6 +215,8 @@ export function createSandboxSession(initialTuning: Partial<PhysicsTuning> = {})
       topping,
       insetTop: HUD_INSET.top,
       showColliders,
+      time: performance.now() / 1000,
+      seed: 1,
     });
   }
 

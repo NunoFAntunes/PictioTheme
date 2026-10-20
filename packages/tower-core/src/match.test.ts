@@ -4,14 +4,21 @@ import { createHarness, type Harness } from './test-harness';
 import { SPAWN_GAP, TIMINGS } from './types';
 
 /** Solves the crew's drawing (a brick) with a correct guess from `by`, and returns the piece id. */
-function solve(h: Harness, team: 'orange' | 'teal', by: string, target: 'own' | 'steal' = 'own') {
+function solve(h: Harness, team: 'orange' | 'teal', by: string) {
   h.drawBrick(team);
   const word = h.word(team);
   const mark = h.mark();
-  h.msg(by, { t: 'guess', text: word, target });
+  h.msg(by, { t: 'guess', text: word });
   const made = h.to(by, 'piece:made', mark)[0];
   if (!made) throw new Error('no piece made');
   return made.piece.id;
+}
+
+/** Who chooses Build or Send for a piece: its drawer, or the thief. */
+function decider(h: Harness, pieceId: number): string {
+  const id = h.state.match?.pieces.get(pieceId)?.deciderId;
+  if (!id) throw new Error('no piece');
+  return id;
 }
 
 describe('the waiting room', () => {
@@ -77,7 +84,8 @@ describe('a match starting', () => {
     const view = (id: string) => h.to(id, 'room:snapshot', mark).at(-1)?.crews.orange.round;
     expect(view(drawer)?.word).toBe(h.word('orange'));
     expect(view(teammate)?.word).toBeUndefined();
-    expect(view(teammate)?.mask).toMatch(/^_+$/);
+    // The drawer draws for a bit before the crew sees the mask.
+    expect(view(teammate)?.mask).toBeUndefined();
     for (const other of ['p2', 'p4']) {
       expect(view(other)?.word).toBeUndefined();
       expect(view(other)?.mask).toBeUndefined();
@@ -91,7 +99,7 @@ describe('guessing', () => {
     h.startFour();
     const guesser = h.guesser('orange');
     const mark = h.mark();
-    h.msg(guesser, { t: 'guess', text: 'banana', target: 'own' });
+    h.msg(guesser, { t: 'guess', text: 'banana' });
     expect(h.to(guesser, 'guess:result', mark)[0]?.result).toBe('wrong');
     expect(h.to(h.drawer('orange'), 'crew:feed', mark)[0]?.text).toBe('banana');
     for (const other of ['p2', 'p4']) expect(h.to(other, 'crew:feed', mark)).toEqual([]);
@@ -102,16 +110,29 @@ describe('guessing', () => {
     h.startFour();
     const guesser = h.guesser('orange');
     const mark = h.mark();
-    h.msg(guesser, { t: 'guess', text: `${h.word('orange').slice(0, -1)}x`, target: 'own' });
+    h.msg(guesser, { t: 'guess', text: `${h.word('orange').slice(0, -1)}x` });
     expect(h.to(guesser, 'guess:result', mark)[0]?.result).toBe('close');
     expect(h.to(h.drawer('orange'), 'crew:feed', mark)).toEqual([]);
+  });
+
+  it('keeps the drawer’s fills and shows them to everyone', () => {
+    const h = createHarness();
+    h.startFour();
+    h.drawBrick('orange');
+    const mark = h.mark();
+    const fill = { id: 'f1', x: 300, y: 300, color: '#d93a2b', tolerance: 48 };
+    h.msg(h.drawer('orange'), { t: 'draw:fill', ...fill });
+    expect(h.crew('orange').round?.strokes.at(-1)).toEqual({ ...fill, tool: 'fill' });
+    for (const id of ['p2', 'p4', h.guesser('orange')]) {
+      expect(h.to(id, 'crew:draw', mark)[0]?.op).toEqual({ t: 'draw:fill', ...fill });
+    }
   });
 
   it("doesn't let the drawer guess", () => {
     const h = createHarness();
     h.startFour();
     const drawer = h.drawer('orange');
-    h.msg(drawer, { t: 'guess', text: h.word('teal'), target: 'steal' });
+    h.msg(drawer, { t: 'guess', text: h.word('teal') });
     expect(h.to(drawer, 'error').at(-1)?.code).toBe('NOT_DRAWER');
   });
 
@@ -137,7 +158,7 @@ describe('guessing', () => {
     h.startFour();
     const guesser = h.guesser('orange');
     const mark = h.mark();
-    h.msg(guesser, { t: 'guess', text: h.word('orange'), target: 'own' });
+    h.msg(guesser, { t: 'guess', text: h.word('orange') });
     expect(h.to('p2', 'round:end', mark)[0]?.outcome).toBe('blank');
     expect(h.state.match?.pieces.size).toBe(0);
   });
@@ -152,15 +173,21 @@ describe('guessing', () => {
     expect(h.drawer('teal')).not.toBe(first);
   });
 
-  it('reveals hint letters to the crew at a third and two thirds of the round', () => {
+  it('shows the crew the mask and a hint letter only at a third of the round', () => {
     const h = createHarness({ settings: { roundSeconds: 60 } });
     h.startFour();
     const guesser = h.guesser('orange');
     const mark = h.mark();
-    h.advance(20_000);
+    h.advance(19_000);
+    expect(h.to(guesser, 'round:hint', mark)).toEqual([]);
+    h.advance(1_000);
     const hint = h.to(guesser, 'round:hint', mark).find((m) => m.team === 'orange');
-    expect(hint?.mask.replace(/_/g, '').length).toBe(1);
+    expect(hint?.mask.replace(/[_ ]/g, '').length).toBe(1);
     expect(h.to('p2', 'round:hint', mark).filter((m) => m.team === 'orange')).toEqual([]);
+    h.leave(guesser);
+    const back = h.mark();
+    h.join(guesser);
+    expect(h.to(guesser, 'room:snapshot', back)[0]?.crews.orange.round?.mask).toBe(hint?.mask);
   });
 });
 
@@ -170,29 +197,28 @@ describe('stealing', () => {
     h.startFour();
     const thief = h.guesser('teal');
     const mark = h.mark();
-    const pieceId = solve(h, 'orange', thief, 'steal');
+    const pieceId = solve(h, 'orange', thief);
     expect(h.to('p1', 'round:end', mark)[0]).toMatchObject({ outcome: 'stolen', solverId: thief });
     expect(h.state.match?.pieces.get(pieceId)?.stolen).toBe(true);
     expect(h.state.players.get(thief)?.stats.steals).toBe(1);
   });
 
-  it('cools steal guesses down after a wrong one', () => {
+  it('checks a guess against your crew’s drawing first, from the same guess line', () => {
     const h = createHarness();
     h.startFour();
-    const thief = h.guesser('teal');
-    h.msg(thief, { t: 'guess', text: 'banana', target: 'steal' });
-    const mark = h.mark();
-    // Even the right answer doesn't count during the cooldown.
-    h.msg(thief, { t: 'guess', text: h.word('orange'), target: 'steal' });
-    expect(h.to(thief, 'guess:result', mark)[0]).toMatchObject({
-      result: 'wrong',
-      cooldownUntil: h.now + TIMINGS.stealCooldownMs,
-    });
-    expect(h.crew('orange').round).not.toBeNull();
-    h.advance(TIMINGS.stealCooldownMs);
+    const guesser = h.guesser('teal');
     h.drawBrick('orange');
-    h.msg(thief, { t: 'guess', text: h.word('orange'), target: 'steal' });
-    expect(h.state.match?.pieces.size).toBe(1);
+    h.drawBrick('teal');
+    const mark = h.mark();
+    h.msg(guesser, { t: 'guess', text: 'banana' });
+    expect(h.to(guesser, 'guess:result', mark)[0]).toMatchObject({
+      target: 'own',
+      result: 'wrong',
+    });
+    // No cooldown after a wrong guess: the very next one can steal.
+    h.msg(guesser, { t: 'guess', text: h.word('orange') });
+    expect(h.to('p1', 'round:end', mark)[0]).toMatchObject({ team: 'orange', outcome: 'stolen' });
+    expect(h.to(guesser, 'guess:result', mark)[1]).toMatchObject({ target: 'steal' });
   });
 
   it('gives a steal no "close"', () => {
@@ -200,7 +226,7 @@ describe('stealing', () => {
     h.startFour();
     const thief = h.guesser('teal');
     const mark = h.mark();
-    h.msg(thief, { t: 'guess', text: `${h.word('orange').slice(0, -1)}x`, target: 'steal' });
+    h.msg(thief, { t: 'guess', text: `${h.word('orange').slice(0, -1)}x` });
     expect(h.to(thief, 'guess:result', mark)[0]?.result).toBe('wrong');
   });
 
@@ -208,22 +234,27 @@ describe('stealing', () => {
     const h = createHarness({ settings: { steals: false } });
     h.startFour();
     const thief = h.guesser('teal');
-    h.msg(thief, { t: 'guess', text: h.word('orange'), target: 'steal' });
-    expect(h.to(thief, 'error').at(-1)?.code).toBe('FORBIDDEN');
+    const mark = h.mark();
+    h.drawBrick('orange');
+    h.msg(thief, { t: 'guess', text: h.word('orange') });
+    expect(h.to(thief, 'guess:result', mark)[0]).toMatchObject({ target: 'own', result: 'wrong' });
+    expect(h.state.match?.pieces.size).toBe(0);
   });
 });
 
 describe('build or send', () => {
-  it('builds: the solver places it on their own tower', () => {
+  it('builds: the drawer chooses and places it, while the solver draws next', () => {
     const h = createHarness();
     h.startFour();
+    const drawer = h.drawer('orange');
     const solver = h.guesser('orange');
     const pieceId = solve(h, 'orange', solver);
-    h.msg(solver, { t: 'piece:decide', pieceId, choice: 'build' });
-    // The solver is drawing now (next round), so the other orange player places it.
+    expect(decider(h, pieceId)).toBe(drawer);
+    expect(h.drawer('orange')).toBe(solver);
+    h.msg(drawer, { t: 'piece:decide', pieceId, choice: 'build' });
     const placing = h.crew('orange').placing;
     expect(placing?.pieceId).toBe(pieceId);
-    expect(placing?.placerId).not.toBe(h.drawer('orange'));
+    expect(placing?.placerId).toBe(drawer);
     expect(h.physics.at(-1)).toMatchObject({
       tower: 'orange',
       physics: { op: 'spawn', pieceId, gap: SPAWN_GAP },
@@ -233,10 +264,10 @@ describe('build or send', () => {
   it('sends: the other crew places it', () => {
     const h = createHarness();
     h.startFour();
-    const solver = h.guesser('orange');
-    const pieceId = solve(h, 'orange', solver);
+    const drawer = h.drawer('orange');
+    const pieceId = solve(h, 'orange', h.guesser('orange'));
     const mark = h.mark();
-    h.msg(solver, { t: 'piece:decide', pieceId, choice: 'send' });
+    h.msg(drawer, { t: 'piece:decide', pieceId, choice: 'send' });
     expect(h.to('p2', 'piece:queued', mark)[0]).toMatchObject({
       pieceId,
       tower: 'teal',
@@ -246,10 +277,10 @@ describe('build or send', () => {
     expect(placing?.pieceId).toBe(pieceId);
     expect(h.state.players.get(placing?.placerId ?? '')?.team).toBe('teal');
     expect(placing?.placerId).not.toBe(h.drawer('teal'));
-    expect(h.state.players.get(solver)?.stats.sends).toBe(1);
+    expect(h.state.players.get(drawer)?.stats.sends).toBe(1);
   });
 
-  it('builds when the solver doesn’t choose in time', () => {
+  it('builds when the drawer doesn’t choose in time', () => {
     const h = createHarness();
     h.startFour();
     const pieceId = solve(h, 'orange', h.guesser('orange'));
@@ -257,12 +288,13 @@ describe('build or send', () => {
     expect(h.state.match?.pieces.get(pieceId)?.tower).toBe('orange');
   });
 
-  it('lets only the solver choose', () => {
+  it('lets only the drawer choose, not the solver', () => {
     const h = createHarness();
     h.startFour();
-    const pieceId = solve(h, 'orange', h.guesser('orange'));
-    h.msg('p2', { t: 'piece:decide', pieceId, choice: 'send' });
-    expect(h.to('p2', 'error').at(-1)?.code).toBe('FORBIDDEN');
+    const solver = h.guesser('orange');
+    const pieceId = solve(h, 'orange', solver);
+    h.msg(solver, { t: 'piece:decide', pieceId, choice: 'send' });
+    expect(h.to(solver, 'error').at(-1)?.code).toBe('FORBIDDEN');
     expect(h.state.match?.pieces.get(pieceId)?.tower).toBeNull();
   });
 
@@ -270,9 +302,11 @@ describe('build or send', () => {
     const h = createHarness();
     h.startFour();
     const thief = h.guesser('teal');
-    const pieceId = solve(h, 'orange', thief, 'steal');
+    const pieceId = solve(h, 'orange', thief);
+    expect(decider(h, pieceId)).toBe(thief);
     h.msg(thief, { t: 'piece:decide', pieceId, choice: 'build' });
     expect(h.state.match?.pieces.get(pieceId)?.tower).toBe('teal');
+    expect(h.crew('teal').placing?.placerId).toBe(thief);
   });
 });
 
@@ -281,11 +315,7 @@ describe('placing', () => {
     const h = createHarness();
     h.startWith(players);
     const pieceId = solve(h, 'orange', h.guesser('orange'));
-    h.msg(h.state.match?.pieces.get(pieceId)?.solvedBy ?? '', {
-      t: 'piece:decide',
-      pieceId,
-      choice: 'build',
-    });
+    h.msg(decider(h, pieceId), { t: 'piece:decide', pieceId, choice: 'build' });
     const placerId = h.crew('orange').placing?.placerId ?? '';
     return { h, pieceId, placerId };
   }
@@ -319,16 +349,15 @@ describe('placing', () => {
 
   it("doesn't let the placer guess", () => {
     const { h, placerId } = placingPiece();
-    h.msg(placerId, { t: 'guess', text: h.word('orange'), target: 'own' });
+    h.msg(placerId, { t: 'guess', text: h.word('orange') });
     expect(h.to(placerId, 'error').at(-1)?.code).toBe('WRONG_PHASE');
   });
 
   it('places queued pieces one at a time, in order', () => {
     const { h, pieceId } = placingPiece(6);
     // A second orange piece while the first is still being placed.
-    const solver = h.guesser('orange');
-    const second = solve(h, 'orange', solver);
-    h.msg(solver, { t: 'piece:decide', pieceId: second, choice: 'build' });
+    const second = solve(h, 'orange', h.guesser('orange'));
+    h.msg(decider(h, second), { t: 'piece:decide', pieceId: second, choice: 'build' });
     expect(h.crew('orange').queue.map((q) => q.pieceId)).toEqual([second]);
     h.dispatch({ type: 'released', tower: 'orange', pieceId });
     expect(h.crew('orange').placing?.pieceId).toBe(second);
@@ -432,14 +461,14 @@ describe('players coming and going', () => {
   it('skips the placer in the drawer rotation, so a crew of two keeps going', () => {
     const h = createHarness();
     h.startFour();
+    const drawer = h.drawer('orange');
     const solver = h.guesser('orange');
     const pieceId = solve(h, 'orange', solver);
-    // The solver is now drawing; the first drawer places. Then the solver's drawing is guessed:
-    h.msg(solver, { t: 'piece:decide', pieceId, choice: 'build' });
-    const placer = h.crew('orange').placing?.placerId;
-    expect(placer).not.toBe(solver);
+    // The solver is now drawing; the first drawer keeps it and places it. Then teal steals:
+    h.msg(drawer, { t: 'piece:decide', pieceId, choice: 'build' });
+    expect(h.crew('orange').placing?.placerId).toBe(drawer);
     h.drawBrick('orange');
-    h.msg('p2', { t: 'guess', text: h.word('orange'), target: 'steal' });
+    h.msg('p2', { t: 'guess', text: h.word('orange') });
     // The next drawer would be the placer, who's busy: the solver draws again.
     expect(h.drawer('orange')).toBe(solver);
   });
@@ -483,7 +512,7 @@ describe('results', () => {
     const h = createHarness();
     h.startFour();
     const thief = h.guesser('teal');
-    const pieceId = solve(h, 'orange', thief, 'steal');
+    const pieceId = solve(h, 'orange', thief);
     h.msg(thief, { t: 'piece:decide', pieceId, choice: 'send' });
     h.dispatch({ type: 'height', tower: 'orange', height: 20 });
     h.advance(TIMINGS.toppingMs);

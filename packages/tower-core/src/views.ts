@@ -41,7 +41,8 @@ export function roundView(
     startedAt: round.startedAt,
     endsAt: round.endsAt,
     ...(viewer === round.drawerId && { word: round.card.text }),
-    ...(viewerTeam === team && { mask: buildMask(round.card.text, round.revealed) }),
+    ...(viewerTeam === team &&
+      round.maskShown && { mask: buildMask(round.card.text, round.revealed) }),
     strokes: round.strokes,
   };
 }
@@ -73,6 +74,7 @@ export function pieceView(piece: PieceState): TowerPiece {
     team: piece.team,
     drawnBy: piece.drawnBy,
     solvedBy: piece.solvedBy,
+    deciderId: piece.deciderId,
     stolen: piece.stolen,
     tower: piece.tower,
     sent: piece.sent,
@@ -85,7 +87,7 @@ export function pieceView(piece: PieceState): TowerPiece {
 export function decidingOf(piece: PieceState): Deciding | null {
   return piece.decideBy === null
     ? null
-    : { pieceId: piece.id, solverId: piece.solvedBy, endsAt: piece.decideBy };
+    : { pieceId: piece.id, deciderId: piece.deciderId, endsAt: piece.decideBy };
 }
 
 export function snapshotFor(state: TowerRoomState, viewer: PlayerId, now: number): TowerSnapshot {

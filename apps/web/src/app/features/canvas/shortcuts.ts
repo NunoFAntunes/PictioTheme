@@ -8,8 +8,9 @@ import { previousColor, withColor, type Tool, type ToolSettings } from './tools'
  * are the three neighbours under the left hand on any layout (Q W E, or A Z E on AZERTY), on
  * Portuguese, German or Spanish layouts `[` and `]` need AltGr, and AZERTY digits need Shift (so
  * there `1` is the `&` key, and Shift+`1` saves).
- * The older tool letters (B, F), X, C and Ctrl/Cmd+Z follow the character (`key`), so they match
- * what's printed on the key.
+ * The eyedropper is physical too (`S`, under the tools). The older tool letters (B, F), X, C and
+ * Ctrl/Cmd+Z follow the character (`key`), so they match what's printed on the key. Space opens
+ * the colours like `C`: the thumb's key, while the fingers stay on the tools.
  */
 
 export type Shortcut =
@@ -20,6 +21,8 @@ export type Shortcut =
   /** Switch to colour slot `slot` (0-based), or with `save` store the current colour there. */
   | { kind: 'slot'; slot: number; save: boolean }
   | { kind: 'swap-color' }
+  /** Arm the eyedropper (a tap), or sample while it's held. */
+  | { kind: 'dropper' }
   | { kind: 'color-popover' };
 
 export type KeyInput = Pick<
@@ -29,6 +32,8 @@ export type KeyInput = Pick<
 
 /** Tools by physical key, in toolbar order. The toolbar shows what the layout prints there. */
 export const TOOL_KEY_CODES: Record<Tool, string> = { brush: 'KeyQ', fill: 'KeyW', eraser: 'KeyE' };
+/** The eyedropper, by physical key: under the tools (S on QWERTY and AZERTY). */
+export const DROPPER_KEY_CODE = 'KeyS';
 const TOOL_BY_CODE = Object.fromEntries(
   Object.entries(TOOL_KEY_CODES).map(([tool, code]) => [code, tool as Tool]),
 );
@@ -50,17 +55,18 @@ export function shortcutFor(e: KeyInput): Shortcut | null {
   const digit = /^(?:Digit|Numpad)([1-5])$/.exec(e.code)?.[1];
   if (digit !== undefined) return { kind: 'slot', slot: Number(digit) - 1, save: e.shiftKey };
   if (e.shiftKey) return null;
+  if (e.code === DROPPER_KEY_CODE) return { kind: 'dropper' };
   const tool = TOOL_BY_CODE[e.code] ?? TOOL_KEYS[key];
   if (tool) return { kind: 'tool', tool };
   if (key === 'x') return { kind: 'swap-color' };
-  if (key === 'c') return { kind: 'color-popover' };
+  if (key === 'c' || e.code === 'Space') return { kind: 'color-popover' };
   return null;
 }
 
 /** Settings after a setting shortcut. On Fill, the size keys change tolerance instead. */
 export function applyShortcut(
   tool: ToolSettings,
-  shortcut: Exclude<Shortcut, { kind: 'undo' | 'redo' | 'color-popover' | 'slot' }>,
+  shortcut: Exclude<Shortcut, { kind: 'undo' | 'redo' | 'color-popover' | 'slot' | 'dropper' }>,
 ): ToolSettings {
   switch (shortcut.kind) {
     case 'tool':

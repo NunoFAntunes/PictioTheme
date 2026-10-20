@@ -15,7 +15,7 @@ function formatCode(raw: string): string {
   return letters.length > 3 ? `${letters.slice(0, 3)}-${letters.slice(3)}` : letters;
 }
 
-/** The home page: your name, then build a new site or join a crew with a code. */
+/** The home page: your name, then start a new game or join a crew with a code. */
 export function HomePage() {
   const { identity, setName } = useIdentity();
   const [name, setNameDraft] = useState(identity?.displayName ?? '');
@@ -55,29 +55,28 @@ export function HomePage() {
   };
 
   return (
-    <main className="mx-auto flex min-h-dvh max-w-4xl flex-col items-center justify-center gap-8 px-6 py-10">
-      <div className="hazard-stripes h-3 w-56 rounded-sm" aria-hidden="true" />
-      <h1 className="text-center font-display text-6xl leading-none tracking-wide sm:text-7xl">
-        Doodle <span className="text-hazard">Tower</span>
+    <main className="mx-auto flex min-h-dvh max-w-4xl flex-col items-center justify-center gap-8 px-6 pt-10 pb-36">
+      <h1 className="title-outline animate-[bob_4s_ease-in-out_infinite] text-center font-display text-7xl leading-none tracking-wide sm:text-8xl">
+        Doodle <span className="text-sun">Tower</span>
       </h1>
-      <p className="max-w-lg text-center text-lg text-chalk-dim">
+      <p className="max-w-lg rounded-2xl bg-white/70 px-5 py-2 text-center text-lg font-medium text-ink backdrop-blur-sm">
         Two crews race to build a tower past the line. Every block is a drawing: guess it, then
         build with it, or send it to the other crew.
       </p>
 
       <div className="grid w-full gap-5 md:grid-cols-[1fr_1fr]">
-        <Panel title="Start a site" className="flex flex-col gap-4">
+        <Panel title="New game" className="flex flex-col gap-4">
           <div className="px-2">
             <NameField value={name} onChange={setNameDraft} autoFocus={!identity} />
           </div>
           <div className="mt-auto px-2">
             <Button
-              variant="safety"
+              variant="primary"
               className="h-14 w-full text-lg"
               disabled={!nameOk || busy !== null}
               onClick={() => void create()}
             >
-              {busy === 'create' ? 'Raising the crane…' : 'Create a room'}
+              {busy === 'create' ? 'Getting ready…' : 'Create a room'}
             </Button>
           </div>
         </Panel>
@@ -95,16 +94,16 @@ export function HomePage() {
                 placeholder="ABC-DEF"
                 autoComplete="off"
                 spellCheck={false}
-                className="h-11 w-full rounded-md border-2 border-ink/20 bg-tracing px-3 text-center font-display text-xl tracking-[0.3em] text-ink uppercase outline-none focus:border-safety"
+                className="h-11 w-full rounded-xl border-2 border-ink/15 bg-paper px-3 text-center font-display text-xl tracking-[0.3em] text-ink uppercase outline-none focus:border-coral"
               />
             </div>
             <Button
               type="submit"
-              variant="hazard"
+              variant="sun"
               className="h-14 w-full text-lg"
               disabled={!nameOk || code.length !== 7 || busy !== null}
             >
-              {busy === 'join' ? 'Finding the site…' : 'Join'}
+              {busy === 'join' ? 'Finding the room…' : 'Join'}
             </Button>
             {!nameOk && <p className="text-xs text-ink/60">Pick a name first (2–20 characters).</p>}
           </form>
@@ -112,12 +111,15 @@ export function HomePage() {
       </div>
 
       {error && (
-        <p role="alert" className="rounded-md bg-danger/90 px-4 py-2 font-semibold text-chalk">
+        <p role="alert" className="rounded-xl bg-danger/90 px-4 py-2 font-semibold text-cloud">
           {error}
         </p>
       )}
 
-      <a href="/sandbox" className="text-sm text-chalk-dim underline-offset-4 hover:underline">
+      <a
+        href="/sandbox"
+        className="rounded-full bg-white/80 px-4 py-1.5 text-sm font-semibold text-dusk-800 shadow-[0_3px_0_var(--color-card-edge)] hover:bg-white"
+      >
         Try pieces in the sandbox
       </a>
     </main>

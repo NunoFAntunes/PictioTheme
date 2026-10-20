@@ -7,7 +7,7 @@ The order puts the riskiest question first: **is stacking doodles fun, and does 
 A single-player page in `apps/tower-web` (`/sandbox`). No server, no accounts.
 
 - Set up `packages/doodle-shape` and `packages/tower-physics`, and take `packages/canvas-engine` out of `apps/web`, with DoodleWhirl still passing its tests and e2e test.
-- Draw a doodle → see the live silhouette → press "Make piece" → place it from the crane onto a tower with the real controls → it simulates.
+- Draw a doodle → see the live silhouette → press "Make piece" → place it onto a tower with the real controls → it simulates.
 - A debug panel: tuning sliders for the [values in physics.md](../technical/physics.md#tuning-values-to-find-in-the-sandbox), collider outlines on or off, save and load sample drawings (these become the golden tests).
 - **Done when**: 3–4 people have played with it, the medium height line takes about 8–12 pieces, and pieces feel different but fair. Also decided: the box exploit fix, and the rotation step.
 
@@ -21,7 +21,7 @@ A single-player page in `apps/tower-web` (`/sandbox`). No server, no accounts.
 
 ## Phase 2: Feel and polish
 
-Sounds, crane and topping-out animations, award cards, share image of the tower, rematch, reconnects mid-placement, the phone gate, metrics events.
+Sounds, placing and topping-out animations, award cards, share image of the tower, rematch, reconnects mid-placement, the phone gate, metrics events.
 
 ## Phase 3: Shared platform
 

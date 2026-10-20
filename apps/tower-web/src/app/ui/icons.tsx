@@ -59,3 +59,15 @@ export const UndoIcon = () => (
     <path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11" />
   </Icon>
 );
+/** A tipped paint can, its drip in the chosen colour. */
+export const BucketIcon = ({ color }: { color: string }) => (
+  <Icon strokeWidth={2}>
+    <path d="M11 3.5l7.5 7.5-6.5 6.5a2 2 0 0 1-2.8 0L4.5 12.8a2 2 0 0 1 0-2.8z" />
+    <path d="M4.5 11.5h13.8" />
+    <path
+      d="M20 14.5c1 1.6 1.5 2.6 1.5 3.3a1.5 1.5 0 0 1-3 0c0-.7.5-1.7 1.5-3.3z"
+      fill={color}
+      stroke={color}
+    />
+  </Icon>
+);

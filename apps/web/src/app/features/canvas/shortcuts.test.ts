@@ -60,11 +60,21 @@ describe('shortcutFor', () => {
     expect(shortcutFor(key('Q', 'KeyQ', { shiftKey: true }))).toBeNull();
   });
 
-  it('swaps colours with X and opens the colour popover with C', () => {
+  it('swaps colours with X and opens the colour popover with C or Space', () => {
     expect(shortcutFor(key('x', 'KeyX'))).toEqual({ kind: 'swap-color' });
     expect(shortcutFor(key('c', 'KeyC'))).toEqual({ kind: 'color-popover' });
+    expect(shortcutFor(key(' ', 'Space'))).toEqual({ kind: 'color-popover' });
+    expect(shortcutFor(key(' ', 'Space', { shiftKey: true }))).toBeNull();
     expect(shortcutFor(key('c', 'KeyC', { metaKey: true }))).toBeNull(); // copy
     expect(shortcutFor(key('X', 'KeyX', { shiftKey: true }))).toBeNull();
+  });
+
+  it('arms the eyedropper with S by physical key', () => {
+    expect(shortcutFor(key('s', 'KeyS'))).toEqual({ kind: 'dropper' });
+    // Dvorak prints O there; it's still the key under the tools.
+    expect(shortcutFor(key('o', 'KeyS'))).toEqual({ kind: 'dropper' });
+    expect(shortcutFor(key('s', 'KeyS', { metaKey: true }))).toBeNull(); // save page
+    expect(shortcutFor(key('S', 'KeyS', { shiftKey: true }))).toBeNull();
   });
 
   it('handles undo/redo and leaves other browser shortcuts alone', () => {

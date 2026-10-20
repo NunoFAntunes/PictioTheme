@@ -37,7 +37,7 @@ export function Slider({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="col-span-2 h-2 w-full cursor-pointer accent-safety"
+        className="col-span-2 h-2 w-full cursor-pointer accent-coral"
       />
     </div>
   );

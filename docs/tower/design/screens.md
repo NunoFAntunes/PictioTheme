@@ -27,48 +27,58 @@ The host can drag players between crews.
 
 ## 3. Game: guesser
 
+Reworked on 2026-10-20: **the two towers are the show.** They take most of the width, so pieces falling off either side stay in view, and both are framed the same way (the placer's whole reach, so the plinth keeps its size and nothing zooms when you start placing). The middle column is narrower and holds only your crew's things.
+
 ```
-┌────────────────────────────────────────────────────────────────────────────┐
-│ 🟠 ▓▓▓▓▓▓▓░░ 71%   ⏱ 0:42   ───── 🎀 topping-out line ─────   48% ▓▓▓▓░░░░ 🔵 │
-├───────────────┬────────────────────────────────────────┬───────────────────┤
-│   │ crane     │  ORANGE DRAWING (in focus)  _ _ _ _ E  │ ┌───────────────┐ │
-│   ▼           │                                        │ │ spy: Teal's   │ │
-│               │                                        │ │ drawing   [⇥] │ │
-│ ORANGE TOWER  │          (live strokes)                │ └───────────────┘ │
-│    ┌─┐        │                                        │   TEAL TOWER      │
-│   ▟███▙       │                                        │       ▄▟▙         │
-│ ▔▔▔▔▔▔▔▔▔     │ ── crew feed (Orange only) ──          │   ▔▔▔▔▔▔▔▔▔       │
-│ queue: 🧩 🧩   │ [ guess Orange's drawing…          ]   │   queue: 🧩       │
-└───────────────┴────────────────────────────────────────┴───────────────────┘
+┌────────────────────────────────────────────────────────────────────────────────┐
+│ 🟠 Orange ▓▓▓▓▓▓░░ 4.2 m      TOP OUT 10 M  14:12      3.1 m ▓▓▓▓░░░░ Teal 🔵 │
+├──────────────────────────┬──────────────────┬──────────────────────────────────┤
+│ ● Your tower             │ YOUR CREW  _ _ E 42│ ● Teal tower       ┌──────────┐ │
+│                          │ ┌──────────────┐ │                    │🦝 STEAL 38│ │
+│        (sky, wide)       │ │ your crew's  │ │                    │ (small)  │ │
+│ ─ ─ ─ 🎀 top-out line ─ ─│ │   drawing    │ │ ─ ─ ─ 🎀 ─ ─ ─ ─ ─ └──────────┘ │
+│            ┌─┐           │ └──────────────┘ │                                  │
+│           ▟███▙          │ ┌──────────────┐ │             ▄▟▙                  │
+│        ▔▔▔▔▔▔▔▔▔         │ │ [guess…] GUESS│ │          ▔▔▔▔▔▔▔▔▔               │
+│   villagers watching     │ │ ◀ ▶ ⟲ ⟳ ⬇ DROP│ │                                  │
+│                          │ └──────────────┘ │                                  │
+└──────────────────────────┴──────────────────┴──────────────────────────────────┘
 ```
 
-- Your tower is always on the left, the other crew's on the right, whichever crew you're in.
-- `Tab` swaps the large drawing and the spy window. The guess box label changes ("guess Teal's drawing… 🦝") and gets a stealing tint.
-- Each tower panel shows its queue, a dazed overlay with a countdown during a fumble, and a topping-out countdown when it's above the line.
+- Your tower is always on the left (framed in your crew's colour), the other crew's on the right, whichever crew you're in. Each tower panel shows its queue, who's placing and their time, a dazed overlay during a fumble, and a topping-out countdown when it's above the line. Nothing else ever sits at the bottom of a tower.
+- The middle column, top to bottom: your crew's drawing (the word or the letter mask, the drawer's name, the time left), then the **play card**. The board is as big as the column allows without pushing the card off the screen; any space left over is at the bottom.
+- **The play card flips.** Its front is the drawing tools (for the drawer); its back is the guess line and the placing controls (for everyone else). It turns over by itself when you start or stop drawing.
+- One guess line serves both drawings. There's **no guess log and no chat**: a "so close!" tag pops over the guess line for a moment, and that's all.
+- **The other crew's drawing** hangs small in the top corner of their tower's sky, labelled "🦝 STEAL IT" (or the crew's name when steals are off), with its drawer and timer. No hints for thieves.
+- Your crew's drawing shows "Hint soon…" until the letter mask appears at a third of the round.
 
 ## 4. Game: drawer
 
-The centre becomes the drawing board: the word at the top, the canvas, and a toolbar in the Tower style. In the corner there's a **live piece preview**, the filled silhouette the drawing would become right now. The spy window and both towers stay visible. The guess box is replaced by "Orange is guessing… 3 guesses".
+Your drawing is the board in the middle, with the word on it. The play card is turned to its front: the toolbar in the Tower style and, under it, a **live piece preview**, the filled silhouette the drawing would become right now, against a ruler of the platform's width. Both towers stay visible. You can't guess while you draw.
 
-Drawing tools: brush (with sizes), eraser, undo/redo, clear, a short colour palette. **No bucket fill**: enclosed areas are filled automatically when the piece is made ([piece-pipeline.md](../technical/piece-pipeline.md)).
+Drawing tools: brush (with sizes), eraser, a **paint bucket**, undo, clear, a short colour palette. The bucket only colours in **closed shapes**: tapping the background, or a shape with a gap, does nothing but say so ("The bucket only fills closed shapes"). It's paint only: enclosed areas are solid in the piece anyway ([piece-pipeline.md](../technical/piece-pipeline.md)), and the colour shows on the piece.
 
-## 5. Build or Send (solver)
+**Colour it in**: when a brush stroke closes a new shape, a pill of seven bright colours (yellow, orange, red, pink, purple, blue, green) pops up over it, and one tap fills it, like the bucket. It's offered only for a new shape: one that was open before the stroke, or one the stroke cut well down (a window drawn in a house), and not for tiny loops or a squiggle inside a shape that's already closed. The next stroke, undo, Escape or six seconds put it away.
+
+## 5. Build or Send (the drawer)
+
+When your drawing is guessed, the card flips over (the solver is drawing now) and this pops up over the middle column. A stolen piece pops up for the thief instead.
 
 ```
             ┌──────────────────────────────────────────┐
-            │      You got it!  "WATERMELON"   ⏱ 4     │
+            │      Bea got it!  "WATERMELON"   ⏱ 4     │
             │                                          │
             │             ◖█████████◗   ← the piece     │
             │                                          │
-            │   [ 🧱 BUILD OURS ]   [ 💣 SEND TO TEAL ] │
+            │  [ 🧱 KEEP & PLACE ]  [ 💣 SEND TO TEAL ] │
             └──────────────────────────────────────────┘
 ```
 
-Teammates see the same card with a "Bea is deciding…" label instead of buttons.
+Teammates see a "Cy is deciding…" line instead of buttons.
 
 ## 6. Placing
 
-The placer's own tower panel grows to the centre (the drawings shrink to the sides for the 15s). The piece hangs from the crane hook, with a guide line down to the tower. The controls are shown as key caps on PC and as large buttons on touch (◀ ▶ ⟲ ⟳ ⬇ DROP). Everyone else sees the piece move in the tower panel as normal.
+You place on your own tower, on the left. The placing controls are on the back of the play card, under the guess line: buttons (◀ ▶ ⟲ ⟳ ⬇ DROP, for tablets) with their keys beside them (← → move, ↑ rotate clockwise, ↓ faster, Space drops). They're always there, greyed out, so the card never jumps; they light up while you're placing, and the guess line is disabled for those 15s so the keys reach the tower. The piece floats down under a bunch of balloons, with a guide line down to the tower. Everyone else sees it move in the tower panel as normal.
 
 ## 7. Results
 

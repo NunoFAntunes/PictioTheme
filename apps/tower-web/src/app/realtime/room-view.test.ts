@@ -40,6 +40,7 @@ const piece: TowerPiece = {
   team: 'orange',
   drawnBy: 'p3',
   solvedBy: 'p1',
+  deciderId: 'p3',
   stolen: false,
   tower: null,
   sent: false,
@@ -99,7 +100,7 @@ describe('room view', () => {
     let view = apply(start(), {
       t: 'piece:made',
       piece,
-      deciding: { pieceId: 7, solverId: 'p1', endsAt: 1_005_000 },
+      deciding: { pieceId: 7, deciderId: 'p3', endsAt: 1_005_000 },
     });
     expect(view.deciding).toHaveLength(1);
     view = apply(view, { t: 'piece:queued', pieceId: 7, tower: 'teal', sent: true });
@@ -120,16 +121,10 @@ describe('room view', () => {
     expect(view.crews.teal.dazedUntil).toBe(1_005_000);
   });
 
-  it('keeps your guesses and your crew’s in the feed, and the steal cooldown', () => {
+  it('keeps your guesses and your crew’s in the feed', () => {
     const view = apply(
       start(),
-      {
-        t: 'guess:result',
-        target: 'steal',
-        text: 'bucket',
-        result: 'wrong',
-        cooldownUntil: 1_002_000,
-      },
+      { t: 'guess:result', target: 'own', text: 'bucket', result: 'wrong' },
       { t: 'crew:feed', playerId: 'p3', target: 'own', text: 'lamp' },
       { t: 'crew:feed', playerId: 'p3', target: 'own', solved: true },
     );
@@ -138,7 +133,6 @@ describe('room view', () => {
       ['p3', 'lamp', undefined],
       ['p3', null, undefined],
     ]);
-    expect(view.stealCooldownUntil).toBe(1_002_000);
   });
 
   it('ends the match into the results', () => {

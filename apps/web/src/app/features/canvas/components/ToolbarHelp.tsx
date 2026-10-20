@@ -6,8 +6,8 @@ type Row = { keys: string[]; label: string };
 /** Gestures with no button of their own. The buttons' keys are on their keycaps. */
 const MOUSE_ROWS: Row[] = [
   { keys: ['Right-drag', `${MOD}-drag`], label: '↔ size, ↕ opacity (Fill: tolerance)' },
-  { keys: [`${ALT}+click`, 'Right-click'], label: 'Pick up a colour from the drawing' },
-  { keys: ['Hold C', 'Middle button'], label: 'Colour wheel: let go over a colour' },
+  { keys: [`${ALT}+click`, 'Hold S + click'], label: 'Pick up a colour from the drawing' },
+  { keys: ['Hold Space', 'Hold C', 'Middle button'], label: 'Colour wheel: let go over a colour' },
   { keys: ['Shift+1–5'], label: 'Save the colour to a slot (or right-click it)' },
   { keys: ['Shift+[ ]'], label: 'Halve or double the size' },
   { keys: ['Esc'], label: 'Cancel a size or opacity drag' },

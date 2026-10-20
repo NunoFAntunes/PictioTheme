@@ -17,12 +17,11 @@ import type {
  */
 
 export const TIMINGS = {
-  /** The solver's Build-or-Send choice. Then it's Build. */
+  /** The decider's Build-or-Send choice. Then it's Build. */
   decideMs: 5_000,
   /** Time to place a piece. Then it drops where it is. */
   placeMs: 15_000,
   /** Steal guesses are off for this long after a wrong one. */
-  stealCooldownMs: 2_000,
   /** Extra daze for each further fumble during a daze, and the most a daze can last. */
   dazeExtraMs: 2_000,
   dazeMaxMs: 10_000,
@@ -41,7 +40,7 @@ export const TIMINGS = {
 } as const;
 
 /** How far above the tower a new piece appears (docs/tower/technical/physics.md). */
-export const SPAWN_GAP = 3.5;
+export const SPAWN_GAP = 6;
 
 /** Drawing points per round, against bandwidth abuse (as in DoodleWhirl). */
 export const MAX_POINTS_PER_ROUND = 100_000;
@@ -66,7 +65,6 @@ export type PlayerState = {
   team: Team | null;
   stats: Stats;
   /** No steal guesses until then. */
-  stealCooldownUntil: number;
 };
 
 export type Round = {
@@ -76,7 +74,11 @@ export type Round = {
   prepared: PreparedCard;
   startedAt: number;
   endsAt: number;
-  /** Hint letters shown to the crew, and when the next one shows (null: none left). */
+  /**
+   * The crew sees the letter mask from the first hint on (the drawer gets a head start), with
+   * these letters revealed; and when the next hint shows (null: none left).
+   */
+  maskShown: boolean;
   revealed: Set<number>;
   nextHintAt: number | null;
   strokes: Stroke[];
@@ -107,13 +109,15 @@ export type PieceState = {
   team: Team;
   drawnBy: PlayerId;
   solvedBy: PlayerId;
+  /** Who chooses Build or Send, and places it if built: the drawer, or the thief. */
+  deciderId: PlayerId;
   stolen: boolean;
   tower: Team | null;
   sent: boolean;
   fumbled: boolean;
   shape: PieceShape;
   strokes: Stroke[];
-  /** While the solver chooses: when it defaults to Build. */
+  /** While the decider chooses: when it defaults to Build. */
   decideBy: number | null;
   /** Who placed it (or was placing it), for the fumble count. */
   placedBy: PlayerId | null;

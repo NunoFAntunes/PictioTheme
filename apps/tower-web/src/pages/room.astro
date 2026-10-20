@@ -6,6 +6,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <!-- Every /r/CODE is served this page (src/middleware.ts in dev, infra/Caddyfile in production). -->
 <BaseLayout title="Room · Doodle Tower">
   <RoomPage client:only="react">
-    <p slot="fallback" class="p-10 text-center font-display text-chalk-dim">Finding the site…</p>
+    <p slot="fallback" class="p-10 text-center font-display text-cloud-dim">Finding the room…</p>
   </RoomPage>
 </BaseLayout>

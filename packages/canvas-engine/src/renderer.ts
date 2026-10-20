@@ -1,6 +1,6 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '@pictiotheme/protocol';
 import type { StrokeModel } from './stroke-model';
-import { paintOp } from './paint';
+import { paintOp, type PaintOptions } from './paint';
 
 /**
  * Renders the stroke model onto a display canvas.
@@ -15,6 +15,7 @@ export function createRenderer(
   model: StrokeModel,
   size: { width: number; height: number } = { width: CANVAS_WIDTH, height: CANVAS_HEIGHT },
   background?: { image: HTMLImageElement; fit: number },
+  paint: PaintOptions = {},
 ): () => void {
   const { width, height } = size;
   display.width = width;
@@ -45,12 +46,12 @@ export function createRenderer(
     }
     for (; painted < committed; painted++) {
       const op = strokes[painted];
-      if (op) paintOp(baseCtx, op);
+      if (op) paintOp(baseCtx, op, paint);
     }
 
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(base, 0, 0);
-    if (open) paintOp(ctx, open);
+    if (open) paintOp(ctx, open, paint);
   };
 
   const schedule = () => {

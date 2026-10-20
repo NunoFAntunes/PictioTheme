@@ -11,21 +11,31 @@ export function hexToRgba(hex: string): Rgba {
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255, 255];
 }
 
+/** A flood's pixels (`visited[y * width + x]`), their bounds and how many there are. */
+export type Region = {
+  visited: Uint8Array;
+  minX: number;
+  maxX: number;
+  minY: number;
+  maxY: number;
+  size: number;
+};
+
 /**
- * Fills the region connected to (x, y) whose colour is within `tolerance` (0–255 per channel),
- * then grows it by 1 px (8-neighbourhood) so no unfilled ring is left at a stroke's anti-aliased
- * edge. Below full `opacity` the fill is laid over what's there (source-over), like a stroke.
+ * The pixels connected to (x, y) whose colour is within `tolerance` (0–255 per channel) of its
+ * colour. Null when that's already `fill` (nothing to do), or, with `enclosedOnly`, when the
+ * region reaches the canvas's edge: it isn't inside a closed shape.
  */
-export function floodFill(
+function findRegion(
   data: Uint8ClampedArray,
   width: number,
   height: number,
   startX: number,
   startY: number,
-  fill: Rgba,
+  fill: Rgba | null,
   tolerance: number,
-  opacity = 1,
-): void {
+  enclosedOnly: boolean,
+): Region | null {
   const x0 = Math.min(width - 1, Math.max(0, Math.round(startX)));
   const y0 = Math.min(height - 1, Math.max(0, Math.round(startY)));
   const start = (y0 * width + x0) * 4;
@@ -35,7 +45,7 @@ export function floodFill(
     data[start + 2] ?? 0,
     data[start + 3] ?? 0,
   ];
-  if (target.every((v, i) => v === fill[i])) return;
+  if (fill && target.every((v, i) => v === fill[i])) return null;
 
   const matches = (pixel: number) => {
     const i = pixel * 4;
@@ -47,10 +57,91 @@ export function floodFill(
     );
   };
   const visited = new Uint8Array(width * height);
-  let minX = x0;
-  let maxX = x0;
-  let minY = y0;
-  let maxY = y0;
+  const region: Region = { visited, minX: x0, maxX: x0, minY: y0, maxY: y0, size: 0 };
+
+  const stack: number[] = [x0, y0];
+  while (stack.length > 0) {
+    const y = stack.pop() as number;
+    let x = stack.pop() as number;
+    // Walk left to the start of this run, then take it rightwards, queueing rows above and below.
+    while (x > 0 && !visited[y * width + x - 1] && matches(y * width + x - 1)) x -= 1;
+    let spanAbove = false;
+    let spanBelow = false;
+    for (; x < width; x++) {
+      const pixel = y * width + x;
+      if (visited[pixel] || !matches(pixel)) break;
+      visited[pixel] = 1;
+      region.size += 1;
+      if (x < region.minX) region.minX = x;
+      if (x > region.maxX) region.maxX = x;
+      if (y < region.minY) region.minY = y;
+      if (y > region.maxY) region.maxY = y;
+      if (y > 0) {
+        const above = pixel - width;
+        const open = !visited[above] && matches(above);
+        if (open && !spanAbove) stack.push(x, y - 1);
+        spanAbove = open;
+      }
+      if (y < height - 1) {
+        const below = pixel + width;
+        const open = !visited[below] && matches(below);
+        if (open && !spanBelow) stack.push(x, y + 1);
+        spanBelow = open;
+      }
+    }
+    const { minX, maxX, minY, maxY } = region;
+    if (enclosedOnly && (minX === 0 || minY === 0 || maxX === width - 1 || maxY === height - 1)) {
+      return null;
+    }
+  }
+  return region;
+}
+
+/** Whether a fill at (x, y) would stay inside a closed shape (not reach the canvas's edge). */
+export function isEnclosed(
+  data: Uint8ClampedArray,
+  width: number,
+  height: number,
+  x: number,
+  y: number,
+  tolerance: number,
+): boolean {
+  return findRegion(data, width, height, x, y, null, tolerance, true) !== null;
+}
+
+/** The closed shape a fill at (x, y) would colour in, or null when it would reach the edge. */
+export function enclosedRegion(
+  data: Uint8ClampedArray,
+  width: number,
+  height: number,
+  x: number,
+  y: number,
+  tolerance: number,
+): Region | null {
+  return findRegion(data, width, height, x, y, null, tolerance, true);
+}
+
+/**
+ * Fills the region connected to (x, y) whose colour is within `tolerance` (0–255 per channel),
+ * then grows it by 1 px (8-neighbourhood) so no unfilled ring is left at a stroke's anti-aliased
+ * edge. Below full `opacity` the fill is laid over what's there (source-over), like a stroke.
+ * With `enclosedOnly`, a region that reaches the canvas's edge is left alone. Returns whether it
+ * filled anything.
+ */
+export function floodFill(
+  data: Uint8ClampedArray,
+  width: number,
+  height: number,
+  startX: number,
+  startY: number,
+  fill: Rgba,
+  tolerance: number,
+  opacity = 1,
+  enclosedOnly = false,
+): boolean {
+  const region = findRegion(data, width, height, startX, startY, fill, tolerance, enclosedOnly);
+  if (!region) return false;
+  const { visited, minX, maxX, minY, maxY } = region;
   const alpha = (fill[3] / 255) * opacity;
   const setFill = (pixel: number) => {
     const i = pixel * 4;
@@ -68,49 +159,15 @@ export function floodFill(
       data[i + c] = Math.round(((fill[c] ?? 0) * alpha + (data[i + c] ?? 0) * under) / out);
     data[i + 3] = Math.round(out * 255);
   };
-  const paint = (pixel: number) => {
-    setFill(pixel);
-    visited[pixel] = 1;
-    const x = pixel % width;
-    const y = (pixel - x) / width;
-    if (x < minX) minX = x;
-    if (x > maxX) maxX = x;
-    if (y < minY) minY = y;
-    if (y > maxY) maxY = y;
-  };
 
-  const stack: number[] = [x0, y0];
-  while (stack.length > 0) {
-    const y = stack.pop() as number;
-    let x = stack.pop() as number;
-    // Walk left to the start of this run, then fill rightwards, queueing rows above and below.
-    while (x > 0 && !visited[y * width + x - 1] && matches(y * width + x - 1)) x -= 1;
-    let spanAbove = false;
-    let spanBelow = false;
-    for (; x < width; x++) {
-      const pixel = y * width + x;
-      if (visited[pixel] || !matches(pixel)) break;
-      paint(pixel);
-      if (y > 0) {
-        const above = pixel - width;
-        const open = !visited[above] && matches(above);
-        if (open && !spanAbove) stack.push(x, y - 1);
-        spanAbove = open;
-      }
-      if (y < height - 1) {
-        const below = pixel + width;
-        const open = !visited[below] && matches(below);
-        if (open && !spanBelow) stack.push(x, y + 1);
-        spanBelow = open;
-      }
-    }
-  }
-
-  // Grow by 1 px: collect first, so grown pixels don't grow further.
+  // The region, then grown by 1 px: collect first, so grown pixels don't grow further.
   const edge: number[] = [];
   for (let y = Math.max(0, minY - 1); y <= Math.min(height - 1, maxY + 1); y++) {
     for (let x = Math.max(0, minX - 1); x <= Math.min(width - 1, maxX + 1); x++) {
-      if (visited[y * width + x]) continue;
+      if (visited[y * width + x]) {
+        setFill(y * width + x);
+        continue;
+      }
       let touches = false;
       for (let dy = -1; dy <= 1 && !touches; dy++) {
         const ny = y + dy;
@@ -127,4 +184,5 @@ export function floodFill(
     }
   }
   for (const pixel of edge) setFill(pixel);
+  return true;
 }

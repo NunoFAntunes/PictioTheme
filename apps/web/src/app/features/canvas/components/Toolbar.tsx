@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useSyncExternalStore, type ComponentTyp
 import { drawAndSend, strokeModel, type DrawOp, type StrokeModel } from '../../../realtime';
 import { useColorSlots } from '../color-slots';
 import { ALT, MOD, useKeyLabel, useShortcutHints } from '../shortcut-hints';
-import { applyShortcut, shortcutFor, TOOL_KEY_CODES } from '../shortcuts';
+import { applyShortcut, DROPPER_KEY_CODE, shortcutFor, TOOL_KEY_CODES } from '../shortcuts';
 import { withColor, type Tool, type ToolSettings } from '../tools';
 import type { ToggleColorPopover } from '../use-color-popover';
 import { BrushControls } from './BrushControls';
@@ -24,7 +24,7 @@ import { Keycap, Zone } from './ToolbarParts';
 type Props = {
   tool: ToolSettings;
   onChange: (next: ToolSettings) => void;
-  /** `C` (held: release over a colour to pick it) or the ink well: the colour popover. */
+  /** `C` or Space (held: release over a colour to pick it) or the ink well: the colour popover. */
   onToggleColorPopover: ToggleColorPopover;
   /** Where undo/redo/clear go. Defaults to the room; a pad applies them locally. */
   emit?: (op: DrawOp) => void;
@@ -32,7 +32,7 @@ type Props = {
   model?: StrokeModel;
   /** Labels the toolbar. */
   label?: string;
-  /** The eyedropper is armed (the way to pick up a colour on touch, without Alt). */
+  /** The eyedropper is armed, by its button or `S` (the way to pick up a colour without Alt). */
   picking?: boolean;
   onTogglePicking?: () => void;
   /**
@@ -64,6 +64,20 @@ function isTyping(target: EventTarget | null): boolean {
   if (target instanceof HTMLInputElement) return !NOT_TYPED.includes(target.type);
   return target.isContentEditable || ['TEXTAREA', 'SELECT'].includes(target.tagName);
 }
+
+/**
+ * Space presses a control the player reached with the keyboard (Tab, then Space), so it opens the
+ * colours only when nothing was. A mouse click leaves its button focused but not `:focus-visible`.
+ * The colour popover focuses its own swatch on opening; Space there toggles it as anywhere else.
+ */
+function spaceBelongsToControl(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement) || target === document.body) return false;
+  if (target.closest('[role="dialog"][aria-label="Colours"]')) return false;
+  return target.matches(':focus-visible');
+}
+
+/** `S` held at least this long is spring-loaded: letting go puts the dropper away again. */
+const DROPPER_HOLD_MS = 300;
 
 /**
  * Shortcuts are someone else's while a modal dialog is over this toolbar (the avatar editor,
@@ -121,6 +135,11 @@ export function Toolbar({
 }: Props) {
   const panel = layout === 'panel';
   const ref = useRef<HTMLDivElement>(null);
+  /** When `S` armed the dropper, while it's still down. */
+  const dropperDownAt = useRef<number | null>(null);
+  /** Space opened or closed the colours: its keyup must not press a button either. */
+  const spaceTaken = useRef(false);
+  const dropperKey = useKeyLabel(DROPPER_KEY_CODE);
   const hintsShown = useShortcutHints((s) => s.shown);
   const toggleHints = useShortcutHints((s) => s.toggle);
   const subscribe = useCallback((onChange: () => void) => model.subscribe(onChange), [model]);
@@ -134,15 +153,23 @@ export function Toolbar({
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (isTyping(e.target) || isInactive(ref.current)) return;
+      if (e.code === 'Space' && spaceBelongsToControl(e.target)) return;
       const shortcut = shortcutFor(e);
       if (!shortcut) return;
       e.preventDefault();
+      if (e.code === 'Space') spaceTaken.current = true;
       if (shortcut.kind === 'undo' || shortcut.kind === 'redo') {
         emit({ t: shortcut.kind === 'redo' ? 'draw:redo' : 'draw:undo' });
         return;
       }
       if (shortcut.kind === 'color-popover') {
-        if (!e.repeat) onToggleColorPopover({ hold: 'key' });
+        if (!e.repeat) onToggleColorPopover({ hold: { code: e.code } });
+        return;
+      }
+      if (shortcut.kind === 'dropper') {
+        if (e.repeat || !onTogglePicking) return;
+        dropperDownAt.current = picking ? null : performance.now();
+        onTogglePicking();
         return;
       }
       if (shortcut.kind === 'slot') {
@@ -154,9 +181,24 @@ export function Toolbar({
       }
       onChange(applyShortcut(tool, shortcut));
     };
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.code === 'Space' && spaceTaken.current) {
+        spaceTaken.current = false;
+        e.preventDefault();
+      }
+      if (e.code !== DROPPER_KEY_CODE || dropperDownAt.current === null) return;
+      // A tap leaves the dropper armed for the next click; a hold puts it away (if a pick hasn't).
+      const heldFor = performance.now() - dropperDownAt.current;
+      dropperDownAt.current = null;
+      if (heldFor >= DROPPER_HOLD_MS && picking) onTogglePicking?.();
+    };
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [tool, onChange, onToggleColorPopover, emit]);
+    window.addEventListener('keyup', onKeyUp);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('keyup', onKeyUp);
+    };
+  }, [tool, onChange, onToggleColorPopover, emit, picking, onTogglePicking]);
 
   // Touch screens get finger-sized targets (44 px, rule W15); mouse users keep the compact bar.
   const iconButton =
@@ -187,14 +229,15 @@ export function Toolbar({
       {onTogglePicking && (
         <button
           type="button"
-          title={`Pick up a colour from the drawing (or ${ALT}+click)`}
+          title={`Pick up a colour from the drawing (${dropperKey}, or hold ${dropperKey} or ${ALT} and click)`}
           aria-label="Pick up a colour from the drawing"
+          aria-keyshortcuts={dropperKey}
           aria-pressed={picking}
           onClick={onTogglePicking}
           className={`relative grid h-16 w-11 place-items-center rounded-xl border-2 transition ${picking ? 'border-ink bg-pop-sun text-ink shadow-[2px_3px_0_var(--color-ink)]' : 'border-transparent hover:bg-white dark:hover:bg-zinc-700'}`}
         >
           <DropperIcon className="size-8" ink={tool.color} />
-          <Keycap>{`${ALT}+click`}</Keycap>
+          <Keycap>{dropperKey}</Keycap>
         </button>
       )}
     </Zone>

@@ -35,14 +35,19 @@ export type CameraInput = {
   fit?: 'reach' | 'platform';
 };
 
-/** World units of air kept above the tower for the next piece (it spawns 3.5 above the top). */
-export const HEADROOM = 6;
+/** World units of air kept above the tower for the next piece (it spawns 6 above the top, plus its size). */
+export const HEADROOM = 9;
 /** Air on each side of the placer's reach, so the view isn't zoomed in too far. */
 export const SIDE_MARGIN = 2;
-/** How much is shown under the platform's top at the start: the base sits low in the view. */
-export const BELOW = 1.2;
+/** The meadow the plinth stands in, in world units under the platform's top. */
+export const GROUND = -2.2;
+/**
+ * How much is shown under the platform's top at the start: the plinth, and enough meadow below
+ * it for the villagers standing there.
+ */
+export const BELOW = 3;
 /** At least this much height is shown, however wide and short the view. */
-export const MIN_VIEW_HEIGHT = 9;
+export const MIN_VIEW_HEIGHT = 12;
 /** The line comes into view once the tower is this close to it. */
 const LINE_NEAR = 3;
 

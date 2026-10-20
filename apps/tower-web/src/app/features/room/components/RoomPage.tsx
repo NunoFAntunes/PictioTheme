@@ -34,7 +34,7 @@ function NameGate({ code }: { code: string }) {
           <NameField value={name} onChange={setDraft} autoFocus />
           <Button
             type="submit"
-            variant="safety"
+            variant="primary"
             className="h-12 w-full"
             disabled={!isValidName(name)}
           >
@@ -59,7 +59,7 @@ function ErrorToast() {
   return (
     <div
       role="alert"
-      className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-md bg-danger px-4 py-2 font-semibold text-chalk shadow-xl"
+      className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-xl bg-danger px-4 py-2 font-semibold text-cloud shadow-xl"
     >
       {error.message}
     </div>
@@ -88,9 +88,9 @@ export function RoomPage() {
   if (connection.kind === 'closed' && connection.reason !== 'left') {
     return (
       <Centered>
-        <Panel title="Site closed" className="w-full max-w-sm text-center">
+        <Panel title="Room closed" className="w-full max-w-sm text-center">
           <p className="mb-4 px-2 font-semibold">{connection.message}</p>
-          <Button variant="safety" onClick={() => location.assign('/')}>
+          <Button variant="primary" onClick={() => location.assign('/')}>
             Back to the start
           </Button>
         </Panel>
@@ -100,7 +100,7 @@ export function RoomPage() {
   if (!view) {
     return (
       <Centered>
-        <p className="font-display text-xl text-chalk-dim">Finding the site…</p>
+        <p className="font-display text-xl text-cloud-dim">Finding the room…</p>
       </Centered>
     );
   }
@@ -108,7 +108,7 @@ export function RoomPage() {
   return (
     <>
       {/* Phones and portrait tablets: the game needs a landscape screen (screens.md). */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-blueprint-900 p-8 text-center lg:hidden">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-dusk-900 p-8 text-center lg:hidden">
         <p className="font-display text-xl">
           Doodle Tower needs a bigger screen. Turn your tablet sideways, or use a computer.
         </p>
@@ -117,12 +117,12 @@ export function RoomPage() {
       {view.phase === 'playing' && <GameScreen view={view} />}
       {view.phase === 'results' && <Results view={view} />}
       {connection.kind === 'reconnecting' && (
-        <div className="fixed top-3 left-1/2 z-40 -translate-x-1/2 rounded-md bg-hazard px-4 py-1.5 font-display text-ink shadow-xl">
+        <div className="fixed top-3 left-1/2 z-40 -translate-x-1/2 rounded-xl bg-sun px-4 py-1.5 font-display text-ink shadow-xl">
           Reconnecting…
         </div>
       )}
       {view.restarting && (
-        <div className="fixed top-3 left-1/2 z-40 -translate-x-1/2 rounded-md bg-hazard px-4 py-1.5 font-display text-ink shadow-xl">
+        <div className="fixed top-3 left-1/2 z-40 -translate-x-1/2 rounded-xl bg-sun px-4 py-1.5 font-display text-ink shadow-xl">
           The server is restarting. Back in a moment.
         </div>
       )}

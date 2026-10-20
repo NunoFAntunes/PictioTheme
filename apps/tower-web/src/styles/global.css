@@ -1,89 +1,112 @@
 @import 'tailwindcss';
 
 /*
- * Doodle Tower's "building site" identity (docs/tower/design/visual-identity.md): blueprint blue,
- * plywood panels, hazard stripes, an orange and a teal crew. The game screen is always blueprint
- * blue, so there is no dark variant: it's dark already.
+ * Doodle Tower's "sunny meadow" identity (docs/tower/design/visual-identity.md): a bright sky over
+ * green hills, chunky rounded cards and buttons, an orange and a teal crew. The scenery is drawn
+ * on canvas (app/features/scenery); these are the tokens for everything on top of it. HUD bars and
+ * overlays are deep "dusk" indigo with white text, so they read on any part of the sky.
  */
 @theme {
-  --font-display: var(--font-bungee), Impact, system-ui, sans-serif;
-  --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-display: var(--font-lilita), system-ui, sans-serif;
+  --font-sans: var(--font-fredoka), system-ui, sans-serif;
 
-  --color-blueprint-950: oklch(0.2 0.07 262);
-  --color-blueprint-900: oklch(0.25 0.085 260);
-  --color-blueprint-800: oklch(0.31 0.1 258);
-  --color-blueprint-700: oklch(0.38 0.11 256);
-  --color-blueprint-line: oklch(0.8 0.06 245 / 0.16);
-  --color-chalk: oklch(0.96 0.012 240);
-  --color-chalk-dim: oklch(0.8 0.03 245);
+  --color-dusk-950: oklch(0.27 0.11 278);
+  --color-dusk-900: oklch(0.33 0.13 274);
+  --color-dusk-800: oklch(0.41 0.15 270);
+  --color-dusk-700: oklch(0.52 0.15 266);
+  --color-cloud: oklch(0.995 0.004 250);
+  --color-cloud-dim: oklch(0.88 0.04 260);
 
-  --color-ply: oklch(0.83 0.065 78);
-  --color-ply-light: oklch(0.89 0.05 82);
-  --color-ply-dark: oklch(0.68 0.08 62);
-  --color-ply-edge: oklch(0.55 0.08 55);
-  --color-screw: oklch(0.6 0.02 250);
+  --color-sky: oklch(0.7 0.14 242);
+  --color-sky-light: oklch(0.92 0.06 215);
+  --color-grass: oklch(0.76 0.19 140);
+  --color-grass-dark: oklch(0.6 0.17 145);
 
-  --color-hazard: oklch(0.86 0.17 92);
-  --color-hazard-ink: oklch(0.2 0.02 260);
-  --color-safety: oklch(0.72 0.18 48);
-  --color-safety-dark: oklch(0.6 0.18 42);
-  --color-crew-orange: oklch(0.72 0.18 48);
-  --color-crew-teal: oklch(0.7 0.12 195);
-  --color-steel: oklch(0.58 0.02 250);
-  --color-steel-dark: oklch(0.42 0.02 255);
-  --color-ink: oklch(0.22 0.03 262);
-  --color-tracing: oklch(0.985 0.006 230);
-  --color-danger: oklch(0.64 0.21 27);
+  --color-card: oklch(0.985 0.012 95);
+  --color-card-light: oklch(1 0 0);
+  --color-card-dark: oklch(0.93 0.025 250);
+  --color-card-edge: oklch(0.8 0.06 265);
 
-  --shadow-panel: 0 2px 0 var(--color-ply-edge), 0 10px 24px oklch(0.15 0.05 260 / 0.45);
+  --color-sun: oklch(0.87 0.17 92);
+  --color-sun-dark: oklch(0.72 0.15 75);
+  --color-sun-ink: oklch(0.27 0.08 275);
+  --color-coral: oklch(0.72 0.19 42);
+  --color-coral-dark: oklch(0.58 0.18 36);
+  --color-crew-orange: oklch(0.74 0.19 50);
+  --color-crew-teal: oklch(0.72 0.14 200);
+  --color-pebble: oklch(0.72 0.03 260);
+  --color-pebble-dark: oklch(0.52 0.05 265);
+  --color-ink: oklch(0.27 0.08 275);
+  --color-paper: oklch(1 0 0);
+  --color-danger: oklch(0.63 0.22 25);
+
+  --shadow-panel: 0 5px 0 var(--color-card-edge), 0 14px 30px oklch(0.3 0.12 265 / 0.25);
+  --animate-swatch-pop: swatch-pop 160ms ease-out;
 }
 
 @layer base {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
   body {
-    @apply min-h-dvh bg-blueprint-900 font-sans text-chalk antialiased;
-    /* Blueprint paper: a fine grid with a heavier line every fifth. */
-    background-image:
-      linear-gradient(var(--color-blueprint-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--color-blueprint-line) 1px, transparent 1px),
-      linear-gradient(oklch(0.8 0.06 245 / 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(0.8 0.06 245 / 0.06) 1px, transparent 1px);
-    background-size:
-      120px 120px,
-      120px 120px,
-      24px 24px,
-      24px 24px;
+    /* The scenery canvas paints over this; it's the sky until it loads. */
+    @apply min-h-dvh font-sans text-cloud antialiased;
+    background: linear-gradient(
+      var(--color-sky),
+      var(--color-sky-light) 80%,
+      var(--color-grass) 80%
+    );
+    background-attachment: fixed;
   }
   :focus-visible {
-    outline: 3px solid var(--color-hazard);
+    outline: 3px solid var(--color-sun);
     outline-offset: 2px;
   }
 }
 
-@utility hazard-stripes {
+/* Candy stripes: warnings and timers running out. */
+@utility candy-stripes {
   background-image: repeating-linear-gradient(
     -45deg,
-    var(--color-hazard) 0 14px,
-    var(--color-hazard-ink) 14px 28px
+    var(--color-sun) 0 14px,
+    var(--color-coral) 14px 28px
   );
 }
 
-/* Plywood: a warm panel with faint grain. */
-@utility plywood {
-  background-color: var(--color-ply);
-  background-image:
-    repeating-linear-gradient(
-      100deg,
-      oklch(1 0 0 / 0.05) 0 3px,
-      transparent 3px 11px,
-      oklch(0.5 0.08 60 / 0.06) 11px 13px,
-      transparent 13px 29px
-    ),
-    linear-gradient(180deg, oklch(1 0 0 / 0.12), transparent 40%);
+/* A chunky rounded card with a thick lavender base, like a game menu panel. */
+@utility card-panel {
+  background-color: var(--color-card);
+  background-image: linear-gradient(180deg, oklch(1 0 0 / 0.7), transparent 45%);
+  border: 3px solid oklch(1 0 0);
   box-shadow: var(--shadow-panel);
   color: var(--color-ink);
+}
+
+/* White display text with a dark outline, for titles straight on the sky. */
+@utility title-outline {
+  color: var(--color-cloud);
+  -webkit-text-stroke: 0.09em var(--color-dusk-950);
+  paint-order: stroke fill;
+  text-shadow: 0 0.08em 0 var(--color-dusk-950);
+}
+
+/* The colour swatch popping up over a closed shape. */
+@keyframes swatch-pop {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
+/* A gentle float, for titles. */
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

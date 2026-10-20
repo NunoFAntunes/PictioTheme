@@ -10,5 +10,5 @@
 | 6 | 2-player crews: the only guesser does all the guessing and placing, and the drawer's crew stalls while they place. Allow 2v2, or require 3 per crew? | Allow 2v2 | Phase 1 playtest |
 | 7 | Accounts shared between DoodleWhirl and Doodle Tower across two domains? | Separate guests now, shared Better Auth accounts later | When DoodleWhirl builds accounts |
 | 8 | The domain name | — | Before Phase 1 deploy |
-| 9 | Visual direction: "Building site" or "Toy box" | Building site ([visual-identity.md](../design/visual-identity.md)) | Design pass, before Phase 1 UI |
+| 9 | Visual direction | **Decided 2026-10-20: "Sunny meadow"** ([visual-identity.md](../design/visual-identity.md)), replacing "Building site" | Done |
 | 10 | Should drawers see the other crew's drawing (spy window) while drawing? | Yes, but they can't guess | Phase 1 |

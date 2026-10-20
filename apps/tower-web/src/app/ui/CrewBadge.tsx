@@ -12,7 +12,7 @@ export const CREW_BG: Record<Team, string> = {
   teal: 'bg-crew-teal',
 };
 
-/** A crew's name on its colour, like a hard-hat sticker. */
+/** A crew's name on its colour, like a sticker. */
 export function CrewBadge({ team, label }: { team: Team; label?: string }) {
   return (
     <span

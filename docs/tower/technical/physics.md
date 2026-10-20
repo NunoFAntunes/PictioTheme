@@ -24,7 +24,7 @@ Fully client-side lockstep was considered and rejected for v1. It uses less band
 ## A tower's world
 
 - A static, flat **platform**, 6 units wide and 0.35 thick (a lip is easy to add if playtests want one). Pieces are about 1 unit across. Below it, a kill zone. Any piece whose centre drops more than 2 units under the platform is a **fumble**: it's removed and the event is reported.
-- Gravity −9.81. The placed piece spawns 3.5 units above the tower and lowers at 0.8 units/s (5 with `↓`): about 4–5 seconds to aim and rotate before it touches anything.
+- Gravity −9.81. The placed piece spawns 6 units above the tower and lowers at 0.8 units/s (5 with `↓`): about 7–8 seconds to aim and rotate before it touches anything.
 - Default materials: friction 0.8, restitution 0.05, small linear and angular damping, so pieces slide on steep slopes but settle on gentle ones. "Ice" (the box exploit): friction 0.05.
 - Mass from area at the same density for every piece. Since areas are [normalized](piece-pipeline.md#normalizing-the-scale), pieces weigh about the same.
 - The placer can move the piece only within the platform width ± 2 units.
@@ -44,7 +44,7 @@ Fully client-side lockstep was considered and rejected for v1. It uses less band
 | Height lines (short / medium / tall) | 6 / 10 / 15 | Matches of about 4 / 7 / 10 minutes |
 | `A_target` / `L_max` / `t_min` | 1.0 / 3.0 / 0.2 | Pieces feel equal in weight but different in shape |
 | Friction | 0.8 | Slanted pieces slide, flat ones stay |
-| Lowering speed / spawn height | 0.8 u/s / 3.5 u | Enough time to aim within 15s |
+| Lowering speed / spawn height | 0.8 u/s / 6 u | Enough time to aim within 15s |
 | Gravity | 9.81 | With 1 m pieces things tumble about 30% faster than with the first 3 m² ones; lower it if stacking feels twitchy |
 | Rotation step | 15° | Fine enough to fit shapes, coarse enough to be quick |
 

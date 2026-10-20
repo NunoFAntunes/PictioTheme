@@ -2,10 +2,10 @@ import { useCallback, useState } from 'react';
 
 /**
  * What keeps the colour popover "held" after it opens (drawing-tools.md#picking-and-sampling-colours):
- * the pointer that opened it (a middle button, or a finger or pen after a long-press) or the `C`
- * key. Releasing it over a colour picks that colour.
+ * the pointer that opened it (a middle button, or a finger or pen after a long-press) or the key
+ * (`C` or Space, by its `code`). Releasing it over a colour picks that colour.
  */
-export type ColorHold = { pointerId: number } | 'key';
+export type ColorHold = { pointerId: number } | { code: string };
 
 export type ColorPopoverState = {
   /** Where it opened (client coordinates). Null: at the pointer, or the board's centre. */

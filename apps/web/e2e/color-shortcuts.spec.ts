@@ -43,11 +43,28 @@ test('drawer samples, swaps and picks colours with shortcuts', async ({ browser 
   await host.keyboard.press('x');
   await expect(swatch('Red')).toHaveAttribute('aria-pressed', 'true');
 
-  // A quick right-click (no drag) on blank canvas samples the white background.
+  // A quick right-click (no drag) leaves the colour alone: the right button only adjusts.
   await host.mouse.move(box.x + 20, box.y + 20);
   await host.mouse.down({ button: 'right' });
   await host.mouse.up({ button: 'right' });
+  await expect(swatch('Red')).toHaveAttribute('aria-pressed', 'true');
+
+  // S arms the dropper, previewing at once; the next click picks up the white background and
+  // puts it away.
+  const dropper = toolbar.getByRole('button', { name: 'Pick up a colour from the drawing' });
+  await host.keyboard.press('s');
+  await expect(dropper).toHaveAttribute('aria-pressed', 'true');
+  await expect(label).toHaveText('#ffffff');
+  await host.mouse.click(box.x + 20, box.y + 20);
+  await expect(dropper).toHaveAttribute('aria-pressed', 'false');
   await expect(swatch('White')).toHaveAttribute('aria-pressed', 'true');
+
+  // Held, S is spring-loaded: letting go without a click puts the dropper away again.
+  await host.keyboard.down('s');
+  await expect(dropper).toHaveAttribute('aria-pressed', 'true');
+  await host.waitForTimeout(400);
+  await host.keyboard.up('s');
+  await expect(dropper).toHaveAttribute('aria-pressed', 'false');
 
   // C opens the colours at the pointer; picking one closes it. Recent colours are listed.
   await host.mouse.move(cx, cy + 100);
@@ -155,7 +172,7 @@ test('drawer picks colours on the wheel, opened with a middle-click or the toolb
   await expect(popover).toBeHidden();
 });
 
-test('drawer holds the middle button or C and lets go over a colour to pick it', async ({
+test('drawer holds the middle button, Space or C and lets go over a colour to pick it', async ({
   browser,
 }) => {
   const { host } = await startTurn(browser);
@@ -200,7 +217,17 @@ test('drawer holds the middle button or C and lets go over a colour to pick it',
   await expect(popover).toBeHidden();
   await expect(swatch('Red')).toHaveAttribute('aria-pressed', 'true');
 
-  // The same with C held, onto a palette swatch.
+  // The same with Space held (a swatch just clicked keeps the focus, but Space isn't its).
+  await host.mouse.move(cx, cy);
+  await host.keyboard.down('Space');
+  await expect(popover).toBeVisible();
+  const orange = await centre('Orange');
+  await host.mouse.move(orange.x, orange.y, { steps: 5 });
+  await host.keyboard.up('Space');
+  await expect(popover).toBeHidden();
+  await expect(swatch('Orange')).toHaveAttribute('aria-pressed', 'true');
+
+  // And with C held, onto a palette swatch.
   await host.mouse.move(cx, cy);
   await host.keyboard.down('c');
   await expect(popover).toBeVisible();

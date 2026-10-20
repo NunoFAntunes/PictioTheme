@@ -1,6 +1,6 @@
 import { paintOp } from '@pictiotheme/canvas-engine';
 import type { Piece, ShapePreview } from '@pictiotheme/doodle-shape';
-import type { Stroke } from '@pictiotheme/protocol';
+import { CANVAS_HEIGHT, CANVAS_WIDTH, type Stroke } from '@pictiotheme/protocol';
 
 /**
  * A piece's look: the doodle cut out of paper. The silhouette is filled with paper and outlined,
@@ -33,6 +33,50 @@ function silhouettePath(flat: readonly number[]): Path2D {
   return path;
 }
 
+/**
+ * Lines are painted straight into the (scaled) bitmap, so they stay crisp. A fill needs the
+ * drawing's pixels at canvas size to know where it goes: the drawing is replayed at canvas size
+ * alongside, and what each fill changed there is laid into the bitmap in turn.
+ */
+function paintInk(ctx: CanvasRenderingContext2D, ops: readonly Stroke[]): void {
+  if (!ops.some((op) => op.tool === 'fill')) {
+    for (const op of ops) paintOp(ctx, op);
+    return;
+  }
+  const full = document.createElement('canvas');
+  full.width = CANVAS_WIDTH;
+  full.height = CANVAS_HEIGHT;
+  const fullCtx = full.getContext('2d', { willReadFrequently: true });
+  const patch = document.createElement('canvas');
+  patch.width = CANVAS_WIDTH;
+  patch.height = CANVAS_HEIGHT;
+  const patchCtx = patch.getContext('2d');
+  if (!fullCtx || !patchCtx) return;
+  for (const op of ops) {
+    if (op.tool !== 'fill') {
+      paintOp(fullCtx, op);
+      paintOp(ctx, op);
+      continue;
+    }
+    const before = fullCtx.getImageData(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT).data;
+    paintOp(fullCtx, op, { enclosedFills: true });
+    const after = fullCtx.getImageData(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    const changed = after.data;
+    for (let i = 0; i < changed.length; i += 4) {
+      if (
+        changed[i] === before[i] &&
+        changed[i + 1] === before[i + 1] &&
+        changed[i + 2] === before[i + 2] &&
+        changed[i + 3] === before[i + 3]
+      ) {
+        changed[i + 3] = 0;
+      }
+    }
+    patchCtx.putImageData(after, 0, 0);
+    ctx.drawImage(patch, 0, 0);
+  }
+}
+
 export function renderPieceBitmap(
   strokes: readonly Stroke[],
   piece: Piece,
@@ -60,11 +104,10 @@ export function renderPieceBitmap(
   };
 
   const path = silhouettePath(preview.silhouette);
-  // Ink, from the last clear on. `clear` ops would clear in the wrong space, and there are no
-  // fills in Doodle Tower.
+  // Ink, from the last clear on (a `clear` op would clear in the wrong space).
   const lastClear = strokes.findLastIndex((s) => s.tool === 'clear');
   const ink = make();
-  for (const op of strokes.slice(lastClear + 1)) if (op.tool !== 'fill') paintOp(ink.ctx, op);
+  paintInk(ink.ctx, strokes.slice(lastClear + 1));
   // Trim it to the silhouette grown by two cells.
   const mask = make();
   mask.ctx.fillStyle = '#000';

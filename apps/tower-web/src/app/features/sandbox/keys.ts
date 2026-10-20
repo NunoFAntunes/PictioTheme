@@ -1,8 +1,8 @@
 import type { SandboxSession } from './session';
 
 /**
- * Placement keys (docs/tower/product/game-rules.md#placing): ←/→ or A/D move, Q/E rotate 15°,
- * ↓ or S lowers faster, Space drops. Ignored while typing in a field or using a slider, so the
+ * Placement keys (docs/tower/product/game-rules.md#placing): ←/→ or A/D move, ↑ or W rotates 15°
+ * clockwise (Q/E: either way), ↓ or S lowers faster, Space drops. Ignored while typing in a field or using a slider, so the
  * tuning panel's arrow keys still work.
  */
 
@@ -14,6 +14,9 @@ const HOLD: Record<string, 'left' | 'right' | 'fast'> = {
   ArrowDown: 'fast',
   KeyS: 'fast',
 };
+
+/** Positive angles turn the piece anticlockwise (the physics' y axis points up). */
+const ROTATE: Record<string, 1 | -1> = { ArrowUp: -1, KeyW: -1, KeyE: -1, KeyQ: 1 };
 
 function isTyping(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false;
@@ -36,9 +39,10 @@ export function attachPlacementKeys(session: SandboxSession): () => void {
       if (down && !e.repeat) session.drop();
       return;
     }
-    if (down && (e.code === 'KeyQ' || e.code === 'KeyE')) {
+    const turn = ROTATE[e.code];
+    if (turn) {
       e.preventDefault();
-      session.rotate(e.code === 'KeyQ' ? 1 : -1);
+      if (down) session.rotate(turn);
     }
   };
   // Letting go of everything when the window loses focus, so a key isn't stuck held.

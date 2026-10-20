@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { create } from 'zustand';
-import { TOOL_KEY_CODES } from './shortcuts';
+import { DROPPER_KEY_CODE, TOOL_KEY_CODES } from './shortcuts';
 
 /**
  * The keycap badges on the toolbar's buttons (drawing-tools.md#keyboard-shortcuts): on unless the
@@ -26,7 +26,7 @@ function load(): boolean {
 type ShortcutHintsStore = {
   shown: boolean;
   toggle: () => void;
-  /** What the keyboard layout prints on each tool key (`KeyQ` → `A` on AZERTY), once known. */
+  /** What the keyboard layout prints on each tool (and dropper) key (`KeyQ` → `A` on AZERTY), once known. */
   labels: Record<string, string>;
 };
 
@@ -61,7 +61,7 @@ export function useKeyLabel(code: string): string {
       ?.getLayoutMap?.()
       .then((map) => {
         const labels: Record<string, string> = {};
-        for (const c of Object.values(TOOL_KEY_CODES)) {
+        for (const c of [...Object.values(TOOL_KEY_CODES), DROPPER_KEY_CODE]) {
           const printed = map.get(c);
           if (printed) labels[c] = printed.toUpperCase();
         }

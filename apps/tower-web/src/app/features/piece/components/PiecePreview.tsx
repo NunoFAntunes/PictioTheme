@@ -71,7 +71,7 @@ export function PiecePreview({
   }, [piece, platformWidth]);
 
   return (
-    <figure className="rounded-md bg-ply-light/70 p-2">
+    <figure className="rounded-xl bg-card-light/70 p-2">
       <canvas ref={ref} aria-hidden="true" className="h-28 w-full" />
       <figcaption className="mt-1 flex flex-wrap justify-between gap-x-3 px-1 text-xs text-ink/75">
         {piece ? (

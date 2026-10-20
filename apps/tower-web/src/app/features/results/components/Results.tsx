@@ -30,11 +30,11 @@ export function Results({ view }: { view: RoomView }) {
           </h1>
         ) : (
           <h1 className="font-display text-5xl leading-tight">
-            {results.reason === 'abandoned' ? 'The site was abandoned' : 'A draw!'}
+            {results.reason === 'abandoned' ? 'Everyone went home' : 'A draw!'}
           </h1>
         )}
         {results.winner && (
-          <p className="mt-1 text-chalk-dim">Their tower {REASON[results.reason]}.</p>
+          <p className="mt-1 text-cloud-dim">Their tower {REASON[results.reason]}.</p>
         )}
       </header>
 
@@ -104,14 +104,14 @@ export function Results({ view }: { view: RoomView }) {
           <div className="mt-auto flex justify-center gap-3">
             {isHost ? (
               <Button
-                variant="safety"
+                variant="primary"
                 className="h-14 px-8 text-lg"
                 onClick={() => sendToRoom({ t: 'match:rematch' })}
               >
                 Rematch
               </Button>
             ) : (
-              <span className="font-display text-chalk-dim">Waiting for the host…</span>
+              <span className="font-display text-cloud-dim">Waiting for the host…</span>
             )}
             <Button className="h-14" onClick={() => location.assign('/')}>
               Leave

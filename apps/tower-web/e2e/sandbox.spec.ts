@@ -2,7 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 
 /**
  * The Phase 0 sandbox end to end: draw on the board, see the block, build it, drop it from the
- * crane, and watch the tower grow. `SCREENSHOTS=<dir>` saves pictures of each stage.
+ * balloons, and watch the tower grow. `SCREENSHOTS=<dir>` saves pictures of each stage.
  */
 
 const shot = async (page: Page, name: string) => {
@@ -34,12 +34,23 @@ const stat = (page: Page, label: string) => page.getByTestId(`stat-${label.toLow
 test('draw a block, build it, drop it on the tower', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/sandbox');
-  await expect(page.getByText('Raising the crane…')).toHaveCount(0, { timeout: 20_000 });
+  await expect(page.getByText('Getting ready…')).toHaveCount(0, { timeout: 20_000 });
   await expect(page.getByText('Draw something to see its block')).toBeVisible();
   await shot(page, '1-empty');
 
   await drawRectangle(page, [0.25, 0.35, 0.75, 0.65]);
   await expect(page.getByText(/4 corners · 1 part/)).toBeVisible();
+  // Closing it offers colours to fill it with.
+  await page.getByRole('button', { name: 'Fill with Blue' }).click();
+  await expect
+    .poll(() =>
+      page
+        .getByLabel('Drawing canvas')
+        .evaluate((canvas: HTMLCanvasElement) => [
+          ...(canvas.getContext('2d')?.getImageData(600, 450, 1, 1).data ?? []),
+        ]),
+    )
+    .toEqual([77, 171, 247, 255]);
   await shot(page, '2-drawn');
 
   await page.getByRole('button', { name: 'Build it' }).click();
@@ -58,7 +69,7 @@ test('draw a block, build it, drop it on the tower', async ({ page }) => {
 test('queue samples from the workbench and let them stack', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/sandbox');
-  await expect(page.getByText('Raising the crane…')).toHaveCount(0, { timeout: 20_000 });
+  await expect(page.getByText('Getting ready…')).toHaveCount(0, { timeout: 20_000 });
   await page.getByRole('button', { name: 'Workbench' }).click();
   await shot(page, '5-workbench');
   for (const word of ['brick', 'boot', 'house', 'mountain', 'lightbulb']) {

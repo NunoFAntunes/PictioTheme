@@ -51,7 +51,16 @@ function paintLine(ctx: CanvasRenderingContext2D, stroke: LineStroke): void {
   ctx.restore();
 }
 
-export function paintOp(ctx: CanvasRenderingContext2D, op: Stroke): void {
+export type PaintOptions = {
+  /** Fills only colour in closed shapes: one that would reach the canvas's edge is skipped. */
+  enclosedFills?: boolean;
+};
+
+export function paintOp(
+  ctx: CanvasRenderingContext2D,
+  op: Stroke,
+  { enclosedFills = false }: PaintOptions = {},
+): void {
   const { width, height } = ctx.canvas;
   switch (op.tool) {
     case 'clear':
@@ -59,7 +68,7 @@ export function paintOp(ctx: CanvasRenderingContext2D, op: Stroke): void {
       return;
     case 'fill': {
       const image = ctx.getImageData(0, 0, width, height);
-      floodFill(
+      const filled = floodFill(
         image.data,
         width,
         height,
@@ -68,8 +77,9 @@ export function paintOp(ctx: CanvasRenderingContext2D, op: Stroke): void {
         hexToRgba(op.color),
         op.tolerance,
         op.opacity ?? 1,
+        enclosedFills,
       );
-      ctx.putImageData(image, 0, 0);
+      if (filled) ctx.putImageData(image, 0, 0);
       return;
     }
     default:

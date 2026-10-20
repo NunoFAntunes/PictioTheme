@@ -158,11 +158,11 @@ export function ColorPopover({ tool, anchor, hold, onLive, onPick, onClose }: Pr
       if (released) onCloseRef.current();
     };
 
-    const isHolder = (e: PointerEvent) => hold !== 'key' && e.pointerId === hold.pointerId;
+    const isHolder = (e: PointerEvent) => 'pointerId' in hold && e.pointerId === hold.pointerId;
 
     const onMove = (e: PointerEvent) => {
       if (!active) return;
-      if (hold !== 'key') {
+      if ('pointerId' in hold) {
         if (!isHolder(e)) return;
         if (e.buttons === 0) {
           finish(true); // released somewhere we didn't hear about
@@ -186,7 +186,7 @@ export function ColorPopover({ tool, anchor, hold, onLive, onPick, onClose }: Pr
       if (isHolder(e)) finish(false);
     };
     const onKeyUp = (e: KeyboardEvent) => {
-      if (hold === 'key' && e.code === 'KeyC') finish(true);
+      if ('code' in hold && e.code === hold.code) finish(true);
     };
     const onBlur = () => finish(false);
 

@@ -1,8 +1,8 @@
 import { Button } from '../../../ui/Button';
-import { UndoIcon } from '../../../ui/icons';
+import { BucketIcon, UndoIcon } from '../../../ui/icons';
 import { BRUSH_SIZES, INK_COLORS, type DrawSettings } from '../tools';
 
-/** One row under the board: brush sizes, eraser, colours, undo and clear. */
+/** One row under the board: brush sizes, eraser, bucket, colours, undo and clear. */
 export function DrawingToolbar({
   settings,
   onChange,
@@ -42,6 +42,15 @@ export function DrawingToolbar({
         >
           Erase
         </Button>
+        <Button
+          aria-label="Paint bucket"
+          title="Paint bucket: colours in a closed shape"
+          pressed={settings.tool === 'fill'}
+          onClick={() => onChange({ ...settings, tool: 'fill' })}
+          className="w-10 px-0"
+        >
+          <BucketIcon color={settings.color} />
+        </Button>
       </div>
       <div className="flex gap-1" role="radiogroup" aria-label="Colour">
         {INK_COLORS.map(({ name, hex }) => {
@@ -55,8 +64,15 @@ export function DrawingToolbar({
               aria-label={name}
               title={name}
               onMouseUp={(e) => e.currentTarget.blur()}
-              onClick={() => onChange({ ...settings, color: hex, tool: 'brush' })}
-              className={`size-7 rounded-full border-2 transition pointer-coarse:size-10 ${chosen ? 'scale-110 border-ink ring-2 ring-hazard' : 'border-ink/30 hover:scale-105'}`}
+              // Picking a colour keeps the bucket; from the eraser it goes back to the brush.
+              onClick={() =>
+                onChange({
+                  ...settings,
+                  color: hex,
+                  tool: settings.tool === 'eraser' ? 'brush' : settings.tool,
+                })
+              }
+              className={`size-7 rounded-full border-2 transition pointer-coarse:size-10 ${chosen ? 'scale-110 border-ink ring-2 ring-sun' : 'border-ink/30 hover:scale-105'}`}
               style={{ background: hex }}
             />
           );

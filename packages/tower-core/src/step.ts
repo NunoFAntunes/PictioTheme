@@ -151,13 +151,14 @@ function onMessage(c: Ctx, playerId: PlayerId, msg: TowerClientMessage): void {
     case 'draw:begin':
     case 'draw:pts':
     case 'draw:end':
+    case 'draw:fill':
     case 'draw:undo':
     case 'draw:redo':
     case 'draw:clear':
       onDraw(c, playerId, msg);
       return;
     case 'guess':
-      onGuess(c, playerId, msg.text, msg.target);
+      onGuess(c, playerId, msg.text);
       return;
     case 'piece:decide':
       onDecide(c, playerId, msg.pieceId, msg.choice);

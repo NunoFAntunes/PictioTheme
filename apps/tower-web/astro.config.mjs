@@ -7,19 +7,19 @@ import { defineConfig, fontProviders } from 'astro/config';
 export default defineConfig({
   output: 'static',
   integrations: [react()],
-  // Self-hosted at build time. Bungee: signage display type. Space Grotesk: UI text.
+  // Self-hosted at build time. Lilita One: chunky, rounded display type. Fredoka: friendly UI text.
   fonts: [
     {
       provider: fontProviders.google(),
-      name: 'Bungee',
-      cssVariable: '--font-bungee',
+      name: 'Lilita One',
+      cssVariable: '--font-lilita',
       subsets: ['latin'],
-      fallbacks: ['Impact', 'system-ui', 'sans-serif'],
+      fallbacks: ['system-ui', 'sans-serif'],
     },
     {
       provider: fontProviders.google(),
-      name: 'Space Grotesk',
-      cssVariable: '--font-space-grotesk',
+      name: 'Fredoka',
+      cssVariable: '--font-fredoka',
       weights: ['400 700'],
       subsets: ['latin'],
       fallbacks: ['system-ui', 'sans-serif'],

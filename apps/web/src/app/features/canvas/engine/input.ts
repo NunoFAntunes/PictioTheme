@@ -14,12 +14,13 @@ import { sampleCanvas } from './sample';
  *
  * Right-button drag, or Ctrl/Cmd + drag, adjusts the brush instead of drawing
  * (drawing-tools.md#adjusting-size-and-opacity). A pen's barrel button reports as the right
- * button, so it works with a stylus too. Escape during the drag puts the settings back.
+ * button, so it works with a stylus too. Escape during the drag puts the settings back. A
+ * right-click that never becomes a drag does nothing, so a hesitant drag never changes the colour.
  *
  * The eyedropper (drawing-tools.md#picking-and-sampling-colours): hold Alt and click or drag to
- * sample, with the colour under the pointer previewed while Alt is held. A right-click (or
- * Ctrl/Cmd+click) that doesn't move far enough to start an adjust drag samples too. On touch,
- * where there's no Alt or right button, the toolbar's dropper arms a pick: the next press samples.
+ * sample, with the colour under the pointer previewed while Alt is held. The toolbar's dropper
+ * (or `S`) arms a pick: the next press samples, previewed the same way. That's also the way on
+ * touch, where there's no Alt.
  *
  * A middle-click opens the colours at the pointer, like `C`. Its defaults (autoscroll on Windows,
  * pasting on Linux) are blocked over the canvas. On touch and pen, a long-press opens them: a
@@ -32,8 +33,6 @@ import { sampleCanvas } from './sample';
 
 const FLUSH_MS = 33;
 const MIN_DISTANCE = 1.5;
-/** A right press released sooner than this, before the adjust drag picked an axis, samples. */
-const TAP_MS = 300;
 /** A finger or pen held this long without moving opens the colours. */
 const LONG_PRESS_MS = 500;
 /** How far (client px) a finger or pen moves before it's a stroke rather than a press. */
@@ -65,7 +64,16 @@ function isAdjustPress(e: PointerEvent): boolean {
   return e.button === 2 || (e.button === 0 && (e.ctrlKey || e.metaKey));
 }
 
-export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInputDeps): () => void {
+export type DrawingInput = {
+  detach(): void;
+  /** Something the preview depends on changed outside the canvas (the dropper was armed). */
+  refreshPreview(): void;
+};
+
+export function attachDrawingInput(
+  canvas: HTMLCanvasElement,
+  deps: DrawingInputDeps,
+): DrawingInput {
   let strokeId: string | null = null;
   let last: { x: number; y: number } | null = null;
   let pending: number[] = [];
@@ -76,7 +84,6 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
     y: number;
     start: ToolSettings;
     axis: Axis | null;
-    at: number;
   } | null = null;
   let sampling: { pointerId: number } | null = null;
   /** A finger or pen down that hasn't moved yet: a tap, a stroke or a long-press. */
@@ -133,10 +140,11 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
     return sampleCanvas(canvas, p.x, p.y);
   };
 
-  /** Alt is held over the canvas: preview the colour under the pointer. */
+  /** Alt is held (or the dropper armed) over the canvas: preview the colour under the pointer. */
   const updatePreview = () => {
     const at = deps.cursor.pointerAt();
-    const show = deps.isEnabled() && (altHeld || sampling !== null) && at && !strokeId && !adjust;
+    const armed = altHeld || sampling !== null || (deps.isPicking?.() ?? false);
+    const show = deps.isEnabled() && armed && at && !strokeId && !adjust;
     deps.cursor.preview(show ? sampleAt({ clientX: at.x, clientY: at.y }) : null);
   };
 
@@ -183,13 +191,6 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
       endPress();
       startAt(at, e.pointerId);
     }
-    // A quick right-click that never became a drag samples where it was pressed.
-    if (adjust && adjust.pointerId === e.pointerId && adjust.axis === null) {
-      if (performance.now() - adjust.at < TAP_MS) {
-        const color = sampleAt({ clientX: adjust.x, clientY: adjust.y });
-        if (color) deps.pickColor(color);
-      }
-    }
     end();
   };
 
@@ -222,7 +223,6 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
         y: e.clientY,
         start: deps.getTool(),
         axis: null,
-        at: performance.now(),
       };
       deps.cursor.preview(null);
       deps.cursor.pin(e.clientX, e.clientY);
@@ -386,7 +386,7 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
   window.addEventListener('keyup', onAlt);
   window.addEventListener('blur', onBlur);
 
-  return () => {
+  const detach = () => {
     end();
     canvas.removeEventListener('pointerdown', onDown);
     canvas.removeEventListener('pointermove', onMove);
@@ -401,4 +401,5 @@ export function attachDrawingInput(canvas: HTMLCanvasElement, deps: DrawingInput
     window.removeEventListener('keyup', onAlt);
     window.removeEventListener('blur', onBlur);
   };
+  return { detach, refreshPreview: updatePreview };
 }

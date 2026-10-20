@@ -42,7 +42,7 @@ export function EventBanner({ view, team }: { view: RoomView; team: Team }) {
     <div
       key={event.key}
       role="status"
-      className="pointer-events-none rounded-lg bg-ink/90 px-5 py-2 font-display text-lg text-hazard shadow-2xl"
+      className="pointer-events-none rounded-2xl bg-ink/90 px-5 py-2 font-display text-lg text-sun shadow-2xl"
     >
       {message(event, view, team)}
     </div>

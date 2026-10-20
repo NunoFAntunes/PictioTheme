@@ -1,55 +1,89 @@
 import type { Team } from '@pictiotheme/protocol/tower';
-import { useEffect, useState } from 'react';
-import { myTeam, type RoomView } from '../../../realtime';
+import { DEFAULT_TUNING } from '@pictiotheme/tower-physics';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from 'react';
+import { myTeam, strokeModels, type RoomView } from '../../../realtime';
+import { DEFAULT_DRAW_SETTINGS, DrawingToolbar, type DrawSettings } from '../../drawing';
+import { PiecePreview } from '../../piece';
+import { createDrawSender } from '../draw-sender';
 import { createPlacementController } from '../placement';
-import { CrewFeed } from './CrewFeed';
 import { DecideCard } from './DecideCard';
-import { DrawingStage, SpyWindow } from './DrawingStage';
+import { DrawingStage, useBoardWidth, useLivePiece } from './DrawingStage';
 import { EventBanner } from './EventBanner';
 import { GuessBox } from './GuessBox';
+import { PlacingControls } from './PlacingControls';
+import { RivalDrawing } from './RivalDrawing';
 import { ScoreBar } from './ScoreBar';
 import { TowerPanel } from './TowerPanel';
 
 /**
- * The match (docs/tower/design/screens.md §3–6): your tower on the left, the other crew's on the
- * right, the drawing in focus in the middle with the guess box, the other drawing in the spy
- * window. While you place a piece, your tower takes the middle.
+ * A card with two faces that turns over: the drawer's tools on the front, the guess line and the
+ * placing controls on the back. Both faces share one cell, so the card is as tall as the taller
+ * one and nothing jumps when it flips; the face turned away can't be reached.
+ */
+function FlipCard({
+  flipped,
+  front,
+  back,
+}: {
+  flipped: boolean;
+  front: ReactNode;
+  back: ReactNode;
+}) {
+  const face = 'card-panel col-start-1 row-start-1 rounded-2xl p-3 backface-hidden';
+  return (
+    <div className="shrink-0 perspective-[1400px]">
+      <div
+        className={`grid transition-transform duration-500 transform-3d motion-reduce:transition-none ${flipped ? 'rotate-y-180' : ''}`}
+      >
+        <div className={face} inert={flipped}>
+          {front}
+        </div>
+        <div className={`${face} rotate-y-180`} inert={!flipped}>
+          {back}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * The match (docs/tower/design/screens.md §3–6): the two towers are the show, wide on either
+ * side. In the middle, your crew's drawing, and under it the play card: the drawing tools while
+ * you draw, turned over to the guess line and the placing controls the rest of the time. The
+ * other crew's drawing hangs small in the sky of their tower, to steal.
  */
 export function GameScreen({ view }: { view: RoomView }) {
   const team = myTeam(view) ?? 'orange';
   const other: Team = team === 'orange' ? 'teal' : 'orange';
-  const [focus, setFocus] = useState<'own' | 'steal'>('own');
   const [controls] = useState(createPlacementController);
+  const [settings, setSettings] = useState<DrawSettings>(DEFAULT_DRAW_SETTINGS);
+  const [sender] = useState(() => createDrawSender(team));
+  useEffect(() => () => sender.dispose(), [sender]);
+  const middle = useRef<HTMLDivElement>(null);
+  const boardWidth = useBoardWidth(middle);
 
   const own = view.crews[team];
   const drawing = own.round?.drawerId === view.you;
   const placing = own.placing?.placerId === view.you;
-  const steals = view.settings.steals;
-  // The drawer keeps their own board in focus; with steals off there's nothing to swap to.
-  const effectiveFocus = drawing || !steals ? 'own' : focus;
-  const swap = () => {
-    if (!drawing) setFocus((f) => (f === 'own' && steals ? 'steal' : 'own'));
-  };
-  const focusedTeam = effectiveFocus === 'own' ? team : other;
-  const spyTeam = effectiveFocus === 'own' ? other : team;
+  const shape = useLivePiece(team, drawing);
+  const model = strokeModels[team];
+  const subscribe = useCallback((listener: () => void) => model.subscribe(listener), [model]);
+  const canUndo = useSyncExternalStore(subscribe, () => model.strokes.length > 0);
 
   useEffect(() => controls.attach(), [controls]);
   useEffect(() => controls.setActive(placing), [controls, placing]);
 
-  // Tab swaps the drawings from anywhere (the guess box handles it itself while focused).
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab' || e.target instanceof HTMLInputElement) return;
-      e.preventDefault();
-      if (!drawing) setFocus((f) => (f === 'own' && steals ? 'steal' : 'own'));
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [drawing, steals]);
-
-  const myDecision = view.deciding.find((d) => d.solverId === view.you);
+  const myDecision = view.deciding.find((d) => d.deciderId === view.you);
   const crewDecision = view.deciding.find(
-    (d) => d.solverId !== view.you && view.players.find((p) => p.id === d.solverId)?.team === team,
+    (d) =>
+      d.deciderId !== view.you && view.players.find((p) => p.id === d.deciderId)?.team === team,
   );
   const disabledReason = drawing
     ? 'You’re drawing: no guessing'
@@ -57,75 +91,62 @@ export function GameScreen({ view }: { view: RoomView }) {
       ? 'Place your piece first'
       : null;
 
-  const stage = (
-    <DrawingStage
-      key={focusedTeam}
-      view={view}
-      team={focusedTeam}
-      focus={focusedTeam === team ? 'own' : 'steal'}
-      onSwap={swap}
-      canSwap={!drawing && steals}
-    />
-  );
-
   return (
     <div className="flex h-dvh min-h-0 flex-col">
       <ScoreBar view={view} team={team} />
-      <main className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)_minmax(0,1fr)] gap-3 px-3 pb-3">
-        <div className="min-h-0">
-          {placing ? (
-            <div className="flex h-full flex-col gap-2">
-              {stage}
-              <CrewFeed view={view} />
-            </div>
-          ) : (
-            <TowerPanel team={team} view={view} controls={controls} placingHere={false} />
-          )}
-        </div>
+      <main className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_clamp(19rem,30vw,28rem)_minmax(0,1fr)] gap-3 px-3 pb-3">
+        <TowerPanel team={team} view={view} controls={controls} placingHere={placing} mine />
 
-        <div className="relative flex min-h-0 flex-col gap-2">
-          {placing ? (
-            <TowerPanel team={team} view={view} controls={controls} placingHere />
-          ) : (
-            <>
-              {stage}
-              {!drawing && (
-                <GuessBox
-                  view={view}
-                  focus={effectiveFocus}
-                  onSwap={swap}
-                  disabledReason={disabledReason}
+        <div ref={middle} className="relative flex min-h-0 flex-col gap-3">
+          <DrawingStage
+            view={view}
+            team={team}
+            settings={settings}
+            shape={shape}
+            onOp={(op) => sender.send(op)}
+            boardWidth={boardWidth}
+          />
+
+          {crewDecision && <DecideCard view={view} deciding={crewDecision} team={team} />}
+
+          <FlipCard
+            flipped={!drawing}
+            front={
+              <div className="flex flex-col gap-2">
+                <DrawingToolbar
+                  settings={settings}
+                  onChange={setSettings}
+                  onUndo={() => sender.send({ t: 'draw:undo' })}
+                  onClear={() => sender.send({ t: 'draw:clear' })}
+                  canUndo={canUndo}
                 />
-              )}
-              {crewDecision && <DecideCard view={view} deciding={crewDecision} team={team} />}
-            </>
-          )}
+                <PiecePreview
+                  piece={shape?.ok ? shape.piece : null}
+                  platformWidth={DEFAULT_TUNING.platformWidth}
+                />
+              </div>
+            }
+            back={
+              <div className="flex h-full flex-col justify-center gap-4">
+                <GuessBox view={view} disabledReason={disabledReason} />
+                <PlacingControls controls={controls} placing={placing} />
+              </div>
+            }
+          />
+
           <div className="pointer-events-none absolute inset-x-0 top-14 z-20 flex justify-center">
             <EventBanner view={view} team={team} />
           </div>
           {myDecision && (
-            <div className="absolute inset-0 z-30 flex items-center justify-center bg-blueprint-950/40">
+            <div className="absolute inset-0 z-30 flex items-center justify-center rounded-2xl bg-dusk-950/40">
               <DecideCard view={view} deciding={myDecision} team={team} />
             </div>
           )}
         </div>
 
-        <div className="flex min-h-0 flex-col gap-3">
-          <SpyWindow
-            view={view}
-            team={spyTeam}
-            onSwap={swap}
-            stealing={!drawing && steals && spyTeam === other}
-          />
-          {!placing && !drawing && (
-            <div className="flex max-h-48 min-h-24 flex-col">
-              <CrewFeed view={view} />
-            </div>
-          )}
-          <div className="min-h-0 flex-1">
-            <TowerPanel team={other} view={view} controls={controls} placingHere={false} />
-          </div>
-        </div>
+        <TowerPanel team={other} view={view} placingHere={false}>
+          <RivalDrawing view={view} team={other} />
+        </TowerPanel>
       </main>
     </div>
   );

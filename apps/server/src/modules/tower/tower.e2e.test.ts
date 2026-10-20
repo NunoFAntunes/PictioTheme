@@ -114,12 +114,13 @@ describe('Doodle Tower, end to end', () => {
     for (const op of brick('b1')) drawer.send(op);
     // Everyone else watches the strokes arrive.
     await guesser.next('crew:draw', (m) => m.team === 'orange' && m.op.t === 'draw:end');
-    guesser.send({ t: 'guess', text: word, target: 'own' });
+    guesser.send({ t: 'guess', text: word });
     const made = await host.next('piece:made');
     expect(made.piece.word).toBe(word);
     expect(made.piece.shape.parts.length).toBe(1);
 
-    guesser.send({ t: 'piece:decide', pieceId: made.piece.id, choice: 'build' });
+    // The drawer chooses (and places it, being free now).
+    drawer.send({ t: 'piece:decide', pieceId: made.piece.id, choice: 'build' });
     const start = await host.next('place:start', (m) => m.tower === 'orange');
     expect(start.placing.pieceId).toBe(made.piece.id);
     // The physics worker spawned it: frames come in with it.

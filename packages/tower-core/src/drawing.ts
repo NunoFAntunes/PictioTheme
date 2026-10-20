@@ -6,7 +6,8 @@ import { MAX_POINTS_PER_ROUND, type Ctx, type Round } from './types';
 /**
  * A drawer's strokes. The server keeps each crew's drawing (for reconnects, and to make the piece
  * from) and forwards every operation to everyone else, tagged with the crew: both crews watch
- * both drawings. Same rules as DoodleWhirl's (game-core room/drawing.ts), without fills.
+ * both drawings. Same rules as DoodleWhirl's (game-core room/drawing.ts). The server can't see
+ * pixels, so it keeps every fill; clients skip one that isn't inside a closed shape.
  */
 
 export type DrawMessage = Extract<TowerClientMessage, { t: `draw:${string}` }>;
@@ -87,6 +88,14 @@ export function onDraw(c: Ctx, playerId: PlayerId, msg: DrawMessage): void {
     case 'draw:end':
       forward(msg);
       return;
+    case 'draw:fill': {
+      if (!reservePoints(c, round, playerId, 1)) return;
+      const { t: _t, ...fill } = msg;
+      round.strokes.push({ ...fill, tool: 'fill' });
+      round.redo = [];
+      forward(msg);
+      return;
+    }
     case 'draw:undo': {
       const op = round.strokes.pop();
       if (!op) return;

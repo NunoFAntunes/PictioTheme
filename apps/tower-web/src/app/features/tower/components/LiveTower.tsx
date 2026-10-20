@@ -115,6 +115,8 @@ export function LiveTower({
         topping,
         insetTop,
         showColliders: false,
+        time: now / 1000,
+        seed: team === 'orange' ? 1 : 2,
       });
     };
     frame = requestAnimationFrame(render);

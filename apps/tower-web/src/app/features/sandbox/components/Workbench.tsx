@@ -37,7 +37,7 @@ function Toggle({
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className="size-5 cursor-pointer accent-safety"
+        className="size-5 cursor-pointer accent-coral"
       />
     </label>
   );
@@ -93,7 +93,7 @@ export function Workbench({
   return (
     <aside
       aria-label="Workbench"
-      className="plywood fixed inset-y-0 right-0 z-20 flex w-[min(380px,92vw)] flex-col rounded-l-xl"
+      className="card-panel fixed inset-y-0 right-0 z-20 flex w-[min(380px,92vw)] flex-col rounded-l-xl"
     >
       <header className="flex items-center justify-between px-5 pt-4 pb-3">
         <h2 className="font-display text-lg tracking-wide">Workbench</h2>
@@ -116,10 +116,10 @@ export function Workbench({
             ))}
           </div>
           <div className="flex gap-2">
-            <Button variant="hazard" onClick={() => onQueue(randomSamples(5))}>
+            <Button variant="sun" onClick={() => onQueue(randomSamples(5))}>
               Queue 5 random
             </Button>
-            <Button variant="hazard" onClick={() => onQueue(randomSamples(20))}>
+            <Button variant="sun" onClick={() => onQueue(randomSamples(20))}>
               Queue 20
             </Button>
           </div>

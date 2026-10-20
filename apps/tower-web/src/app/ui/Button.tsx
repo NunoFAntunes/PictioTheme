@@ -1,14 +1,13 @@
 import type { ButtonHTMLAttributes } from 'react';
 
-type Variant = 'safety' | 'hazard' | 'ply' | 'ghost';
+type Variant = 'primary' | 'sun' | 'soft' | 'ghost';
 
 const VARIANTS: Record<Variant, string> = {
-  safety:
-    'bg-safety text-ink shadow-[0_3px_0_var(--color-safety-dark)] hover:brightness-105 active:translate-y-[3px] active:shadow-none',
-  hazard:
-    'bg-hazard text-ink shadow-[0_3px_0_oklch(0.65_0.15_85)] hover:brightness-105 active:translate-y-[3px] active:shadow-none',
-  ply: 'bg-ply-light text-ink shadow-[0_2px_0_var(--color-ply-edge)] hover:bg-ply active:translate-y-[2px] active:shadow-none',
-  ghost: 'text-current hover:bg-white/10',
+  primary:
+    'bg-coral text-cloud [text-shadow:0_2px_0_var(--color-coral-dark)] shadow-[0_5px_0_var(--color-coral-dark)] hover:brightness-105 active:translate-y-[5px] active:shadow-none',
+  sun: 'bg-sun text-sun-ink shadow-[0_5px_0_var(--color-sun-dark)] hover:brightness-105 active:translate-y-[5px] active:shadow-none',
+  soft: 'bg-card-light text-ink shadow-[0_4px_0_var(--color-card-edge)] hover:bg-card-dark active:translate-y-[4px] active:shadow-none',
+  ghost: 'text-current hover:bg-white/15',
 };
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -18,10 +17,10 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 /**
- * The building-site button. Clicking never leaves focus on it, so the placement keys
- * (Space especially) go to the tower, not to the last button pressed.
+ * The chunky game button: rounded, with a thick base it presses down into. Clicking never leaves
+ * focus on it, so the placement keys (Space especially) go to the tower, not to the last button.
  */
-export function Button({ variant = 'ply', pressed, className = '', onMouseUp, ...rest }: Props) {
+export function Button({ variant = 'soft', pressed, className = '', onMouseUp, ...rest }: Props) {
   return (
     <button
       type="button"
@@ -30,7 +29,7 @@ export function Button({ variant = 'ply', pressed, className = '', onMouseUp, ..
         e.currentTarget.blur();
         onMouseUp?.(e);
       }}
-      className={`inline-flex min-h-9 items-center justify-center gap-1.5 rounded-md px-3 font-display text-sm tracking-wide transition select-none disabled:pointer-events-none disabled:opacity-40 pointer-coarse:min-h-11 ${VARIANTS[variant]} ${pressed ? 'ring-3 ring-ink ring-offset-1 ring-offset-ply' : ''} ${className}`}
+      className={`inline-flex min-h-9 items-center justify-center gap-1.5 rounded-xl px-3 font-display text-sm tracking-wide transition select-none disabled:pointer-events-none disabled:opacity-40 pointer-coarse:min-h-11 ${VARIANTS[variant]} ${pressed ? 'ring-3 ring-dusk-700 ring-offset-1 ring-offset-card' : ''} ${className}`}
       {...rest}
     />
   );

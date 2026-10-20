@@ -6,7 +6,7 @@ export function Avatar({ id, name, size = 36 }: { id: string; name: string; size
       alt={`${name}'s avatar`}
       width={size}
       height={size}
-      className="shrink-0 rounded-full bg-chalk/10"
+      className="shrink-0 rounded-full bg-cloud/10"
       style={{ width: size, height: size }}
     />
   );

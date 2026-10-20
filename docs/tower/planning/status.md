@@ -13,8 +13,9 @@ Doodle Tower lives in this monorepo (the empty `~/Developer/personal/DoodleTower
 
 ### What works today
 
-- **A whole match**, in real browsers: create a room, share `/r/CODE`, join (name only, a hard-hat avatar is generated), pick crews, set the rules (line, drawing time, daze, steals), start. Both crews draw at once. Guess your crew's drawing, or `Tab` to the other one and steal it. The solver chooses 🧱 Build or 💣 Send (B / S). The crew whose tower it is places it from the crane (←/→ Q/E ↓ Space, or the on-screen buttons). Fumbles daze, topping out wins, then the results (awards, everyone's numbers) and a rematch.
-- **`packages/tower-core`**: the pure match state machine, 39 tests covering every rule, including privacy (the word only to the drawer, the mask and the guesses only to the crew).
+- **A whole match**, in real browsers: create a room, share `/r/CODE`, join (name only, a bobble-hat avatar is generated), pick crews, set the rules (line, drawing time, daze, steals), start. Both crews draw at once. The towers take most of the screen; the middle has your crew's drawing over a play card that flips between the drawing tools and the guess line with the placing controls (no guess log or chat). The other crew's drawing hangs small in their tower's sky. One guess line serves both drawings: your crew's is checked first, then the other crew's (a steal). The letter mask only shows at a third of the round. The drawer has a paint bucket that only colours in closed shapes, and closing a shape with the brush pops a swatch of seven colours over it: one tap colours it in (2026-10-20). The drawer (or the thief, for a steal) chooses 🧱 Keep & place or 💣 Send (B / S): a kept piece is theirs to place, a sent one is placed by the other crew (←/→ move, ↑/W rotate clockwise, Q/E either way, ↓, Space, or the buttons on the play card). Fumbles daze, topping out wins, then the results (awards, everyone's numbers) and a rematch.
+- **The "Sunny meadow" look** (2026-10-20, [visual-identity.md](../design/visual-identity.md)): a sky with drifting clouds, hills and a village with villagers standing about on every page (they used to stroll, which was distracting; 2026-10-20); each tower on a grassy stone plinth, climbing past the clouds; the piece being placed floats under balloons; bunting for the line. Sprites are Kenney's CC0 packs in `apps/tower-web/public/scenery/`.
+- **`packages/tower-core`**: the pure match state machine, 40 tests covering every rule, including privacy (the word only to the drawer, the mask and the guesses only to the crew).
 - **Server `tower` module**: rooms, routes, the `/ws/tower` socket, physics in a pool of worker threads (frames at 20 Hz). Its tests play a round over real sockets, through the worker, against the real database.
 - **Data**: `tower_decks` (seeded with six curated decks: Tower Mix is 920 easy cards), `tower_matches`, `tower_match_players` (migration 0012).
 - **`apps/tower-web`**: home, waiting room, game screen, results, plus the Phase 0 sandbox. The placer sees their piece move as they press keys (local prediction); everyone else sees it through interpolated frames.
@@ -39,7 +40,7 @@ To play a match alone, open four browser profiles (or windows in private mode): 
 1. **Choose the domain** and deploy: set `TOWER_SITE_ADDRESS` (and `TOWER_TLS_DIRECTIVE` behind Cloudflare) in `/opt/pictiotheme/.env`, add the Cloudflare zone, merge to `production`.
 2. **Playtest** a full match with 2 crews of 3 on PCs and a tablet (the Phase 1 "done when" in [roadmap.md](roadmap.md#phase-1-playable-match-with-friends)). Watch: match length per line, whether stealing is too easy or too hard, how often the queue backs up, and whether Build-or-Send in 5s is enough.
 3. Tune from it: the line heights, the round time, the daze, the piece size.
-4. Phase 2 ([roadmap.md](roadmap.md#phase-2-feel-and-polish)): sounds, crane and topping-out animations, the share image, a drawn avatar, metrics events.
+4. Phase 2 ([roadmap.md](roadmap.md#phase-2-feel-and-polish)): sounds, placing and topping-out animations, the share image, a drawn avatar, metrics events.
 
 ## Known gaps
 

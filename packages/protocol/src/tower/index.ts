@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { DrawBegin, Points, Stroke, StrokeId } from '../drawing';
+import { DrawBegin, DrawFill, Points, Stroke, StrokeId } from '../drawing';
 import { ErrorCode } from '../errors';
 import { GUESS_MAX_LENGTH, AvatarId, PlayerId, RoomCode } from '../room';
 
@@ -79,7 +79,9 @@ export const TowerPiece = z.object({
   drawnBy: PlayerId,
   solvedBy: PlayerId,
   stolen: z.boolean(),
-  /** Where it's going, once the solver has chosen. Null while they decide. */
+  /** Who chooses Build or Send: its drawer, or the thief for a stolen piece. */
+  deciderId: PlayerId,
+  /** Where it's going, once the decider has chosen. Null while they decide. */
   tower: Team.nullable(),
   sent: z.boolean(),
   fumbled: z.boolean(),
@@ -97,7 +99,7 @@ export const RoundView = z.object({
   endsAt: z.number(),
   /** Only for the drawer. */
   word: z.string().optional(),
-  /** Only for the drawer's crew: the letter mask with any hints revealed. */
+  /** Only for the drawer's crew, once the first hint is due: the letter mask with its hints. */
   mask: z.string().optional(),
   strokes: z.array(Stroke),
 });
@@ -124,7 +126,8 @@ export type CrewView = z.infer<typeof CrewView>;
 
 export const Deciding = z.object({
   pieceId: z.number().int(),
-  solverId: PlayerId,
+  /** The drawer (they place it if they build), or the thief for a stolen piece. */
+  deciderId: PlayerId,
   endsAt: z.number(),
 });
 export type Deciding = z.infer<typeof Deciding>;
@@ -179,19 +182,20 @@ export const TowerClientMessage = z.discriminatedUnion('t', [
   z.object({ t: z.literal('match:start') }),
   /** Host only, at the results: back to the waiting room with the same crews. */
   z.object({ t: z.literal('match:rematch') }),
-  // The drawer's strokes (no fills: enclosed areas fill themselves).
+  // The drawer's strokes. Fills only colour in closed shapes: clients skip a fill that would
+  // reach the canvas's edge.
   z.object({ t: z.literal('draw:begin'), ...DrawBegin.shape }),
   z.object({ t: z.literal('draw:pts'), id: StrokeId, pts: Points }),
   z.object({ t: z.literal('draw:end'), id: StrokeId }),
+  z.object({ t: z.literal('draw:fill'), ...DrawFill.shape }),
   z.object({ t: z.literal('draw:undo') }),
   z.object({ t: z.literal('draw:redo') }),
   z.object({ t: z.literal('draw:clear') }),
-  /** A guess at the drawing in focus: your crew's (`own`) or the other crew's (`steal`). */
-  z.object({
-    t: z.literal('guess'),
-    text: z.string().trim().min(1).max(GUESS_MAX_LENGTH),
-    target: z.enum(['own', 'steal']),
-  }),
+  /**
+   * A guess: checked against your crew's drawing first, then (steals on) the other crew's, where
+   * a right answer steals it.
+   */
+  z.object({ t: z.literal('guess'), text: z.string().trim().min(1).max(GUESS_MAX_LENGTH) }),
   z.object({ t: z.literal('piece:decide'), pieceId: z.number().int(), choice: PieceChoice }),
   z.object({ t: z.literal('place:steer'), ...PlaceSteer.shape }),
   z.object({ t: z.literal('place:drop') }),
@@ -204,6 +208,7 @@ export const TowerDrawOp = z.discriminatedUnion('t', [
   z.object({ t: z.literal('draw:begin'), ...DrawBegin.shape }),
   z.object({ t: z.literal('draw:pts'), id: StrokeId, pts: Points }),
   z.object({ t: z.literal('draw:end'), id: StrokeId }),
+  z.object({ t: z.literal('draw:fill'), ...DrawFill.shape }),
   z.object({ t: z.literal('draw:undo') }),
   z.object({ t: z.literal('draw:redo') }),
   z.object({ t: z.literal('draw:clear') }),
@@ -248,8 +253,6 @@ export const TowerServerMessage = z.discriminatedUnion('t', [
     target: z.enum(['own', 'steal']),
     text: z.string(),
     result: z.enum(['wrong', 'close', 'correct']),
-    /** After a wrong steal guess: no more steal guesses until then. */
-    cooldownUntil: z.number().optional(),
   }),
   /** A teammate's guess (your crew only). `solved` replaces the text when it was right. */
   z.object({

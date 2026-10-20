@@ -16,10 +16,10 @@ function HeightMeter({ team, view, mine }: { team: Team; view: RoomView; mine: b
     <div className={`flex min-w-0 flex-1 items-center gap-3 ${right ? 'flex-row-reverse' : ''}`}>
       <div className={`font-display text-sm tracking-wide ${CREW_TEXT[team]}`}>
         {CREW_NAME[team]}
-        {mine && <span className="ml-1 text-chalk-dim">(you)</span>}
+        {mine && <span className="ml-1 text-cloud-dim">(you)</span>}
       </div>
       <div
-        className="relative h-4 flex-1 overflow-hidden rounded-sm bg-blueprint-950/80"
+        className="relative h-4 flex-1 overflow-hidden rounded-full bg-dusk-950"
         role="meter"
         aria-label={`${CREW_NAME[team]} tower height`}
         aria-valuemin={0}
@@ -31,7 +31,7 @@ function HeightMeter({ team, view, mine }: { team: Team; view: RoomView; mine: b
           style={{ width: `${share * 100}%` }}
         />
         {crew.toppingUntil !== null && (
-          <div className="hazard-stripes absolute inset-0 opacity-70" />
+          <div className="candy-stripes absolute inset-0 opacity-70" />
         )}
       </div>
       <div className="font-display text-sm tabular-nums" data-testid={`height-${team}`}>
@@ -45,10 +45,10 @@ function HeightMeter({ team, view, mine }: { team: Team; view: RoomView; mine: b
 export function ScoreBar({ view, team }: { view: RoomView; team: Team }) {
   const now = useServerNow(500);
   return (
-    <div className="flex items-center gap-4 px-4 py-2">
+    <div className="mx-3 mt-2 mb-3 flex items-center gap-4 rounded-2xl bg-dusk-900 px-4 py-2 shadow-[0_4px_0_var(--color-dusk-950)]">
       <HeightMeter team="orange" view={view} mine={team === 'orange'} />
       <div className="flex flex-col items-center px-2">
-        <span className="font-display text-[10px] tracking-widest text-chalk-dim">
+        <span className="font-display text-[10px] tracking-widest text-cloud-dim">
           TOP OUT {LINE_HEIGHTS[view.settings.line]} M
         </span>
         <span className="font-display text-lg tabular-nums">

@@ -35,8 +35,8 @@ function randomWord(not?: string): string {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md bg-blueprint-950/60 px-3 py-1 text-right">
-      <div className="text-[10px] tracking-widest text-chalk-dim uppercase">{label}</div>
+    <div className="rounded-xl bg-dusk-900 px-3 py-1 text-right shadow-[0_3px_0_var(--color-dusk-950)]">
+      <div className="text-[10px] tracking-widest text-cloud-dim uppercase">{label}</div>
       <div
         className="font-display text-base leading-5 tabular-nums"
         data-testid={`stat-${label.toLowerCase()}`}
@@ -49,7 +49,7 @@ function Stat({ label, value }: { label: string; value: string }) {
 
 /**
  * The Phase 0 sandbox (docs/tower/planning/roadmap.md#phase-0-sandbox): draw a word, see the
- * block it makes, build it, place it from the crane, and tune everything on the workbench.
+ * block it makes, build it, place it, and tune everything on the workbench.
  */
 export function Sandbox() {
   const [session] = useState<SandboxSession>(() => createSandboxSession());
@@ -165,11 +165,11 @@ export function Sandbox() {
   return (
     <div className="flex min-h-dvh flex-col lg:h-dvh">
       <header className="flex flex-wrap items-center gap-3 px-4 pt-3 pb-2">
-        <a href="/" className="font-display text-xl leading-none tracking-wide">
-          Doodle <span className="text-hazard">Tower</span>
+        <a href="/" className="title-outline font-display text-2xl leading-none tracking-wide">
+          Doodle <span className="text-sun">Tower</span>
         </a>
-        <span className="hazard-stripes rounded-sm px-0.5 py-0.5">
-          <span className="block rounded-[2px] bg-ink px-2 py-0.5 font-display text-[11px] tracking-widest text-hazard">
+        <span className="candy-stripes rounded-lg px-0.5 py-0.5">
+          <span className="block rounded-md bg-ink px-2 py-0.5 font-display text-[11px] tracking-widest text-sun">
             SANDBOX
           </span>
         </span>
@@ -177,11 +177,11 @@ export function Sandbox() {
           <Stat label="Height" value={`${hud.height.toFixed(1)} / ${hud.line} m`} />
           <Stat label="Placed" value={String(hud.placed)} />
           <Stat label="Fumbles" value={String(hud.fumbles)} />
-          <Button variant="ply" onClick={() => session.resetTower()}>
+          <Button variant="soft" onClick={() => session.resetTower()}>
             Knock it down
           </Button>
           <Button
-            variant="hazard"
+            variant="sun"
             onClick={() => setWorkbenchOpen(true)}
             aria-expanded={workbenchOpen}
           >
@@ -246,7 +246,7 @@ export function Sandbox() {
               <PiecePreview piece={piece} platformWidth={physics.platformWidth} />
               <div className="flex flex-col gap-2">
                 <Button
-                  variant="safety"
+                  variant="primary"
                   onClick={build}
                   disabled={!piece}
                   className="h-14 px-6 text-lg"

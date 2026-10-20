@@ -3,7 +3,7 @@ import { drawAndSend, strokeModel, type DrawOp, type StrokeModel } from '../../.
 import { useColorSlots } from '../color-slots';
 import type { AdjustPatch } from '../engine/adjust';
 import { createBrushCursor, type BrushCursor } from '../engine/brush-cursor';
-import { attachDrawingInput } from '../engine/input';
+import { attachDrawingInput, type DrawingInput } from '../engine/input';
 import { createRenderer } from '@pictiotheme/canvas-engine';
 import type { ToolSettings } from '../tools';
 import type { ColorPopoverState, ToggleColorPopover } from '../use-color-popover';
@@ -64,6 +64,7 @@ export function DrawingBoard({
   const padRef = useRef(pad);
   const cursorLayerRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<BrushCursor | null>(null);
+  const inputRef = useRef<DrawingInput | null>(null);
   const toolRef = useRef(tool);
   const canDrawRef = useRef(canDraw);
   const onToolChangeRef = useRef(onToolChange);
@@ -101,7 +102,7 @@ export function DrawingBoard({
     cursor.setTool(toolRef.current);
     cursor.setEnabled(canDrawRef.current);
     cursorRef.current = cursor;
-    const stopInput = attachDrawingInput(canvas, {
+    const input = attachDrawingInput(canvas, {
       emit: target?.emit ?? drawAndSend,
       getTool: () => toolRef.current,
       setTool: (patch) => onToolChangeRef.current(patch),
@@ -111,8 +112,10 @@ export function DrawingBoard({
       toggleColors: (opening) => onToggleColorPopoverRef.current(opening),
       cursor,
     });
+    inputRef.current = input;
     return () => {
-      stopInput();
+      input.detach();
+      inputRef.current = null;
       cursor.destroy();
       cursorRef.current = null;
       stopRenderer();
@@ -121,6 +124,8 @@ export function DrawingBoard({
 
   useEffect(() => cursorRef.current?.setTool(tool), [tool]);
   useEffect(() => cursorRef.current?.setEnabled(canDraw), [canDraw]);
+  // Arming the dropper (its button or `S`) previews the colour under the pointer straight away.
+  useEffect(() => inputRef.current?.refreshPreview(), [picking]);
 
   // Show the real size whenever a setting changes, however it was changed, and the hex code
   // when it was the colour.

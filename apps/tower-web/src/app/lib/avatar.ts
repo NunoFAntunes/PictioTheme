@@ -1,5 +1,5 @@
 /**
- * A player's avatar until Doodle Tower has its own avatar pad: a doodled face under a hard hat,
+ * A player's avatar until Doodle Tower has its own avatar pad: a doodled face under a bobble hat,
  * in a colour picked from the name, as a 128×128 PNG data URL (DoodleWhirl's avatar format).
  */
 
@@ -43,22 +43,23 @@ export function makeAvatar(name: string): string {
   ctx.moveTo(50, 92);
   ctx.quadraticCurveTo(64, 92 + grin, 78, 92);
   ctx.stroke();
-  // The hard hat: a dome and a brim.
+  // A bobble hat: a dome, a folded brim and a pompom on top.
   ctx.fillStyle = hat;
   ctx.beginPath();
-  ctx.moveTo(28, 58);
-  ctx.quadraticCurveTo(30, 20, 64, 20);
-  ctx.quadraticCurveTo(98, 20, 100, 58);
+  ctx.moveTo(30, 56);
+  ctx.quadraticCurveTo(32, 18, 64, 18);
+  ctx.quadraticCurveTo(96, 18, 98, 56);
   ctx.closePath();
   ctx.fill();
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(18, 60);
-  ctx.lineTo(110, 60);
+  ctx.roundRect(26, 50, 76, 14, 7);
+  ctx.fill();
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(64, 22);
-  ctx.lineTo(64, 56);
+  ctx.arc(64, 15, 9, 0, Math.PI * 2);
+  ctx.fillStyle = '#fbf7ee';
+  ctx.fill();
   ctx.stroke();
   return canvas.toDataURL('image/png');
 }

@@ -22,9 +22,9 @@ The server sends a `room:snapshot`, then a `tower:frame` per tower with every bo
 | `settings:update` | `{settings}` (partial `TowerSettings`) | host, while waiting | `roundSeconds`, `line`, `dazeSeconds`, `steals` |
 | `match:start` | — | host | ≥ 2 connected per crew, crews one apart at most, words loaded |
 | `match:rematch` | — | host, at the results | back to the waiting room, same crews |
-| `draw:begin / pts / end / undo / redo / clear` | as DoodleWhirl's (no `draw:fill`) | the drawer | points batched every 33 ms |
-| `guess` | `{text, target}` | guessers | `target`: `'own'` or `'steal'`, the drawing in focus |
-| `piece:decide` | `{pieceId, choice}` | the solver | `choice`: `'build'` or `'send'` |
+| `draw:begin / pts / end / fill / undo / redo / clear` | as DoodleWhirl's | the drawer | points batched every 33 ms. The server keeps every fill (it can't see pixels); clients only send fills inside a closed shape, and every client skips one that would reach the canvas's edge |
+| `guess` | `{text}` | guessers | checked against your crew's drawing, then (steals on) the other crew's |
+| `piece:decide` | `{pieceId, choice}` | the decider: the drawer, or the thief for a steal | `choice`: `'build'` or `'send'` |
 | `place:steer` | `{x?, angle?, fast?}` | the placer | target x (m), angle (rad), ↓ held; ≤ 20/s |
 | `place:drop` | — | the placer | |
 | `ping` | `{ts}` | anyone | → `pong`, for the clock offset |
@@ -41,10 +41,10 @@ Rate limits per socket: 60 messages/s overall (burst 120), guesses 3/s, steering
 | `round:start` | everyone, personalised | `{team, round}`: `round.word` only for the drawer, `round.mask` only for the drawer's crew |
 | `round:hint` | the drawer's crew | `{team, roundId, mask}`, at ⅓ and ⅔ of the round |
 | `crew:draw` | everyone but the drawer | `{team, op}` |
-| `guess:result` | the guesser | `{target, text, result, cooldownUntil?}`: no `close` for a steal |
+| `guess:result` | the guesser | `{target, text, result}`: `target` is the drawing it hit (`'steal'` only when correct); no `close` for a steal |
 | `crew:feed` | the guesser's crew, not the guesser | `{playerId, target, text?}` for a wrong guess, `{…, solved: true}` for a right one |
 | `round:end` | everyone | `{team, roundId, outcome, word, solverId?, pieceId?}`: `solved`, `stolen`, `expired`, `blank` (no piece), `drawer_left` |
-| `piece:made` | everyone | `{piece, deciding}`: the shape, the strokes to draw it with, and the solver's deadline |
+| `piece:made` | everyone | `{piece, deciding}`: the shape, the strokes to draw it with, and who decides by when (`deciding.deciderId`, also on the piece) |
 | `piece:queued` | everyone | `{pieceId, tower, sent}` |
 | `place:start` | everyone | `{tower, placing: {pieceId, placerId, endsAt}}` |
 | `place:end` | everyone | `{tower, pieceId}` |
