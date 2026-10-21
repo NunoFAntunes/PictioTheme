@@ -42,6 +42,7 @@ export default defineConfig({
         'react-dom/client',
         'react/jsx-dev-runtime',
         'zustand',
+        'zustand/vanilla',
         'zod',
         '@pictiotheme/canvas-engine > perfect-freehand',
         '@pictiotheme/doodle-shape > poly-decomp-es',

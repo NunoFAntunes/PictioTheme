@@ -4,4 +4,6 @@
 !.deploy/server/node_modules
 !.deploy/server/dist
 !apps/web/dist
+!apps/tower-web/dist
+!apps/portal/dist
 !infra/Caddyfile

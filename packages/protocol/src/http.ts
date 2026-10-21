@@ -25,6 +25,41 @@ export const GuestSessionResponse = z.object({
 });
 export type GuestSessionResponse = z.infer<typeof GuestSessionResponse>;
 
+// ── Profile (`/api/me`): one identity for every game (docs/technical/decisions.md D13) ──
+
+/**
+ * Who the player is, in every game. `displayName` is null until a game or the portal names them;
+ * `nameChosen` is false while it's a made-up name (DoodleWhirl's silly name), so the account
+ * widget still says "Name yourself". `drawing` is the avatar they drew, or null: then each game
+ * makes its own (an initial, a bobble hat).
+ */
+export const Profile = z.object({
+  playerId: z.string(),
+  kind: z.enum(['guest', 'user']),
+  displayName: DisplayName.nullable(),
+  nameChosen: z.boolean(),
+  drawing: AvatarImage.nullable(),
+});
+export type Profile = z.infer<typeof Profile>;
+
+/**
+ * Changes part of the profile. `nameChosen` defaults to true with a `displayName`; a made-up name
+ * (`nameChosen: false`) never replaces a chosen one. `drawing: null` drops the drawing.
+ */
+export const UpdateProfileRequest = z
+  .object({
+    displayName: DisplayName.optional(),
+    nameChosen: z.boolean().optional(),
+    drawing: AvatarImage.nullable().optional(),
+  })
+  .refine((r) => r.displayName !== undefined || r.drawing !== undefined, {
+    message: 'Nothing to change',
+  })
+  .refine((r) => r.nameChosen === undefined || r.displayName !== undefined, {
+    message: 'nameChosen needs a displayName',
+  });
+export type UpdateProfileRequest = z.infer<typeof UpdateProfileRequest>;
+
 // ── Rooms ──
 
 /** Who the player is in a room. Chosen per room, so guests and accounts work the same way. */

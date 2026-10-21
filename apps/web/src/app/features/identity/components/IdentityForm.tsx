@@ -1,6 +1,6 @@
 import { DisplayName } from '@pictiotheme/protocol';
 import { useId, useRef, useState, type SubmitEvent } from 'react';
-import { useIdentity, type Identity } from '../../../lib/identity';
+import { useIdentity, type Identity } from '../identity-store';
 import { Avatar, AvatarPad, drawingToAvatar, initialAvatar } from '../../avatar';
 import { isBlank } from '../../canvas';
 import { hasGeneratedAvatar } from '../generated-avatar';
@@ -34,7 +34,7 @@ export function IdentityForm({
   const [edited, setEdited] = useState(false);
   const fromCurrent = editable && !startOver;
 
-  function onSubmit(event: SubmitEvent<HTMLFormElement>) {
+  async function onSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const parsed = DisplayName.safeParse(name);
     if (!parsed.success) {
@@ -55,12 +55,12 @@ export function IdentityForm({
       setError('That drawing is too detailed to save. Try fewer colours or fills.');
       return;
     }
-    // A kept avatar keeps its own state; a new one is always a cut-out.
-    const cutout = drawn || !identity ? true : identity.cutout;
-    const saved: Identity = cutout
-      ? { displayName: parsed.data, avatar, cutout }
-      : { displayName: parsed.data, avatar };
-    setIdentity(saved);
+    const saved: Identity = { displayName: parsed.data, avatar };
+    const result = await setIdentity(saved);
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
     onSaved?.(saved);
     onDone?.();
   }
@@ -72,7 +72,7 @@ export function IdentityForm({
 
   return (
     <form
-      onSubmit={onSubmit}
+      onSubmit={(e) => void onSubmit(e)}
       className={`flex w-full max-w-3xl flex-col gap-4 ${framed ? 'rounded-2xl border border-zinc-200 p-5 dark:border-zinc-800' : ''}`}
       noValidate
     >

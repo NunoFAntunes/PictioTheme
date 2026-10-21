@@ -28,3 +28,12 @@ describe("Doodle Tower's test mode", () => {
     expect(testConfig({ NODE_ENV: 'production', TOWER_TEST_MODE: 'on' }).towerTestMode).toBe(true);
   });
 });
+
+describe('the guest cookie domain', () => {
+  it('is host-only by default and takes a bare parent domain', () => {
+    expect(testConfig().cookieDomain).toBeNull();
+    expect(testConfig({ COOKIE_DOMAIN: 'tierney.one' }).cookieDomain).toBe('tierney.one');
+    expect(() => testConfig({ COOKIE_DOMAIN: '.tierney.one' })).toThrow(/COOKIE_DOMAIN/);
+    expect(() => testConfig({ COOKIE_DOMAIN: 'https://tierney.one' })).toThrow(/COOKIE_DOMAIN/);
+  });
+});

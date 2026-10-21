@@ -238,6 +238,21 @@ export function createTowerService(deps: {
     },
 
     /**
+     * A player already in the room changes their name or drawing (the account widget). Checked
+     * and stored like a join; the room tells everyone.
+     */
+    async updateIdentity(actor: Actor, rawCode: string, identity: PlayerIdentity): Promise<void> {
+      const room = roomByCode(rawCode);
+      assertAllowedName(identity.displayName);
+      const playerId = playerIdOf(actor);
+      if (!room.state.players.has(playerId)) {
+        throw new AppError('FORBIDDEN', 403, 'You are not in this room');
+      }
+      const avatar = await deps.avatars.store(identity.avatar);
+      room.handle({ type: 'identity', playerId, name: identity.displayName, avatar });
+    },
+
+    /**
      * The room's share card and its version, drawn again only when what it shows changed. Anyone
      * with the code may see it, like the room itself.
      */

@@ -36,6 +36,7 @@ import {
   onCrewMove,
   onCrewShuffle,
   onDisconnect,
+  onIdentity,
   onEmptyTimer,
   onGraceTimer,
   onHostGraceTimer,
@@ -88,6 +89,9 @@ export function step(state: TowerRoomState, event: TowerEvent, ctx: StepContext)
       break;
     case 'disconnect':
       onDisconnect(c, event.playerId);
+      break;
+    case 'identity':
+      onIdentity(c, event.playerId, event.name, event.avatar);
       break;
     case 'message':
       onMessage(c, event.playerId, event.msg);

@@ -48,7 +48,7 @@ function HeightMeter({ team, view, mine }: { team: Team; view: RoomView; mine: b
 export function ScoreBar({ view, team }: { view: RoomView; team: Team }) {
   const now = useServerNow(500);
   return (
-    <div className="mt-2 mr-16 mb-3 ml-3 flex items-center gap-4 rounded-2xl bg-dusk-900 px-4 py-2 shadow-[0_4px_0_var(--color-dusk-950)]">
+    <div className="mt-2 mr-16 mb-3 ml-16 flex items-center gap-4 rounded-2xl bg-dusk-900 px-4 py-2 shadow-[0_4px_0_var(--color-dusk-950)]">
       <HeightMeter team="orange" view={view} mine={team === 'orange'} />
       <div className="flex flex-col items-center px-2">
         <span className="font-display text-[10px] tracking-widest text-cloud-dim">

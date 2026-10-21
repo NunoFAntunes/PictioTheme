@@ -45,7 +45,7 @@ apps/web/
         selectors.ts        read helpers + useSecondsLeft / useNow hooks
         index.ts            public API for features and routes
       features/             one folder per product piece, each with components/ and index.ts
-        avatar/  identity/ (incl. useEnsureIdentity)  join-room/  lobby/ (create, quick play, RoomNotes)  server-status/
+        avatar/  identity/ (the identity store over the shared profile, useEnsureIdentity, the "you" sticker)  join-room/  lobby/ (create, quick play, RoomNotes)  server-status/
         deck-picker/ (DeckChooser, DeckPicker)  phone-gate/  generate-deck/ (incl. RedrawCoverPanel)  deck-cover/ (DeckCover with the default cover, CoverPad, PNG export)
         report-deck/        ReportDeckButton (🚩 report a deck's cover or content)
         desk-toys/          the toys on the home page's desk and around the waiting room's house rules
@@ -57,17 +57,21 @@ apps/web/
         sound/              Web Audio engine, sound catalog + groups, saved volume settings,
                             RoomSounds (message → sound, turn clock),
                             drawing-sounds (stroke model → pencil loop + fill glug), SoundSettingsButton
-      lib/                  api.ts (typed fetch), identity.ts (name + avatar in localStorage)
+      lib/                  api.ts (typed fetch), silly-name.ts, portal.ts (the games portal's URL)
       ui/                   (planned) shadcn/ui components
 ```
 
 ### How a room screen works
 
-1. `RoomPage` makes sure the player has a name and avatar (`lib/identity`), then calls `connectRoom(code, identity)`.
+1. `RoomPage` makes sure the player has a name and avatar (`useEnsureIdentity` from features/identity: the profile every game shares, `@pictiotheme/account`), then calls `connectRoom(code, identity)`.
 2. `connectRoom` creates or reuses the guest session, asks `POST /api/rooms/:code/join` for a 60-second join token, and opens `/ws?token=…`. **Every reconnect fetches a fresh token.** Close codes decide whether to retry: [realtime-protocol.md](realtime-protocol.md#close-codes).
 3. Incoming messages are validated with `ServerMessage`. `draw:*` goes to the stroke model. Everything else goes through `applyServerMessage` into the room store. A new turn (`phase:choosing`, or `phase:drawing` when the previous phase wasn't drawing) clears the stroke model. `phase:drawing` re-sent after a pause does not clear it.
 4. Components select from `useRoomStore` and send intents with `sendToRoom(msg)`. The drawer's canvas input calls `drawAndSend(op)`, which applies the operation locally first (input-to-ink < 16 ms), because the server doesn't echo drawing back to the drawer.
 5. Countdowns use `useSecondsLeft(endsAt)`, which reads the server clock (`Date.now() + clockOffset`, measured with ping/pong every 10s).
+
+### The shared profile
+
+Your name and drawing are a profile shared with every game and the games portal (`packages/account`, decisions.md D13): a store synced with `GET`/`PUT /api/me` and cached in the browser. `features/identity/identity-store.ts` turns it into DoodleWhirl's `Identity` (the drawing, or your initial), and its `setIdentity` saves to the profile. The "you" sticker (`IdentityChip`) is DoodleWhirl's account widget: "Playing as guest" on the home page, the sun-yellow YOU sticker in the room header, and just your doodle once a match is on (`avatarOnly`). A silly name is saved as not chosen, so the home page keeps asking you to introduce yourself. An identity saved by the old `pictiotheme.identity` key moves into the profile once (`importLegacyIdentity`).
 
 ### Canvas engine
 

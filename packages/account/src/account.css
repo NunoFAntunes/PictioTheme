@@ -1,0 +1,344 @@
+/*
+ * The account widget and editor. Plain CSS (no Tailwind), so any game can use it. A game matches
+ * its look by setting these on an ancestor (each has a fallback here):
+ *
+ *   --acct-font        font family                 --acct-radius   corner radius
+ *   --acct-bg          panel and button background --acct-fg       text
+ *   --acct-muted       secondary text              --acct-border   outlines
+ *   --acct-accent      primary button, tag, dot    --acct-accent-fg  text on it
+ *   --acct-shadow      panel shadow                --acct-paper    the drawing pad
+ *   --acct-avatar      the full widget's avatar size (the avatar-only one is 2.25rem)
+ */
+
+.acct {
+  font-family: var(--acct-font, inherit);
+  color: var(--acct-fg, #1f2330);
+}
+
+.acct-widget {
+  position: relative;
+  display: inline-flex;
+}
+
+.acct-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 2px solid var(--acct-border, rgb(0 0 0 / 0.12));
+  border-radius: 999px;
+  background: var(--acct-bg, #fff);
+  color: inherit;
+  font: inherit;
+  padding: 0.25rem 0.9rem 0.25rem 0.25rem;
+  cursor: pointer;
+  box-shadow: var(--acct-shadow, 0 2px 8px rgb(0 0 0 / 0.1));
+  transition: transform 120ms ease;
+}
+.acct-trigger:hover {
+  transform: translateY(-1px);
+}
+.acct-trigger:focus-visible,
+.acct-item:focus-visible,
+.acct-button:focus-visible,
+.acct-chip:focus-visible,
+.acct-swatch:focus-visible {
+  outline: 3px solid var(--acct-accent, #5b5bd6);
+  outline-offset: 2px;
+}
+.acct-size-avatar .acct-trigger {
+  padding: 0.15rem;
+}
+
+.acct-avatar {
+  width: var(--acct-avatar, 2.75rem);
+  height: var(--acct-avatar, 2.75rem);
+  border-radius: 999px;
+  object-fit: contain;
+  background: var(--acct-paper, #f6f5f1);
+  flex: none;
+}
+.acct-size-avatar .acct-avatar {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.acct-placeholder {
+  display: inline-block;
+  animation: acct-pulse 1.2s ease-in-out infinite alternate;
+}
+@keyframes acct-pulse {
+  to {
+    opacity: 0.4;
+  }
+}
+
+.acct-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  line-height: 1.15;
+  text-align: left;
+}
+.acct-name {
+  font-weight: 700;
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.acct-sub {
+  font-size: 0.75rem;
+  color: var(--acct-muted, #6b7080);
+}
+.acct-tag {
+  display: inline-block;
+  border-radius: 999px;
+  background: var(--acct-accent, #5b5bd6);
+  color: var(--acct-accent-fg, #fff);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.05rem 0.45rem;
+  text-transform: uppercase;
+}
+.acct-dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  border: 2px solid var(--acct-bg, #fff);
+  background: var(--acct-accent, #5b5bd6);
+}
+
+.acct-panel {
+  border: 2px solid var(--acct-border, rgb(0 0 0 / 0.12));
+  border-radius: var(--acct-radius, 16px);
+  background: var(--acct-bg, #fff);
+  color: var(--acct-fg, #1f2330);
+  box-shadow: var(--acct-shadow, 0 8px 28px rgb(0 0 0 / 0.18));
+}
+
+.acct-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  width: 16rem;
+  padding: 0.5rem;
+}
+.acct-menu-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--acct-border, rgb(0 0 0 / 0.12));
+  margin-bottom: 0.25rem;
+}
+.acct-item {
+  display: block;
+  border: 0;
+  border-radius: calc(var(--acct-radius, 16px) * 0.6);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+  padding: 0.5rem 0.6rem;
+  cursor: pointer;
+}
+.acct-item:hover {
+  background: rgb(127 127 127 / 0.12);
+}
+.acct-note {
+  margin: 0.35rem 0.4rem 0.15rem;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--acct-muted, #6b7080);
+}
+
+/* ── The editor ── */
+
+.acct-dialog {
+  margin: auto;
+  width: min(36rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+.acct-dialog::backdrop {
+  background: rgb(10 12 30 / 0.5);
+}
+.acct-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+}
+.acct-editor-head h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+.acct-editor-head p {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: var(--acct-muted, #6b7080);
+}
+.acct-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.acct-field label,
+.acct-field legend {
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0;
+  margin-bottom: 0.4rem;
+}
+.acct-field input {
+  font: inherit;
+  color: inherit;
+  max-width: 18rem;
+  padding: 0.55rem 0.75rem;
+  border: 2px solid var(--acct-border, rgb(0 0 0 / 0.12));
+  border-radius: calc(var(--acct-radius, 16px) * 0.6);
+  background: var(--acct-paper, #f6f5f1);
+}
+.acct-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--acct-muted, #6b7080);
+}
+.acct-mini {
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+  border-radius: 999px;
+  background: var(--acct-paper, #f6f5f1);
+}
+.acct-link {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--acct-accent, #5b5bd6);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.acct-error {
+  margin: 0;
+  font-weight: 600;
+  color: #d13438;
+}
+.acct-editor-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+.acct-button {
+  font: inherit;
+  font-weight: 700;
+  border: 2px solid var(--acct-border, rgb(0 0 0 / 0.12));
+  border-radius: 999px;
+  background: var(--acct-bg, #fff);
+  color: inherit;
+  padding: 0.55rem 1.2rem;
+  cursor: pointer;
+}
+.acct-primary {
+  border-color: transparent;
+  background: var(--acct-accent, #5b5bd6);
+  color: var(--acct-accent-fg, #fff);
+}
+.acct-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ── The drawing pad ── */
+
+.acct-pad {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.acct-pad-canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 2px solid var(--acct-border, rgb(0 0 0 / 0.12));
+  border-radius: calc(var(--acct-radius, 16px) * 0.75);
+  background: #fff;
+  cursor: crosshair;
+  touch-action: none;
+}
+.acct-pad-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+}
+.acct-pad-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.acct-swatch {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  border: 2px solid rgb(0 0 0 / 0.15);
+  cursor: pointer;
+  padding: 0;
+}
+.acct-swatch[aria-pressed='true'] {
+  box-shadow:
+    0 0 0 2px var(--acct-bg, #fff),
+    0 0 0 4px var(--acct-fg, #1f2330);
+}
+.acct-chip {
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 2px solid var(--acct-border, rgb(0 0 0 / 0.12));
+  border-radius: 999px;
+  background: var(--acct-bg, #fff);
+  color: inherit;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
+}
+.acct-chip[aria-pressed='true'] {
+  background: var(--acct-fg, #1f2330);
+  color: var(--acct-bg, #fff);
+  border-color: transparent;
+}
+.acct-chip:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+@media (pointer: coarse) {
+  .acct-swatch {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+  .acct-chip {
+    padding: 0.45rem 0.9rem;
+  }
+}

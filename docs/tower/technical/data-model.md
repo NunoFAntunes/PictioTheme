@@ -35,7 +35,7 @@ tower_matches (
 
 tower_match_players (
   match_id      uuid fk tower_matches on delete cascade,
-  player_id     text not null,                  -- 'g_<guestId>' / 'u_<userId>'
+  player_id     text not null,                  -- 'g_<players.id>'
   team          text not null,
   display_name  text not null,
   drawings      int, solves int, steals int, sends int (pieces cursed), placements int, fumbles int,

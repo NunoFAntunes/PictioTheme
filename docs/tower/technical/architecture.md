@@ -57,8 +57,8 @@ packages/
 
 ## Domain and deployment
 
-- Its own domain (to be chosen). `infra/Caddyfile` has a second site block, `{$TOWER_SITE_ADDRESS}` (with `TOWER_TLS_DIRECTIVE`), serving the `tower-web` build from `/srv/tower` and proxying `/api` and `/ws/tower` to the same server. Each site stays same-origin, so there's still no CORS. Until `TOWER_SITE_ADDRESS` is set it answers on `tower.localhost` only.
-- The server gets `TOWER_PUBLIC_ORIGIN` (set from `TOWER_SITE_ADDRESS` in `compose.prod.yaml`). The `origin-check` plugin accepts both origins.
-- Cookies are per domain, so a guest in DoodleWhirl and in Doodle Tower are different guests. Shared accounts come with Better Auth later ([open-questions.md](../planning/open-questions.md)).
-- `infra/web.Dockerfile` builds both static sites into the Caddy image.
-- Cloudflare: a second zone on the free plan.
+- Its own subdomain, `tower.tierney.one`, beside DoodleWhirl's `doodle.tierney.one` and the games portal's `games.tierney.one`. `infra/Caddyfile` has a second site block, `{$TOWER_SITE_ADDRESS}` (with `TOWER_TLS_DIRECTIVE`), serving the `tower-web` build from `/srv/tower` and proxying `/api` and `/ws/tower` to the same server. Each site stays same-origin, so there's still no CORS. Until `TOWER_SITE_ADDRESS` is set it answers on `tower.localhost` only.
+- The server gets `TOWER_PUBLIC_ORIGIN` (set from `TOWER_SITE_ADDRESS` in `compose.prod.yaml`). The `origin-check` plugin accepts every site's origin.
+- **One guest and one profile for every game** ([decisions.md](../../technical/decisions.md#d13--one-profile-for-every-game-a-portal-a-shared-guest-and-an-account-widget) D13): the guest cookie is set for the parent domain (`COOKIE_DOMAIN=tierney.one`), and the name and drawing are the shared profile (`/api/me`). `lib/identity.ts` keeps its API (`identity`, `drawn`, `setName`, `setDrawing`) over the profile store from `@pictiotheme/account`, and moves the old `doodle-tower.identity` from browser storage into the profile once. The account widget sits in the top-left corner of every screen (`features/account`, `AccountCorner`: the shared widget in Tower's colours; in the waiting room's header; just the avatar during a match). On the home page it points at the identity card, which saves a typed name to the profile after a short pause. In a room, saving in the widget's editor also sends `PUT /api/tower/rooms/:code/me`, and everyone's crew list updates (tower-core's `identity` event).
+- `infra/web.Dockerfile` builds the static sites into the Caddy image.
+- Cloudflare: proxied DNS records on the `tierney.one` zone; its Origin certificate covers `*.tierney.one`.

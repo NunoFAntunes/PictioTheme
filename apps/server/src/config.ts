@@ -19,6 +19,18 @@ const Env = z.object({
   PUBLIC_ORIGIN: z.url().default('http://localhost:4321'),
   /** Doodle Tower's site origin (its own domain): also allowed to make requests (rule F12). */
   TOWER_PUBLIC_ORIGIN: z.url().default('http://localhost:4322'),
+  /** The games portal's origin (docs/technical/decisions.md D13): also allowed to make requests. */
+  PORTAL_PUBLIC_ORIGIN: z.url().default('http://localhost:4323'),
+  /**
+   * The parent domain the guest cookie is set for, so the portal and every game on its subdomains
+   * share one guest (e.g. `tierney.one`). Empty: the cookie belongs to the host that set it, which
+   * is enough in development (cookies ignore ports, so every localhost site shares it).
+   */
+  COOKIE_DOMAIN: z
+    .string()
+    .trim()
+    .regex(/^$|^[a-z0-9-]+(\.[a-z0-9-]+)+$/, 'a domain like example.com, without a leading dot')
+    .default(''),
   /** Physics worker threads for Doodle Tower's towers. 0: one less than the CPU count (min 1). */
   TOWER_PHYSICS_WORKERS: z.coerce.number().int().min(0).max(32).default(0),
   /**
@@ -102,6 +114,9 @@ export type Config = {
   databaseUrl: string;
   publicOrigin: string;
   towerPublicOrigin: string;
+  portalPublicOrigin: string;
+  /** The guest cookie's `Domain`, or null for a host-only cookie (`COOKIE_DOMAIN`). */
+  cookieDomain: string | null;
   towerPhysicsWorkers: number;
   /** Whether test-mode rooms can be made (`TOWER_TEST_MODE`). */
   towerTestMode: boolean;
@@ -158,6 +173,8 @@ export function loadConfig(env: Record<string, string | undefined> = process.env
     databaseUrl: e.DATABASE_URL,
     publicOrigin: e.PUBLIC_ORIGIN,
     towerPublicOrigin: e.TOWER_PUBLIC_ORIGIN,
+    portalPublicOrigin: e.PORTAL_PUBLIC_ORIGIN,
+    cookieDomain: e.COOKIE_DOMAIN || null,
     towerPhysicsWorkers: e.TOWER_PHYSICS_WORKERS,
     towerTestMode: (e.TOWER_TEST_MODE ?? (e.NODE_ENV === 'production' ? 'off' : 'on')) === 'on',
     trustProxy: splitList(e.TRUST_PROXY),

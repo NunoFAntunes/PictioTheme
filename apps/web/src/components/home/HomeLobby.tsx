@@ -1,10 +1,15 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
-import { IdentityChip, hasGeneratedAvatar, useEnsureIdentity } from '../../app/features/identity';
+import {
+  IdentityChip,
+  hasGeneratedAvatar,
+  useEnsureIdentity,
+  useNameChosen,
+  type Identity,
+} from '../../app/features/identity';
 import { JoinRoomForm } from '../../app/features/join-room';
 import { RoomNotes, useCreateRoom, useQuickPlay } from '../../app/features/lobby';
 import { isThisDeviceAPhone } from '../../app/lib/device';
-import type { Identity } from '../../app/lib/identity';
 import { loadRoomLanguage } from '../../app/lib/room-language';
 import { DOODLE_BUTTON, WOBBLE } from '../../app/ui/hand-drawn';
 import { BoltIcon, LockIcon } from '../../app/ui/ScribbleIcons';
@@ -30,6 +35,7 @@ export function HomeLobby() {
 
 function Lobby() {
   const identity = useEnsureIdentity();
+  const nameChosen = useNameChosen();
   const [phone] = useState(isThisDeviceAPhone);
   const [showAnyway, setShowAnyway] = useState(false);
 
@@ -50,8 +56,8 @@ function Lobby() {
     <div className="flex flex-col gap-10">
       {identity && (
         <div className="absolute -top-16 left-6 sm:left-8">
-          {/* Still a plain letter: an arrow asks you to introduce yourself. */}
-          <IdentityChip identity={identity} nudge={hasGeneratedAvatar(identity)} />
+          {/* Still a plain letter, or a made-up name: an arrow asks you to introduce yourself. */}
+          <IdentityChip identity={identity} nudge={hasGeneratedAvatar(identity) || !nameChosen} />
         </div>
       )}
       <Actions identity={identity} />

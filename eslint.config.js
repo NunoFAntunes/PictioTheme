@@ -10,7 +10,7 @@ const TEST_FILES = ['**/*.test.ts', '**/*.test.tsx', '**/test-support/**'];
 const DEFAULT_EXPORT_ALLOWED = [
   '**/*.config.{js,mjs,ts}',
   '**/test-support/global-setup.ts',
-  'apps/{web,tower-web}/src/pages/**',
+  'apps/{web,tower-web,portal}/src/pages/**',
 ];
 
 export default tseslint.config(
@@ -96,13 +96,17 @@ export default tseslint.config(
     },
   },
 
-  // ── Web (DoodleWhirl and Doodle Tower) and the browser-side canvas engine ──
+  // ── Web (DoodleWhirl, Doodle Tower, the portal) and the browser-side packages ──
   {
-    files: ['apps/{web,tower-web}/src/**/*.{ts,tsx}', 'packages/canvas-engine/src/**/*.ts'],
+    files: [
+      'apps/{web,tower-web,portal}/src/**/*.{ts,tsx}',
+      'packages/canvas-engine/src/**/*.ts',
+      'packages/account/src/**/*.{ts,tsx}',
+    ],
     languageOptions: { globals: { ...globals.browser } },
   },
   {
-    files: ['apps/{web,tower-web}/src/**/*.tsx'],
+    files: ['apps/{web,tower-web,portal}/src/**/*.tsx', 'packages/account/src/**/*.tsx'],
     ...reactHooks.configs.flat['recommended-latest'],
   },
 );

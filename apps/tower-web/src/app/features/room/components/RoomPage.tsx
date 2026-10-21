@@ -3,6 +3,7 @@ import { isValidName, useIdentity } from '../../../lib/identity';
 import { connectRoom, useRoomStore } from '../../../realtime';
 import { Button } from '../../../ui/Button';
 import { Panel } from '../../../ui/Panel';
+import { AccountCorner } from '../../account';
 import { GameScreen } from '../../game';
 import { NameField } from '../../home';
 import { Results } from '../../results';
@@ -118,6 +119,10 @@ export function RoomPage() {
       {view.phase === 'waiting' && <WaitingRoom view={view} />}
       {view.phase === 'playing' && <GameScreen view={view} />}
       {view.phase === 'results' && <Results view={view} />}
+      {/* The waiting room has it in its header. During a match, just your avatar. */}
+      {view.phase !== 'waiting' && (
+        <AccountCorner size={view.phase === 'playing' ? 'avatar' : 'full'} roomCode={view.code} />
+      )}
       {connection.kind === 'reconnecting' && (
         <div className="fixed top-3 left-1/2 z-40 -translate-x-1/2 rounded-xl bg-sun px-4 py-1.5 font-display text-ink shadow-xl">
           Reconnecting…

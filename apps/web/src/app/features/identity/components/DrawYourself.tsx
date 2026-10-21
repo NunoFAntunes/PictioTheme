@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useIdentity } from '../../../lib/identity';
+import { useIdentity } from '../identity-store';
 import { useUpdateIdentityInRoom } from '../api';
 import { hasGeneratedAvatar } from '../generated-avatar';
 import { IdentityForm } from './IdentityForm';

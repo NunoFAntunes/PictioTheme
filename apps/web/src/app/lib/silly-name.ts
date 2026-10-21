@@ -65,3 +65,13 @@ export function sillyName(random: () => number = Math.random): string {
 }
 
 export const SILLY_NAME_PARTS = { adjectives: ADJECTIVES, nouns: NOUNS };
+
+/** Whether `name` is one sillyName could have made (it was given, not chosen). */
+export function isSillyName(name: string): boolean {
+  const [adjective = '', noun = '', ...rest] = name.trim().split(' ');
+  return (
+    rest.length === 0 &&
+    (ADJECTIVES as readonly string[]).includes(adjective) &&
+    (NOUNS as readonly string[]).includes(noun)
+  );
+}

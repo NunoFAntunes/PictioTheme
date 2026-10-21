@@ -72,6 +72,12 @@ Everything runs on the existing VM with Docker Compose. Hosting costs nothing be
 
 Why **same origin** (site, API and WebSocket all on `https://<domain>`): no CORS, cookies can stay `HttpOnly; SameSite=Lax`, and one TLS certificate covers everything.
 
+The same Caddy serves three sites, one per subdomain of one parent domain: DoodleWhirl (`doodle.tierney.one`), Doodle Tower (`tower.tierney.one`) and the **games portal** (`games.tierney.one`), each same-origin with its own `/api`. They're same-site, so the guest cookie, set for the parent domain, is the same guest on all three ([decisions.md](decisions.md#d13--one-profile-for-every-game-a-portal-a-shared-guest-and-an-account-widget) D13).
+
+### One profile for every game
+
+The portal lists the games and holds the player's **profile**: their name and drawing, shared by every game (`players` table, `GET`/`PUT /api/me`). Each game shows the **account widget** from `packages/account` in its top-left corner: "Name yourself" until there's a name, the name with a Guest tag after that, and just the avatar during a match. The package also holds the profile store (cached in the browser so a page shows you at once, synced with `/api/me`, fetched again when the tab comes back into view), the editor and a small drawing pad. A game keeps the profile as its identity and still sends the name and avatar when it joins a room, so rooms don't depend on the profile. A game may skin the widget (`--acct-*` CSS custom properties) or plug in its own editor: DoodleWhirl keeps its hand-drawn "you" sticker, Doodle Tower uses the widget in its colours.
+
 Release flow: merging into the `production` branch runs CI, builds two images to GHCR (the server, and Caddy with `apps/web/dist` baked in), then deploys over SSH. Migrations run as a one-off step (`node dist/migrate.js`, using Drizzle's runtime migrator, so production needs no dev tools) before the new server starts. Details, setup and rollbacks: [deployment.md](deployment.md).
 
 A deploy restarts the only server process, which **ends live games**. For v1: deploy at quiet hours and send a "server restarting" notice to rooms on `SIGTERM` (see [graceful shutdown](backend-guidelines.md#lifecycle-and-graceful-shutdown)). Later: snapshot rooms to Postgres on shutdown and restore them on boot.
@@ -83,7 +89,8 @@ All components below are **modules inside the one server process**. Their bounda
 ### HTTP API (Fastify)
 
 - Endpoints (examples):
-  - `POST /api/session/guest` → guest cookie
+  - `POST /api/session/guest` → guest cookie, shared by the portal and every game (set for the parent domain, `COOKIE_DOMAIN`; [decisions.md](decisions.md#d13--one-profile-for-every-game-a-portal-a-shared-guest-and-an-account-widget) D13)
+  - `GET /api/me` → the profile: `{playerId, kind, displayName, nameChosen, drawing}`; `PUT /api/me` changes part of it (`displayName`, `nameChosen`, `drawing`). A made-up name (`nameChosen: false`) never replaces a chosen one
   - `/api/auth/*` → Better Auth (magic link, OAuth callbacks, session)
   - `GET /api/rooms/public` → lobby list and the number of players online (from the in-memory room registry)
   - `PUT /api/rooms/:code/me` → a player in the room changes name or avatar; everyone gets the new player list ([realtime-protocol.md](realtime-protocol.md#changing-your-name-or-avatar-in-a-room))
@@ -149,15 +156,19 @@ Bandwidth is the main cost to watch: drawing traffic is ~1–5 KB/s from the dra
 ```
 apps/
   server/         Fastify modular monolith (API + realtime + worker). Owns the DB schema and migrations
-  web/            Astro site + React app
+  web/            Astro site + React app (DoodleWhirl)
+  tower-web/      Doodle Tower's site (docs/tower/)
+  portal/         The games portal: the games list and the shared profile (static Astro + React islands)
 packages/
   game-core/      Pure room state machine, scoring, guess matcher, card pool (no I/O, unit-tested)
   protocol/       zod schemas + types: WebSocket messages, REST DTOs, deck schema, error codes
+  account/        The shared profile store, account widget, editor and drawing pad (React, no game code)
+  canvas-engine/  The drawing engine the games share (stroke model, rendering, fills, avatar cut-out)
 infra/
   compose.prod.yaml, Caddyfile, Dockerfiles, deploy/ (VM bootstrap, deploy, backup scripts)
 docs/
 ```
 
-Only code that **both** `server` and `web` need goes in `packages/`. The DB schema stays inside `apps/server` because nothing else may touch the database.
+Only code that more than one app needs goes in `packages/`. The DB schema stays inside `apps/server` because nothing else may touch the database.
 
 `game-core` with no I/O is the most important testing seam: whole matches can be simulated in unit tests.

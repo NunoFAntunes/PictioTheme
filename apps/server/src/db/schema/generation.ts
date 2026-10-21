@@ -23,7 +23,7 @@ export const generationJobs = pgTable(
     id: uuid()
       .primaryKey()
       .default(sql`uuidv7()`),
-    /** The player id (`g_<guestId>` or `u_<userId>`), so guests and accounts work the same way. */
+    /** The player id (`g_<players.id>`, lib/actor.ts), so guests and accounts work the same way. */
     createdBy: text().notNull(),
     /**
      * `generate`: a new deck from a theme. `translate`: `sourceDeckId` in `language`.
@@ -87,7 +87,7 @@ export const themeChecks = pgTable(
     id: uuid()
       .primaryKey()
       .default(sql`uuidv7()`),
-    /** The player id (`g_<guestId>` or `u_<userId>`). */
+    /** The player id (`g_<players.id>`, lib/actor.ts). */
     createdBy: text().notNull(),
     /** HMAC of the requester's IP, like `generation_jobs.client_ip_hash`. */
     clientIpHash: text(),

@@ -1,7 +1,7 @@
 import { hasProfanity } from '@pictiotheme/game-core';
 import { DisplayName } from '@pictiotheme/protocol';
 import { describe, expect, it } from 'vitest';
-import { SILLY_NAME_PARTS, sillyName } from './silly-name';
+import { isSillyName, SILLY_NAME_PARTS, sillyName } from './silly-name';
 
 describe('sillyName', () => {
   it('pairs an adjective with a noun', () => {
@@ -17,5 +17,14 @@ describe('sillyName', () => {
         expect(hasProfanity(name), name).toBe(false);
       }
     }
+  });
+});
+
+describe('isSillyName', () => {
+  it('recognises made-up names, and nothing else', () => {
+    expect(isSillyName(sillyName(() => 0.5))).toBe(true);
+    expect(isSillyName('Ana')).toBe(false);
+    expect(isSillyName('Sneaky Ana')).toBe(false);
+    expect(isSillyName('Sneaky Pickle Jr')).toBe(false);
   });
 });

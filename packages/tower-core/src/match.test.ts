@@ -55,6 +55,18 @@ describe('the waiting room', () => {
     expect(sizes).toEqual([2, 2]);
   });
 
+  it('shows a new name or drawing to everyone, and ignores strangers', () => {
+    const h = createHarness();
+    for (const id of ['p1', 'p2']) h.join(id);
+    const mark = h.mark();
+    h.dispatch({ type: 'identity', playerId: 'p2', name: 'Ana', avatar: 'cat' });
+    const players = h.to('p1', 'room:players', mark).at(-1)?.players;
+    expect(players?.find((p) => p.id === 'p2')).toMatchObject({ name: 'Ana', avatar: 'cat' });
+    expect(h.dispatch({ type: 'identity', playerId: 'nobody', name: 'X', avatar: 'x' })).toEqual(
+      [],
+    );
+  });
+
   it('needs two players in each crew, and the words, to start', () => {
     const h = createHarness();
     for (const id of ['p1', 'p2', 'p3']) h.join(id);

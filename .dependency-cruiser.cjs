@@ -70,6 +70,21 @@ module.exports = {
       },
     },
     {
+      name: 'account-allowed-dependencies',
+      comment:
+        'The shared profile and account widget (decisions.md D13): no game code, only the protocol, the drawing engine, React and zustand.',
+      severity: 'error',
+      from: { path: '^packages/account/' },
+      to: {
+        dependencyTypes: ['npm', 'npm-dev', 'npm-peer', 'core', 'local'],
+        pathNot: [
+          '^packages/(account|canvas-engine|protocol)/',
+          'node_modules/(react|zustand|zod|vitest)/',
+          '\\.css$',
+        ],
+      },
+    },
+    {
       name: 'doodle-shape-is-pure',
       comment: 'B6 for Doodle Tower: drawing → piece is deterministic, no I/O.',
       severity: 'error',

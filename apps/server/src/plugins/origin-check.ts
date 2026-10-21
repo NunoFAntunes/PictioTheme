@@ -3,7 +3,7 @@ import { forbidden } from '../lib/errors';
 
 /**
  * CSRF protection for a same-origin app (rule F12): a browser request that changes state must
- * come from one of our own origins (DoodleWhirl's and Doodle Tower's sites). Requests without an
+ * come from one of our own origins (the portal and each game's site). Requests without an
  * Origin header (curl, server-to-server) pass; browsers always send it on cross-origin POSTs and
  * WebSocket upgrades.
  */

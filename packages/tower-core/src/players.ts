@@ -1,5 +1,5 @@
 import { shuffle } from '@pictiotheme/game-core';
-import type { PlayerId } from '@pictiotheme/protocol';
+import type { AvatarId, PlayerId } from '@pictiotheme/protocol';
 import { TEAMS, TOWER_MAX_PER_CREW, TowerSettings, type Team } from '@pictiotheme/protocol/tower';
 import { connectedHumans, removeBots } from './bots';
 import {
@@ -62,6 +62,15 @@ export function onJoin(c: Ctx, joining: JoiningPlayer): void {
     if (team) tryStartPlacement(c, team);
     resumeIdleCrews(c);
   }
+}
+
+/** A new name or drawing, from the account widget: everyone's crew list shows it. */
+export function onIdentity(c: Ctx, playerId: PlayerId, name: string, avatar: AvatarId): void {
+  const player = c.state.players.get(playerId);
+  if (!player) return;
+  player.name = name;
+  player.avatar = avatar;
+  broadcastPlayers(c);
 }
 
 export function onDisconnect(c: Ctx, playerId: PlayerId): void {

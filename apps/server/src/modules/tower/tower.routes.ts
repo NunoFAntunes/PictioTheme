@@ -1,4 +1,9 @@
-import { JoinRoomResponse, PlayerIdentity, RoomLookupResponse } from '@pictiotheme/protocol';
+import {
+  JoinRoomResponse,
+  PlayerIdentity,
+  RoomLookupResponse,
+  UpdateIdentityResponse,
+} from '@pictiotheme/protocol';
 import { CreateTowerRoomRequest } from '@pictiotheme/protocol/tower';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 import { z } from 'zod';
@@ -54,6 +59,22 @@ export const towerRoutes: FastifyPluginAsyncZod<{ tower: TowerService }> = async
       },
     },
     async (request) => tower.joinRoom(actorOf(request), request.params.code, request.body),
+  );
+
+  app.put(
+    '/rooms/:code/me',
+    {
+      config: { rateLimit: { max: 10, timeWindow: '1 minute' } },
+      schema: {
+        params: z.object({ code: z.string().max(20) }),
+        body: PlayerIdentity,
+        response: { 200: UpdateIdentityResponse },
+      },
+    },
+    async (request) => {
+      await tower.updateIdentity(actorOf(request), request.params.code, request.body);
+      return { ok: true as const };
+    },
   );
 
   // The share card (tower-share-card.ts): link previews ask for `?v=<version>` from the embed

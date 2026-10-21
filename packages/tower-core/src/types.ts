@@ -199,6 +199,8 @@ export type TowerEvent =
   | { type: 'init' }
   | { type: 'join'; player: JoiningPlayer }
   | { type: 'disconnect'; playerId: PlayerId }
+  /** A player in the room changed their name or drawing (the account widget). */
+  | { type: 'identity'; playerId: PlayerId; name: string; avatar: AvatarId }
   | { type: 'message'; playerId: PlayerId; msg: TowerClientMessage }
   | { type: 'timer'; timer: TimerId }
   | { type: 'wordsLoaded'; cards: Card[] }

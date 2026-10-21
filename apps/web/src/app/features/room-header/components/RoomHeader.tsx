@@ -238,6 +238,7 @@ export function RoomHeader() {
       {host && <HostControls />}
       <RoomIdentityChip
         roomCode={view.code}
+        avatarOnly={inMatch}
         nameStyle={{ fontFamily: font.family, fontSize: `${font.scale}rem` }}
       />
       <SoundSettingsButton />

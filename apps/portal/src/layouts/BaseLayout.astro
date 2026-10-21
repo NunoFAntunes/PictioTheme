@@ -1,0 +1,22 @@
+---
+import { Font } from 'astro:assets';
+import { SITE_NAME, SITE_TAGLINE } from '../site';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={SITE_TAGLINE} />
+    <meta property="og:title" content={SITE_NAME} />
+    <meta property="og:description" content={SITE_TAGLINE} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{SITE_NAME}</title>
+    <Font cssVariable="--font-nunito" preload />
+  </head>
+  <body class="min-h-dvh">
+    <slot />
+  </body>
+</html>

@@ -1,17 +1,21 @@
+import { accountKindOf, useAccount } from '@pictiotheme/account';
 import { useId, useState, type CSSProperties } from 'react';
-import type { Identity } from '../../../lib/identity';
+import { PORTAL_URL } from '../../../lib/portal';
+import type { Identity } from '../identity-store';
 import { MARKER_BORDER, WOBBLE } from '../../../ui/hand-drawn';
 import { PaperDialog } from '../../../ui/PaperDialog';
 import { IdentityForm } from './IdentityForm';
 import { IntroduceYourself } from './IntroduceYourself';
 
 /**
- * Your "you" sticker (screens.md §1 and §4): your doodle, frameless like in the player list, leans
- * out of a lopsided marker sticker with your name on it, and a ✏️ on its corner opens the name and
- * drawing editor. On the home page it's white and says "Playing as"; `compact` is the room header's
- * sun-yellow one, with a YOU tag and your name in `nameStyle` (the hand the player list writes it
- * in). `nudge` points an arrow at it asking you to introduce yourself. `onSaved` gets the saved
- * identity.
+ * Your "you" sticker (screens.md §1 and §4), DoodleWhirl's account widget (decisions.md D13): your
+ * doodle, frameless like in the player list, leans out of a lopsided marker sticker with your name
+ * on it, and a ✏️ on its corner opens the name and drawing editor. The name and drawing are your
+ * profile in every game, which the editor says, with a link to all of them. On the home page it's
+ * white and says "Playing as" (or "Playing as guest"); `compact` is the room header's sun-yellow
+ * one, with a YOU tag and your name in `nameStyle` (the hand the player list writes it in);
+ * `avatarOnly` is just your doodle, small, while a match is on. `nudge` points an arrow at it
+ * asking you to introduce yourself. `onSaved` gets the saved identity.
  */
 
 const LOOKS = {
@@ -36,12 +40,14 @@ const DIE_CUT =
 export function IdentityChip({
   identity,
   compact = false,
+  avatarOnly = false,
   nameStyle,
   nudge = false,
   onSaved,
 }: {
   identity: Identity;
   compact?: boolean;
+  avatarOnly?: boolean;
   nameStyle?: CSSProperties;
   nudge?: boolean;
   onSaved?: (identity: Identity) => void;
@@ -49,6 +55,58 @@ export function IdentityChip({
   const [open, setOpen] = useState(false);
   const nudgeId = useId();
   const look = compact ? LOOKS.room : LOOKS.home;
+  const guest = useAccount((s) => s.profile !== null && accountKindOf(s.profile) !== 'user');
+  const tag = compact ? look.tag : guest ? 'Playing as guest' : look.tag;
+
+  const editor = (
+    <PaperDialog
+      open={open}
+      guarded
+      onClose={() => setOpen(false)}
+      className="w-[52rem]"
+      title="Your name and avatar"
+    >
+      {/* Only while open, so the page never has a second name field or pad. */}
+      {open && (
+        <>
+          <IdentityForm
+            submitLabel="Save"
+            framed={false}
+            onSaved={onSaved}
+            onDone={() => setOpen(false)}
+          />
+          <p className="mt-3 text-sm text-zinc-500">
+            Your name and drawing go with you to every game.{' '}
+            <a href={PORTAL_URL} className="font-semibold text-ink underline">
+              See all the games
+            </a>
+          </p>
+        </>
+      )}
+    </PaperDialog>
+  );
+
+  if (avatarOnly) {
+    return (
+      <>
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label={`Playing as ${identity.displayName}: change name or drawing`}
+          title={identity.displayName}
+          className={`group relative grid size-10 place-items-center transition hover:-translate-y-0.5 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-dashed focus-visible:outline-ink ${DIE_CUT}`}
+        >
+          <img
+            src={identity.avatar}
+            alt=""
+            draggable={false}
+            className="size-full object-contain motion-safe:group-hover:animate-boil"
+          />
+        </button>
+        {editor}
+      </>
+    );
+  }
 
   return (
     <div className="flex items-start gap-3">
@@ -76,7 +134,7 @@ export function IdentityChip({
         </span>
         <span className="flex min-w-0 flex-col items-start leading-none">
           <span className="-rotate-1 rounded-sm bg-ink px-1 py-px text-[0.55rem] font-bold tracking-widest text-white uppercase">
-            {look.tag}
+            {tag}
           </span>
           <span
             className={`max-w-full truncate pt-0.5 pb-px [-webkit-text-stroke:0.035em_currentColor] ${look.name}`}
@@ -94,23 +152,7 @@ export function IdentityChip({
         </span>
       </button>
       {nudge && <IntroduceYourself id={nudgeId} />}
-      <PaperDialog
-        open={open}
-        guarded
-        onClose={() => setOpen(false)}
-        className="w-[52rem]"
-        title="Your name and avatar"
-      >
-        {/* Only while open, so the page never has a second name field or pad. */}
-        {open && (
-          <IdentityForm
-            submitLabel="Save"
-            framed={false}
-            onSaved={onSaved}
-            onDone={() => setOpen(false)}
-          />
-        )}
-      </PaperDialog>
+      {editor}
     </div>
   );
 }

@@ -23,12 +23,29 @@ users (
 )
 auth_accounts (user_id fk, provider text, provider_account_id text, pk(provider, provider_account_id))
 
+-- Players: the profile every game shares (built, migration 0013; decisions.md D13) ----------
+players (
+  id              uuid pk,                  -- the player's key: the player id is 'g_<id>' everywhere;
+                                            --   a guest's is the id in their cookie
+  display_name    text null,                -- null until a game or the portal names them
+  name_chosen     bool not null default false,   -- false: a made-up name (DoodleWhirl's silly name);
+                                            --   a made-up name never replaces a chosen one
+  drawing_id      text null fk avatars on delete set null,   -- the avatar they drew; null: each game
+                                            --   makes its own (an initial, a bobble hat)
+  created_at, updated_at timestamptz
+  -- check: not name_chosen or display_name is not null
+)
+-- Planned: user_id uuid null unique fk users, when accounts arrive: an account links to its guest's
+-- row and the actor resolves to that row (lib/actor.ts), so a guest who signs up keeps their history,
+-- and logging in on another device is the same player.
+
 -- Avatars (drawn by players; built) -------------------------------------------
 avatars (
   id              text pk,                  -- first 32 hex chars of sha256(png): content-addressed
   png             bytea not null,           -- 128×128 PNG, ≤ 40 KB, checked by signature + IHDR
   created_at      timestamptz,
   last_used_at    timestamptz               -- bumped on every create/join; for cleaning up guests' avatars
+                                            --   (never one a players.drawing_id points at)
 )
 -- Planned (Phase 3): registered users keep a gallery of their own drawn avatars.
 user_avatars (user_id fk, avatar_id fk avatars, created_at, pk(user_id, avatar_id))
@@ -87,7 +104,7 @@ cards (
 deck_votes (user_id, deck_id, value smallint, pk(user_id, deck_id))   -- planned: 👍/👎 per deck
 card_votes (                                -- built (migration 0008): the drawer's 👍/👎 on the options
   card_id    uuid fk cards on delete cascade,
-  player_id  text not null,                 -- 'g_<guestId>' / 'u_<userId>'
+  player_id  text not null,                 -- 'g_<players.id>'
   vote       smallint not null,             -- 1 = 👍, -1 = 👎; taking it back deletes the row
   voted_at   timestamptz,
   pk(card_id, player_id)
@@ -95,7 +112,7 @@ card_votes (                                -- built (migration 0008): the drawe
 deck_reports (                              -- built (migration 0004); card reports ("unfair card") come later
   id           uuid pk,
   deck_id      uuid fk decks on delete cascade,
-  reporter_id  text not null,               -- player id: 'g_<guestId>' / 'u_<userId>'
+  reporter_id  text not null,               -- player id: 'g_<players.id>'
   reason       text not null,               -- 'cover' | 'content'
   cover_id     text null fk deck_covers,    -- the cover a 'cover' report is about (kept for review)
   created_at   timestamptz,
@@ -106,7 +123,7 @@ deck_reports (                              -- built (migration 0004); card repo
 -- Generation & credits ------------------------------------------------------
 generation_jobs (                           -- built (migration 0002); not yet: queued/review states, credits
   id           uuid pk,
-  created_by   text,                        -- player id: 'g_<guestId>' now, 'u_<userId>' with accounts
+  created_by   text,                        -- player id: 'g_<players.id>'
   client_ip_hash text null,                 -- HMAC of the requester's IP, for the per-IP daily limit (migration 0005)
   kind         text not null default 'generate',   -- 'generate' | 'translate' (migration 0009) | 'chaos' (0011)
   theme        text, notes text, include_chaos bool, language text,

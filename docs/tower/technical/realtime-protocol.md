@@ -6,12 +6,14 @@ One WebSocket per player: `wss://<tower-domain>/ws/tower?token=<joinToken>`. The
 
 ## Joining
 
-1. `POST /api/session/guest`: the guest cookie (shared with DoodleWhirl's API).
+1. `POST /api/session/guest`: the guest cookie (shared with DoodleWhirl and the portal: one guest and one profile, `/api/me`).
 2. One of these → `{ code, joinToken }`:
    - `POST /api/tower/rooms`: create a lobby (body: `displayName`, `avatar`, and `isPublic`, false by default). With `testMode: true`, a private [test-mode](../planning/test-mode.md) room instead, refused (403 `FORBIDDEN`) where `TOWER_TEST_MODE` is off, which it is in production.
    - `POST /api/tower/rooms/quick-play` (body: `displayName`, `avatar`): Quick game. The public room with space that is waiting and has the most connected players; failing that, the fullest public match with space (newcomers join the smaller crew); failing that, a new public room hosted by the player.
    - `POST /api/tower/rooms/:code/join`. `GET /api/tower/rooms/:code` checks a code exists first.
 3. Open the socket with the token. Tower tokens have their own audience (`doodletower:ws`), so a DoodleWhirl token can't open a tower room and the other way round.
+
+A player in the room changes their name or drawing (the account widget) with `PUT /api/tower/rooms/:code/me` (body: `displayName`, `avatar`; 403 for someone not in the room). Everyone gets `room:players`. No reconnect.
 
 Sharing a room: `GET /api/tower/rooms/:code/card.png` is its share card (1200×630, `apps/server/src/modules/tower/tower-share-card.ts`), cached forever when asked for with `?v=<version>`, `no-cache` without it. `GET /api/tower/rooms/:code/embed` is the Open Graph page link-preview bots get for `/r/CODE` (Caddy sends known bots' user agents there), so an invite link pasted in Discord, Slack or WhatsApp unfurls into the card. Rooms have no name of their own: they're "<host>'s tower".
 

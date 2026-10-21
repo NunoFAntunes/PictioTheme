@@ -64,7 +64,7 @@ export const towerMatchPlayers = pgTable(
     matchId: uuid()
       .notNull()
       .references(() => towerMatches.id, { onDelete: 'cascade' }),
-    /** 'g_<guestId>' / 'u_<userId>' */
+    /** 'g_<players.id>' (lib/actor.ts) */
     playerId: text().notNull(),
     team: text().notNull(),
     displayName: text().notNull(),

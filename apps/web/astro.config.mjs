@@ -51,15 +51,17 @@ export default defineConfig({
         'react-router',
         '@tanstack/react-query',
         'zustand',
+        'zustand/vanilla',
         'zod',
         '@pictiotheme/canvas-engine > perfect-freehand',
         'pluralize',
       ],
     },
+    // WEB_API_PORT points at a server on another port when 3000 is taken.
     server: {
       proxy: {
-        '/api': 'http://localhost:3000',
-        '/ws': { target: 'ws://localhost:3000', ws: true },
+        '/api': `http://localhost:${process.env.WEB_API_PORT ?? 3000}`,
+        '/ws': { target: `ws://localhost:${process.env.WEB_API_PORT ?? 3000}`, ws: true },
       },
     },
   },

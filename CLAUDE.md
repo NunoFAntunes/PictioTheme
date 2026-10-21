@@ -1,6 +1,6 @@
 # DoodleWhirl!
 
-Real-time drawing-and-guessing game with themed, AI-generated decks. Formerly PictioTheme: the repo, the `@pictiotheme/*` packages and the database keep the old name. TypeScript monorepo: Fastify server, Astro + React web app, shared `protocol` and pure `game-core` packages.
+Real-time drawing-and-guessing game with themed, AI-generated decks. Formerly PictioTheme: the repo, the `@pictiotheme/*` packages and the database keep the old name. TypeScript monorepo: Fastify server, Astro + React web app, shared `protocol` and pure `game-core` packages. A second game, Doodle Tower (`apps/tower-web`, [docs/tower/](docs/tower/)), and a games portal (`apps/portal`) share the server and one player profile (`packages/account`, decisions.md D13).
 
 ## Start here
 
@@ -13,6 +13,7 @@ Real-time drawing-and-guessing game with themed, AI-generated decks. Formerly Pi
 ```sh
 pnpm db:up                                   # Postgres for dev + tests (needed by server tests)
 pnpm dev                                     # server :3000 + web :4321
+pnpm dev:tower / pnpm dev:portal             # Doodle Tower :4322, the games portal :4323
 pnpm check                                   # typecheck + lint + import boundaries + unit tests
 pnpm format                                  # prettier
 pnpm --filter @pictiotheme/web test:e2e      # Playwright, uses installed Google Chrome

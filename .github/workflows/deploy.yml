@@ -40,6 +40,7 @@ jobs:
       # Plain JavaScript output, so it's built once here and only copied into the images.
       - run: pnpm --filter @pictiotheme/web build
       - run: pnpm --filter @pictiotheme/tower-web build
+      - run: pnpm --filter @pictiotheme/portal build
       - run: pnpm --filter @pictiotheme/server build
       - run: pnpm --filter @pictiotheme/server deploy --prod .deploy/server
       - uses: docker/setup-qemu-action@v3

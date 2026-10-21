@@ -1,0 +1,31 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: var(--font-nunito), system-ui, sans-serif;
+  --color-ink: #2a2140;
+  --color-paper: #fdf9ec;
+  --color-shelf: #f4ecd8;
+  --color-pop: #f97362;
+  --color-pop-dark: #d9564a;
+  --color-muted: #6b6380;
+}
+
+:root {
+  color-scheme: light;
+  /* The account widget (packages/account/src/account.css) in the portal's colours. */
+  --acct-font: var(--font-sans);
+  --acct-fg: var(--color-ink);
+  --acct-bg: #fff;
+  --acct-muted: var(--color-muted);
+  --acct-border: rgb(42 33 64 / 0.14);
+  --acct-accent: var(--color-pop);
+  --acct-accent-fg: #fff;
+  --acct-paper: var(--color-paper);
+  --acct-shadow: 0 3px 0 rgb(42 33 64 / 0.18);
+}
+
+body {
+  background: var(--color-shelf);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}

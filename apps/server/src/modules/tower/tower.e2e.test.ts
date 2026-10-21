@@ -112,6 +112,24 @@ describe('Doodle Tower, end to end', () => {
     for (const s of [lobby, first, second, third]) s.close();
   });
 
+  it('a player renames themselves in the room, and only players in it can', async () => {
+    const host = player();
+    const socket = await enter(host, 'Hana');
+    const { code } = await socket.next('room:snapshot');
+    const body = { displayName: 'Hanabi', avatar: testAvatar([10, 20, 30]) };
+
+    expect((await host.request('PUT', `/api/tower/rooms/${code}/me`, body)).status).toBe(200);
+    const update = await socket.next('room:players', (m) =>
+      m.players.some((p) => p.name === 'Hanabi'),
+    );
+    expect(update.players).toHaveLength(1);
+
+    const stranger = player();
+    await stranger.startSession();
+    expect((await stranger.request('PUT', `/api/tower/rooms/${code}/me`, body)).status).toBe(403);
+    socket.close();
+  });
+
   it("serves the room's share card and the page link previews unfurl", async () => {
     const host = await enter(player(), 'Ana');
     const { code } = await host.next('room:snapshot');

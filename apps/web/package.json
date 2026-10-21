@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^7.0.0",
+    "@pictiotheme/account": "workspace:*",
     "@pictiotheme/canvas-engine": "workspace:*",
     "@pictiotheme/game-core": "workspace:*",
     "@pictiotheme/protocol": "workspace:*",

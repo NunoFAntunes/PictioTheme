@@ -12,6 +12,7 @@ import { authRoutes, createAuthService } from './modules/auth';
 import { avatarsRoutes, createAvatarsService } from './modules/avatars';
 import { createDecksService, decksRoutes } from './modules/decks';
 import { createMetricsService, metricsRoutes } from './modules/metrics';
+import { createPlayersService, playersRoutes } from './modules/players';
 import {
   createGenerationJobsService,
   createGenerationService,
@@ -129,6 +130,7 @@ export async function buildApp(config: Config, overrides: { llm?: LlmClient | nu
   });
   await generationJobs.failInterrupted();
   const avatars = createAvatarsService({ db });
+  const players = createPlayersService({ db, avatars });
   const metrics = createMetricsService({ db, log: app.log, decks });
   const rooms = createRoomsService({
     decks,
@@ -161,7 +163,9 @@ export async function buildApp(config: Config, overrides: { llm?: LlmClient | nu
 
   // ── Plugins ──
   await app.register(errorHandler);
-  await app.register(originCheck, { origins: [config.publicOrigin, config.towerPublicOrigin] });
+  await app.register(originCheck, {
+    origins: [config.publicOrigin, config.towerPublicOrigin, config.portalPublicOrigin],
+  });
   if (config.rateLimits) await app.register(rateLimit);
   await app.register(actorPlugin, { cookieSecret: config.sessionSecret });
 
@@ -175,7 +179,9 @@ export async function buildApp(config: Config, overrides: { llm?: LlmClient | nu
     prefix: '/api/session',
     auth,
     secureCookies: config.secureCookies,
+    cookieDomain: config.cookieDomain,
   });
+  await app.register(playersRoutes, { prefix: '/api/me', players });
   await app.register(avatarsRoutes, { prefix: '/api/avatars', avatars });
   await app.register(decksRoutes, { prefix: '/api/decks', decks });
   await app.register(generationRoutes, { prefix: '/api/decks', jobs: generationJobs });

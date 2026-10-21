@@ -128,7 +128,7 @@ export const deckReports = pgTable(
     deckId: uuid()
       .notNull()
       .references(() => decks.id, { onDelete: 'cascade' }),
-    /** The player id (`g_<guestId>` or `u_<userId>`). */
+    /** The player id (`g_<players.id>`, lib/actor.ts). */
     reporterId: text().notNull(),
     reason: text().notNull(),
     /** The cover a `cover` report is about, kept for review even after it's redrawn. */
@@ -157,7 +157,7 @@ export const cardVotes = pgTable(
     cardId: uuid()
       .notNull()
       .references(() => cards.id, { onDelete: 'cascade' }),
-    /** The player id (`g_<guestId>` or `u_<userId>`). */
+    /** The player id (`g_<players.id>`, lib/actor.ts). */
     playerId: text().notNull(),
     /** 1 for 👍, -1 for 👎. */
     vote: smallint().notNull(),

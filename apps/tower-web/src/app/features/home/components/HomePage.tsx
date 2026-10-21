@@ -1,7 +1,8 @@
 import type { PlayerIdentity } from '@pictiotheme/protocol';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ApiError } from '../../../lib/api';
 import { isValidName, useIdentity } from '../../../lib/identity';
+import { AccountCorner } from '../../account';
 import { createLobby, createTestRoom, lookupRoom, quickPlay } from '../api';
 import { BalloonMenu, type WayIn } from './BalloonMenu';
 import { HowToPlay } from './HowToPlay';
@@ -39,12 +40,22 @@ const ENTER: Record<Way, (me: PlayerIdentity, code: string) => Promise<{ code: s
  */
 export function HomePage() {
   const { identity, setName } = useIdentity();
-  const [name, setNameDraft] = useState(identity?.displayName ?? '');
+  // The profile's name (it can arrive, or change in another game, after the page opened) until
+  // you type your own.
+  const [draft, setDraft] = useState<string | null>(null);
+  const profileName = identity?.displayName ?? '';
+  const name = draft ?? profileName;
   const [code, setCode] = useState('');
   const [busy, setBusy] = useState<Way | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [nudge, setNudge] = useState(0);
   const nameOk = isValidName(name);
+  // A name you type is your profile's (every game's) after a short pause.
+  useEffect(() => {
+    if (draft === null || !nameOk || draft.trim() === profileName) return;
+    const timer = setTimeout(() => setName(draft), 800);
+    return () => clearTimeout(timer);
+  }, [draft, nameOk, profileName, setName]);
 
   const go = async (way: Way) => {
     setBusy(way);
@@ -72,10 +83,12 @@ export function HomePage() {
 
   return (
     <main className="mx-auto flex min-h-dvh max-w-6xl flex-col items-center justify-center gap-4 overflow-x-clip px-6 pt-14 pb-28">
+      {/* Editing here is the identity card below: the widget points you at it. */}
+      <AccountCorner onEdit={() => setNudge((n) => n + 1)} />
       <TowerLogo />
 
       <div className="mt-2 flex items-center justify-center gap-14">
-        <IdentityCard name={name} onName={setNameDraft} nameOk={nameOk} nudge={nudge} />
+        <IdentityCard name={name} onName={setDraft} nameOk={nameOk} nudge={nudge} />
         <BalloonMenu
           busy={busy === 'test' ? null : busy}
           code={code}

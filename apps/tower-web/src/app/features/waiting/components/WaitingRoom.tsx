@@ -16,6 +16,7 @@ import { CREW_BG, CREW_NAME } from '../../../ui/CrewBadge';
 import { Panel } from '../../../ui/Panel';
 import { Segmented } from '../../../ui/Segmented';
 import { Switch } from '../../../ui/Switch';
+import { AccountCorner } from '../../account';
 import { InviteCard } from './InviteCard';
 
 function startProblem(view: RoomView): string | null {
@@ -207,6 +208,7 @@ export function WaitingRoom({ view }: { view: RoomView }) {
     <main className="mx-auto flex w-full max-w-6xl flex-col justify-center px-5 py-4 lg:h-dvh">
       <div className="flex min-h-0 flex-1 flex-col gap-4 lg:max-h-[54rem]">
         <header className="flex shrink-0 items-center gap-4">
+          <AccountCorner fixed={false} roomCode={view.code} />
           <a href="/" className="title-outline font-display text-3xl tracking-wide">
             Doodle <span className="text-sun">Tower</span>
           </a>

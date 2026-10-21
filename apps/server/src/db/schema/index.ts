@@ -3,3 +3,4 @@ export * from './decks';
 export * from './generation';
 export * from './metrics';
 export * from './tower';
+export * from './players';
