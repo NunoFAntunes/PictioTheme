@@ -199,4 +199,6 @@ There's no login yet. The player is the `players` row, not the way they signed i
 
 **Consequences:** the cookie is sent to every subdomain of the parent domain, so nothing untrusted may be hosted there. The cookie was renamed (`pt_guest` → `play_guest`): a host-only cookie and a domain cookie with the same name would both be sent, in no reliable order. `pt_guest` is still read, and `POST /api/session/guest` moves a returning guest to the new cookie with the same id. Each game moves the identity it used to keep in browser storage into the profile once, while the profile has no chosen name and no drawing, so the first game opened after the change wins. Browsers can't message tabs on other sites, so a rename shows in a game open in another tab when you switch back to it (the profile is fetched again when the tab becomes visible). Unused avatars can only be cleaned up if no `players.drawing_id` points at them.
 
+How a new game plugs into all of this: [adding-a-game.md](adding-a-game.md).
+
 **Revisit when:** logins are built (link Better Auth's user to `players`), a game needs its own domain (then the redirect handshake), or the portal gets the join box (shared room codes).

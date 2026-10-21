@@ -21,6 +21,7 @@ DoodleWhirl! is a browser-based, real-time drawing-and-guessing game (in the spi
 | **[technical/](technical/)** | How we build it | |
 | ↳ [architecture.md](technical/architecture.md) | Locked stack, deployment on the VM, components, scaling | set up the project |
 | ↳ [deployment.md](technical/deployment.md) | Releasing via the `production` branch, the VM, TLS, backups, rollbacks | deploy, roll back or set up a VM |
+| ↳ [adding-a-game.md](technical/adding-a-game.md) | How the games share one guest, profile and server, and every step to add a new one | add a game, or understand how the games fit together |
 | ↳ [decisions.md](technical/decisions.md) | Why each technology was chosen, alternatives and ratings | question or revisit a choice |
 | ↳ [backend-guidelines.md](technical/backend-guidelines.md) | Server code organization, layering rules, Fastify and realtime practices, testing | write any server code |
 | ↳ [frontend-guidelines.md](technical/frontend-guidelines.md) | Astro + React structure, state, canvas rules | write any web code |

@@ -7,6 +7,7 @@ Real-time drawing-and-guessing game with themed, AI-generated decks. Formerly Pi
 1. [docs/planning/status.md](docs/planning/status.md): what's done, what's next, how to verify. **Update it when you finish work.**
 2. [docs/technical/architecture.md](docs/technical/architecture.md), then the [backend](docs/technical/backend-guidelines.md) and [frontend](docs/technical/frontend-guidelines.md) guidelines. Rules marked 🔒 are enforced in CI.
 3. Product rules: [docs/product/](docs/product/). The protocol: [docs/technical/realtime-protocol.md](docs/technical/realtime-protocol.md).
+4. Adding a game, or touching what the games share (guest, profile, account widget, sites): [docs/technical/adding-a-game.md](docs/technical/adding-a-game.md).
 
 ## Commands
 

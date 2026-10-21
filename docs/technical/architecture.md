@@ -82,10 +82,7 @@ The portal lists the games and holds the player's **profile**: their name and dr
 
 ### Adding a game
 
-1. `packages/sites`: its address, dev URL and build-time variable. The portal (`apps/portal/src/site.ts`) lists it from there.
-2. `apps/<game>-web` (its site) and, for its rules, a pure `packages/<game>-core` with a dependency-cruiser rule like `tower-core`'s. Its identity is `createGameIdentity` with its fallback avatar, its corner shows the account widget from `@pictiotheme/account/ui` (or its own on the store), and its room page calls `useRoomFollowsIdentity`.
-3. Server: a module `modules/<game>` with routes under `/api/<game>/` and its socket at `/ws/<game>` (rule B30), its tables prefixed `<game>_`, and `<GAME>_PUBLIC_ORIGIN` in `config.ts` (its share links, and the origin check in `app.ts`). Rooms join with `PlayerIdentity` and `playerIdOf(actor)`, and take `PUT /api/<game>/rooms/:code/me`.
-4. Infra: a site block in the [Caddyfile](../../infra/Caddyfile) (`import invite_previews /api/<game>/rooms`, `import static_files /srv/<game>`), a `COPY` of its `dist` in `infra/web.Dockerfile`, its address and origin in `compose.prod.yaml`, and a DNS record under the cookie's parent domain. CI builds every app already.
+A new game gets the guest, the player id, the profile, the account widget, moderation, avatars and decks for free, and registers itself in a handful of places (its site in `packages/sites`, a server module under `/api/<game>/`, a socket at `/ws/<game>`, a Caddy block). The whole walkthrough, with Doodle Tower as the example: **[adding-a-game.md](adding-a-game.md)**.
 
 Release flow: merging into the `production` branch runs CI, builds two images to GHCR (the server, and Caddy with every site's `dist` baked in), then deploys over SSH. Migrations run as a one-off step (`node dist/migrate.js`, using Drizzle's runtime migrator, so production needs no dev tools) before the new server starts. Details, setup and rollbacks: [deployment.md](deployment.md).
 

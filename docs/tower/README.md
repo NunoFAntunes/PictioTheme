@@ -4,7 +4,7 @@
 
 Doodle Tower is a team game for PC and tablet browsers: **Pictionary meets Tricky Towers**. Two crews race to build a tower past a height line. Every block is a drawing: a crew's drawer draws a word, and whoever guesses it first turns the drawing into a physics piece. They either keep it for their tower or curse it and send it to the other crew's. Opponents can **steal** a drawing by guessing it first.
 
-It lives in the PictioTheme (DoodleWhirl!) monorepo and shares its server, database, decks and avatars. It has **its own domain, its own frontend and its own visual identity**: nothing should look like DoodleWhirl.
+It lives in the PictioTheme (DoodleWhirl!) monorepo and shares its server, database, decks, avatars and the player profile; it's the worked example in [adding-a-game.md](../technical/adding-a-game.md). It has **its own domain, its own frontend and its own visual identity**: nothing should look like DoodleWhirl.
 
 ## How these docs are organized
 

@@ -161,7 +161,7 @@ When a service grows past ~300 lines, split it by use case into `services/<use-c
 - **B27 🔒** Named exports only. No TS `enum`s (use `as const` objects or string unions). No barrel files except each module's `index.ts` and each package's entry.
 - **B28** Files are `kebab-case.ts`. Module files are `<module>.<role>.ts`. Types and Zod schemas are `PascalCase` (`DeckSearchQuery`), and the inferred type has the same name as its schema.
 - **B29** Prefer plain functions and object literals. Use a class only for long-lived stateful things (`RoomRuntime`).
-- **B30** **Routes say whose they are.** What every game shares is unprefixed: `/api/session`, `/api/me`, `/api/avatars`. Each game lives under its own name: `/api/<game>/…` and `/ws/<game>` (Doodle Tower: `/api/tower`, `/ws/tower`). DoodleWhirl, the first game, keeps its unprefixed `/api/rooms`, `/api/decks` and `/ws` for now; moving them under `/api/doodle/` is worth doing before anything shared would want those names (a cross-game room lookup for the portal's join box, say).
+- **B30** **Routes say whose they are.** What every game shares is unprefixed: `/api/session`, `/api/me`, `/api/avatars`. Each game lives under its own name: `/api/<game>/…` and `/ws/<game>` (Doodle Tower: `/api/tower`, `/ws/tower`). DoodleWhirl, the first game, keeps its unprefixed `/api/rooms`, `/api/decks` and `/ws` for now; moving them under `/api/doodle/` is worth doing before anything shared would want those names (a cross-game room lookup for the portal's join box, say). See [adding-a-game.md](adding-a-game.md).
 
 ## Fastify practices
 
