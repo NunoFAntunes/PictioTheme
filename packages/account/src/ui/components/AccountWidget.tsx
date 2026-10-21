@@ -18,7 +18,6 @@ export function AccountWidget({
   size = 'full',
   fallbackAvatar = initialDisc,
   onEdit,
-  onSaved,
   portalUrl,
   className = '',
 }: {
@@ -27,8 +26,6 @@ export function AccountWidget({
   fallbackAvatar?: (name: string | null) => string;
   /** Opens the game's own editor instead of the built-in one. */
   onEdit?: () => void;
-  /** After the built-in editor saved: e.g. tell the room you're in. */
-  onSaved?: (profile: Profile) => void;
   /** The portal, for "All games". Left out on the portal itself. */
   portalUrl?: string;
   className?: string;
@@ -142,9 +139,7 @@ export function AccountWidget({
         </div>
       )}
 
-      {editing && (
-        <ProfileEditor onClose={() => setEditing(false)} onSaved={onSaved} avatarOf={avatarOf} />
-      )}
+      {editing && <ProfileEditor onClose={() => setEditing(false)} avatarOf={avatarOf} />}
     </div>
   );
 }

@@ -71,7 +71,7 @@ apps/web/
 
 ### The shared profile
 
-Your name and drawing are a profile shared with every game and the games portal (`packages/account`, decisions.md D13): a store synced with `GET`/`PUT /api/me` and cached in the browser. `features/identity/identity-store.ts` turns it into DoodleWhirl's `Identity` (the drawing, or your initial), and its `setIdentity` saves to the profile. The "you" sticker (`IdentityChip`) is DoodleWhirl's account widget: "Playing as guest" on the home page, the sun-yellow YOU sticker in the room header, and just your doodle once a match is on (`avatarOnly`). A silly name is saved as not chosen, so the home page keeps asking you to introduce yourself. An identity saved by the old `pictiotheme.identity` key moves into the profile once (`importLegacyIdentity`).
+Your name and drawing are a profile shared with every game and the games portal (`packages/account`, decisions.md D13): a store synced with `GET`/`PUT /api/me` and cached in the browser. `features/identity/identity-store.ts` turns it into DoodleWhirl's `Identity` (the drawing, or your initial) with `createGameIdentity`, and its `setIdentity` saves to the profile. In a room, `useFollowIdentityInRoom` sends every change to the room (`PUT /api/rooms/:code/me`), wherever it was made. The "you" sticker (`IdentityChip`) is DoodleWhirl's account widget: "Playing as guest" on the home page, the sun-yellow YOU sticker in the room header, and just your doodle once a match is on (`avatarOnly`). A silly name is saved as not chosen, so the home page keeps asking you to introduce yourself. An identity saved by the old `pictiotheme.identity` key moves into the profile once (`importLegacyIdentity`).
 
 ### Canvas engine
 

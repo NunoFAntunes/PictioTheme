@@ -1,3 +1,4 @@
+import { SITES } from '@pictiotheme/sites';
 import { z } from 'zod';
 import type { LogLevel } from './lib/logger';
 
@@ -16,11 +17,11 @@ const Env = z.object({
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent']).default('info'),
   DATABASE_URL: z.url(),
   /** The site origin. Mutating requests must come from it (rule F12). */
-  PUBLIC_ORIGIN: z.url().default('http://localhost:4321'),
+  PUBLIC_ORIGIN: z.url().default(SITES.doodle.devUrl),
   /** Doodle Tower's site origin (its own domain): also allowed to make requests (rule F12). */
-  TOWER_PUBLIC_ORIGIN: z.url().default('http://localhost:4322'),
+  TOWER_PUBLIC_ORIGIN: z.url().default(SITES.tower.devUrl),
   /** The games portal's origin (docs/technical/decisions.md D13): also allowed to make requests. */
-  PORTAL_PUBLIC_ORIGIN: z.url().default('http://localhost:4323'),
+  PORTAL_PUBLIC_ORIGIN: z.url().default(SITES.portal.devUrl),
   /**
    * The parent domain the guest cookie is set for, so the portal and every game on its subdomains
    * share one guest (e.g. `tierney.one`). Empty: the cookie belongs to the host that set it, which

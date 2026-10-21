@@ -76,9 +76,18 @@ The same Caddy serves three sites, one per subdomain of one parent domain: Doodl
 
 ### One profile for every game
 
-The portal lists the games and holds the player's **profile**: their name and drawing, shared by every game (`players` table, `GET`/`PUT /api/me`). The contract every game builds on is the **profile store** from `packages/account` (`@pictiotheme/account`): synced with `/api/me`, cached in the browser so a page shows you at once, fetched again when the tab comes back into view, plus the profile's rules. A game keeps the profile as its identity and still sends the name and avatar when it joins a room, so rooms don't depend on the profile. Every game shows who you are in its top-left corner: "Name yourself" until there's a name, the name with a Guest tag after that, and just the avatar during a match. The ready-made **account widget**, its editor and a small drawing pad are a separate entry, `@pictiotheme/account/ui`, which a game may skin (`--acct-*` CSS custom properties) or skip: Doodle Tower and the portal use the widget, while DoodleWhirl builds its hand-drawn "you" sticker on the store and ships none of the widget's code or styles.
+The portal lists the games and holds the player's **profile**: their name and drawing, shared by every game (`players` table, `GET`/`PUT /api/me`). The contract every game builds on is the **profile store** from `packages/account` (`@pictiotheme/account`): synced with `/api/me`, cached in the browser so a page shows you at once, fetched again when the tab comes back into view, plus the profile's rules. A game keeps the profile as its identity and still sends the name and avatar when it joins a room, so rooms don't depend on the profile. Every game shows who you are in its top-left corner: "Name yourself" until there's a name, the name with a Guest tag after that, and just the avatar during a match. The ready-made **account widget**, its editor and a small drawing pad are a separate entry, `@pictiotheme/account/ui`, which a game may skin (`--acct-*` CSS custom properties) or skip: Doodle Tower and the portal use the widget, while DoodleWhirl builds its hand-drawn "you" sticker on the store and ships none of the widget's code or styles. A game turns the profile into the name and avatar it plays with through `createGameIdentity` (the drawing, or the game's own fallback made from the name), adding its own actions on top.
 
-Release flow: merging into the `production` branch runs CI, builds two images to GHCR (the server, and Caddy with `apps/web/dist` baked in), then deploys over SSH. Migrations run as a one-off step (`node dist/migrate.js`, using Drizzle's runtime migrator, so production needs no dev tools) before the new server starts. Details, setup and rollbacks: [deployment.md](deployment.md).
+**In a room, your name and avatar follow the profile.** The room takes them on join, and the player's own room page sends every later change with `useRoomFollowsIdentity` (the game's `PUT …/rooms/:code/me`), wherever it was made: this game's editor, another game, or the portal (the profile is fetched again when the tab comes back into view). It's the client and not the server that tells the room, because each game draws its fallback avatar (DoodleWhirl's initial, Doodle Tower's bobble hat) in the browser: a server-side fan-out from `players` couldn't redraw it for a player who renames without a drawing. A rename made elsewhere while the room's tab stays in view reaches the room when that tab next becomes visible, or on the next rejoin.
+
+### Adding a game
+
+1. `packages/sites`: its address, dev URL and build-time variable. The portal (`apps/portal/src/site.ts`) lists it from there.
+2. `apps/<game>-web` (its site) and, for its rules, a pure `packages/<game>-core` with a dependency-cruiser rule like `tower-core`'s. Its identity is `createGameIdentity` with its fallback avatar, its corner shows the account widget from `@pictiotheme/account/ui` (or its own on the store), and its room page calls `useRoomFollowsIdentity`.
+3. Server: a module `modules/<game>` with routes under `/api/<game>/` and its socket at `/ws/<game>` (rule B30), its tables prefixed `<game>_`, and `<GAME>_PUBLIC_ORIGIN` in `config.ts` (its share links, and the origin check in `app.ts`). Rooms join with `PlayerIdentity` and `playerIdOf(actor)`, and take `PUT /api/<game>/rooms/:code/me`.
+4. Infra: a site block in the [Caddyfile](../../infra/Caddyfile) (`import invite_previews /api/<game>/rooms`, `import static_files /srv/<game>`), a `COPY` of its `dist` in `infra/web.Dockerfile`, its address and origin in `compose.prod.yaml`, and a DNS record under the cookie's parent domain. CI builds every app already.
+
+Release flow: merging into the `production` branch runs CI, builds two images to GHCR (the server, and Caddy with every site's `dist` baked in), then deploys over SSH. Migrations run as a one-off step (`node dist/migrate.js`, using Drizzle's runtime migrator, so production needs no dev tools) before the new server starts. Details, setup and rollbacks: [deployment.md](deployment.md).
 
 A deploy restarts the only server process, which **ends live games**. For v1: deploy at quiet hours and send a "server restarting" notice to rooms on `SIGTERM` (see [graceful shutdown](backend-guidelines.md#lifecycle-and-graceful-shutdown)). Later: snapshot rooms to Postgres on shutdown and restore them on boot.
 
@@ -162,7 +171,8 @@ apps/
 packages/
   game-core/      Pure room state machine, scoring, guess matcher, card pool (no I/O, unit-tested)
   protocol/       zod schemas + types: WebSocket messages, REST DTOs, deck schema, error codes
-  account/        The shared profile store and rules; `./ui`: the account widget, editor and drawing pad (no game code)
+  account/        The shared profile store and rules, `createGameIdentity`; `./ui`: the account widget, editor and drawing pad (no game code)
+  sites/          Where every site lives: the portal and each game's address (data only)
   moderation/     The word checks every game shares (profanity), pure
   canvas-engine/  The drawing engine the games share (stroke model, rendering, fills, avatar cut-out)
 infra/

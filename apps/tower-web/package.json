@@ -18,6 +18,7 @@
     "@pictiotheme/canvas-engine": "workspace:*",
     "@pictiotheme/doodle-shape": "workspace:*",
     "@pictiotheme/protocol": "workspace:*",
+    "@pictiotheme/sites": "workspace:*",
     "@pictiotheme/tower-physics": "workspace:*",
     "astro": "^7.3.5",
     "react": "^19.3.0",

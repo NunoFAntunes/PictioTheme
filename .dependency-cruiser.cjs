@@ -60,6 +60,16 @@ module.exports = {
       },
     },
     {
+      name: 'sites-is-data-only',
+      comment: 'D13: where each site lives, plain data that the server and every app can read.',
+      severity: 'error',
+      from: { path: '^packages/sites/' },
+      to: {
+        dependencyTypes: ['npm', 'npm-dev', 'core', 'local'],
+        pathNot: ['^packages/sites/', 'node_modules/vitest/'],
+      },
+    },
+    {
       name: 'protocol-is-schemas-only',
       comment: 'B7: protocol depends on zod only.',
       severity: 'error',

@@ -15,4 +15,9 @@ export {
   type SaveResult,
 } from './account-store';
 export { initialDisc } from './fallback-avatar';
+export {
+  createGameIdentity,
+  useRoomFollowsIdentity,
+  type GameIdentityState,
+} from './game-identity';
 export { accountKindOf, EMPTY_PROFILE, type AccountKind } from './profile';

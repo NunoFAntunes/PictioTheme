@@ -36,21 +36,38 @@
 	}
 }
 
-{$SITE_ADDRESS} {
-	{$TLS_DIRECTIVE}
+# The pieces every site shares, so adding a game is a short block (docs/technical/architecture.md,
+# "Adding a game").
 
-	import security_headers
-
-	# Link previews: a chat app's bot unfurling an invite link gets a page of Open Graph tags whose
-	# image is the room's share card (apps/server/src/modules/rooms/share-card.ts). People get the app.
+# Link previews: a chat app's bot unfurling an invite link (/r/<code>) gets a page of Open Graph
+# tags whose image is the room's share card, from the game's embed endpoint (the argument, e.g.
+# /api/rooms). People get the site.
+(invite_previews) {
 	@preview {
 		path_regexp invite ^/r/([A-Za-z0-9-]{1,20})/?$
 		header_regexp User-Agent (?i)(discordbot|twitterbot|slackbot|facebookexternalhit|whatsapp|telegrambot|linkedinbot|skypeuripreview|mastodon|embedly|redditbot|iframely|vkshare|bluesky|google-pagerenderer)
 	}
 	handle @preview {
-		rewrite * /api/rooms/{re.invite.1}/embed
+		rewrite * {args[0]}/{re.invite.1}/embed
 		import to_server
 	}
+}
+
+# A static Astro build (the argument: its directory in the image). Astro's hashed bundles never change.
+(static_files) {
+	encode zstd gzip
+	root * {args[0]}
+	header /_astro/* Cache-Control "public, max-age=31536000, immutable"
+	file_server
+}
+
+{$SITE_ADDRESS} {
+	{$TLS_DIRECTIVE}
+
+	import security_headers
+
+	# The share card: apps/server/src/modules/rooms/share-card.ts.
+	import invite_previews /api/rooms
 
 	handle /api/* {
 		import to_server
@@ -60,9 +77,6 @@
 	}
 
 	handle {
-		encode zstd gzip
-		root * /srv
-
 		# The old lobby: the home page is the lobby now. Keep in sync with apps/web/src/app-routes.ts.
 		redir /play / 301
 		redir /play/ / 301
@@ -71,9 +85,7 @@
 		@app path /r /r/* /decks* /generate* /account*
 		rewrite @app /app/index.html
 
-		# Astro's hashed bundles never change.
-		header /_astro/* Cache-Control "public, max-age=31536000, immutable"
-		file_server
+		import static_files /srv
 	}
 }
 
@@ -83,16 +95,8 @@
 
 	import security_headers
 
-	# Link previews, as on DoodleWhirl's site: a chat app's bot unfurling an invite link gets the
-	# room's share card (apps/server/src/modules/tower/tower-share-card.ts). People get the site.
-	@preview {
-		path_regexp invite ^/r/([A-Za-z0-9-]{1,20})/?$
-		header_regexp User-Agent (?i)(discordbot|twitterbot|slackbot|facebookexternalhit|whatsapp|telegrambot|linkedinbot|skypeuripreview|mastodon|embedly|redditbot|iframely|vkshare|bluesky|google-pagerenderer)
-	}
-	handle @preview {
-		rewrite * /api/tower/rooms/{re.invite.1}/embed
-		import to_server
-	}
+	# The share card: apps/server/src/modules/tower/tower-share-card.ts.
+	import invite_previews /api/tower/rooms
 
 	handle /api/* {
 		import to_server
@@ -102,15 +106,11 @@
 	}
 
 	handle {
-		encode zstd gzip
-		root * /srv/tower
-
 		# Invite links are served by the room page. Keep in sync with apps/tower-web/src/middleware.ts.
 		@room path /r/*
 		rewrite @room /room/index.html
 
-		header /_astro/* Cache-Control "public, max-age=31536000, immutable"
-		file_server
+		import static_files /srv/tower
 	}
 }
 
@@ -126,9 +126,6 @@
 	}
 
 	handle {
-		encode zstd gzip
-		root * /srv/portal
-		header /_astro/* Cache-Control "public, max-age=31536000, immutable"
-		file_server
+		import static_files /srv/portal
 	}
 }

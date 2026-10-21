@@ -1,9 +1,8 @@
 import { DisplayName } from '@pictiotheme/protocol';
 import { useId, useRef, useState, type SubmitEvent } from 'react';
-import { useIdentity, type Identity } from '../identity-store';
+import { hasGeneratedAvatar, useIdentity, type Identity } from '../identity-store';
 import { Avatar, AvatarPad, drawingToAvatar, initialAvatar } from '../../avatar';
 import { isBlank } from '../../canvas';
-import { hasGeneratedAvatar } from '../generated-avatar';
 
 /**
  * "Pick a name and draw your avatar" (user-flows.md §2). Guests need nothing else to play.

@@ -26,6 +26,7 @@
     "@pictiotheme/game-core": "workspace:*",
     "@pictiotheme/moderation": "workspace:*",
     "@pictiotheme/protocol": "workspace:*",
+    "@pictiotheme/sites": "workspace:*",
     "@pictiotheme/tower-core": "workspace:*",
     "@pictiotheme/tower-physics": "workspace:*",
     "@resvg/resvg-wasm": "2.6.2",

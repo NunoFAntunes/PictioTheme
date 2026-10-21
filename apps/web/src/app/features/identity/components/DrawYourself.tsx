@@ -1,30 +1,22 @@
 import { useState } from 'react';
-import { useIdentity } from '../identity-store';
-import { useUpdateIdentityInRoom } from '../api';
-import { hasGeneratedAvatar } from '../generated-avatar';
+import { hasGeneratedAvatar, useIdentity } from '../identity-store';
 import { IdentityForm } from './IdentityForm';
 
 /**
  * "Draw yourself!" in the waiting room (user-flows.md §5): players who never drew an avatar (they
- * got their initial with a silly name) draw one while friends arrive. Saving updates the room.
+ * got their initial with a silly name) draw one while friends arrive. The room follows the saved
+ * drawing (`useFollowIdentityInRoom`).
  * `startFolded` (the host, who has a room to set up) shows a prompt instead of the open pad. Once
  * you've drawn, it's gone: the room header's "you" sticker changes your name or drawing.
  */
-export function DrawYourself({
-  roomCode,
-  startFolded = false,
-}: {
-  roomCode: string;
-  startFolded?: boolean;
-}) {
+export function DrawYourself({ startFolded = false }: { startFolded?: boolean }) {
   const identity = useIdentity((s) => s.identity);
-  const update = useUpdateIdentityInRoom(roomCode);
   const [open, setOpen] = useState(
     () => !startFolded && identity !== null && hasGeneratedAvatar(identity),
   );
   if (!identity) return null;
 
-  if (!open && hasGeneratedAvatar(identity) && !update.isSuccess) {
+  if (!open && hasGeneratedAvatar(identity)) {
     return (
       <button
         type="button"
@@ -48,16 +40,7 @@ export function DrawYourself({
         Draw yourself! <span aria-hidden="true">🖍️</span>
       </h2>
       <p className="text-sm text-zinc-500">Everyone in the room will see it.</p>
-      <IdentityForm
-        submitLabel="Save"
-        onSaved={({ displayName, avatar }) => update.mutate({ displayName, avatar })}
-        onDone={() => setOpen(false)}
-      />
-      {update.isError && (
-        <p className="text-sm text-close" role="alert">
-          {update.error.message}
-        </p>
-      )}
+      <IdentityForm submitLabel="Save" onDone={() => setOpen(false)} />
       <button
         type="button"
         onClick={() => setOpen(false)}

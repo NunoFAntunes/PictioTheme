@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import { CrumpleStage, resetCrumple, useCrumpling } from '../../features/close-room';
 import { EmoteStage } from '../../features/emotes';
 import { GuessBar, GuessFeed } from '../../features/guess-feed';
-import { useEnsureIdentity, useIdentity } from '../../features/identity';
+import { useEnsureIdentity, useFollowIdentityInRoom, useIdentity } from '../../features/identity';
 import { PlayerList } from '../../features/player-list';
 import { ResultsPanel } from '../../features/results';
 import { RoomHeader } from '../../features/room-header';
@@ -31,8 +31,8 @@ function CenteredMessage({ title, children }: { title: string; children?: ReactN
 }
 
 /**
- * Who to join as, read at each (re)connect. A name or avatar changed in the room ("Draw yourself!")
- * reaches the room through PUT /api/rooms/:code/me instead of a reconnect.
+ * Who to join as, read at each (re)connect. A name or avatar changed while in the room reaches it
+ * through `useFollowIdentityInRoom` (PUT /api/rooms/:code/me) instead of a reconnect.
  */
 function roomIdentity(): PlayerIdentity {
   const identity = useIdentity.getState().identity;
@@ -52,6 +52,7 @@ function RoomSession({ code }: { code: string }) {
     resetCrumple();
     return connectRoom(code, roomIdentity);
   }, [code]);
+  useFollowIdentityInRoom(code);
 
   if (connection.kind === 'closed' && connection.reason !== 'left' && !crumpling) {
     return (

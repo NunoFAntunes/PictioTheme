@@ -1,11 +1,10 @@
 import {
-  accountStore,
+  createGameIdentity,
   importLegacyProfile,
   saveProfile,
   type SaveResult,
 } from '@pictiotheme/account';
-import { AvatarImage, DisplayName, type Profile } from '@pictiotheme/protocol';
-import { create } from 'zustand';
+import { AvatarImage, DisplayName } from '@pictiotheme/protocol';
 import { isSillyName } from '../../lib/silly-name';
 import { initialAvatar, recutAvatar } from '../avatar';
 
@@ -16,38 +15,26 @@ import { initialAvatar, recutAvatar } from '../avatar';
  */
 export type Identity = { displayName: string; avatar: AvatarImage };
 
-const initials = new Map<string, AvatarImage | null>();
+const game = createGameIdentity({
+  fallbackAvatar: initialAvatar,
+  actions: ({ fallbackFor }) => ({
+    /**
+     * Saves a name you picked, and the avatar: a drawing, or your initial (stored as no drawing).
+     * It shows at once; the result says if the server refused it.
+     */
+    setIdentity: ({ displayName, avatar }: Identity): Promise<SaveResult> =>
+      saveProfile({
+        displayName,
+        drawing: avatar === fallbackFor(displayName) ? null : avatar,
+      }),
+  }),
+});
+
+export const useIdentity = game.useIdentity;
 /** The initial for a name, made once (drawing it on a canvas is not free). */
-export function initialFor(name: string): AvatarImage | null {
-  if (!initials.has(name)) initials.set(name, initialAvatar(name));
-  return initials.get(name) ?? null;
-}
-
-function identityOf(profile: Profile | null): Identity | null {
-  if (!profile?.displayName) return null;
-  const avatar = profile.drawing ?? initialFor(profile.displayName);
-  return avatar ? { displayName: profile.displayName, avatar } : null;
-}
-
-type IdentityStore = {
-  identity: Identity | null;
-  /**
-   * Saves a name you picked, and the avatar: a drawing, or your initial (stored as no drawing).
-   * It shows at once; the result says if the server refused it.
-   */
-  setIdentity: (identity: Identity) => Promise<SaveResult>;
-};
-
-export const useIdentity = create<IdentityStore>(() => ({
-  identity: identityOf(accountStore.getState().profile),
-  setIdentity: ({ displayName, avatar }) =>
-    saveProfile({
-      displayName,
-      drawing: avatar === initialFor(displayName) ? null : avatar,
-    }),
-}));
-
-accountStore.subscribe(({ profile }) => useIdentity.setState({ identity: identityOf(profile) }));
+export const initialFor = game.fallbackFor;
+/** True while the avatar is still the initial made from the name (the player never drew one). */
+export const hasGeneratedAvatar = game.isFallback;
 
 /**
  * Before profiles were shared, this browser kept the identity itself (`pictiotheme.identity`).

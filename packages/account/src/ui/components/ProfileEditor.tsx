@@ -11,11 +11,9 @@ import { DrawingPad } from './DrawingPad';
  */
 export function ProfileEditor({
   onClose,
-  onSaved,
   avatarOf,
 }: {
   onClose: () => void;
-  onSaved?: (profile: Profile) => void;
   /** The avatar to show for a profile (its drawing, or the game's own). */
   avatarOf: (profile: Profile) => string;
 }) {
@@ -57,7 +55,6 @@ export function ProfileEditor({
       setError(result.message);
       return;
     }
-    onSaved?.(result.profile);
     dialog.current?.close();
   };
 

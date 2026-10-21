@@ -3,7 +3,7 @@ import { isValidName, useIdentity } from '../../../lib/identity';
 import { connectRoom, useRoomStore } from '../../../realtime';
 import { Button } from '../../../ui/Button';
 import { Panel } from '../../../ui/Panel';
-import { AccountCorner } from '../../account';
+import { AccountCorner, useFollowIdentityInRoom } from '../../account';
 import { GameScreen } from '../../game';
 import { NameField } from '../../home';
 import { Results } from '../../results';
@@ -85,6 +85,7 @@ export function RoomPage() {
       return current;
     });
   }, [code, hasIdentity]);
+  useFollowIdentityInRoom(code);
 
   if (!hasIdentity) return <NameGate code={code} />;
 
@@ -121,7 +122,7 @@ export function RoomPage() {
       {view.phase === 'results' && <Results view={view} />}
       {/* The waiting room has it in its header. During a match, just your avatar. */}
       {view.phase !== 'waiting' && (
-        <AccountCorner size={view.phase === 'playing' ? 'avatar' : 'full'} roomCode={view.code} />
+        <AccountCorner size={view.phase === 'playing' ? 'avatar' : 'full'} />
       )}
       {connection.kind === 'reconnecting' && (
         <div className="fixed top-3 left-1/2 z-40 -translate-x-1/2 rounded-xl bg-sun px-4 py-1.5 font-display text-ink shadow-xl">
