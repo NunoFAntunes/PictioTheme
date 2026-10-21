@@ -1,6 +1,7 @@
 import type { Stroke } from '@pictiotheme/protocol';
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_SHAPE_CONFIG, makePiece, type FlatPolygon, type Piece } from './piece';
+import { bloat, DEFAULT_SHAPE_CONFIG, makePiece, type FlatPolygon, type Piece } from './piece';
+import { meltShift } from './melt';
 import { SAMPLE_DRAWINGS } from './samples';
 
 const sample = (word: string): Stroke[] => {
@@ -253,5 +254,74 @@ describe('makePiece: what gets dropped', () => {
   it('ignores ink drawn before a clear', () => {
     const result = makePiece([blob(200, 200, 40), { id: 'c', tool: 'clear' }, ...sample('brick')]);
     expect(result.ok && result.piece.origin.x).toBeCloseTo(600, -1);
+  });
+});
+
+describe('bloat', () => {
+  it('grows the area by the factor and keeps the outline and parts together', () => {
+    const piece = pieceOf(sample('boot'));
+    const big = bloat(piece, 1.4);
+    expect(big.area).toBeCloseTo(piece.area * 1.4, 6);
+    expect(area(big.outline)).toBeCloseTo(big.area, 6);
+    const partsArea = big.parts.reduce((sum, p) => sum + area(p), 0);
+    expect(partsArea).toBeCloseTo(big.area, 4);
+    expect(big.parts.every(isConvexCcw)).toBe(true);
+  });
+
+  it('scales the drawing with it, so the doodle still covers the piece', () => {
+    const piece = pieceOf(sample('brick'));
+    const big = bloat(piece, 1.4);
+    expect(big.scale).toBeCloseTo(piece.scale * Math.sqrt(1.4), 9);
+    expect(big.origin).toEqual(piece.origin);
+    expect(big.bounds).toEqual(piece.bounds);
+  });
+});
+
+describe('melt', () => {
+  const melted = (word: string) => {
+    const result = makePiece(sample(word), DEFAULT_SHAPE_CONFIG, undefined, { melt: true });
+    if (!result.ok) throw new Error('expected a piece');
+    return result.piece;
+  };
+  /** The outline's lowest and highest points over a band of x (world units, y up). */
+  const band = (piece: Piece, from: number, to: number) => {
+    const ys = pairs(piece.outline)
+      .filter(([x]) => x >= from && x <= to)
+      .map(([, y]) => y);
+    return { low: Math.min(...ys), high: Math.max(...ys) };
+  };
+
+  it('droops a brick in the middle: its bottom bulges and its top dips', () => {
+    const piece = melted('brick');
+    const xs = pairs(piece.outline).map(([x]) => x);
+    const left = Math.min(...xs);
+    const right = Math.max(...xs);
+    const w = right - left;
+    const middle = band(piece, left + 0.4 * w, left + 0.6 * w);
+    const ends = band(piece, left, left + 0.15 * w);
+    expect(middle.low).toBeLessThan(ends.low - 0.1);
+    expect(middle.high).toBeLessThan(Math.max(...pairs(piece.outline).map(([, y]) => y)) - 0.05);
+    expect(piece.melt?.sag).toBeGreaterThan(0);
+  });
+
+  it('is still a valid piece of the usual weight, the same every time', () => {
+    for (const word of ['brick', 'boot', 'star', 'cactus', 'ball']) {
+      const piece = melted(word);
+      expect(piece.parts.every(isConvexCcw)).toBe(true);
+      const partsArea = piece.parts.reduce((sum, p) => sum + area(p), 0);
+      expect(partsArea).toBeCloseTo(piece.area, 4);
+      if (piece.limitedBy === 'area')
+        expect(piece.area).toBeCloseTo(DEFAULT_SHAPE_CONFIG.targetArea, 2);
+      expect(melted(word)).toEqual(piece);
+    }
+    expect(pieceOf(sample('brick')).melt).toBeUndefined();
+  });
+
+  it('droops the doodle by the same function as the shape', () => {
+    const { melt } = melted('brick');
+    if (!melt) throw new Error('no melt');
+    expect(meltShift(melt, melt.cx)).toBeCloseTo(melt.sag, 9);
+    expect(meltShift(melt, melt.cx + melt.halfWidth)).toBe(0);
+    expect(meltShift(melt, melt.cx - 2 * melt.halfWidth)).toBe(0);
   });
 });

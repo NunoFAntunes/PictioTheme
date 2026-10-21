@@ -1,4 +1,4 @@
-import type { BodyState, PieceId } from '@pictiotheme/tower-physics';
+import { PIGEON, type BodyState, type PieceId } from '@pictiotheme/tower-physics';
 import {
   displayFont,
   drawBalloon,
@@ -15,6 +15,7 @@ import {
   wrap,
   type VillageView,
 } from '../scenery';
+import { CARRY_BELOW, type Bird } from './birds';
 import { GROUND, LANE, toScreen, type Camera } from './camera';
 import { drawFallout, type TowerLife } from './fallout';
 import { paintPiece, type PieceLook } from './piece-look';
@@ -49,9 +50,56 @@ export type TowerScene = {
   seed: number;
   /** The village at its foot and the pieces that fell into it. */
   life: TowerLife;
+  /**
+   * 0–1: a Fog spell over the top of the tower (docs/tower/planning/power-ups.md). Only the piece
+   * being placed and its guide show through.
+   */
+  fog?: number;
+  /** A sky star by the tower; `hold` 0–1 while a piece is touching it (it's caught at 1). */
+  star?: { x: number; y: number; radius: number; hold: number } | null;
+  /** The spells' birds: a pigeon on the tower, magpies over it (`birds.ts`). */
+  birds?: readonly Bird[];
+  /** A piece not to draw yet: a magpie is still flying it in. */
+  hide?: PieceId | null;
 };
 
+/** The spells' birds: one drawing, two plumages. */
+const PLUMAGE = {
+  // Grey, with a green-and-purple neck.
+  pigeon: {
+    body: 'oklch(0.72 0.02 260)',
+    wing: 'oklch(0.6 0.03 260)',
+    neck: 'oklch(0.55 0.1 175)',
+    head: 'oklch(0.72 0.02 260)',
+    belly: null,
+    edge: 'oklch(0.3 0.03 260)',
+    beak: 'oklch(0.75 0.12 60)',
+    eye: 'oklch(0.55 0.18 40)',
+    legs: 'oklch(0.7 0.14 15)',
+    tail: 1,
+  },
+  // Black and white, with a blue sheen on the wing and a long tail.
+  magpie: {
+    body: 'oklch(0.22 0.01 260)',
+    wing: 'oklch(0.36 0.09 255)',
+    neck: 'oklch(0.22 0.01 260)',
+    head: 'oklch(0.22 0.01 260)',
+    belly: 'oklch(0.97 0.005 260)',
+    edge: 'oklch(0.12 0.01 260)',
+    beak: 'oklch(0.3 0.01 260)',
+    eye: 'oklch(0.85 0.02 260)',
+    legs: 'oklch(0.3 0.01 260)',
+    tail: 1.9,
+  },
+} as const;
+type Plumage = (typeof PLUMAGE)[keyof typeof PLUMAGE];
+
 const COLORS = {
+  star: 'oklch(0.88 0.17 92)',
+  starEdge: 'oklch(0.99 0.03 95)',
+  starGlow: 'oklch(0.9 0.18 92 / 0.9)',
+  frost: 'oklch(0.9 0.07 225 / 0.42)',
+  frostEdge: 'oklch(0.97 0.03 225 / 0.95)',
   ruler: 'oklch(1 0 0 / 0.9)',
   rulerInk: 'oklch(0.3 0.08 265 / 0.55)',
   label: 'oklch(0.28 0.09 270)',
@@ -465,14 +513,10 @@ export function drawTower(
   }
 
   // ── Guide column under the piece being placed ──
-  const active = scene.bodies.find((b) => b.active);
+  // A piece a magpie is still flying in isn't hanging from its balloons yet.
+  const active = scene.bodies.find((b) => b.active && b.id !== scene.hide);
   const activeLook = active ? scene.looks.get(active.id) : undefined;
-  if (active && activeLook) {
-    const ext = worldExtent(active, activeLook.piece.outline);
-    const a = S(ext.left, ext.bottom);
-    const b = S(ext.right, ext.bottom);
-    ctx.fillStyle = COLORS.guide;
-    ctx.fillRect(a.x, a.y, b.x - a.x, height - a.y);
+  const guideEdges = (a: { x: number; y: number }, b: { x: number; y: number }) => {
     ctx.save();
     ctx.setLineDash([6, 6]);
     ctx.strokeStyle = COLORS.guideEdge;
@@ -484,12 +528,25 @@ export function drawTower(
     ctx.lineTo(b.x, height);
     ctx.stroke();
     ctx.restore();
+  };
+  const guide =
+    active && activeLook
+      ? (() => {
+          const ext = worldExtent(active, activeLook.piece.outline);
+          return { a: S(ext.left, ext.bottom), b: S(ext.right, ext.bottom) };
+        })()
+      : null;
+  if (guide) {
+    ctx.fillStyle = COLORS.guide;
+    ctx.fillRect(guide.a.x, guide.a.y, guide.b.x - guide.a.x, height - guide.a.y);
+    guideEdges(guide.a, guide.b);
   }
 
   // ── Pieces ──
-  for (const body of scene.bodies) {
+  const fog = scene.fog ?? 0;
+  const paintBody = (body: BodyState) => {
     const look = scene.looks.get(body.id);
-    if (!look) continue;
+    if (!look) return;
     const at = S(body.x, body.y);
     ctx.save();
     ctx.translate(at.x, at.y);
@@ -499,6 +556,55 @@ export function drawTower(
     ctx.shadowOffsetY = 4;
     paintPiece(ctx, look, ppu);
     ctx.restore();
+    if (look.curses?.length) paintCurses(ctx, look, at, body, ppu);
+  };
+  for (const body of scene.bodies) {
+    if (!(fog > 0 && body.active) && body.id !== scene.hide) paintBody(body);
+  }
+
+  if (scene.star) drawStar(ctx, S(scene.star.x, scene.star.y), scene.star, ppu, t);
+  for (const bird of scene.birds ?? []) {
+    // Drawn a little bigger than the pigeon weighs in, to read at a tower's scale. The magpie
+    // never lands, so it can be bigger still, and never too small to spot.
+    const r =
+      bird.kind === 'magpie' ? Math.max(9, PIGEON.radius * 2 * ppu) : PIGEON.radius * 1.3 * ppu;
+    const at = S(bird.x, bird.y);
+    const carried = bird.carrying === undefined ? undefined : scene.looks.get(bird.carrying);
+    if (carried) {
+      // Hanging from its feet.
+      const size = bird.carrySize ?? 0.6;
+      ctx.save();
+      ctx.translate(at.x, at.y + CARRY_BELOW * ppu);
+      ctx.rotate(Math.sin(t * 3) * 0.12 * (1 - size));
+      ctx.shadowColor = COLORS.shadow;
+      ctx.shadowBlur = 8;
+      ctx.shadowOffsetY = 4;
+      paintPiece(ctx, carried, ppu * size);
+      ctx.restore();
+    }
+    drawSpellBird(ctx, at, r, t, bird.facing, bird.flying, PLUMAGE[bird.kind]);
+  }
+
+  // ── Fog over the top of the tower: only the piece being placed and its guide show ──
+  if (fog > 0) {
+    // Low enough that the top of the tower, where the piece lands, is hidden.
+    const bottom = S(0, Math.max(0.6, scene.height - 1.8)).y;
+    const soft = 1.2 * ppu;
+    const veil = ctx.createLinearGradient(0, bottom, 0, bottom - soft);
+    veil.addColorStop(0, `oklch(0.93 0.01 250 / 0)`);
+    veil.addColorStop(1, `oklch(0.93 0.01 250 / ${fog})`);
+    ctx.fillStyle = veil;
+    ctx.fillRect(0, bottom - soft, width, soft);
+    ctx.fillStyle = `oklch(0.93 0.01 250 / ${fog})`;
+    ctx.fillRect(0, 0, width, Math.max(0, bottom - soft));
+    // A row of puffs along its lower edge, drifting.
+    const puff = 2.2 * ppu;
+    for (let x = -puff; x < width + puff; x += puff * 0.7) {
+      const drift = Math.sin(t * 0.6 + x * 0.013) * 0.15 * ppu;
+      drawCloud(ctx, PROPS.cloud[0], x + drift, bottom - soft * 0.4, puff, fog * 0.9);
+    }
+    if (guide) guideEdges(guide.a, guide.b);
+    if (active) paintBody(active);
   }
 
   if (scene.showColliders) {
@@ -557,4 +663,166 @@ export function drawTower(
     ctx.stroke();
     for (const b of balloons) drawBalloon(ctx, b.x, b.y, r, b.color, 0);
   }
+}
+
+/**
+ * A cursed piece's look over its doodle (docs/tower/planning/power-ups.md): frost on a slippery
+ * one.
+ */
+function paintCurses(
+  ctx: CanvasRenderingContext2D,
+  look: PieceLook,
+  at: { x: number; y: number },
+  body: BodyState,
+  ppu: number,
+): void {
+  const curses = look.curses ?? [];
+  if (!curses.includes('slippery') && !curses.includes('big_ice')) return;
+  const o = look.piece.outline;
+  ctx.save();
+  ctx.translate(at.x, at.y);
+  ctx.rotate(-body.angle);
+  ctx.scale(ppu, -ppu);
+  ctx.beginPath();
+  ctx.moveTo(o[0] as number, o[1] as number);
+  for (let k = 2; k + 1 < o.length; k += 2) ctx.lineTo(o[k] as number, o[k + 1] as number);
+  ctx.closePath();
+  ctx.lineJoin = 'round';
+  ctx.fillStyle = COLORS.frost;
+  ctx.fill();
+  ctx.strokeStyle = COLORS.frostEdge;
+  ctx.lineWidth = 3 / ppu;
+  ctx.stroke();
+  ctx.restore();
+}
+
+/** A sky star: a gold star bobbing in place, and a ring that fills while a piece holds it. */
+function drawStar(
+  ctx: CanvasRenderingContext2D,
+  at: { x: number; y: number },
+  star: { radius: number; hold: number },
+  ppu: number,
+  t: number,
+): void {
+  const r = star.radius * ppu;
+  const y = at.y + Math.sin(t * 2.2) * 0.06 * ppu;
+  ctx.save();
+  ctx.translate(at.x, y);
+  ctx.shadowColor = COLORS.starGlow;
+  ctx.shadowBlur = 16 + 6 * Math.sin(t * 3);
+  ctx.rotate(Math.sin(t * 1.3) * 0.15);
+  ctx.beginPath();
+  for (let i = 0; i < 10; i++) {
+    const a = -Math.PI / 2 + (i * Math.PI) / 5;
+    const k = i % 2 === 0 ? r : r * 0.45;
+    ctx.lineTo(Math.cos(a) * k, Math.sin(a) * k);
+  }
+  ctx.closePath();
+  ctx.fillStyle = COLORS.star;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.lineWidth = 2;
+  ctx.lineJoin = 'round';
+  ctx.strokeStyle = COLORS.starEdge;
+  ctx.stroke();
+  ctx.restore();
+  if (star.hold > 0) {
+    ctx.save();
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = COLORS.starEdge;
+    ctx.beginPath();
+    ctx.arc(at.x, y, r * 1.45, -Math.PI / 2, -Math.PI / 2 + star.hold * 2 * Math.PI);
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+/**
+ * A spell's bird in its plumage (a pigeon, a magpie), standing on (x, y + r) − r, facing `facing`
+ * (−1 left, 1 right). It bobs its head while perched; flying, its wings flap.
+ */
+function drawSpellBird(
+  ctx: CanvasRenderingContext2D,
+  at: { x: number; y: number },
+  r: number,
+  t: number,
+  facing: 1 | -1,
+  flying: boolean,
+  look: Plumage,
+): void {
+  ctx.save();
+  ctx.translate(at.x, at.y);
+  ctx.scale(facing, 1);
+  ctx.lineWidth = Math.max(1, r * 0.12);
+  ctx.strokeStyle = look.edge;
+  ctx.lineJoin = 'round';
+  const bob = flying ? 0 : Math.max(0, Math.sin(t * 5)) * r * 0.25;
+  // Legs.
+  if (!flying) {
+    ctx.strokeStyle = look.legs;
+    ctx.beginPath();
+    ctx.moveTo(-r * 0.15, r * 0.55);
+    ctx.lineTo(-r * 0.2, r);
+    ctx.moveTo(r * 0.2, r * 0.55);
+    ctx.lineTo(r * 0.25, r);
+    ctx.stroke();
+    ctx.strokeStyle = look.edge;
+  }
+  // Tail and body.
+  const tail = look.tail;
+  ctx.fillStyle = look.body;
+  ctx.beginPath();
+  ctx.moveTo(-r * 1.0, -r * 0.05);
+  ctx.lineTo(-r * (1 + 0.7 * tail), -r * (0.05 + 0.3 * tail));
+  ctx.lineTo(-r * (1 + 0.55 * tail), r * (0.05 + 0.15 * tail));
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.ellipse(0, r * 0.1, r * 1.1, r * 0.72, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  if (look.belly) {
+    ctx.fillStyle = look.belly;
+    ctx.beginPath();
+    ctx.ellipse(r * 0.15, r * 0.35, r * 0.75, r * 0.38, -0.1, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  // Wing: folded, or flapping.
+  const flap = flying ? Math.sin(t * 30) : 0;
+  ctx.fillStyle = look.wing;
+  ctx.beginPath();
+  if (flying) {
+    ctx.moveTo(-r * 0.4, -r * 0.1);
+    ctx.quadraticCurveTo(-r * 0.2, -r * (0.6 + 1.4 * flap), r * 0.5, -r * 0.1);
+  } else {
+    ctx.ellipse(-r * 0.15, r * 0.05, r * 0.7, r * 0.38, -0.15, 0, Math.PI * 2);
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  // Neck and head.
+  ctx.fillStyle = look.neck;
+  ctx.beginPath();
+  ctx.ellipse(r * 0.7, -r * 0.35 + bob * 0.5, r * 0.42, r * 0.5, 0.3, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = look.head;
+  ctx.beginPath();
+  ctx.arc(r * 0.95, -r * 0.85 + bob, r * 0.42, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  // Beak and eye.
+  ctx.fillStyle = look.beak;
+  ctx.beginPath();
+  ctx.moveTo(r * 1.32, -r * 0.92 + bob);
+  ctx.lineTo(r * 1.62, -r * 0.78 + bob);
+  ctx.lineTo(r * 1.3, -r * 0.7 + bob);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = look.eye;
+  ctx.beginPath();
+  ctx.arc(r * 1.05, -r * 0.95 + bob, r * 0.1, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 }

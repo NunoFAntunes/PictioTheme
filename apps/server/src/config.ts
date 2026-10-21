@@ -21,6 +21,11 @@ const Env = z.object({
   TOWER_PUBLIC_ORIGIN: z.url().default('http://localhost:4322'),
   /** Physics worker threads for Doodle Tower's towers. 0: one less than the CPU count (min 1). */
   TOWER_PHYSICS_WORKERS: z.coerce.number().int().min(0).max(32).default(0),
+  /**
+   * Doodle Tower's test mode (docs/tower/planning/test-mode.md): rooms with bots and a "guess
+   * correctly" button, for trying the powers alone. Unset: on, except in production.
+   */
+  TOWER_TEST_MODE: z.enum(['on', 'off']).optional(),
   /** Comma-separated proxy IPs/CIDRs to trust for X-Forwarded-For (rule F10). Empty: trust none. */
   TRUST_PROXY: z.string().default(''),
   /** Signs guest cookies and WebSocket join tokens. At least 32 random characters. */
@@ -98,6 +103,8 @@ export type Config = {
   publicOrigin: string;
   towerPublicOrigin: string;
   towerPhysicsWorkers: number;
+  /** Whether test-mode rooms can be made (`TOWER_TEST_MODE`). */
+  towerTestMode: boolean;
   trustProxy: string[];
   sessionSecret: string;
   /** Cookies get the Secure flag outside development and tests. */
@@ -152,6 +159,7 @@ export function loadConfig(env: Record<string, string | undefined> = process.env
     publicOrigin: e.PUBLIC_ORIGIN,
     towerPublicOrigin: e.TOWER_PUBLIC_ORIGIN,
     towerPhysicsWorkers: e.TOWER_PHYSICS_WORKERS,
+    towerTestMode: (e.TOWER_TEST_MODE ?? (e.NODE_ENV === 'production' ? 'off' : 'on')) === 'on',
     trustProxy: splitList(e.TRUST_PROXY),
     sessionSecret: e.SESSION_SECRET,
     secureCookies: e.NODE_ENV === 'production',

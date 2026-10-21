@@ -13,6 +13,9 @@ const crew = {
   dazedUntil: null,
   height: 0,
   toppingUntil: null,
+  charges: [],
+  spell: null,
+  star: null,
 };
 
 const snapshot: TowerSnapshot = {
@@ -44,6 +47,7 @@ const piece: TowerPiece = {
   stolen: false,
   tower: null,
   sent: false,
+  curses: ['slippery'],
   fumbled: false,
   shape: {
     outline: [0, 0, 1, 0, 1, 1],
@@ -78,6 +82,7 @@ describe('room view', () => {
       startedAt: 0,
       endsAt: 60_000,
       mask: '______',
+      golden: false,
       strokes: [],
     };
     let view = apply(start(), { t: 'round:start', team: 'orange', round });
@@ -107,7 +112,11 @@ describe('room view', () => {
     expect(view.deciding).toEqual([]);
     expect(view.pieces[7]).toMatchObject({ tower: 'teal', sent: true });
     expect(view.crews.teal.queue).toEqual([7]);
-    expect(view.events.at(-1)?.kind).toBe('sent');
+    expect(view.events.at(-1)).toMatchObject({
+      kind: 'sent',
+      playerId: 'p3',
+      curses: ['slippery'],
+    });
     view = apply(view, {
       t: 'place:start',
       tower: 'teal',
@@ -119,6 +128,55 @@ describe('room view', () => {
     expect(view.pieces[7]?.fumbled).toBe(true);
     expect(view.crews.teal.placing).toBeNull();
     expect(view.crews.teal.dazedUntil).toBe(1_005_000);
+  });
+
+  it('takes a curse’s new shape when the piece is queued', () => {
+    let view = apply(start(), {
+      t: 'piece:made',
+      piece,
+      deciding: { pieceId: 7, deciderId: 'p3', endsAt: 1_005_000 },
+    });
+    const shape = { ...piece.shape, area: 0.7 };
+    view = apply(view, { t: 'piece:queued', pieceId: 7, tower: 'teal', sent: true, shape });
+    expect(view.pieces[7]?.shape.area).toBe(0.7);
+  });
+
+  it('follows a crew’s spells: gained, cast at the other tower, over', () => {
+    let view = apply(start(), {
+      t: 'crew:charges',
+      team: 'orange',
+      charges: ['fog'],
+      gained: { spell: 'fog', reason: 'golden' },
+    });
+    expect(view.crews.orange.charges).toEqual(['fog']);
+    expect(view.events.at(-1)).toMatchObject({ kind: 'gained', team: 'orange', reason: 'golden' });
+    const spell = { spell: 'fog' as const, casterId: 'p1', startsAt: 1, endsAt: 2 };
+    view = apply(view, { t: 'crew:charges', team: 'orange', charges: [] });
+    view = apply(view, { t: 'crew:spell', team: 'teal', spell });
+    expect(view.crews.teal.spell).toEqual(spell);
+    expect(view.events.at(-1)).toMatchObject({ kind: 'cast', team: 'teal', playerId: 'p1' });
+    view = apply(view, { t: 'crew:spell', team: 'teal', spell: null });
+    expect(view.crews.teal.spell).toBeNull();
+  });
+
+  it('moves a piece a magpie took to the caster’s queue', () => {
+    let view = apply(start(), {
+      t: 'piece:made',
+      piece,
+      deciding: { pieceId: 7, deciderId: 'p3', endsAt: 1_005_000 },
+    });
+    view = apply(view, { t: 'piece:queued', pieceId: 7, tower: 'teal', sent: false });
+    view = apply(view, {
+      t: 'piece:magpied',
+      pieceId: 7,
+      from: 'teal',
+      to: 'orange',
+      casterId: 'p1',
+    });
+    expect(view.crews.teal.queue).toEqual([]);
+    expect(view.crews.orange.queue).toEqual([7]);
+    expect(view.pieces[7]?.tower).toBe('orange');
+    expect(view.events.at(-1)).toMatchObject({ kind: 'magpied', team: 'teal', word: 'Bucket' });
   });
 
   it('keeps your guesses and your crew’s in the feed', () => {

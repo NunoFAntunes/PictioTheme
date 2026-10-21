@@ -108,6 +108,10 @@ export function DrawingStage({
   else if (drawing) clue = { text: round.word ?? '', dim: false };
   else if (round.mask) clue = { text: round.mask, dim: false };
   else clue = { text: 'Hint soon…', dim: true };
+  // A golden word: solving it gives the crew a spell (docs/tower/planning/power-ups.md).
+  const golden = round?.golden ?? false;
+  const spell = view.crews[team].spell;
+  const shaky = spell?.spell === 'shaky' && now >= spell.startsAt && now < spell.endsAt;
 
   return (
     <section
@@ -115,12 +119,30 @@ export function DrawingStage({
       className="flex min-w-0 shrink-0 flex-col items-center gap-3"
       data-testid={`stage-${team}`}
     >
-      <header className="flex w-full items-end gap-3 rounded-2xl bg-dusk-900 px-3 py-1.5 shadow-[0_4px_0_var(--color-dusk-950)]">
+      <header
+        className={`flex w-full items-end gap-3 rounded-2xl bg-dusk-900 px-3 py-1.5 shadow-[0_4px_0_var(--color-dusk-950)] ${golden ? 'ring-2 ring-sun' : ''}`}
+      >
         <div className="min-w-0 flex-1">
           <div className={`truncate font-display text-xs tracking-widest ${CREW_TEXT[team]}`}>
             {drawing ? 'YOU’RE DRAWING' : 'YOUR CREW'}
             {drawer && !drawing && (
               <span className="ml-2 text-cloud-dim normal-case">{drawer.name} is drawing</span>
+            )}
+            {shaky && (
+              <span
+                className="ml-2 animate-pulse rounded bg-coral px-1 text-cloud"
+                title="The other crew cast Shaky hand: new lines wobble"
+              >
+                〰️ SHAKY HAND
+              </span>
+            )}
+            {golden && (
+              <span
+                className="ml-2 rounded bg-sun px-1 text-ink"
+                title="Solve it for a spell as well as the piece"
+              >
+                ✨ GOLDEN
+              </span>
             )}
           </div>
           <div
@@ -140,7 +162,11 @@ export function DrawingStage({
         )}
       </header>
 
-      <div data-board className="max-w-full" style={{ width: boardWidth ?? '100%' }}>
+      <div
+        data-board
+        className={`max-w-full ${golden ? 'rounded-[1.4rem] shadow-[0_0_0_4px_var(--color-sun),0_0_28px_var(--color-sun)]' : ''}`}
+        style={{ width: boardWidth ?? '100%' }}
+      >
         <DrawingBoard
           model={strokeModels[team]}
           settings={settings}

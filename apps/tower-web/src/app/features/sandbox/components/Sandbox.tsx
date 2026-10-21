@@ -1,5 +1,6 @@
 import { createStrokeModel } from '@pictiotheme/canvas-engine';
 import {
+  bloat,
   DEFAULT_SHAPE_CONFIG,
   makePiece,
   type SampleDrawing,
@@ -7,8 +8,10 @@ import {
   type ShapeResult,
 } from '@pictiotheme/doodle-shape';
 import type { Stroke } from '@pictiotheme/protocol';
+import { CURSES, curseEffects, type Curse } from '@pictiotheme/protocol/tower';
 import { DEFAULT_TUNING, type PhysicsTuning } from '@pictiotheme/tower-physics';
 import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
+import { CURSE_LABEL } from '../../../lib/curses';
 import { Button } from '../../../ui/Button';
 import { Panel } from '../../../ui/Panel';
 import {
@@ -61,6 +64,10 @@ export function Sandbox() {
   const [line, setLine] = useState(10);
   const [daze, setDaze] = useState<DazeRules>(DEFAULT_DAZE);
   const [showColliders, setShowColliders] = useState(false);
+  /** The curse the next built piece is tried with, as if the other crew had sent it. */
+  const [curse, setCurse] = useState<Curse | null>(null);
+  const [fog, setFog] = useState(false);
+  const [star, setStar] = useState(false);
   const [showSilhouette, setShowSilhouette] = useState(true);
   const [workbenchOpen, setWorkbenchOpen] = useState(false);
   const [saved, setSaved] = useState<SavedDrawing[]>(loadSavedDrawings);
@@ -118,6 +125,13 @@ export function Sandbox() {
   useEffect(() => {
     session.setShowColliders(showColliders);
   }, [session, showColliders]);
+  useEffect(() => {
+    // As thick as the crew it's cast at sees it (LiveTower's fog).
+    session.setFog(fog ? 0.97 : 0);
+  }, [session, fog]);
+  useEffect(() => {
+    if (hud.ready) session.setStar(star);
+  }, [session, star, hud.ready]);
 
   const flash = (text: string) => {
     setNotice(text);
@@ -126,16 +140,19 @@ export function Sandbox() {
 
   const queueDrawing = useCallback(
     (drawingWord: string, strokes: readonly Stroke[]) => {
-      const result = makePiece(strokes, shapeConfig);
+      const curses = curse ? [curse] : [];
+      const effects = curseEffects(curses);
+      const result = makePiece(strokes, shapeConfig, undefined, { melt: effects.melt });
       if (!result.ok) return false;
       session.enqueue({
         word: drawingWord,
-        piece: result.piece,
+        piece: effects.bloat === null ? result.piece : bloat(result.piece, effects.bloat),
         bitmap: renderPieceBitmap(strokes, result.piece, result.preview),
+        curses,
       });
       return true;
     },
-    [session, shapeConfig],
+    [session, shapeConfig, curse],
   );
 
   const build = () => {
@@ -178,6 +195,7 @@ export function Sandbox() {
           <Stat label="Height" value={`${hud.height.toFixed(1)} / ${hud.line} m`} />
           <Stat label="Placed" value={String(hud.placed)} />
           <Stat label="Fumbles" value={String(hud.fumbles)} />
+          {hud.stars !== null && <Stat label="Stars" value={String(hud.stars)} />}
           <Button variant="soft" onClick={() => session.resetTower()}>
             Knock it down
           </Button>
@@ -254,6 +272,45 @@ export function Sandbox() {
                 >
                   Build it
                 </Button>
+                <label className="flex items-center gap-1.5 text-xs font-semibold">
+                  Curse
+                  <select
+                    value={curse ?? ''}
+                    onChange={(e) => setCurse((e.target.value || null) as Curse | null)}
+                    className="min-w-0 flex-1 rounded-lg border border-ink/15 bg-cloud px-1.5 py-1"
+                  >
+                    <option value="">None</option>
+                    {CURSES.map((c) => (
+                      <option key={c} value={c}>
+                        {CURSE_LABEL[c].icon} {CURSE_LABEL[c].name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="flex items-center gap-1.5 text-xs font-semibold">
+                  <input type="checkbox" checked={fog} onChange={(e) => setFog(e.target.checked)} />
+                  🌫️ Fog over the tower
+                </label>
+                <label className="flex items-center gap-1.5 text-xs font-semibold">
+                  <input
+                    type="checkbox"
+                    checked={star}
+                    onChange={(e) => setStar(e.target.checked)}
+                  />
+                  ⭐ A sky star to catch
+                </label>
+                <div className="flex gap-1.5">
+                  <Button onClick={() => session.landPigeon()} className="flex-1 text-xs">
+                    🐦 Land a pigeon
+                  </Button>
+                  <Button
+                    onClick={() => session.sendMagpie()}
+                    className="flex-1 text-xs"
+                    title="It takes the next piece to come up, then brings it back"
+                  >
+                    🐦‍⬛ Send a magpie
+                  </Button>
+                </div>
                 <div className="flex gap-1.5">
                   <Button onClick={save} disabled={!piece} className="flex-1 text-xs">
                     Save

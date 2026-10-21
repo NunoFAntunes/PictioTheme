@@ -1,5 +1,5 @@
 import { AVATAR_SIZE_PX, AvatarImage } from '@pictiotheme/protocol';
-import { cutout } from './cutout';
+import { cutout } from '@pictiotheme/canvas-engine';
 
 /**
  * Turns the avatar pad into the PNG the server stores: the doodle cut out of its background

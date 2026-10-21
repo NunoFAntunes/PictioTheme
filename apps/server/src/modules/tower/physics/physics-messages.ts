@@ -15,7 +15,10 @@ export type WorldEvent =
   | { t: 'frame'; tick: number; bodies: number[]; full: boolean }
   | { t: 'released'; pieceId: number }
   | { t: 'fumbled'; pieceIds: number[] }
-  | { t: 'height'; height: number };
+  /** The pigeon left: scared away by a new piece, or fallen. */
+  | { t: 'pigeonGone' }
+  /** `starHeld`: a settled piece of the tower is touching its sky star. */
+  | { t: 'height'; height: number; starHeld: boolean };
 
 export type FromWorker =
   | { t: 'ready' }

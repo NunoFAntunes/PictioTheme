@@ -57,7 +57,7 @@ export const towerRoutes: FastifyPluginAsyncZod<{ tower: TowerService }> = async
   );
 
   // The share card (tower-share-card.ts): link previews ask for `?v=<version>` from the embed
-  // page, which is cached forever; "Copy the card" asks without it and gets the current one.
+  // page, which is cached forever; the waiting room's preview asks without it and gets the current one.
   // Rate-limited like the lookup: it tells whether a code is live.
   app.get(
     '/rooms/:code/card.png',

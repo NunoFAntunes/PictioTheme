@@ -24,7 +24,7 @@ apps/
 packages/
   protocol/               + src/tower/  (exported as @pictiotheme/protocol/tower)
   game-core/              unchanged. Tower reuses guess/, word-mask, room-code, rng
-  canvas-engine/          ✅ stroke model, renderer, painting, flood fill, pointer gate (taken out of apps/web).
+  canvas-engine/          ✅ stroke model, renderer, painting, flood fill, pointer gate, doodle cut-out (taken out of apps/web).
                           Each app keeps its own pointer input and toolbar
   doodle-shape/           ✅ pure: strokes → filled silhouette → normalized polygon → convex parts
   tower-core/             ✅ pure: the match state machine (crews, rounds, queue, placement, fumbles, win)
@@ -51,7 +51,7 @@ packages/
 
 - `apps/tower-web`: Astro (static) + React SPA, Tailwind with **its own tokens**, its own component set. It doesn't import any DoodleWhirl UI component.
 - **Behaviour is reused, skins aren't**: stroke rendering and the pointer gate come from `packages/canvas-engine`; the realtime client follows DoodleWhirl's pattern (one socket module, reconnect with a fresh token, snapshot, a pure view reducer, a zustand store).
-- Layout of `src/app`: `realtime/` (connection, view reducer, frame interpolation), `lib/` (API client, identity, the generated bobble-hat avatar), `ui/`, and features: `home`, `room` (connects, picks the screen), `waiting`, `game` (screen, drawing stage and spy window, guess box, crew feed, Build-or-Send card, tower panels, placement controls, batched stroke sending), `results`, plus `drawing`, `piece`, `tower` and `sandbox` from Phase 0.
+- Layout of `src/app`: `realtime/` (connection, view reducer, frame interpolation), `lib/` (API client, identity with the drawn avatar, the generated bobble-hat avatar), `ui/`, and features: `home`, `room` (connects, picks the screen), `waiting`, `game` (screen, drawing stage and spy window, guess box, crew feed, Keep-or-Curse card, tower panels, placement controls, batched stroke sending), `results`, plus `drawing`, `piece`, `tower` and `sandbox` from Phase 0.
 - Pages: `/` (home), `/r/CODE` (the room: `src/middleware.ts` in dev, Caddy in production, rewrite it to `/room`), `/sandbox`.
 - Tower panels are drawn with **Canvas 2D**. Each piece's doodle is cached once as a bitmap and drawn at the body's position and angle every frame. Switch to PixiJS only if profiling shows Canvas 2D is too slow.
 

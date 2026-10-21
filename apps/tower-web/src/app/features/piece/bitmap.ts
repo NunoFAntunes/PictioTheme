@@ -1,5 +1,5 @@
 import { paintOp } from '@pictiotheme/canvas-engine';
-import type { Piece, ShapePreview } from '@pictiotheme/doodle-shape';
+import { meltShift, type Piece, type ShapePreview } from '@pictiotheme/doodle-shape';
 import { CANVAS_HEIGHT, CANVAS_WIDTH, type Stroke } from '@pictiotheme/protocol';
 
 /**
@@ -106,8 +106,20 @@ export function renderPieceBitmap(
   const path = silhouettePath(preview.silhouette);
   // Ink, from the last clear on (a `clear` op would clear in the wrong space).
   const lastClear = strokes.findLastIndex((s) => s.tool === 'clear');
-  const ink = make();
+  let ink = make();
   paintInk(ink.ctx, strokes.slice(lastClear + 1));
+  // A melted piece: the ink droops with the shape, column by column (meltShift).
+  if (piece.melt) {
+    const { melt } = piece;
+    const warped = make();
+    warped.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    const { width: w, height: h } = ink.canvas;
+    for (let px = 0; px < w; px++) {
+      const dy = meltShift(melt, x + (px + 0.5) / density) * density;
+      warped.ctx.drawImage(ink.canvas, px, 0, 1, h, px, dy, 1, h);
+    }
+    ink = warped;
+  }
   // Trim it to the silhouette grown by two cells.
   const mask = make();
   mask.ctx.fillStyle = '#000';

@@ -1,6 +1,7 @@
 import { shuffle } from '@pictiotheme/game-core';
 import type { PlayerId } from '@pictiotheme/protocol';
 import { TEAMS, TOWER_MAX_PER_CREW, TowerSettings, type Team } from '@pictiotheme/protocol/tower';
+import { connectedHumans, removeBots } from './bots';
 import {
   finishMatch,
   onDeciderLeft,
@@ -75,7 +76,7 @@ export function onDisconnect(c: Ctx, playerId: PlayerId): void {
     onPlacerLeft(c, playerId);
     onDeciderLeft(c, playerId);
   }
-  if (connectedIds(c).length === 0) schedule(c, 'empty', c.now + TIMINGS.emptyMs);
+  if (connectedHumans(c).length === 0) schedule(c, 'empty', c.now + TIMINGS.emptyMs);
   broadcastPlayers(c);
 }
 
@@ -90,14 +91,14 @@ export function onGraceTimer(c: Ctx, playerId: PlayerId): void {
 export function onHostGraceTimer(c: Ctx): void {
   const { state } = c;
   if (state.players.get(state.hostId)?.connected) return;
-  const next = [...state.players.values()].find((p) => p.connected);
+  const next = connectedHumans(c)[0];
   if (!next) return;
   state.hostId = next.id;
   broadcastPlayers(c);
 }
 
 export function onEmptyTimer(c: Ctx): void {
-  if (connectedIds(c).length > 0) return;
+  if (connectedHumans(c).length > 0) return;
   if (c.state.phase === 'playing') finishMatch(c, null, 'abandoned');
   c.fx.push({ kind: 'close' });
 }
@@ -147,7 +148,10 @@ export function onCrewShuffle(c: Ctx, by: PlayerId): void {
 
 export function onSettings(c: Ctx, by: PlayerId, patch: Partial<TowerSettings>): void {
   if (!assertWaiting(c, by) || !assertHost(c, by)) return;
-  const next = TowerSettings.safeParse({ ...c.state.settings, ...patch });
+  // Test mode is set when the room is made (never by a message), and a test room stays private.
+  const { testMode } = c.state.settings;
+  const locked = testMode ? { testMode, isPublic: false } : { testMode };
+  const next = TowerSettings.safeParse({ ...c.state.settings, ...patch, ...locked });
   if (!next.success) {
     sendError(c, by, 'VALIDATION', 'Invalid settings');
     return;
@@ -167,5 +171,7 @@ export function onRematch(c: Ctx, by: PlayerId): void {
   state.phase = 'waiting';
   state.match = null;
   state.results = null;
+  removeBots(c);
+  broadcastPlayers(c);
   for (const id of connectedIds(c)) send(c, id, snapshotFor(state, id, c.now));
 }

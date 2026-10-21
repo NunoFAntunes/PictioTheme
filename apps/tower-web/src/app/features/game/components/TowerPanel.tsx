@@ -4,6 +4,7 @@ import { useServerNow, type RoomView } from '../../../realtime';
 import { CREW_BG, CREW_NAME } from '../../../ui/CrewBadge';
 import { LiveTower } from '../../tower';
 import type { PlacementController } from '../placement';
+import { SpellBadge, SpellSlots } from './SpellSlots';
 
 const CREW_BORDER: Record<Team, string> = {
   orange: 'border-crew-orange',
@@ -49,6 +50,7 @@ export function TowerPanel({
         <span className="font-display text-sm tracking-wide">
           {mine ? 'Your tower' : `${CREW_NAME[team]} tower`}
         </span>
+        <SpellSlots view={view} team={team} mine={mine} />
         {crew.queue.length > 0 && (
           <span className="rounded-lg bg-card-light px-1.5 text-xs font-semibold text-ink">
             {crew.queue.length} waiting
@@ -75,6 +77,7 @@ export function TowerPanel({
           volume={mine ? 1 : 0.4}
         />
         {children}
+        <SpellBadge view={view} team={team} />
         {dazed && (
           <div
             className="pointer-events-none absolute inset-x-0 top-1/3 flex justify-center"

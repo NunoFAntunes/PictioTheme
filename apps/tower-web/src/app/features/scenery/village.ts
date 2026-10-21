@@ -27,6 +27,8 @@ const NOTICE_RANGE = 16;
 const CLEAN_RANGE = 14;
 /** One swing of the mallet, and when in it the blow lands. */
 const SWING = 0.62;
+/** A builder's hammer comes down this often, in s. */
+const HAMMER = 0.42;
 const BLOW = 0.36;
 /** More rubble than this and the oldest heap nobody's working on crumbles by itself. */
 const MAX_RUBBLE = 6;
@@ -75,6 +77,8 @@ export type Act =
   | { kind: 'clean'; rubble: number; blows: number }
   /** A job well done. */
   | { kind: 'proud'; length: number }
+  /** Called to build something: runs to `spot` and hammers at `at` until dismissed. */
+  | { kind: 'build'; spot: number; at: number; taps: number }
   /** Under the piece. */
   | { kind: 'flat'; length: number }
   /** Waddling about squashed. */
@@ -355,6 +359,13 @@ function onstage(v: Village, villager: Villager): boolean {
   return Math.abs(villager.x) < v.halfSpan + 0.5;
 }
 
+/** Somebody who isn't busy with something that happened, and is in the village. */
+function isFree(v: Village, villager: Villager): boolean {
+  const free = villager.act.kind === 'job' || villager.act.kind === 'back';
+  if (!free || !onstage(v, villager)) return false;
+  return !(villager.job.kind === 'stroll' && villager.job.wait > 0);
+}
+
 function doJob(v: Village, villager: Villager, dt: number): void {
   const job = villager.job;
   switch (job.kind) {
@@ -471,6 +482,23 @@ function stepVillager(v: Village, villager: Villager, dt: number): void {
     case 'proud':
       if (villager.clock >= act.length) resume(villager);
       return;
+    case 'build': {
+      if (Math.abs(villager.x - act.spot) > 0.01) {
+        villager.gait = 'run';
+        if (moveTowards(villager, act.spot, RUN, dt)) {
+          face(villager, act.at);
+          villager.clock = 0;
+        }
+        return;
+      }
+      // A tap of the hammer each time it comes down.
+      const taps = Math.floor((villager.clock + 0.2) / HAMMER);
+      if (taps > act.taps) {
+        act.taps = taps;
+        v.cues.push({ kind: 'whack', x: villager.x, pitch: between(v, 1.5, 1.8) });
+      }
+      return;
+    }
     case 'flat':
       if (villager.clock >= act.length) {
         setAct(villager, {
@@ -563,9 +591,7 @@ function assignCleaners(v: Village): void {
     const centre = (heap.left + heap.right) / 2;
     let best: Villager | null = null;
     for (const villager of v.villagers) {
-      const free = villager.act.kind === 'job' || villager.act.kind === 'back';
-      if (!free || !onstage(v, villager)) continue;
-      if (villager.job.kind === 'stroll' && villager.job.wait > 0) continue;
+      if (!isFree(v, villager)) continue;
       const d = Math.abs(villager.x - centre);
       if (d > CLEAN_RANGE) continue;
       if (!best || d < Math.abs(best.x - centre)) best = villager;
@@ -668,6 +694,30 @@ export function landPiece(v: Village, landing: Landing): void {
       v.cues.push({ kind: 'whack', x: old.x, pitch: 0.8 });
     }
   }
+}
+
+/**
+ * Calls up to `count` of the closest free villagers to build something `width` wide at `at` (the
+ * home page's menu, after it fell): they run over, take turns at either end of it, and hammer
+ * away at it until `dismissBuilders`. Returns how many came.
+ */
+export function gatherBuilders(v: Village, at: number, count: number, width: number): number {
+  const free = v.villagers
+    .filter((villager) => isFree(v, villager))
+    .sort((a, b) => Math.abs(a.x - at) - Math.abs(b.x - at))
+    .slice(0, count);
+  free.forEach((villager, i) => {
+    const side = i % 2 ? 1 : -1;
+    const spot = at + side * (width / 2 + 0.45 + Math.floor(i / 2) * 1.1);
+    setAct(villager, { kind: 'build', spot, at, taps: 0 });
+  });
+  return free.length;
+}
+
+/** The building's done: the builders cheer, then go back to their jobs. */
+export function dismissBuilders(v: Village): void {
+  for (const villager of v.villagers)
+    if (villager.act.kind === 'build') setAct(villager, { kind: 'proud', length: 1.6 });
 }
 
 /** The sounds since last time. */
@@ -813,6 +863,13 @@ export function villagerLook(v: Village, villager: Villager): VillagerLook {
       const since = villager.clock - BLOW;
       const struck = since >= 0 && since % SWING < 0.22;
       return { ...look, pose: struck ? 'attack0' : 'attack1', tool: 'mallet' };
+    }
+    case 'build': {
+      if (Math.abs(villager.x - act.spot) > 0.01)
+        return { ...look, pose: runFrame(villager.stride) };
+      // Raised, then down on the tap (in step with the cue above).
+      const up = (villager.clock + 0.2) % HAMMER < HAMMER * 0.6;
+      return { ...look, pose: up ? 'switch0' : 'switch1', tool: 'hammer' };
     }
     case 'proud':
       return {

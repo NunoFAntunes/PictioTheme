@@ -11,6 +11,7 @@ import {
   type Frame,
   type Grid,
 } from './grid';
+import { meltGrid, type Melt } from './melt';
 import {
   centroid,
   convexHull,
@@ -97,6 +98,8 @@ export type Piece = {
   bounds: { x: number; y: number; width: number; height: number };
   /** Which normalization rule set the scale. */
   limitedBy: 'area' | 'length' | 'thickness';
+  /** A melted piece: how its drawing droops (meltShift), to warp the doodle the same way. */
+  melt?: Melt;
 };
 
 /** What the drawer's live preview shows: the cells that make the piece and the ones dropped. */
@@ -245,6 +248,7 @@ export function makePiece(
   strokes: readonly Stroke[],
   config: ShapeConfig = DEFAULT_SHAPE_CONFIG,
   canvas = { width: CANVAS_WIDTH, height: CANVAS_HEIGHT },
+  options: { melt?: boolean } = {},
 ): ShapeResult {
   const area = frameFor(strokes, config, canvas);
   if (!area) return { ok: false, reason: 'blank', preview: null };
@@ -256,8 +260,13 @@ export function makePiece(
   const thick = dilate(ink, config.thicken);
   const solid = fillEnclosed(closing(thick, config.close));
   // 4: the main blob.
-  const blob = pickBlob(solid, config.bridge, config.minCells, config.fillet);
-  if (!blob) return { ok: false, reason: 'blank', preview: null };
+  const picked = pickBlob(solid, config.bridge, config.minCells, config.fillet);
+  if (!picked) return { ok: false, reason: 'blank', preview: null };
+  // The Melt curse: the cells droop and round off before they're traced.
+  const melted = options.melt ? meltGrid(picked.main, frame) : null;
+  const blob = melted
+    ? { main: melted.cells, dropped: createGrid(melted.cells.cols, melted.cells.rows) }
+    : picked;
 
   // 5–6: outline in logical px, simplified, split into convex parts.
   const shape = shapeOf(blob.main, frame, config);
@@ -304,7 +313,25 @@ export function makePiece(
       origin: { x: cx, y: cy },
       bounds: { x: minX, y: minY, width: Math.max(...xs) - minX, height: Math.max(...ys) - minY },
       limitedBy,
+      ...(melted && { melt: melted.melt }),
     },
     preview,
+  };
+}
+
+/**
+ * The same piece, `areaFactor` times the area (the `big_ice` curse, docs/tower/planning/power-ups.md).
+ * The drawing stays where it is on the canvas, so only the world geometry and the scale grow; the
+ * doodle's bitmap follows through `scale`. Caps on length don't apply: being too big is the point.
+ */
+export function bloat<T extends Piece>(piece: T, areaFactor: number): T {
+  const k = Math.sqrt(areaFactor);
+  const grow = (poly: FlatPolygon) => poly.map((v) => v * k);
+  return {
+    ...piece,
+    outline: grow(piece.outline),
+    parts: piece.parts.map(grow),
+    area: piece.area * areaFactor,
+    scale: piece.scale * k,
   };
 }

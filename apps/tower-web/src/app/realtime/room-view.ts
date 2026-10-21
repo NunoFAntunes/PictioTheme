@@ -2,7 +2,10 @@ import type { PlayerId } from '@pictiotheme/protocol';
 import {
   TEAMS,
   type CrewView,
+  type Curse,
   type Deciding,
+  type Spell,
+  type SpellReason,
   type MatchResults,
   type Team,
   type TowerPhase,
@@ -32,10 +35,27 @@ export type FeedEntry = {
 export type RoomEvent = {
   key: number;
   at: number;
-  kind: 'solved' | 'stolen' | 'expired' | 'blank' | 'fumble' | 'sent';
+  kind:
+    | 'solved'
+    | 'stolen'
+    | 'expired'
+    | 'blank'
+    | 'fumble'
+    | 'sent'
+    /** `team` got `spell`, for `reason`. */
+    | 'gained'
+    /** `playerId` cast `spell` at `team`'s tower. */
+    | 'cast'
+    /** A magpie took `word` (`pieceId`) from `team` for `playerId`. */
+    | 'magpied';
   team: Team;
   playerId?: PlayerId;
+  pieceId?: number;
   word?: string;
+  /** A cursed piece's curses. */
+  curses?: Curse[];
+  spell?: Spell;
+  reason?: SpellReason;
 };
 
 export type RoomView = {
@@ -149,7 +169,15 @@ export function applyServerMessage(view: RoomView, msg: TowerServerMessage, now:
       const next: RoomView = {
         ...view,
         pieces: piece
-          ? { ...view.pieces, [msg.pieceId]: { ...piece, tower: msg.tower, sent: msg.sent } }
+          ? {
+              ...view.pieces,
+              [msg.pieceId]: {
+                ...piece,
+                tower: msg.tower,
+                sent: msg.sent,
+                ...(msg.shape && { shape: msg.shape }),
+              },
+            }
           : view.pieces,
         deciding: view.deciding.filter((d) => d.pieceId !== msg.pieceId),
       };
@@ -161,8 +189,9 @@ export function applyServerMessage(view: RoomView, msg: TowerServerMessage, now:
             at: now,
             kind: 'sent',
             team: msg.tower,
-            playerId: piece.solvedBy,
+            playerId: piece.deciderId,
             word: piece.word,
+            curses: piece.curses,
           })
         : queued;
     }
@@ -190,6 +219,43 @@ export function applyServerMessage(view: RoomView, msg: TowerServerMessage, now:
       });
       return pushEvent(next, { at: now, kind: 'fumble', team: msg.tower });
     }
+    case 'crew:charges': {
+      const next = withCrew(view, msg.team, { charges: msg.charges });
+      return msg.gained
+        ? pushEvent(next, { at: now, kind: 'gained', team: msg.team, ...msg.gained })
+        : next;
+    }
+    case 'crew:spell': {
+      const next = withCrew(view, msg.team, { spell: msg.spell });
+      return msg.spell
+        ? pushEvent(next, {
+            at: now,
+            kind: 'cast',
+            team: msg.team,
+            playerId: msg.spell.casterId,
+            spell: msg.spell.spell,
+          })
+        : next;
+    }
+    case 'crew:star':
+      return withCrew(view, msg.team, { star: msg.star });
+    case 'piece:magpied': {
+      const piece = view.pieces[msg.pieceId];
+      let next = withCrew(view, msg.from, {
+        queue: view.crews[msg.from].queue.filter((id) => id !== msg.pieceId),
+      });
+      next = withCrew(next, msg.to, { queue: [...next.crews[msg.to].queue, msg.pieceId] });
+      if (piece)
+        next = { ...next, pieces: { ...next.pieces, [msg.pieceId]: { ...piece, tower: msg.to } } };
+      return pushEvent(next, {
+        at: now,
+        kind: 'magpied',
+        team: msg.from,
+        playerId: msg.casterId,
+        pieceId: msg.pieceId,
+        ...(piece && { word: piece.word }),
+      });
+    }
     case 'match:end':
       return {
         ...view,
@@ -198,7 +264,7 @@ export function applyServerMessage(view: RoomView, msg: TowerServerMessage, now:
         matchEndsAt: null,
         deciding: [],
         crews: Object.fromEntries(
-          TEAMS.map((t) => [t, { ...view.crews[t], round: null, placing: null }]),
+          TEAMS.map((t) => [t, { ...view.crews[t], round: null, placing: null, spell: null }]),
         ) as Record<Team, CrewView>,
       };
     case 'error':

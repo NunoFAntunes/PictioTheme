@@ -21,8 +21,9 @@ The look is bright and playful, close to *Tricky Towers*: two towers rising out 
 | Pieces | The doodle itself, cut out of paper, with a soft shadow. The piece being placed floats down under a **bunch of balloons** |
 | Height line | A string of **bunting** across the view with a "TOP OUT" tag. While a tower is topping out, the bunting turns gold and white and flutters, and the villagers at its foot jump and cheer |
 | Typography | Display: **Lilita One** (chunky, rounded). UI text: **Fredoka**. Both Google Fonts (OFL), self-hosted by Astro. Titles straight on the sky are white with a dark outline (`title-outline`) |
-| Avatar | A doodled face under a **bobble hat**, in a colour picked from the name (until players draw their own) |
-| Motion | Light and bouncy: the title bobs, clouds drift, balloons sway. Villagers work at their jobs, each in their own spot (only passers-by cross the lane), so the ground looks lived in without anything running about for no reason. Everything moving on its own stops with `prefers-reduced-motion` |
+| Logo | "Doodle Tower" in Lilita One, outlined like every title, with the game in it: the three O's are **balloons** you can pop (they blow up again), and the T is the **stone plinth with its grassy cap** (`features/home/components/TowerLogo.tsx`) |
+| Avatar | The player's own drawing, **cut out like a block** (drawn on the home page). Until they draw, a doodled face under a **bobble hat**, in a colour picked from the name |
+| Motion | Light and bouncy: the logo's balloons tug at their strings, clouds drift, balloons sway, the home page's menu drifts under its balloons. Villagers work at their jobs, each in their own spot (only passers-by cross the lane), so the ground looks lived in without anything running about for no reason. Everything moving on its own stops with `prefers-reduced-motion`: CSS animations run once, instantly, so loops stop where they end (`global.css`) |
 | Sound | Light and cartoony: a bouncy, clappy theme ([music](#music)), little synthesised jingles for the match's moments ([game sounds](#game-sounds)) and the village's thumps and voices ([below](#village-sounds)) |
 
 ### Villagers
@@ -30,7 +31,8 @@ The look is bright and playful, close to *Tricky Towers*: two towers rising out 
 Code: `features/scenery/village.ts` (the simulation, pure and seeded, unit-tested), `village-draw.ts` (drawing), and `features/tower/fallout.ts` (the tower's village and its fallen pieces). Each player has their own village: it's cosmetic, the server knows nothing about it, and two players never see the same thing.
 
 - **Jobs.** Everyone has one and stays at it: two neighbours **chatting** (taking turns, with speech bubbles, now and then a laugh), someone **hammering** at a fence, someone **watering** a flower bed, someone **sweeping** the lane, someone **carrying crates** from one pile to the other, and (by a tower) someone **watching** it go up. **Passers-by** walk in from one side and out the other, sometimes with a crate, sometimes stopping to wave, and come back a while later, maybe as somebody else. Tower villages put the busiest jobs either side of the plinth, where pieces fall.
-- **A piece falls off** (tower views only; the home page and the waiting room only get the jobs). The physics forgets a fumbled piece 2 units under the platform, nearly on the ground; it carries on falling with the speed it had and lands on the lane with a thump, where it stays. Everyone within 7 units **jumps** with a "!", everyone further off **turns to look** with a "?".
+- **A piece falls off** (tower views; and on the home page, the menu, when all its balloons are popped: see [screens.md](screens.md#1-home)).
+- **Building** (home page only): after the menu fell, the closest free villagers run to either end of where it's rebuilt and hammer away, a tap a blow, until it floats off; then they cheer and go back to their jobs. The physics forgets a fumbled piece 2 units under the platform, nearly on the ground; it carries on falling with the speed it had and lands on the lane with a thump, where it stays. Everyone within 7 units **jumps** with a "!", everyone further off **turns to look** with a "?".
 - **Clean-up.** The closest villager who's free **runs over and breaks it up with a mallet**: the piece is cut into a grid of about nine cells, and each blow knocks off the nearest one, which flies away spinning, with crumbs. Then a little cheer, and back to work. More than six heaps about and the oldest one nobody's on crumbles by itself.
 - **Squashed.** Anyone a piece lands on is **flattened under it**, then waddles about flat for ten seconds or so, squeaking at every other step, with stars round their head, then **pops back** into shape and goes back to work. Somebody else cleans up.
 - **Topping out**: everyone not otherwise busy jumps and cheers.
@@ -67,6 +69,34 @@ Code: `room-cues.ts` picks them from what changed in the room view (pure, unit-t
 | Rising shimmer / two-tone alarm | Your tower / theirs went over the line (topping out) |
 | Woodblock ticks | The match's last 10 s, and the last 3 s of your own placing (sharper for the last 3) |
 | Fanfare / sad trombone / shrug | You won / lost / it's a draw |
+
+The powers' sounds ([power-ups.md](../planning/power-ups.md)):
+
+| Sound | When |
+|---|---|
+| Glittery run up | A golden word comes up (either crew's) |
+| Magic chime / cascade of twinkles | Your crew got a spell / caught a sky star |
+| Two soft twinkles / a slowly rising tone | A star appeared by your tower / a piece of yours is holding it |
+| Rising whoosh with a zap / "dun, dun, dunnn" | Your crew cast a spell / one was cast at your tower |
+| Long low whoosh over a hum | Fog rolls in (either tower, when it starts) |
+| Two caws | A magpie arrives |
+| Wobbly warble | Shaky hand starts |
+| "Coo-roo… coo" | A pigeon lands |
+| A caw and a "ting" | The magpie took a piece |
+| Wings flapping | A pigeon flies off |
+| Boing / squelch / glassy tink | A bouncy / melted / icy piece lands on your tower |
+
+### Home sounds
+
+Code: `features/sound/home-sounds.ts`, synthesised.
+
+| Sound | When |
+|---|---|
+| Pop (a crack of bright noise over a low thump) | A balloon in the logo is popped |
+| Rubbery squeak, rising | A new one blows up |
+| "Wheee" (a slide up with a sparkle) | The menu's balloons lift off to a game, or carry the rebuilt menu back up |
+| Pop | A balloon of the menu is popped |
+| The village's sounds | The menu falls into the village (thump, yelps, squish, whacks), and the builders' hammers (a higher whack) |
 
 ### Village sounds
 

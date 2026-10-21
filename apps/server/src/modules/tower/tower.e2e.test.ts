@@ -178,7 +178,7 @@ describe('Doodle Tower, end to end', () => {
     expect(made.piece.shape.parts.length).toBe(1);
 
     // The drawer chooses (and places it, being free now).
-    drawer.send({ t: 'piece:decide', pieceId: made.piece.id, choice: 'build' });
+    drawer.send({ t: 'piece:decide', pieceId: made.piece.id, choice: 'keep' });
     const start = await host.next('place:start', (m) => m.tower === 'orange');
     expect(start.placing.pieceId).toBe(made.piece.id);
     // The physics worker spawned it: frames come in with it.
@@ -211,5 +211,35 @@ describe('Doodle Tower, end to end', () => {
     expect(poses.bodies[0]).toBe(made.piece.id);
 
     for (const s of [...sockets, late]) s.close();
+  });
+
+  it('test mode: one player, bots, a "guess correctly" button, and the rival bot places', async () => {
+    const p = player();
+    await p.startSession();
+    const body = { displayName: 'Tess', avatar: testAvatar([40, 120, 240]), testMode: true };
+    const res = await p.request('POST', '/api/tower/rooms', body);
+    expect(res.status).toBe(200);
+    const me = await p.connect<TowerServerMessage, TowerClientMessage>(
+      (res.body as JoinRoomResponse).joinToken,
+      '/ws/tower',
+    );
+    const waiting = await me.next('room:snapshot');
+    expect(waiting.settings).toMatchObject({ testMode: true, isPublic: false });
+
+    me.send({ t: 'match:start' });
+    const playing = await me.next('room:snapshot', (m) => m.phase === 'playing', 5_000);
+    // The drawer bots have each drawn a rectangle.
+    expect(playing.crews.orange.round?.strokes.map((s) => s.tool)).toEqual(['brush', 'fill']);
+
+    me.send({ t: 'test', action: { kind: 'solve', target: 'own' } });
+    const made = await me.next('piece:made');
+    expect(made.deciding.deciderId).toBe(playing.you);
+    me.send({ t: 'piece:decide', pieceId: made.piece.id, choice: 'curse' });
+    const start = await me.next('place:start', (m) => m.tower === 'teal');
+    expect(start.placing.placerId).toBe('bot-teal-builder');
+    // The bot lets it down on its own: their tower grows.
+    await me.next('place:end', (m) => m.pieceId === made.piece.id, 10_000);
+    await me.next('tower:height', (m) => m.tower === 'teal' && m.height > 0.3, 5_000);
+    me.close();
   });
 });

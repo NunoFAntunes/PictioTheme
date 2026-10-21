@@ -1,4 +1,11 @@
-import { LINE_HEIGHTS } from '@pictiotheme/protocol/tower';
+import {
+  CURSE_TUNING,
+  CURSES,
+  cursesClash,
+  LINE_HEIGHTS,
+  type Curse,
+  type TowerSettings,
+} from '@pictiotheme/protocol/tower';
 import { describe, expect, it } from 'vitest';
 import { createHarness, type Harness } from './test-harness';
 import { SPAWN_GAP, TIMINGS } from './types';
@@ -14,7 +21,7 @@ function solve(h: Harness, team: 'orange' | 'teal', by: string) {
   return made.piece.id;
 }
 
-/** Who chooses Build or Send for a piece: its drawer, or the thief. */
+/** Who chooses Keep or Curse for a piece: its drawer, or the thief. */
 function decider(h: Harness, pieceId: number): string {
   const id = h.state.match?.pieces.get(pieceId)?.deciderId;
   if (!id) throw new Error('no piece');
@@ -242,8 +249,8 @@ describe('stealing', () => {
   });
 });
 
-describe('build or send', () => {
-  it('builds: the drawer chooses and places it, while the solver draws next', () => {
+describe('keep or curse', () => {
+  it('keeps: the drawer chooses and places it, while the solver draws next', () => {
     const h = createHarness();
     h.startFour();
     const drawer = h.drawer('orange');
@@ -251,7 +258,7 @@ describe('build or send', () => {
     const pieceId = solve(h, 'orange', solver);
     expect(decider(h, pieceId)).toBe(drawer);
     expect(h.drawer('orange')).toBe(solver);
-    h.msg(drawer, { t: 'piece:decide', pieceId, choice: 'build' });
+    h.msg(drawer, { t: 'piece:decide', pieceId, choice: 'keep' });
     const placing = h.crew('orange').placing;
     expect(placing?.pieceId).toBe(pieceId);
     expect(placing?.placerId).toBe(drawer);
@@ -261,13 +268,13 @@ describe('build or send', () => {
     });
   });
 
-  it('sends: the other crew places it', () => {
+  it('curses: the other crew places it', () => {
     const h = createHarness();
     h.startFour();
     const drawer = h.drawer('orange');
     const pieceId = solve(h, 'orange', h.guesser('orange'));
     const mark = h.mark();
-    h.msg(drawer, { t: 'piece:decide', pieceId, choice: 'send' });
+    h.msg(drawer, { t: 'piece:decide', pieceId, choice: 'curse' });
     expect(h.to('p2', 'piece:queued', mark)[0]).toMatchObject({
       pieceId,
       tower: 'teal',
@@ -277,10 +284,10 @@ describe('build or send', () => {
     expect(placing?.pieceId).toBe(pieceId);
     expect(h.state.players.get(placing?.placerId ?? '')?.team).toBe('teal');
     expect(placing?.placerId).not.toBe(h.drawer('teal'));
-    expect(h.state.players.get(drawer)?.stats.sends).toBe(1);
+    expect(h.state.players.get(drawer)?.stats.curses).toBe(1);
   });
 
-  it('builds when the drawer doesn’t choose in time', () => {
+  it('keeps when the drawer doesn’t choose in time', () => {
     const h = createHarness();
     h.startFour();
     const pieceId = solve(h, 'orange', h.guesser('orange'));
@@ -293,20 +300,137 @@ describe('build or send', () => {
     h.startFour();
     const solver = h.guesser('orange');
     const pieceId = solve(h, 'orange', solver);
-    h.msg(solver, { t: 'piece:decide', pieceId, choice: 'send' });
+    h.msg(solver, { t: 'piece:decide', pieceId, choice: 'curse' });
     expect(h.to(solver, 'error').at(-1)?.code).toBe('FORBIDDEN');
     expect(h.state.match?.pieces.get(pieceId)?.tower).toBeNull();
   });
 
-  it('builds a stolen piece on the thief’s tower', () => {
+  it('keeps a stolen piece on the thief’s tower', () => {
     const h = createHarness();
     h.startFour();
     const thief = h.guesser('teal');
     const pieceId = solve(h, 'orange', thief);
     expect(decider(h, pieceId)).toBe(thief);
-    h.msg(thief, { t: 'piece:decide', pieceId, choice: 'build' });
+    h.msg(thief, { t: 'piece:decide', pieceId, choice: 'keep' });
     expect(h.state.match?.pieces.get(pieceId)?.tower).toBe('teal');
     expect(h.crew('teal').placing?.placerId).toBe(thief);
+  });
+});
+
+describe('curses', () => {
+  /** A piece solved by orange, with its rolled curse replaced by `curse`, then cursed. */
+  function cursed(curse: Curse, settings: Partial<TowerSettings> = {}) {
+    const h = createHarness({ settings });
+    h.startFour();
+    const drawer = h.drawer('orange');
+    const pieceId = solve(h, 'orange', h.guesser('orange'));
+    const piece = h.state.match?.pieces.get(pieceId);
+    if (!piece) throw new Error('no piece');
+    const area = piece.shape.area;
+    if (piece.curses.length) piece.curses = [curse];
+    const mark = h.mark();
+    h.msg(drawer, { t: 'piece:decide', pieceId, choice: 'curse' });
+    const spawn = h.physics.at(-1)?.physics;
+    if (spawn?.op !== 'spawn') throw new Error('not spawned');
+    return { h, pieceId, piece, area, mark, spawn };
+  }
+
+  it('rolls one when the piece is made, for everyone to see on the decide card', () => {
+    const h = createHarness();
+    h.startFour();
+    h.drawBrick('orange');
+    const mark = h.mark();
+    h.msg(h.guesser('orange'), { t: 'guess', text: h.word('orange') });
+    const made = h.to('p2', 'piece:made', mark)[0];
+    expect(made?.piece.curses).toHaveLength(1);
+    expect(CURSES).toContain(made?.piece.curses[0]);
+  });
+
+  it('rolls every curse over enough pieces, the same way for the same seed', () => {
+    const rolled = (seed: number) => {
+      const h = createHarness({ seed });
+      h.startFour();
+      return h.state.match?.pieces.get(solve(h, 'orange', h.guesser('orange')))?.curses[0];
+    };
+    const seeds = Array.from({ length: 30 }, (_, i) => i + 1);
+    expect(new Set(seeds.map(rolled))).toEqual(new Set(CURSES));
+    expect(seeds.map(rolled)).toEqual(seeds.map(rolled));
+  });
+
+  it('does nothing to a piece that is kept', () => {
+    const h = createHarness();
+    h.startFour();
+    const pieceId = solve(h, 'orange', h.guesser('orange'));
+    const piece = h.state.match?.pieces.get(pieceId);
+    if (piece) piece.curses = ['big_ice'];
+    h.msg(decider(h, pieceId), { t: 'piece:decide', pieceId, choice: 'keep' });
+    const spawn = h.physics.at(-1)?.physics;
+    expect(spawn).not.toHaveProperty('friction');
+    expect(spawn).not.toHaveProperty('restitution');
+    expect(h.crew('orange').placing?.endsAt).toBe(h.now + TIMINGS.placeMs);
+    expect(h.state.match?.pieces.get(pieceId)?.shape.area).toBe(piece?.shape.area);
+  });
+
+  it('slippery: the piece spawns with almost no friction', () => {
+    const { spawn, h } = cursed('slippery');
+    expect(spawn.friction).toBe(CURSE_TUNING.friction);
+    expect(spawn).not.toHaveProperty('restitution');
+    expect(h.crew('teal').placing?.endsAt).toBe(h.now + TIMINGS.placeMs);
+  });
+
+  it('big ice: the piece grows and is slippery, and everyone gets its new shape', () => {
+    const { spawn, h, area, mark } = cursed('big_ice');
+    expect(spawn.friction).toBe(CURSE_TUNING.friction);
+    const queued = h.to('p2', 'piece:queued', mark)[0];
+    expect(queued?.shape?.area).toBeCloseTo(area * CURSE_TUNING.bloat, 6);
+    expect(spawn.outline).toEqual(queued?.shape?.outline);
+  });
+
+  it('melt: the piece is made again from the drawing, drooping', () => {
+    const { spawn, h, area, mark } = cursed('melt');
+    const queued = h.to('p2', 'piece:queued', mark)[0];
+    expect(queued?.shape?.melt?.sag).toBeGreaterThan(0);
+    expect(queued?.shape?.area).toBeCloseTo(area, 6);
+    expect(spawn.outline).toEqual(queued?.shape?.outline);
+    expect(spawn).not.toHaveProperty('friction');
+  });
+
+  it('blob: melted and bigger', () => {
+    const { h, area, mark } = cursed('blob');
+    const shape = h.to('p2', 'piece:queued', mark)[0]?.shape;
+    expect(shape?.melt).toBeDefined();
+    expect(shape?.area).toBeCloseTo(area * CURSE_TUNING.bloat, 6);
+  });
+
+  it('bouncy: the piece spawns bouncy, for a while after it lands', () => {
+    const { spawn, h, mark } = cursed('bouncy');
+    expect(spawn).toMatchObject({
+      restitution: CURSE_TUNING.restitution,
+      bouncyMs: CURSE_TUNING.bouncyMs,
+    });
+    expect(h.to('p2', 'piece:queued', mark)[0]).not.toHaveProperty('shape');
+  });
+
+  it('gives a golden word’s piece two curses that don’t clash', () => {
+    for (let seed = 1; seed <= 40; seed++) {
+      const h = createHarness({ seed });
+      h.startFour();
+      const round = h.crew('orange').round;
+      if (round) round.golden = true;
+      const pieceId = solve(h, 'orange', h.guesser('orange'));
+      const [a, b] = h.state.match?.pieces.get(pieceId)?.curses ?? [];
+      expect(a && b).toBeTruthy();
+      expect(cursesClash(a as Curse, b as Curse)).toBe(false);
+    }
+  });
+
+  it('with powers off, rolls none and sends the piece as it is', () => {
+    const { piece, spawn, h, area, mark } = cursed('big_ice', { powers: false });
+    expect(piece.curses).toEqual([]);
+    expect(spawn).not.toHaveProperty('friction');
+    expect(h.to('p2', 'piece:queued', mark)[0]).not.toHaveProperty('shape');
+    expect(piece.shape.area).toBe(area);
+    expect(piece.tower).toBe('teal');
   });
 });
 
@@ -315,7 +439,7 @@ describe('placing', () => {
     const h = createHarness();
     h.startWith(players);
     const pieceId = solve(h, 'orange', h.guesser('orange'));
-    h.msg(decider(h, pieceId), { t: 'piece:decide', pieceId, choice: 'build' });
+    h.msg(decider(h, pieceId), { t: 'piece:decide', pieceId, choice: 'keep' });
     const placerId = h.crew('orange').placing?.placerId ?? '';
     return { h, pieceId, placerId };
   }
@@ -357,7 +481,7 @@ describe('placing', () => {
     const { h, pieceId } = placingPiece(6);
     // A second orange piece while the first is still being placed.
     const second = solve(h, 'orange', h.guesser('orange'));
-    h.msg(decider(h, second), { t: 'piece:decide', pieceId: second, choice: 'build' });
+    h.msg(decider(h, second), { t: 'piece:decide', pieceId: second, choice: 'keep' });
     expect(h.crew('orange').queue.map((q) => q.pieceId)).toEqual([second]);
     h.dispatch({ type: 'released', tower: 'orange', pieceId });
     expect(h.crew('orange').placing?.pieceId).toBe(second);
@@ -465,7 +589,7 @@ describe('players coming and going', () => {
     const solver = h.guesser('orange');
     const pieceId = solve(h, 'orange', solver);
     // The solver is now drawing; the first drawer keeps it and places it. Then teal steals:
-    h.msg(drawer, { t: 'piece:decide', pieceId, choice: 'build' });
+    h.msg(drawer, { t: 'piece:decide', pieceId, choice: 'keep' });
     expect(h.crew('orange').placing?.placerId).toBe(drawer);
     h.drawBrick('orange');
     h.msg('p2', { t: 'guess', text: h.word('orange') });
@@ -508,18 +632,18 @@ describe('words', () => {
 });
 
 describe('results', () => {
-  it('awards the thief and the sender, and goes back to the waiting room on a rematch', () => {
+  it('awards the thief and the curser, and goes back to the waiting room on a rematch', () => {
     const h = createHarness();
     h.startFour();
     const thief = h.guesser('teal');
     const pieceId = solve(h, 'orange', thief);
-    h.msg(thief, { t: 'piece:decide', pieceId, choice: 'send' });
+    h.msg(thief, { t: 'piece:decide', pieceId, choice: 'curse' });
     h.dispatch({ type: 'height', tower: 'orange', height: 20 });
     h.advance(TIMINGS.toppingMs);
     expect(h.state.results?.awards).toEqual(
       expect.arrayContaining([
         { kind: 'best_thief', playerId: thief },
-        { kind: 'meanest_sender', playerId: thief },
+        { kind: 'meanest_curser', playerId: thief },
       ]),
     );
     h.msg('p1', { t: 'match:rematch' });

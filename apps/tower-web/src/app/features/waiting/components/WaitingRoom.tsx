@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import {
   LINE_HEIGHTS,
   TEAMS,
@@ -13,9 +14,13 @@ import { Avatar } from '../../../ui/Avatar';
 import { Button } from '../../../ui/Button';
 import { CREW_BG, CREW_NAME } from '../../../ui/CrewBadge';
 import { Panel } from '../../../ui/Panel';
+import { Segmented } from '../../../ui/Segmented';
+import { Switch } from '../../../ui/Switch';
 import { InviteCard } from './InviteCard';
 
 function startProblem(view: RoomView): string | null {
+  // Bots fill the crews in test mode.
+  if (view.settings.testMode) return null;
   const count = (team: Team) => view.players.filter((p) => p.connected && p.team === team).length;
   if (TEAMS.some((t) => count(t) < TOWER_MIN_PER_CREW)) {
     return `Each crew needs ${TOWER_MIN_PER_CREW} players`;
@@ -33,7 +38,7 @@ function CrewColumn({ team, view }: { team: Team; view: RoomView }) {
   return (
     <section
       aria-label={`${CREW_NAME[team]} crew`}
-      className="flex min-h-72 flex-col overflow-hidden rounded-3xl border-4 border-white bg-dusk-900 shadow-panel"
+      className="flex min-h-0 flex-col overflow-hidden rounded-3xl border-4 border-white bg-dusk-900 shadow-panel"
     >
       <header
         className={`flex items-center justify-between rounded-t-md px-4 py-2 ${CREW_BG[team]}`}
@@ -43,13 +48,13 @@ function CrewColumn({ team, view }: { team: Team; view: RoomView }) {
           {members.length}/{TOWER_MAX_PER_CREW}
         </span>
       </header>
-      <ul className="flex-1 space-y-1.5 p-3">
+      <ul className="min-h-0 flex-1 space-y-1 overflow-y-auto p-2.5">
         {members.map((p: TowerPlayer) => (
           <li
             key={p.id}
-            className={`flex items-center gap-3 rounded-xl bg-dusk-800 px-3 py-2 ${p.connected ? '' : 'opacity-50'}`}
+            className={`flex items-center gap-2.5 rounded-xl bg-dusk-800 px-2.5 py-1 ${p.connected ? '' : 'opacity-50'}`}
           >
-            <Avatar id={p.avatar} name={p.name} />
+            <Avatar id={p.avatar} name={p.name} size={30} />
             <span className="min-w-0 flex-1 truncate font-semibold">
               {p.name}
               {p.id === view.you && <span className="ml-2 text-xs text-cloud-dim">(you)</span>}
@@ -73,7 +78,7 @@ function CrewColumn({ team, view }: { team: Team; view: RoomView }) {
         ))}
       </ul>
       {me?.team !== team && (
-        <div className="p-3 pt-0">
+        <div className="p-2.5 pt-0">
           <Button
             className="w-full"
             onClick={() => sendToRoom({ t: 'crew:join', team })}
@@ -87,118 +92,171 @@ function CrewColumn({ team, view }: { team: Team; view: RoomView }) {
   );
 }
 
-function Choice<T extends string | number | boolean>({
+/** One rule on its own little plank: an icon tile, its name, and the control at the end. */
+function Rule({
+  icon,
+  tile,
   label,
-  value,
-  options,
-  onPick,
-  disabled,
+  children,
 }: {
+  icon: string;
+  /** The icon tile's colour. */
+  tile: string;
   label: string;
-  value: T;
-  options: { value: T; label: string }[];
-  onPick: (value: T) => void;
-  disabled: boolean;
+  children: ReactNode;
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <span className="w-28 text-sm font-semibold text-ink/75">{label}</span>
-      <div className="flex gap-1" role="radiogroup" aria-label={label}>
-        {options.map((o) => (
-          <Button
-            key={String(o.value)}
-            pressed={o.value === value}
-            disabled={disabled}
-            onClick={() => onPick(o.value)}
-            className="text-xs"
-          >
-            {o.label}
-          </Button>
-        ))}
-      </div>
+    <div className="flex min-w-0 items-center gap-3 rounded-2xl bg-card-light py-1.5 pr-2 pl-1.5 shadow-[0_3px_0_var(--color-card-edge)]">
+      <span
+        aria-hidden="true"
+        className={`flex size-9 shrink-0 -rotate-3 items-center justify-center rounded-xl border-[3px] border-ink text-lg leading-none ${tile}`}
+      >
+        {icon}
+      </span>
+      <span className="min-w-0 flex-1 truncate font-display text-[15px] tracking-wide text-ink">
+        {label}
+      </span>
+      {children}
     </div>
   );
 }
 
-/** Before a match: the invite card, the crews, the host's settings. */
-export function WaitingRoom({ view }: { view: RoomView }) {
+const LINES = ['short', 'medium', 'tall'] as const;
+
+/** The host's settings, which everyone else sees as they are set. */
+function GameRules({ view }: { view: RoomView }) {
   const isHost = view.hostId === view.you;
-  const problem = startProblem(view);
   const set = (settings: Partial<TowerSettings>) => sendToRoom({ t: 'settings:update', settings });
   const s = view.settings;
+  const locked = !isHost;
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-5 px-5 py-6">
-      <header className="flex flex-wrap items-center gap-4">
-        <a href="/" className="title-outline font-display text-3xl tracking-wide">
-          Doodle <span className="text-sun">Tower</span>
-        </a>
-      </header>
-
-      <InviteCard view={view} />
-
-      <div className="grid gap-4 md:grid-cols-2">
-        {TEAMS.map((team) => (
-          <CrewColumn key={team} team={team} view={view} />
-        ))}
-      </div>
-
-      <Panel title={isHost ? 'Game rules' : 'Game rules (set by the host)'}>
-        <div className="space-y-2 px-2">
-          <Choice
+    <Panel
+      title="Game rules"
+      actions={
+        locked && (
+          <span className="rounded-lg bg-dusk-800 px-2 py-0.5 font-display text-xs text-cloud">
+            🔒 Set by the host
+          </span>
+        )
+      }
+    >
+      <div className="space-y-2 px-1">
+        <Rule icon="🚩" tile="bg-coral" label="Height line">
+          <Segmented
             label="Height line"
             value={s.line}
-            disabled={!isHost}
+            disabled={locked}
             onPick={(line: LineHeight) => set({ line })}
-            options={(['short', 'medium', 'tall'] as const).map((l) => ({
+            options={LINES.map((l) => ({
               value: l,
               label: `${l[0]?.toUpperCase()}${l.slice(1)} · ${LINE_HEIGHTS[l]} m`,
             }))}
           />
-          <Choice
+        </Rule>
+        <Rule icon="⏱️" tile="bg-sky-light" label="Drawing time">
+          <Segmented
             label="Drawing time"
             value={s.roundSeconds}
-            disabled={!isHost}
+            disabled={locked}
             onPick={(roundSeconds: number) => set({ roundSeconds })}
             options={[45, 60, 90].map((n) => ({ value: n, label: `${n}s` }))}
           />
-          <Choice
+        </Rule>
+        <Rule icon="💫" tile="bg-sun" label="Fumble daze">
+          <Segmented
             label="Fumble daze"
             value={s.dazeSeconds}
-            disabled={!isHost}
+            disabled={locked}
             onPick={(dazeSeconds: number) => set({ dazeSeconds })}
             options={[0, 5, 8].map((n) => ({ value: n, label: n === 0 ? 'Off' : `${n}s` }))}
           />
-          <Choice
-            label="Steals"
-            value={s.steals}
-            disabled={!isHost}
-            onPick={(steals: boolean) => set({ steals })}
-            options={[
-              { value: true, label: 'On' },
-              { value: false, label: 'Off' },
-            ]}
-          />
+        </Rule>
+        <div className="grid grid-cols-2 gap-2">
+          <Rule icon="🦝" tile="bg-crew-teal" label="Steals">
+            <Switch
+              label="Steals"
+              checked={s.steals}
+              disabled={locked}
+              onChange={(steals) => set({ steals })}
+            />
+          </Rule>
+          <Rule icon="🌀" tile="bg-[oklch(0.75_0.13_300)]" label="Curses & spells">
+            <Switch
+              label="Curses & spells"
+              checked={s.powers}
+              disabled={locked}
+              onChange={(powers) => set({ powers })}
+            />
+          </Rule>
         </div>
-      </Panel>
+      </div>
+    </Panel>
+  );
+}
 
-      <div className="flex flex-wrap items-center justify-end gap-3">
-        {isHost ? (
-          <>
-            {problem && <span className="text-sm text-cloud-dim">{problem}</span>}
-            <Button onClick={() => sendToRoom({ t: 'crew:shuffle' })}>Shuffle crews</Button>
-            <Button
-              variant="primary"
-              className="h-14 px-8 text-lg"
-              disabled={problem !== null}
-              onClick={() => sendToRoom({ t: 'match:start' })}
-            >
-              Start building
-            </Button>
-          </>
-        ) : (
-          <span className="font-display text-cloud-dim">Waiting for the host to start…</span>
-        )}
+/**
+ * Before a match (docs/tower/design/screens.md#2-waiting-room), on one screen with no scrolling:
+ * the crews and the rules on the left, the invite card and the start button on the right.
+ */
+export function WaitingRoom({ view }: { view: RoomView }) {
+  const isHost = view.hostId === view.you;
+  const problem = startProblem(view);
+
+  return (
+    <main className="mx-auto flex w-full max-w-6xl flex-col justify-center px-5 py-4 lg:h-dvh">
+      <div className="flex min-h-0 flex-1 flex-col gap-4 lg:max-h-[54rem]">
+        <header className="flex shrink-0 items-center gap-4">
+          <a href="/" className="title-outline font-display text-3xl tracking-wide">
+            Doodle <span className="text-sun">Tower</span>
+          </a>
+          {view.settings.testMode && (
+            <p className="rounded-xl bg-sun px-3 py-1 text-sm font-semibold text-sun-ink">
+              🧪 Test mode: bots fill the crews and draw rectangles. Start whenever you like.
+            </p>
+          )}
+        </header>
+
+        <div className="grid min-h-0 flex-1 gap-5 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+          <div className="flex min-h-0 flex-col gap-4">
+            <div className="grid min-h-56 flex-1 grid-cols-2 gap-4">
+              {TEAMS.map((team) => (
+                <CrewColumn key={team} team={team} view={view} />
+              ))}
+            </div>
+            <GameRules view={view} />
+          </div>
+
+          <div className="flex min-h-0 flex-col gap-4">
+            <InviteCard view={view} className="min-h-0 flex-1" />
+            <div className="card-panel flex shrink-0 flex-col gap-2 rounded-3xl p-3">
+              {isHost ? (
+                <>
+                  <div className="flex gap-3">
+                    <Button className="h-14 px-4" onClick={() => sendToRoom({ t: 'crew:shuffle' })}>
+                      🔀 Shuffle crews
+                    </Button>
+                    <Button
+                      variant="primary"
+                      className="h-14 flex-1 text-xl"
+                      disabled={problem !== null}
+                      onClick={() => sendToRoom({ t: 'match:start' })}
+                    >
+                      Start building
+                    </Button>
+                  </div>
+                  {problem && (
+                    <p className="text-center text-sm font-semibold text-ink/65">{problem}</p>
+                  )}
+                </>
+              ) : (
+                <p className="py-3 text-center font-display text-lg text-dusk-800">
+                  Waiting for the host to start…
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );

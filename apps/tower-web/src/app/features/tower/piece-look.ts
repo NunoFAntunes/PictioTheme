@@ -1,8 +1,9 @@
 import type { Piece } from '@pictiotheme/doodle-shape';
+import type { Curse } from '@pictiotheme/protocol/tower';
 import type { PieceBitmap } from '../piece';
 
-/** How a piece looks: its shape and its doodle, cut out. */
-export type PieceLook = { piece: Piece; bitmap: PieceBitmap };
+/** How a piece looks: its shape and its doodle, cut out, and the curses it carries. */
+export type PieceLook = { piece: Piece; bitmap: PieceBitmap; curses?: readonly Curse[] };
 
 /** Paints a piece's doodle with the context at its centroid, turned to its angle. */
 export function paintPiece(ctx: CanvasRenderingContext2D, look: PieceLook, ppu: number): void {

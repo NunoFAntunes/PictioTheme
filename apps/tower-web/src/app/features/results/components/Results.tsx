@@ -7,7 +7,7 @@ import { TowerPanel } from '../../game';
 
 const AWARDS: Record<TowerAward['kind'], { title: string; icon: string }> = {
   best_thief: { title: 'Best thief', icon: '🦝' },
-  meanest_sender: { title: 'Meanest sender', icon: '💣' },
+  meanest_curser: { title: 'Meanest curse', icon: '🌀' },
   master_builder: { title: 'Master builder', icon: '🧱' },
   quickest_guesser: { title: 'Quickest guesser', icon: '⚡' },
 };
@@ -73,8 +73,8 @@ export function Results({ view }: { view: RoomView }) {
                   <th className="px-1 text-right font-semibold" title="Steals">
                     🦝
                   </th>
-                  <th className="px-1 text-right font-semibold" title="Sends">
-                    💣
+                  <th className="px-1 text-right font-semibold" title="Curses">
+                    🌀
                   </th>
                   <th className="px-1 text-right font-semibold" title="Placed">
                     🧱
@@ -94,7 +94,7 @@ export function Results({ view }: { view: RoomView }) {
                     <td className="px-1 text-right tabular-nums">{p.drawings}</td>
                     <td className="px-1 text-right tabular-nums">{p.solves}</td>
                     <td className="px-1 text-right tabular-nums">{p.steals}</td>
-                    <td className="px-1 text-right tabular-nums">{p.sends}</td>
+                    <td className="px-1 text-right tabular-nums">{p.curses}</td>
                     <td className="px-1 text-right tabular-nums">{p.placements}</td>
                   </tr>
                 ))}

@@ -1,4 +1,4 @@
-import { makePiece } from '@pictiotheme/doodle-shape';
+import { bloat, DEFAULT_SHAPE_CONFIG, makePiece } from '@pictiotheme/doodle-shape';
 import {
   buildMask,
   classifyGuess,
@@ -10,15 +10,23 @@ import {
 } from '@pictiotheme/game-core';
 import type { Card, PlayerId } from '@pictiotheme/protocol';
 import {
+  curseEffects,
+  type Curse,
   LINE_HEIGHTS,
+  SPELL_TUNING,
   TEAMS,
   TOWER_MIN_PER_CREW,
   type MatchResults,
   type PieceChoice,
   type RoundEndOutcome,
+  type Spell,
   type Team,
   type TowerAward,
 } from '@pictiotheme/protocol/tower';
+import { addBots, botDropX, isBot, isTestRoom, rectangleStrokes } from './bots';
+import { activeCurses, rollCurses } from './curses';
+import { checkBehind, comeback, grantCharge, rollGolden } from './spells';
+import { onStarTouch, scheduleStars } from './stars';
 import { cancel, connectedIds, crewIds, schedule, send, sendError, sendToAll } from './output';
 import {
   emptyStats,
@@ -36,8 +44,8 @@ import { decidingOf, pieceView, roundView, snapshotFor } from './views';
 
 /**
  * A match (docs/tower/product/game-rules.md): both crews' rounds run side by side and nonstop;
- * a solved drawing becomes a piece, its drawer builds with it or sends it, and the crew whose
- * tower it's for places it. The first tower to stay above the line for 3s wins.
+ * a solved drawing becomes a piece, its drawer keeps it or curses it and sends it, and the crew
+ * whose tower it's for places it. The first tower to stay above the line for 3s wins.
  */
 
 /**
@@ -60,6 +68,9 @@ function members(c: Ctx, team: Team) {
 // ── Start and end ────────────────────────────────────────────────────────────
 
 export function canStart(c: Ctx): string | null {
+  // Bots fill the crews (bots.ts): anyone can try the powers alone.
+  if (isTestRoom(c))
+    return crewIds(c, 'orange').length + crewIds(c, 'teal').length > 0 ? null : 'Join a crew';
   for (const team of TEAMS) {
     if (crewIds(c, team).length < TOWER_MIN_PER_CREW) {
       return `Each crew needs at least ${TOWER_MIN_PER_CREW} players`;
@@ -82,12 +93,19 @@ function newCrew(team: Team): Crew {
     height: 0,
     sentHeight: 0,
     toppingSince: null,
+    charges: [],
+    spell: null,
+    lastGolden: false,
+    behindSince: null,
+    comebackAt: null,
+    star: null,
   };
 }
 
 export function startMatch(c: Ctx): void {
   const { state } = c;
   const words = state.words ?? [];
+  if (isTestRoom(c)) addBots(c);
   state.match = {
     startedAt: c.now,
     endsAt: c.now + TIMINGS.matchMs,
@@ -103,6 +121,7 @@ export function startMatch(c: Ctx): void {
   for (const p of state.players.values()) p.stats = emptyStats();
   cancel(c, 'idle');
   schedule(c, 'match', state.match.endsAt);
+  scheduleStars(c, true);
   for (const team of TEAMS) {
     c.fx.push({ kind: 'physics', tower: team, physics: { op: 'reset', line: lineHeight(c) } });
     startRound(c, team, false);
@@ -122,7 +141,7 @@ function awards(c: Ctx): TowerAward[] {
   };
   return [
     ...top('best_thief', (p) => p.stats.steals),
-    ...top('meanest_sender', (p) => p.stats.sends),
+    ...top('meanest_curser', (p) => p.stats.curses),
     ...top('master_builder', (p) => p.stats.placements),
     // Quickest: the smallest time wins, so score by its inverse.
     ...top('quickest_guesser', (p) =>
@@ -136,7 +155,7 @@ export function finishMatch(c: Ctx, winner: Team | null, reason: MatchEndReason)
   if (!m) return;
   const { state } = c;
   for (const team of TEAMS) {
-    for (const t of ['round', 'hint', 'place', 'daze', 'topping'] as const)
+    for (const t of ['round', 'hint', 'place', 'daze', 'topping', 'spell', 'star'] as const)
       cancel(c, `${t}:${team}`);
     c.fx.push({ kind: 'physics', tower: team, physics: { op: 'stop' } });
     m.crews[team].round = null;
@@ -148,6 +167,7 @@ export function finishMatch(c: Ctx, winner: Team | null, reason: MatchEndReason)
     }
   }
   cancel(c, 'match');
+  cancel(c, 'stars');
   const results: MatchResults = {
     winner,
     reason,
@@ -162,7 +182,7 @@ export function finishMatch(c: Ctx, winner: Team | null, reason: MatchEndReason)
               drawings: p.stats.drawings,
               solves: p.stats.solves,
               steals: p.stats.steals,
-              sends: p.stats.sends,
+              curses: p.stats.curses,
               placements: p.stats.placements,
               fumbles: p.stats.fumbles,
             },
@@ -193,7 +213,8 @@ export function onMatchTimer(c: Ctx): void {
  * of two would otherwise stall: its only guesser can't draw and place at once).
  */
 function nextDrawer(c: Ctx, crew: Crew): PlayerId | null {
-  const list = members(c, crew.team);
+  // In test mode only the drawer bots draw: the people guess, decide, place and cast.
+  const list = members(c, crew.team).filter((p) => !isTestRoom(c) || p.bot === 'drawer');
   if (list.length === 0) return null;
   const start = crew.lastDrawerId ? list.findIndex((p) => p.id === crew.lastDrawerId) : -1;
   for (let k = 1; k <= list.length; k++) {
@@ -232,7 +253,7 @@ function dealCard(c: Ctx, m: Match, team: Team): Card | null {
 }
 
 /** Sends a crew's new round to everyone: the word to the drawer, the mask to the crew. */
-function announceRound(c: Ctx, team: Team, round: Round): void {
+export function announceRound(c: Ctx, team: Team, round: Round): void {
   for (const id of [...c.state.players.values()].filter((p) => p.connected).map((p) => p.id)) {
     send(c, id, { t: 'round:start', team, round: roundView(c.state, team, round, id) });
   }
@@ -257,11 +278,18 @@ export function startRound(c: Ctx, team: Team, announce = true): void {
     endsAt: c.now + roundMs,
     maskShown: false,
     revealed: new Set(),
+    golden: rollGolden(c, crew),
+    shaky: new Set(),
     nextHintAt: c.now + roundMs / (MAX_HINTS + 1),
     strokes: [],
     redo: [],
     points: 0,
   };
+  if (isTestRoom(c)) {
+    const spell = crew.spell;
+    const shaky = spell?.spell === 'shaky' && c.now >= spell.startsAt && c.now < spell.endsAt;
+    round.strokes = rectangleStrokes(c.rng, round.id, shaky);
+  }
   crew.round = round;
   crew.lastDrawerId = drawerId;
   const drawer = c.state.players.get(drawerId);
@@ -395,22 +423,36 @@ function visibleStrokes(round: Round) {
     .map((s) => ('pts' in s ? { ...s, pts: [...s.pts] } : { ...s }));
 }
 
-function solveRound(c: Ctx, team: Team, solverId: PlayerId, round: Round, stolen: boolean): void {
+/**
+ * Turns a solved drawing into a piece, for its decider to keep or curse. Test mode can choose the
+ * curse (`curse`), and its solver always decides (the drawer is a bot). Returns the piece.
+ */
+export function solveRound(
+  c: Ctx,
+  team: Team,
+  solverId: PlayerId,
+  round: Round,
+  stolen: boolean,
+  curse?: Curse,
+): PieceState | null {
   const m = match(c);
   const solver = c.state.players.get(solverId);
-  if (!m || !solver) return;
+  if (!m || !solver) return null;
   solver.stats.solves += 1;
   if (stolen) solver.stats.steals += 1;
   const took = c.now - round.startedAt;
   solver.stats.fastestSolveMs = Math.min(solver.stats.fastestSolveMs ?? took, took);
+  // A golden word's spell goes to the solver's crew: the thief's, for a steal.
+  if (round.golden && solver.team) grantCharge(c, solver.team, 'golden');
 
   const strokes = visibleStrokes(round);
   const made = makePiece(strokes);
   if (!made.ok) {
     endRound(c, team, 'blank', { solverId });
     startRound(c, team);
-    return;
+    return null;
   }
+  const powers = c.state.settings.powers;
   const piece: PieceState = {
     id: m.nextPieceId++,
     word: round.card.text,
@@ -419,10 +461,11 @@ function solveRound(c: Ctx, team: Team, solverId: PlayerId, round: Round, stolen
     solvedBy: solverId,
     // The drawer chooses, and places it if they keep it, while the solver starts drawing. A
     // stolen piece is the thief's: the drawer is on the other crew.
-    deciderId: stolen ? solverId : round.drawerId,
+    deciderId: stolen || isTestRoom(c) ? solverId : round.drawerId,
     stolen,
     tower: null,
     sent: false,
+    curses: powers ? (curse ? [curse] : rollCurses(c.rng, round.golden)) : [],
     fumbled: false,
     shape: {
       ...made.piece,
@@ -439,9 +482,10 @@ function solveRound(c: Ctx, team: Team, solverId: PlayerId, round: Round, stolen
   const deciding = decidingOf(piece);
   if (deciding) sendToAll(c, { t: 'piece:made', piece: pieceView(piece), deciding });
   startRound(c, team);
+  return piece;
 }
 
-// ── Build or Send ────────────────────────────────────────────────────────────
+// ── Keep or Curse ───────────────────────────────────────────────────────────
 
 export function onDecide(c: Ctx, playerId: PlayerId, pieceId: number, choice: PieceChoice): void {
   const piece = match(c)?.pieces.get(pieceId);
@@ -455,37 +499,160 @@ export function onDecide(c: Ctx, playerId: PlayerId, pieceId: number, choice: Pi
 
 export function onDecideTimer(c: Ctx, pieceId: number): void {
   const piece = match(c)?.pieces.get(pieceId);
-  if (piece && piece.decideBy !== null) decide(c, piece, 'build');
+  if (piece && piece.decideBy !== null) decide(c, piece, 'keep');
 }
 
 /** The decider's crew: the drawing's crew, or the other one for a steal. */
 const deciderTeamOf = (piece: PieceState): Team =>
   piece.stolen ? otherTeam(piece.team) : piece.team;
 
-/** A piece this player is choosing for, if they just left: it's built. */
+/** A piece this player is choosing for, if they just left: it's kept. */
 export function onDeciderLeft(c: Ctx, playerId: PlayerId): void {
   const m = match(c);
   if (!m) return;
   for (const piece of m.pieces.values()) {
-    if (piece.decideBy !== null && piece.deciderId === playerId) decide(c, piece, 'build');
+    if (piece.decideBy !== null && piece.deciderId === playerId) decide(c, piece, 'keep');
   }
 }
 
-function decide(c: Ctx, piece: PieceState, choice: PieceChoice): void {
+export function decide(c: Ctx, piece: PieceState, choice: PieceChoice): void {
   const m = match(c);
   if (!m) return;
   cancel(c, `decide:${piece.id}`);
   piece.decideBy = null;
   const deciderTeam = deciderTeamOf(piece);
-  const tower = choice === 'build' ? deciderTeam : otherTeam(deciderTeam);
+  const tower = choice === 'keep' ? deciderTeam : otherTeam(deciderTeam);
   piece.tower = tower;
-  piece.sent = choice === 'send';
+  piece.sent = choice === 'curse';
   const decider = c.state.players.get(piece.deciderId);
-  if (piece.sent && decider) decider.stats.sends += 1;
-  // A built piece is placed by its decider if they're free; a sent one by the receiving crew.
+  if (piece.sent && decider) decider.stats.curses += 1;
+  const curse = curseEffects(activeCurses(piece));
+  if (curse.melt) {
+    // Melted from the drawing again: the drooping happens on the cells, before tracing.
+    const made = makePiece(piece.strokes, DEFAULT_SHAPE_CONFIG, undefined, { melt: true });
+    if (made.ok) {
+      piece.shape = {
+        ...made.piece,
+        silhouette: made.preview.silhouette,
+        cell: made.preview.frame.cell,
+      };
+    }
+  }
+  if (curse.bloat !== null) piece.shape = bloat(piece.shape, curse.bloat);
+  const reshaped = curse.melt || curse.bloat !== null;
+  // A kept piece is placed by its decider if they're free; a cursed one by the receiving crew.
   m.crews[tower].queue.push({ pieceId: piece.id, placer: piece.sent ? null : piece.deciderId });
-  sendToAll(c, { t: 'piece:queued', pieceId: piece.id, tower, sent: piece.sent });
-  tryStartPlacement(c, tower);
+  sendToAll(c, {
+    t: 'piece:queued',
+    pieceId: piece.id,
+    tower,
+    sent: piece.sent,
+    ...(reshaped && { shape: piece.shape }),
+  });
+  if (!magpieSnatch(c, tower)) tryStartPlacement(c, tower);
+}
+
+// ── Spells ───────────────────────────────────────────────────────────────────
+
+/**
+ * Casts the crew's spell in `slot` at the other crew's tower (docs/tower/planning/power-ups.md):
+ * anyone in the crew but its drawer, one spell per tower at a time, after a warning.
+ */
+export function onCast(c: Ctx, playerId: PlayerId, slot: number): void {
+  const m = match(c);
+  const player = c.state.players.get(playerId);
+  if (!m || !player?.team) {
+    sendError(c, playerId, 'WRONG_PHASE', 'There is nothing to cast at right now');
+    return;
+  }
+  const own = m.crews[player.team];
+  if (own.round?.drawerId === playerId) {
+    sendError(c, playerId, 'NOT_DRAWER', "The drawer can't cast spells");
+    return;
+  }
+  const spell = own.charges[slot];
+  if (!spell) {
+    sendError(c, playerId, 'WRONG_PHASE', 'There is no spell there');
+    return;
+  }
+  const target = otherTeam(player.team);
+  const crew = m.crews[target];
+  if (crew.spell) {
+    sendError(c, playerId, 'WRONG_PHASE', 'Their tower is already under a spell');
+    return;
+  }
+  own.charges.splice(slot, 1);
+  const startsAt = c.now + SPELL_TUNING.warnMs;
+  crew.spell = {
+    spell,
+    casterId: playerId,
+    startsAt,
+    endsAt: startsAt + SPELL_MS[spell],
+  };
+  schedule(c, `spell:${target}`, startsAt);
+  sendToAll(c, { t: 'crew:charges', team: player.team, charges: own.charges });
+  sendToAll(c, { t: 'crew:spell', team: target, spell: crew.spell });
+}
+
+const SPELL_MS: Record<Spell, number> = {
+  fog: SPELL_TUNING.fogMs,
+  magpie: SPELL_TUNING.magpieMs,
+  shaky: SPELL_TUNING.shakyMs,
+  pigeon: SPELL_TUNING.pigeonMs,
+};
+
+function endSpell(c: Ctx, team: Team): void {
+  const crew = match(c)?.crews[team];
+  if (!crew?.spell) return;
+  cancel(c, `spell:${team}`);
+  if (crew.spell.spell === 'pigeon') {
+    c.fx.push({ kind: 'physics', tower: team, physics: { op: 'unpigeon' } });
+  }
+  crew.spell = null;
+  sendToAll(c, { t: 'crew:spell', team, spell: null });
+}
+
+/** The warning is over (the spell starts), or the spell is. */
+export function onSpellTimer(c: Ctx, team: Team): void {
+  const spell = match(c)?.crews[team].spell;
+  if (!spell) return;
+  if (c.now >= spell.endsAt) {
+    endSpell(c, team);
+    return;
+  }
+  if (spell.spell === 'magpie' && magpieSnatch(c, team)) return;
+  if (spell.spell === 'pigeon') {
+    const side = c.rng() < 0.5 ? -1 : 1;
+    c.fx.push({ kind: 'physics', tower: team, physics: { op: 'pigeon', side } });
+  }
+  schedule(c, `spell:${team}`, spell.endsAt);
+}
+
+/** The pigeon left on its own (scared away by a new piece, or fallen): the spell is over. */
+export function onPigeonGone(c: Ctx, team: Team): void {
+  if (match(c)?.crews[team].spell?.spell === 'pigeon') endSpell(c, team);
+}
+
+/**
+ * A magpie on this crew's tower takes the next piece in its queue, if there is one, into the
+ * caster's crew's queue for the caster to place. True if it took one (the spell is then over).
+ */
+function magpieSnatch(c: Ctx, team: Team): boolean {
+  const m = match(c);
+  const crew = m?.crews[team];
+  const spell = crew?.spell;
+  if (!m || !crew || spell?.spell !== 'magpie' || c.now < spell.startsAt) return false;
+  const entry = crew.queue.shift();
+  const piece = entry ? m.pieces.get(entry.pieceId) : undefined;
+  if (!piece) return false;
+  const to = otherTeam(team);
+  piece.tower = to;
+  m.crews[to].queue.push({ pieceId: piece.id, placer: spell.casterId });
+  sendToAll(c, { t: 'piece:magpied', pieceId: piece.id, from: team, to, casterId: spell.casterId });
+  endSpell(c, team);
+  tryStartPlacement(c, to);
+  tryStartPlacement(c, team);
+  return true;
 }
 
 // ── Placing ──────────────────────────────────────────────────────────────────
@@ -495,7 +662,9 @@ function decide(c: Ctx, piece: PieceState, choice: PieceChoice): void {
  * with the fewest placements this match (join order breaks ties). The drawer never places.
  */
 function choosePlacer(c: Ctx, crew: Crew, preferred: PlayerId | null): PlayerId | null {
-  const free = members(c, crew.team).filter((p) => p.connected && p.id !== crew.round?.drawerId);
+  const free = members(c, crew.team).filter(
+    (p) => p.connected && p.id !== crew.round?.drawerId && p.bot !== 'drawer',
+  );
   if (preferred && free.some((p) => p.id === preferred)) return preferred;
   let best: (typeof free)[number] | null = null;
   for (const p of free) {
@@ -519,7 +688,12 @@ export function tryStartPlacement(c: Ctx, team: Team): void {
   const placerId = choosePlacer(c, crew, next.placer);
   if (!placerId) return;
   crew.queue.shift();
-  crew.placing = { pieceId: piece.id, placerId, endsAt: c.now + TIMINGS.placeMs };
+  const curse = curseEffects(activeCurses(piece));
+  crew.placing = {
+    pieceId: piece.id,
+    placerId,
+    endsAt: c.now + TIMINGS.placeMs,
+  };
   piece.placedBy = placerId;
   schedule(c, `place:${team}`, crew.placing.endsAt);
   c.fx.push({
@@ -531,9 +705,18 @@ export function tryStartPlacement(c: Ctx, team: Team): void {
       outline: piece.shape.outline,
       parts: piece.shape.parts,
       gap: SPAWN_GAP,
+      ...curse.material,
     },
   });
   sendToAll(c, { t: 'place:start', tower: team, placing: crew.placing });
+  // A bot steers it over the platform and lets it down quickly.
+  if (isBot(c.state.players.get(placerId))) {
+    c.fx.push({
+      kind: 'physics',
+      tower: team,
+      physics: { op: 'steer', x: botDropX(c.rng), fast: true },
+    });
+  }
 }
 
 /** The crew whose piece this player is placing, if any. */
@@ -618,6 +801,7 @@ export function onFumbled(c: Ctx, team: Team, pieceIds: number[]): void {
     schedule(c, `daze:${team}`, crew.daze.until);
   }
   sendToAll(c, { t: 'tower:fumble', tower: team, pieceIds, dazedUntil: crew.daze?.until ?? null });
+  comeback(c, team);
   tryStartPlacement(c, team);
 }
 
@@ -625,10 +809,12 @@ export function onDazeTimer(c: Ctx, team: Team): void {
   tryStartPlacement(c, team);
 }
 
-export function onHeight(c: Ctx, team: Team, height: number): void {
+export function onHeight(c: Ctx, team: Team, height: number, starHeld?: boolean): void {
   const crew = match(c)?.crews[team];
   if (!crew) return;
   crew.height = height;
+  checkBehind(c, team);
+  if (starHeld !== undefined) onStarTouch(c, team, starHeld);
   let changed = Math.abs(height - crew.sentHeight) >= 0.05;
   if (height >= lineHeight(c)) {
     if (crew.toppingSince === null) {

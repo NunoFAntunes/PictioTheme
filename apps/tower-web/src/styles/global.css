@@ -42,6 +42,17 @@
 
   --shadow-panel: 0 5px 0 var(--color-card-edge), 0 14px 30px oklch(0.3 0.12 265 / 0.25);
   --animate-swatch-pop: swatch-pop 160ms ease-out;
+  /* The home page's toys (features/home). */
+  --animate-balloon-bob: balloon-bob 3.2s ease-in-out infinite;
+  --animate-balloon-burst: balloon-burst 320ms ease-out forwards;
+  --animate-balloon-shred: balloon-shred 650ms ease-out forwards;
+  --animate-string-fall: string-fall 700ms ease-in forwards;
+  --animate-inflate: inflate 650ms ease-out;
+  --animate-menu-sway: menu-sway 9s ease-in-out infinite;
+  --animate-plank-sway: plank-sway 5.5s ease-in-out infinite;
+  --animate-lift-off: lift-off 1.8s ease-in forwards;
+  --animate-float-back: float-back 900ms cubic-bezier(0.3, 1.5, 0.6, 1);
+  --animate-nudge: nudge 450ms ease-in-out;
 }
 
 @layer base {
@@ -109,11 +120,131 @@
   }
 }
 
+/* A balloon tugging on its string. */
+@keyframes balloon-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-0.05em) rotate(3deg);
+  }
+}
+
+/* A popped balloon's "bang": a star that flashes out and fades. */
+@keyframes balloon-burst {
+  0% {
+    scale: 0.4;
+  }
+  70% {
+    opacity: 1;
+    scale: 1.2;
+  }
+  100% {
+    opacity: 0;
+    scale: 1.35;
+  }
+}
+
+/* Rubber shreds of a popped balloon, flying off along --dx, --dy. */
+@keyframes balloon-shred {
+  to {
+    opacity: 0;
+    translate: var(--dx) var(--dy);
+    rotate: var(--r);
+  }
+}
+
+/* The string of a popped balloon dropping away. */
+@keyframes string-fall {
+  to {
+    opacity: 0;
+    translate: 0 0.5em;
+    rotate: 12deg;
+  }
+}
+
+/* A new balloon blown up from its knot, with a rubbery wobble. */
+@keyframes inflate {
+  0% {
+    scale: 0.1;
+  }
+  60% {
+    scale: 1.12 0.95;
+  }
+  80% {
+    scale: 0.96 1.04;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+/* The menu drifting under its balloons, slow enough to click. */
+@keyframes menu-sway {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+/* A plank swinging on its strings. */
+@keyframes plank-sway {
+  0%,
+  100% {
+    transform: rotate(1.6deg);
+  }
+  50% {
+    transform: rotate(-1.6deg);
+  }
+}
+
+/* The menu carried off into the sky while the game loads. */
+@keyframes lift-off {
+  0% {
+    translate: 0 0;
+  }
+  15% {
+    translate: 0 10px;
+  }
+  100% {
+    translate: 0 -130vh;
+  }
+}
+
+/* And back down when it couldn't go. */
+@keyframes float-back {
+  from {
+    translate: 0 -60vh;
+  }
+}
+
+/* "Hey, over here": a little shake. */
+@keyframes nudge {
+  0%,
+  100% {
+    translate: 0;
+  }
+  20%,
+  60% {
+    translate: -8px;
+  }
+  40%,
+  80% {
+    translate: 8px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    /* Looping animations would otherwise flicker through their frames: they stop where they end. */
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }

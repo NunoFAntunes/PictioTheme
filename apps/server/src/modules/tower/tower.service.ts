@@ -63,6 +63,8 @@ export function createTowerService(deps: {
   log: Logger;
   /** Where Doodle Tower is served, for the share card's links. */
   publicOrigin: string;
+  /** Whether test-mode rooms can be made (never in production). */
+  testMode?: boolean;
   now?: () => number;
   rng?: Rng;
 }) {
@@ -143,20 +145,27 @@ export function createTowerService(deps: {
   const service = {
     async createRoom(actor: Actor, request: CreateTowerRoomRequest): Promise<JoinRoomResponse> {
       if (!accepting) throw serviceUnavailable('The server is restarting');
-      const { isPublic = false, ...identity } = request;
+      const { isPublic = false, testMode = false, ...identity } = request;
+      if (testMode && !deps.testMode) {
+        throw new AppError('FORBIDDEN', 403, 'Test mode is off on this server');
+      }
       assertAllowedName(identity.displayName);
       const hostId = playerIdOf(actor);
       releasePreviousRoom(hostId);
       let code = generateRoomCode(rng);
       while (rooms.has(code)) code = generateRoomCode(rng);
       const log = deps.log.child({ roomCode: code, game: 'tower' });
-      const settings = { ...DEFAULT_TOWER_SETTINGS, isPublic };
+      const settings = testMode
+        ? { ...DEFAULT_TOWER_SETTINGS, isPublic: false, testMode }
+        : { ...DEFAULT_TOWER_SETTINGS, isPublic };
       const state = createTowerRoomState({ code, hostId, now: now(), settings });
       const room = new TowerRoomRuntime(state, identity.displayName, {
         transport: deps.transport,
         physics: deps.physics,
         loadWords,
         onMatchEnded: (roomCode, ended) => {
+          // Test matches are played against bots: they aren't history.
+          if (room.state.settings.testMode) return;
           log.info(
             { winner: ended.results.winner, reason: ended.results.reason },
             'tower match ended',
@@ -181,7 +190,7 @@ export function createTowerService(deps: {
       });
       rooms.set(code, room);
       room.handle({ type: 'init' });
-      log.info({ isPublic }, 'tower room created');
+      log.info({ isPublic, testMode }, 'tower room created');
       return { code, joinToken: await issueToken(room, actor, identity) };
     },
 

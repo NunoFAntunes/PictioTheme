@@ -26,7 +26,32 @@ export type GameCue =
   | 'tick-last'
   | 'win'
   | 'lose'
-  | 'draw';
+  | 'draw'
+  // Powers (docs/tower/planning/power-ups.md):
+  /** A golden word comes up, for either crew. */
+  | 'golden'
+  /** Your crew got a spell (a golden word or a comeback), or caught a star. */
+  | 'spell-gained'
+  | 'star-caught'
+  /** A star appeared by your tower; a piece of yours started holding it. */
+  | 'star-appear'
+  | 'star-hold'
+  /** Your crew cast a spell; one was cast at your tower. */
+  | 'cast'
+  | 'spell-incoming'
+  /** A spell starts, on either tower. */
+  | 'fog'
+  | 'magpie'
+  | 'shaky'
+  | 'pigeon'
+  | 'magpie-took'
+  /** The magpie gave up waiting for a piece. */
+  | 'magpie-off'
+  | 'pigeon-off'
+  /** A cursed piece lands on your tower. */
+  | 'boing'
+  | 'squelch'
+  | 'ice';
 
 /** A note `semis` semitones above C5. */
 const n = (semis: number) => 523.25 * 2 ** (semis / 12);
@@ -120,6 +145,79 @@ function tick(freq: number, volume: number): void {
     0.07,
   );
   tone(o.ctx, o.out, 'square', [[0, freq * 2.5]], 0.03, 0.02);
+}
+
+/** A tone with a vibrato: `rate` Hz, `depth` Hz deep. */
+function wobble(
+  type: OscillatorType,
+  freqs: readonly (readonly [number, number])[],
+  peak: number,
+  len: number,
+  rate: number,
+  depth: number,
+  volume: number,
+  at = 0,
+): void {
+  const o = output(volume);
+  if (!o) return;
+  const { ctx, out } = o;
+  const start = ctx.currentTime + at;
+  const osc = tone(ctx, out, type, freqs, peak, len, start);
+  const lfo = ctx.createOscillator();
+  lfo.frequency.value = rate;
+  const gain = ctx.createGain();
+  gain.gain.value = depth;
+  lfo.connect(gain).connect(osc.frequency);
+  lfo.start(start);
+  lfo.stop(start + len);
+}
+
+/** Short bursts of filtered noise, like wings beating. */
+function flutter(beats: number, gap: number, volume: number): void {
+  const o = output(volume);
+  if (!o) return;
+  const { ctx, out } = o;
+  for (let i = 0; i < beats; i++) {
+    const at = ctx.currentTime + i * gap;
+    const src = ctx.createBufferSource();
+    src.buffer = noiseBuffer(ctx);
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.value = 1400 + i * 120;
+    filter.Q.value = 1.2;
+    const env = ctx.createGain();
+    env.gain.setValueAtTime(0.0001, at);
+    env.gain.exponentialRampToValueAtTime(0.5 * (1 - i / (beats + 1)), at + 0.01);
+    env.gain.exponentialRampToValueAtTime(0.0001, at + gap * 0.8);
+    src.connect(filter).connect(env).connect(out);
+    src.start(at);
+    src.stop(at + gap);
+  }
+}
+
+/** A crow's (or magpie's) "caw", `at` s from now. */
+function caw(at: number, volume: number): void {
+  const o = output(volume);
+  if (!o) return;
+  const { ctx, out } = o;
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.value = 1100;
+  filter.Q.value = 2;
+  filter.connect(out);
+  tone(
+    ctx,
+    filter,
+    'sawtooth',
+    [
+      [0, 820],
+      [0.06, 900],
+      [0.2, 560],
+    ],
+    0.5,
+    0.22,
+    ctx.currentTime + at,
+  );
 }
 
 export function playGameCue(cue: GameCue): void {
@@ -329,6 +427,240 @@ export function playGameCue(cue: GameCue): void {
         { at: -5, t: 0.2, len: 0.18 },
         { at: 0, t: 0.4, len: 0.5 },
       ]);
+      return;
+    case 'golden':
+      // A glittery run up.
+      melody(
+        [12, 16, 19, 24, 28].map((at, i) => ({
+          at,
+          t: i * 0.05,
+          len: i === 4 ? 0.45 : 0.14,
+          type: 'sine' as const,
+          peak: 0.16,
+        })),
+        0.7,
+        0.45,
+      );
+      return;
+    case 'spell-gained':
+      // A magic chime.
+      melody(
+        [
+          { at: 19, t: 0, len: 0.12, type: 'sine' },
+          { at: 24, t: 0.1, len: 0.12, type: 'sine' },
+          { at: 31, t: 0.2, len: 0.55, type: 'sine', peak: 0.26 },
+        ],
+        0.8,
+        0.5,
+      );
+      return;
+    case 'star-caught':
+      // A cascade of twinkles, then the chord.
+      melody(
+        [
+          ...[36, 31, 28, 24, 28, 31].map((at, i) => ({
+            at,
+            t: i * 0.05,
+            len: 0.1,
+            type: 'sine' as const,
+            peak: 0.16,
+          })),
+          ...[24, 28, 31].map((at) => ({
+            at,
+            t: 0.32,
+            len: 0.7,
+            type: 'sine' as const,
+            peak: 0.14,
+          })),
+        ],
+        0.9,
+        0.4,
+      );
+      return;
+    case 'star-appear':
+      melody(
+        [
+          { at: 24, t: 0, len: 0.2, type: 'sine', peak: 0.14 },
+          { at: 31, t: 0.15, len: 0.4, type: 'sine', peak: 0.14 },
+        ],
+        0.6,
+        0.5,
+      );
+      return;
+    case 'star-hold': {
+      // Rises over the three seconds it takes to catch it.
+      const o = output(0.5);
+      if (o)
+        tone(
+          o.ctx,
+          o.out,
+          'sine',
+          [
+            [0, 600],
+            [3, 1400],
+          ],
+          0.08,
+          3,
+        );
+      return;
+    }
+    case 'cast': {
+      // Off it goes: a rising whoosh with a zap in it.
+      whoosh(300, 3000, 0.4, 0.4);
+      const o = output(0.5);
+      if (o)
+        tone(
+          o.ctx,
+          o.out,
+          'square',
+          [
+            [0, 400],
+            [0.25, 1300],
+          ],
+          0.06,
+          0.28,
+        );
+      return;
+    }
+    case 'spell-incoming':
+      // "Dun, dun, dunnn."
+      melody(
+        [
+          { at: -5, t: 0, len: 0.18, type: 'square', peak: 0.09 },
+          { at: -6, t: 0.22, len: 0.18, type: 'square', peak: 0.09 },
+          { at: -11, t: 0.44, len: 0.55, type: 'square', peak: 0.1 },
+        ],
+        0.8,
+        0,
+      );
+      return;
+    case 'fog': {
+      // Cloud rolling in: a long low whoosh over a soft hum.
+      whoosh(900, 200, 1.4, 0.35);
+      const o = output(0.4);
+      if (o)
+        tone(
+          o.ctx,
+          o.out,
+          'sine',
+          [
+            [0, 110],
+            [1.2, 95],
+          ],
+          0.2,
+          1.3,
+        );
+      return;
+    }
+    case 'magpie':
+      // Wings as it flies in, cawing.
+      flutter(5, 0.09, 0.35);
+      caw(0, 0.5);
+      caw(0.28, 0.45);
+      return;
+    case 'shaky':
+      // A wobbly warble.
+      wobble(
+        'triangle',
+        [
+          [0, 520],
+          [0.7, 480],
+        ],
+        0.2,
+        0.75,
+        14,
+        60,
+        0.7,
+      );
+      return;
+    case 'pigeon': {
+      // Wings as it flies in, then "Coo-roo… coo." once it's landed.
+      flutter(5, 0.08, 0.4);
+      const o = output(0.7);
+      if (!o) return;
+      const now = o.ctx.currentTime + 0.85;
+      tone(
+        o.ctx,
+        o.out,
+        'sine',
+        [
+          [0, 330],
+          [0.12, 390],
+          [0.3, 300],
+        ],
+        0.3,
+        0.36,
+        now,
+      );
+      tone(
+        o.ctx,
+        o.out,
+        'sine',
+        [
+          [0, 300],
+          [0.15, 350],
+          [0.35, 280],
+        ],
+        0.28,
+        0.4,
+        now + 0.45,
+      );
+      return;
+    }
+    case 'magpie-took':
+      caw(0, 0.5);
+      melody([{ at: 24, t: 0.22, len: 0.35, type: 'sine', peak: 0.2 }], 0.7, 0.4);
+      flutter(6, 0.07, 0.4);
+      return;
+    case 'magpie-off':
+      // A grumpy caw, and off it goes.
+      caw(0, 0.4);
+      flutter(6, 0.08, 0.4);
+      return;
+    case 'pigeon-off':
+      flutter(6, 0.07, 0.5);
+      return;
+    case 'boing':
+      wobble(
+        'sine',
+        [
+          [0, 180],
+          [0.08, 520],
+          [0.35, 240],
+        ],
+        0.3,
+        0.4,
+        18,
+        40,
+        0.7,
+      );
+      return;
+    case 'squelch': {
+      whoosh(900, 200, 0.25, 0.35);
+      const o = output(0.6);
+      if (o)
+        tone(
+          o.ctx,
+          o.out,
+          'sine',
+          [
+            [0, 260],
+            [0.2, 70],
+          ],
+          0.25,
+          0.24,
+        );
+      return;
+    }
+    case 'ice':
+      melody(
+        [
+          { at: 28, t: 0, len: 0.25, type: 'sine', peak: 0.15 },
+          { at: 35, t: 0.06, len: 0.4, type: 'sine', peak: 0.12 },
+        ],
+        0.7,
+        0.5,
+      );
       return;
   }
 }

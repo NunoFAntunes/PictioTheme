@@ -52,6 +52,11 @@ function handle(msg: ToWorker): void {
             { outline: physics.outline, parts: physics.parts },
             physics.gap,
             physics.pieceId,
+            {
+              ...(physics.friction !== undefined && { friction: physics.friction }),
+              ...(physics.restitution !== undefined && { restitution: physics.restitution }),
+              ...(physics.bouncyMs !== undefined && { bouncyMs: physics.bouncyMs }),
+            },
           );
           return;
         case 'steer': {
@@ -61,6 +66,18 @@ function handle(msg: ToWorker): void {
         }
         case 'drop':
           entry.world.drop();
+          return;
+        case 'star':
+          entry.world.setStar(physics.x, physics.y, physics.radius);
+          return;
+        case 'unstar':
+          entry.world.clearStar();
+          return;
+        case 'pigeon':
+          entry.world.landPigeon(physics.side);
+          return;
+        case 'unpigeon':
+          entry.world.clearPigeon();
           return;
         case 'stop':
           entry.stopped = true;
@@ -77,13 +94,16 @@ function stepAll(): void {
     const events = world.step();
     if (events.released) post({ t: 'released', world: id, pieceId: events.released.id });
     if (events.fumbled.length > 0) post({ t: 'fumbled', world: id, pieceIds: events.fumbled });
+    if (events.pigeon) post({ t: 'pigeonGone', world: id });
     const { tick } = world;
     if (tick % FRAME_EVERY === 0) {
       const full = tick % FULL_FRAME_EVERY === 0;
       const bodies = world.frame(!full);
       if (full || bodies.length > 0) post({ t: 'frame', world: id, tick, bodies, full });
     }
-    if (tick % HEIGHT_EVERY === 0) post({ t: 'height', world: id, height: world.height() });
+    if (tick % HEIGHT_EVERY === 0) {
+      post({ t: 'height', world: id, height: world.height(), starHeld: world.starHeld() });
+    }
   }
 }
 

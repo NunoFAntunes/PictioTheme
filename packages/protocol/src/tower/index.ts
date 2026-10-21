@@ -4,6 +4,8 @@ import { ErrorCode } from '../errors';
 import { PlayerIdentity } from '../http';
 import { GUESS_MAX_LENGTH, AvatarId, PlayerId, RoomCode } from '../room';
 
+export { SHAKE_AMPLITUDE, shakePoints } from './shake';
+
 /**
  * Doodle Tower's wire format (docs/tower/technical/realtime-protocol.md), on its own WebSocket
  * endpoint (`/ws/tower`). Envelope: `{ t: '<type>', ...payload }`, like DoodleWhirl's. Strokes,
@@ -28,8 +30,19 @@ export const TowerSettings = z.object({
   /** The fumble daze, in seconds (0: off). */
   dazeSeconds: z.number().int().min(0).max(10),
   steals: z.boolean(),
+  /**
+   * Curses and spells (docs/tower/planning/power-ups.md). Off: Curse sends the piece as it is,
+   * like the old Send.
+   */
+  powers: z.boolean(),
   /** Public rooms can be joined by Quick game; private ones only with the code or the link. */
   isPublic: z.boolean(),
+  /**
+   * A room for trying out the powers alone (docs/tower/planning/test-mode.md): bots fill the
+   * crews and draw rectangles, and `test` messages stand in for guessing. Set when the room is
+   * made (development only), never changed after. Missing: off.
+   */
+  testMode: z.boolean().optional(),
 });
 export type TowerSettings = z.infer<typeof TowerSettings>;
 
@@ -38,13 +51,18 @@ export const DEFAULT_TOWER_SETTINGS: TowerSettings = {
   line: 'medium',
   dazeSeconds: 5,
   steals: true,
+  powers: true,
   isPublic: false,
 };
 
 // ── HTTP (`/api/tower/rooms`) ─────────────────────────────────────────────────
 
 /** "Create a lobby" makes a private room; Quick game makes a public one when none has space. */
-export const CreateTowerRoomRequest = PlayerIdentity.extend({ isPublic: z.boolean().optional() });
+export const CreateTowerRoomRequest = PlayerIdentity.extend({
+  isPublic: z.boolean().optional(),
+  /** A private test-mode room. Refused unless the server allows it (never in production). */
+  testMode: z.boolean().optional(),
+});
 export type CreateTowerRoomRequest = z.infer<typeof CreateTowerRoomRequest>;
 
 export const TOWER_MIN_PER_CREW = 2;
@@ -75,11 +93,143 @@ export const PieceShape = z.object({
   /** The silhouette in logical canvas px, and the grid's cell size, for the doodle's bitmap. */
   silhouette: FlatPolygon,
   cell: z.number(),
+  /** A melted piece (doodle-shape `Melt`): how its doodle droops, in logical px. */
+  melt: z.object({ cx: z.number(), halfWidth: z.number(), sag: z.number() }).optional(),
 });
 export type PieceShape = z.infer<typeof PieceShape>;
 
-export const PieceChoice = z.enum(['build', 'send']);
+/**
+ * Keep the piece for your tower, or curse it and send it to the other crew's
+ * (docs/tower/planning/power-ups.md).
+ */
+export const PieceChoice = z.enum(['keep', 'curse']);
 export type PieceChoice = z.infer<typeof PieceChoice>;
+
+/**
+ * What a cursed piece does to the crew that has to place it: `slippery` (almost no friction),
+ * `big_ice` (bigger, and slippery),
+ * `melt` (it droops in the middle and its corners round off), `bouncy` (it bounces for a moment
+ * after it lands), `blob` (bigger, and melted).
+ */
+export const Curse = z.enum(['slippery', 'big_ice', 'melt', 'bouncy', 'blob']);
+export type Curse = z.infer<typeof Curse>;
+export const CURSES = Curse.options;
+
+/** What the curses do (docs/tower/planning/power-ups.md): the server and the sandbox use these. */
+export const CURSE_TUNING = {
+  /** `slippery` and `big_ice`: the lower friction of a contact counts, so it slides on anything. */
+  friction: 0.05,
+  /** `big_ice`: this many times the area. Never alone: a bigger piece also makes a taller tower. */
+  bloat: 1.4,
+  /** `bouncy`: this bouncy (the most bouncy of a contact counts), for this long after release. */
+  restitution: 0.6,
+  bouncyMs: 3_000,
+} as const;
+
+/**
+ * Curses that do the same kind of thing can't come together (a golden piece gets two): one
+ * change of shape, one of friction.
+ */
+const CURSE_KINDS: Record<Curse, readonly string[]> = {
+  slippery: ['friction'],
+  big_ice: ['shape', 'friction'],
+  melt: ['shape'],
+  bouncy: ['bounce'],
+  blob: ['shape'],
+};
+
+export const cursesClash = (a: Curse, b: Curse) =>
+  a === b || CURSE_KINDS[a].some((kind) => CURSE_KINDS[b].includes(kind));
+
+/**
+ * Spells (docs/tower/planning/power-ups.md): a crew holds up to `SPELL_TUNING.maxCharges` and
+ * casts them at the other crew's tower. `fog` hides the top of their tower; `magpie` takes the
+ * next piece from their queue into yours; `shaky` makes their drawer's strokes wobble; `pigeon`
+ * lands on the edge of their top piece, a small weight that tips it.
+ */
+export const Spell = z.enum(['fog', 'magpie', 'shaky', 'pigeon']);
+export type Spell = z.infer<typeof Spell>;
+export const SPELLS = Spell.options;
+
+export const SPELL_TUNING = {
+  maxCharges: 2,
+  /** A cast is shown over the target tower this long before it starts. */
+  warnMs: 2_000,
+  fogMs: 10_000,
+  /** Strokes their drawer starts in this time wobble (`shakePoints`). */
+  shakyMs: 10_000,
+  /** The pigeon leaves after this, if no new piece has scared it away first. */
+  pigeonMs: 25_000,
+  /** The magpie circles this long for a piece to take, then gives up. */
+  magpieMs: 30_000,
+  /** About one round in this many deals a golden word (never twice in a row for a crew). */
+  goldenEvery: 6,
+  /** A comeback charge: when a piece falls off, or this far behind for `behindMs`. */
+  comebackGap: 2,
+  behindMs: 20_000,
+  /** At most one comeback charge per crew this often. */
+  comebackCooldownMs: 90_000,
+} as const;
+
+/**
+ * Sky stars: one floats just past the edge of each tower's platform (6 wide), at the same place
+ * relative to each tower's top. A settled piece of the tower that touches it for `holdMs`
+ * catches it: a spell.
+ */
+export const STAR_TUNING = {
+  firstMs: 60_000,
+  everyMs: 90_000,
+  /** It's gone if nobody catches it in this time. */
+  lifeMs: 45_000,
+  holdMs: 3_000,
+  radius: 0.35,
+  /** How far from the platform's centre (either side), and how far above the tower's top. */
+  x: [3.4, 4] as const,
+  y: [1, 3] as const,
+} as const;
+
+/** A star by a crew's tower. `holdUntil`: a piece is touching it, and catches it then. */
+export const SkyStar = z.object({
+  x: z.number(),
+  y: z.number(),
+  expiresAt: z.number(),
+  holdUntil: z.number().nullable(),
+});
+export type SkyStar = z.infer<typeof SkyStar>;
+
+/** A spell on a crew's tower, cast by the other crew. It starts after the warning. */
+/** Why a crew got a spell. */
+export const SpellReason = z.enum(['golden', 'comeback', 'star']);
+export type SpellReason = z.infer<typeof SpellReason>;
+
+export const ActiveSpell = z.object({
+  spell: Spell,
+  casterId: PlayerId,
+  startsAt: z.number(),
+  /** When it ends: fog's time runs out, or the magpie gives up. */
+  endsAt: z.number(),
+});
+export type ActiveSpell = z.infer<typeof ActiveSpell>;
+
+/**
+ * What a set of curses does to a piece: its friction and bounce (tower-physics `PieceMaterial`),
+ * whether it grows and whether it melts.
+ */
+export function curseEffects(curses: readonly Curse[]) {
+  const slippery = curses.includes('slippery') || curses.includes('big_ice');
+  const bouncy = curses.includes('bouncy');
+  return {
+    material: {
+      ...(slippery && { friction: CURSE_TUNING.friction }),
+      ...(bouncy && {
+        restitution: CURSE_TUNING.restitution,
+        bouncyMs: CURSE_TUNING.bouncyMs,
+      }),
+    },
+    bloat: curses.includes('big_ice') || curses.includes('blob') ? CURSE_TUNING.bloat : null,
+    melt: curses.includes('melt') || curses.includes('blob'),
+  };
+}
 
 export const TowerPiece = z.object({
   id: z.number().int(),
@@ -89,11 +239,17 @@ export const TowerPiece = z.object({
   drawnBy: PlayerId,
   solvedBy: PlayerId,
   stolen: z.boolean(),
-  /** Who chooses Build or Send: its drawer, or the thief for a stolen piece. */
+  /** Who chooses Keep or Curse: its drawer, or the thief for a stolen piece. */
   deciderId: PlayerId,
   /** Where it's going, once the decider has chosen. Null while they decide. */
   tower: Team.nullable(),
+  /** Cursed and sent to the other crew. */
   sent: z.boolean(),
+  /**
+   * Rolled when the piece is made, so the decider sees what Curse would do: they only take effect
+   * once it's sent. Empty with powers off.
+   */
+  curses: z.array(Curse),
   fumbled: z.boolean(),
   shape: PieceShape,
   /** The drawing, so every client can draw the piece (from the last clear on). */
@@ -111,6 +267,8 @@ export const RoundView = z.object({
   word: z.string().optional(),
   /** Only for the drawer's crew, once the first hint is due: the letter mask with its hints. */
   mask: z.string().optional(),
+  /** A golden word: whoever solves it gets a spell for their crew as well as the piece. */
+  golden: z.boolean(),
   strokes: z.array(Stroke),
 });
 export type RoundView = z.infer<typeof RoundView>;
@@ -131,12 +289,17 @@ export const CrewView = z.object({
   height: z.number(),
   /** Set while the tower is above the line: when it tops out if it stays there. */
   toppingUntil: z.number().nullable(),
+  /** The spells this crew holds, oldest first: everyone sees them. */
+  charges: z.array(Spell),
+  /** A spell on this crew's tower, cast by the other crew. */
+  spell: ActiveSpell.nullable(),
+  star: SkyStar.nullable(),
 });
 export type CrewView = z.infer<typeof CrewView>;
 
 export const Deciding = z.object({
   pieceId: z.number().int(),
-  /** The drawer (they place it if they build), or the thief for a stolen piece. */
+  /** The drawer (they place it if they keep it), or the thief for a stolen piece. */
   deciderId: PlayerId,
   endsAt: z.number(),
 });
@@ -152,14 +315,14 @@ export const PlayerStats = z.object({
   drawings: z.number().int(),
   solves: z.number().int(),
   steals: z.number().int(),
-  sends: z.number().int(),
+  curses: z.number().int(),
   placements: z.number().int(),
   fumbles: z.number().int(),
 });
 export type PlayerStats = z.infer<typeof PlayerStats>;
 
 export const TowerAward = z.object({
-  kind: z.enum(['best_thief', 'meanest_sender', 'master_builder', 'quickest_guesser']),
+  kind: z.enum(['best_thief', 'meanest_curser', 'master_builder', 'quickest_guesser']),
   playerId: PlayerId,
 });
 export type TowerAward = z.infer<typeof TowerAward>;
@@ -175,6 +338,31 @@ export const MatchResults = z.object({
 export type MatchResults = z.infer<typeof MatchResults>;
 
 // ── Client → Server ──────────────────────────────────────────────────────────
+
+/**
+ * Test mode's stand-ins (docs/tower/planning/test-mode.md), refused in any other room. "The
+ * rival" is the other crew's builder bot. `curse` replaces the rolled curses of the piece made.
+ */
+export const TestAction = z.discriminatedUnion('kind', [
+  /** You guess your crew's drawing (`own`) or steal the other crew's, and decide Keep or Curse. */
+  z.object({ kind: z.literal('solve'), target: z.enum(['own', 'steal']), curse: Curse.optional() }),
+  /** The rival guesses its crew's drawing (`own`) or steals yours, and chooses at once. */
+  z.object({
+    kind: z.literal('rival'),
+    target: z.enum(['own', 'steal']),
+    choice: PieceChoice,
+    curse: Curse.optional(),
+  }),
+  /** The rival casts the spell in this slot at your tower. */
+  z.object({ kind: z.literal('rival-cast'), slot: z.number().int().min(0).max(1) }),
+  /** Gives a crew this spell (if it has room). */
+  z.object({ kind: z.literal('grant'), team: Team, spell: Spell }),
+  /** Makes a crew's current drawing golden. */
+  z.object({ kind: z.literal('golden'), team: Team }),
+  /** Sky stars now, instead of in a minute or so. */
+  z.object({ kind: z.literal('stars') }),
+]);
+export type TestAction = z.infer<typeof TestAction>;
 
 /** Where the placer steers the piece (world units, radians), and whether ↓ is held. */
 export const PlaceSteer = z.object({
@@ -209,6 +397,9 @@ export const TowerClientMessage = z.discriminatedUnion('t', [
   z.object({ t: z.literal('piece:decide'), pieceId: z.number().int(), choice: PieceChoice }),
   z.object({ t: z.literal('place:steer'), ...PlaceSteer.shape }),
   z.object({ t: z.literal('place:drop') }),
+  /** Casts the crew's spell in this slot at the other crew. Anyone in the crew but the drawer. */
+  z.object({ t: z.literal('spell:cast'), slot: z.number().int().min(0).max(1) }),
+  z.object({ t: z.literal('test'), action: TestAction }),
   z.object({ t: z.literal('ping'), ts: z.number() }),
 ]);
 export type TowerClientMessage = z.infer<typeof TowerClientMessage>;
@@ -287,6 +478,8 @@ export const TowerServerMessage = z.discriminatedUnion('t', [
     pieceId: z.number().int(),
     tower: Team,
     sent: z.boolean(),
+    /** The piece's new shape, when a curse changed it (`big_ice`). */
+    shape: PieceShape.optional(),
   }),
   z.object({ t: z.literal('place:start'), tower: Team, placing: Placing }),
   z.object({ t: z.literal('place:end'), tower: Team, pieceId: z.number().int() }),
@@ -311,6 +504,30 @@ export const TowerServerMessage = z.discriminatedUnion('t', [
     tower: Team,
     pieceIds: z.array(z.number().int()),
     dazedUntil: z.number().nullable(),
+  }),
+  /** A crew's spells changed. `gained` says why when one was added. */
+  z.object({
+    t: z.literal('crew:charges'),
+    team: Team,
+    charges: z.array(Spell),
+    gained: z.object({ spell: Spell, reason: SpellReason }).optional(),
+  }),
+  /** The star by a crew's tower appeared, is being held, or is gone (`caught` if it was caught). */
+  z.object({
+    t: z.literal('crew:star'),
+    team: Team,
+    star: SkyStar.nullable(),
+    caught: z.boolean().optional(),
+  }),
+  /** A spell was cast at this crew's tower (null: it's over). */
+  z.object({ t: z.literal('crew:spell'), team: Team, spell: ActiveSpell.nullable() }),
+  /** A magpie took a piece from one crew's queue into the other's, for its caster to place. */
+  z.object({
+    t: z.literal('piece:magpied'),
+    pieceId: z.number().int(),
+    from: Team,
+    to: Team,
+    casterId: PlayerId,
   }),
   z.object({ t: z.literal('match:end'), results: MatchResults }),
   z.object({ t: z.literal('error'), code: ErrorCode, message: z.string() }),

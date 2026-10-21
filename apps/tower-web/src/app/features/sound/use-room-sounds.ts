@@ -1,9 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { serverNow, type RoomView } from '../../realtime';
 import { playGameCue } from './game-sounds';
-import { countdownCue, roomCues } from './room-cues';
+import { countdownCue, roomCues, startedSpells } from './room-cues';
 
-/** The room's sounds: its moments as they change, and the ticks of the last seconds. */
+/**
+ * The room's sounds: its moments as they change, the ticks of the last seconds, and each spell
+ * as it starts.
+ */
 export function useRoomSounds(view: RoomView | null): void {
   const prev = useRef<RoomView | null>(null);
   useEffect(() => {
@@ -15,10 +18,17 @@ export function useRoomSounds(view: RoomView | null): void {
   useEffect(() => {
     if (!playing) return;
     let lastTick = '';
+    /** Spells whose start was already heard. */
+    const heard = new Set<string>();
     const timer = setInterval(() => {
       const current = prev.current;
       if (current?.phase !== 'playing') return;
       const now = serverNow();
+      for (const { key, cue } of startedSpells(current, now)) {
+        if (heard.has(key)) continue;
+        heard.add(key);
+        playGameCue(cue);
+      }
       const seconds = (at: number) => Math.ceil((at - now) / 1000);
       const placing = Object.values(current.crews).find(
         (c) => c.placing?.placerId === current.you,

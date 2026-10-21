@@ -1,8 +1,12 @@
 import type { PreparedCard, Rng } from '@pictiotheme/game-core';
 import type { AvatarId, Card, PlayerId, Stroke } from '@pictiotheme/protocol';
 import type {
+  ActiveSpell,
+  Curse,
   MatchResults,
   PieceShape,
+  SkyStar,
+  Spell,
   Team,
   TowerClientMessage,
   TowerServerMessage,
@@ -17,7 +21,7 @@ import type {
  */
 
 export const TIMINGS = {
-  /** The decider's Build-or-Send choice. Then it's Build. */
+  /** The decider's Keep-or-Curse choice. Then it's Keep. */
   decideMs: 5_000,
   /** Time to place a piece. Then it drops where it is. */
   placeMs: 15_000,
@@ -49,7 +53,8 @@ export type Stats = {
   drawings: number;
   solves: number;
   steals: number;
-  sends: number;
+  /** Pieces this player cursed and sent. */
+  curses: number;
   placements: number;
   fumbles: number;
   /** The quickest correct guess, from the start of the drawing (ms). */
@@ -64,7 +69,8 @@ export type PlayerState = {
   joinedAt: number;
   team: Team | null;
   stats: Stats;
-  /** No steal guesses until then. */
+  /** Test mode's stand-ins (bots.ts): a drawer bot draws, a builder bot places and acts. */
+  bot?: 'drawer' | 'builder';
 };
 
 export type Round = {
@@ -80,6 +86,10 @@ export type Round = {
    */
   maskShown: boolean;
   revealed: Set<number>;
+  /** Solving it also gives the solver's crew a spell. */
+  golden: boolean;
+  /** Strokes begun under a Shaky hand spell: their points wobble (`shakePoints`). */
+  shaky: Set<string>;
   nextHintAt: number | null;
   strokes: Stroke[];
   redo: Stroke[];
@@ -101,6 +111,18 @@ export type Crew = {
   /** The height last sent to players, so tiny wobbles don't flood them. */
   sentHeight: number;
   toppingSince: number | null;
+  /** Spells held, oldest first (at most `SPELL_TUNING.maxCharges`). */
+  charges: Spell[];
+  /** A spell on this crew's tower, cast by the other crew. */
+  spell: ActiveSpell | null;
+  /** The last round was golden: the next one can't be. */
+  lastGolden: boolean;
+  /** Since when this tower has been `comebackGap` behind the other (null: it isn't). */
+  behindSince: number | null;
+  /** When this crew last got a comeback charge. */
+  comebackAt: number | null;
+  /** The sky star by this crew's tower. */
+  star: SkyStar | null;
 };
 
 export type PieceState = {
@@ -109,15 +131,18 @@ export type PieceState = {
   team: Team;
   drawnBy: PlayerId;
   solvedBy: PlayerId;
-  /** Who chooses Build or Send, and places it if built: the drawer, or the thief. */
+  /** Who chooses Keep or Curse, and places it if kept: the drawer, or the thief. */
   deciderId: PlayerId;
   stolen: boolean;
   tower: Team | null;
+  /** Cursed and sent to the other crew. */
   sent: boolean;
+  /** Rolled when it's made; they only take effect once it's sent (`activeCurses`). */
+  curses: Curse[];
   fumbled: boolean;
   shape: PieceShape;
   strokes: Stroke[];
-  /** While the decider chooses: when it defaults to Build. */
+  /** While the decider chooses: when it defaults to Keep. */
   decideBy: number | null;
   /** Who placed it (or was placing it), for the fumble count. */
   placedBy: PlayerId | null;
@@ -155,6 +180,12 @@ export type TimerId =
   | `place:${Team}`
   | `daze:${Team}`
   | `topping:${Team}`
+  /** The spell on this crew's tower: its warning ends, or it does. */
+  | `spell:${Team}`
+  /** The star by this crew's tower is caught, or gone. */
+  | `star:${Team}`
+  /** Time for new sky stars. */
+  | 'stars'
   | `decide:${number}`
   | `grace:${PlayerId}`
   | 'host-grace'
@@ -175,14 +206,35 @@ export type TowerEvent =
   /** The piece being placed was let go: it touched something, or it was dropped. */
   | { type: 'released'; tower: Team; pieceId: number }
   | { type: 'fumbled'; tower: Team; pieceIds: number[] }
-  /** The tower's measured height, about ten times a second. */
-  | { type: 'height'; tower: Team; height: number };
+  /** The pigeon left: a new piece scared it away, or it fell. */
+  | { type: 'pigeonGone'; tower: Team }
+  /**
+   * The tower's measured height, about ten times a second, and whether a settled piece of it is
+   * touching its sky star.
+   */
+  | { type: 'height'; tower: Team; height: number; starHeld?: boolean };
 
 export type PhysicsOp =
   | { op: 'reset'; line: number }
-  | { op: 'spawn'; pieceId: number; outline: number[]; parts: number[][]; gap: number }
+  | {
+      op: 'spawn';
+      pieceId: number;
+      outline: number[];
+      parts: number[][];
+      gap: number;
+      /** A cursed piece's material (tower-physics `PieceMaterial`). */
+      friction?: number;
+      restitution?: number;
+      bouncyMs?: number;
+    }
   | { op: 'steer'; x?: number; angle?: number; fast?: boolean }
   | { op: 'drop' }
+  /** Puts the tower's sky star there (a sensor), or takes it away. */
+  | { op: 'star'; x: number; y: number; radius: number }
+  | { op: 'unstar' }
+  /** The Pigeon spell lands on the outer edge of the top piece (`side` −1 left, 1 right). */
+  | { op: 'pigeon'; side: 1 | -1 }
+  | { op: 'unpigeon' }
   | { op: 'stop' };
 
 export type MatchEndReason = MatchResults['reason'];
@@ -209,7 +261,7 @@ export const emptyStats = (): Stats => ({
   drawings: 0,
   solves: 0,
   steals: 0,
-  sends: 0,
+  curses: 0,
   placements: 0,
   fumbles: 0,
   fastestSolveMs: null,

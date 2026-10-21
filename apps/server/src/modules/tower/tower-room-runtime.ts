@@ -147,8 +147,11 @@ export class TowerRoomRuntime {
         for (const id of event.pieceIds) this.poses[tower].delete(id);
         this.handle({ type: 'fumbled', tower, pieceIds: event.pieceIds });
         return;
+      case 'pigeonGone':
+        this.handle({ type: 'pigeonGone', tower });
+        return;
       case 'height':
-        this.handle({ type: 'height', tower, height: event.height });
+        this.handle({ type: 'height', tower, height: event.height, starHeld: event.starHeld });
         return;
     }
   }

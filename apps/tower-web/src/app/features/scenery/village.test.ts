@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import {
   createBackdropVillage,
   createTowerVillage,
+  dismissBuilders,
+  gatherBuilders,
   landPiece,
   stepVillage,
   takeCues,
@@ -149,5 +151,40 @@ describe('a piece falling into the village', () => {
     const v = createTowerVillage(6, 3, GROUND);
     for (let i = 0; i < 12; i++) landPiece(v, landing(i + 1, -15 + i * 0.01));
     expect(v.rubble.length).toBeLessThanOrEqual(6);
+  });
+});
+
+describe('building something', () => {
+  it('calls the closest free villagers, who hammer at either end of it, then cheer and go back to work', () => {
+    const v = createBackdropVillage(7, 12, 0);
+    run(v, 2);
+    const came = gatherBuilders(v, 2, 4, 6);
+    expect(came).toBe(4);
+    const builders = v.villagers.filter((x) => x.act.kind === 'build');
+    expect(builders).toHaveLength(4);
+
+    const cues = run(v, 6);
+    for (const b of builders) {
+      // Off the ends of the thing, so they can be seen beside it, and facing it.
+      expect(Math.abs(b.x - 2)).toBeGreaterThan(3);
+      expect(b.facing).toBe(b.x < 2 ? 1 : -1);
+      expect(villagerLook(v, b).tool).toBe('hammer');
+    }
+    expect(builders.some((b) => b.x < 2) && builders.some((b) => b.x > 2)).toBe(true);
+    expect(cues.filter((c) => c.kind === 'whack').length).toBeGreaterThan(10);
+
+    dismissBuilders(v);
+    expect(builders.every((b) => b.act.kind === 'proud')).toBe(true);
+    run(v, 20);
+    for (const b of builders) expect(['job', 'back']).toContain(b.act.kind);
+  });
+
+  it("doesn't call anyone who's busy with something that happened", () => {
+    const v = createBackdropVillage(7, 12, 0);
+    run(v, 2);
+    const squashed = v.villagers[0] as Villager;
+    landPiece(v, landing(1, squashed.x));
+    gatherBuilders(v, squashed.x, 8, 2);
+    expect(squashed.act.kind).toBe('flat');
   });
 });

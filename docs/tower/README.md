@@ -2,7 +2,7 @@
 
 > Picking up the work? Start with [planning/status.md](planning/status.md).
 
-Doodle Tower is a team game for PC and tablet browsers: **Pictionary meets Tricky Towers**. Two crews race to build a tower past a height line. Every block is a drawing: a crew's drawer draws a word, and whoever guesses it first turns the drawing into a physics piece. They either build with it or send it to the other crew's tower. Opponents can **steal** a drawing by guessing it first.
+Doodle Tower is a team game for PC and tablet browsers: **Pictionary meets Tricky Towers**. Two crews race to build a tower past a height line. Every block is a drawing: a crew's drawer draws a word, and whoever guesses it first turns the drawing into a physics piece. They either keep it for their tower or curse it and send it to the other crew's. Opponents can **steal** a drawing by guessing it first.
 
 It lives in the PictioTheme (DoodleWhirl!) monorepo and shares its server, database, decks and avatars. It has **its own domain, its own frontend and its own visual identity**: nothing should look like DoodleWhirl.
 
@@ -12,7 +12,7 @@ It lives in the PictioTheme (DoodleWhirl!) monorepo and shares its server, datab
 |---|---|---|
 | **[product/](product/)** | What we're building and why | |
 | ↳ [vision.md](product/vision.md) | Pitch, core loop, why it's fun, glossary | get the big picture |
-| ↳ [game-rules.md](product/game-rules.md) | Teams, rounds, guessing, stealing, build/send, placing, fumbles, winning | implement or balance gameplay |
+| ↳ [game-rules.md](product/game-rules.md) | Teams, rounds, guessing, stealing, keep/curse, placing, fumbles, winning | implement or balance gameplay |
 | ↳ [word-pool.md](product/word-pool.md) | Which decks and cards are used, and why | work on word selection |
 | **[design/](design/)** | How it looks | |
 | ↳ [visual-identity.md](design/visual-identity.md) | The look, typography, colour, sound, what to avoid | design or style anything |
@@ -26,6 +26,7 @@ It lives in the PictioTheme (DoodleWhirl!) monorepo and shares its server, datab
 | **[planning/](planning/)** | When and in what order | |
 | ↳ [roadmap.md](planning/roadmap.md) | Phases, starting with a single-player physics sandbox | plan the work |
 | ↳ [open-questions.md](planning/open-questions.md) | Decisions not made yet | help make decisions |
+| ↳ [test-mode.md](planning/test-mode.md) | Trying the powers alone: bots, a "guess" button, a checklist | test curses and spells |
 | ↳ [status.md](planning/status.md) | **Current state and next tasks** | pick up the work |
 
 The DoodleWhirl docs ([../README.md](../README.md)) still apply wherever these don't say otherwise: the locked stack, the backend and frontend guidelines, the security rules, deployment.

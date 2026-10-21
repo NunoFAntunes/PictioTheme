@@ -1,5 +1,9 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH, type PlayerId, type Stroke } from '@pictiotheme/protocol';
-import type { TowerClientMessage, TowerDrawOp } from '@pictiotheme/protocol/tower';
+import {
+  shakePoints,
+  type TowerClientMessage,
+  type TowerDrawOp,
+} from '@pictiotheme/protocol/tower';
 import { sendError, sendToAll } from './output';
 import { MAX_POINTS_PER_ROUND, type Ctx, type Round } from './types';
 
@@ -65,21 +69,32 @@ export function onDraw(c: Ctx, playerId: PlayerId, msg: DrawMessage): void {
   const found = drawerRound(c, playerId);
   if (!found) return;
   const { team, round } = found;
+  const spell = c.state.match?.crews[team].spell;
+  const shaking = spell?.spell === 'shaky' && c.now >= spell.startsAt && c.now < spell.endsAt;
   const forward = (op: TowerDrawOp) => sendToAll(c, { t: 'crew:draw', team, op }, playerId);
 
   switch (msg.t) {
     case 'draw:begin': {
       if (!reservePoints(c, round, playerId, 1)) return;
-      const { t: _t, x, y, ...style } = msg;
+      const { t: _t, x: _x, y: _y, ...style } = msg;
+      let { x, y } = msg;
+      // A stroke begun under Shaky hand wobbles all the way (the drawer's client does the same).
+      if (shaking) {
+        round.shaky.add(msg.id);
+        [x, y] = shakePoints([x, y, 0.5], msg.id, 0) as [number, number];
+      }
       round.strokes.push({ ...style, pts: [x, y, 0.5] });
       round.redo = [];
-      forward(msg);
+      forward({ ...msg, x, y });
       return;
     }
     case 'draw:pts': {
       const stroke = lastLineStroke(round.strokes, msg.id);
       if (!stroke) return;
-      const pts = clampPoints(msg.pts);
+      const clamped = clampPoints(msg.pts);
+      const pts = round.shaky.has(msg.id)
+        ? shakePoints(clamped, msg.id, stroke.pts.length / 3)
+        : clamped;
       if (pts.length === 0 || !reservePoints(c, round, playerId, pts.length / 3)) return;
       stroke.pts.push(...pts);
       forward({ t: 'draw:pts', id: msg.id, pts });

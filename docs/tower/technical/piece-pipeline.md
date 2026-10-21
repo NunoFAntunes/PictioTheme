@@ -40,6 +40,14 @@ If the last two rules conflict (a very thin, very long doodle), `L_max` wins and
 
 Starting values (world units, the platform is 6 wide): `A_target = 1.2`, `L_max = 3.3`, `t_min = 0.2`. Small pieces leave room on the platform and time to aim. Tune them in the sandbox. Check: about 8–12 average pieces should reach the medium height line.
 
+## Growing a piece
+
+`bloat(piece, areaFactor)` makes the same piece bigger, for the big ice curse ([power-ups.md](../planning/power-ups.md)): the outline, the parts and `scale` grow by √factor, so the doodle's bitmap still covers it, and the area grows by the factor. The `L_max` cap doesn't apply: being too big is the point.
+
+## Melting a piece
+
+`makePiece(strokes, config, canvas, { melt: true })` makes the melted piece for the Melt and Blob curses ([power-ups.md](../planning/power-ups.md)). After step 4, the main blob's columns slide down by `meltShift`, a parabola over its width (the middle by 35% of its height, the edges not at all), in a grid made taller for it; then an opening (erode, then dilate) by 18% of its smaller side rounds the corners, unless that would eat more than 40% of a thin piece. The rest of the pipeline is unchanged, so the piece is normalized to the same weight. The piece carries `melt: {cx, halfWidth, sag}` (logical px), and the client warps the doodle's bitmap with the same `meltShift`.
+
 ## Edge cases
 
 | Drawing | Result |

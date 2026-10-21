@@ -4,43 +4,58 @@ Layout only. The look is in [visual-identity.md](visual-identity.md). Target: 12
 
 ## 1. Home
 
-Logo, your name, then the three ways into a game side by side (2026-10-20):
+Reworked on 2026-10-21 into a playful page with no explanations: the logo, who you are, and one toy holding the three ways in.
 
 ```
-                         DOODLE TOWER
-                     [ Your name: Ana     ]
-┌──────────────────┐ ┌──────────────────────┐ ┌──────────────────┐
-│ ⚡ Quick game     │ │ 🔑 Join a private game│ │ 🏗️ Create a lobby │
-│ any open game, or│ │ [ ABC-DEF          ] │ │ private, share   │
-│ start a public   │ │ (code or pasted link)│ │ the invite card  │
-│ [ QUICK GAME ]   │ │ [ JOIN ]             │ │ [ CREATE A LOBBY ]│
-└──────────────────┘ └──────────────────────┘ └──────────────────┘
+         🎈🎈              ┳🎈
+        D  OO  DLE      T  O  WER          ← the O's are balloons, the T a plinth
+                                 🎈🎈🎈
+┌───────────────┐                🎈🎈🎈
+│   [doodle]    │                 \ | /
+│  ▀▀▀▀▀▀▀▀▀▀   │          ╔═══════════════╗
+│ [✏️ Draw yourself]│      ║  QUICK GAME   ║
+│ Your name     │          ╚═══════════════╝
+│ [ Ana       ] │           /             \
+└───────────────┘   ┌──────────────┐ ┌──────────────┐
+                    │ Private game │ │ Create a lobby│
+                    └──────────────┘ └──────────────┘
+              ( How to play? )  ( Try pieces in the sandbox )
 ```
 
-Codes are `ABC-DEF`, same format and rules as DoodleWhirl; a pasted invite link becomes its code. Opening an invite link (`/r/ABC-DEF`) goes straight to the room (asking for a name first if there isn't one). The avatar is a generated bobble hat for now; a drawn one is Phase 2.
+- **Logo** (`features/home/components/TowerLogo.tsx`): the three O's are balloons. Click one and it pops (a bang, shreds of rubber, its string drops), and a new one blows up 2.6s later. The T is the stone plinth with its grassy cap.
+- **You** (`IdentityCard.tsx`): your avatar standing on a little plinth, **✏️ Draw yourself** and your name. Until you draw, the avatar is the bobble hat made from your name, changing as you type. Drawing opens the game's drawing board in a dialog; the doodle is cut out of the paper like a block (`drawn-avatar.ts`, with `cutout` from `canvas-engine`, as DoodleWhirl does) and kept in this browser. **Use the hat** goes back to the bobble hat.
+- **The ways in** (`BalloonMenu.tsx`): a bunch of balloons carries the **Quick game** board, with **Private game** and **Create a lobby** hanging under it on strings. It drifts and the planks swing slowly; everything holds still while the pointer or focus is on it. **Private game** turns round on its strings to show the code field (a code or a pasted invite link) with **Join** and ✕. Picking a way in without a valid name shakes the card and focuses the name instead. Picking one with a name sends the bunch up into the sky ("wheee") while the room loads; if that fails, it floats back down with the error under it.
+- **Popping the menu** (`menu-fall.ts`): the menu's balloons pop too. Each one gone makes it hang lower and tilt towards the side with fewer balloons; they all blow up again 5s after the last pop. Pop all six and the board and planks **fall into the village** behind the page (`scenery/backdrop-drops.ts`): they land on the lane with a thump, squash whoever is under them, and the villagers break them up with mallets. Once the lane is clear, four villagers run over and **build the menu again**: it appears on the ground with them hammering at either end, its balloons blow up one by one, and it floats back up to its place while they cheer (about 15 to 20s in all). With reduced motion nothing falls; the balloons just come back.
+- **How to play?** opens three panels: draw it, build or send, top out.
+
+Codes are `ABC-DEF`, same format and rules as DoodleWhirl; a pasted invite link becomes its code. Opening an invite link (`/r/ABC-DEF`) goes straight to the room (asking for a name first if there isn't one).
 
 ## 2. Waiting room
 
+Reworked on 2026-10-21 to fit one screen with no scrolling (from 1024×768 up; the layout stops growing at 54rem tall).
+
 ```
-┌─────────────────────────────────────────────────────────────────────┐
-│  INVITE YOUR FRIENDS                                                │
-│  ┌──────────────┐  Room code [ABC-DEF]                              │
-│  │ the share    │  [Copy invite link] [Copy the card]               │
-│  │ card preview │  Who can join: (🔒 Friends with the link) (🌍 Anyone)│
-│  └──────────────┘                                                   │
-├──────────────────────────┬──────────────────────────────────────────┤
-│  🟠 ORANGE CREW (3)      │  🔵 TEAL CREW (2)                        │
-│  ┌──┐ Ana (host)         │  ┌──┐ Rui                                │
-│  ┌──┐ Bea                │  ┌──┐ Zé                                 │
-│  ┌──┐ Carl               │                                          │
-│  [ join Orange ]         │  [ join Teal ]                           │
-├──────────────────────────┴──────────────────────────────────────────┤
-│  Words: Tower Mix ▾   Height: medium ▾   Round: 60s ▾   Steals: on  │
-│                    [ Shuffle crews ]   [ START ]  (needs 2+ each)   │
-└─────────────────────────────────────────────────────────────────────┘
+ Doodle Tower                                                       🔊
+┌─────────────────┐┌─────────────────┐ ┌─────────────────────────────┐
+│ ORANGE CREW 3/6 ││ TEAL CREW  2/6  │ │ INVITE YOUR FRIENDS         │
+│ ┌──┐ Ana  HOST  ││ ┌──┐ Rui        │ │   ┌─────────────────────┐   │
+│ ┌──┐ Bea        ││ ┌──┐ Zé         │ │   │ the share card      │   │
+│ ┌──┐ Carl       ││                 │ │   └─────────────────────┘   │
+│                 ││ [ Join Teal ]   │ │ [ABC-DEF] [🔗 Copy invite link]│
+└─────────────────┘└─────────────────┘ │ - - - - - - - - - - - - - - │
+┌──────────────────────────────────────┐│ WHO CAN JOIN  Friends (●🔒) Anyone│
+│ GAME RULES                           │└─────────────────────────────┘
+│ 🚩 Height line   [Short|Medium|Tall] │┌─────────────────────────────┐
+│ ⏱️ Drawing time       [45s|60s|90s] ││ [🔀 Shuffle] [ START BUILDING ]│
+│ 💫 Fumble daze        [Off| 5s| 8s] ││   Each crew needs 2 players  │
+│ 🦝 Steals (ON■)  🌀 Curses & spells (ON■)│└─────────────────────────────┘
+└──────────────────────────────────────┘
 ```
 
-The invite card shows the share card exactly as chat apps unfurl the link. Lobbies start private; the host can open them to Quick game. The host can move players between crews.
+- **Crews** on the left take the space that's left; a long list scrolls inside its crew. The host can move players between crews.
+- **Game rules**: each rule on its own little plank with an icon tile. Choices are a sunken track with a sunny block that springs to the picked option (`ui/Segmented.tsx`); on/off rules are switches whose knob is a chunky block that springs across and tips to its side (`ui/Switch.tsx`). Other players see the same controls, locked, with a "🔒 Set by the host" tag.
+- **Invite** on the right: the share card exactly as chat apps unfurl the invite link (the server draws it, `tower-share-card.ts`: a sign saying "Come build a tower with us!" carried by two bunches of balloons), the code, and **Copy invite link**. There is no separate "copy the card": the link unfurls into the card. **Who can join** is a switch, 🔒 Friends with the link or 🌍 Anyone (Quick game). Lobbies start private.
+- **Start building** and **Shuffle crews** sit under the invite, always on screen; others see "Waiting for the host to start…".
 
 ## 3. Game: guesser
 
@@ -77,7 +92,7 @@ Drawing tools: brush (with sizes), eraser, a **paint bucket**, undo, clear, a sh
 
 **Colour it in**: when a brush stroke closes a new shape, a pill of seven bright colours (yellow, orange, red, pink, purple, blue, green) pops up over it, and one tap fills it, like the bucket. It's offered only for a new shape: one that was open before the stroke, or one the stroke cut well down (a window drawn in a house), and not for tiny loops or a squiggle inside a shape that's already closed. The next stroke, undo, Escape or six seconds put it away.
 
-## 5. Build or Send (the drawer)
+## 5. Keep or Curse (the drawer)
 
 When your drawing is guessed, the card flips over (the solver is drawing now) and this pops up over the middle column. A stolen piece pops up for the thief instead.
 
@@ -87,9 +102,17 @@ When your drawing is guessed, the card flips over (the solver is drawing now) an
             │                                          │
             │             ◖█████████◗   ← the piece     │
             │                                          │
-            │  [ 🧱 KEEP & PLACE ]  [ 💣 SEND TO TEAL ] │
+            │  [ 🧱 KEEP & PLACE (K) ] [ 🌀 CURSE → TEAL (C) ] │
+            │                          ❄️ Big ice: bigger, │
+            │                             and slippery    │
             └──────────────────────────────────────────┘
 ```
+
+The Curse button names the rolled curse and what it does. With curses off it's 💣 Send instead.
+
+**Spells** sit in each tower's header, after its name: two slots. Your crew's are gold buttons (1 and 2), greyed out while you draw or while the other tower is already under a spell; the other crew's are plain icons, so you can see what's coming. A tower under a spell gets a badge in its top-left corner: a pulsing "Di is casting Fog!" for the 2s warning, then "🌫️ Fog 7s" or "🐦‍⬛ A magpie is circling… 22s". Fog itself is a bank of cloud over the top of the tower, solid for its crew and thin for the other. A **sky star** bobs beside a tower, just past its platform's edge, and a white ring fills around it while a piece holds it. Under **Shaky hand**, the drawer's stage shows a pulsing 〰️ SHAKY HAND tag. A **golden word** gets a gold frame and a ✨ GOLDEN tag, on your crew's drawing and on the other crew's in the sky. Banners: "✨ Golden word! Your crew got 🌫️ Fog", "🌫️ Fog incoming from Di!", "🐦‍⬛ A magpie took your *bridge*!".
+
+On the towers, a cursed piece shows its curse: frost over a slippery or big-ice piece, a drooping doodle on a melted one. The banner says "🌀 Incoming: *bridge* (🧊 Slippery) from Cy".
 
 Teammates see a "Cy is deciding…" line instead of buttons.
 

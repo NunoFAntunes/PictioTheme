@@ -11,6 +11,7 @@ import {
 import { myTeam, strokeModels, type RoomView } from '../../../realtime';
 import { DEFAULT_DRAW_SETTINGS, DrawingToolbar, type DrawSettings } from '../../drawing';
 import { PiecePreview } from '../../piece';
+import { TestGuess, TestPanel } from '../../test-mode';
 import { createDrawSender } from '../draw-sender';
 import { createPlacementController } from '../placement';
 import { DecideCard } from './DecideCard';
@@ -85,6 +86,7 @@ export function GameScreen({ view }: { view: RoomView }) {
     (d) =>
       d.deciderId !== view.you && view.players.find((p) => p.id === d.deciderId)?.team === team,
   );
+  const testMode = view.settings.testMode === true;
   const disabledReason = drawing
     ? 'You’re drawing: no guessing'
     : placing
@@ -94,7 +96,10 @@ export function GameScreen({ view }: { view: RoomView }) {
   return (
     <div className="flex h-dvh min-h-0 flex-col">
       <ScoreBar view={view} team={team} />
-      <main className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_clamp(19rem,30vw,28rem)_minmax(0,1fr)] gap-3 px-3 pb-3">
+      <main
+        className={`grid min-h-0 flex-1 gap-3 px-3 pb-3 ${testMode ? 'grid-cols-[auto_minmax(0,1fr)_clamp(19rem,26vw,26rem)_minmax(0,1fr)]' : 'grid-cols-[minmax(0,1fr)_clamp(19rem,30vw,28rem)_minmax(0,1fr)]'}`}
+      >
+        {testMode && <TestPanel view={view} team={team} />}
         <TowerPanel team={team} view={view} controls={controls} placingHere={placing} mine />
 
         <div ref={middle} className="relative flex min-h-0 flex-col gap-3">
@@ -128,7 +133,11 @@ export function GameScreen({ view }: { view: RoomView }) {
             }
             back={
               <div className="flex h-full flex-col justify-center gap-4">
-                <GuessBox view={view} disabledReason={disabledReason} />
+                {testMode ? (
+                  <TestGuess view={view} disabledReason={disabledReason} />
+                ) : (
+                  <GuessBox view={view} disabledReason={disabledReason} />
+                )}
                 <PlacingControls controls={controls} placing={placing} />
               </div>
             }

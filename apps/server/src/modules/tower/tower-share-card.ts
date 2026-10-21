@@ -6,10 +6,11 @@ import { renderSvg } from '../../lib/svg';
 
 /**
  * Doodle Tower's share card: a 1200×630 picture of a room's invite, for link previews (Discord,
- * Slack, WhatsApp… unfurl an invite link into it, see `towerShareEmbedHtml`) and "Copy the card".
+ * Slack, WhatsApp… unfurl an invite link into it, see `towerShareEmbedHtml`) and the waiting room's preview.
  * In the "Sunny meadow" look (docs/tower/design/visual-identity.md), nothing of DoodleWhirl's:
  * a sky with the sun and clouds, rolling hills, two block towers on their plinths racing up to the
- * bunting, and a white card with the room's name, its rules and the code. Built as SVG (pure,
+ * bunting, and a sign carried by two bunches of balloons: "Come build a tower with us!", the room's
+ * name, its rules and the code. Built as SVG (pure,
  * `towerShareCardSvg`) and rasterised with resvg, like DoodleWhirl's (rooms/share-card.ts).
  */
 
@@ -28,7 +29,7 @@ export const TOWER_SHARE_CARD_WIDTH = 1200;
 export const TOWER_SHARE_CARD_HEIGHT = 630;
 
 /** Bump when the drawing changes, so cached cards (and chat apps' caches) are redrawn. */
-export const TOWER_SHARE_CARD_REVISION = 1;
+export const TOWER_SHARE_CARD_REVISION = 2;
 
 // The tokens (apps/tower-web/src/styles/global.css), in sRGB.
 const DUSK_950 = '#1d1a5a';
@@ -50,6 +51,8 @@ const PEBBLE = '#9aa5b8';
 const PEBBLE_DARK = '#5b6986';
 const CLOUD = '#fbfeff';
 const BLOCKS = [CREW_ORANGE, CREW_TEAL, SUN, CORAL, GRASS, '#b58cff', '#ff8fc2'];
+/** The meadow's balloons (apps/tower-web/src/app/features/scenery/meadow.ts), in sRGB. */
+const BALLOONS = ['#f2453d', '#fccf28', '#3aa6ee', '#e85cbf', '#5fd36a'];
 
 const FONT = 'Lilita One';
 
@@ -125,6 +128,38 @@ function sun(cx: number, cy: number): string {
     ...rays,
     `<circle cx="${cx}" cy="${cy}" r="62" fill="${SUN}" stroke="${SUN_DARK}" stroke-width="6"/>`,
   ].join('');
+}
+
+/** One balloon on its string down to (`knotX`, `knotY`), outlined like the blocks. */
+function balloon(x: number, y: number, r: number, colour: string, knotX: number, knotY: number) {
+  const bottom = y + r * 1.08;
+  return [
+    `<path d="M${n(x)} ${n(bottom + r * 0.18)}Q${n((x + knotX) / 2 + (x < knotX ? -10 : 10))} ${n((bottom + knotY) / 2)} ${n(knotX)} ${n(knotY)}" fill="none" stroke="${INK}" stroke-width="3" opacity="0.8"/>`,
+    `<path d="M${n(x)} ${n(bottom - 2)}l${n(-r * 0.17)} ${n(r * 0.22)}h${n(r * 0.34)}Z" fill="${colour}" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/>`,
+    `<ellipse cx="${n(x)}" cy="${n(y)}" rx="${n(r * 0.88)}" ry="${n(r)}" fill="${colour}" stroke="${INK}" stroke-width="5"/>`,
+    `<ellipse cx="${n(x - r * 0.34)}" cy="${n(y - r * 0.4)}" rx="${n(r * 0.16)}" ry="${n(r * 0.3)}" fill="${CLOUD}" opacity="0.6" transform="rotate(30 ${n(x - r * 0.34)} ${n(y - r * 0.4)})"/>`,
+  ].join('');
+}
+
+/** A bunch of balloons tied to (`knotX`, `knotY`), rising up and out by `lean`. */
+function bunch(knotX: number, knotY: number, lean: number, rand: Rand): string {
+  const spots = [
+    [-40, -108, 34],
+    [38, -114, 36],
+    [-2, -150, 40],
+  ] as const;
+  return spots
+    .map(([dx, dy, r], i) =>
+      balloon(
+        knotX + dx + lean + (rand() - 0.5) * 8,
+        knotY + dy + (rand() - 0.5) * 8,
+        r,
+        BALLOONS[(Math.floor(rand() * BALLOONS.length) + i) % BALLOONS.length] ?? SUN,
+        knotX,
+        knotY,
+      ),
+    )
+    .join('');
 }
 
 /** A tower of chunky blocks on a grassy stone plinth, its top at about `topY`. */
@@ -204,23 +239,28 @@ function rulesOf(input: TowerShareCardInput): string[] {
   ];
 }
 
-const PANEL = { x: 520, y: 132, w: 630, h: 400 } as const;
+/** The sign the balloons carry, tilted a little as if it swayed. */
+const PANEL = { x: 562, y: 196, w: 590, h: 396, tilt: -2 } as const;
 const PANEL_TEXT_WIDTH = PANEL.w - 80;
+/** Where the strings are tied, in from the sign's top corners. */
+const TIE_INSET = 70;
 
 export function towerShareCardSvg(input: TowerShareCardInput, font: FontMetrics): string {
   const rand = seeded(`${input.code}:${input.name}`);
   const W = TOWER_SHARE_CARD_WIDTH;
   const H = TOWER_SHARE_CARD_HEIGHT;
   const ground = 560;
+  const { x, y, w, h, tilt } = PANEL;
   const parts: string[] = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`,
     `<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${SKY}"/><stop offset="1" stop-color="${SKY_LIGHT}"/></linearGradient>`,
     `<clipPath id="scene"><rect width="${W}" height="${H}" rx="40"/></clipPath></defs>`,
     `<g clip-path="url(#scene)">`,
     `<rect width="${W}" height="${H}" fill="url(#sky)"/>`,
-    sun(1090, 70),
-    cloud(470, 70, 0.8, rand),
-    cloud(860, 105, 0.6, rand),
+    // The sun peeks between the two bunches.
+    sun(x + w / 2, 92),
+    cloud(1110, 250, 0.6, rand),
+    cloud(560, 60, 0.5, rand),
     cloud(120, 330, 0.55, rand),
     // The hills, far then near.
     `<path d="M0 470Q180 400 380 450T800 430T1200 450V${H}H0Z" fill="${GRASS_DARK}"/>`,
@@ -237,41 +277,61 @@ export function towerShareCardSvg(input: TowerShareCardInput, font: FontMetrics)
     titleText('Tower', 56 + font.measure('Doodle ', 78, 78 * 0.02), 104, 78, SUN),
   );
 
-  // The invite card, with its thick base, like the site's panels.
-  const { x, y, w, h } = PANEL;
+  // The sign, with its thick base like the site's panels, hanging from its balloons.
   parts.push(
+    `<g transform="rotate(${tilt} ${x + w / 2} ${y + h / 2})">`,
+    bunch(x + TIE_INSET, y + 6, -14, rand),
+    bunch(x + w - TIE_INSET, y + 6, 14, rand),
     `<rect x="${x}" y="${y + 18}" width="${w}" height="${h}" rx="36" fill="${DUSK_950}" opacity="0.25"/>`,
     `<rect x="${x}" y="${y + 10}" width="${w}" height="${h}" rx="36" fill="${CARD_EDGE}"/>`,
     `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="36" fill="${CARD}"/>`,
-    `<text x="${x + 40}" y="${y + 62}" font-family="${FONT}" font-size="30" fill="${DUSK_800}">Come build a tower with us in</text>`,
+    // The eyelets the strings are tied to.
+    ...[x + TIE_INSET, x + w - TIE_INSET].map(
+      (ex) =>
+        `<circle cx="${ex}" cy="${y + 16}" r="9" fill="${CARD_EDGE}" stroke="${INK}" stroke-width="4"/>`,
+    ),
   );
-  const nameSize = Math.max(40, Math.min(70, PANEL_TEXT_WIDTH / font.measure(input.name, 1, 0.02)));
-  const name = truncate(input.name, font, nameSize * 1.02, PANEL_TEXT_WIDTH);
-  parts.push(titleText(name, x + 40, y + 76 + nameSize * 0.9, nameSize));
+
+  // "Come build a tower with us!" over two lines, sized to fit.
+  const headSize = Math.min(
+    50,
+    PANEL_TEXT_WIDTH / font.measure('Come build a tower', 1, 0.02),
+    PANEL_TEXT_WIDTH / font.measure('with us!', 1, 0.02),
+  );
+  parts.push(
+    titleText('Come build a tower', x + 40, y + 40 + headSize * 0.9, headSize),
+    titleText('with us!', x + 40, y + 40 + headSize * 1.95, headSize, SUN),
+  );
+  const nameSize = 28;
+  const nameY = y + 40 + headSize * 1.95 + 42;
+  const name = truncate(`in ${input.name}`, font, nameSize, PANEL_TEXT_WIDTH);
+  parts.push(
+    `<text x="${x + 40}" y="${n(nameY)}" font-family="${FONT}" font-size="${nameSize}" fill="${DUSK_800}">${esc(name)}</text>`,
+  );
 
   let cx = x + 40;
   for (const label of rulesOf(input)) {
-    const [svg, cw] = chip(label, cx, y + 178, font);
+    const [svg, cw] = chip(label, cx, nameY + 16, font);
     parts.push(svg);
     cx += cw + 14;
   }
 
   // The code on a sunny tag, and where to join.
-  const tag = { x: x + 40, y: y + 262, h: 100 };
-  const codeSize = 64;
-  const tagW = font.measure(input.code, codeSize, codeSize * 0.08) + 64;
+  const tag = { x: x + 40, y: y + h - 108, h: 80 };
+  const codeSize = 56;
+  const tagW = font.measure(input.code, codeSize, codeSize * 0.08) + 56;
   parts.push(
-    `<rect x="${tag.x}" y="${tag.y + 8}" width="${n(tagW)}" height="${tag.h}" rx="24" fill="${SUN_DARK}"/>`,
-    `<rect x="${tag.x}" y="${tag.y}" width="${n(tagW)}" height="${tag.h}" rx="24" fill="${SUN}"/>`,
-    `<text x="${n(tag.x + tagW / 2)}" y="${tag.y + 73}" font-family="${FONT}" font-size="${codeSize}" letter-spacing="${n(codeSize * 0.08)}" text-anchor="middle" fill="${INK}">${esc(input.code)}</text>`,
+    `<rect x="${tag.x}" y="${tag.y + 8}" width="${n(tagW)}" height="${tag.h}" rx="22" fill="${SUN_DARK}"/>`,
+    `<rect x="${tag.x}" y="${tag.y}" width="${n(tagW)}" height="${tag.h}" rx="22" fill="${SUN}"/>`,
+    `<text x="${n(tag.x + tagW / 2)}" y="${tag.y + 60}" font-family="${FONT}" font-size="${codeSize}" letter-spacing="${n(codeSize * 0.08)}" text-anchor="middle" fill="${INK}">${esc(input.code)}</text>`,
   );
   const hostX = tag.x + tagW + 26;
   const hostWidth = x + w - 36 - hostX;
   const hostSize = Math.min(30, hostWidth / Math.max(1, font.measure(input.host, 1)));
   parts.push(
-    `<text x="${n(hostX)}" y="${tag.y + 42}" font-family="${FONT}" font-size="26" fill="${DUSK_800}">join at</text>`,
-    `<text x="${n(hostX)}" y="${tag.y + 80}" font-family="${FONT}" font-size="${n(hostSize)}" fill="${DUSK_900}">${esc(input.host)}</text>`,
-    '</g></svg>',
+    `<text x="${n(hostX)}" y="${tag.y + 34}" font-family="${FONT}" font-size="26" fill="${DUSK_800}">join at</text>`,
+    `<text x="${n(hostX)}" y="${tag.y + 72}" font-family="${FONT}" font-size="${n(hostSize)}" fill="${DUSK_900}">${esc(input.host)}</text>`,
+    '</g></g></svg>',
   );
   return parts.join('');
 }

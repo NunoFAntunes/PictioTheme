@@ -68,6 +68,33 @@ export type PieceGeometry = { outline: number[]; parts: number[][] };
 
 export type PieceId = number;
 
+/**
+ * How one piece differs from the tuning (a cursed piece, docs/tower/planning/power-ups.md).
+ * `friction` wins over whatever it touches (the lower friction of the two counts), so a slippery
+ * piece slides on a grippy tower. `lowerScale` multiplies how fast it lowers while it's placed.
+ * `restitution` wins too (the bouncier of the two counts), until `bouncyMs` after it's released;
+ * then it's as bouncy as any piece.
+ */
+export type PieceMaterial = {
+  friction?: number;
+  lowerScale?: number;
+  restitution?: number;
+  bouncyMs?: number;
+};
+
+/**
+ * The Pigeon spell (docs/tower/planning/power-ups.md): a small, light, grippy ball that lands on
+ * the outer edge of the tower's top piece, tipping it. It isn't a piece: it never counts for the
+ * height and never fumbles. In network frames it's the body `PIGEON_ID`.
+ */
+export const PIGEON = {
+  radius: 0.18,
+  /** About a third of a piece (pieces are about 1.2 m² at density 1). */
+  mass: 0.4,
+  friction: 1.5,
+} as const;
+export const PIGEON_ID = -1;
+
 export type BodyState = {
   id: PieceId;
   x: number;
@@ -86,6 +113,8 @@ export type StepEvents = {
   released: { id: PieceId; reason: 'touched' | 'dropped' } | null;
   /** Pieces that fell off this step. They're already removed from the world. */
   fumbled: PieceId[];
+  /** The pigeon left this step: a new piece touched it, or it fell. It's already gone. */
+  pigeon: 'scared' | 'fell' | null;
 };
 
 type Entry = {
@@ -93,6 +122,12 @@ type Entry = {
   body: RAPIER.RigidBody;
   geometry: PieceGeometry;
   colliders: RAPIER.Collider[];
+  material: PieceMaterial;
+  /** Its own bounce still holds: until the step `bouncyUntil` once it's released. */
+  bouncy: boolean;
+  bouncyUntil: number | null;
+  /** The step it was released at (null while it's being placed). */
+  releasedAt: number | null;
 };
 
 export type TowerWorld = ReturnType<typeof createTowerWorld>;
@@ -132,10 +167,22 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
   let active: { entry: Entry; targetX: number; targetAngle: number; fast: boolean } | null = null;
   let dropped: PieceId | null = null;
   let tick = 0;
+  /** A sky star: a sensor that pieces pass through (docs/tower/planning/power-ups.md). */
+  let star: RAPIER.Collider | null = null;
+  /** The pigeon, and the step it landed at: pieces released after that scare it away. */
+  let pigeon: { body: RAPIER.RigidBody; collider: RAPIER.Collider; landedAt: number } | null = null;
+  const removePigeon = () => {
+    if (pigeon) world.removeRigidBody(pigeon.body);
+    pigeon = null;
+  };
 
   const release = () => {
     if (!active) return null;
-    const { body, id } = active.entry;
+    const { body, id, material } = active.entry;
+    active.entry.releasedAt = tick;
+    if (material.bouncyMs !== undefined) {
+      active.entry.bouncyUntil = tick + Math.ceil(material.bouncyMs / 1000 / STEP_SECONDS);
+    }
     body.setGravityScale(1, true);
     // Drop straight down from where it is: no sideways fling or spin from the steering.
     body.setLinvel({ x: 0, y: Math.min(0, body.linvel().y) }, true);
@@ -148,6 +195,22 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
     if (body.isSleeping()) return true;
     const v = body.linvel();
     return Math.hypot(v.x, v.y) < tuning.settleSpeed && Math.abs(body.angvel()) < tuning.settleSpin;
+  };
+
+  /** A piece's outline in world space. */
+  const worldOutline = (entry: Entry): [number, number][] => {
+    const { x, y } = entry.body.translation();
+    const angle = entry.body.rotation();
+    const sin = Math.sin(angle);
+    const cos = Math.cos(angle);
+    const o = entry.geometry.outline;
+    const out: [number, number][] = [];
+    for (let i = 0; i + 1 < o.length; i += 2) {
+      const px = o[i] as number;
+      const py = o[i + 1] as number;
+      out.push([x + cos * px - sin * py, y + sin * px + cos * py]);
+    }
+    return out;
   };
 
   /** The highest point of a piece's outline, in world units. */
@@ -164,6 +227,48 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
     return top;
   };
 
+  const applyFriction = (collider: RAPIER.Collider, material: PieceMaterial) => {
+    if (material.friction === undefined) {
+      collider.setFriction(tuning.friction);
+      collider.setFrictionCombineRule(RAPIER.CoefficientCombineRule.Average);
+    } else {
+      collider.setFriction(material.friction);
+      collider.setFrictionCombineRule(RAPIER.CoefficientCombineRule.Min);
+    }
+  };
+
+  const applyRestitution = (collider: RAPIER.Collider, entry: Entry) => {
+    if (entry.bouncy && entry.material.restitution !== undefined) {
+      collider.setRestitution(entry.material.restitution);
+      collider.setRestitutionCombineRule(RAPIER.CoefficientCombineRule.Max);
+    } else {
+      collider.setRestitution(tuning.restitution);
+      collider.setRestitutionCombineRule(RAPIER.CoefficientCombineRule.Average);
+    }
+  };
+
+  /**
+   * The settled pieces standing on the platform through a chain of touching pieces: what counts
+   * for the height. The piece being placed never counts, and neither does anything resting on it.
+   */
+  const standing = (): Entry[] => {
+    const seen = new Set<Entry>();
+    const out: Entry[] = [];
+    const queue: RAPIER.Collider[] = [platform];
+    while (queue.length) {
+      const collider = queue.pop() as RAPIER.Collider;
+      world.contactPairsWith(collider, (other) => {
+        const entry = byCollider.get(other.handle);
+        if (!entry || seen.has(entry) || entry === active?.entry) return;
+        if (!touching(collider, other)) return;
+        seen.add(entry);
+        if (isSettled(entry.body)) out.push(entry);
+        queue.push(...entry.colliders);
+      });
+    }
+    return out;
+  };
+
   /** True when the two colliders are actually touching, not just overlapping bounding boxes. */
   const touching = (a: RAPIER.Collider, b: RAPIER.Collider) => {
     let found = false;
@@ -178,7 +283,14 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
      * Spawns a piece to be placed, at (x, y). Fails (null) while another one is being placed.
      * `id` lets the caller choose the piece's id (the match owns ids); otherwise the next free one.
      */
-    spawn(geometry: PieceGeometry, x: number, y: number, angle = 0, id?: PieceId): PieceId | null {
+    spawn(
+      geometry: PieceGeometry,
+      x: number,
+      y: number,
+      angle = 0,
+      id?: PieceId,
+      material: PieceMaterial = {},
+    ): PieceId | null {
       if (active) return null;
       const body = world.createRigidBody(
         RAPIER.RigidBodyDesc.dynamic()
@@ -193,18 +305,27 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
       for (const part of geometry.parts) {
         const desc = RAPIER.ColliderDesc.convexHull(new Float32Array(part));
         if (!desc) continue;
-        desc
-          .setFriction(tuning.friction)
-          .setRestitution(tuning.restitution)
-          .setDensity(tuning.density)
-          .setActiveEvents(RAPIER.ActiveEvents.COLLISION_EVENTS);
+        desc.setDensity(tuning.density).setActiveEvents(RAPIER.ActiveEvents.COLLISION_EVENTS);
         colliders.push(world.createCollider(desc, body));
       }
       if (!colliders.length) {
         world.removeRigidBody(body);
         return null;
       }
-      const entry: Entry = { id: id ?? nextId++, body, geometry, colliders };
+      const entry: Entry = {
+        id: id ?? nextId++,
+        body,
+        geometry,
+        colliders,
+        material,
+        bouncy: material.restitution !== undefined,
+        bouncyUntil: null,
+        releasedAt: null,
+      };
+      for (const c of colliders) {
+        applyFriction(c, material);
+        applyRestitution(c, entry);
+      }
       nextId = Math.max(nextId, entry.id + 1);
       entries.set(entry.id, entry);
       for (const c of colliders) byCollider.set(c.handle, entry);
@@ -238,19 +359,44 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
           -tuning.turnSpeed,
           tuning.turnSpeed,
         );
-        const down = active.fast ? tuning.fastLowerSpeed : tuning.lowerSpeed;
+        const down =
+          (active.fast ? tuning.fastLowerSpeed : tuning.lowerSpeed) *
+          (active.entry.material.lowerScale ?? 1);
         body.setLinvel({ x: vx, y: -down }, true);
         body.setAngvel(spin, true);
       }
 
       world.step(events);
       tick += 1;
+      for (const entry of entries.values()) {
+        if (entry.bouncyUntil === null || tick < entry.bouncyUntil) continue;
+        entry.bouncy = false;
+        entry.bouncyUntil = null;
+        for (const c of entry.colliders) applyRestitution(c, entry);
+      }
 
       let released: StepEvents['released'] =
         dropped !== null ? { id: dropped, reason: 'dropped' } : null;
       dropped = null;
+      let pigeonLeft: StepEvents['pigeon'] = null;
       events.drainCollisionEvents((h1, h2, started) => {
-        if (!started || !active) return;
+        if (!started) return;
+        // A new piece (being placed, or placed since it landed) touching the pigeon scares it
+        // away; the tower it's perched on doesn't.
+        if (pigeon && (h1 === pigeon.collider.handle || h2 === pigeon.collider.handle)) {
+          const other = byCollider.get(h1 === pigeon.collider.handle ? h2 : h1);
+          const fresh =
+            other !== undefined &&
+            (other === active?.entry ||
+              (other.releasedAt !== null && other.releasedAt > pigeon.landedAt));
+          if (fresh) {
+            removePigeon();
+            pigeonLeft = 'scared';
+          }
+        }
+        if (!active) return;
+        // Passing through a star isn't touching anything.
+        if (star && (h1 === star.handle || h2 === star.handle)) return;
         const a = byCollider.get(h1);
         const b = byCollider.get(h2);
         if (a !== active.entry && b !== active.entry) return;
@@ -267,7 +413,11 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
         entries.delete(entry.id);
         fumbled.push(entry.id);
       }
-      return { released, fumbled };
+      if (pigeon && pigeon.body.translation().y < -tuning.killDepth) {
+        removePigeon();
+        pigeonLeft = 'fell';
+      }
+      return { released, fumbled, pigeon: pigeonLeft };
     },
 
     /**
@@ -276,21 +426,91 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
      * anything resting on it.
      */
     height(): number {
-      const seen = new Set<Entry>();
-      const queue: RAPIER.Collider[] = [platform];
       let height = 0;
-      while (queue.length) {
-        const collider = queue.pop() as RAPIER.Collider;
-        world.contactPairsWith(collider, (other) => {
-          const entry = byCollider.get(other.handle);
-          if (!entry || seen.has(entry) || entry === active?.entry) return;
-          if (!touching(collider, other)) return;
-          seen.add(entry);
-          if (isSettled(entry.body)) height = Math.max(height, topOf(entry));
-          queue.push(...entry.colliders);
-        });
-      }
+      for (const entry of standing()) height = Math.max(height, topOf(entry));
       return height;
+    },
+
+    /**
+     * Lands the pigeon on the outer edge (`side` −1 left, 1 right) of the tower's top piece: on
+     * the highest point of that piece's outer quarter. With no tower, on the platform's edge.
+     */
+    landPigeon(side: 1 | -1): void {
+      removePigeon();
+      let top: Entry | null = null;
+      for (const entry of standing()) if (!top || topOf(entry) > topOf(top)) top = entry;
+      let x = side * (tuning.platformWidth / 2 - PIGEON.radius);
+      let y = 0;
+      if (top) {
+        const pts = worldOutline(top);
+        const xs = pts.map((p) => p[0]);
+        const left = Math.min(...xs);
+        const right = Math.max(...xs);
+        const from = side > 0 ? right - (right - left) / 4 : left;
+        const to = side > 0 ? right : left + (right - left) / 4;
+        const edge = pts.filter(([px]) => px >= from && px <= to);
+        const best = edge.reduce((a, b) => (b[1] > a[1] ? b : a), edge[0] ?? [x, y]);
+        [x, y] = best;
+        // A step in from the very edge, so it perches rather than slips off.
+        x -= side * PIGEON.radius;
+      }
+      const body = world.createRigidBody(
+        RAPIER.RigidBodyDesc.dynamic()
+          .setTranslation(x, y + PIGEON.radius + 0.05)
+          .setLinearDamping(0.5)
+          // It grips with its feet: it doesn't roll.
+          .lockRotations(),
+      );
+      const collider = world.createCollider(
+        RAPIER.ColliderDesc.ball(PIGEON.radius)
+          .setMass(PIGEON.mass)
+          .setFriction(PIGEON.friction)
+          .setFrictionCombineRule(RAPIER.CoefficientCombineRule.Max)
+          .setRestitution(0)
+          .setActiveEvents(RAPIER.ActiveEvents.COLLISION_EVENTS),
+        body,
+      );
+      pigeon = { body, collider, landedAt: tick };
+    },
+
+    /** The pigeon flies off. */
+    clearPigeon(): void {
+      removePigeon();
+    },
+
+    /** Where the pigeon is, if it's here. */
+    pigeon(): { x: number; y: number; angle: number } | null {
+      if (!pigeon) return null;
+      const { x, y } = pigeon.body.translation();
+      return { x, y, angle: pigeon.body.rotation() };
+    },
+
+    /** Puts the sky star at (x, y), replacing any other. */
+    setStar(x: number, y: number, radius: number): void {
+      if (star) world.removeCollider(star, false);
+      // On the platform's fixed body, which sits half its thickness down.
+      const at = platformBody.translation();
+      star = world.createCollider(
+        RAPIER.ColliderDesc.ball(radius)
+          .setTranslation(x - at.x, y - at.y)
+          .setSensor(true),
+        platformBody,
+      );
+    },
+
+    clearStar(): void {
+      if (star) world.removeCollider(star, false);
+      star = null;
+    },
+
+    /** A settled piece of the tower (one that counts for its height) is touching the star. */
+    starHeld(): boolean {
+      if (!star) return false;
+      const sensor = star;
+      for (const entry of standing()) {
+        if (entry.colliders.some((c) => world.intersectionPair(sensor, c))) return true;
+      }
+      return false;
     },
 
     /** The highest point of every piece, settled or not (for where to spawn the next one). */
@@ -306,13 +526,18 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
      * Spawns a piece above everything on the tower: `gap` over its top, plus the piece's own
      * radius, centred over the platform.
      */
-    spawnAbove(geometry: PieceGeometry, gap: number, id?: PieceId): PieceId | null {
+    spawnAbove(
+      geometry: PieceGeometry,
+      gap: number,
+      id?: PieceId,
+      material: PieceMaterial = {},
+    ): PieceId | null {
       let radius = 0;
       const o = geometry.outline;
       for (let i = 0; i + 1 < o.length; i += 2) {
         radius = Math.max(radius, Math.hypot(o[i] as number, o[i + 1] as number));
       }
-      return this.spawn(geometry, 0, this.top() + gap + radius, 0, id);
+      return this.spawn(geometry, 0, this.top() + gap + radius, 0, id, material);
     },
 
     /**
@@ -322,6 +547,10 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
      */
     frame(movingOnly: boolean): number[] {
       const out: number[] = [];
+      if (pigeon && !(movingOnly && pigeon.body.isSleeping())) {
+        const { x, y } = pigeon.body.translation();
+        out.push(PIGEON_ID, Math.round(x * 1000), Math.round(y * 1000), 0);
+      }
       for (const entry of entries.values()) {
         if (movingOnly && entry.body.isSleeping()) continue;
         const { x, y } = entry.body.translation();
@@ -349,6 +578,12 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
       });
     },
 
+    /** A piece's velocity (units/s), for tests and tuning. */
+    velocity(id: PieceId): { x: number; y: number } | null {
+      const v = entries.get(id)?.body.linvel();
+      return v ? { x: v.x, y: v.y } : null;
+    },
+
     geometry(id: PieceId): PieceGeometry | null {
       return entries.get(id)?.geometry ?? null;
     },
@@ -370,14 +605,17 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
       return tuning;
     },
 
-    /** Changes tuning live. Friction and restitution apply to existing pieces too. */
+    /**
+     * Changes tuning live. Friction and restitution apply to existing pieces too (a piece's own
+     * material still wins).
+     */
     retune(patch: Partial<PhysicsTuning>): void {
       tuning = { ...tuning, ...patch };
       world.gravity = { x: 0, y: -tuning.gravity };
       for (const entry of entries.values()) {
         for (const c of entry.colliders) {
-          c.setFriction(tuning.friction);
-          c.setRestitution(tuning.restitution);
+          applyFriction(c, entry.material);
+          applyRestitution(c, entry);
         }
         entry.body.setLinearDamping(tuning.linearDamping);
         entry.body.setAngularDamping(tuning.angularDamping);
@@ -395,6 +633,7 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
 
     /** Removes every piece. */
     clear(): void {
+      removePigeon();
       for (const entry of entries.values()) world.removeRigidBody(entry.body);
       entries.clear();
       byCollider.clear();

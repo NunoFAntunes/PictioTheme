@@ -9,9 +9,19 @@ import {
   seeded,
   wrap,
 } from '../meadow';
+import {
+  addDrops,
+  backdropLayout,
+  createDropLife,
+  drawDrops,
+  emitBackdrop,
+  orderBuilders,
+  stepDrops,
+  takeBackdropOrders,
+} from '../backdrop-drops';
 import { onSpriteLoad, preloadScenery, PROPS, propSprite } from '../sprites';
-import { createBackdropVillage, stepVillage, VILLAGER_HEIGHT, type Village } from '../village';
-import { drawVillageProps, drawVillagers, type VillageView } from '../village-draw';
+import { createBackdropVillage, stepVillage, takeCues, type Village } from '../village';
+import { drawCrumbs, drawVillageProps, drawVillagers, type VillageView } from '../village-draw';
 
 type Decor = { sprite: string; at: number; height: number; flip: boolean };
 
@@ -46,7 +56,8 @@ const CLOUDS = (() => {
 /**
  * The page behind every screen: a sunny sky with clouds drifting by, rolling hills, a meadow
  * with trees and a village of little houses, and villagers busy with their jobs along the bottom
- * (`village.ts`; nothing falls on them here). One canvas, fixed behind the content, drawn every
+ * (`village.ts`). Nothing falls on them, unless the page drops something (`backdrop-drops.ts`: the
+ * home page's menu, when all its balloons are popped). One canvas, fixed behind the content, drawn every
  * frame (once only with reduced motion, villagers frozen mid-job).
  */
 export function SceneBackdrop() {
@@ -62,6 +73,8 @@ export function SceneBackdrop() {
     let frame = 0;
     let last = t0;
     let village: Village | null = null;
+    let drops = createDropLife();
+    const rnd = seeded(5);
 
     const render = (now: number) => {
       if (!still.matches) frame = requestAnimationFrame(render);
@@ -76,8 +89,7 @@ export function SceneBackdrop() {
       if (canvas.height !== Math.round(height * dpr)) canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const ground = Math.min(110, Math.max(64, height * 0.12));
-      const horizon = height - ground;
+      const { ground, horizon, feet, unitPx, halfSpan } = backdropLayout(width, height);
       const unit = ground; // Props are sized in "ground heights".
 
       // Sky.
@@ -172,15 +184,27 @@ export function SceneBackdrop() {
 
       // Villagers, busy. Built for the window's width (again if it changes much), in units of
       // their own height.
-      const feet = horizon + ground * 0.62;
-      const unitPx = (ground * 0.78) / VILLAGER_HEIGHT;
-      const halfSpan = width / 2 / unitPx;
       if (!village || Math.abs(village.halfSpan - halfSpan) > halfSpan * 0.1) {
         village = createBackdropVillage(7, halfSpan, 0);
         // Start mid-afternoon rather than with everyone fresh on their marks.
         for (let i = 0; i < 60; i++) stepVillage(village, 0.1);
+        // Whatever was dropped on the old one is gone with it.
+        if (drops.busy) emitBackdrop({ kind: 'cleared' });
+        drops = createDropLife();
       }
+      const toWorld = (px: number, py: number) => ({
+        x: (px - width / 2) / unitPx,
+        y: (feet - py) / unitPx,
+      });
+      for (const order of takeBackdropOrders()) {
+        if (order.kind === 'drop') addDrops(drops, order.drops, unitPx, toWorld, rnd);
+        else orderBuilders(village, order, unitPx, toWorld);
+      }
+      const cleared = stepDrops(drops, village, dt, still.matches);
       if (!still.matches) stepVillage(village, dt);
+      for (const cue of takeCues(village))
+        emitBackdrop({ kind: 'cue', cue, pan: (cue.x / halfSpan) * 0.6 });
+      if (cleared) emitBackdrop({ kind: 'cleared' });
       const view: VillageView = {
         S: (x, y) => ({ x: width / 2 + x * unitPx, y: feet - y * unitPx }),
         unit: unitPx,
@@ -190,7 +214,10 @@ export function SceneBackdrop() {
         cheering: false,
       };
       drawVillageProps(ctx, village, view);
-      drawVillagers(ctx, village, view);
+      drawVillagers(ctx, village, view, 'under');
+      drawDrops(ctx, drops, village, view.S, unitPx);
+      drawVillagers(ctx, village, view, 'over');
+      drawCrumbs(ctx, village, view);
     };
 
     // One loop at a time: a redraw replaces the pending frame (and restarts the loop).

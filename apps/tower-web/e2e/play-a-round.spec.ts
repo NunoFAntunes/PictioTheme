@@ -40,7 +40,7 @@ async function drawRectangle(page: Page) {
   await page.mouse.up();
 }
 
-test('four players play a round: draw, guess, build, place', async ({ browser }) => {
+test('four players play a round: draw, guess, steal, fumble, cast a spell', async ({ browser }) => {
   test.setTimeout(90_000);
   const host = await newPlayer(browser);
   await host.goto('/');
@@ -112,9 +112,10 @@ test('four players play a round: draw, guess, build, place', async ({ browser })
   await guesser.getByLabel('Guess', { exact: true }).fill(word);
   await guesser.keyboard.press('Enter');
 
-  const decide = guesser.getByRole('dialog', { name: 'Build or send' });
+  const decide = guesser.getByRole('dialog', { name: 'Keep or curse' });
   await expect(decide).toBeVisible();
   await expect(decide).toContainText('Stolen!');
+  await expect(decide.getByRole('button', { name: /Curse/ })).toBeVisible();
   await shot(guesser, '4-decide');
   await decide.getByRole('button', { name: /Keep/ }).click();
 
@@ -137,10 +138,21 @@ test('four players play a round: draw, guess, build, place', async ({ browser })
   expect(placing).toBe(guesser);
   await placing.waitForTimeout(600);
   await shot(placing, '5-placing');
+  // Steer it out past the platform's edge and drop it: it falls off.
+  await placing.keyboard.down('ArrowLeft');
+  await placing.waitForTimeout(2000);
+  await placing.keyboard.up('ArrowLeft');
   await placing.keyboard.press('Space');
 
-  await expect(host.getByTestId('height-teal')).not.toHaveText('0.0 m', { timeout: 10_000 });
-  await host.waitForTimeout(1500);
+  // The fumble gives Teal a comeback spell, which the thief casts at Orange's tower.
+  const cast = placing.getByRole('button', { name: /^Cast .+ at Orange/ });
+  await expect(cast).toBeEnabled({ timeout: 10_000 });
+  await expect(host.getByLabel('Teal spells').getByLabel(/Fog|Magpie|Shaky hand/)).toBeVisible();
+  await cast.click();
+  await expect(
+    host.getByRole('status').filter({ hasText: /is casting (Fog|Magpie|Shaky hand)/ }),
+  ).toBeVisible();
+  await expect(placing.getByLabel('Teal spells').getByRole('button')).toHaveCount(0);
   await shot(host, '6-host');
   for (const page of players) await page.context().close();
 });

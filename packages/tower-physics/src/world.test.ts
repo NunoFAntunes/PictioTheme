@@ -3,7 +3,9 @@ import {
   createTowerWorld,
   DEFAULT_TUNING,
   loadPhysics,
+  PIGEON_ID,
   type PieceGeometry,
+  type PieceMaterial,
   type StepEvents,
   type TowerWorld,
 } from './world';
@@ -48,8 +50,14 @@ function run(world: TowerWorld, seconds: number) {
 }
 
 /** Spawns a piece above the tower and lets it come down until it lands, then settle. */
-function place(world: TowerWorld, geometry: PieceGeometry, x = 0, angle = 0) {
-  const id = world.spawn(geometry, x, world.top() + 3, angle);
+function place(
+  world: TowerWorld,
+  geometry: PieceGeometry,
+  x = 0,
+  angle = 0,
+  material: PieceMaterial = {},
+) {
+  const id = world.spawn(geometry, x, world.top() + 3, angle, undefined, material);
   expect(id).not.toBeNull();
   world.steer({ fast: true });
   let released = null;
@@ -70,6 +78,14 @@ describe('placing', () => {
     const { released } = run(world, 4);
     expect(released).toEqual({ id, reason: 'touched' });
     expect(world.active).toBeNull();
+    world.free();
+  });
+
+  it('lowers a piece faster when its material says so', () => {
+    const world = createTowerWorld();
+    world.spawn(box(1, 1), 0, 8, 0, undefined, { lowerScale: 2 });
+    run(world, 1);
+    expect(world.bodies()[0]?.y).toBeCloseTo(8 - 2 * DEFAULT_TUNING.lowerSpeed, 1);
     world.free();
   });
 
@@ -132,6 +148,54 @@ describe('stacking', () => {
     };
     expect(slide(0.2)).toBe(true);
     expect(slide(1)).toBe(false);
+  });
+
+  it('slides a slippery piece off a gentle slope that holds an ordinary one', () => {
+    const slide = (material: PieceMaterial) => {
+      const world = createTowerWorld();
+      place(world, ramp(5, 1.34)); // about 15°
+      const { fumbled } = place(world, box(1, 1), 0.5, Math.atan2(1.34, 5), material);
+      const outcome = fumbled.length > 0 || run(world, 8).fumbled.length > 0;
+      world.free();
+      return outcome;
+    };
+    expect(slide({})).toBe(false);
+    expect(slide({ friction: 0.05 })).toBe(true);
+  });
+
+  it('bounces a bouncy piece, for a while after it lands', () => {
+    /** How high a box dropped from 3 m bounces back after first touching the platform. */
+    const bounce = (material: PieceMaterial) => {
+      const world = createTowerWorld();
+      world.spawn(box(1, 1), 0, 3, 0, undefined, material);
+      world.drop();
+      let landed = false;
+      let peak = -Infinity;
+      for (let i = 0; i < 180; i++) {
+        world.step();
+        const body = world.bodies()[0];
+        if (!body) break;
+        const vy = world.velocity(body.id)?.y ?? 0;
+        if (!landed && body.y < 0.6) landed = true;
+        if (landed) peak = Math.max(peak, body.y);
+        if (landed && vy < 0 && peak > 0.6) break;
+      }
+      world.free();
+      return peak - 0.5;
+    };
+    const plain = bounce({});
+    expect(bounce({ restitution: 0.6, bouncyMs: 3000 })).toBeGreaterThan(plain + 0.3);
+    // Its bounce is gone once its time is up (here: right away).
+    expect(bounce({ restitution: 0.6, bouncyMs: 0 })).toBeLessThan(plain + 0.05);
+  });
+
+  it('keeps a piece slippery when the tuning changes', () => {
+    const world = createTowerWorld();
+    place(world, ramp(5, 1.34));
+    const { fumbled } = place(world, box(1, 1), 0.5, Math.atan2(1.34, 5), { friction: 0.05 });
+    world.retune({ friction: 0.9 });
+    expect(fumbled.length > 0 || run(world, 8).fumbled.length > 0).toBe(true);
+    world.free();
   });
 
   it('rolls a ball off a slope', () => {
@@ -201,6 +265,122 @@ describe('height', () => {
       world.step();
       expect(world.height()).toBeCloseTo(1, 1);
     }
+    world.free();
+  });
+});
+
+describe('sky star', () => {
+  it('lets a piece being placed pass through it', () => {
+    const world = createTowerWorld();
+    world.setStar(0, 2, 0.35);
+    const id = world.spawn(box(1, 1), 0, 4);
+    world.steer({ fast: true });
+    let released = null;
+    for (let i = 0; i < 600 && released === null; i++) released = world.step().released;
+    expect(released).toEqual({ id, reason: 'touched' });
+    // It came all the way down to the platform: the star didn't stop it.
+    expect(world.bodies()[0]?.y).toBeLessThan(1);
+    world.free();
+  });
+
+  it('is held by a settled piece of the tower that touches it, not by one that misses it', () => {
+    const world = createTowerWorld();
+    world.setStar(3.6, 0.7, 0.35);
+    place(world, box(1, 1), 0);
+    expect(world.starHeld()).toBe(false);
+    // A plank on the platform sticking out past its edge (3), its top (0.5) into the star.
+    place(world, box(3, 0.5), 2.4);
+    expect(world.starHeld()).toBe(true);
+    world.clearStar();
+    expect(world.starHeld()).toBe(false);
+    world.free();
+  });
+
+  it('is not held by the piece being placed', () => {
+    const world = createTowerWorld();
+    world.setStar(0, 4, 0.35);
+    world.spawn(box(1, 1), 0, 4);
+    run(world, 0.2);
+    expect(world.starHeld()).toBe(false);
+    world.free();
+  });
+});
+
+describe('pigeon', () => {
+  it('lands on the outer edge of the top piece and knocks a plank on a pillar off balance', () => {
+    const world = createTowerWorld();
+    place(world, box(0.4, 1), 0);
+    const plank = place(world, box(3.4, 0.3), 0).id as number;
+    const angle = () => world.bodies().find((b) => b.id === plank)?.angle ?? 0;
+    expect(Math.abs(angle())).toBeLessThan(0.02);
+    world.landPigeon(1);
+    expect(world.pigeon()?.x).toBeGreaterThan(1.2);
+    run(world, 3);
+    // Knocked off balance (it may rock back once the pigeon slides off), or off the tower.
+    expect(
+      world.bodies().find((b) => b.id === plank) === undefined || Math.abs(angle()) > 0.1,
+    ).toBe(true);
+    world.free();
+  });
+
+  it('stays on a piece placed just before it landed', () => {
+    const world = createTowerWorld();
+    const id = world.spawn(box(3, 1), 0, 2);
+    world.drop();
+    run(world, 1);
+    expect(world.bodies()[0]?.id).toBe(id);
+    world.landPigeon(1);
+    const left = run(world, 2);
+    expect(left.fumbled).toEqual([]);
+    expect(world.pigeon()).not.toBeNull();
+    world.free();
+  });
+
+  it("doesn't count for the height, and settled pieces don't scare it", () => {
+    const world = createTowerWorld();
+    place(world, box(3, 1), 0);
+    const before = world.height();
+    world.landPigeon(-1);
+    const { fumbled } = run(world, 2);
+    expect(fumbled).toEqual([]);
+    expect(world.pigeon()).not.toBeNull();
+    expect(world.height()).toBeCloseTo(before, 2);
+    expect(world.frame(false).slice(0, 1)).toEqual([PIGEON_ID]);
+    world.free();
+  });
+
+  it('flies off when a new piece lands on it', () => {
+    const world = createTowerWorld();
+    place(world, box(3, 1), 0);
+    world.landPigeon(1);
+    run(world, 1);
+    const at = world.pigeon();
+    world.spawn(box(1, 1), at?.x ?? 0, 3);
+    world.steer({ fast: true });
+    let left: StepEvents['pigeon'] = null;
+    for (let i = 0; i < 300 && left === null; i++) left = world.step().pigeon;
+    expect(left).toBe('scared');
+    expect(world.pigeon()).toBeNull();
+    world.free();
+  });
+
+  it('tips a plank off the edge, and says so when it falls with it', () => {
+    const world = createTowerWorld();
+    // A plank just balanced past the platform's edge (3): its middle is 0.15 inside.
+    const { id: plank } = place(world, box(3, 0.3), 2.85);
+    expect(world.bodies().some((b) => b.id === plank)).toBe(true);
+    world.landPigeon(1);
+    let left: StepEvents['pigeon'] = null;
+    const fumbled: number[] = [];
+    for (let i = 0; i < 600 && left === null; i++) {
+      const events = world.step();
+      left = events.pigeon;
+      fumbled.push(...events.fumbled);
+    }
+    expect(left).toBe('fell');
+    // The plank it tipped over goes too.
+    fumbled.push(...run(world, 3).fumbled);
+    expect(fumbled).toEqual([plank]);
     world.free();
   });
 });

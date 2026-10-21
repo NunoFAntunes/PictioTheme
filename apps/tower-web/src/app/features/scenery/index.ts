@@ -3,3 +3,4 @@ export * from './meadow';
 export * from './sprites';
 export * from './village';
 export * from './village-draw';
+export * from './backdrop-drops';

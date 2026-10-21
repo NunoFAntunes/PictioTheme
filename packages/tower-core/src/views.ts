@@ -43,6 +43,7 @@ export function roundView(
     ...(viewer === round.drawerId && { word: round.card.text }),
     ...(viewerTeam === team &&
       round.maskShown && { mask: buildMask(round.card.text, round.revealed) }),
+    golden: round.golden,
     strokes: round.strokes,
   };
 }
@@ -55,6 +56,9 @@ function crewView(state: TowerRoomState, crew: Crew, viewer: PlayerId): CrewView
     dazedUntil: crew.daze?.until ?? null,
     height: crew.height,
     toppingUntil: crew.toppingSince === null ? null : crew.toppingSince + TIMINGS.toppingMs,
+    charges: crew.charges,
+    spell: crew.spell,
+    star: crew.star,
   };
 }
 
@@ -65,6 +69,9 @@ const EMPTY_CREW: CrewView = {
   dazedUntil: null,
   height: 0,
   toppingUntil: null,
+  charges: [],
+  spell: null,
+  star: null,
 };
 
 export function pieceView(piece: PieceState): TowerPiece {
@@ -78,6 +85,7 @@ export function pieceView(piece: PieceState): TowerPiece {
     stolen: piece.stolen,
     tower: piece.tower,
     sent: piece.sent,
+    curses: piece.curses,
     fumbled: piece.fumbled,
     shape: piece.shape,
     strokes: piece.strokes,

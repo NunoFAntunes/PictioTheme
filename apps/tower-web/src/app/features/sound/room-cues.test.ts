@@ -1,8 +1,12 @@
-import { DEFAULT_TOWER_SETTINGS, type TowerServerMessage } from '@pictiotheme/protocol/tower';
+import {
+  DEFAULT_TOWER_SETTINGS,
+  type TowerPiece,
+  type TowerServerMessage,
+} from '@pictiotheme/protocol/tower';
 import { describe, expect, it } from 'vitest';
 import { type RoomView } from '../../realtime';
 import { applyServerMessage, viewFromSnapshot } from '../../realtime/room-view';
-import { countdownCue, roomCues } from './room-cues';
+import { countdownCue, roomCues, startedSpells } from './room-cues';
 
 const crew = {
   round: null,
@@ -11,6 +15,9 @@ const crew = {
   dazedUntil: null,
   height: 0,
   toppingUntil: null,
+  charges: [],
+  spell: null,
+  star: null,
 };
 
 const start = (phase: RoomView['phase'] = 'playing') =>
@@ -46,6 +53,7 @@ const round = (id: number, drawerId: string) => ({
   startedAt: 0,
   endsAt: 60_000,
   mask: '______',
+  golden: false,
   strokes: [],
 });
 
@@ -153,5 +161,117 @@ describe('countdown cue', () => {
     expect(countdownCue(10, 10)).toBe('tick');
     expect(countdownCue(3, 10)).toBe('tick-last');
     expect(countdownCue(0, 10)).toBeNull();
+  });
+});
+
+describe('power cues', () => {
+  const apply = (view: RoomView, msg: TowerServerMessage) =>
+    applyServerMessage(view, msg, 1_000_000);
+  const spell = (kind: 'fog' | 'pigeon' | 'magpie') => ({
+    spell: kind,
+    casterId: 'p2',
+    startsAt: 1_002_000,
+    endsAt: 1_012_000,
+  });
+
+  it('marks a golden word for either crew', () => {
+    const golden = { ...round(5, 'p2'), golden: true };
+    expect(cues(start(), { t: 'round:start', team: 'teal', round: golden })).toEqual(['golden']);
+    expect(cues(start(), { t: 'round:start', team: 'teal', round: round(5, 'p2') })).toEqual([]);
+  });
+
+  it('chimes for your crew’s new spells and caught stars, not the other crew’s', () => {
+    const gained = (team: 'orange' | 'teal', reason: 'golden' | 'star') =>
+      cues(start(), {
+        t: 'crew:charges',
+        team,
+        charges: ['fog'],
+        gained: { spell: 'fog', reason },
+      });
+    expect(gained('orange', 'golden')).toEqual(['spell-gained']);
+    expect(gained('orange', 'star')).toEqual(['star-caught']);
+    expect(gained('teal', 'golden')).toEqual([]);
+  });
+
+  it('twinkles when a star appears by your tower, and rises while it’s held', () => {
+    const star = { x: 3.6, y: 2, expiresAt: 1_045_000, holdUntil: null };
+    expect(cues(start(), { t: 'crew:star', team: 'orange', star })).toEqual(['star-appear']);
+    expect(cues(start(), { t: 'crew:star', team: 'teal', star })).toEqual([]);
+    const shown = apply(start(), { t: 'crew:star', team: 'orange', star });
+    expect(
+      cues(shown, { t: 'crew:star', team: 'orange', star: { ...star, holdUntil: 1_003_000 } }),
+    ).toEqual(['star-hold']);
+  });
+
+  it('whooshes a cast off, warns the tower it’s cast at, and flaps a pigeon away', () => {
+    expect(cues(start(), { t: 'crew:spell', team: 'teal', spell: spell('fog') })).toEqual(['cast']);
+    expect(cues(start(), { t: 'crew:spell', team: 'orange', spell: spell('fog') })).toEqual([
+      'spell-incoming',
+    ]);
+    const perched = apply(start(), { t: 'crew:spell', team: 'teal', spell: spell('pigeon') });
+    expect(cues(perched, { t: 'crew:spell', team: 'teal', spell: null })).toEqual(['pigeon-off']);
+  });
+
+  it('caws when a magpie takes a piece, and when one gives up', () => {
+    const circling = apply(start(), { t: 'crew:spell', team: 'teal', spell: spell('magpie') });
+    const took = apply(circling, {
+      t: 'piece:magpied',
+      pieceId: 7,
+      from: 'teal',
+      to: 'orange',
+      casterId: 'p1',
+    });
+    expect(roomCues(circling, took)).toEqual(['magpie-took']);
+    expect(cues(took, { t: 'crew:spell', team: 'teal', spell: null })).toEqual([]);
+    expect(cues(circling, { t: 'crew:spell', team: 'teal', spell: null })).toEqual(['magpie-off']);
+  });
+
+  it('lands a cursed piece on your tower with its curse’s sound', () => {
+    const piece: TowerPiece = {
+      id: 7,
+      word: 'Bucket',
+      team: 'teal',
+      drawnBy: 'p2',
+      solvedBy: 'p2',
+      deciderId: 'p2',
+      stolen: false,
+      tower: 'orange',
+      sent: true,
+      curses: ['bouncy'],
+      fumbled: false,
+      shape: {
+        outline: [0, 0, 1, 0, 1, 1],
+        parts: [[0, 0, 1, 0, 1, 1]],
+        area: 0.5,
+        scale: 0.01,
+        origin: { x: 0, y: 0 },
+        bounds: { x: 0, y: 0, width: 1, height: 1 },
+        limitedBy: 'area',
+        silhouette: [0, 0, 1, 0, 1, 1],
+        cell: 8,
+      },
+      strokes: [],
+    };
+    let view = apply(start(), {
+      t: 'piece:made',
+      piece,
+      deciding: { pieceId: 7, deciderId: 'p2', endsAt: 1_005_000 },
+    });
+    view = apply(view, {
+      t: 'place:start',
+      tower: 'orange',
+      placing: { pieceId: 7, placerId: 'p1', endsAt: 1_015_000 },
+    });
+    expect(cues(view, { t: 'place:end', tower: 'orange', pieceId: 7 })).toEqual([
+      'placed',
+      'boing',
+    ]);
+  });
+
+  it('knows when each spell has started, once its warning is over', () => {
+    const view = apply(start(), { t: 'crew:spell', team: 'teal', spell: spell('fog') });
+    expect(startedSpells(view, 1_001_000)).toEqual([]);
+    expect(startedSpells(view, 1_003_000)).toEqual([{ key: 'teal 1002000', cue: 'fog' }]);
+    expect(startedSpells(view, 1_013_000)).toEqual([]);
   });
 });

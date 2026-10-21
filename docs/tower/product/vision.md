@@ -2,7 +2,7 @@
 
 ## Pitch
 
-Two crews, two towers, one height line. Your drawer sketches a word. The moment someone guesses it, the drawing **becomes a block**. Build with it if it's a nice flat skateboard. Send it to the other crew if it's a spiky cactus. And keep an eye on their drawing: guess it before they do and you steal their block.
+Two crews, two towers, one height line. Your drawer sketches a word. The moment someone guesses it, the drawing **becomes a block**. Build with it if it's a nice flat skateboard. Curse it and send it to the other crew if it's a spiky cactus. And keep an eye on their drawing: guess it before they do and you steal their block.
 
 ## Who it's for
 
@@ -14,7 +14,7 @@ Groups of 4–12 friends on PC or tablet, usually on a call or in the same room.
  ┌──────────────── one round (per crew, both crews at once) ─────────────────┐
  │ drawer gets a word ─► draws ─► first correct guess (teammate or opponent) │
  │                                         │                                 │
- │                           solver picks  ▼  🧱 Build  or  💣 Send            │
+ │                          decider picks  ▼  🧱 Keep  or  🌀 Curse           │
  │                                         │                                 │
  │                  piece joins a tower's queue ─► someone places it         │
  └───────────────────────── next round, new drawer ──────────────────────────┘
@@ -26,7 +26,7 @@ The two crews' rounds run **independently and nonstop**. There are no shared tur
 ## Why it's fun
 
 - **The drawing is the piece.** How you draw changes what you build. Drawers have to balance "recognisable fast" against "a good block".
-- **Every guess is a decision.** Is this shape a gift or a curse? Build, or send?
+- **Every guess is a decision.** Is this shape a gift or a curse? Keep it, or curse it?
 - **Two drawings at once.** You can't watch both closely, so every guesser chooses between helping their own crew and spying on the other.
 - **Physics makes the stories.** Wobbling towers, a perfect fit, a stolen bridge, a cactus sent over at the last second.
 
@@ -43,10 +43,12 @@ The two crews' rounds run **independently and nonstop**. There are no shared tur
 | **Crew** | A team. Two per match |
 | **Round** | One drawing, from word dealt to solved or expired. Each crew has its own rounds |
 | **Drawer** | The crew member drawing this round. Changes every round |
-| **Solver** | Whoever guessed the drawing first. They choose Build or Send |
+| **Solver** | Whoever guessed the drawing first |
+| **Decider** | Chooses Keep or Curse: the drawer, or the thief for a steal |
 | **Steal** | Guessing the other crew's drawing before they do. The stealer becomes the solver |
 | **Piece** | The physics block made from a solved drawing |
-| **Build / Send** | Put the piece on your own tower, or on the other crew's |
+| **Keep / Curse** | Put the piece on your own tower, or curse it and send it to the other crew's |
+| **Curse** | What a cursed piece does to the crew that must place it: slippery, big ice, melt, bouncy, blob ([power-ups.md](../planning/power-ups.md)) |
 | **Queue** | Pieces waiting to be placed on a tower |
 | **Placer** | The player currently moving and dropping a piece |
 | **Fumble** | A piece falling off a tower. It costs the crew a timeout |

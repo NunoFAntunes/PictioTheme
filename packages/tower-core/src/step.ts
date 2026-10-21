@@ -9,6 +9,7 @@ import {
 import { onDraw } from './drawing';
 import {
   canStart,
+  onCast,
   onDazeTimer,
   onDecide,
   onDecideTimer,
@@ -18,14 +19,18 @@ import {
   onHeight,
   onHintTimer,
   onMatchTimer,
+  onPigeonGone,
   onPlaceTimer,
   onReleased,
   onRoundTimer,
+  onSpellTimer,
   onSteer,
   onToppingTimer,
   startMatch,
 } from './match';
 import { schedule, send, sendError } from './output';
+import { onStarsTimer, onStarTimer } from './stars';
+import { onTest } from './test-mode';
 import {
   onCrewJoin,
   onCrewMove,
@@ -99,8 +104,11 @@ export function step(state: TowerRoomState, event: TowerEvent, ctx: StepContext)
     case 'fumbled':
       onFumbled(c, event.tower, event.pieceIds);
       break;
+    case 'pigeonGone':
+      onPigeonGone(c, event.tower);
+      break;
     case 'height':
-      onHeight(c, event.tower, event.height);
+      onHeight(c, event.tower, event.height, event.starHeld);
       break;
   }
   return c.fx;
@@ -171,6 +179,12 @@ function onMessage(c: Ctx, playerId: PlayerId, msg: TowerClientMessage): void {
     case 'place:drop':
       onDrop(c, playerId);
       return;
+    case 'spell:cast':
+      onCast(c, playerId, msg.slot);
+      return;
+    case 'test':
+      onTest(c, playerId, msg.action);
+      return;
   }
 }
 
@@ -186,6 +200,8 @@ function onTimer(c: Ctx, timer: TimerId): void {
     ['place:', onPlaceTimer],
     ['daze:', onDazeTimer],
     ['topping:', onToppingTimer],
+    ['spell:', onSpellTimer],
+    ['star:', onStarTimer],
   ];
   for (const [prefix, handler] of perTeam) {
     if (timer.startsWith(prefix)) {
@@ -208,6 +224,9 @@ function onTimer(c: Ctx, timer: TimerId): void {
       return;
     case 'match':
       onMatchTimer(c);
+      return;
+    case 'stars':
+      onStarsTimer(c);
       return;
     case 'empty':
       onEmptyTimer(c);

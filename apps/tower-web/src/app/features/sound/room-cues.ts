@@ -1,3 +1,4 @@
+import { SPELL_TUNING, TEAMS, type Spell } from '@pictiotheme/protocol/tower';
 import { myTeam, type RoomView } from '../../realtime';
 import type { GameCue } from './game-sounds';
 
@@ -47,10 +48,37 @@ export function roomCues(prev: RoomView | null, next: RoomView): GameCue[] {
     else if (entry.text === null) cues.push(entry.target === 'steal' ? 'stole' : 'crew-solved');
   }
 
+  // Powers (docs/tower/planning/power-ups.md). A golden word, for either crew.
+  if (
+    TEAMS.some((t) => {
+      const round = next.crews[t].round;
+      return round?.golden && round.id !== prev.crews[t].round?.id;
+    })
+  )
+    cues.push('golden');
+  if (crew.star && !was.star) cues.push('star-appear');
+  if (crew.star?.holdUntil && !was.star?.holdUntil) cues.push('star-hold');
+  // A pigeon leaving either tower flaps off; so does a magpie that gave up waiting.
+  for (const t of TEAMS) {
+    const ended = prev.crews[t].spell;
+    if (!ended || next.crews[t].spell !== null) continue;
+    if (ended.spell === 'pigeon') cues.push('pigeon-off');
+    // Taken since it was cast (an earlier magpie's was before that).
+    const castAt = ended.startsAt - SPELL_TUNING.warnMs;
+    const took = next.events.some((e) => e.kind === 'magpied' && e.team === t && e.at >= castAt);
+    if (ended.spell === 'magpie' && !took) cues.push('magpie-off');
+  }
+
   const lastEvent = prev.events.at(-1)?.key ?? 0;
   let fumbled = false;
   for (const event of next.events) {
-    if (event.key <= lastEvent || event.team !== team) continue;
+    if (event.key <= lastEvent) continue;
+    // Spells cast and magpies are heard on both sides; spells gained only by the crew.
+    if (event.kind === 'cast') cues.push(event.team === team ? 'spell-incoming' : 'cast');
+    if (event.kind === 'magpied') cues.push('magpie-took');
+    if (event.kind === 'gained' && event.team === team)
+      cues.push(event.reason === 'star' ? 'star-caught' : 'spell-gained');
+    if (event.team !== team) continue;
     if (event.kind === 'stolen') cues.push('robbed');
     if (event.kind === 'expired') cues.push('expired');
     if (event.kind === 'sent') cues.push('incoming');
@@ -59,7 +87,15 @@ export function roomCues(prev: RoomView | null, next: RoomView): GameCue[] {
       cues.push('fumble');
     }
   }
-  if (was.placing && !crew.placing && !fumbled) cues.push('placed');
+  if (was.placing && !crew.placing && !fumbled) {
+    cues.push('placed');
+    // A cursed piece lands with its curse's sound.
+    const piece = next.pieces[was.placing.pieceId];
+    const curses = piece?.sent ? piece.curses : [];
+    if (curses.includes('bouncy')) cues.push('boing');
+    if (curses.includes('melt') || curses.includes('blob')) cues.push('squelch');
+    if (curses.includes('slippery') || curses.includes('big_ice')) cues.push('ice');
+  }
 
   if (crew.toppingUntil !== null && was.toppingUntil === null) cues.push('topping');
   if (next.crews[rival].toppingUntil !== null && prev.crews[rival].toppingUntil === null)
@@ -75,4 +111,18 @@ export function roomCues(prev: RoomView | null, next: RoomView): GameCue[] {
 export function countdownCue(secondsLeft: number, limit: number): GameCue | null {
   if (secondsLeft < 1 || secondsLeft > limit) return null;
   return secondsLeft <= 3 ? 'tick-last' : 'tick';
+}
+
+/**
+ * The spells that have started (their warning is over) by `now`, each with a key that names that
+ * cast, so the room's sound hook plays each one once. Spells start on a timer, not with a message.
+ */
+export function startedSpells(view: RoomView, now: number): { key: string; cue: Spell }[] {
+  if (view.phase !== 'playing') return [];
+  return TEAMS.flatMap((t) => {
+    const spell = view.crews[t].spell;
+    return spell && now >= spell.startsAt && now < spell.endsAt
+      ? [{ key: `${t} ${spell.startsAt}`, cue: spell.spell }]
+      : [];
+  });
 }

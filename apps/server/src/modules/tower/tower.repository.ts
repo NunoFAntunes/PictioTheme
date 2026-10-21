@@ -87,7 +87,8 @@ export async function insertMatch(
         drawings: p.drawings,
         solves: p.solves,
         steals: p.steals,
-        sends: p.sends,
+        // The column predates curses: a cursed piece is still sent.
+        sends: p.curses,
         placements: p.placements,
         fumbles: p.fumbles,
       })),
