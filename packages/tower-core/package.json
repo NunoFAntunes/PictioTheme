@@ -13,6 +13,7 @@
   "dependencies": {
     "@pictiotheme/doodle-shape": "workspace:*",
     "@pictiotheme/game-core": "workspace:*",
+    "@pictiotheme/moderation": "workspace:*",
     "@pictiotheme/protocol": "workspace:*"
   },
   "devDependencies": {

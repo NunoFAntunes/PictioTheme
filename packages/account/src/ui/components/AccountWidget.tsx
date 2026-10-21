@@ -1,8 +1,8 @@
 import type { Profile } from '@pictiotheme/protocol';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
-import { startAccount, useAccount } from '../account-store';
-import { initialDisc } from '../fallback-avatar';
-import { accountKindOf } from '../profile';
+import { startAccount, useAccount } from '../../account-store';
+import { initialDisc } from '../../fallback-avatar';
+import { accountKindOf } from '../../profile';
 import { ProfileEditor } from './ProfileEditor';
 import '../account.css';
 

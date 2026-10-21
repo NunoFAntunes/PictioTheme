@@ -2,7 +2,6 @@ export { buildCardPool, settleOptions, takeOptions, type CardPool } from './card
 export { classifyGuess, prepareCard, type PreparedCard } from './guess/classify';
 export { randomInt, seededRng, shuffle, type Rng } from './rng';
 export { deckLanguageInfo, isInLanguageScript, searchLanguages } from './language';
-export { hasProfanity, maskProfanity } from './moderation/profanity';
 export { generateRoomCode, isBlockedRoomCode, normalizeRoomCode } from './room-code';
 export type { NormalizedRoomCode } from './room-code';
 export {

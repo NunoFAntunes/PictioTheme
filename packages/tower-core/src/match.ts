@@ -2,12 +2,12 @@ import { bloat, DEFAULT_SHAPE_CONFIG, makePiece } from '@pictiotheme/doodle-shap
 import {
   buildMask,
   classifyGuess,
-  maskProfanity,
   maxHints,
   pickHintIndex,
   prepareCard,
   shuffle,
 } from '@pictiotheme/game-core';
+import { maskProfanity } from '@pictiotheme/moderation';
 import type { Card, PlayerId } from '@pictiotheme/protocol';
 import {
   curseEffects,

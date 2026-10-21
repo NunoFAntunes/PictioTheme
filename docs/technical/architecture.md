@@ -76,7 +76,7 @@ The same Caddy serves three sites, one per subdomain of one parent domain: Doodl
 
 ### One profile for every game
 
-The portal lists the games and holds the player's **profile**: their name and drawing, shared by every game (`players` table, `GET`/`PUT /api/me`). Each game shows the **account widget** from `packages/account` in its top-left corner: "Name yourself" until there's a name, the name with a Guest tag after that, and just the avatar during a match. The package also holds the profile store (cached in the browser so a page shows you at once, synced with `/api/me`, fetched again when the tab comes back into view), the editor and a small drawing pad. A game keeps the profile as its identity and still sends the name and avatar when it joins a room, so rooms don't depend on the profile. A game may skin the widget (`--acct-*` CSS custom properties) or plug in its own editor: DoodleWhirl keeps its hand-drawn "you" sticker, Doodle Tower uses the widget in its colours.
+The portal lists the games and holds the player's **profile**: their name and drawing, shared by every game (`players` table, `GET`/`PUT /api/me`). The contract every game builds on is the **profile store** from `packages/account` (`@pictiotheme/account`): synced with `/api/me`, cached in the browser so a page shows you at once, fetched again when the tab comes back into view, plus the profile's rules. A game keeps the profile as its identity and still sends the name and avatar when it joins a room, so rooms don't depend on the profile. Every game shows who you are in its top-left corner: "Name yourself" until there's a name, the name with a Guest tag after that, and just the avatar during a match. The ready-made **account widget**, its editor and a small drawing pad are a separate entry, `@pictiotheme/account/ui`, which a game may skin (`--acct-*` CSS custom properties) or skip: Doodle Tower and the portal use the widget, while DoodleWhirl builds its hand-drawn "you" sticker on the store and ships none of the widget's code or styles.
 
 Release flow: merging into the `production` branch runs CI, builds two images to GHCR (the server, and Caddy with `apps/web/dist` baked in), then deploys over SSH. Migrations run as a one-off step (`node dist/migrate.js`, using Drizzle's runtime migrator, so production needs no dev tools) before the new server starts. Details, setup and rollbacks: [deployment.md](deployment.md).
 
@@ -162,7 +162,8 @@ apps/
 packages/
   game-core/      Pure room state machine, scoring, guess matcher, card pool (no I/O, unit-tested)
   protocol/       zod schemas + types: WebSocket messages, REST DTOs, deck schema, error codes
-  account/        The shared profile store, account widget, editor and drawing pad (React, no game code)
+  account/        The shared profile store and rules; `./ui`: the account widget, editor and drawing pad (no game code)
+  moderation/     The word checks every game shares (profanity), pure
   canvas-engine/  The drawing engine the games share (stroke model, rendering, fills, avatar cut-out)
 infra/
   compose.prod.yaml, Caddyfile, Dockerfiles, deploy/ (VM bootstrap, deploy, backup scripts)

@@ -1,9 +1,5 @@
-import {
-  generateRoomCode,
-  hasProfanity,
-  normalizeRoomCode,
-  type Rng,
-} from '@pictiotheme/game-core';
+import { generateRoomCode, normalizeRoomCode, type Rng } from '@pictiotheme/game-core';
+import { hasProfanity } from '@pictiotheme/moderation';
 import {
   CloseCode,
   type Card,

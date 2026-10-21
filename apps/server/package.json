@@ -24,6 +24,7 @@
     "@fastify/websocket": "~11.3.1",
     "@pictiotheme/doodle-shape": "workspace:*",
     "@pictiotheme/game-core": "workspace:*",
+    "@pictiotheme/moderation": "workspace:*",
     "@pictiotheme/protocol": "workspace:*",
     "@pictiotheme/tower-core": "workspace:*",
     "@pictiotheme/tower-physics": "workspace:*",

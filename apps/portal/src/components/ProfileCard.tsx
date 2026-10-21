@@ -1,10 +1,5 @@
-import {
-  accountKindOf,
-  initialDisc,
-  ProfileEditor,
-  startAccount,
-  useAccount,
-} from '@pictiotheme/account';
+import { accountKindOf, initialDisc, startAccount, useAccount } from '@pictiotheme/account';
+import { ProfileEditor } from '@pictiotheme/account/ui';
 import { useEffect, useState } from 'react';
 
 /**

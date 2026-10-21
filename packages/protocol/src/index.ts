@@ -5,4 +5,5 @@ export * from './errors';
 export * from './http';
 export * from './language';
 export * from './messages';
+export * from './profile';
 export * from './room';

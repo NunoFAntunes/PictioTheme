@@ -1,4 +1,4 @@
-import { hasProfanity } from '@pictiotheme/game-core';
+import { hasProfanity } from '@pictiotheme/moderation';
 import { DisplayName } from '@pictiotheme/protocol';
 import { describe, expect, it } from 'vitest';
 import { isSillyName, SILLY_NAME_PARTS, sillyName } from './silly-name';

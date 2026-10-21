@@ -1,10 +1,10 @@
 import {
   createRoomState,
   generateRoomCode,
-  hasProfanity,
   normalizeRoomCode,
   type Rng,
 } from '@pictiotheme/game-core';
+import { hasProfanity } from '@pictiotheme/moderation';
 import {
   CloseCode,
   DEFAULT_DECK_LANGUAGE,

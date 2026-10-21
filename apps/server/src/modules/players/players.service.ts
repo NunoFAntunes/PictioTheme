@@ -1,5 +1,5 @@
-import { hasProfanity } from '@pictiotheme/game-core';
-import type { Profile, UpdateProfileRequest } from '@pictiotheme/protocol';
+import { hasProfanity } from '@pictiotheme/moderation';
+import { nameAfter, type Profile, type UpdateProfileRequest } from '@pictiotheme/protocol';
 import type { Db } from '../../db/client';
 import { playerIdOf, type Actor } from '../../lib/actor';
 import { AppError } from '../../lib/errors';
@@ -46,18 +46,12 @@ export function createPlayersService(deps: { db: Db; avatars: AvatarsService }) 
 
       await deps.db.transaction(async (tx) => {
         const current = await findPlayerForUpdate(tx, id);
-        let displayName = current?.displayName ?? null;
-        let nameChosen = current?.nameChosen ?? false;
-        if (patch.displayName !== undefined) {
-          const chosen = patch.nameChosen ?? true;
-          if (chosen || !nameChosen) {
-            displayName = patch.displayName;
-            nameChosen = chosen;
-          }
-        }
+        const name = nameAfter(
+          { displayName: current?.displayName ?? null, nameChosen: current?.nameChosen ?? false },
+          patch,
+        );
         await savePlayer(tx, id, {
-          displayName,
-          nameChosen,
+          ...name,
           drawingId: drawingId === undefined ? (current?.drawingId ?? null) : drawingId,
         });
       });

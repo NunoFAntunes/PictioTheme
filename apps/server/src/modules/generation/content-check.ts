@@ -1,4 +1,5 @@
-import { hasProfanity, tokenize } from '@pictiotheme/game-core';
+import { tokenize } from '@pictiotheme/game-core';
+import { hasProfanity } from '@pictiotheme/moderation';
 import type { DeckGenerationRequest } from '@pictiotheme/protocol';
 import { AppError } from '../../lib/errors';
 

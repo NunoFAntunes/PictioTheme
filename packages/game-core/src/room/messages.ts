@@ -1,3 +1,4 @@
+import { hasProfanity, maskProfanity } from '@pictiotheme/moderation';
 import {
   CHAOS_MIN_CARDS,
   type ClientMessage,
@@ -7,7 +8,6 @@ import {
 } from '@pictiotheme/protocol';
 import { buildCardPool } from '../card-pool';
 import { classifyGuess } from '../guess/classify';
-import { hasProfanity, maskProfanity } from '../moderation/profanity';
 import { cardMultiplier, guesserPoints, rushPoints, speedPoints } from '../scoring';
 import { onDraw } from './drawing';
 import {

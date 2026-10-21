@@ -45,7 +45,18 @@ module.exports = {
       from: { path: '^packages/game-core/' },
       to: {
         dependencyTypes: ['npm', 'npm-dev', 'local'],
-        pathNot: ['^packages/(game-core|protocol)/', 'node_modules/(pluralize|vitest)/'],
+        pathNot: ['^packages/(game-core|moderation|protocol)/', 'node_modules/(pluralize|vitest)/'],
+      },
+    },
+    {
+      name: 'moderation-is-pure',
+      comment:
+        'B6: the shared word checks (profanity) use obscenity only, no I/O and no game rules.',
+      severity: 'error',
+      from: { path: '^packages/moderation/' },
+      to: {
+        dependencyTypes: ['npm', 'npm-dev', 'core', 'local'],
+        pathNot: ['^packages/moderation/', 'node_modules/(obscenity|vitest)/'],
       },
     },
     {
@@ -85,6 +96,16 @@ module.exports = {
       },
     },
     {
+      name: 'account-core-has-no-ui',
+      comment:
+        'D13: @pictiotheme/account is the store and its rules; components, styles and the drawing engine live in its ui/ entry, so a game with its own UI ships none of them.',
+      severity: 'error',
+      from: { path: '^packages/account/src/', pathNot: '^packages/account/src/ui/' },
+      to: {
+        path: ['^packages/account/src/ui/', '^packages/canvas-engine/', '\\.css$'],
+      },
+    },
+    {
       name: 'doodle-shape-is-pure',
       comment: 'B6 for Doodle Tower: drawing → piece is deterministic, no I/O.',
       severity: 'error',
@@ -105,7 +126,7 @@ module.exports = {
       to: {
         dependencyTypes: ['npm', 'npm-dev', 'core', 'local'],
         pathNot: [
-          '^packages/(tower-core|game-core|doodle-shape|protocol)/',
+          '^packages/(tower-core|game-core|doodle-shape|moderation|protocol)/',
           'node_modules/vitest/',
         ],
       },

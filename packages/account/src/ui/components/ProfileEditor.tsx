@@ -1,7 +1,7 @@
 import { createStrokeModel, drawingToAvatar } from '@pictiotheme/canvas-engine';
 import { DisplayName, type Profile, type UpdateProfileRequest } from '@pictiotheme/protocol';
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
-import { saveProfile, useAccount } from '../account-store';
+import { saveProfile, useAccount } from '../../account-store';
 import { DrawingPad } from './DrawingPad';
 
 /**

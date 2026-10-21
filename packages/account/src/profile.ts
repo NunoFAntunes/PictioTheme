@@ -1,8 +1,8 @@
-import type { Profile, UpdateProfileRequest } from '@pictiotheme/protocol';
+import { nameAfter, type Profile, type UpdateProfileRequest } from '@pictiotheme/protocol';
 
 /**
- * Pure profile rules, shared by the store's optimistic updates and mirrored by the server
- * (players.service.ts): a made-up name (`nameChosen: false`) never replaces a chosen one.
+ * The store's optimistic updates. The name rule itself (a made-up name never replaces a chosen
+ * one) is protocol's `nameAfter`, the same function the server applies.
  */
 
 /** Before the server has answered on a first visit. */
@@ -15,14 +15,7 @@ export const EMPTY_PROFILE: Profile = {
 };
 
 export function applyPatch(profile: Profile, patch: UpdateProfileRequest): Profile {
-  const next = { ...profile };
-  if (patch.displayName !== undefined) {
-    const chosen = patch.nameChosen ?? true;
-    if (chosen || !profile.nameChosen) {
-      next.displayName = patch.displayName;
-      next.nameChosen = chosen;
-    }
-  }
+  const next = { ...profile, ...nameAfter(profile, patch) };
   if (patch.drawing !== undefined) next.drawing = patch.drawing;
   return next;
 }

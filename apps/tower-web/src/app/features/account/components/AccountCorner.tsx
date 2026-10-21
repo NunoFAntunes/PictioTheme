@@ -1,4 +1,4 @@
-import { AccountWidget } from '@pictiotheme/account';
+import { AccountWidget } from '@pictiotheme/account/ui';
 import type { CSSProperties } from 'react';
 import { hatFor } from '../../../lib/identity';
 import { PORTAL_URL } from '../../../lib/portal';

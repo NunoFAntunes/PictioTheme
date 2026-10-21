@@ -11,8 +11,8 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@pictiotheme/moderation": "workspace:*",
     "@pictiotheme/protocol": "workspace:*",
-    "obscenity": "0.4.6",
     "pluralize": "^8.0.0"
   },
   "devDependencies": {
