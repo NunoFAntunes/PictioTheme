@@ -10,11 +10,13 @@ x-server: &server
     NODE_ENV: production
     DATABASE_URL: postgres://pictio:${POSTGRES_PASSWORD:?}@postgres:5432/pictiotheme
     PUBLIC_ORIGIN: https://${SITE_ADDRESS:?}
-    TOWER_PUBLIC_ORIGIN: https://${TOWER_SITE_ADDRESS:-tower.localhost}
-    PORTAL_PUBLIC_ORIGIN: https://${PORTAL_SITE_ADDRESS:-games.localhost}
-    # The parent domain of the sites above (e.g. tierney.one), so they share one guest cookie
-    # (docs/technical/decisions.md D13). Empty: each site has its own guests.
-    COOKIE_DOMAIN: ${COOKIE_DOMAIN:-}
+    # The other sites' addresses default to production's (packages/sites, which the builds link to);
+    # set them in .env to serve elsewhere. Keep them in sync with the web service below.
+    TOWER_PUBLIC_ORIGIN: https://${TOWER_SITE_ADDRESS:-tower.tierney.one}
+    PORTAL_PUBLIC_ORIGIN: https://${PORTAL_SITE_ADDRESS:-games.tierney.one}
+    # The parent domain of the sites above, so they share one guest cookie (docs/technical/
+    # decisions.md D13). `COOKIE_DOMAIN=` (empty) in .env: each site has its own guests.
+    COOKIE_DOMAIN: ${COOKIE_DOMAIN-tierney.one}
     # Only Caddy can reach the server, over the private Docker network.
     TRUST_PROXY: uniquelocal
   depends_on:
@@ -82,10 +84,11 @@ services:
     environment:
       SITE_ADDRESS: ${SITE_ADDRESS:?}
       TLS_DIRECTIVE: ${TLS_DIRECTIVE:-}
-      TOWER_SITE_ADDRESS: ${TOWER_SITE_ADDRESS:-tower.localhost}
-      TOWER_TLS_DIRECTIVE: ${TOWER_TLS_DIRECTIVE:-}
-      PORTAL_SITE_ADDRESS: ${PORTAL_SITE_ADDRESS:-games.localhost}
-      PORTAL_TLS_DIRECTIVE: ${PORTAL_TLS_DIRECTIVE:-}
+      # The other sites use the main site's certificate unless .env gives them their own.
+      TOWER_SITE_ADDRESS: ${TOWER_SITE_ADDRESS:-tower.tierney.one}
+      TOWER_TLS_DIRECTIVE: ${TOWER_TLS_DIRECTIVE:-${TLS_DIRECTIVE:-}}
+      PORTAL_SITE_ADDRESS: ${PORTAL_SITE_ADDRESS:-games.tierney.one}
+      PORTAL_TLS_DIRECTIVE: ${PORTAL_TLS_DIRECTIVE:-${TLS_DIRECTIVE:-}}
     ports:
       - '80:80'
       - '443:443'

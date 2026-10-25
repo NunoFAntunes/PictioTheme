@@ -6,11 +6,11 @@
 #   TLS_DIRECTIVE  empty for Let's Encrypt. Behind the Cloudflare proxy with a Cloudflare Origin
 #                  certificate: `tls /certs/origin.pem /certs/origin.key`.
 #   TOWER_SITE_ADDRESS, TOWER_TLS_DIRECTIVE   the same for Doodle Tower's own domain
-#                  (docs/tower/technical/architecture.md#domain-and-deployment). Until it has one,
-#                  the site answers on tower.localhost only.
+#                  (docs/tower/technical/architecture.md#domain-and-deployment). compose.prod.yaml
+#                  sets it; without it, the site answers on tower.localhost only.
 #   PORTAL_SITE_ADDRESS, PORTAL_TLS_DIRECTIVE   the same for the games portal
-#                  (docs/technical/decisions.md D13), e.g. games.tierney.one. Until it's set, the
-#                  site answers on games.localhost only.
+#                  (docs/technical/decisions.md D13), e.g. games.tierney.one. compose.prod.yaml sets
+#                  it; without it, the site answers on games.localhost only.
 {
 	servers {
 		# Cloudflare's ranges (https://www.cloudflare.com/ips/). Only requests from these may set

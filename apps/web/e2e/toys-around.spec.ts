@@ -10,7 +10,6 @@ test('players waiting for the host get toys around the house rules; the host get
   await followInvite(guest, code, 'Bo');
 
   await expect(guest.getByText('Waiting for the host to start')).toBeVisible();
-  await guest.getByRole('button', { name: 'Not now' }).click();
   await expect(guest.getByTestId('toys-around')).toBeVisible();
   await expect(host.getByTestId('toys-around')).toHaveCount(0);
 

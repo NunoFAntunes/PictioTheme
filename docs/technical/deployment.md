@@ -56,20 +56,20 @@ After changing them: `docker compose up -d web server`, and update the `PUBLIC_U
 
 ### Doodle Tower and the games portal
 
-The same Caddy serves two more sites, set the same way: `TOWER_SITE_ADDRESS` / `TOWER_TLS_DIRECTIVE` for Doodle Tower and `PORTAL_SITE_ADDRESS` / `PORTAL_TLS_DIRECTIVE` for the portal (until they're set they answer on `tower.localhost` and `games.localhost` only). Their origins reach the server as `TOWER_PUBLIC_ORIGIN` and `PORTAL_PUBLIC_ORIGIN`. All three should be subdomains of one parent domain, with `COOKIE_DOMAIN` set to it, so they share one guest and one profile ([decisions.md](decisions.md#d13--one-profile-for-every-game-a-portal-a-shared-guest-and-an-account-widget) D13). With `*.tierney.one` that's:
+The same Caddy serves two more sites: Doodle Tower (`TOWER_SITE_ADDRESS` / `TOWER_TLS_DIRECTIVE`) and the portal (`PORTAL_SITE_ADDRESS` / `PORTAL_TLS_DIRECTIVE`). Their origins reach the server as `TOWER_PUBLIC_ORIGIN` and `PORTAL_PUBLIC_ORIGIN`. All three are subdomains of one parent domain, with `COOKIE_DOMAIN` set to it, so they share one guest and one profile ([decisions.md](decisions.md#d13--one-profile-for-every-game-a-portal-a-shared-guest-and-an-account-widget) D13).
 
-```sh
-SITE_ADDRESS=doodle.tierney.one
-TOWER_SITE_ADDRESS=tower.tierney.one
-PORTAL_SITE_ADDRESS=games.tierney.one
-COOKIE_DOMAIN=tierney.one
-# The Cloudflare Origin certificate covers *.tierney.one, so all three use it:
-TLS_DIRECTIVE=tls /certs/origin.pem /certs/origin.key
-TOWER_TLS_DIRECTIVE=tls /certs/origin.pem /certs/origin.key
-PORTAL_TLS_DIRECTIVE=tls /certs/origin.pem /certs/origin.key
-```
+**Production needs nothing in `.env` for them.** [compose.prod.yaml](../../infra/compose.prod.yaml) defaults to the production addresses, and each deploy copies it to the VM, so a change there ships with the next release:
 
-Add proxied DNS records for `tower` and `games` in Cloudflare. The sites link to each other at those addresses: the builds default to them (`apps/*/src/**/portal.ts`, `apps/portal/src/site.ts`), and `PUBLIC_PORTAL_URL`, `PUBLIC_DOODLE_URL` and `PUBLIC_TOWER_URL` at build time override them. The guest cookie goes to every subdomain of `COOKIE_DOMAIN`, so host nothing untrusted under it.
+| Setting | Default |
+|---|---|
+| `TOWER_SITE_ADDRESS` | `tower.tierney.one` |
+| `PORTAL_SITE_ADDRESS` | `games.tierney.one` |
+| `COOKIE_DOMAIN` | `tierney.one` (`COOKIE_DOMAIN=` in `.env`: each site keeps its own guests) |
+| `TOWER_TLS_DIRECTIVE`, `PORTAL_TLS_DIRECTIVE` | the main site's `TLS_DIRECTIVE` (the Cloudflare Origin certificate covers `*.tierney.one`) |
+
+To serve them elsewhere, set the variables in `/opt/pictiotheme/.env` and run `docker compose up -d web server`. An empty TLS directive still falls back to the main site's, so a site can only use Let's Encrypt while the main site does too.
+
+Cloudflare needs a proxied DNS record for `tower` and for `games`. The sites link to each other at those addresses: the builds default to them (`packages/sites`), and `PUBLIC_PORTAL_URL`, `PUBLIC_DOODLE_URL` and `PUBLIC_TOWER_URL` at build time override them. The guest cookie goes to every subdomain of `COOKIE_DOMAIN`, so host nothing untrusted under it.
 
 Invite links unfurl into the room's card: Caddy sends `/r/CODE` requests from link-preview bots (Discordbot, Slackbot, WhatsApp, Twitterbot, facebookexternalhit… matched on User-Agent, see the `@preview` matcher in the Caddyfile) to the server's `/api/rooms/CODE/embed` instead of the app shell. To check it after a deploy: `curl -A Discordbot https://<domain>/r/<code>` returns `og:` tags, and Discord's preview updates when the room's name, deck or rules change (the image URL is versioned). Discord caches a link's embed for a while, so re-pasting the exact same link may show the older card.
 

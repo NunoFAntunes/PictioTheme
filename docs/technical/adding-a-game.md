@@ -157,9 +157,9 @@ useFollowIdentityInRoom(code);
   ```
 
 - `infra/web.Dockerfile`: `COPY apps/<game>-web/dist /srv/<game>`. `.dockerignore`: `!apps/<game>-web/dist`.
-- `infra/compose.prod.yaml`: `<GAME>_PUBLIC_ORIGIN` for the server, and `<GAME>_SITE_ADDRESS` / `<GAME>_TLS_DIRECTIVE` for Caddy.
+- `infra/compose.prod.yaml`: `<GAME>_PUBLIC_ORIGIN` for the server, and `<GAME>_SITE_ADDRESS` / `<GAME>_TLS_DIRECTIVE` for Caddy, defaulting to the production subdomain and the main site's `TLS_DIRECTIVE` like Tower's, so production needs no `.env` change.
 - CI builds every app with `pnpm --filter "./apps/*" build`, so the workflow needs no change.
-- On the VM and in Cloudflare ([deployment.md](deployment.md)): a proxied DNS record for `<game>` **under the cookie's parent domain** (a game on another domain can't share the guest), and the new variables in `/opt/pictiotheme/.env`.
+- On the VM and in Cloudflare ([deployment.md](deployment.md)): a proxied DNS record for `<game>` **under the cookie's parent domain** (a game on another domain can't share the guest). Nothing to set on the VM unless the game lives somewhere other than its default address.
 
 ### 7. Check it end to end
 
