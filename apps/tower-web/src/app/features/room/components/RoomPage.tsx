@@ -5,10 +5,10 @@ import { Button } from '../../../ui/Button';
 import { Panel } from '../../../ui/Panel';
 import { AccountCorner, useFollowIdentityInRoom } from '../../account';
 import { GameScreen } from '../../game';
-import { NameField } from '../../home';
 import { Results } from '../../results';
 import { useRoomSounds } from '../../sound';
 import { WaitingRoom } from '../../waiting';
+import { NameField } from './NameField';
 
 /** `/r/ABC-DEF` → `ABC-DEF`. */
 function codeFromPath(): string {

@@ -7,11 +7,11 @@ export const SPELL_LABEL: Record<Spell, { icon: string; name: string; effect: st
     name: 'Fog',
     effect: `hides the top of their tower for ${SPELL_TUNING.fogMs / 1000}s`,
   },
-  magpie: { icon: '🐦‍⬛', name: 'Magpie', effect: 'takes the next piece from their queue' },
+  magpie: { icon: '🐦‍⬛', name: 'Magpie', effect: 'flies off with the top piece of their tower' },
   pigeon: {
     icon: '🐦',
     name: 'Pigeon',
-    effect: 'perches on the edge of their top piece and tips it',
+    effect: `${SPELL_TUNING.pigeons} pigeons perch on the edges of their top pieces and tip them`,
   },
   shaky: {
     icon: '〰️',

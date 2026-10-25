@@ -150,6 +150,10 @@ export class TowerRoomRuntime {
       case 'pigeonGone':
         this.handle({ type: 'pigeonGone', tower });
         return;
+      case 'magpieTook':
+        if (event.pieceId !== null) this.poses[tower].delete(event.pieceId);
+        this.handle({ type: 'magpieTook', tower, pieceId: event.pieceId });
+        return;
       case 'height':
         this.handle({ type: 'height', tower, height: event.height, starHeld: event.starHeld });
         return;

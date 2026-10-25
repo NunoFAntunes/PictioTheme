@@ -1,7 +1,13 @@
-export { DrawingBoard } from './components/DrawingBoard';
-export { DrawingPad } from './components/DrawingPad';
-export { isBlank } from './is-blank';
-export { Toolbar } from './components/Toolbar';
+// The drawing tools live in @pictiotheme/drawing-ui, shared with the portal.
+export {
+  DEFAULT_TOOL,
+  DrawingBoard,
+  DrawingPad,
+  isBlank,
+  PALETTE,
+  Toolbar,
+  useColorPopover,
+  withColor,
+  type ToolSettings,
+} from '@pictiotheme/drawing-ui';
 export { createRenderer } from '@pictiotheme/canvas-engine';
-export { DEFAULT_TOOL, PALETTE, withColor, type ToolSettings } from './tools';
-export { useColorPopover } from './use-color-popover';

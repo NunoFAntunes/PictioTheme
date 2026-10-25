@@ -1,8 +1,10 @@
 import { makePiece, type ShapeResult } from '@pictiotheme/doodle-shape';
 import type { Team } from '@pictiotheme/protocol/tower';
-import { useEffect, useLayoutEffect, useState, type RefObject } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from 'react';
+import { uiScale } from '../../../lib/ui-scale';
 import { strokeModels, useServerNow, type RoomView } from '../../../realtime';
 import { CREW_NAME, CREW_TEXT } from '../../../ui/CrewBadge';
+import { stageAnchor, useStageAnchor } from '../../crew-stage';
 import { DrawingBoard, type DrawSettings } from '../../drawing';
 
 /** The drawer's live block: recomputed a moment after the drawing changes. */
@@ -28,9 +30,54 @@ export function useLivePiece(team: Team, enabled: boolean): ShapeResult | null {
   return enabled ? shape : null;
 }
 
-/** The clipboard around the board: its border and padding, in CSS px (see DrawingBoard). */
-const CLIPBOARD_X = 32;
-const CLIPBOARD_Y = 44;
+/**
+ * The clipboard around the board, in CSS px (see DrawingBoard): its border is 4px, its padding is
+ * in rem, which grows on big screens (`uiScale`).
+ */
+const clipboardX = () => 8 + 24 * uiScale();
+const clipboardY = () => 8 + 36 * uiScale();
+/** From the clipboard's top edge to the paper (its border and top padding). */
+const clipboardTop = () => 4 + 24 * uiScale();
+/** Half the clip's width, and a little air either side of it. */
+const clipHalf = () => 62 * uiScale();
+
+/**
+ * Where your crew stands on its clipboard (docs/tower/design/screens.md#the-crews-on-stage): the
+ * drawer in the bottom right corner, the guessers along the top either side of the clip, peeking
+ * over the paper. None while the clipboard is `covered` (by your own decide card).
+ */
+function useClipboardAnchors(team: Team, covered: boolean) {
+  const board = useRef<HTMLDivElement>(null);
+  useStageAnchor(stageAnchor.pad(team), () => {
+    const r = board.current?.getBoundingClientRect();
+    if (covered || !r?.width) return null;
+    const u = uiScale();
+    const size = 52 * u;
+    const x = r.right - 14 * u - size / 2;
+    return { left: x, right: x, y: r.bottom - 6 * u, size };
+  });
+  useStageAnchor(stageAnchor.rim(team), () => {
+    const r = board.current?.getBoundingClientRect();
+    if (covered || !r?.width) return null;
+    const middle = (r.left + r.right) / 2;
+    const u = uiScale();
+    return {
+      left: r.left + 14 * u,
+      right: r.right - 14 * u,
+      y: r.top + clipboardTop() + 6 * u,
+      size: 40 * u,
+      gap: { left: middle - clipHalf(), right: middle + clipHalf() },
+    };
+  });
+  // The drawing itself, where a golden word's spell starts from: there even when covered.
+  useStageAnchor(stageAnchor.board(team), () => {
+    const r = board.current?.getBoundingClientRect();
+    if (!r?.width) return null;
+    const x = (r.left + r.right) / 2;
+    return { left: x, right: x, y: (r.top + r.bottom) / 2, size: 52 * uiScale() };
+  });
+  return board;
+}
 
 /**
  * The board's width in `column` (a flex column, with the board in a `data-board` box): as wide as
@@ -53,7 +100,7 @@ export function useBoardWidth(column: RefObject<HTMLElement | null>): number | u
       const used = items.reduce((sum, el) => sum + el.offsetHeight, 0) + gap * (items.length - 1);
       const height = board.offsetHeight + col.clientHeight - used;
       const next = Math.floor(
-        Math.max(160, Math.min(col.clientWidth, ((height - CLIPBOARD_Y) * 4) / 3 + CLIPBOARD_X)),
+        Math.max(160, Math.min(col.clientWidth, ((height - clipboardY()) * 4) / 3 + clipboardX())),
       );
       setWidth((w) => (w === next ? w : next));
     };
@@ -86,6 +133,7 @@ export function DrawingStage({
   shape,
   onOp,
   boardWidth,
+  covered = false,
 }: {
   view: RoomView;
   /** Your crew. */
@@ -96,6 +144,8 @@ export function DrawingStage({
   onOp?: Parameters<typeof DrawingBoard>[0]['onOp'];
   /** From useBoardWidth; the column's whole width until it's measured. */
   boardWidth?: number;
+  /** Something's over it (your decide card): your crew isn't shown on it. */
+  covered?: boolean;
 }) {
   const now = useServerNow();
   const round = view.crews[team].round;
@@ -112,6 +162,7 @@ export function DrawingStage({
   const golden = round?.golden ?? false;
   const spell = view.crews[team].spell;
   const shaky = spell?.spell === 'shaky' && now >= spell.startsAt && now < spell.endsAt;
+  const board = useClipboardAnchors(team, covered);
 
   return (
     <section
@@ -163,6 +214,7 @@ export function DrawingStage({
       </header>
 
       <div
+        ref={board}
         data-board
         className={`max-w-full ${golden ? 'rounded-[1.4rem] shadow-[0_0_0_4px_var(--color-sun),0_0_28px_var(--color-sun)]' : ''}`}
         style={{ width: boardWidth ?? '100%' }}

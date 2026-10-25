@@ -212,7 +212,7 @@ describe('power cues', () => {
     expect(cues(perched, { t: 'crew:spell', team: 'teal', spell: null })).toEqual(['pigeon-off']);
   });
 
-  it('caws when a magpie takes a piece, and when one gives up', () => {
+  it('caws when a magpie takes a piece, and when one finds nothing', () => {
     const circling = apply(start(), { t: 'crew:spell', team: 'teal', spell: spell('magpie') });
     const took = apply(circling, {
       t: 'piece:magpied',

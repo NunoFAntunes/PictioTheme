@@ -32,6 +32,10 @@ function createTowerFrames() {
         else tracks.set(id, { prev: track.next, next: pose });
       }
     },
+    /** When this body was last in a frame (null: never, or it's been removed). */
+    lastSeen(id: number): number | null {
+      return tracks.get(id)?.next.at ?? null;
+    },
     remove(ids: readonly number[]): void {
       for (const id of ids) tracks.delete(id);
     },

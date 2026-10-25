@@ -15,8 +15,10 @@ export type WorldEvent =
   | { t: 'frame'; tick: number; bodies: number[]; full: boolean }
   | { t: 'released'; pieceId: number }
   | { t: 'fumbled'; pieceIds: number[] }
-  /** The pigeon left: scared away by a new piece, or fallen. */
+  /** The last pigeon left: scared away by new pieces, or fallen. */
   | { t: 'pigeonGone' }
+  /** A magpie lifted the topmost piece out (null: there was nothing to take). */
+  | { t: 'magpieTook'; pieceId: number | null }
   /** `starHeld`: a settled piece of the tower is touching its sky star. */
   | { t: 'height'; height: number; starHeld: boolean };
 

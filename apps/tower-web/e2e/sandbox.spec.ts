@@ -66,7 +66,7 @@ test('draw a block, build it, drop it on the tower', async ({ page }) => {
   await shot(page, '4-placed');
 });
 
-test('try the powers: big ice, fog, a sky star, a melted block and a pigeon', async ({ page }) => {
+test('try the powers: big ice, fog, a sky star, a melted block and pigeons', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/sandbox');
   await expect(page.getByText('Getting ready…')).toHaveCount(0, { timeout: 20_000 });
@@ -101,10 +101,10 @@ test('try the powers: big ice, fog, a sky star, a melted block and a pigeon', as
   await expect(page.getByText('QUEUE').locator('..')).toContainText('empty', { timeout: 10_000 });
   await page.waitForTimeout(800);
   await shot(page, '8-melt');
-  // A pigeon perches on the edge of the tower's top piece.
+  // Three pigeons perch on the edges of the tower's top pieces.
   await page.keyboard.press('Space');
   await page.waitForTimeout(2500);
-  await page.getByRole('button', { name: '🐦 Land a pigeon' }).click();
+  await page.getByRole('button', { name: '🐦 Land pigeons' }).click();
   await page.waitForTimeout(800);
   await shot(page, '9-pigeon');
 });

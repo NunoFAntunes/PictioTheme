@@ -83,17 +83,24 @@ export type PieceMaterial = {
 };
 
 /**
- * The Pigeon spell (docs/tower/planning/power-ups.md): a small, light, grippy ball that lands on
- * the outer edge of the tower's top piece, tipping it. It isn't a piece: it never counts for the
- * height and never fumbles. In network frames it's the body `PIGEON_ID`.
+ * The Pigeon spell (docs/tower/planning/power-ups.md): small, light, grippy balls that land on
+ * the outer edges of the tower's top pieces, one per piece, tipping them. They aren't pieces: they
+ * never count for the height and never fumble. In network frames they're the bodies `PIGEON_IDS`.
  */
 export const PIGEON = {
-  radius: 0.18,
-  /** About a third of a piece (pieces are about 1.2 m² at density 1). */
-  mass: 0.4,
+  radius: 0.23,
+  /**
+   * A bit more than a piece (pieces are about 2 m² at density 1). At 0.4 they hardly mattered;
+   * a sweep over random towers put 1.6 at about twice the tumbles of 0.4, short of sure collapse.
+   * When pieces grew from 1.2 m² to 2 m², the pigeons grew with them (from 1.6 kg and 0.18 m):
+   * the same sweep with the bigger pieces gives about the same tumbles as before.
+   */
+  mass: 2.7,
   friction: 1.5,
 } as const;
-export const PIGEON_ID = -1;
+/** The pigeons' ids in network frames: negative, so they never clash with a piece's. */
+export const PIGEON_IDS = [-1, -2, -3] as const;
+export const isPigeonId = (id: number) => id < 0;
 
 export type BodyState = {
   id: PieceId;
@@ -113,7 +120,10 @@ export type StepEvents = {
   released: { id: PieceId; reason: 'touched' | 'dropped' } | null;
   /** Pieces that fell off this step. They're already removed from the world. */
   fumbled: PieceId[];
-  /** The pigeon left this step: a new piece touched it, or it fell. It's already gone. */
+  /**
+   * A pigeon left this step: a new piece touched it, or it fell. It's already gone; `pigeons()`
+   * says whether any are left.
+   */
   pigeon: 'scared' | 'fell' | null;
 };
 
@@ -169,11 +179,17 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
   let tick = 0;
   /** A sky star: a sensor that pieces pass through (docs/tower/planning/power-ups.md). */
   let star: RAPIER.Collider | null = null;
-  /** The pigeon, and the step it landed at: pieces released after that scare it away. */
-  let pigeon: { body: RAPIER.RigidBody; collider: RAPIER.Collider; landedAt: number } | null = null;
-  const removePigeon = () => {
-    if (pigeon) world.removeRigidBody(pigeon.body);
-    pigeon = null;
+  /** The pigeons, and the step they landed at: pieces released after that scare them away. */
+  type Pigeon = { id: number; body: RAPIER.RigidBody; collider: RAPIER.Collider };
+  let pigeons: Pigeon[] = [];
+  let pigeonsLandedAt = 0;
+  const removePigeon = (gone: Pigeon) => {
+    world.removeRigidBody(gone.body);
+    pigeons = pigeons.filter((p) => p !== gone);
+  };
+  const removePigeons = () => {
+    for (const p of pigeons) world.removeRigidBody(p.body);
+    pigeons = [];
   };
 
   const release = () => {
@@ -381,16 +397,17 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
       let pigeonLeft: StepEvents['pigeon'] = null;
       events.drainCollisionEvents((h1, h2, started) => {
         if (!started) return;
-        // A new piece (being placed, or placed since it landed) touching the pigeon scares it
+        // A new piece (being placed, or placed since they landed) touching a pigeon scares it
         // away; the tower it's perched on doesn't.
-        if (pigeon && (h1 === pigeon.collider.handle || h2 === pigeon.collider.handle)) {
+        const pigeon = pigeons.find((p) => h1 === p.collider.handle || h2 === p.collider.handle);
+        if (pigeon) {
           const other = byCollider.get(h1 === pigeon.collider.handle ? h2 : h1);
           const fresh =
             other !== undefined &&
             (other === active?.entry ||
-              (other.releasedAt !== null && other.releasedAt > pigeon.landedAt));
+              (other.releasedAt !== null && other.releasedAt > pigeonsLandedAt));
           if (fresh) {
-            removePigeon();
+            removePigeon(pigeon);
             pigeonLeft = 'scared';
           }
         }
@@ -413,8 +430,9 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
         entries.delete(entry.id);
         fumbled.push(entry.id);
       }
-      if (pigeon && pigeon.body.translation().y < -tuning.killDepth) {
-        removePigeon();
+      for (const pigeon of pigeons) {
+        if (pigeon.body.translation().y > -tuning.killDepth) continue;
+        removePigeon(pigeon);
         pigeonLeft = 'fell';
       }
       return { released, fumbled, pigeon: pigeonLeft };
@@ -432,57 +450,120 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
     },
 
     /**
-     * Lands the pigeon on the outer edge (`side` −1 left, 1 right) of the tower's top piece: on
-     * the highest point of that piece's outer quarter. With no tower, on the platform's edge.
+     * Lands a pigeon for each of `sides` (−1 left, 1 right), each on the outer edge of a different
+     * piece of the tower, the top ones first: on the highest free point of that piece's outer
+     * quarter on its side (or the other side, if that one's covered). Once every piece has one,
+     * the rest land on the platform's edges.
      */
-    landPigeon(side: 1 | -1): void {
-      removePigeon();
-      let top: Entry | null = null;
-      for (const entry of standing()) if (!top || topOf(entry) > topOf(top)) top = entry;
-      let x = side * (tuning.platformWidth / 2 - PIGEON.radius);
-      let y = 0;
-      if (top) {
-        const pts = worldOutline(top);
+    landPigeons(sides: readonly (1 | -1)[]): void {
+      removePigeons();
+      pigeonsLandedAt = tick;
+      const ball = new RAPIER.Ball(PIGEON.radius);
+      const lift = PIGEON.radius + 0.05;
+      const free = (x: number, y: number, host?: RAPIER.RigidBody) =>
+        // Colliders made this step aren't in the query pipeline yet: check the other pigeons too.
+        !pigeons.some((p) => {
+          const at = p.body.translation();
+          return Math.hypot(at.x - x, at.y - y) < PIGEON.radius * 2;
+        }) &&
+        world.intersectionWithShape(
+          { x, y },
+          0,
+          ball,
+          RAPIER.QueryFilterFlags.EXCLUDE_SENSORS,
+          undefined,
+          undefined,
+          host,
+        ) === null;
+      /** The highest free perch on a piece's outer quarter on `side`. */
+      const perchOn = (entry: Entry, side: 1 | -1) => {
+        const pts = worldOutline(entry);
         const xs = pts.map((p) => p[0]);
         const left = Math.min(...xs);
         const right = Math.max(...xs);
         const from = side > 0 ? right - (right - left) / 4 : left;
         const to = side > 0 ? right : left + (right - left) / 4;
-        const edge = pts.filter(([px]) => px >= from && px <= to);
-        const best = edge.reduce((a, b) => (b[1] > a[1] ? b : a), edge[0] ?? [x, y]);
-        [x, y] = best;
-        // A step in from the very edge, so it perches rather than slips off.
-        x -= side * PIGEON.radius;
+        const edge = pts.filter(([px]) => px >= from && px <= to).sort((a, b) => b[1] - a[1]);
+        for (const [px, py] of edge) {
+          // A step in from the very edge, so it perches rather than slips off.
+          const x = px - side * PIGEON.radius;
+          const y = py + lift;
+          if (free(x, y, entry.body)) return { x, y };
+        }
+        return null;
+      };
+      const pieces = standing().sort((a, b) => topOf(b) - topOf(a));
+      const used = new Set<Entry>();
+      for (const [i, side] of sides.entries()) {
+        let at: { x: number; y: number } | null = null;
+        for (const entry of pieces) {
+          if (used.has(entry)) continue;
+          at = perchOn(entry, side) ?? perchOn(entry, side === 1 ? -1 : 1);
+          if (at) {
+            used.add(entry);
+            break;
+          }
+        }
+        if (!at) {
+          // On the platform, from its edge inwards.
+          const edge = tuning.platformWidth / 2 - PIGEON.radius;
+          for (let k = 0; k < 6 && !at; k++) {
+            const x = side * (edge - k * PIGEON.radius * 2.5);
+            if (free(x, lift)) at = { x, y: lift };
+          }
+        }
+        if (!at) continue;
+        const body = world.createRigidBody(
+          RAPIER.RigidBodyDesc.dynamic()
+            .setTranslation(at.x, at.y)
+            .setLinearDamping(0.5)
+            // It grips with its feet: it doesn't roll.
+            .lockRotations(),
+        );
+        const collider = world.createCollider(
+          RAPIER.ColliderDesc.ball(PIGEON.radius)
+            .setMass(PIGEON.mass)
+            .setFriction(PIGEON.friction)
+            .setFrictionCombineRule(RAPIER.CoefficientCombineRule.Max)
+            .setRestitution(0)
+            .setActiveEvents(RAPIER.ActiveEvents.COLLISION_EVENTS),
+          body,
+        );
+        pigeons.push({ id: PIGEON_IDS[i] ?? -(i + 1), body, collider });
       }
-      const body = world.createRigidBody(
-        RAPIER.RigidBodyDesc.dynamic()
-          .setTranslation(x, y + PIGEON.radius + 0.05)
-          .setLinearDamping(0.5)
-          // It grips with its feet: it doesn't roll.
-          .lockRotations(),
-      );
-      const collider = world.createCollider(
-        RAPIER.ColliderDesc.ball(PIGEON.radius)
-          .setMass(PIGEON.mass)
-          .setFriction(PIGEON.friction)
-          .setFrictionCombineRule(RAPIER.CoefficientCombineRule.Max)
-          .setRestitution(0)
-          .setActiveEvents(RAPIER.ActiveEvents.COLLISION_EVENTS),
-        body,
-      );
-      pigeon = { body, collider, landedAt: tick };
     },
 
-    /** The pigeon flies off. */
-    clearPigeon(): void {
-      removePigeon();
+    /** The pigeons fly off. */
+    clearPigeons(): void {
+      removePigeons();
     },
 
-    /** Where the pigeon is, if it's here. */
-    pigeon(): { x: number; y: number; angle: number } | null {
-      if (!pigeon) return null;
-      const { x, y } = pigeon.body.translation();
-      return { x, y, angle: pigeon.body.rotation() };
+    /** Where the pigeons are, by id. */
+    pigeons(): { id: number; x: number; y: number }[] {
+      return pigeons.map((p) => {
+        const { x, y } = p.body.translation();
+        return { id: p.id, x, y };
+      });
+    },
+
+    /**
+     * The Magpie spell: lifts the tower's topmost piece (the highest, not counting the one being
+     * placed) out of the world, and returns its id (null with nothing to take). It isn't a fumble:
+     * the piece just isn't here any more.
+     */
+    takeTop(): PieceId | null {
+      let top: Entry | null = null;
+      for (const entry of entries.values()) {
+        if (entry !== active?.entry && (!top || topOf(entry) > topOf(top))) top = entry;
+      }
+      if (!top) return null;
+      for (const c of top.colliders) byCollider.delete(c.handle);
+      world.removeRigidBody(top.body);
+      entries.delete(top.id);
+      // What it held up has to notice it's gone.
+      for (const entry of entries.values()) entry.body.wakeUp();
+      for (const p of pigeons) p.body.wakeUp();
+      return top.id;
     },
 
     /** Puts the sky star at (x, y), replacing any other. */
@@ -547,9 +628,10 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
      */
     frame(movingOnly: boolean): number[] {
       const out: number[] = [];
-      if (pigeon && !(movingOnly && pigeon.body.isSleeping())) {
+      // Pigeons are always in it, asleep or not: a pigeon missing from a frame has left.
+      for (const pigeon of pigeons) {
         const { x, y } = pigeon.body.translation();
-        out.push(PIGEON_ID, Math.round(x * 1000), Math.round(y * 1000), 0);
+        out.push(pigeon.id, Math.round(x * 1000), Math.round(y * 1000), 0);
       }
       for (const entry of entries.values()) {
         if (movingOnly && entry.body.isSleeping()) continue;
@@ -633,7 +715,7 @@ export function createTowerWorld(initial: Partial<PhysicsTuning> = {}) {
 
     /** Removes every piece. */
     clear(): void {
-      removePigeon();
+      removePigeons();
       for (const entry of entries.values()) world.removeRigidBody(entry.body);
       entries.clear();
       byCollider.clear();

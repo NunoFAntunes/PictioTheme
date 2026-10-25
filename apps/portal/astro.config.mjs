@@ -16,6 +16,29 @@ export default defineConfig({
       subsets: ['latin'],
       fallbacks: ['system-ui', 'sans-serif'],
     },
+    // The games' logos, as on their own home pages: DoodleWhirl's sticker letters, Doodle Tower's.
+    {
+      provider: fontProviders.google(),
+      name: 'Cherry Bomb One',
+      cssVariable: '--font-cherry-bomb',
+      subsets: ['latin'],
+      fallbacks: ['ui-rounded', 'system-ui', 'sans-serif'],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Lilita One',
+      cssVariable: '--font-lilita',
+      subsets: ['latin'],
+      fallbacks: ['system-ui', 'sans-serif'],
+    },
+    // The handwriting on the "you" sticker (@pictiotheme/account/ui), as in DoodleWhirl.
+    {
+      provider: fontProviders.google(),
+      name: 'Gochi Hand',
+      cssVariable: '--font-gochi-hand',
+      subsets: ['latin'],
+      fallbacks: ['cursive'],
+    },
   ],
   vite: {
     plugins: [tailwindcss()],
@@ -34,6 +57,7 @@ export default defineConfig({
         '@pictiotheme/account > zustand/vanilla',
         '@pictiotheme/account > zod',
         '@pictiotheme/account > @pictiotheme/canvas-engine > perfect-freehand',
+        '@pictiotheme/drawing-ui > zustand',
       ],
     },
   },

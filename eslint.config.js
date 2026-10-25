@@ -102,11 +102,15 @@ export default tseslint.config(
       'apps/{web,tower-web,portal}/src/**/*.{ts,tsx}',
       'packages/canvas-engine/src/**/*.ts',
       'packages/account/src/**/*.{ts,tsx}',
+      'packages/drawing-ui/src/**/*.{ts,tsx}',
     ],
     languageOptions: { globals: { ...globals.browser } },
   },
   {
-    files: ['apps/{web,tower-web,portal}/src/**/*.tsx', 'packages/account/src/**/*.tsx'],
+    files: [
+      'apps/{web,tower-web,portal}/src/**/*.tsx',
+      'packages/{account,drawing-ui}/src/**/*.tsx',
+    ],
     ...reactHooks.configs.flat['recommended-latest'],
   },
 );

@@ -61,14 +61,17 @@ test('a player who never drew draws themselves in the waiting room, and the room
 
   // Straight from the invite link, with a generated name and initial.
   await guest.goto(`/r/${code}`);
-  await expect(guest.getByRole('heading', { name: /Draw yourself/ })).toBeVisible();
+  const prompt = guest.getByRole('button', { name: /Draw yourself/ });
+  await expect(prompt).toBeVisible();
   const before = await loadedAvatar(host, (await playerNames(host)).find((n) => n !== 'Ana') ?? '');
   const beforeSrc = await before.getAttribute('src');
 
+  // It opens the same editor as the room header's "you" sticker.
+  await prompt.click();
   await guest.getByRole('textbox', { name: 'Your name', exact: true }).fill('Bo');
   await scribble(guest);
   await guest.getByRole('button', { name: 'Save' }).click();
-  await expect(guest.getByRole('heading', { name: /Draw yourself/ })).toHaveCount(0);
+  await expect(prompt).toHaveCount(0);
 
   // The host sees the new name and drawing, without the guest reconnecting.
   const after = await loadedAvatar(host, 'Bo');

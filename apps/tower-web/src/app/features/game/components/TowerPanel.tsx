@@ -1,8 +1,10 @@
 import type { Team } from '@pictiotheme/protocol/tower';
-import type { ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
+import { uiScale } from '../../../lib/ui-scale';
 import { useServerNow, type RoomView } from '../../../realtime';
 import { CREW_BG, CREW_NAME } from '../../../ui/CrewBadge';
-import { LiveTower } from '../../tower';
+import { stageAnchor, useStageAnchor, type Ledge } from '../../crew-stage';
+import { LiveTower, type PlacingAt } from '../../tower';
 import type { PlacementController } from '../placement';
 import { SpellBadge, SpellSlots } from './SpellSlots';
 
@@ -10,6 +12,22 @@ const CREW_BORDER: Record<Team, string> = {
   orange: 'border-crew-orange',
   teal: 'border-crew-teal',
 };
+
+/**
+ * Where the placer's cloud floats: beside the balloons over their piece, on the left (the right
+ * of the other crew's sky has its drawing), or the right when the left is out of the panel.
+ */
+function cloudBeside(at: PlacingAt, sky: DOMRect, mine: boolean): Ledge {
+  const u = uiScale();
+  const size = Math.min(54 * u, Math.max(36 * u, at.ppu * 0.95)) * (mine ? 1 : 0.8);
+  const reach = at.ppu * 1.55 + size * 0.4;
+  const margin = size;
+  let x = sky.left + at.x - reach;
+  if (x < sky.left + margin) x = sky.left + at.x + reach;
+  x = Math.min(sky.right - margin, Math.max(sky.left + margin, x));
+  const y = Math.min(sky.bottom - 8, Math.max(sky.top + size + 6, sky.top + at.y - at.ppu * 1.25));
+  return { left: x, right: x, y, size, cloud: true };
+}
 
 /**
  * One crew's tower with its status: the queue, who's placing and their time, a daze, topping out.
@@ -40,6 +58,23 @@ export function TowerPanel({
   const crew = view.crews[team];
   const placer = crew.placing ? view.players.find((p) => p.id === crew.placing?.placerId) : null;
   const dazed = crew.dazedUntil !== null && crew.dazedUntil > now;
+  const sky = useRef<HTMLDivElement>(null);
+  const placingAt = useRef<PlacingAt | null>(null);
+  const topAt = useRef<PlacingAt | null>(null);
+  // Where spells cast at this tower land, and spells caught by it start from.
+  useStageAnchor(stageAnchor.tower(team), () => {
+    const at = topAt.current;
+    const rect = sky.current?.getBoundingClientRect();
+    if (!at || !rect) return null;
+    const x = rect.left + at.x;
+    const y = Math.max(rect.top + 24, rect.top + at.y - at.ppu * 0.8);
+    return { left: x, right: x, y, size: Math.max(30 * uiScale(), at.ppu) };
+  });
+  useStageAnchor(stageAnchor.cloud(team), () => {
+    const at = placingAt.current;
+    const rect = sky.current?.getBoundingClientRect();
+    return at && rect ? cloudBeside(at, rect, mine) : null;
+  });
   return (
     <section
       aria-label={`${CREW_NAME[team]} tower`}
@@ -69,12 +104,18 @@ export function TowerPanel({
           </span>
         )}
       </header>
-      <div className="relative min-h-0 flex-1">
+      <div ref={sky} className="relative min-h-0 flex-1">
         <LiveTower
           team={team}
           fit="reach"
           predict={placingHere && controls ? () => controls.target() : undefined}
           volume={mine ? 1 : 0.4}
+          onPlacing={(at) => {
+            placingAt.current = at;
+          }}
+          onTop={(at) => {
+            topAt.current = at;
+          }}
         />
         {children}
         <SpellBadge view={view} team={team} />

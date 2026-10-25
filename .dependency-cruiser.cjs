@@ -93,13 +93,13 @@ module.exports = {
     {
       name: 'account-allowed-dependencies',
       comment:
-        'The shared profile and account widget (decisions.md D13): no game code, only the protocol, the drawing engine, React and zustand.',
+        'The shared profile and its "you" sticker (decisions.md D13): no game code, only the protocol, the drawing tools, React and zustand.',
       severity: 'error',
       from: { path: '^packages/account/' },
       to: {
         dependencyTypes: ['npm', 'npm-dev', 'npm-peer', 'core', 'local'],
         pathNot: [
-          '^packages/(account|canvas-engine|protocol)/',
+          '^packages/(account|canvas-engine|drawing-ui|protocol)/',
           'node_modules/(react|zustand|zod|vitest)/',
           '\\.css$',
         ],
@@ -108,11 +108,26 @@ module.exports = {
     {
       name: 'account-core-has-no-ui',
       comment:
-        'D13: @pictiotheme/account is the store and its rules; components, styles and the drawing engine live in its ui/ entry, so a game with its own UI ships none of them.',
+        'D13: @pictiotheme/account is the store and its rules; components, styles and the drawing tools live in its ui/ entry.',
       severity: 'error',
       from: { path: '^packages/account/src/', pathNot: '^packages/account/src/ui/' },
       to: {
-        path: ['^packages/account/src/ui/', '^packages/canvas-engine/', '\\.css$'],
+        path: ['^packages/account/src/ui/', '^packages/(canvas-engine|drawing-ui)/', '\\.css$'],
+      },
+    },
+    {
+      name: 'drawing-ui-allowed-dependencies',
+      comment:
+        "DoodleWhirl's drawing tools, shared with the portal and the profile editor: no game code or socket, only the protocol, the drawing engine, React and zustand.",
+      severity: 'error',
+      from: { path: '^packages/drawing-ui/' },
+      to: {
+        dependencyTypes: ['npm', 'npm-dev', 'npm-peer', 'core', 'local'],
+        pathNot: [
+          '^packages/(drawing-ui|canvas-engine|protocol)/',
+          'node_modules/(react|zustand|vitest)/',
+          '\\.css$',
+        ],
       },
     },
     {

@@ -1,6 +1,8 @@
 ---
 import { Font } from 'astro:assets';
 import { HomeMusic } from '../app/features/sound/components/HomeMusic';
+import { HomeIdentitySticker } from '../app/features/identity';
+import { PORTAL_URL, TOWER_URL } from '../app/lib/portal';
 import { HeroLogo } from '../components/hero/HeroLogo';
 import { DeskProps } from '../components/home/DeskProps';
 import { HomeLobby } from '../components/home/HomeLobby';
@@ -25,6 +27,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   >
     <DoodleDesk />
     <HomeMusic client:load />
+    <!-- You, in the corner of the desk: your name and drawing, for every game. -->
+    <div class="absolute top-14 left-10 z-20 sm:left-12">
+      <HomeIdentitySticker client:only="react" />
+    </div>
     <div class="relative w-full max-w-6xl">
       <!-- Things on the desk, their inner ends under the paper. Click them. -->
       <DeskProps client:load />
@@ -50,5 +56,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </div>
     </div>
+    <!-- The other games, under the paper. -->
+    <p
+      class="absolute inset-x-0 bottom-3 z-10 text-center text-sm text-doodle dark:text-doodle-dark"
+    >
+      Part of <a href={PORTAL_URL} class="font-semibold underline">Games</a>
+      · Also try <a href={TOWER_URL} class="font-semibold underline">Doodle Tower</a>
+    </p>
   </main>
 </BaseLayout>

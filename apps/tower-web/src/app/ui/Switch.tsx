@@ -42,7 +42,7 @@ export function Switch({
     >
       <span
         aria-hidden="true"
-        className={`absolute font-display text-[11px] tracking-wider text-cloud [text-shadow:0_1px_0_oklch(0_0_0/0.3)] ${checked ? 'left-2.5' : 'right-2'}`}
+        className={`absolute font-display text-[0.6875rem] tracking-wider text-cloud [text-shadow:0_1px_0_oklch(0_0_0/0.3)] ${checked ? 'left-2.5' : 'right-2'}`}
       >
         {checked ? onText : offText}
       </span>

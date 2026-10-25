@@ -57,13 +57,13 @@ Rate limits per socket: 60 messages/s overall (burst 120), guesses 3/s, steering
 | `piece:queued` | everyone | `{pieceId, tower, sent, shape?}`: `sent` means cursed, its curses now apply; `shape` when a curse changed it (big ice) |
 | `place:start` | everyone | `{tower, placing: {pieceId, placerId, endsAt}}` |
 | `place:end` | everyone | `{tower, pieceId}` |
-| `tower:frame` | everyone | `{tower, tick, bodies}`: flat `[id, x mm, y mm, angle mrad, …]`, moving bodies only, 20/s; every body once a second. Body −1 is the Pigeon spell's bird |
+| `tower:frame` | everyone | `{tower, tick, bodies}`: flat `[id, x mm, y mm, angle mrad, …]`, moving bodies only, 20/s; every body once a second. Bodies −1, −2 and −3 are the Pigeon spell's birds, in every frame while they're perched |
 | `tower:height` | everyone | `{tower, height, toppingUntil}`, when it changes by 5 cm or more |
 | `tower:fumble` | everyone | `{tower, pieceIds, dazedUntil}` |
 | `crew:charges` | everyone | `{team, charges, gained?}`: a crew's spells changed; `gained: {spell, reason: 'golden' \| 'comeback'}` when one was added |
 | `crew:spell` | everyone | `{team, spell}`: a spell cast at this crew's tower (`{spell, casterId, startsAt, endsAt}`, starting after the warning), or null when it's over |
 | `crew:star` | everyone | `{team, star, caught?}`: the sky star by a crew's tower appeared or is being held (`{x, y, expiresAt, holdUntil}`), or it's gone (null; `caught` if it was caught) |
-| `piece:magpied` | everyone | `{pieceId, from, to, casterId}`: a magpie moved a queued piece to the caster's crew's queue |
+| `piece:magpied` | everyone | `{pieceId, from, to, casterId}`: a magpie flew off with the topmost piece of `from`'s tower, into the caster's crew's queue. Clients drop it from `from`'s frames |
 | `match:end` | everyone | `{results}`: winner, reason, heights, everyone's numbers, awards |
 | `error` | one player | `{code, message}` |
 | `pong`, `server:restarting` | | as DoodleWhirl's |

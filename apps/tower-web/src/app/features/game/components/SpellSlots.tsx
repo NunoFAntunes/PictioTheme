@@ -1,8 +1,9 @@
 import { SPELL_TUNING, type Team } from '@pictiotheme/protocol/tower';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { sendToRoom, useServerNow, type RoomView } from '../../../realtime';
 import { SPELL_LABEL } from '../../../lib/spells';
 import { CREW_NAME } from '../../../ui/CrewBadge';
+import { stageAnchor, useStageAnchor } from '../../crew-stage';
 
 const SLOTS = Array.from({ length: SPELL_TUNING.maxCharges }, (_, i) => i);
 const KEYS: Record<string, number> = { Digit1: 0, Digit2: 1, Numpad1: 0, Numpad2: 1 };
@@ -42,9 +43,19 @@ export function SpellSlots({ view, team, mine }: { view: RoomView; team: Team; m
     return () => window.removeEventListener('keydown', onKey);
   }, [canCast, charges]);
 
+  // A spell the crew gets flies into its slot (the newest one).
+  const slots = useRef<HTMLDivElement>(null);
+  useStageAnchor(stageAnchor.slots(team), () => {
+    const el = slots.current?.children[Math.max(0, charges.length - 1)];
+    const r = el?.getBoundingClientRect();
+    if (!r?.width) return null;
+    const x = r.left + r.width / 2;
+    return { left: x, right: x, y: r.top + r.height / 2, size: r.height };
+  });
+
   if (!view.settings.powers) return null;
   return (
-    <div className="flex items-center gap-1" aria-label={`${CREW_NAME[team]} spells`}>
+    <div ref={slots} className="flex items-center gap-1" aria-label={`${CREW_NAME[team]} spells`}>
       {SLOTS.map((slot) => {
         const spell = charges[slot];
         if (!spell) {
@@ -81,7 +92,7 @@ export function SpellSlots({ view, team, mine }: { view: RoomView; team: Team; m
             className="relative flex h-7 items-center gap-1 rounded-lg bg-sun px-1.5 text-base text-ink shadow-[0_2px_0_oklch(0.55_0.12_80)] enabled:hover:brightness-110 enabled:active:translate-y-0.5 disabled:opacity-45"
           >
             {label.icon}
-            <span className="font-display text-[10px]">{slot + 1}</span>
+            <span className="font-display text-[0.625rem]">{slot + 1}</span>
           </button>
         );
       })}
@@ -101,9 +112,9 @@ export function SpellBadge({ view, team }: { view: RoomView; team: Team }) {
   const text = coming
     ? `${label.icon} ${caster?.name ?? 'Someone'} is casting ${label.name}!`
     : spell.spell === 'magpie'
-      ? `${label.icon} A magpie is circling… ${seconds}s`
+      ? `${label.icon} A magpie is grabbing the top piece…`
       : spell.spell === 'pigeon'
-        ? `${label.icon} A pigeon is perched… ${seconds}s`
+        ? `${label.icon} Pigeons are perched… ${seconds}s`
         : `${label.icon} ${label.name} ${seconds}s`;
   return (
     <div className="pointer-events-none absolute top-2 left-2 z-20 max-w-[55%]" role="status">

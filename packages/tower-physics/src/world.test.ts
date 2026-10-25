@@ -3,7 +3,8 @@ import {
   createTowerWorld,
   DEFAULT_TUNING,
   loadPhysics,
-  PIGEON_ID,
+  PIGEON,
+  PIGEON_IDS,
   type PieceGeometry,
   type PieceMaterial,
   type StepEvents,
@@ -313,13 +314,15 @@ describe('pigeon', () => {
     const plank = place(world, box(3.4, 0.3), 0).id as number;
     const angle = () => world.bodies().find((b) => b.id === plank)?.angle ?? 0;
     expect(Math.abs(angle())).toBeLessThan(0.02);
-    world.landPigeon(1);
-    expect(world.pigeon()?.x).toBeGreaterThan(1.2);
-    run(world, 3);
-    // Knocked off balance (it may rock back once the pigeon slides off), or off the tower.
-    expect(
-      world.bodies().find((b) => b.id === plank) === undefined || Math.abs(angle()) > 0.1,
-    ).toBe(true);
+    world.landPigeons([1]);
+    expect(world.pigeons()[0]?.x).toBeGreaterThan(1.2);
+    // Knocked off balance at some point (it may rock back once the pigeon slides off).
+    let tilt = 0;
+    for (let i = 0; i < 180; i++) {
+      world.step();
+      tilt = Math.max(tilt, Math.abs(angle()));
+    }
+    expect(tilt).toBeGreaterThan(0.1);
     world.free();
   });
 
@@ -329,10 +332,10 @@ describe('pigeon', () => {
     world.drop();
     run(world, 1);
     expect(world.bodies()[0]?.id).toBe(id);
-    world.landPigeon(1);
+    world.landPigeons([1]);
     const left = run(world, 2);
     expect(left.fumbled).toEqual([]);
-    expect(world.pigeon()).not.toBeNull();
+    expect(world.pigeons()).toHaveLength(1);
     world.free();
   });
 
@@ -340,27 +343,27 @@ describe('pigeon', () => {
     const world = createTowerWorld();
     place(world, box(3, 1), 0);
     const before = world.height();
-    world.landPigeon(-1);
+    world.landPigeons([-1]);
     const { fumbled } = run(world, 2);
     expect(fumbled).toEqual([]);
-    expect(world.pigeon()).not.toBeNull();
+    expect(world.pigeons()).toHaveLength(1);
     expect(world.height()).toBeCloseTo(before, 2);
-    expect(world.frame(false).slice(0, 1)).toEqual([PIGEON_ID]);
+    expect(world.frame(false).slice(0, 1)).toEqual([PIGEON_IDS[0]]);
     world.free();
   });
 
   it('flies off when a new piece lands on it', () => {
     const world = createTowerWorld();
     place(world, box(3, 1), 0);
-    world.landPigeon(1);
+    world.landPigeons([1]);
     run(world, 1);
-    const at = world.pigeon();
+    const at = world.pigeons()[0];
     world.spawn(box(1, 1), at?.x ?? 0, 3);
     world.steer({ fast: true });
     let left: StepEvents['pigeon'] = null;
     for (let i = 0; i < 300 && left === null; i++) left = world.step().pigeon;
     expect(left).toBe('scared');
-    expect(world.pigeon()).toBeNull();
+    expect(world.pigeons()).toEqual([]);
     world.free();
   });
 
@@ -369,7 +372,7 @@ describe('pigeon', () => {
     // A plank just balanced past the platform's edge (3): its middle is 0.15 inside.
     const { id: plank } = place(world, box(3, 0.3), 2.85);
     expect(world.bodies().some((b) => b.id === plank)).toBe(true);
-    world.landPigeon(1);
+    world.landPigeons([1]);
     let left: StepEvents['pigeon'] = null;
     const fumbled: number[] = [];
     for (let i = 0; i < 600 && left === null; i++) {
@@ -381,6 +384,81 @@ describe('pigeon', () => {
     // The plank it tipped over goes too.
     fumbled.push(...run(world, 3).fumbled);
     expect(fumbled).toEqual([plank]);
+    world.free();
+  });
+});
+
+describe('three pigeons', () => {
+  it('perch on the edges of three different pieces, the top ones first', () => {
+    const world = createTowerWorld();
+    const bottom = place(world, box(4, 0.5), 0).id as number;
+    const middle = place(world, box(3, 0.5), 0).id as number;
+    const top = place(world, box(2, 0.5), 0).id as number;
+    world.landPigeons([1, -1, 1]);
+    const perched = world.pigeons();
+    expect(perched.map((p) => p.id)).toEqual([...PIGEON_IDS]);
+    // Each on its own piece's top, near that piece's outer edge.
+    const tops = new Map(world.bodies().map((b) => [b.id, b.y + 0.25]));
+    const [a, b, c] = perched;
+    expect(a?.y).toBeCloseTo((tops.get(top) ?? 0) + PIGEON.radius + 0.05, 1);
+    expect(a?.x).toBeGreaterThan(0.5);
+    expect(b?.y).toBeCloseTo((tops.get(middle) ?? 0) + PIGEON.radius + 0.05, 1);
+    expect(b?.x).toBeLessThan(-1);
+    expect(c?.y).toBeCloseTo((tops.get(bottom) ?? 0) + PIGEON.radius + 0.05, 1);
+    expect(c?.x).toBeGreaterThan(1.5);
+    world.free();
+  });
+
+  it('land on the platform once every piece has one', () => {
+    const world = createTowerWorld();
+    place(world, box(2, 0.5), 0);
+    world.landPigeons([1, -1, 1]);
+    const ys = world.pigeons().map((p) => p.y);
+    expect(ys).toHaveLength(3);
+    expect(ys.filter((y) => y < 0.4)).toHaveLength(2);
+    run(world, 1);
+    expect(world.pigeons()).toHaveLength(3);
+    world.free();
+  });
+
+  it('are scared off one at a time, and all leave together', () => {
+    const world = createTowerWorld();
+    place(world, box(4, 0.5), 0);
+    place(world, box(2, 0.5), 0);
+    world.landPigeons([1, -1]);
+    run(world, 1);
+    const [first] = world.pigeons();
+    world.spawn(box(0.6, 0.6), first?.x ?? 0, 3);
+    world.steer({ fast: true });
+    let left: StepEvents['pigeon'] = null;
+    for (let i = 0; i < 300 && left === null; i++) left = world.step().pigeon;
+    expect(left).toBe('scared');
+    expect(world.pigeons()).toHaveLength(1);
+    world.clearPigeons();
+    expect(world.pigeons()).toEqual([]);
+    world.free();
+  });
+});
+
+describe('the magpie', () => {
+  it('takes the topmost piece, without a fumble', () => {
+    const world = createTowerWorld();
+    place(world, box(3, 1), 0);
+    const top = place(world, box(1, 1), 0).id;
+    const before = world.height();
+    expect(world.takeTop()).toBe(top);
+    expect(world.bodies().map((b) => b.id)).not.toContain(top);
+    const { fumbled } = run(world, 1);
+    expect(fumbled).toEqual([]);
+    expect(world.height()).toBeLessThan(before - 0.5);
+    world.free();
+  });
+
+  it("doesn't take the piece being placed, and has nothing to take from an empty tower", () => {
+    const world = createTowerWorld();
+    expect(world.takeTop()).toBeNull();
+    world.spawn(box(1, 1), 0, 3);
+    expect(world.takeTop()).toBeNull();
     world.free();
   });
 });

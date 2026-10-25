@@ -1,12 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
-import {
-  IdentityChip,
-  hasGeneratedAvatar,
-  useEnsureIdentity,
-  useNameChosen,
-  type Identity,
-} from '../../app/features/identity';
+import { useIdentity, type Identity } from '../../app/features/identity';
 import { JoinRoomForm } from '../../app/features/join-room';
 import { RoomNotes, useCreateRoom, useQuickPlay } from '../../app/features/lobby';
 import { isThisDeviceAPhone } from '../../app/lib/device';
@@ -23,7 +17,8 @@ function enterRoom(code: string) {
 
 /**
  * The home page's lobby, under the logo (user-flows.md §2, screens.md §1): every way into a game
- * is one click, and nobody fills in a form first.
+ * is one click, and nobody fills in a form first. Who you play as is the "you" sticker in the
+ * page's corner (HomeIdentitySticker), which makes up a name on a first visit.
  */
 export function HomeLobby() {
   return (
@@ -34,8 +29,7 @@ export function HomeLobby() {
 }
 
 function Lobby() {
-  const identity = useEnsureIdentity();
-  const nameChosen = useNameChosen();
+  const identity = useIdentity((s) => s.identity);
   const [phone] = useState(isThisDeviceAPhone);
   const [showAnyway, setShowAnyway] = useState(false);
 
@@ -54,12 +48,6 @@ function Lobby() {
 
   return (
     <div className="flex flex-col gap-10">
-      {identity && (
-        <div className="absolute -top-16 left-6 sm:left-8">
-          {/* Still a plain letter, or a made-up name: an arrow asks you to introduce yourself. */}
-          <IdentityChip identity={identity} nudge={hasGeneratedAvatar(identity) || !nameChosen} />
-        </div>
-      )}
       <Actions identity={identity} />
       <RoomNotes />
     </div>

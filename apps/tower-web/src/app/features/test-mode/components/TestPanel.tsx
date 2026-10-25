@@ -136,7 +136,7 @@ function Checklist() {
               />
               <span className={done.has(item.id) ? 'text-ink/45 line-through' : ''}>
                 {item.label}
-                {item.how && <span className="block text-[11px] text-ink/55">{item.how}</span>}
+                {item.how && <span className="block text-[0.6875rem] text-ink/55">{item.how}</span>}
               </span>
             </label>
           ))}

@@ -93,13 +93,15 @@ export function TowerPanel({ session, hud }: { session: SandboxSession; hud: Hud
       {/* HUD bar: the queue, and the piece being placed with its time. */}
       <div
         className="absolute inset-x-0 top-0 flex items-center gap-3 bg-dusk-900/95 px-3"
-        style={{ height: HUD_INSET.top }}
+        style={{ height: `${HUD_INSET.top / 16}rem` }}
       >
         <div
           className="flex min-w-0 flex-1 items-center gap-1.5 overflow-hidden"
           aria-live="polite"
         >
-          <span className="font-display text-[11px] tracking-widest text-cloud-dim">QUEUE</span>
+          <span className="font-display text-[0.6875rem] tracking-widest text-cloud-dim">
+            QUEUE
+          </span>
           {hud.queue.length === 0 && <span className="text-xs text-cloud-dim">empty</span>}
           {hud.queue.slice(0, 5).map((word, i) => (
             <span
@@ -165,7 +167,7 @@ export function TowerPanel({ session, hud }: { session: SandboxSession; hud: Hud
       {/* Controls */}
       <div
         className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-dusk-900/95 px-3"
-        style={{ height: HUD_INSET.bottom }}
+        style={{ height: `${HUD_INSET.bottom / 16}rem` }}
       >
         <div className="hidden flex-wrap items-center gap-x-3 gap-y-1 text-xs text-cloud-dim xl:flex">
           <span>

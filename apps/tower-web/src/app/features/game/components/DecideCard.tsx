@@ -1,10 +1,12 @@
 import type { Piece } from '@pictiotheme/doodle-shape';
 import type { Deciding, Team } from '@pictiotheme/protocol/tower';
 import { DEFAULT_TUNING } from '@pictiotheme/tower-physics';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { uiScale } from '../../../lib/ui-scale';
 import { sendToRoom, useServerNow, type RoomView } from '../../../realtime';
 import { CURSE_LABEL, curseNames } from '../../../lib/curses';
 import { CREW_NAME } from '../../../ui/CrewBadge';
+import { stageAnchor, useStageAnchor } from '../../crew-stage';
 import { PiecePreview } from '../../piece';
 
 /**
@@ -31,6 +33,17 @@ export function DecideCard({
   const choose = (choice: 'keep' | 'curse') =>
     sendToRoom({ t: 'piece:decide', pieceId: deciding.pieceId, choice });
 
+  // The decider stands on the card's top left corner, bigger on their own card.
+  const card = useRef<HTMLDivElement>(null);
+  useStageAnchor(stageAnchor.deciding(deciding.deciderId), () => {
+    const r = card.current?.getBoundingClientRect();
+    if (!r?.width) return null;
+    const u = uiScale();
+    const size = (mine ? 52 : 34) * u;
+    const x = r.left + 10 * u + size / 2;
+    return { left: x, right: x, y: r.top + (mine ? 8 : 6) * u, size };
+  });
+
   // The guess box may have focus (the thief's winning guess): let go of it so K and C work.
   useEffect(() => {
     if (mine && document.activeElement instanceof HTMLElement) document.activeElement.blur();
@@ -55,13 +68,18 @@ export function DecideCard({
 
   if (!mine) {
     return (
-      <div className="card-panel rounded-2xl px-4 py-2 text-sm font-semibold" role="status">
+      <div
+        ref={card}
+        className="card-panel rounded-2xl px-4 py-2 text-sm font-semibold"
+        role="status"
+      >
         {decider?.name ?? 'Someone'} is deciding: keep “{piece.word}” or curse it… {seconds}
       </div>
     );
   }
   return (
     <div
+      ref={card}
       role="dialog"
       aria-label="Keep or curse"
       className="card-panel w-full max-w-md rounded-xl p-4 shadow-2xl"

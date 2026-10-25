@@ -1,4 +1,10 @@
 @import 'tailwindcss';
+/* The "you" sticker and the profile editor, the same in every game, with DoodleWhirl's drawing pad. */
+@import '@pictiotheme/drawing-ui/theme.css';
+@import '@pictiotheme/account/ui/theme.css';
+
+/* Doodle Tower is light only: the drawing pad's dark: styles never apply. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 /*
  * Doodle Tower's "sunny meadow" identity (docs/tower/design/visual-identity.md): a bright sky over
@@ -39,6 +45,10 @@
   --color-ink: oklch(0.27 0.08 275);
   --color-paper: oklch(1 0 0);
   --color-danger: oklch(0.63 0.22 25);
+  /* The profile editor (@pictiotheme/account/ui) in Doodle Tower's colours and type. */
+  --color-pop: var(--color-coral);
+  --color-pop-dark: var(--color-coral-dark);
+  --font-logo: var(--font-lilita), system-ui, sans-serif;
 
   --shadow-panel: 0 5px 0 var(--color-card-edge), 0 14px 30px oklch(0.3 0.12 265 / 0.25);
   --animate-swatch-pop: swatch-pop 160ms ease-out;
@@ -52,12 +62,20 @@
   --animate-plank-sway: plank-sway 5.5s ease-in-out infinite;
   --animate-lift-off: lift-off 1.8s ease-in forwards;
   --animate-float-back: float-back 900ms cubic-bezier(0.3, 1.5, 0.6, 1);
-  --animate-nudge: nudge 450ms ease-in-out;
 }
 
 @layer base {
   html {
     color-scheme: light;
+    /*
+     * Everything is sized in rem. Up to 1920 × 1080 the root is the browser's own size (16px);
+     * on bigger screens (1440p, a 4K monitor at 100%, a TV) it grows with the viewport, so the
+     * interface scales up as a whole instead of sitting small in the middle: about 21px at
+     * 2560 × 1440, 32px at 3840 × 2160 (4K looks like 1080p). Never below the browser's own
+     * size, so a player's font setting still counts. Code that sizes things in px follows it
+     * with `uiScale()` (lib/ui-scale.ts).
+     */
+    font-size: max(100%, min(0.8333vw, 1.4815vh));
   }
   body {
     /* The scenery canvas paints over this; it's the sky until it loads. */
@@ -219,22 +237,6 @@
 @keyframes float-back {
   from {
     translate: 0 -60vh;
-  }
-}
-
-/* "Hey, over here": a little shake. */
-@keyframes nudge {
-  0%,
-  100% {
-    translate: 0;
-  }
-  20%,
-  60% {
-    translate: -8px;
-  }
-  40%,
-  80% {
-    translate: 8px;
   }
 }
 

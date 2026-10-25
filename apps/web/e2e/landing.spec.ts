@@ -73,10 +73,8 @@ test('a new private room takes one click, and a friend joins by pasting the link
   const friend = await newPlayerPage(browser);
   await friend.goto('/');
   const chip = friend.getByRole('button', { name: /^Playing as/ });
-  const friendName = ((await chip.textContent()) ?? '')
-    .replace('Playing as', '')
-    .replace('✏️', '')
-    .trim();
+  const label = (await chip.getAttribute('aria-label')) ?? '';
+  const friendName = /^Playing as (.+): change name or drawing$/.exec(label)?.[1] ?? '';
   await friend.getByLabel('Join with a code').fill(link);
   await friend.getByRole('button', { name: 'Join' }).click();
   await expect(friend).toHaveURL(link);

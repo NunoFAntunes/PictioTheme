@@ -14,8 +14,9 @@ import { BalloonPop } from './BalloonPop';
  * Its balloons pop. Pop them all and the menu falls into the village, and the villagers build it
  * again (`menu-fall.ts`).
  *
- * Laid out in px (the game is for big screens, screens.md): the strings meet the board and the
- * planks at fixed points.
+ * Laid out in px at a 16px root: the strings meet the board and the planks at fixed points.
+ * Every length goes out as rem (`rem()`), so the toy grows with the page on big screens
+ * (global.css scales the root).
  */
 
 export type WayIn = 'quick' | 'join' | 'create';
@@ -25,6 +26,9 @@ const BOARD = { width: 380, height: 92 };
 const PLANK = { width: 264, height: 76 };
 /** Where the planks' centres hang, across the menu. */
 const PLANK_X = [162, 438] as const;
+
+/** A length in px at the 16px root, as rem. */
+const rem = (px: number) => `${px / 16}rem`;
 
 const INK = 'var(--color-dusk-950)';
 const STRING = 'oklch(0.35 0.03 265 / 0.8)';
@@ -52,9 +56,8 @@ function Bunch({
   return (
     <svg
       aria-hidden="true"
-      width={WIDTH}
-      height={KNOT.y}
       viewBox={`0 0 ${WIDTH} ${KNOT.y}`}
+      style={{ width: rem(WIDTH), height: rem(KNOT.y) }}
       className="overflow-visible"
     >
       {BUNCH.map((b, i) =>
@@ -146,7 +149,12 @@ function Strings({
 }) {
   const { inset } = EYELET;
   return (
-    <svg aria-hidden="true" width={width} height={height} className="block overflow-visible">
+    <svg
+      aria-hidden="true"
+      viewBox={`0 0 ${width} ${height}`}
+      style={{ width: rem(width), height: rem(height) }}
+      className="block overflow-visible"
+    >
       <path
         d={`M${from[0]} 0L${inset} ${height}M${from[1]} 0L${width - inset} ${height}`}
         stroke={STRING}
@@ -162,8 +170,8 @@ function Strings({
  */
 function Eyelets() {
   const at = (side: 'left' | 'right') => ({
-    [side]: EYELET.inset - 3 - 5,
-    top: EYELET.down - 3 - 5,
+    [side]: rem(EYELET.inset - 3 - 5),
+    top: rem(EYELET.down - 3 - 5),
   });
   return (
     <>
@@ -187,14 +195,18 @@ function Plank({ x, delay, children }: { x: number; delay: number; children: Rea
   return (
     <div
       className="absolute top-0 origin-top animate-plank-sway hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]"
-      style={{ left: x - PLANK.width / 2, width: PLANK.width, animationDelay: `${delay}s` }}
+      style={{
+        left: rem(x - PLANK.width / 2),
+        width: rem(PLANK.width),
+        animationDelay: `${delay}s`,
+      }}
     >
       <Strings
         width={PLANK.width}
         height={40}
         from={[PLANK.width / 2 - 50, PLANK.width / 2 + 50]}
       />
-      <div className="-mt-2" style={{ height: PLANK.height }}>
+      <div className="-mt-2" style={{ height: rem(PLANK.height) }}>
         {children}
       </div>
     </div>
@@ -318,7 +330,7 @@ export function BalloonMenu({
   const balance = left.length ? left.reduce((sum, b) => sum + b.x - KNOT.x, 0) / left.length : 0;
   const hang =
     phase === 'up'
-      ? { translate: `0 ${popped.size * 14}px`, rotate: `${(-balance / 100) * 6}deg` }
+      ? { translate: `0 ${rem(popped.size * 14)}`, rotate: `${(-balance / 100) * 6}deg` }
       : phase === 'rising'
         ? { translate: '0 0', rotate: '0deg' }
         : { translate: `0 ${groundOffset}px`, rotate: '0deg' };
@@ -333,7 +345,7 @@ export function BalloonMenu({
       ref={nav}
       aria-label="Ways into a game"
       className={`relative ${away ? 'pointer-events-none animate-lift-off' : flown ? 'animate-float-back' : ''}`}
-      style={{ width: WIDTH, height }}
+      style={{ width: rem(WIDTH), height: rem(height) }}
     >
       <div
         inert={phase !== 'up'}
@@ -352,7 +364,10 @@ export function BalloonMenu({
           <div className="absolute top-0 left-0">
             <Bunch popped={popped} inflating={inflating} onPop={pop} />
           </div>
-          <div className="absolute" style={{ top: KNOT.y, left: (WIDTH - BOARD.width) / 2 }}>
+          <div
+            className="absolute"
+            style={{ top: rem(KNOT.y), left: rem((WIDTH - BOARD.width) / 2) }}
+          >
             <Strings
               width={BOARD.width}
               height={56}
@@ -364,13 +379,13 @@ export function BalloonMenu({
               disabled={!usable}
               onClick={() => pick('quick')}
               className={`${PLANK_FACE} relative -mt-2 bg-coral text-4xl text-cloud shadow-[0_7px_0_var(--color-coral-dark)] [text-shadow:0_3px_0_var(--color-coral-dark)] hover:brightness-105 active:translate-y-[6px] active:shadow-none`}
-              style={{ width: BOARD.width, height: BOARD.height }}
+              style={{ width: rem(BOARD.width), height: rem(BOARD.height) }}
             >
               <Eyelets />
               {busy === 'quick' ? 'Finding a game…' : 'Quick game'}
             </button>
           </div>
-          <div className="absolute inset-x-0" style={{ top: planksTop }}>
+          <div className="absolute inset-x-0" style={{ top: rem(planksTop) }}>
             <Plank x={PLANK_X[0]} delay={-1.5}>
               <PrivatePlank
                 busy={busy === 'join'}

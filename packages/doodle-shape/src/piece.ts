@@ -74,9 +74,9 @@ export const DEFAULT_SHAPE_CONFIG: ShapeConfig = {
   smoothing: [1, 2, 3, 4, 6, 8],
   maxVertices: 64,
   maxParts: 16,
-  targetArea: 1.2,
-  maxLength: 3.3,
-  minThickness: 0.2,
+  targetArea: 2,
+  maxLength: 4.2,
+  minThickness: 0.25,
 };
 
 /** Flat `[x0, y0, x1, y1, …]`. */

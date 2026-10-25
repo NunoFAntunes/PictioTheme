@@ -58,7 +58,7 @@ export function roomCues(prev: RoomView | null, next: RoomView): GameCue[] {
     cues.push('golden');
   if (crew.star && !was.star) cues.push('star-appear');
   if (crew.star?.holdUntil && !was.star?.holdUntil) cues.push('star-hold');
-  // A pigeon leaving either tower flaps off; so does a magpie that gave up waiting.
+  // Pigeons leaving either tower flap off; so does a magpie that found nothing to take.
   for (const t of TEAMS) {
     const ended = prev.crews[t].spell;
     if (!ended || next.crews[t].spell !== null) continue;

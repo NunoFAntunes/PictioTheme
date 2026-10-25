@@ -1,0 +1,31 @@
+{
+  "name": "@pictiotheme/drawing-ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./theme.css": "./src/theme.css"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@pictiotheme/canvas-engine": "workspace:*",
+    "@pictiotheme/protocol": "workspace:*",
+    "zustand": "^5.0.15"
+  },
+  "peerDependencies": {
+    "react": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "react": "^19.3.0",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.3"
+  }
+}

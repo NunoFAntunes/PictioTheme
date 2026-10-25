@@ -43,15 +43,15 @@ function HeightMeter({ team, view, mine }: { team: Team; view: RoomView; mine: b
 
 /**
  * The race at a glance: both towers against the line, and the match's time limit. It stops short
- * on the right for the sound control.
+ * on the right for the how-to-play and sound buttons.
  */
 export function ScoreBar({ view, team }: { view: RoomView; team: Team }) {
   const now = useServerNow(500);
   return (
-    <div className="mt-2 mr-16 mb-3 ml-16 flex items-center gap-4 rounded-2xl bg-dusk-900 px-4 py-2 shadow-[0_4px_0_var(--color-dusk-950)]">
+    <div className="mt-2 mr-28 mb-3 ml-16 flex items-center gap-4 rounded-2xl bg-dusk-900 px-4 py-2 shadow-[0_4px_0_var(--color-dusk-950)]">
       <HeightMeter team="orange" view={view} mine={team === 'orange'} />
       <div className="flex flex-col items-center px-2">
-        <span className="font-display text-[10px] tracking-widest text-cloud-dim">
+        <span className="font-display text-[0.625rem] tracking-widest text-cloud-dim">
           TOP OUT {LINE_HEIGHTS[view.settings.line]} M
         </span>
         <span className="font-display text-lg tabular-nums">

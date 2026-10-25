@@ -17,6 +17,7 @@
     "@pictiotheme/account": "workspace:*",
     "@pictiotheme/canvas-engine": "workspace:*",
     "@pictiotheme/doodle-shape": "workspace:*",
+    "@pictiotheme/drawing-ui": "workspace:*",
     "@pictiotheme/protocol": "workspace:*",
     "@pictiotheme/sites": "workspace:*",
     "@pictiotheme/tower-physics": "workspace:*",

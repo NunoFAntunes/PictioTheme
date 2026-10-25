@@ -39,7 +39,7 @@ function randomWord(not?: string): string {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl bg-dusk-900 px-3 py-1 text-right shadow-[0_3px_0_var(--color-dusk-950)]">
-      <div className="text-[10px] tracking-widest text-cloud-dim uppercase">{label}</div>
+      <div className="text-[0.625rem] tracking-widest text-cloud-dim uppercase">{label}</div>
       <div
         className="font-display text-base leading-5 tabular-nums"
         data-testid={`stat-${label.toLowerCase()}`}
@@ -186,7 +186,7 @@ export function Sandbox() {
           Doodle <span className="text-sun">Tower</span>
         </a>
         <span className="candy-stripes rounded-lg px-0.5 py-0.5">
-          <span className="block rounded-md bg-ink px-2 py-0.5 font-display text-[11px] tracking-widest text-sun">
+          <span className="block rounded-md bg-ink px-2 py-0.5 font-display text-[0.6875rem] tracking-widest text-sun">
             SANDBOX
           </span>
         </span>
@@ -300,13 +300,13 @@ export function Sandbox() {
                   ⭐ A sky star to catch
                 </label>
                 <div className="flex gap-1.5">
-                  <Button onClick={() => session.landPigeon()} className="flex-1 text-xs">
-                    🐦 Land a pigeon
+                  <Button onClick={() => session.landPigeons()} className="flex-1 text-xs">
+                    🐦 Land pigeons
                   </Button>
                   <Button
                     onClick={() => session.sendMagpie()}
                     className="flex-1 text-xs"
-                    title="It takes the next piece to come up, then brings it back"
+                    title="It flies off with the top piece, which comes back to the queue"
                   >
                     🐦‍⬛ Send a magpie
                   </Button>

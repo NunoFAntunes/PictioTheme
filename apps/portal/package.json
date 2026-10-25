@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/react": "^7.0.0",
     "@pictiotheme/account": "workspace:*",
+    "@pictiotheme/drawing-ui": "workspace:*",
     "@pictiotheme/protocol": "workspace:*",
     "@pictiotheme/sites": "workspace:*",
     "astro": "^7.3.5",

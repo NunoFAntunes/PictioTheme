@@ -1,4 +1,11 @@
 @import 'tailwindcss';
+/* The drawing pad and its tools (packages/drawing-ui), the same as DoodleWhirl's. */
+@import '@pictiotheme/drawing-ui/theme.css';
+/* The "you" sticker and the profile editor (packages/account/src/ui), the same in every game. */
+@import '@pictiotheme/account/ui/theme.css';
+
+/* The portal is light only: the drawing tools' dark: styles never apply. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 @theme {
   --font-sans: var(--font-nunito), system-ui, sans-serif;
@@ -8,24 +15,348 @@
   --color-pop: #f97362;
   --color-pop-dark: #d9564a;
   --color-muted: #6b6380;
+
+  /* DoodleWhirl's half (apps/web's tokens): the desk, its ruled paper and pencil doodles. */
+  --font-logo: var(--font-cherry-bomb), ui-rounded, system-ui, sans-serif;
+  --color-desk: oklch(0.9 0.04 75);
+  --color-paper-line: oklch(0.85 0.05 240);
+  --color-doodle: oklch(0.45 0.06 60);
+
+  /* Doodle Tower's half (apps/tower-web's tokens): sky, grass and the logo's outline. */
+  --font-tower-display: var(--font-lilita), system-ui, sans-serif;
+  --color-dusk-950: oklch(0.27 0.11 278);
+  --color-cloud: oklch(0.995 0.004 250);
+  --color-sky: oklch(0.7 0.14 242);
+  --color-sky-light: oklch(0.92 0.06 215);
+  --color-grass: oklch(0.76 0.19 140);
+  --color-sun: oklch(0.87 0.17 92);
+
+  --animate-balloon-bob: balloon-bob 3.2s ease-in-out infinite;
+  @keyframes balloon-bob {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-3deg);
+    }
+    50% {
+      transform: translateY(-0.05em) rotate(3deg);
+    }
+  }
 }
 
 :root {
   color-scheme: light;
-  /* The account widget (packages/account/src/account.css) in the portal's colours. */
-  --acct-font: var(--font-sans);
-  --acct-fg: var(--color-ink);
-  --acct-bg: #fff;
-  --acct-muted: var(--color-muted);
-  --acct-border: rgb(42 33 64 / 0.14);
-  --acct-accent: var(--color-pop);
-  --acct-accent-fg: #fff;
-  --acct-paper: var(--color-paper);
-  --acct-shadow: 0 3px 0 rgb(42 33 64 / 0.18);
+  /* A big screen (past 1920px wide, a 4K one) scales the whole page up, so nothing looks lost. */
+  font-size: max(100%, 0.8333vw);
 }
 
 body {
-  background: var(--color-shelf);
+  background: var(--color-ink);
   color: var(--color-ink);
   font-family: var(--font-sans);
+}
+
+/*
+ * The two games sharing the screen (components/split/GameSplit.tsx). `--split` is the first
+ * game's share; each half is clipped along the zig-zag line around it (seam.ts), and the ink
+ * behind them draws the line. Pointing well into a game (it's `data-active`) gives it more;
+ * pressing it covers the screen. It's set on the body so the "you" sticker can ride the line.
+ */
+@property --split {
+  syntax: '<length-percentage>';
+  inherits: true;
+  initial-value: 50%;
+}
+
+body {
+  --split: 50%;
+  transition: --split 200ms cubic-bezier(0.2, 1.25, 0.4, 1);
+}
+body:has(.split:not([data-going]) .pane-first:is([data-active], :focus-visible)) {
+  --split: 57%;
+}
+body:has(.split:not([data-going]) .pane-second:is([data-active], :focus-visible)) {
+  --split: 43%;
+}
+/* Pressed: past the far edge, lean and teeth included. */
+body:has(.split[data-going]) {
+  transition: --split 650ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+body:has(.split[data-going='first']) {
+  --split: calc(100% + 12vw);
+}
+body:has(.split[data-going='second']) {
+  --split: calc(0% - 12vw);
+}
+
+.split {
+  position: fixed;
+  inset: 0;
+  background: var(--color-ink);
+}
+
+/*
+ * The "you" sticker sits on the top of the line, where it hangs straight down (seam.ts: the split
+ * plus its 5vw lean), and goes with it; it stays on screen while a pressed game takes it over.
+ */
+.sticker-pin {
+  position: absolute;
+  left: clamp(9rem, var(--split) + 5vw, 100% - 9rem);
+  translate: -50% 0;
+  width: max-content;
+  animation: sticker-drop 600ms 150ms cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+@keyframes sticker-drop {
+  from {
+    transform: translateY(-8rem) rotate(-12deg);
+  }
+}
+
+.pane {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transition: filter 160ms ease;
+}
+.pane-first {
+  clip-path: var(--clip-first-wide);
+}
+.pane-second {
+  clip-path: var(--clip-second-wide);
+}
+/* The other game steps back a little. */
+.split:not([data-going]):has(.pane:is([data-active], :focus-visible))
+  .pane:not([data-active], :focus-visible) {
+  filter: saturate(0.75) brightness(0.92);
+}
+.pane:focus-visible .pane-play {
+  outline: 4px dashed currentColor;
+  outline-offset: 6px;
+}
+
+/* What's in each half, centred in the part you see; it follows the line as it moves. */
+.pane-content {
+  position: absolute;
+  inset-block: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.5rem 2rem;
+  /* Its size is set from outside (the split), so what's in it can size itself by both. */
+  container-type: size;
+}
+.pane-first .pane-content {
+  left: 0;
+  width: clamp(0%, var(--split), 100%);
+}
+.pane-second .pane-content {
+  right: 0;
+  width: clamp(0%, 100% - var(--split), 100%);
+}
+
+.pane-art,
+.pane-doodle,
+.pane-stack,
+.pane-play {
+  transition:
+    scale 220ms cubic-bezier(0.3, 1.5, 0.5, 1),
+    rotate 220ms cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+.pane:is([data-active], :focus-visible) .pane-art {
+  scale: 1.04;
+}
+.pane:is([data-active], :focus-visible) .pane-play {
+  scale: 1.1;
+  rotate: 2deg;
+}
+.pane:is([data-active], :focus-visible) .pane-doodle {
+  rotate: 8deg;
+  scale: 1.15;
+}
+.pane:is([data-active], :focus-visible) .pane-stack {
+  rotate: -4deg;
+}
+.sticker-letter {
+  paint-order: stroke fill;
+  -webkit-text-stroke: 0.07em var(--color-ink);
+  text-shadow: 0.05em 0.06em 0 var(--color-ink);
+  transition:
+    translate 160ms ease-out,
+    rotate 160ms ease-out;
+  transition-delay: calc(var(--i) * 18ms);
+  /* Slapped on the paper one by one as the page opens. */
+  animation: sticker-slap 420ms calc(250ms + var(--i) * 55ms) cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+@keyframes sticker-slap {
+  from {
+    opacity: 0;
+    transform: scale(2.2) rotate(-25deg);
+  }
+  40% {
+    opacity: 1;
+  }
+}
+.pane:is([data-active], :focus-visible) .sticker-letter {
+  translate: 0 -0.08em;
+  rotate: var(--tilt);
+}
+.tower-title {
+  color: var(--color-cloud);
+  -webkit-text-stroke: 0.09em var(--color-dusk-950);
+  paint-order: stroke fill;
+  text-shadow: 0 0.08em 0 var(--color-dusk-950);
+}
+.pane-cloud {
+  animation: cloud-drift 18s ease-in-out infinite alternate;
+}
+@keyframes cloud-drift {
+  to {
+    translate: 2.5rem 0;
+  }
+}
+
+/* The desk's pencil doodles draw themselves, then jitter like a hand-drawn cartoon. */
+.pane-doodle {
+  animation: boil 900ms steps(1) infinite;
+}
+.pane-doodle path {
+  stroke-dasharray: 1;
+  animation: draw-in 900ms var(--delay) ease-out both;
+}
+@keyframes draw-in {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes boil {
+  0% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  33% {
+    transform: rotate(2deg) translate(0.5px, -0.5px);
+  }
+  66% {
+    transform: rotate(-1.5deg) translate(-0.5px, 0.5px);
+  }
+}
+
+/* Doodle Tower's tower stacks itself up, piece by piece, as the page opens. */
+.stack-piece {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: stack-drop 520ms calc(300ms + var(--i) * 140ms) cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+@keyframes stack-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-14rem) rotate(var(--spin));
+  }
+  20% {
+    opacity: 1;
+  }
+}
+
+/* Now and then a paper plane glides over the desk, and a bird flaps across the sky. */
+.paper-plane {
+  animation: plane-glide 13s 2s linear infinite both;
+}
+@keyframes plane-glide {
+  0% {
+    translate: -20cqi 30cqh;
+    rotate: -8deg;
+  }
+  20% {
+    translate: 40cqi 8cqh;
+    rotate: -14deg;
+  }
+  36% {
+    translate: 115cqi 18cqh;
+    rotate: 6deg;
+  }
+  36.01%,
+  100% {
+    translate: 115cqi 18cqh;
+  }
+}
+.bird {
+  animation: bird-fly 17s 6s linear infinite both;
+}
+@keyframes bird-fly {
+  0% {
+    translate: 110cqi 22cqh;
+  }
+  18% {
+    translate: 55cqi 12cqh;
+  }
+  38% {
+    translate: -20cqi 18cqh;
+  }
+  38.01%,
+  100% {
+    translate: -20cqi 18cqh;
+  }
+}
+.bird-wings {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: flap 360ms ease-in-out infinite alternate;
+}
+@keyframes flap {
+  to {
+    transform: scaleY(-0.6);
+  }
+}
+
+/* A tall screen (a phone): the games stacked, the line zig-zagging across. */
+@media (max-aspect-ratio: 4/5) {
+  .pane-first {
+    clip-path: var(--clip-first-tall);
+  }
+  .pane-second {
+    clip-path: var(--clip-second-tall);
+  }
+  .pane-content {
+    inset-inline: 0;
+    width: auto;
+    padding: 1rem;
+  }
+  /* The sticker can't pin a line that runs across: it sits centred above it. */
+  .sticker-pin {
+    left: 50%;
+  }
+  .pane-first .pane-content {
+    top: 0;
+    bottom: auto;
+    width: auto;
+    height: clamp(0%, var(--split), 100%);
+    padding-top: 5.5rem;
+  }
+  .pane-second .pane-content {
+    top: auto;
+    bottom: 0;
+    width: auto;
+    height: clamp(0%, 100% - var(--split), 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  body:has(.split[data-going]) {
+    transition: none;
+  }
+  .pane-cloud,
+  .sticker-pin,
+  .sticker-letter,
+  .pane-doodle,
+  .pane-doodle path,
+  .stack-piece,
+  .bird-wings {
+    animation: none;
+  }
+  .paper-plane,
+  .bird {
+    display: none;
+  }
 }

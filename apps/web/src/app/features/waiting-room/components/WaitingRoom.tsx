@@ -45,7 +45,7 @@ export function WaitingRoom({ onBack }: { onBack?: () => void } = {}) {
       <RoomCard view={view} host={host} />
       {!host && <WaitingForHost />}
       <DeckVotes />
-      {!afterMatch && <DrawYourself startFolded={host} />}
+      {!afterMatch && <DrawYourself />}
 
       {host ? (
         // Side by side, the deck notebook and the house rules fill the rest of the screen (up to

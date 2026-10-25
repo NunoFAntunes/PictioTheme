@@ -1,0 +1,30 @@
+/*
+ * What the drawing tools need from a site's Tailwind: these files scanned for classes, and the
+ * tokens they use. Import it after `tailwindcss`. The tokens are defaults (DoodleWhirl's), so a
+ * site's own @theme wins wherever it sets the same one.
+ */
+@source './';
+
+@theme default {
+  --color-ink: oklch(0.24 0.04 290);
+  --color-paper: oklch(0.985 0.012 95);
+  --color-brand-600: oklch(0.52 0.21 300);
+  --color-pop-purple: oklch(0.62 0.21 300);
+  --color-pop-tomato: oklch(0.68 0.2 32);
+  --color-pop-sun: oklch(0.86 0.17 88);
+  --color-pop-teal: oklch(0.72 0.13 190);
+  --color-pop-pink: oklch(0.75 0.17 355);
+
+  /* The chosen tool's little wiggle. */
+  --animate-choice-wiggle: choice-wiggle 450ms ease-out;
+
+  @keyframes choice-wiggle {
+    30% {
+      rotate: -4deg;
+      scale: 1.08;
+    }
+    60% {
+      rotate: 3deg;
+    }
+  }
+}

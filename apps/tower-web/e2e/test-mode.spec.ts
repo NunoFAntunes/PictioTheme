@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { nameYourself } from './support';
 
 /**
  * Test mode (docs/tower/planning/test-mode.md), alone against the bots: "Guess ours" instead of
@@ -17,7 +18,7 @@ test('test mode: one player tries curses and spells against the bots', async ({ 
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const page = await context.newPage();
   await page.goto('/');
-  await page.getByLabel('Your name').fill('Tess');
+  await nameYourself(page, 'Tess');
   await page.getByRole('button', { name: '🧪 Test the powers' }).click();
   await expect(page.getByText('🧪 Test mode')).toBeVisible();
   await page.getByRole('button', { name: 'Start building' }).click();

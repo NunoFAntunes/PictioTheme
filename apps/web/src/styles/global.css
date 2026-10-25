@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+/* The shared drawing tools (packages/drawing-ui): its classes, and tokens this file overrides. */
+@import '@pictiotheme/drawing-ui/theme.css';
+/* The "you" sticker and the profile editor (packages/account/src/ui), the same in every game. */
+@import '@pictiotheme/account/ui/theme.css';
 
 /*
  * Dark mode follows the system, except on paper: anything inside [data-paper] (the room's sheet,

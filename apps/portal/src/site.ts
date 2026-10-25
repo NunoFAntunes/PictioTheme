@@ -10,30 +10,27 @@ export const SITE_TAGLINE =
   'Drawing games to play with friends. One name and doodle for all of them.';
 
 export type Game = {
+  id: 'doodle' | 'tower';
   name: string;
   tagline: string;
   url: string;
-  icon: string;
-  /** The card's colour. */
-  tint: string;
   players: string;
 };
 
-export const GAMES: Game[] = [
+/** In the order they share the screen: the first on the left (on top on a phone). */
+export const GAMES: [Game, Game] = [
   {
+    id: 'doodle',
     name: 'DoodleWhirl!',
-    tagline: 'Draw, guess, laugh. Themed, AI-made decks for every crowd.',
+    tagline: 'Draw badly. Guess wildly. A themed deck for every crowd.',
     url: siteUrl('doodle', import.meta.env),
-    icon: '/games/doodlewhirl.svg',
-    tint: '#fde68a',
     players: '2–12 players',
   },
   {
+    id: 'tower',
     name: 'Doodle Tower',
     tagline: 'Two crews race to stack a tower out of their own drawings.',
     url: siteUrl('tower', import.meta.env),
-    icon: '/games/doodle-tower.svg',
-    tint: '#bae6fd',
     players: '4–12 players',
   },
 ];

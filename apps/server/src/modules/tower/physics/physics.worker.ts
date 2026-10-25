@@ -74,10 +74,13 @@ function handle(msg: ToWorker): void {
           entry.world.clearStar();
           return;
         case 'pigeon':
-          entry.world.landPigeon(physics.side);
+          entry.world.landPigeons(physics.sides);
           return;
         case 'unpigeon':
-          entry.world.clearPigeon();
+          entry.world.clearPigeons();
+          return;
+        case 'magpie':
+          post({ t: 'magpieTook', world: msg.world, pieceId: entry.world.takeTop() });
           return;
         case 'stop':
           entry.stopped = true;
@@ -94,7 +97,7 @@ function stepAll(): void {
     const events = world.step();
     if (events.released) post({ t: 'released', world: id, pieceId: events.released.id });
     if (events.fumbled.length > 0) post({ t: 'fumbled', world: id, pieceIds: events.fumbled });
-    if (events.pigeon) post({ t: 'pigeonGone', world: id });
+    if (events.pigeon && world.pigeons().length === 0) post({ t: 'pigeonGone', world: id });
     const { tick } = world;
     if (tick % FRAME_EVERY === 0) {
       const full = tick % FULL_FRAME_EVERY === 0;

@@ -70,6 +70,8 @@ function handleMessage(msg: TowerServerMessage): void {
       if (!view) return;
       if (msg.t === 'round:start') strokeModels[msg.team].reset(msg.round.strokes);
       if (msg.t === 'tower:fumble') towerFrames[msg.tower].remove(msg.pieceIds);
+      // The magpie has it now: it's drawn in its feet.
+      if (msg.t === 'piece:magpied') towerFrames[msg.from].remove([msg.pieceId]);
       useRoomStore.setState({ view: applyServerMessage(view, msg, serverNow()) });
     }
   }

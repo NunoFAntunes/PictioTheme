@@ -1,3 +1,8 @@
-export { cutoutFitted, drawingToAvatar, initialAvatar, recutAvatar } from './avatar-image';
+export {
+  AvatarPad,
+  cutoutFitted,
+  drawingToAvatar,
+  initialAvatar,
+  recutAvatar,
+} from '@pictiotheme/drawing-ui';
 export { Avatar, avatarUrl } from './components/Avatar';
-export { AvatarPad } from './components/AvatarPad';

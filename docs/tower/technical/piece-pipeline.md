@@ -38,7 +38,7 @@ s = max(s, t_min / thinnest_part)            # …and a thin part can't shrink b
 
 If the last two rules conflict (a very thin, very long doodle), `L_max` wins and the piece ends up smaller than `A_target`. That's fine: a skinny stick is a weak block anyway.
 
-Starting values (world units, the platform is 6 wide): `A_target = 1.2`, `L_max = 3.3`, `t_min = 0.2`. Small pieces leave room on the platform and time to aim. Tune them in the sandbox. Check: about 8–12 average pieces should reach the medium height line.
+Starting values (world units, the platform is 6 wide): `A_target = 2.0`, `L_max = 4.2`, `t_min = 0.25`. Tune them in the sandbox. Check: about 6–9 average pieces should reach the medium height line. *Changed 2026-10-22:* from 1.2 / 3.3 / 0.2 (8–12 pieces to the medium line), which made matches drag; about 3 average pieces still fit side by side on the platform.
 
 ## Growing a piece
 

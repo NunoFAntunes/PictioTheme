@@ -1,12 +1,14 @@
+import { accountKindOf, useAccount } from '@pictiotheme/account';
+import { openProfileEditor } from '@pictiotheme/account/ui';
 import type { PlayerIdentity } from '@pictiotheme/protocol';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ApiError } from '../../../lib/api';
-import { isValidName, useIdentity } from '../../../lib/identity';
+import { useIdentity } from '../../../lib/identity';
+import { DOODLE_URL, PORTAL_URL } from '../../../lib/portal';
 import { AccountCorner } from '../../account';
+import { HowToPlay } from '../../how-to-play';
 import { createLobby, createTestRoom, lookupRoom, quickPlay } from '../api';
 import { BalloonMenu, type WayIn } from './BalloonMenu';
-import { HowToPlay } from './HowToPlay';
-import { IdentityCard } from './IdentityCard';
 import { TowerLogo } from './TowerLogo';
 
 /**
@@ -34,34 +36,27 @@ const ENTER: Record<Way, (me: PlayerIdentity, code: string) => Promise<{ code: s
 
 /**
  * The home page (docs/tower/design/screens.md#1-home): the logo with its balloons to pop, who
- * you are (your avatar and name), and the balloon menu with the three ways into a game. Quick game
- * drops you into a public room (or opens one others can find), Private game takes a code or a
- * pasted invite link, and Create a lobby opens a private room with an invite card to share.
+ * you are (the "you" sticker in the corner, where you change your name and drawing), and the
+ * balloon menu with the three ways into a game. Quick game drops you into a public room (or opens
+ * one others can find), Private game takes a code or a pasted invite link, and Create a lobby
+ * opens a private room with an invite card to share. Without a name, a way in asks for one.
  */
 export function HomePage() {
-  const { identity, setName } = useIdentity();
-  // The profile's name (it can arrive, or change in another game, after the page opened) until
-  // you type your own.
-  const [draft, setDraft] = useState<string | null>(null);
-  const profileName = identity?.displayName ?? '';
-  const name = draft ?? profileName;
+  const identity = useIdentity((s) => s.identity);
+  // No name yet, or one made up for you in another game: an arrow asks you to introduce yourself.
+  const nudge = useAccount((s) => {
+    const kind = s.profile && accountKindOf(s.profile);
+    return kind === 'new' || kind === 'named-for-you';
+  });
   const [code, setCode] = useState('');
   const [busy, setBusy] = useState<Way | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [nudge, setNudge] = useState(0);
-  const nameOk = isValidName(name);
-  // A name you type is your profile's (every game's) after a short pause.
-  useEffect(() => {
-    if (draft === null || !nameOk || draft.trim() === profileName) return;
-    const timer = setTimeout(() => setName(draft), 800);
-    return () => clearTimeout(timer);
-  }, [draft, nameOk, profileName, setName]);
 
-  const go = async (way: Way) => {
+  const go = async (way: Way, me: PlayerIdentity) => {
     setBusy(way);
     setError(null);
     try {
-      const room = await ENTER[way](setName(name), code);
+      const room = await ENTER[way](me, code);
       // Stays busy: the page is navigating away.
       location.assign(`/r/${room.code}`);
     } catch (err) {
@@ -72,23 +67,21 @@ export function HomePage() {
 
   const pick = (way: Way) => {
     if (busy !== null) return false;
-    if (!nameOk) {
-      setNudge((n) => n + 1);
+    if (!identity) {
+      openProfileEditor();
       return false;
     }
     if (way === 'join' && code.length !== 7) return false;
-    void go(way);
+    void go(way, identity);
     return true;
   };
 
   return (
     <main className="mx-auto flex min-h-dvh max-w-6xl flex-col items-center justify-center gap-4 overflow-x-clip px-6 pt-14 pb-28">
-      {/* Editing here is the identity card below: the widget points you at it. */}
-      <AccountCorner onEdit={() => setNudge((n) => n + 1)} />
+      <AccountCorner nudge={nudge} portalLink />
       <TowerLogo />
 
-      <div className="mt-2 flex items-center justify-center gap-14">
-        <IdentityCard name={name} onName={setDraft} nameOk={nameOk} nudge={nudge} />
+      <div className="mt-2 flex items-center justify-center">
         <BalloonMenu
           busy={busy === 'test' ? null : busy}
           code={code}
@@ -122,6 +115,17 @@ export function HomePage() {
           </button>
         )}
       </div>
+
+      <p className="text-sm text-dusk-900/80">
+        Part of{' '}
+        <a href={PORTAL_URL} className="font-semibold text-dusk-950 underline">
+          Games
+        </a>{' '}
+        · Also try{' '}
+        <a href={DOODLE_URL} className="font-semibold text-dusk-950 underline">
+          DoodleWhirl!
+        </a>
+      </p>
     </main>
   );
 }

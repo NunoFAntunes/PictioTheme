@@ -15,7 +15,8 @@ import {
   wrap,
   type VillageView,
 } from '../scenery';
-import { CARRY_BELOW, type Bird } from './birds';
+import { uiScale } from '../../lib/ui-scale';
+import { CARRY_BELOW, paintSpellBird, type Bird } from '../birds';
 import { GROUND, LANE, toScreen, type Camera } from './camera';
 import { drawFallout, type TowerLife } from './fallout';
 import { paintPiece, type PieceLook } from './piece-look';
@@ -57,42 +58,11 @@ export type TowerScene = {
   fog?: number;
   /** A sky star by the tower; `hold` 0–1 while a piece is touching it (it's caught at 1). */
   star?: { x: number; y: number; radius: number; hold: number } | null;
-  /** The spells' birds: a pigeon on the tower, magpies over it (`birds.ts`). */
+  /** The spells' birds: pigeons on the tower, magpies over it (`birds.ts`). */
   birds?: readonly Bird[];
   /** A piece not to draw yet: a magpie is still flying it in. */
   hide?: PieceId | null;
 };
-
-/** The spells' birds: one drawing, two plumages. */
-const PLUMAGE = {
-  // Grey, with a green-and-purple neck.
-  pigeon: {
-    body: 'oklch(0.72 0.02 260)',
-    wing: 'oklch(0.6 0.03 260)',
-    neck: 'oklch(0.55 0.1 175)',
-    head: 'oklch(0.72 0.02 260)',
-    belly: null,
-    edge: 'oklch(0.3 0.03 260)',
-    beak: 'oklch(0.75 0.12 60)',
-    eye: 'oklch(0.55 0.18 40)',
-    legs: 'oklch(0.7 0.14 15)',
-    tail: 1,
-  },
-  // Black and white, with a blue sheen on the wing and a long tail.
-  magpie: {
-    body: 'oklch(0.22 0.01 260)',
-    wing: 'oklch(0.36 0.09 255)',
-    neck: 'oklch(0.22 0.01 260)',
-    head: 'oklch(0.22 0.01 260)',
-    belly: 'oklch(0.97 0.005 260)',
-    edge: 'oklch(0.12 0.01 260)',
-    beak: 'oklch(0.3 0.01 260)',
-    eye: 'oklch(0.85 0.02 260)',
-    legs: 'oklch(0.3 0.01 260)',
-    tail: 1.9,
-  },
-} as const;
-type Plumage = (typeof PLUMAGE)[keyof typeof PLUMAGE];
 
 const COLORS = {
   star: 'oklch(0.88 0.17 92)',
@@ -132,7 +102,7 @@ const COLORS = {
 /** Text in white with a soft dark outline, readable on any sky. */
 function outlinedText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number): void {
   ctx.lineJoin = 'round';
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 3 * uiScale();
   ctx.strokeStyle = COLORS.rulerInk;
   ctx.strokeText(text, x, y);
   ctx.fillStyle = COLORS.ruler;
@@ -417,37 +387,40 @@ export function drawTower(
     drawCrumbs(ctx, village, view);
   }
 
+  // The labels, the ruler and the bunting are in screen px: as big as the rest of the interface.
+  const u = uiScale();
+
   // ── Height ruler on the left edge ──
-  ctx.font = `12px ${displayFont()}`;
+  ctx.font = `${12 * u}px ${displayFont()}`;
   ctx.textBaseline = 'middle';
   ctx.strokeStyle = COLORS.ruler;
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 2 * u;
   ctx.lineCap = 'round';
   ctx.beginPath();
   for (let gy = Math.max(1, Math.ceil(camera.bottom)); gy < viewTop; gy++) {
     const { y } = S(0, gy);
-    ctx.moveTo(3, Math.round(y));
-    ctx.lineTo(gy % 5 === 0 ? 15 : 9, Math.round(y));
+    ctx.moveTo(3 * u, Math.round(y));
+    ctx.lineTo((gy % 5 === 0 ? 15 : 9) * u, Math.round(y));
   }
   ctx.stroke();
   for (let gy = 5 * Math.max(1, Math.ceil(camera.bottom / 5)); gy < viewTop; gy += 5) {
-    if (Math.abs(gy - scene.line) > 0.6) outlinedText(ctx, `${gy} m`, 19, S(0, gy).y);
+    if (Math.abs(gy - scene.line) > 0.6) outlinedText(ctx, `${gy} m`, 19 * u, S(0, gy).y);
   }
 
   // ── The topping-out line: a string of bunting, when it's below the HUD bar ──
   const lineY = S(0, scene.line).y;
-  const lineVisible = lineY > scene.insetTop + 34;
+  const lineVisible = lineY > scene.insetTop + 34 * u;
   if (lineVisible) {
     const y = lineY;
     ctx.strokeStyle = COLORS.rope;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2 * u;
     ctx.beginPath();
     ctx.moveTo(0, y);
     ctx.lineTo(width, y);
     ctx.stroke();
-    const step = 22;
-    for (let i = 0, x = 4; x < width; x += step, i++) {
-      const flutter = cheering ? Math.sin(t * 10 + i) * 3 : Math.sin(t * 2 + i * 0.8) * 1.2;
+    const step = 22 * u;
+    for (let i = 0, x = 4 * u; x < width; x += step, i++) {
+      const flutter = (cheering ? Math.sin(t * 10 + i) * 3 : Math.sin(t * 2 + i * 0.8) * 1.2) * u;
       ctx.fillStyle = cheering
         ? i % 2
           ? COLORS.gold
@@ -455,45 +428,45 @@ export function drawTower(
         : (COLORS.pennants[i % COLORS.pennants.length] as string);
       ctx.beginPath();
       ctx.moveTo(x, y);
-      ctx.lineTo(x + step - 6, y);
-      ctx.lineTo(x + (step - 6) / 2 + flutter, y + 15);
+      ctx.lineTo(x + step - 6 * u, y);
+      ctx.lineTo(x + (step - 6 * u) / 2 + flutter, y + 15 * u);
       ctx.closePath();
       ctx.fill();
     }
     // The label: a white tag above the bunting.
     const label = `TOP OUT · ${scene.line} m`;
-    ctx.font = `13px ${displayFont()}`;
+    ctx.font = `${13 * u}px ${displayFont()}`;
     const tw = ctx.measureText(label).width;
-    const lx = width - tw - 22;
+    const lx = width - tw - 22 * u;
     ctx.fillStyle = cheering ? COLORS.gold : 'oklch(1 0 0 / 0.92)';
     ctx.beginPath();
-    ctx.roundRect(lx - 8, y - 28, tw + 16, 22, 11);
+    ctx.roundRect(lx - 8 * u, y - 28 * u, tw + 16 * u, 22 * u, 11 * u);
     ctx.fill();
     ctx.fillStyle = COLORS.label;
-    ctx.fillText(label, lx, y - 17);
+    ctx.fillText(label, lx, y - 17 * u);
     if (scene.topping !== null) {
       ctx.fillStyle = COLORS.gold;
       ctx.beginPath();
-      ctx.roundRect(0, y + 18, width * scene.topping, 6, 3);
+      ctx.roundRect(0, y + 18 * u, width * scene.topping, 6 * u, 3 * u);
       ctx.fill();
     }
   }
 
   // ── The line's out of sight (above the view, or under the HUD): say where it is ──
   if (!lineVisible) {
-    ctx.font = `13px ${displayFont()}`;
+    ctx.font = `${13 * u}px ${displayFont()}`;
     ctx.textAlign = 'right';
-    const ty = scene.insetTop + 18;
-    outlinedText(ctx, `TOP OUT AT ${scene.line} m`, width - 26, ty);
+    const ty = scene.insetTop + 18 * u;
+    outlinedText(ctx, `TOP OUT AT ${scene.line} m`, width - 26 * u, ty);
     ctx.textAlign = 'left';
     // An arrow pointing up at it (the display font has no arrows).
     ctx.fillStyle = COLORS.ruler;
     ctx.beginPath();
-    ctx.moveTo(width - 17, ty - 7);
-    ctx.lineTo(width - 11, ty + 1);
-    ctx.lineTo(width - 23, ty + 1);
+    ctx.moveTo(width - 17 * u, ty - 7 * u);
+    ctx.lineTo(width - 11 * u, ty + u);
+    ctx.lineTo(width - 23 * u, ty + u);
     ctx.fill();
-    ctx.fillRect(width - 19, ty + 1, 4, 6);
+    ctx.fillRect(width - 19 * u, ty + u, 4 * u, 6 * u);
   }
 
   // ── Current height marker ──
@@ -501,12 +474,12 @@ export function drawTower(
     const { y } = S(0, scene.height);
     ctx.fillStyle = COLORS.marker;
     ctx.strokeStyle = 'oklch(1 0 0)';
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2 * u;
     ctx.lineJoin = 'round';
     ctx.beginPath();
-    ctx.moveTo(1, y - 8);
-    ctx.lineTo(14, y);
-    ctx.lineTo(1, y + 8);
+    ctx.moveTo(u, y - 8 * u);
+    ctx.lineTo(14 * u, y);
+    ctx.lineTo(u, y + 8 * u);
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
@@ -575,14 +548,14 @@ export function drawTower(
       const size = bird.carrySize ?? 0.6;
       ctx.save();
       ctx.translate(at.x, at.y + CARRY_BELOW * ppu);
-      ctx.rotate(Math.sin(t * 3) * 0.12 * (1 - size));
+      ctx.rotate(-(bird.carryAngle ?? 0) + Math.sin(t * 3) * 0.12 * (1 - size));
       ctx.shadowColor = COLORS.shadow;
       ctx.shadowBlur = 8;
       ctx.shadowOffsetY = 4;
       paintPiece(ctx, carried, ppu * size);
       ctx.restore();
     }
-    drawSpellBird(ctx, at, r, t, bird.facing, bird.flying, PLUMAGE[bird.kind]);
+    paintSpellBird(ctx, bird.kind, at, r, t, bird.facing, bird.flying);
   }
 
   // ── Fog over the top of the tower: only the piece being placed and its guide show ──
@@ -736,93 +709,4 @@ function drawStar(
     ctx.stroke();
     ctx.restore();
   }
-}
-
-/**
- * A spell's bird in its plumage (a pigeon, a magpie), standing on (x, y + r) − r, facing `facing`
- * (−1 left, 1 right). It bobs its head while perched; flying, its wings flap.
- */
-function drawSpellBird(
-  ctx: CanvasRenderingContext2D,
-  at: { x: number; y: number },
-  r: number,
-  t: number,
-  facing: 1 | -1,
-  flying: boolean,
-  look: Plumage,
-): void {
-  ctx.save();
-  ctx.translate(at.x, at.y);
-  ctx.scale(facing, 1);
-  ctx.lineWidth = Math.max(1, r * 0.12);
-  ctx.strokeStyle = look.edge;
-  ctx.lineJoin = 'round';
-  const bob = flying ? 0 : Math.max(0, Math.sin(t * 5)) * r * 0.25;
-  // Legs.
-  if (!flying) {
-    ctx.strokeStyle = look.legs;
-    ctx.beginPath();
-    ctx.moveTo(-r * 0.15, r * 0.55);
-    ctx.lineTo(-r * 0.2, r);
-    ctx.moveTo(r * 0.2, r * 0.55);
-    ctx.lineTo(r * 0.25, r);
-    ctx.stroke();
-    ctx.strokeStyle = look.edge;
-  }
-  // Tail and body.
-  const tail = look.tail;
-  ctx.fillStyle = look.body;
-  ctx.beginPath();
-  ctx.moveTo(-r * 1.0, -r * 0.05);
-  ctx.lineTo(-r * (1 + 0.7 * tail), -r * (0.05 + 0.3 * tail));
-  ctx.lineTo(-r * (1 + 0.55 * tail), r * (0.05 + 0.15 * tail));
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.ellipse(0, r * 0.1, r * 1.1, r * 0.72, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-  if (look.belly) {
-    ctx.fillStyle = look.belly;
-    ctx.beginPath();
-    ctx.ellipse(r * 0.15, r * 0.35, r * 0.75, r * 0.38, -0.1, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  // Wing: folded, or flapping.
-  const flap = flying ? Math.sin(t * 30) : 0;
-  ctx.fillStyle = look.wing;
-  ctx.beginPath();
-  if (flying) {
-    ctx.moveTo(-r * 0.4, -r * 0.1);
-    ctx.quadraticCurveTo(-r * 0.2, -r * (0.6 + 1.4 * flap), r * 0.5, -r * 0.1);
-  } else {
-    ctx.ellipse(-r * 0.15, r * 0.05, r * 0.7, r * 0.38, -0.15, 0, Math.PI * 2);
-  }
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-  // Neck and head.
-  ctx.fillStyle = look.neck;
-  ctx.beginPath();
-  ctx.ellipse(r * 0.7, -r * 0.35 + bob * 0.5, r * 0.42, r * 0.5, 0.3, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = look.head;
-  ctx.beginPath();
-  ctx.arc(r * 0.95, -r * 0.85 + bob, r * 0.42, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-  // Beak and eye.
-  ctx.fillStyle = look.beak;
-  ctx.beginPath();
-  ctx.moveTo(r * 1.32, -r * 0.92 + bob);
-  ctx.lineTo(r * 1.62, -r * 0.78 + bob);
-  ctx.lineTo(r * 1.3, -r * 0.7 + bob);
-  ctx.closePath();
-  ctx.fill();
-  ctx.fillStyle = look.eye;
-  ctx.beginPath();
-  ctx.arc(r * 1.05, -r * 0.95 + bob, r * 0.1, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
 }

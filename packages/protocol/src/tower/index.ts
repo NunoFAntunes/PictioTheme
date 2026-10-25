@@ -143,9 +143,10 @@ export const cursesClash = (a: Curse, b: Curse) =>
 
 /**
  * Spells (docs/tower/planning/power-ups.md): a crew holds up to `SPELL_TUNING.maxCharges` and
- * casts them at the other crew's tower. `fog` hides the top of their tower; `magpie` takes the
- * next piece from their queue into yours; `shaky` makes their drawer's strokes wobble; `pigeon`
- * lands on the edge of their top piece, a small weight that tips it.
+ * casts them at the other crew's tower. `fog` hides the top of their tower; `magpie` flies off
+ * with the topmost piece of their tower, into your queue; `shaky` makes their drawer's strokes
+ * wobble; `pigeon` lands three pigeons on the edges of their top pieces, small weights that tip
+ * them.
  */
 export const Spell = z.enum(['fog', 'magpie', 'shaky', 'pigeon']);
 export type Spell = z.infer<typeof Spell>;
@@ -158,10 +159,15 @@ export const SPELL_TUNING = {
   fogMs: 10_000,
   /** Strokes their drawer starts in this time wobble (`shakePoints`). */
   shakyMs: 10_000,
-  /** The pigeon leaves after this, if no new piece has scared it away first. */
+  /** The pigeons leave after this, if new pieces haven't scared them all away first. */
   pigeonMs: 25_000,
-  /** The magpie circles this long for a piece to take, then gives up. */
-  magpieMs: 30_000,
+  /** How many pigeons land, each on a different piece. */
+  pigeons: 3,
+  /**
+   * The magpie flies in during the warning and takes the top piece as the spell starts; it's
+   * over once it has (this is only how long it's given to).
+   */
+  magpieMs: 5_000,
   /** About one round in this many deals a golden word (never twice in a row for a crew). */
   goldenEvery: 6,
   /** A comeback charge: when a piece falls off, or this far behind for `behindMs`. */
@@ -206,7 +212,7 @@ export const ActiveSpell = z.object({
   spell: Spell,
   casterId: PlayerId,
   startsAt: z.number(),
-  /** When it ends: fog's time runs out, or the magpie gives up. */
+  /** When it ends: fog's time runs out, or the pigeons leave. */
   endsAt: z.number(),
 });
 export type ActiveSpell = z.infer<typeof ActiveSpell>;
@@ -521,7 +527,10 @@ export const TowerServerMessage = z.discriminatedUnion('t', [
   }),
   /** A spell was cast at this crew's tower (null: it's over). */
   z.object({ t: z.literal('crew:spell'), team: Team, spell: ActiveSpell.nullable() }),
-  /** A magpie took a piece from one crew's queue into the other's, for its caster to place. */
+  /**
+   * A magpie took the topmost piece off one crew's tower into the other's queue, for its caster
+   * to place.
+   */
   z.object({
     t: z.literal('piece:magpied'),
     pieceId: z.number().int(),

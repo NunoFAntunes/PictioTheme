@@ -549,7 +549,7 @@ export function decide(c: Ctx, piece: PieceState, choice: PieceChoice): void {
     sent: piece.sent,
     ...(reshaped && { shape: piece.shape }),
   });
-  if (!magpieSnatch(c, tower)) tryStartPlacement(c, tower);
+  tryStartPlacement(c, tower);
 }
 
 // ── Spells ───────────────────────────────────────────────────────────────────
@@ -620,39 +620,47 @@ export function onSpellTimer(c: Ctx, team: Team): void {
     endSpell(c, team);
     return;
   }
-  if (spell.spell === 'magpie' && magpieSnatch(c, team)) return;
+  // The magpie has flown in during the warning: it takes the top piece now.
+  if (spell.spell === 'magpie') {
+    c.fx.push({ kind: 'physics', tower: team, physics: { op: 'magpie' } });
+  }
   if (spell.spell === 'pigeon') {
-    const side = c.rng() < 0.5 ? -1 : 1;
-    c.fx.push({ kind: 'physics', tower: team, physics: { op: 'pigeon', side } });
+    const sides = Array.from({ length: SPELL_TUNING.pigeons }, () =>
+      c.rng() < 0.5 ? (-1 as const) : (1 as const),
+    );
+    c.fx.push({ kind: 'physics', tower: team, physics: { op: 'pigeon', sides } });
   }
   schedule(c, `spell:${team}`, spell.endsAt);
 }
 
-/** The pigeon left on its own (scared away by a new piece, or fallen): the spell is over. */
+/** The last pigeon left on its own (scared away by new pieces, or fallen): the spell is over. */
 export function onPigeonGone(c: Ctx, team: Team): void {
   if (match(c)?.crews[team].spell?.spell === 'pigeon') endSpell(c, team);
 }
 
 /**
- * A magpie on this crew's tower takes the next piece in its queue, if there is one, into the
- * caster's crew's queue for the caster to place. True if it took one (the spell is then over).
+ * A magpie lifted this crew's topmost piece off their tower (`pieceId`, or null with nothing to
+ * take): it goes into the caster's crew's queue, for the caster to place. The spell is over.
  */
-function magpieSnatch(c: Ctx, team: Team): boolean {
+export function onMagpieTook(c: Ctx, team: Team, pieceId: number | null): void {
   const m = match(c);
-  const crew = m?.crews[team];
-  const spell = crew?.spell;
-  if (!m || !crew || spell?.spell !== 'magpie' || c.now < spell.startsAt) return false;
-  const entry = crew.queue.shift();
-  const piece = entry ? m.pieces.get(entry.pieceId) : undefined;
-  if (!piece) return false;
-  const to = otherTeam(team);
-  piece.tower = to;
-  m.crews[to].queue.push({ pieceId: piece.id, placer: spell.casterId });
-  sendToAll(c, { t: 'piece:magpied', pieceId: piece.id, from: team, to, casterId: spell.casterId });
+  const spell = m?.crews[team].spell;
+  if (!m || spell?.spell !== 'magpie') return;
+  const piece = pieceId === null ? undefined : m.pieces.get(pieceId);
+  if (piece) {
+    const to = otherTeam(team);
+    piece.tower = to;
+    m.crews[to].queue.push({ pieceId: piece.id, placer: spell.casterId });
+    sendToAll(c, {
+      t: 'piece:magpied',
+      pieceId: piece.id,
+      from: team,
+      to,
+      casterId: spell.casterId,
+    });
+  }
   endSpell(c, team);
-  tryStartPlacement(c, to);
-  tryStartPlacement(c, team);
-  return true;
+  if (piece) tryStartPlacement(c, otherTeam(team));
 }
 
 // ── Placing ──────────────────────────────────────────────────────────────────

@@ -95,17 +95,17 @@ export const CHECKLIST: CheckGroup[] = [
       },
       {
         id: 'magpie-them',
-        label: '🐦‍⬛ Your Magpie takes their next piece, and you place it',
-        how: 'Cast it, then Rival → "Solve theirs, keep it"',
+        label: '🐦‍⬛ Your Magpie flies off with the top piece of their tower, and you place it',
+        how: 'Rival → "Solve theirs, keep it" so they have a tower, then cast it',
       },
       {
         id: 'magpie-you',
-        label: '🐦‍⬛ Their Magpie takes your next piece',
-        how: 'Rival casts it, then you solve yours and keep it',
+        label: '🐦‍⬛ Their Magpie flies in to your top piece and off with it',
+        how: 'Place a piece, then Rival casts it',
       },
       {
         id: 'magpie-wait',
-        label: '🐦‍⬛ With nothing to take, the magpie circles, then gives up after 30s',
+        label: '🐦‍⬛ At a tower with nothing on it, the magpie flies off empty-handed',
       },
       {
         id: 'shaky-them',
@@ -118,12 +118,12 @@ export const CHECKLIST: CheckGroup[] = [
       },
       {
         id: 'pigeon',
-        label: '🐦 A pigeon perches on the edge of the top piece and tips it',
-        how: 'It doesn’t count for height',
+        label: '🐦 Three pigeons perch on the edges of three different pieces and tip them',
+        how: 'They don’t count for height; with fewer pieces, the rest land on the platform',
       },
       {
         id: 'pigeon-leaves',
-        label: '🐦 The next piece scares it off, or it flies away after 25s',
+        label: '🐦 A new piece scares off the ones it touches; the rest fly away after 25s',
       },
     ],
   },

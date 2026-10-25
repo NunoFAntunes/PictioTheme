@@ -58,6 +58,9 @@
 	encode zstd gzip
 	root * {args[0]}
 	header /_astro/* Cache-Control "public, max-age=31536000, immutable"
+	# The portal, a sibling subdomain, may prerender a game while you press it
+	# (apps/portal/src/lib/warm-up.ts). Same-site pages only; a cross-site one never can.
+	header Supports-Loading-Mode credentialed-prerender
 	file_server
 }
 

@@ -10,10 +10,9 @@ import {
 } from '@pictiotheme/tower-physics';
 import type { PieceBitmap } from '../piece';
 import { playGameCue, playVillageCue } from '../sound';
+import { uiScale } from '../../lib/ui-scale';
+import { BIRD_FLY_MS, createMagpieFlight, createPigeonFlights } from '../birds';
 import {
-  BIRD_FLY_MS,
-  createMagpieFlight,
-  createPigeonFlight,
   createTowerLife,
   drawTower,
   easeCamera,
@@ -22,6 +21,7 @@ import {
   type Camera,
   type PieceLook,
   type TowerLife,
+  worldExtent,
 } from '../tower';
 import {
   DEFAULT_DAZE,
@@ -70,7 +70,7 @@ export type Hud = {
   stars: number | null;
 };
 
-/** CSS px of the tower view covered by the HUD bar (top) and the controls (bottom). */
+/** CSS px of the tower view covered by the HUD bar (top) and the controls (bottom), at 16px rem. */
 export const HUD_INSET = { top: 48, bottom: 72 };
 
 /**
@@ -94,15 +94,15 @@ export function createSandboxSession(initialTuning: Partial<PhysicsTuning> = {})
   /** A sky star to try catching: it comes back on the other side each time it's caught. */
   let star: { x: number; y: number; holdSince: number | null } | null = null;
   let starsCaught = 0;
-  /** Which side the next pigeon lands on: they take turns. */
+  /** Which side the first pigeon lands on: they take turns. */
   let pigeonSide: 1 | -1 = 1;
   /**
-   * A magpie (page time, ms): circling since `since` for the next piece to come up, then off with
-   * it (`took`) and back to its balloons, as if it were the thief's: there's only one tower here.
+   * A magpie (page time, ms): flying in to take the top piece at `takesAt`, then off with it
+   * (`took`). There's no thief's tower here: once it's gone, the piece is back in the queue.
    */
   let magpie: {
-    since: number | null;
-    took: { at: number; pieceId: PieceId } | null;
+    takesAt: number | null;
+    took: { at: number; pieceId: PieceId; piece: QueuedPiece } | null;
   } | null = null;
 
   function placeStar(w: TowerWorld, side: 1 | -1) {
@@ -187,10 +187,6 @@ export function createSandboxSession(initialTuning: Partial<PhysicsTuning> = {})
     if (id === null) return;
     looks.set(id, { piece: next.piece, bitmap: next.bitmap, curses });
     words.set(id, next.word);
-    if (magpie?.since != null) {
-      magpie = { since: null, took: { at: performance.now(), pieceId: id } };
-      playGameCue('magpie-took');
-    }
     placingEndsAt = simMs + PLACE_MS;
   }
 
@@ -248,30 +244,54 @@ export function createSandboxSession(initialTuning: Partial<PhysicsTuning> = {})
   let frame = 0;
   let last = 0;
   let acc = 0;
-  const pigeonFlight = createPigeonFlight();
+  const pigeonFlights = createPigeonFlights();
   const magpieFlight = createMagpieFlight();
 
-  /** The magpie's birds this frame, and the piece it hasn't let go of yet. */
-  function magpieBirds(now: number, bodies: readonly { id: PieceId; x: number; y: number }[]) {
-    if (magpie?.since != null && now - magpie.since >= SPELL_TUNING.magpieMs) {
-      magpie = null;
-      playGameCue('magpie-off');
+  /** The tower's topmost piece, not counting the one being placed: what a magpie takes. */
+  function topPiece(w: TowerWorld) {
+    let top: { x: number; y: number; angle: number; height: number } | null = null;
+    for (const body of w.bodies()) {
+      const look = looks.get(body.id);
+      if (body.active || !look) continue;
+      const height = worldExtent(body, look.piece.outline).top;
+      if (!top || height > top.height) top = { ...body, height };
+    }
+    return top;
+  }
+
+  /** The magpie's birds this frame. */
+  function magpieBirds(now: number, w: TowerWorld) {
+    if (magpie?.takesAt != null && now >= magpie.takesAt) {
+      const id = w.takeTop();
+      const look = id === null ? undefined : looks.get(id);
+      if (id !== null && look) {
+        const piece = { word: words.get(id) ?? '', ...look };
+        magpie = { takesAt: null, took: { at: now, pieceId: id, piece } };
+        playGameCue('magpie-took');
+      } else {
+        magpie = { takesAt: null, took: null };
+        playGameCue('magpie-off');
+      }
     }
     const took = magpie?.took ?? null;
-    const back = took && { at: took.at + BIRD_FLY_MS, pieceId: took.pieceId };
-    const placed = back && bodies.find((b) => b.id === back.pieceId);
-    const { birds, hide } = magpieFlight({
+    const { birds } = magpieFlight({
       now,
-      circlingSince: magpie?.since ?? null,
-      top: world?.top() ?? 0,
+      takesAt: magpie?.takesAt ?? null,
+      top: topPiece(w),
       side: 1,
-      took,
-      brought: back && now >= back.at ? { ...back, to: placed ?? null } : null,
+      took: took && { at: took.at, pieceId: took.pieceId },
+      brought: null,
     });
-    // Off with it and not back yet: it's not on its balloons.
-    const away = back && now < back.at ? back.pieceId : null;
-    if (back && now >= back.at + 2 * BIRD_FLY_MS) magpie = null;
-    return { birds, hide: hide ?? away };
+    // Gone: the piece it took is next to place again.
+    if (magpie && magpie.takesAt === null && (!took || now >= took.at + BIRD_FLY_MS)) {
+      if (took) {
+        looks.delete(took.pieceId);
+        words.delete(took.pieceId);
+        queue.unshift(took.piece);
+      }
+      magpie = null;
+    }
+    return birds;
   }
 
   function render(dt: number) {
@@ -297,8 +317,8 @@ export function createSandboxSession(initialTuning: Partial<PhysicsTuning> = {})
         reach,
         towerTop: world.top(),
         line,
-        insetTop: HUD_INSET.top,
-        insetBottom: HUD_INSET.bottom,
+        insetTop: HUD_INSET.top * uiScale(),
+        insetBottom: HUD_INSET.bottom * uiScale(),
       }),
       dt,
     );
@@ -313,8 +333,8 @@ export function createSandboxSession(initialTuning: Partial<PhysicsTuning> = {})
       playVillageCue(cue, { pan: ((cue.x - camera.centerX) / half) * 0.6 });
     }
     const now = performance.now();
-    const pigeon = pigeonFlight(world.pigeon(), now);
-    const magpies = magpieBirds(now, bodies);
+    const pigeons = pigeonFlights(world.pigeons(), now);
+    const magpies = magpieBirds(now, world);
     drawTower(ctx, size, dpr, camera, {
       bodies,
       looks,
@@ -323,11 +343,10 @@ export function createSandboxSession(initialTuning: Partial<PhysicsTuning> = {})
       line,
       height,
       topping,
-      insetTop: HUD_INSET.top,
+      insetTop: HUD_INSET.top * uiScale(),
       showColliders,
       fog,
-      birds: pigeon ? [pigeon, ...magpies.birds] : magpies.birds,
-      hide: magpies.hide,
+      birds: [...pigeons, ...magpies],
       star: star && {
         x: star.x,
         y: star.y,
@@ -420,17 +439,23 @@ export function createSandboxSession(initialTuning: Partial<PhysicsTuning> = {})
       fog = thickness;
     },
 
-    /** Lands a pigeon on the edge of the tower's top piece, one side then the other. */
-    landPigeon(): void {
-      world?.landPigeon(pigeonSide);
+    /**
+     * Lands the Pigeon spell's pigeons on the edges of the tower's top pieces, one per piece,
+     * alternating sides (starting on one side, then the other).
+     */
+    landPigeons(): void {
+      const sides = Array.from({ length: SPELL_TUNING.pigeons }, (_, i) =>
+        i % 2 === 0 ? pigeonSide : (-pigeonSide as 1 | -1),
+      );
+      world?.landPigeons(sides);
       playGameCue('pigeon');
       pigeonSide = pigeonSide === 1 ? -1 : 1;
     },
 
-    /** Sends a magpie to circle over the tower and take the next piece to come up. */
+    /** Sends a magpie to fly off with the tower's top piece (it comes back to the queue). */
     sendMagpie(): void {
       if (magpie) return;
-      magpie = { since: performance.now(), took: null };
+      magpie = { takesAt: performance.now() + BIRD_FLY_MS, took: null };
       playGameCue('magpie');
     },
 

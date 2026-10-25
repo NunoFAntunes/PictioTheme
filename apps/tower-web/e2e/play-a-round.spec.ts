@@ -1,4 +1,5 @@
 import { expect, test, type Browser, type Page } from '@playwright/test';
+import { nameYourself } from './support';
 
 /**
  * A real match against the real server (Phase 1, docs/tower/planning/roadmap.md): four players in
@@ -44,7 +45,7 @@ test('four players play a round: draw, guess, steal, fumble, cast a spell', asyn
   test.setTimeout(90_000);
   const host = await newPlayer(browser);
   await host.goto('/');
-  await nameAndGo(host, 'Ana');
+  await nameYourself(host, 'Ana');
   await host.getByRole('button', { name: 'Create a lobby' }).click();
   await expect(host).toHaveURL(/\/r\/[A-Z]{3}-[A-Z]{3}$/);
   const code = (await host.getByTestId('room-code').textContent()) ?? '';

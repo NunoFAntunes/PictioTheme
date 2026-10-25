@@ -23,11 +23,12 @@ Fully client-side lockstep was considered and rejected for v1. It uses less band
 
 ## A tower's world
 
-- A static, flat **platform**, 6 units wide and 0.35 thick (a lip is easy to add if playtests want one). Pieces are about 1 unit across. Below it, a kill zone. Any piece whose centre drops more than 2 units under the platform is a **fumble**: it's removed and the event is reported.
+- A static, flat **platform**, 6 units wide and 0.35 thick (a lip is easy to add if playtests want one). Pieces are about 1.4 units across. Below it, a kill zone. Any piece whose centre drops more than 2 units under the platform is a **fumble**: it's removed and the event is reported.
 - Gravity −9.81. The placed piece spawns 6 units above the tower and lowers at 0.8 units/s (5 with `↓`): about 7–8 seconds to aim and rotate before it touches anything.
 - Default materials: friction 0.8, restitution 0.05, small linear and angular damping, so pieces slide on steep slopes but settle on gentle ones. "Ice" (the box exploit): friction 0.05.
 - **A piece's own material** (`PieceMaterial`, on `spawn`): a cursed piece ([power-ups.md](../planning/power-ups.md)) can have its own `friction` and `lowerScale` (how much faster it lowers while placed). Its friction uses Rapier's `Min` combine rule, so the lower of the two surfaces counts: a slippery piece slides on a grippy tower, and pieces slide off it. Retuning keeps each piece's own material. A bouncy piece has its own `restitution` (with the `Max` rule, so the bouncier surface counts) until `bouncyMs` after it's released; then it's as bouncy as any piece.
-- **The pigeon** ([power-ups.md](../planning/power-ups.md)): a small ball body that grips (rotation locked), outside the pieces, so it never counts for the height or fumbles. In frames it's body `PIGEON_ID` (−1). A piece released after it landed (or the one being placed) that touches it scares it away; the step reports `pigeon: 'scared' | 'fell'`.
+- **The pigeons** ([power-ups.md](../planning/power-ups.md)): three small ball bodies that grip (rotation locked), each perched on a different piece, outside the pieces, so they never count for the height or fumble. In frames they're bodies `PIGEON_IDS` (−1, −2, −3), in every frame while they're here. A piece released after they landed (or the one being placed) that touches one scares it away; the step reports `pigeon: 'scared' | 'fell'` and `pigeons()` lists who's left.
+- **The magpie**: `takeTop()` lifts the topmost piece (not the one being placed) out of the world and returns its id. It's not a fumble; what it held up is woken to notice.
 - **A sky star** ([power-ups.md](../planning/power-ups.md)): a ball sensor on the platform's body. Pieces pass straight through it (touching it doesn't release the piece being placed). `starHeld()` is true when a piece that counts for the height (settled, standing on the platform) overlaps it; the worker sends it with each height report.
 - Mass from area at the same density for every piece. Since areas are [normalized](piece-pipeline.md#normalizing-the-scale), pieces weigh about the same.
 - The placer can move the piece only within the platform width ± 2 units.
@@ -45,7 +46,7 @@ Fully client-side lockstep was considered and rejected for v1. It uses less band
 |---|---|---|
 | Platform width / thickness | 6 / 0.35 | Can you place 3–4 average pieces side by side? |
 | Height lines (short / medium / tall) | 6 / 10 / 15 | Matches of about 4 / 7 / 10 minutes |
-| `A_target` / `L_max` / `t_min` | 1.2 / 3.3 / 0.2 | Pieces feel equal in weight but different in shape |
+| `A_target` / `L_max` / `t_min` | 2.0 / 4.2 / 0.25 (*changed 2026-10-22* from 1.2 / 3.3 / 0.2, so matches don't drag) | Pieces feel equal in weight but different in shape |
 | Friction | 0.8 | Slanted pieces slide, flat ones stay |
 | Lowering speed / spawn height | 0.8 u/s / 6 u | Enough time to aim within 15s |
 | Gravity | 9.81 | With 1 m pieces things tumble about 30% faster than with the first 3 m² ones; lower it if stacking feels twitchy |

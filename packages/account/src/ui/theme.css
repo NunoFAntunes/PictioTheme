@@ -1,0 +1,52 @@
+/*
+ * What the "you" sticker and the profile editor need from a site's Tailwind: these files scanned
+ * for classes, and the tokens they use. Import it after `tailwindcss` and
+ * `@pictiotheme/drawing-ui/theme.css` (the editor's pad). The tokens are defaults (DoodleWhirl's),
+ * so a site's own @theme wins wherever it sets the same one. A site that defines `--animate-boil`
+ * (DoodleWhirl's line boil) gets your doodle boiling when you point at it.
+ */
+@source './';
+
+@theme default {
+  --color-ink: oklch(0.24 0.04 290);
+  --color-paper: oklch(0.985 0.012 95);
+  --color-pop: oklch(0.68 0.2 32);
+  --color-pop-dark: oklch(0.56 0.19 32);
+  --color-pop-sun: oklch(0.86 0.17 88);
+  --color-pop-tomato: oklch(0.68 0.2 32);
+  --color-muted: oklch(0.5 0.04 290);
+  /* Gochi Hand when the site loads it (`--font-gochi-hand`), as DoodleWhirl does. */
+  --font-hand: var(--font-gochi-hand), cursive;
+  /* The editor's title: Cherry Bomb One when the site loads it (`--font-cherry-bomb`). */
+  --font-logo: var(--font-cherry-bomb), ui-rounded, system-ui, sans-serif;
+
+  /* Your doodle sways on its sticker; the "introduce yourself" note drops in and draws its arrow. */
+  --animate-sway: sway 3.6s ease-in-out infinite;
+  --animate-note-drop: note-drop 260ms cubic-bezier(0.34, 1.5, 0.64, 1) backwards;
+  --animate-squiggle-draw: swirl-draw 600ms ease-out backwards;
+
+  @keyframes sway {
+    0%,
+    100% {
+      translate: 0 0;
+      rotate: -2deg;
+    }
+    50% {
+      translate: 0 -3px;
+      rotate: 2deg;
+    }
+  }
+  @keyframes note-drop {
+    from {
+      translate: 0 -0.75rem;
+      rotate: -5deg;
+      scale: 0.85;
+      opacity: 0;
+    }
+  }
+  @keyframes swirl-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+  }
+}

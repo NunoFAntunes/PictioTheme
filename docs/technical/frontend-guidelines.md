@@ -50,9 +50,10 @@ apps/web/
         report-deck/        ReportDeckButton (🚩 report a deck's cover or content)
         desk-toys/          the toys on the home page's desk and around the waiting room's house rules
                             (Prop places them; paper-ball.ts is the throwable ball's physics), doodles.ts
-        canvas/             engine/ (input, adjust, brush-cursor, colour, eyedropper; the renderer,
-                            painting, flood fill and pointer gate are in packages/canvas-engine),
-                            shortcuts.ts + DrawingBoard, Toolbar (both also drive the cover and avatar pads)
+        canvas/             re-exports the drawing tools from packages/drawing-ui (DrawingBoard,
+                            Toolbar, DrawingPad: engine/ input, adjust, brush cursor, colour,
+                            shortcuts), shared with the portal; the room's board passes strokeModel
+                            and drawAndSend
         player-list/  guess-feed/  room-header/  turn-overlays/  waiting-room/  results/
         sound/              Web Audio engine, sound catalog + groups, saved volume settings,
                             RoomSounds (message → sound, turn clock),
@@ -71,11 +72,11 @@ apps/web/
 
 ### The shared profile
 
-Your name and drawing are a profile shared with every game and the games portal (`packages/account`, decisions.md D13): a store synced with `GET`/`PUT /api/me` and cached in the browser. `features/identity/identity-store.ts` turns it into DoodleWhirl's `Identity` (the drawing, or your initial) with `createGameIdentity`, and its `setIdentity` saves to the profile. In a room, `useFollowIdentityInRoom` sends every change to the room (`PUT /api/rooms/:code/me`), wherever it was made. The "you" sticker (`IdentityChip`) is DoodleWhirl's account widget: "Playing as guest" on the home page, the sun-yellow YOU sticker in the room header, and just your doodle once a match is on (`avatarOnly`). A silly name is saved as not chosen, so the home page keeps asking you to introduce yourself. An identity saved by the old `pictiotheme.identity` key moves into the profile once (`importLegacyIdentity`).
+Your name and drawing are a profile shared with every game and the games portal (`packages/account`, decisions.md D13): a store synced with `GET`/`PUT /api/me` and cached in the browser. `features/identity/identity-store.ts` turns it into DoodleWhirl's `Identity` (the drawing, or your initial) with `createGameIdentity`, and its `setIdentity` saves to the profile. In a room, `useFollowIdentityInRoom` sends every change to the room (`PUT /api/rooms/:code/me`), wherever it was made. The "you" sticker is the one every game shares (`PlayerSticker` from `@pictiotheme/account/ui`, decisions.md D13), and the only place to change your name and drawing: "Playing as guest" in the home page's top-left corner (`HomeIdentitySticker`), the sun-yellow YOU sticker in the room header (`RoomIdentityChip`), and just your doodle once a match is on. The waiting room's "Draw yourself" prompt opens the same editor (`openProfileEditor`). A silly name is saved as not chosen, so the home page keeps asking you to introduce yourself. An identity saved by the old `pictiotheme.identity` key moves into the profile once (`importLegacyIdentity`).
 
 ### Canvas engine
 
-The parts Doodle Tower shares live in **`packages/canvas-engine`**: the stroke model, `renderer.ts`, `paint.ts`, `flood-fill.ts` and `pointer-gate.ts`. Input, the adjust drag, the brush cursor and colour maths are DoodleWhirl's own and stay in `features/canvas/engine/`.
+The parts Doodle Tower shares live in **`packages/canvas-engine`**: the stroke model, `renderer.ts`, `paint.ts`, `flood-fill.ts` and `pointer-gate.ts`. Input, the adjust drag, the brush cursor and colour maths are DoodleWhirl's tools and live in **`packages/drawing-ui`** with the board, toolbar and avatar pad, which the portal reuses for its profile editor. They know no room: `DrawingBoard` and `Toolbar` take the stroke model and `emit` (the room passes `strokeModel` and `drawAndSend`, a pad its own model). The package is styled with Tailwind; a site imports `@pictiotheme/drawing-ui/theme.css` after `tailwindcss` so its classes are generated, with DoodleWhirl's tokens as defaults.
 
 - `renderer.ts`: finished operations are painted once onto an offscreen **base** canvas. The stroke still in progress is repainted on top each frame. An undo or reset bumps the model's `epoch`, which repaints the base from scratch. There are no checkpoints yet (see [status.md](../planning/status.md)).
 - `paint.ts`: strokes are perfect-freehand outlines filled once, with `globalAlpha` (so opacity is even) and `destination-out` for the eraser. Fill is `flood-fill.ts` on the base canvas pixels.
@@ -101,7 +102,7 @@ The parts Doodle Tower shares live in **`packages/canvas-engine`**: the stroke m
 
 ### Canvas
 
-- **W8** The drawing engine (`packages/canvas-engine` plus `features/canvas/engine/`) is **plain TypeScript with no React**: renderer, painting, flood fill, input. The stroke model comes from `packages/canvas-engine` and is re-exported by `realtime/`, because the connection feeds it. React wraps the engine through a ref and passes settings in.
+- **W8** The drawing engine (`packages/canvas-engine` plus `packages/drawing-ui/src/engine/`) is **plain TypeScript with no React**: renderer, painting, flood fill, input. The stroke model comes from `packages/canvas-engine` and is re-exported by `realtime/`, because the connection feeds it. React wraps the engine through a ref and passes settings in.
 - **W9** **Strokes never go into React state.** Pointer events feed the engine directly. Rendering runs on `requestAnimationFrame`. Only toolbar settings (tool, colour, size, opacity) are React state.
 - **W10** The engine draws at the fixed logical resolution (1200×900) and scales to the element. Flood fill runs offscreen at logical resolution so it is deterministic ([realtime-protocol.md](realtime-protocol.md#drawing-sync)).
 - **W11** Pure logic has Vitest unit tests: flood fill, the stroke model, the room-view reducer. Anything that needs a real browser (canvas rendering, sockets, the full flow) is covered by Playwright in `e2e/`.

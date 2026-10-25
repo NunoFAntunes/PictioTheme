@@ -9,7 +9,9 @@ import {
   type ReactNode,
 } from 'react';
 import { myTeam, strokeModels, type RoomView } from '../../../realtime';
+import { CrewStage } from '../../crew-stage';
 import { DEFAULT_DRAW_SETTINGS, DrawingToolbar, type DrawSettings } from '../../drawing';
+import { HowToPlay } from '../../how-to-play';
 import { PiecePreview } from '../../piece';
 import { TestGuess, TestPanel } from '../../test-mode';
 import { createDrawSender } from '../draw-sender';
@@ -96,6 +98,7 @@ export function GameScreen({ view }: { view: RoomView }) {
   return (
     <div className="flex h-dvh min-h-0 flex-col">
       <ScoreBar view={view} team={team} />
+      <HowToPlay variant="round" />
       <main
         className={`grid min-h-0 flex-1 gap-3 px-3 pb-3 ${testMode ? 'grid-cols-[auto_minmax(0,1fr)_clamp(19rem,26vw,26rem)_minmax(0,1fr)]' : 'grid-cols-[minmax(0,1fr)_clamp(19rem,30vw,28rem)_minmax(0,1fr)]'}`}
       >
@@ -110,6 +113,7 @@ export function GameScreen({ view }: { view: RoomView }) {
             shape={shape}
             onOp={(op) => sender.send(op)}
             boardWidth={boardWidth}
+            covered={myDecision !== undefined}
           />
 
           {crewDecision && <DecideCard view={view} deciding={crewDecision} team={team} />}
@@ -143,7 +147,7 @@ export function GameScreen({ view }: { view: RoomView }) {
             }
           />
 
-          <div className="pointer-events-none absolute inset-x-0 top-14 z-20 flex justify-center">
+          <div className="pointer-events-none absolute inset-x-0 top-14 z-50 flex justify-center">
             <EventBanner view={view} team={team} />
           </div>
           {myDecision && (
@@ -157,6 +161,7 @@ export function GameScreen({ view }: { view: RoomView }) {
           <RivalDrawing view={view} team={other} />
         </TowerPanel>
       </main>
+      <CrewStage />
     </div>
   );
 }

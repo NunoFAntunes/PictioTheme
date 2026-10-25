@@ -1,9 +1,8 @@
 /**
- * The account's ready-made UI (`@pictiotheme/account/ui`, docs/technical/decisions.md D13): the
- * widget for a game's corner, its editor and the drawing pad, styled with `--acct-*` custom
- * properties (account.css). Optional: a game may build its own on the store
- * (`@pictiotheme/account`), as DoodleWhirl does. Importing this brings account.css with it.
+ * The account's UI (`@pictiotheme/account/ui`, docs/technical/decisions.md D13), the same on the
+ * portal and in every game: the "you" sticker and the profile editor it opens (with the drawing
+ * pad from `@pictiotheme/drawing-ui`). Styled with Tailwind: a site imports
+ * `@pictiotheme/account/ui/theme.css` after `@pictiotheme/drawing-ui/theme.css`.
  */
-export { AccountWidget } from './components/AccountWidget';
-export { DrawingPad } from './components/DrawingPad';
-export { ProfileEditor } from './components/ProfileEditor';
+export { PlayerSticker } from './components/PlayerSticker';
+export { openProfileEditor } from './editor';

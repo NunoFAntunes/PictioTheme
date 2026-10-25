@@ -111,6 +111,19 @@ They play **whether or not the ground is in view**, so on a tall tower you hear 
 | Squeak | Every other step of a squashed villager | Synthesised: a rubber-toy chirp |
 | Pop | A squashed villager springs back | Synthesised: a rising bloop and a wobbly boing |
 
+### Crew sounds
+
+The players' avatars moving between their places ([screens.md](screens.md#the-crews-on-stage), `features/sound/stage-sounds.ts`). Each avatar has its own pitch (from its player's id), so a crowd swapping places doesn't sound like one voice. Panned by where on screen it happens; the other crew's are quieter (40%). None with reduced motion.
+
+| Sound | When | Source |
+|---|---|---|
+| Whoop | An avatar takes off (or hops along the rim) | Synthesised: a quick rising sine glide |
+| Plop | It lands | Synthesised: a short falling sine |
+| Fwump | It lands on a placer's cloud | Synthesised: a puff of low-passed noise |
+| Bonk | Two avatars collide in the air | Synthesised: a hollow triangle knock over a low thud, then three twinkles |
+| Burst | A thrown spell or curse lands, or a gained spell reaches its slot | Synthesised: a rising sine pop and four triangle twinkles. The game's own cast, incoming and spell-gained sounds still play as before |
+| Swish | A thief dashes out, and back | Synthesised: band-passed noise sweeping down |
+
 ### Tokens
 
 In `apps/tower-web/src/styles/global.css`: `dusk-*` (HUD indigo), `cloud` / `cloud-dim` (text on dusk), `sky`, `grass`, `card*`, `sun`, `coral`, `crew-orange`, `crew-teal`, `pebble`, `ink`, `paper`, `danger`. The canvas colours of the scenery are in `MEADOW` (`features/scenery/meadow.ts`).

@@ -208,8 +208,10 @@ export type TowerEvent =
   /** The piece being placed was let go: it touched something, or it was dropped. */
   | { type: 'released'; tower: Team; pieceId: number }
   | { type: 'fumbled'; tower: Team; pieceIds: number[] }
-  /** The pigeon left: a new piece scared it away, or it fell. */
+  /** The last pigeon left: new pieces scared them away, or they fell. */
   | { type: 'pigeonGone'; tower: Team }
+  /** A magpie lifted the tower's topmost piece out of it (null: there was nothing to take). */
+  | { type: 'magpieTook'; tower: Team; pieceId: number | null }
   /**
    * The tower's measured height, about ten times a second, and whether a settled piece of it is
    * touching its sky star.
@@ -234,9 +236,14 @@ export type PhysicsOp =
   /** Puts the tower's sky star there (a sensor), or takes it away. */
   | { op: 'star'; x: number; y: number; radius: number }
   | { op: 'unstar' }
-  /** The Pigeon spell lands on the outer edge of the top piece (`side` −1 left, 1 right). */
-  | { op: 'pigeon'; side: 1 | -1 }
+  /**
+   * The Pigeon spell: a pigeon for each of `sides` (−1 left, 1 right), each on the outer edge of
+   * a different piece, the top ones first.
+   */
+  | { op: 'pigeon'; sides: (1 | -1)[] }
   | { op: 'unpigeon' }
+  /** The Magpie spell takes the tower's topmost piece; answered with `magpieTook`. */
+  | { op: 'magpie' }
   | { op: 'stop' };
 
 export type MatchEndReason = MatchResults['reason'];

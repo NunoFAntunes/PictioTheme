@@ -76,7 +76,7 @@ The same Caddy serves three sites, one per subdomain of one parent domain: Doodl
 
 ### One profile for every game
 
-The portal lists the games and holds the player's **profile**: their name and drawing, shared by every game (`players` table, `GET`/`PUT /api/me`). The contract every game builds on is the **profile store** from `packages/account` (`@pictiotheme/account`): synced with `/api/me`, cached in the browser so a page shows you at once, fetched again when the tab comes back into view, plus the profile's rules. A game keeps the profile as its identity and still sends the name and avatar when it joins a room, so rooms don't depend on the profile. Every game shows who you are in its top-left corner: "Name yourself" until there's a name, the name with a Guest tag after that, and just the avatar during a match. The ready-made **account widget**, its editor and a small drawing pad are a separate entry, `@pictiotheme/account/ui`, which a game may skin (`--acct-*` CSS custom properties) or skip: Doodle Tower and the portal use the widget, while DoodleWhirl builds its hand-drawn "you" sticker on the store and ships none of the widget's code or styles. A game turns the profile into the name and avatar it plays with through `createGameIdentity` (the drawing, or the game's own fallback made from the name), adding its own actions on top.
+The portal lists the games and holds the player's **profile**: their name and drawing, shared by every game (`players` table, `GET`/`PUT /api/me`). The contract every game builds on is the **profile store** from `packages/account` (`@pictiotheme/account`): synced with `/api/me`, cached in the browser so a page shows you at once, fetched again when the tab comes back into view, plus the profile's rules. A game keeps the profile as its identity and still sends the name and avatar when it joins a room, so rooms don't depend on the profile. Every game and the portal show who you are with the same **"you" sticker** (`PlayerSticker`, in the separate entry `@pictiotheme/account/ui`): DoodleWhirl's hand-drawn sticker, your doodle leaning out of it, "Playing as guest" over your name ("Name yourself" until there's one), and just the doodle during a match. It is the one place to change your name and drawing: it hosts the **profile editor** (`ProfileDialog`, with DoodleWhirl's drawing pad from `packages/drawing-ui`), which the rest of the page opens with `openProfileEditor()`. It's styled with Tailwind; each site imports its `theme.css` and may override the tokens it uses. A game turns the profile into the name and avatar it plays with through `createGameIdentity` (the drawing, or the game's own fallback made from the name), adding its own actions on top.
 
 **In a room, your name and avatar follow the profile.** The room takes them on join, and the player's own room page sends every later change with `useRoomFollowsIdentity` (the game's `PUT …/rooms/:code/me`), wherever it was made: this game's editor, another game, or the portal (the profile is fetched again when the tab comes back into view). It's the client and not the server that tells the room, because each game draws its fallback avatar (DoodleWhirl's initial, Doodle Tower's bobble hat) in the browser: a server-side fan-out from `players` couldn't redraw it for a player who renames without a drawing. A rename made elsewhere while the room's tab stays in view reaches the room when that tab next becomes visible, or on the next rejoin.
 
@@ -164,7 +164,7 @@ apps/
   server/         Fastify modular monolith (API + realtime + worker). Owns the DB schema and migrations
   web/            Astro site + React app (DoodleWhirl)
   tower-web/      Doodle Tower's site (docs/tower/)
-  portal/         The games portal: the games list and the shared profile (static Astro + React islands)
+  portal/         The games portal: the two games side by side and the shared profile (static Astro + React islands)
 packages/
   game-core/      Pure room state machine, scoring, guess matcher, card pool (no I/O, unit-tested)
   protocol/       zod schemas + types: WebSocket messages, REST DTOs, deck schema, error codes
@@ -172,6 +172,7 @@ packages/
   sites/          Where every site lives: the portal and each game's address (data only)
   moderation/     The word checks every game shares (profanity), pure
   canvas-engine/  The drawing engine the games share (stroke model, rendering, fills, avatar cut-out)
+  drawing-ui/     DoodleWhirl's drawing tools as React components (board, toolbar, avatar pad), used by DoodleWhirl and the portal
 infra/
   compose.prod.yaml, Caddyfile, Dockerfiles, deploy/ (VM bootstrap, deploy, backup scripts)
 docs/

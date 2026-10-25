@@ -1,12 +1,18 @@
 import type { Piece } from '@pictiotheme/doodle-shape';
 import { LINE_HEIGHTS, STAR_TUNING, type Team, type TowerPiece } from '@pictiotheme/protocol/tower';
-import { DEFAULT_TUNING, PIGEON_ID, type BodyState } from '@pictiotheme/tower-physics';
+import { DEFAULT_TUNING, isPigeonId, type BodyState } from '@pictiotheme/tower-physics';
 import { useEffect, useRef } from 'react';
 import { myTeam, serverNow, towerFrames, useRoomStore, type RoomView } from '../../../realtime';
 import { renderPieceBitmap } from '../../piece';
+import { uiScale } from '../../../lib/ui-scale';
 import { playVillageCue } from '../../sound';
-import { createMagpieFlight, createPigeonFlight, type MagpieInput } from '../birds';
-import { easeCamera, targetCamera, type Camera } from '../camera';
+import {
+  BIRD_FLY_MS,
+  createMagpieFlight,
+  createPigeonFlights,
+  type MagpieInput,
+} from '../../birds';
+import { easeCamera, targetCamera, toScreen, type Camera } from '../camera';
 import { createTowerLife, updateTowerLife } from '../fallout';
 import { drawTower, worldExtent, type PieceLook } from '../renderer';
 
@@ -26,6 +32,9 @@ function lookOf(piece: TowerPiece): PieceLook {
   });
   return { piece: shape, bitmap, curses: piece.sent ? piece.curses : [] };
 }
+
+/** Where the piece being placed hangs from its balloons, on the tower's canvas. */
+export type PlacingAt = { x: number; y: number; ppu: number };
 
 /** How long fog takes to roll in and out. */
 const FOG_FADE_MS = 600;
@@ -52,24 +61,25 @@ function starOf(view: RoomView, team: Team, now: number) {
   return { x: star.x, y: star.y, radius: STAR_TUNING.radius, hold };
 }
 
+/** A pigeon missing from the frames this long has left (they're in every frame while here). */
+const PIGEON_GONE_MS = 300;
+
 /**
- * The magpies' comings and goings at this tower: one cast at it (circling, then gone), the last
- * piece one took from it, and the last one brought to it. The other crew's tower is on `side`.
+ * The magpies' comings and goings at this tower: one cast at it (flying in to take its top piece,
+ * then off), the last piece one took from it, and the last one brought to it (arriving once it's
+ * flown off the other tower). The other crew's tower is on `side`.
  */
-function magpiesAt(view: RoomView, team: Team, now: number, top: number, side: 1 | -1) {
+function magpiesAt(view: RoomView, team: Team, now: number, top: MagpieInput['top'], side: 1 | -1) {
   const spell = view.crews[team].spell;
-  const circlingSince =
-    spell?.spell === 'magpie' && now >= spell.startsAt && now < spell.endsAt
-      ? spell.startsAt
-      : null;
+  const takesAt = spell?.spell === 'magpie' && now < spell.endsAt ? spell.startsAt : null;
   let took: MagpieInput['took'] = null;
   let brought: { at: number; pieceId: number } | null = null;
   for (const e of view.events) {
     if (e.kind !== 'magpied' || e.pieceId === undefined) continue;
     if (e.team === team) took = { at: e.at, pieceId: e.pieceId };
-    else brought = { at: e.at, pieceId: e.pieceId };
+    else brought = { at: e.at + BIRD_FLY_MS, pieceId: e.pieceId };
   }
-  return { now, circlingSince, top, side, took, brought };
+  return { now, takesAt, top, side, took, brought };
 }
 
 /**
@@ -86,6 +96,8 @@ export function LiveTower({
   fit = 'platform',
   predict,
   volume = 1,
+  onPlacing,
+  onTop,
 }: {
   team: Team;
   insetTop?: number;
@@ -94,13 +106,24 @@ export function LiveTower({
   predict?: () => { x: number; angle: number } | null;
   /** How loud this tower's village is (the other crew's is quieter). */
   volume?: number;
+  /**
+   * Every frame: where the knot of the balloons over the piece being placed is, in CSS px from
+   * the canvas's top left, with the view's px per world unit. Null while nothing's being placed.
+   */
+  onPlacing?: (at: PlacingAt | null) => void;
+  /** Every frame: where the top of the tower is (the platform's middle while it's empty). */
+  onTop?: (at: PlacingAt) => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const predictRef = useRef(predict);
   const volumeRef = useRef(volume);
+  const onPlacingRef = useRef(onPlacing);
+  const onTopRef = useRef(onTop);
   useEffect(() => {
     predictRef.current = predict;
     volumeRef.current = volume;
+    onPlacingRef.current = onPlacing;
+    onTopRef.current = onTop;
   });
 
   useEffect(() => {
@@ -108,7 +131,7 @@ export function LiveTower({
     const ctx = canvas?.getContext('2d');
     if (!canvas || !ctx) return;
     const looks = new Map<number, PieceLook>();
-    const pigeonFlight = createPigeonFlight();
+    const pigeonFlights = createPigeonFlights();
     const magpieFlight = createMagpieFlight();
     const seed = team === 'orange' ? 1 : 2;
     const life = createTowerLife(seed * 7 + 1, platformWidth);
@@ -136,13 +159,16 @@ export function LiveTower({
       const target = activeId !== null ? (predictRef.current?.() ?? null) : null;
       const bodies: BodyState[] = [];
       let towerTop = 0;
+      let topPiece: MagpieInput['top'] = null;
       const spell = crew.spell;
       const perched =
         spell?.spell === 'pigeon' && serverNow() >= spell.startsAt && serverNow() < spell.endsAt;
-      let perch: { x: number; y: number } | null = null;
-      for (const pose of towerFrames[team].poses(now)) {
-        if (pose.id === PIGEON_ID) {
-          if (perched) perch = { x: pose.x, y: pose.y };
+      const perches: { id: number; x: number; y: number }[] = [];
+      const frames = towerFrames[team];
+      for (const pose of frames.poses(now)) {
+        if (isPigeonId(pose.id)) {
+          const fresh = now - (frames.lastSeen(pose.id) ?? -Infinity) < PIGEON_GONE_MS;
+          if (perched && fresh) perches.push({ id: pose.id, x: pose.x, y: pose.y });
           continue;
         }
         const piece = view.pieces[pose.id];
@@ -160,13 +186,17 @@ export function LiveTower({
           settled: false,
         };
         bodies.push(body);
-        if (!active) towerTop = Math.max(towerTop, worldExtent(body, look.piece.outline).top);
+        if (!active) {
+          const top = worldExtent(body, look.piece.outline).top;
+          if (!topPiece || top > towerTop) topPiece = { x: body.x, y: body.y, angle: body.angle };
+          towerTop = Math.max(towerTop, top);
+        }
       }
 
-      const pigeon = pigeonFlight(perch, now);
+      const pigeons = pigeonFlights(perches, now);
       // Your own tower is on the left, the other crew's on the right.
       const side = team === (myTeam(view) ?? 'orange') ? 1 : -1;
-      const magpies = magpiesAt(view, team, serverNow(), towerTop, side);
+      const magpies = magpiesAt(view, team, serverNow(), topPiece, side);
       const delivering = magpies.brought;
       const placed = delivering && bodies.find((b) => b.id === delivering.pieceId && b.active);
       const { birds, hide } = magpieFlight({
@@ -180,9 +210,20 @@ export function LiveTower({
       }
 
       const line = LINE_HEIGHTS[view.settings.line];
+      // The header over the view is sized like the rest of the interface.
+      const u = uiScale();
       camera = easeCamera(
         camera,
-        targetCamera({ ...size, platformWidth, reach, towerTop, line, insetTop, insetBottom, fit }),
+        targetCamera({
+          ...size,
+          platformWidth,
+          reach,
+          towerTop,
+          line,
+          insetTop: insetTop * u,
+          insetBottom: insetBottom * u,
+          fit,
+        }),
         dt,
       );
       for (const cue of updateTowerLife(life, bodies, looks, dt, still.matches)) {
@@ -192,6 +233,22 @@ export function LiveTower({
           pan: ((cue.x - camera.centerX) / half) * 0.6,
         });
       }
+      onTopRef.current?.({ ...toScreen(camera, size, 0, towerTop), ppu: camera.ppu });
+      const placing = bodies.find((b) => b.active && b.id !== hide);
+      const placingLook = placing && looks.get(placing.id);
+      onPlacingRef.current?.(
+        placing && placingLook
+          ? {
+              ...toScreen(
+                camera,
+                size,
+                placing.x,
+                worldExtent(placing, placingLook.piece.outline).top,
+              ),
+              ppu: camera.ppu,
+            }
+          : null,
+      );
       const topping =
         crew.toppingUntil === null
           ? null
@@ -204,14 +261,14 @@ export function LiveTower({
         line,
         height: crew.height,
         topping,
-        insetTop,
+        insetTop: insetTop * u,
         showColliders: false,
         time: now / 1000,
         seed,
         life,
         fog: fogOn(view, team, serverNow()),
         star: starOf(view, team, serverNow()),
-        birds: pigeon ? [pigeon, ...birds] : birds,
+        birds: [...pigeons, ...birds],
         hide,
       });
     };

@@ -17,6 +17,7 @@ import { Panel } from '../../../ui/Panel';
 import { Segmented } from '../../../ui/Segmented';
 import { Switch } from '../../../ui/Switch';
 import { AccountCorner } from '../../account';
+import { HowToPlay } from '../../how-to-play';
 import { InviteCard } from './InviteCard';
 
 function startProblem(view: RoomView): string | null {
@@ -61,7 +62,7 @@ function CrewColumn({ team, view }: { team: Team; view: RoomView }) {
               {p.id === view.you && <span className="ml-2 text-xs text-cloud-dim">(you)</span>}
             </span>
             {p.id === view.hostId && (
-              <span className="rounded-lg bg-sun px-1.5 py-0.5 font-display text-[10px] text-ink">
+              <span className="rounded-lg bg-sun px-1.5 py-0.5 font-display text-[0.625rem] text-ink">
                 HOST
               </span>
             )}
@@ -114,7 +115,7 @@ function Rule({
       >
         {icon}
       </span>
-      <span className="min-w-0 flex-1 truncate font-display text-[15px] tracking-wide text-ink">
+      <span className="min-w-0 flex-1 truncate font-display text-[0.9375rem] tracking-wide text-ink">
         {label}
       </span>
       {children}
@@ -212,6 +213,7 @@ export function WaitingRoom({ view }: { view: RoomView }) {
           <a href="/" className="title-outline font-display text-3xl tracking-wide">
             Doodle <span className="text-sun">Tower</span>
           </a>
+          <HowToPlay />
           {view.settings.testMode && (
             <p className="rounded-xl bg-sun px-3 py-1 text-sm font-semibold text-sun-ink">
               🧪 Test mode: bots fill the crews and draw rectangles. Start whenever you like.

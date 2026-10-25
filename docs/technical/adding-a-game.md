@@ -30,11 +30,12 @@ The why behind the shared parts is in [decisions.md](decisions.md#d13--one-profi
 |---|---|---|
 | Who the player is, on the server | `actorOf(request)`, `playerIdOf(actor)` | `apps/server/src/plugins/actor.ts`, `lib/actor.ts` |
 | Their name and drawing, in the browser | `createGameIdentity({ fallbackAvatar, actions })` | `@pictiotheme/account` |
-| "Who you are" in the corner, with an editor | `<AccountWidget>` (skinnable with `--acct-*` CSS properties) | `@pictiotheme/account/ui` |
+| "Who you are" in the corner, with the editor | `<PlayerSticker>`, `openProfileEditor()` (Tailwind, `ui/theme.css`) | `@pictiotheme/account/ui` |
 | Room names that follow the profile | `useRoomFollowsIdentity(identity, push)` | `@pictiotheme/account` |
 | Where each site lives (links to the portal and other games) | `siteUrl('portal', import.meta.env)` | `@pictiotheme/sites` |
 | Profanity checks for names, chat and guesses | `hasProfanity`, `maskProfanity` | `@pictiotheme/moderation` |
 | A drawing canvas, fills, cut-out avatars | stroke model, `paintOp`, `drawingToAvatar` | `@pictiotheme/canvas-engine` |
+| DoodleWhirl's drawing tools (board, toolbar, avatar pad) | `DrawingPad`, `AvatarPad`, `DrawingBoard` + `Toolbar` | `@pictiotheme/drawing-ui` (Tailwind; import its `theme.css`) |
 | Stored avatars (content-addressed PNGs) | `AvatarsService.store` | server `avatars` module |
 | Themed word decks | `DecksService`; map them with a `<game>_decks` table like `tower_decks` | server `decks` module |
 | Join tokens for the socket | `auth.issueJoinToken(claims, <GAME>_AUDIENCE)` | server `auth` module |
@@ -59,7 +60,7 @@ These keep games independent of each other while sharing everything above. Most 
 
 - Create `docs/<game>/` with the same sections as [docs/tower/](../tower/README.md): `product/` (vision, rules), `design/`, `technical/` (architecture, data model, realtime protocol) and `planning/status.md`. Link it from [docs/README.md](../README.md).
 - Add the site to `packages/sites/src/index.ts`: `devUrl` (the next free localhost port), `url` (`https://<game>.tierney.one`) and `env` (`PUBLIC_<GAME>_URL`, a build-time override).
-- List it on the portal: add an entry to `GAMES` in [apps/portal/src/site.ts](../../apps/portal/src/site.ts) with `url: siteUrl('<game>', import.meta.env)`, and put its icon in `apps/portal/public/games/`.
+- List it on the portal: add an entry to `GAMES` in [apps/portal/src/site.ts](../../apps/portal/src/site.ts) with `url: siteUrl('<game>', import.meta.env)`, and a preview of its home page in `apps/portal/src/components/split/` (like `TowerPreview`). The portal's front page splits the screen between exactly two games today (`GameSplit`, `seam.ts`), so a third game means choosing a new layout first.
 
 ### 2. Shared contract and pure rules
 
@@ -121,8 +122,8 @@ useEffect(() => {
 useFollowIdentityInRoom(code);
 ```
 
-- **The corner:** show who the player is in the top-left of every screen, as the other games do. The quickest way is `<AccountWidget fallbackAvatar={…} portalUrl={PORTAL_URL} />` from `@pictiotheme/account/ui` wrapped in your colours (see Tower's `AccountCorner`). Pass `size="avatar"` during a match. A game with its own look can build its own on the store instead, as DoodleWhirl does with its "you" sticker.
-- **The portal link:** `src/app/lib/portal.ts` is one line, `export const PORTAL_URL = siteUrl('portal', import.meta.env);`.
+- **The corner:** show who the player is in the top-left of every screen with the "you" sticker every game and the portal share: `<PlayerSticker fallbackAvatar={…} portalUrl={PORTAL_URL} />` from `@pictiotheme/account/ui` (see Tower's `AccountCorner`). It's the only place to change your name and drawing: a click opens the profile editor, and `openProfileEditor()` opens it from anywhere else on the page (a "draw yourself" prompt, a way in that needs a name). Pass `look="avatar"` during a match, `look="room"` for the smaller sun-yellow one in a room header, and `nudge` for the "Psst! Introduce yourself!" arrow. On your home page, and only there, add `portalLink` for the "← Games" chip back to the portal before the sticker (under it on a phone); leave it off in rooms and matches, where it would take the player out of the game. It's styled with Tailwind: import `@pictiotheme/drawing-ui/theme.css` then `@pictiotheme/account/ui/theme.css` after `tailwindcss`, and set `--color-pop`, `--font-logo` and friends in your `@theme` to tint the editor. Load Gochi Hand as `--font-gochi-hand` for the sticker's handwriting.
+- **The portal link:** `src/app/lib/portal.ts` holds `export const PORTAL_URL = siteUrl('portal', import.meta.env);`, plus the other games' addresses for the home page's footer line ("Part of Games · Also try …").
 - **A first visit:** the profile may have no name yet. Either ask for one before joining (Tower's `NameGate`), or give one with `saveProfile({ displayName, nameChosen: false })`, which never overwrites a name the player picked elsewhere (DoodleWhirl's silly names).
 
 ### 5. Tooling

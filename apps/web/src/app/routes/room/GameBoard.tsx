@@ -8,7 +8,7 @@ import {
 } from '../../features/canvas';
 import { LikeButton } from '../../features/likes';
 import { TurnOverlay } from '../../features/turn-overlays';
-import { drawerIdOf, useRoomStore } from '../../realtime';
+import { drawAndSend, drawerIdOf, strokeModel, useRoomStore } from '../../realtime';
 
 /**
  * The canvas during a match, with turn overlays and the drawer's toolbar. `bare` when it sits on
@@ -51,6 +51,8 @@ export function GameBoard({ bare = false }: { bare?: boolean }) {
         colorPopover={colorPopover}
         onToggleColorPopover={toggleColorPopover}
         onCloseColorPopover={closeColorPopover}
+        model={strokeModel}
+        emit={drawAndSend}
       >
         <TurnOverlay />
         <LikeButton />
@@ -62,6 +64,8 @@ export function GameBoard({ bare = false }: { bare?: boolean }) {
           onToggleColorPopover={toggleColorPopover}
           picking={picking}
           onTogglePicking={() => setPicking((p) => !p)}
+          emit={drawAndSend}
+          model={strokeModel}
         />
       )}
     </div>

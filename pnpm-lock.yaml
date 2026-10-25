@@ -202,6 +202,9 @@ importers:
       '@pictiotheme/account':
         specifier: workspace:*
         version: link:../../packages/account
+      '@pictiotheme/drawing-ui':
+        specifier: workspace:*
+        version: link:../../packages/drawing-ui
       '@pictiotheme/protocol':
         specifier: workspace:*
         version: link:../../packages/protocol
@@ -345,6 +348,9 @@ importers:
       '@pictiotheme/doodle-shape':
         specifier: workspace:*
         version: link:../../packages/doodle-shape
+      '@pictiotheme/drawing-ui':
+        specifier: workspace:*
+        version: link:../../packages/drawing-ui
       '@pictiotheme/protocol':
         specifier: workspace:*
         version: link:../../packages/protocol
@@ -406,6 +412,9 @@ importers:
       '@pictiotheme/canvas-engine':
         specifier: workspace:*
         version: link:../../packages/canvas-engine
+      '@pictiotheme/drawing-ui':
+        specifier: workspace:*
+        version: link:../../packages/drawing-ui
       '@pictiotheme/game-core':
         specifier: workspace:*
         version: link:../../packages/game-core
@@ -473,9 +482,9 @@ importers:
 
   packages/account:
     dependencies:
-      '@pictiotheme/canvas-engine':
+      '@pictiotheme/drawing-ui':
         specifier: workspace:*
-        version: link:../canvas-engine
+        version: link:../drawing-ui
       '@pictiotheme/protocol':
         specifier: workspace:*
         version: link:../protocol
@@ -524,6 +533,31 @@ importers:
         specifier: 0.4.2
         version: 0.4.2
     devDependencies:
+      typescript:
+        specifier: ~6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/node@24.19.1)(vite@8.3.2(@types/node@24.19.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
+
+  packages/drawing-ui:
+    dependencies:
+      '@pictiotheme/canvas-engine':
+        specifier: workspace:*
+        version: link:../canvas-engine
+      '@pictiotheme/protocol':
+        specifier: workspace:*
+        version: link:../protocol
+      zustand:
+        specifier: ^5.0.15
+        version: 5.0.15(@types/react@19.3.0)(react@19.3.0)
+    devDependencies:
+      '@types/react':
+        specifier: ^19.3.0
+        version: 19.3.0
+      react:
+        specifier: ^19.3.0
+        version: 19.3.0
       typescript:
         specifier: ~6.0.3
         version: 6.0.3

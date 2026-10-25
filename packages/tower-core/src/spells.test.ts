@@ -163,12 +163,18 @@ describe('magpie', () => {
     return { h, caster };
   }
 
-  it('takes the next piece queued for their tower, for the caster to place', () => {
+  const magpieOps = (h: Harness) => h.physics.filter((p) => p.physics.op === 'magpie');
+
+  it('takes the top piece off their tower as the warning ends, for the caster to place', () => {
     const { h, caster } = magpieOnTeal();
-    h.advance(SPELL_TUNING.warnMs);
     const pieceId = solve(h, 'teal', h.guesser('teal'));
-    const mark = h.mark();
     h.msg(deciderOf(h, pieceId), { t: 'piece:decide', pieceId, choice: 'keep' });
+    h.dispatch({ type: 'released', tower: 'teal', pieceId });
+    expect(magpieOps(h)).toEqual([]);
+    h.advance(SPELL_TUNING.warnMs);
+    expect(magpieOps(h)).toEqual([{ tower: 'teal', physics: { op: 'magpie' } }]);
+    const mark = h.mark();
+    h.dispatch({ type: 'magpieTook', tower: 'teal', pieceId });
     expect(h.to('p1', 'piece:magpied', mark)[0]).toEqual({
       t: 'piece:magpied',
       pieceId,
@@ -178,27 +184,29 @@ describe('magpie', () => {
     });
     expect(h.state.match?.pieces.get(pieceId)?.tower).toBe('orange');
     expect(h.crew('orange').placing).toMatchObject({ pieceId, placerId: caster });
-    expect(h.crew('teal').placing).toBeNull();
     expect(h.crew('teal').spell).toBeNull();
   });
 
-  it('takes a piece already waiting when it arrives', () => {
+  it('leaves their queue alone: a piece decided during the spell is theirs to place', () => {
     const { h } = magpieOnTeal();
-    // Teal is dazed, so its piece waits in the queue.
-    h.dispatch({ type: 'fumbled', tower: 'teal', pieceIds: [999] });
-    const pieceId = solve(h, 'teal', h.guesser('teal'));
-    h.msg(deciderOf(h, pieceId), { t: 'piece:decide', pieceId, choice: 'keep' });
-    expect(h.crew('teal').queue.map((q) => q.pieceId)).toEqual([pieceId]);
     h.advance(SPELL_TUNING.warnMs);
-    expect(h.crew('teal').queue).toEqual([]);
-    expect(h.crew('orange').placing?.pieceId).toBe(pieceId);
-  });
-
-  it('lets pieces through during its warning, and gives up after a while', () => {
-    const { h } = magpieOnTeal();
     const pieceId = solve(h, 'teal', h.guesser('teal'));
     h.msg(deciderOf(h, pieceId), { t: 'piece:decide', pieceId, choice: 'keep' });
     expect(h.crew('teal').placing?.pieceId).toBe(pieceId);
+    expect(h.crew('teal').spell?.spell).toBe('magpie');
+  });
+
+  it('flies off empty from a tower with nothing on it', () => {
+    const { h } = magpieOnTeal();
+    h.advance(SPELL_TUNING.warnMs);
+    const mark = h.mark();
+    h.dispatch({ type: 'magpieTook', tower: 'teal', pieceId: null });
+    expect(h.to('p1', 'piece:magpied', mark)).toEqual([]);
+    expect(h.crew('teal').spell).toBeNull();
+  });
+
+  it('is over after a while even if the physics never answers', () => {
+    const { h } = magpieOnTeal();
     h.advance(SPELL_TUNING.warnMs + SPELL_TUNING.magpieMs);
     expect(h.crew('teal').spell).toBeNull();
   });
@@ -376,25 +384,27 @@ describe('pigeon', () => {
   const pigeonOps = (h: Harness) =>
     h.physics.filter((p) => p.physics.op === 'pigeon' || p.physics.op === 'unpigeon');
 
-  it('lands on their tower when the warning is over', () => {
+  it('lands three of them on their tower when the warning is over', () => {
     const h = pigeonOnTeal();
     expect(pigeonOps(h)).toEqual([]);
     h.advance(SPELL_TUNING.warnMs);
     const [landed] = pigeonOps(h);
     expect(pigeonOps(h)).toHaveLength(1);
     expect(landed?.tower).toBe('teal');
-    expect(landed?.physics.op === 'pigeon' && [1, -1].includes(landed.physics.side)).toBe(true);
+    const sides = landed?.physics.op === 'pigeon' ? landed.physics.sides : [];
+    expect(sides).toHaveLength(SPELL_TUNING.pigeons);
+    expect(sides.every((side) => side === 1 || side === -1)).toBe(true);
     expect(h.crew('teal').spell?.spell).toBe('pigeon');
   });
 
-  it('is over when a new piece scares it away', () => {
+  it('is over when the last one is scared away', () => {
     const h = pigeonOnTeal();
     h.advance(SPELL_TUNING.warnMs);
     h.dispatch({ type: 'pigeonGone', tower: 'teal' });
     expect(h.crew('teal').spell).toBeNull();
   });
 
-  it('flies off by itself after a while', () => {
+  it('fly off by themselves after a while', () => {
     const h = pigeonOnTeal();
     h.advance(SPELL_TUNING.warnMs + SPELL_TUNING.pigeonMs);
     expect(h.crew('teal').spell).toBeNull();

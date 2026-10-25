@@ -24,6 +24,14 @@ export default defineConfig({
       subsets: ['latin'],
       fallbacks: ['system-ui', 'sans-serif'],
     },
+    // The handwriting on the "you" sticker (@pictiotheme/account/ui), as in DoodleWhirl.
+    {
+      provider: fontProviders.google(),
+      name: 'Gochi Hand',
+      cssVariable: '--font-gochi-hand',
+      subsets: ['latin'],
+      fallbacks: ['cursive'],
+    },
   ],
   vite: {
     plugins: [tailwindcss()],

@@ -19,6 +19,7 @@ import {
   onHeight,
   onHintTimer,
   onMatchTimer,
+  onMagpieTook,
   onPigeonGone,
   onPlaceTimer,
   onReleased,
@@ -110,6 +111,9 @@ export function step(state: TowerRoomState, event: TowerEvent, ctx: StepContext)
       break;
     case 'pigeonGone':
       onPigeonGone(c, event.tower);
+      break;
+    case 'magpieTook':
+      onMagpieTook(c, event.tower, event.pieceId);
       break;
     case 'height':
       onHeight(c, event.tower, event.height, event.starHeld);

@@ -68,9 +68,9 @@ Added 2026-10-21 ([power-ups.md](../planning/power-ups.md)). A crew holds up to 
 | Spell | What it does |
 |---|---|
 | 🌫️ **Fog** | For 10s, a cloud covers the top of their tower: their placer sees only the piece and its guide line. Everyone else sees it thinly |
-| 🐦‍⬛ **Magpie** | Takes the next piece queued for their tower (not one already being placed) into your queue, for the caster to place. It circles for up to 30s waiting for one, then gives up. A cursed piece keeps its curse |
+| 🐦‍⬛ **Magpie** | Flies in as the warning ends, grabs the topmost piece of their tower (not one being placed) and flies off with it into your queue, for the caster to place. Their tower is that much shorter. A cursed piece keeps its curse. At an empty tower it flies off empty-handed |
 | 〰️ **Shaky hand** | For 10s, every line their drawer starts wobbles, for everyone and for the piece it makes |
-| 🐦 **Pigeon** | A pigeon lands on the outer edge of their tower's top piece: a small weight (a third of a piece) that tips it. The next piece that touches it scares it away; otherwise it leaves after 25s. It never counts for the height |
+| 🐦 **Pigeon** | Three pigeons land on their tower, each on the outer edge of a different piece, the top ones first (with fewer pieces, the rest land on the platform's edge): small weights (a third of a piece each) that tip it. A new piece that touches one scares that one away; the rest leave after 25s. They never count for the height |
 
 ## Placing
 
