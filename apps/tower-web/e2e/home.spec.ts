@@ -51,7 +51,7 @@ test('the logo, the name nudge and drawing yourself', async ({ page }) => {
 
 test('how to play, a page at a time', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: 'How to play?' }).click();
+  await page.getByRole('button', { name: 'How to play', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'How to play' });
   const title = dialog.getByRole('heading', { level: 3 });
   await expect(title).toHaveText('Two crews, two towers');
@@ -78,7 +78,7 @@ test('how to play, a page at a time', async ({ page }) => {
   await dialog.getByRole('button', { name: 'Getting spells' }).click();
   await dialog.getByRole('button', { name: 'Let’s play!' }).click();
   await expect(dialog).toBeHidden();
-  await page.getByRole('button', { name: 'How to play?' }).click();
+  await page.getByRole('button', { name: 'How to play', exact: true }).click();
   await expect(title).toHaveText('Two crews, two towers');
   await page.keyboard.press('Escape');
   await expect(dialog).toBeHidden();
@@ -88,7 +88,7 @@ test("the guide's pictures play, and pause", async ({ browser }) => {
   const context = await browser.newContext({ reducedMotion: 'no-preference' });
   const page = await context.newPage();
   await page.goto('/');
-  await page.getByRole('button', { name: 'How to play?' }).click();
+  await page.getByRole('button', { name: 'How to play', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'How to play' });
   const picture = dialog.locator('canvas').first();
   const frame = async () => (await picture.screenshot()).toString('base64');
@@ -112,7 +112,7 @@ test('the powers pages tour the curses, or show the one picked', async ({ browse
   const page = await context.newPage();
   await page.clock.install();
   await page.goto('/');
-  await page.getByRole('button', { name: 'How to play?' }).click();
+  await page.getByRole('button', { name: 'How to play', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'How to play' });
   await dialog.getByRole('button', { name: 'Powers' }).click();
   const curses = dialog.getByRole('list', { name: 'Curses' });
@@ -133,6 +133,27 @@ test('the powers pages tour the curses, or show the one picked', async ({ browse
   await dialog.getByRole('button', { name: 'Next →' }).click();
   await expect(dialog.getByRole('list', { name: 'Spells' }).getByRole('button')).toHaveCount(4);
   await context.close();
+});
+
+test('the guide opens by itself on the first visit, and only then', async ({ page }) => {
+  // The tests' browsers have already "seen" it (playwright.config.ts): forget that.
+  await page.goto('/');
+  await page.evaluate(() => localStorage.removeItem('doodletower.seen-how-to-play'));
+  await page.reload();
+  const dialog = page.getByRole('dialog', { name: 'How to play' });
+  await expect(dialog).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeHidden();
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'How to play', exact: true })).toBeVisible();
+  await expect(dialog).toBeHidden();
+});
+
+test('the under-construction sign, and its tower that comes down', async ({ page }) => {
+  await page.goto('/');
+  const sign = page.getByRole('complementary', { name: 'Under construction' });
+  await expect(sign).toContainText('still being built');
+  await sign.getByRole('button', { name: 'Knock the tower over' }).click();
 });
 
 test('private game turns round to take a code', async ({ page }) => {

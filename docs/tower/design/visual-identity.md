@@ -46,7 +46,7 @@ Browsers allow audio only after a click or key press: the engine starts then, an
 
 #### Music
 
-The main theme for now: **"Happy Clappy Loop"** by OwlishMedia (2018, CC0), from [opengameart.org/content/happy-clappy-loop](https://opengameart.org/content/happy-clappy-loop). A 17.44 s seamless loop, as a 128 kbps MP3 with its LAME gapless header (`public/sounds/music/happy-clappy-loop.mp3`, licence beside it), so it loops without a click. It plays on every page, fading in on the first click, under the effects (45% at full volume, 60% by default).
+The main theme: **"Happy synths loop with slight christmas feeling"** by 3xBlast (CC0), from [opengameart.org](https://opengameart.org/content/happy-synths-loop-with-slight-christmas-feeling). An 84 s loop, converted from the original OGG to a 128 kbps MP3 (`public/sounds/music/happy-synths-loop.mp3`, licence beside it). It plays on every page, fading in on the first click, under the effects (45% at full volume, 60% by default).
 
 #### Game sounds
 

@@ -10,6 +10,16 @@ export default defineConfig({
     trace: 'retain-on-failure',
     // The home page's menu sways forever, so it would never be "stable" enough to click.
     contextOptions: { reducedMotion: 'reduce' },
+    // The how-to-play guide opens by itself on a first visit, over whatever a test wants to click.
+    storageState: {
+      cookies: [],
+      origins: [
+        {
+          origin: 'http://localhost:4322',
+          localStorage: [{ name: 'doodletower.seen-how-to-play', value: '1' }],
+        },
+      ],
+    },
   },
   projects: [{ name: 'chrome', use: { ...devices['Desktop Chrome'], channel: 'chrome' } }],
   webServer: {

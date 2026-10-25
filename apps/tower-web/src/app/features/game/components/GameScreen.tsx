@@ -129,10 +129,13 @@ export function GameScreen({ view }: { view: RoomView }) {
                   onClear={() => sender.send({ t: 'draw:clear' })}
                   canUndo={canUndo}
                 />
-                <PiecePreview
-                  piece={shape?.ok ? shape.piece : null}
-                  platformWidth={DEFAULT_TUNING.platformWidth}
-                />
+                {/* The block's outline and parts: a tuning aid, so test mode only. */}
+                {testMode && (
+                  <PiecePreview
+                    piece={shape?.ok ? shape.piece : null}
+                    platformWidth={DEFAULT_TUNING.platformWidth}
+                  />
+                )}
               </div>
             }
             back={

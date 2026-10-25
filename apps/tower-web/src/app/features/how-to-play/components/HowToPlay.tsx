@@ -3,6 +3,26 @@ import { Button } from '../../../ui/Button';
 import { LoopsPaused, useReducedMotion } from './LoopCanvas';
 import { PAGES, SECTIONS } from './pages';
 
+/** Set once the guide has opened in this browser, so it only opens by itself the first time. */
+const SEEN_KEY = 'doodletower.seen-how-to-play';
+
+function seenBefore(): boolean {
+  try {
+    return localStorage.getItem(SEEN_KEY) !== null;
+  } catch {
+    // Private window: better not to open it on every visit.
+    return true;
+  }
+}
+
+function markSeen() {
+  try {
+    localStorage.setItem(SEEN_KEY, '1');
+  } catch {
+    // Private window: it just won't be remembered.
+  }
+}
+
 const firstPageOf = (section: (typeof SECTIONS)[number]) =>
   PAGES.findIndex((p) => p.section === section);
 
@@ -10,12 +30,20 @@ const firstPageOf = (section: (typeof SECTIONS)[number]) =>
  * How to play (docs/tower/design/screens.md#how-to-play): the rules a page at a time, each with a
  * picture, in three sections (the basics, the tricks, the powers) you can jump between. On the
  * home page and in the waiting room it's a "How to play?" pill; during a match, a round "?" by the
- * sound control, and the match carries on while it's open.
+ * sound control, and the match carries on while it's open. The home page's is a big "hero" button,
+ * and with `openOnFirstVisit` the guide opens by itself the first time this browser comes by.
  */
-export function HowToPlay({ variant = 'pill' }: { variant?: 'pill' | 'round' }) {
+export function HowToPlay({
+  variant = 'pill',
+  openOnFirstVisit = false,
+}: {
+  variant?: 'pill' | 'hero' | 'round';
+  openOnFirstVisit?: boolean;
+}) {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
-  const [open, setOpen] = useState(false);
+  // On a first visit it starts open, and shows itself once it's on the page (below).
+  const [open, setOpen] = useState(() => openOnFirstVisit && !seenBefore());
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const still = useReducedMotion();
@@ -38,14 +66,23 @@ export function HowToPlay({ variant = 'pill' }: { variant?: 'pill' | 'round' }) 
     return () => window.removeEventListener('keydown', onKey, true);
   }, [open]);
 
-  if (!page) return null;
-  const close = () => dialog.current?.close();
-
   const show = () => {
+    markSeen();
     setIndex(0);
     setOpen(true);
     dialog.current?.showModal();
   };
+
+  useEffect(() => {
+    if (!open || dialog.current?.open) return;
+    markSeen();
+    dialog.current?.showModal();
+    // Once, on arrival.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!page) return null;
+  const close = () => dialog.current?.close();
 
   return (
     <>
@@ -57,6 +94,21 @@ export function HowToPlay({ variant = 'pill' }: { variant?: 'pill' | 'round' }) 
           className="rounded-full bg-white/85 px-4 py-1.5 text-sm font-semibold text-dusk-800 shadow-[0_3px_0_var(--color-card-edge)] hover:bg-white"
         >
           How to play?
+        </button>
+      ) : variant === 'hero' ? (
+        <button
+          ref={trigger}
+          type="button"
+          onClick={show}
+          className="inline-flex items-center gap-2 rounded-2xl bg-sun px-5 py-2.5 font-display text-xl tracking-wide text-sun-ink shadow-[0_5px_0_var(--color-sun-dark)] transition hover:brightness-105 active:translate-y-[5px] active:shadow-none motion-safe:animate-[nudge_6s_ease-in-out_infinite]"
+        >
+          <span
+            aria-hidden
+            className="flex size-7 items-center justify-center rounded-full bg-sun-ink text-base text-sun"
+          >
+            ?
+          </span>
+          How to play
         </button>
       ) : (
         <button

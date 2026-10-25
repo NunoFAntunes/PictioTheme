@@ -48,7 +48,7 @@ Spells aren't tied to a piece. A crew holds them and casts them at the other cre
 |---|---|---|
 | ✨ **Golden words** | About 1 in 6 rounds deals a golden word. Both crews see the gold card (not the word). Whoever solves it gets the piece **and** a spell for their crew, so stealing a golden word is worth double | 1 |
 | 🆘 **Comeback** | A crew gets a spell when a piece falls off its tower (with the daze on or off), or when its tower is 2+ units behind the other one for 20s straight. At most one every 90s | 1 |
-| ⭐ **Sky stars** | A star floats just past the edge of each tower's platform. A settled piece, connected to the tower, that touches the star for 3s captures it. One star per tower, at the same place and time for both towers (fair), every ~90s; it disappears after 45s if nobody captures it | 2 |
+| ⭐ **Sky stars** | A star floats 1–3 units above each tower's top, taking turns between over the platform and just past its edge. A settled piece, connected to the tower, that touches the star for 3s captures it. One star per tower, at the same place and time for both towers (fair), every ~45s; it disappears after 35s if nobody captures it | 2 |
 
 Curses need no earning: every piece can be cursed instead of kept.
 

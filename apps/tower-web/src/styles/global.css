@@ -240,6 +240,50 @@
   }
 }
 
+/* The under-construction sign's little tower, never quite steady. */
+@keyframes tower-teeter {
+  0%,
+  100% {
+    rotate: -2deg;
+  }
+  50% {
+    rotate: 3deg;
+  }
+}
+
+/* And coming down when it's poked. */
+@keyframes tower-topple {
+  30% {
+    rotate: -8deg;
+  }
+  100% {
+    opacity: 0;
+    rotate: 80deg;
+    translate: 10px 14px;
+  }
+}
+
+/* The how-to-play button on the home page, waving for attention now and then. */
+@keyframes nudge {
+  0%,
+  80%,
+  100% {
+    rotate: 0deg;
+    scale: 1;
+  }
+  85% {
+    rotate: -4deg;
+    scale: 1.06;
+  }
+  90% {
+    rotate: 4deg;
+    scale: 1.06;
+  }
+  95% {
+    rotate: -2deg;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

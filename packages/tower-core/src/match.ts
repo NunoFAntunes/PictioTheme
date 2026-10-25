@@ -113,6 +113,7 @@ export function startMatch(c: Ctx): void {
     pieces: new Map(),
     nextPieceId: 1,
     nextRoundId: 1,
+    starTurns: 0,
     pool: shuffle(words, c.rng),
     used: [],
   };

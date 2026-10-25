@@ -155,6 +155,8 @@ export type Match = {
   pieces: Map<number, PieceState>;
   nextPieceId: number;
   nextRoundId: number;
+  /** Sky star turns so far: even ones are over the platform, odd ones past its edge. */
+  starTurns: number;
   /** The shuffled cards still to deal, and the ones dealt. */
   pool: Card[];
   used: Card[];

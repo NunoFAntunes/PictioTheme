@@ -1,9 +1,0 @@
-Happy Clappy Loop
-
-By OwlishMedia (2018), from the animated short film "Cat's Sky", made into a seamless game loop.
-https://opengameart.org/content/happy-clappy-loop
-
-License: Creative Commons Zero (CC0 1.0), public domain
-http://creativecommons.org/publicdomain/zero/1.0/
-
-Converted from the original 17.44 s WAV to 128 kbps MP3 (LAME, gapless header kept so it loops cleanly).

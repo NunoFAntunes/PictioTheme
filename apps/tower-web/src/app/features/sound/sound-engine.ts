@@ -19,8 +19,8 @@ const CLIPS = {
 } as const;
 export type ClipId = keyof typeof CLIPS;
 
-/** The main theme: OwlishMedia's "Happy Clappy Loop" (CC0), 17.44 s, loops seamlessly. */
-const THEME = 'music/happy-clappy-loop';
+/** The main theme: 3xBlast's "Happy synths loop with slight christmas feeling" (CC0), 84 s, loops. */
+const THEME = 'music/happy-synths-loop';
 /** The music's loudness at full volume, under the effects. */
 const MUSIC_LEVEL = 0.45;
 

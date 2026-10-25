@@ -178,19 +178,21 @@ export const SPELL_TUNING = {
 } as const;
 
 /**
- * Sky stars: one floats just past the edge of each tower's platform (6 wide), at the same place
- * relative to each tower's top. A settled piece of the tower that touches it for `holdMs`
- * catches it: a spell.
+ * Sky stars: one floats above each tower's top, at the same place relative to each tower's top,
+ * so never inside the tower. They take turns: one over the platform (6 wide), then one just past
+ * its edge. A settled piece of the tower that touches it for `holdMs` catches it: a spell.
  */
 export const STAR_TUNING = {
-  firstMs: 60_000,
-  everyMs: 90_000,
-  /** It's gone if nobody catches it in this time. */
-  lifeMs: 45_000,
+  firstMs: 30_000,
+  everyMs: 45_000,
+  /** It's gone if nobody catches it in this time (under `everyMs`, so no turn is skipped). */
+  lifeMs: 35_000,
   holdMs: 3_000,
   radius: 0.35,
-  /** How far from the platform's centre (either side), and how far above the tower's top. */
-  x: [3.4, 4] as const,
+  /** How far from the platform's centre (either side): over the platform, or past its edge. */
+  insideX: [0.5, 2.4] as const,
+  outsideX: [3.4, 4] as const,
+  /** How far above the tower's top. */
   y: [1, 3] as const,
 } as const;
 

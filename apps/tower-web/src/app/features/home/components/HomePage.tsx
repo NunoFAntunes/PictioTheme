@@ -10,6 +10,7 @@ import { HowToPlay } from '../../how-to-play';
 import { createLobby, createTestRoom, lookupRoom, quickPlay } from '../api';
 import { BalloonMenu, type WayIn } from './BalloonMenu';
 import { TowerLogo } from './TowerLogo';
+import { UnderConstruction } from './UnderConstruction';
 
 /**
  * `abcdef`, `ABC DEF`, `abc-def` → `ABC-DEF`. A pasted invite link (`…/r/ABC-DEF`) becomes its
@@ -96,25 +97,29 @@ export function HomePage() {
         </p>
       )}
 
-      <div className="flex gap-3">
-        <HowToPlay />
-        <a
-          href="/sandbox"
-          className="rounded-full bg-white/85 px-4 py-1.5 text-sm font-semibold text-dusk-800 shadow-[0_3px_0_var(--color-card-edge)] hover:bg-white"
-        >
-          Try pieces in the sandbox
-        </a>
-        {/* Development only: the server refuses test rooms in production. */}
-        {import.meta.env.DEV && (
+      <HowToPlay variant="hero" openOnFirstVisit />
+
+      {/* Development only: the sandbox is for tuning pieces and physics, and the server refuses
+          test rooms in production. */}
+      {import.meta.env.DEV && (
+        <div className="flex gap-3">
+          <a
+            href="/sandbox"
+            className="rounded-full bg-white/85 px-4 py-1.5 text-sm font-semibold text-dusk-800 shadow-[0_3px_0_var(--color-card-edge)] hover:bg-white"
+          >
+            Try pieces in the sandbox
+          </a>
           <button
             type="button"
             onClick={() => pick('test')}
-            className="rounded-full bg-sun px-4 py-1.5 text-sm font-semibold text-sun-ink shadow-[0_3px_0_var(--color-sun-dark)] hover:brightness-105"
+            className="rounded-full bg-white/85 px-4 py-1.5 text-sm font-semibold text-dusk-800 shadow-[0_3px_0_var(--color-card-edge)] hover:bg-white"
           >
             🧪 Test the powers
           </button>
-        )}
-      </div>
+        </div>
+      )}
+
+      <UnderConstruction />
 
       <p className="text-sm text-dusk-900/80">
         Part of{' '}

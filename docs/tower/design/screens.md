@@ -22,14 +22,19 @@ Reworked on 2026-10-21 into a playful page with no explanations: the logo, who y
                     ┌──────────────┐ ┌──────────────┐
                     │ Private game │ │ Create a lobby│
                     └──────────────┘ └──────────────┘
-              ( How to play? )  ( Try pieces in the sandbox )
+                          [ (?) HOW TO PLAY ]
+              ( Try pieces in the sandbox )  ( 🧪 Test the powers )   ← development only
+                    ▞▞▞▞ UNDER CONSTRUCTION ▞▞▞▞
+                    🧱 Doodle Tower is still being built! …
 ```
 
 - **Logo** (`features/home/components/TowerLogo.tsx`): the three O's are balloons. Click one and it pops (a bang, shreds of rubber, its string drops), and a new one blows up 2.6s later. The T is the stone plinth with its grassy cap.
 - **You** (`features/account` `AccountCorner`): the "you" sticker every game and the portal share, in the top-left corner of every screen: your doodle leaning out of a white marker sticker with your name. Until you draw, the doodle is the bobble hat made from your name. It's the only place to change your name and drawing: a click opens the profile editor (DoodleWhirl's drawing pad), and what you save is your profile in every game. Without a name it says "Name yourself", and a scribbled arrow beside it asks you to introduce yourself.
 - **The ways in** (`BalloonMenu.tsx`): a bunch of balloons carries the **Quick game** board, with **Private game** and **Create a lobby** hanging under it on strings. It drifts and the planks swing slowly; everything holds still while the pointer or focus is on it. **Private game** turns round on its strings to show the code field (a code or a pasted invite link) with **Join** and ✕. Picking a way in without a name opens the profile editor instead. Picking one with a name sends the bunch up into the sky ("wheee") while the room loads; if that fails, it floats back down with the error under it.
 - **Popping the menu** (`menu-fall.ts`): the menu's balloons pop too. Each one gone makes it hang lower and tilt towards the side with fewer balloons; they all blow up again 5s after the last pop. Pop all six and the board and planks **fall into the village** behind the page (`scenery/backdrop-drops.ts`): they land on the lane with a thump, squash whoever is under them, and the villagers break them up with mallets. Once the lane is clear, four villagers run over and **build the menu again**: it appears on the ground with them hammering at either end, its balloons blow up one by one, and it floats back up to its place while they cheer (about 15 to 20s in all). With reduced motion nothing falls; the balloons just come back.
-- **How to play?** opens the [how-to-play guide](#how-to-play).
+- **How to play** (the big sun-yellow button, which gives a little wiggle every few seconds) opens the [how-to-play guide](#how-to-play). On a browser's first visit the guide opens by itself (remembered in `localStorage` as `doodletower.seen-how-to-play`; the Playwright config sets it so tests start without it).
+- **Sandbox and test mode** links only show in development (`import.meta.env.DEV`). `/sandbox` itself still works in production for anyone who knows the address.
+- **Under construction** (`UnderConstruction.tsx`, added 2026-10-25): a candy-striped road barrier over a note that the game is in development, so expect bugs, odd behaviour and balancing issues. Beside it a little tower of blocks teeters; click it and it topples, then stacks itself back up. Take it down when the game is out of development.
 
 Codes are `ABC-DEF`, same format and rules as DoodleWhirl; a pasted invite link becomes its code. Opening an invite link (`/r/ABC-DEF`) goes straight to the room (asking for a name first if there isn't one).
 
@@ -104,7 +109,7 @@ Reworked on 2026-10-20: **the two towers are the show.** They take most of the w
 
 ## 4. Game: drawer
 
-Your drawing is the board in the middle, with the word on it. The play card is turned to its front: the toolbar in the Tower style and, under it, a **live piece preview**, the filled silhouette the drawing would become right now, against a ruler of the platform's width. Both towers stay visible. You can't guess while you draw.
+Your drawing is the board in the middle, with the word on it. The play card is turned to its front: the toolbar in the Tower style and, under it, in test mode only, a **live piece preview**, the filled silhouette the drawing would become right now, against a ruler of the platform's width (a tuning aid; players don't need it). Both towers stay visible. You can't guess while you draw.
 
 Drawing tools: brush (with sizes), eraser, a **paint bucket**, undo, clear, a short colour palette. The bucket only colours in **closed shapes**: tapping the background, or a shape with a gap, does nothing but say so ("The bucket only fills closed shapes"). It's paint only: enclosed areas are solid in the piece anyway ([piece-pipeline.md](../technical/piece-pipeline.md)), and the colour shows on the piece.
 

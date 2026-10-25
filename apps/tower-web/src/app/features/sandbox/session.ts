@@ -106,7 +106,7 @@ export function createSandboxSession(initialTuning: Partial<PhysicsTuning> = {})
   } | null = null;
 
   function placeStar(w: TowerWorld, side: 1 | -1) {
-    const x = (side * (STAR_TUNING.x[0] + STAR_TUNING.x[1])) / 2;
+    const x = (side * (STAR_TUNING.outsideX[0] + STAR_TUNING.outsideX[1])) / 2;
     star = { x, y: height + (STAR_TUNING.y[0] + STAR_TUNING.y[1]) / 2, holdSince: null };
     w.setStar(star.x, star.y, STAR_TUNING.radius);
   }

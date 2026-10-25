@@ -272,13 +272,27 @@ describe('sky stars', () => {
     const teal = h.crew('teal').star;
     expect(orange && teal).toBeTruthy();
     expect(orange?.x).toBe(teal?.x);
-    expect(Math.abs(orange?.x ?? 0)).toBeGreaterThanOrEqual(STAR_TUNING.x[0]);
-    expect(Math.abs(orange?.x ?? 0)).toBeLessThanOrEqual(STAR_TUNING.x[1]);
+    expect(Math.abs(orange?.x ?? 0)).toBeGreaterThanOrEqual(STAR_TUNING.insideX[0]);
+    expect(Math.abs(orange?.x ?? 0)).toBeLessThanOrEqual(STAR_TUNING.insideX[1]);
     expect((orange?.y ?? 0) - 1.5).toBeCloseTo(teal?.y ?? 0, 9);
     expect(starOps(h)).toEqual([
       { tower: 'orange', physics: { op: 'star', x: orange?.x, y: orange?.y, radius: 0.35 } },
       { tower: 'teal', physics: { op: 'star', x: teal?.x, y: teal?.y, radius: 0.35 } },
     ]);
+  });
+
+  it('take turns between over the platform and past its edge', () => {
+    const h = withStars();
+    const xs: number[] = [];
+    for (let i = 0; i < 4; i++) {
+      xs.push(Math.abs(h.crew('orange').star?.x ?? Number.NaN));
+      h.advance(STAR_TUNING.everyMs);
+    }
+    const [inLo, inHi] = STAR_TUNING.insideX;
+    const [outLo, outHi] = STAR_TUNING.outsideX;
+    expect(
+      xs.map((x) => (x >= inLo && x <= inHi ? 'in' : x >= outLo && x <= outHi ? 'out' : x)),
+    ).toEqual(['in', 'out', 'in', 'out']);
   });
 
   it('are caught by a piece that keeps touching it, for a spell', () => {

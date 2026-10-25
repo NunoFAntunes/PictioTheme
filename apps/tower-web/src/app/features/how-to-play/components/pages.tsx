@@ -302,8 +302,8 @@ export const PAGES: readonly GuidePage[] = [
             When a block falls off your tower, or you fall far behind.
           </SpellEarning>
           <SpellEarning icon="⭐" title="Sky star">
-            Every {secs(STAR_TUNING.everyMs)} seconds a star appears just past the edge of each
-            tower. Reach out and touch it with a block for {secs(STAR_TUNING.holdMs)} seconds.
+            Every {secs(STAR_TUNING.everyMs)} seconds a star appears above each tower: over it, or
+            just past its edge. Touch it with a block for {secs(STAR_TUNING.holdMs)} seconds.
           </SpellEarning>
         </ul>
       </Art>

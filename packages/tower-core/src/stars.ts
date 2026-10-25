@@ -4,9 +4,10 @@ import { grantCharge } from './spells';
 import type { Ctx } from './types';
 
 /**
- * Sky stars (docs/tower/planning/power-ups.md): every so often a star appears just past the edge
- * of each tower's platform, at the same place relative to each tower's top. A settled piece of
- * the tower that touches it for `holdMs` catches it, and the crew gets a spell. The physics says
+ * Sky stars (docs/tower/planning/power-ups.md): every so often a star appears above each tower's
+ * top, at the same place relative to each tower's top, so never inside a tower. They take turns
+ * between over the platform and just past its edge (only an overhang reaches those). A settled
+ * piece of the tower that touches it for `holdMs` catches it, and the crew gets a spell. The physics says
  * whether it's touched, with each height report.
  */
 
@@ -24,8 +25,9 @@ export function onStarsTimer(c: Ctx): void {
   if (!m) return;
   scheduleStars(c);
   if (!c.state.settings.powers) return;
+  const inside = m.starTurns++ % 2 === 0;
   const side = c.rng() < 0.5 ? -1 : 1;
-  const x = side * between(STAR_TUNING.x, c.rng());
+  const x = side * between(inside ? STAR_TUNING.insideX : STAR_TUNING.outsideX, c.rng());
   const dy = between(STAR_TUNING.y, c.rng());
   for (const team of TEAMS) {
     const crew = m.crews[team];
